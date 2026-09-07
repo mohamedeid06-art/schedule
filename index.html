@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mechanical Engineering-1 — Weekly Timetable</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  --paper:#f5f2ea;
+  --paper-2:#efeadd;
+  --ink:#242220;
+  --ink-soft:#5c5850;
+  --line:#dcd5c2;
+  --navy:#1f2d3a;
+  --navy-2:#2c3e50;
+  --gold:#b8863a;
+
+  --c-gen:#a8703a;
+  --c-mth:#33686b;
+  --c-emc:#6d5583;
+  --c-mdp1:#33587a;
+  --c-mdp2:#4e7a52;
+  --c-epe:#a34b47;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 100% 0%, rgba(184,134,58,.06), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(31,45,58,.05), transparent 40%);
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:32px 24px 80px;}
+
+.masthead{
+  border-bottom:3px solid var(--navy);
+  padding-bottom:18px;
+  margin-bottom:26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.masthead .kicker{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:600;
+  margin-bottom:8px;
+}
+.masthead h1{
+  font-family:'Source Serif 4', serif;
+  font-size:36px;
+  font-weight:700;
+  margin:0;
+  color:var(--navy);
+  line-height:1.1;
+}
+.masthead .sub{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin-top:6px;
+}
+.masthead .meta{
+  text-align:right;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  color:var(--ink-soft);
+  line-height:1.6;
+}
+.masthead .meta b{color:var(--navy);}
+
+.tabs{
+  display:flex;
+  gap:2px;
+  margin-bottom:22px;
+  background:var(--line);
+  padding:3px;
+  border-radius:8px;
+  width:fit-content;
+  flex-wrap:wrap;
+}
+.tab{
+  border:none;
+  background:transparent;
+  padding:9px 18px;
+  font-family:'IBM Plex Sans', sans-serif;
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--ink-soft);
+  cursor:pointer;
+  border-radius:6px;
+  transition:background .15s, color .15s;
+  letter-spacing:.01em;
+}
+.tab:hover{color:var(--navy);}
+.tab.active{
+  background:var(--navy);
+  color:#fff;
+}
+
+.grid-scroll{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 1px 0 rgba(0,0,0,.02), 0 8px 24px -16px rgba(31,45,58,.25);
+}
+.grid{
+  display:grid;
+  grid-template-columns:88px repeat(5, minmax(150px, 1fr));
+  grid-template-rows:52px repeat(8, minmax(64px, auto));
+  min-width:900px;
+}
+.cell{
+  border-bottom:1px solid var(--line);
+  border-right:1px solid var(--line);
+  padding:8px;
+  position:relative;
+  min-height:64px;
+  display:flex;
+  flex-direction:column;
+}
+.cell.edge-right{border-right:none !important;}
+
+.cell.head{
+  background:var(--navy);
+  color:#fff;
+  min-height:auto;
+  padding:12px 8px;
+  border-bottom:none;
+}
+.cell.head.corner{background:var(--navy-2);}
+.head-day{
+  font-family:'IBM Plex Sans';
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.03em;
+}
+.head-day small{
+  display:block;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:500;
+  font-size:10px;
+  color:#c9b98a;
+  letter-spacing:.08em;
+  margin-top:2px;
+}
+
+.time-col{
+  background:var(--paper-2);
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  font-weight:600;
+  color:var(--navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  line-height:1.3;
+}
+
+.slot-card{
+  border-left:3px solid var(--c);
+  background:color-mix(in srgb, var(--c) 8%, #fff);
+  border-radius:5px;
+  padding:8px 10px;
+  height:100%;
+  font-size:12.2px;
+  display:flex;
+  flex-direction:column;
+  box-sizing:border-box;
+}
+.slot-card .code{
+  font-weight:700;
+  color:var(--ink);
+  font-size:12.5px;
+  letter-spacing:.01em;
+}
+.slot-card .type{
+  display:inline-block;
+  margin-left:5px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  font-weight:600;
+  padding:1px 5px;
+  border-radius:3px;
+  background:var(--c);
+  color:#fff;
+  letter-spacing:.03em;
+  vertical-align:1px;
+}
+.slot-card .title{
+  color:var(--ink-soft);
+  font-size:11px;
+  margin-top:3px;
+  line-height:1.25;
+}
+.slot-card .time-range{
+  margin-top:5px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  font-weight:600;
+  color:var(--ink-soft);
+  letter-spacing:.02em;
+}
+.slot-card .room{
+  margin-top:auto;
+  padding-top:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color:var(--ink-soft);
+}
+.slot-card .room::before{content:"room  ";color:#b3ab98;}
+
+.slot-card.shared{
+  background:repeating-linear-gradient(135deg, color-mix(in srgb, var(--c) 10%, #fff) 0 8px, color-mix(in srgb, var(--c) 16%, #fff) 8px 16px);
+}
+.slot-card.shared .code::after{
+  content:"ALL GROUPS";
+  display:inline-block;
+  margin-left:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8.5px;
+  font-weight:700;
+  color:var(--gold);
+  letter-spacing:.06em;
+  vertical-align:1px;
+}
+
+.free{
+  height:100%;
+  border:1px dashed var(--line);
+  border-radius:5px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10.5px;
+  color:#b7ae9a;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-family:'IBM Plex Mono',monospace;
+  box-sizing:border-box;
+}
+
+.legend{
+  margin-top:24px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 22px;
+  padding:16px 18px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+.legend .item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12.5px;
+  color:var(--ink-soft);
+}
+.legend .swatch{
+  width:11px;height:11px;border-radius:3px;flex-shrink:0;
+}
+.legend .item b{color:var(--ink);font-weight:600;font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+
+.foot-note{
+  margin-top:18px;
+  font-size:11.5px;
+  color:var(--ink-soft);
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.foot-note span{display:flex;align-items:center;gap:6px;}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+@media (max-width: 720px){
+  .masthead{flex-direction:column;align-items:flex-start;}
+  .masthead .meta{text-align:left;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div>
+      <div class="kicker">Cairo University · Faculty of Engineering</div>
+      <h1>Mechanical Engineering — 1</h1>
+      <div class="sub">Sophomore Level · Fall Semester Timetable</div>
+    </div>
+    <div class="meta">
+      Sections <b>ME1&#8209;01</b> to <b>ME1&#8209;04</b><br>
+      Sun&nbsp;–&nbsp;Thu &nbsp;·&nbsp; 08:00&nbsp;–&nbsp;15:50<br>
+      Last verified against official grid
+    </div>
+  </header>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="grid-scroll">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="legend" id="legend">
+    <div class="item"><span class="swatch" style="background:var(--c-gen)"></span><b>GEN G119</b>&nbsp;Entrepreneurship &amp; Innovation</div>
+    <div class="item"><span class="swatch" style="background:var(--c-mth)"></span><b>MTH G102</b>&nbsp;Linear Algebra &amp; Multivariable Integrals</div>
+    <div class="item"><span class="swatch" style="background:var(--c-emc)"></span><b>EMC G101</b>&nbsp;Dynamics of Rigid Bodies</div>
+    <div class="item"><span class="swatch" style="background:var(--c-mdp1)"></span><b>MDP G111</b>&nbsp;Computer-Aided Mechanical Drafting</div>
+    <div class="item"><span class="swatch" style="background:var(--c-mdp2)"></span><b>MDP G121</b>&nbsp;Materials Science</div>
+    <div class="item"><span class="swatch" style="background:var(--c-epe)"></span><b>EPE G113</b>&nbsp;Electrical &amp; Electronics Engineering</div>
+  </div>
+
+  <div class="foot-note">
+    <span><span class="dot" style="background:repeating-linear-gradient(135deg,#ccc 0 3px,#eee 3px 6px)"></span> Hatched card = shared lecture, all four sections attend together</span>
+    <span>Select a section above to see its personal weekly plan, or "All Groups" for the full department grid.</span>
+  </div>
+
+</div>
+<script>
+const COURSES = {
+  "GEN G119": { name: "Entrepreneurship & Innovation", tag: "gen" },
+  "MTH G102": { name: "Linear Algebra & Multivariable Integrals", tag: "mth" },
+  "EMC G101": { name: "Dynamics of Rigid Bodies", tag: "emc" },
+  "MDP G111": { name: "Computer-Aided Mechanical Drafting", tag: "mdp1" },
+  "MDP G121": { name: "Materials Science", tag: "mdp2" },
+  "EPE G113": { name: "Electrical & Electronics Engineering", tag: "epe" },
+};
+
+const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+const SLOTS = [
+  "8:00-8:50",
+  "9:00-9:50",
+  "10:00-10:50",
+  "11:00-11:50",
+  "12:00-12:50",
+  "1:00-1:50",
+  "2:00-2:50",
+  "3:00-3:50",
+];
+
+const TIME_STARTS = ["8:00", "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00"];
+const TIME_ENDS   = ["8:50", "9:50", "10:50", "11:50", "12:50", "1:50", "2:50", "3:50"];
+
+function formatTime(start, span) {
+  return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`;
+}
+
+const SESSIONS = [
+  // Sunday
+  { day: "Sunday", start: 0, span: 2, group: "ALL", course: "GEN G119, Lec.", room: "3103-414" },
+  { day: "Sunday", start: 2, span: 3, group: "ME1-01", course: "MDP G111, Tut.", room: "15401-300" },
+  { day: "Sunday", start: 2, span: 3, group: "ME1-02", course: "MDP G111, Tut.", room: "14201-50" },
+  { day: "Sunday", start: 2, span: 3, group: "ME1-03", course: "EPE G113, Tut.", room: "17400-56" },
+
+  // Monday
+  { day: "Monday", start: 0, span: 2, group: "ALL", course: "MDP G121, Lec.", room: "3101-306" },
+  { day: "Monday", start: 2, span: 3, group: "ME1-01", course: "EMC G101, Tut.", room: "19302-48" },
+  { day: "Monday", start: 2, span: 2, group: "ME1-02", course: "MTH G102, Tut.", room: "14100-(104)" },
+  { day: "Monday", start: 2, span: 3, group: "ME1-03", course: "MDP G111, Tut.", room: "15401-300" },
+  { day: "Monday", start: 2, span: 3, group: "ME1-04", course: "MDP G111, Tut.", room: "14301-50" },
+  { day: "Monday", start: 5, span: 3, group: "ME1-01", course: "EPE G113, Tut.", room: "19302-48" },
+  { day: "Monday", start: 5, span: 3, group: "ME1-02", course: "EPE G113, Tut.", room: "17301-56" },
+  { day: "Monday", start: 5, span: 2, group: "ME1-03", course: "MTH G102, Tut.", room: "17302-148" },
+
+  // Tuesday
+  { day: "Tuesday", start: 0, span: 2, group: "ALL", course: "MTH G102, Lec.", room: "7104-360" },
+  { day: "Tuesday", start: 2, span: 2, group: "ALL", course: "EPE G113, Lec.", room: "7104-360" },
+  { day: "Tuesday", start: 4, span: 3, group: "ME1-01", course: "MDP G121, Tut.", room: "17200-56" },
+  { day: "Tuesday", start: 4, span: 3, group: "ME1-02", course: "EMC G101, Tut.", room: "17102-148" },
+  { day: "Tuesday", start: 4, span: 3, group: "ME1-03", course: "MDP G121, Tut.", room: "14302-50" },
+
+  // Wednesday
+  { day: "Wednesday", start: 0, span: 2, group: "ALL", course: "MDP G111, Lec.", room: "7104-360" },
+  { day: "Wednesday", start: 2, span: 3, group: "ME1-02", course: "MDP G121, Tut.", room: "14302-50" },
+  { day: "Wednesday", start: 2, span: 3, group: "ME1-03", course: "EMC G101, Tut.", room: "19302-48" },
+  { day: "Wednesday", start: 2, span: 3, group: "ME1-04", course: "MDP G121, Tut.", room: "19301-48" },
+  { day: "Wednesday", start: 6, span: 2, group: "ALL", course: "EMC G101, Lec.", room: "7104-360" },
+
+  // Thursday
+  { day: "Thursday", start: 0, span: 3, group: "ME1-04", course: "EMC G101, Tut.", room: "14100-(104)" },
+  { day: "Thursday", start: 1, span: 2, group: "ME1-01", course: "MTH G102, Tut.", room: "14301-50" },
+  { day: "Thursday", start: 3, span: 2, group: "ME1-04", course: "MTH G102, Tut.", room: "14301-50" },
+  { day: "Thursday", start: 5, span: 3, group: "ME1-04", course: "EPE G113, Tut.", room: "14301-50" },
+];
+
+function courseInfo(raw){
+  const parts = raw.split(',');
+  const code = parts[0].trim();
+  const type = (parts[1] || '').trim().replace('.', '');
+  const meta = COURSES[code] || { name: code, tag: 'mth' };
+  return { code, type, name: meta.name, tag: meta.tag };
+}
+
+function renderHeader(grid){
+  const corner = document.createElement('div');
+  corner.className = 'cell head corner';
+  corner.style.gridColumn = '1';
+  corner.style.gridRow = '1';
+  grid.appendChild(corner);
+
+  DAYS.forEach((d, i) => {
+    const c = document.createElement('div');
+    c.className = 'cell head' + (i === DAYS.length - 1 ? ' edge-right' : '');
+    c.style.gridColumn = `${i + 2}`;
+    c.style.gridRow = '1';
+    c.innerHTML = `<div class="head-day">${d}<small>Wk. Session</small></div>`;
+    grid.appendChild(c);
+  });
+}
+
+function cardHTML(sess, extraLabel){
+  const info = courseInfo(sess.course);
+  const shared = sess.group === 'ALL' ? 'shared' : '';
+  const tagline = extraLabel ? `${extraLabel} · ${info.name}` : info.name;
+  const timeStr = formatTime(sess.start, sess.span);
+
+  return `
+    <div class="slot-card ${shared}" style="--c: var(--c-${info.tag})">
+      <div class="code">${info.code}<span class="type">${info.type}</span></div>
+      <div class="title">${tagline}</div>
+      <div class="time-range">${timeStr}</div>
+      <div class="room">${sess.room}</div>
+    </div>`;
+}
+
+function renderGrid(group){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  renderHeader(grid);
+
+  // Time column (col 1)
+  SLOTS.forEach((slot, s) => {
+    const timeCell = document.createElement('div');
+    timeCell.className = 'cell time-col';
+    timeCell.style.gridColumn = '1';
+    timeCell.style.gridRow = `${s + 2}`;
+    timeCell.textContent = slot;
+    grid.appendChild(timeCell);
+  });
+
+  // Day columns (cols 2..6)
+  DAYS.forEach((day, d) => {
+    const col = d + 2;
+    const isLastCol = (d === DAYS.length - 1);
+
+    const daySessions = SESSIONS.filter(s => s.day === day && (s.group === 'ALL' || s.group === group))
+                                .sort((a, b) => a.start - b.start);
+
+    let currentSlot = 0;
+    daySessions.forEach(sess => {
+      // Free slot before session
+      if (sess.start > currentSlot) {
+        const freeSpan = sess.start - currentSlot;
+        const freeCell = document.createElement('div');
+        freeCell.className = 'cell' + (isLastCol ? ' edge-right' : '');
+        freeCell.style.gridColumn = `${col}`;
+        freeCell.style.gridRow = `${currentSlot + 2} / span ${freeSpan}`;
+        freeCell.innerHTML = '<div class="free">Free</div>';
+        grid.appendChild(freeCell);
+      }
+
+      // Single contiguous session card spanning its whole duration
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (isLastCol ? ' edge-right' : '');
+      cell.style.gridColumn = `${col}`;
+      cell.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
+      cell.innerHTML = cardHTML(sess);
+      grid.appendChild(cell);
+
+      currentSlot = sess.start + sess.span;
+    });
+
+    // Free slot after last session until end of day
+    if (currentSlot < 8) {
+      const freeSpan = 8 - currentSlot;
+      const freeCell = document.createElement('div');
+      freeCell.className = 'cell' + (isLastCol ? ' edge-right' : '');
+      freeCell.style.gridColumn = `${col}`;
+      freeCell.style.gridRow = `${currentSlot + 2} / span ${freeSpan}`;
+      freeCell.innerHTML = '<div class="free">Free</div>';
+      grid.appendChild(freeCell);
+    }
+  });
+}
+
+function renderAllGroupsGrid(){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  renderHeader(grid);
+
+  SLOTS.forEach((slot, s) => {
+    const timeCell = document.createElement('div');
+    timeCell.className = 'cell time-col';
+    timeCell.style.gridColumn = '1';
+    timeCell.style.gridRow = `${s + 2}`;
+    timeCell.textContent = slot;
+    grid.appendChild(timeCell);
+  });
+
+  DAYS.forEach((day, d) => {
+    const col = d + 2;
+    const isLastCol = (d === DAYS.length - 1);
+
+    let s = 0;
+    while (s < 8) {
+      // If there's a shared lecture spanning multiple hours, merge it as a single block
+      const sharedSess = SESSIONS.find(sess => sess.day === day && sess.group === 'ALL' && sess.start === s);
+      if (sharedSess) {
+        const cell = document.createElement('div');
+        cell.className = 'cell' + (isLastCol ? ' edge-right' : '');
+        cell.style.gridColumn = `${col}`;
+        cell.style.gridRow = `${s + 2} / span ${sharedSess.span}`;
+        cell.innerHTML = cardHTML(sharedSess);
+        grid.appendChild(cell);
+        s += sharedSess.span;
+        continue;
+      }
+
+      // Check for section tutorials active during this slot
+      const slotSess = SESSIONS.filter(sess => sess.day === day && sess.group !== 'ALL' && s >= sess.start && s < (sess.start + sess.span))
+                               .sort((a, b) => a.group.localeCompare(b.group));
+
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (isLastCol ? ' edge-right' : '');
+      cell.style.gridColumn = `${col}`;
+      cell.style.gridRow = `${s + 2}`;
+
+      if (slotSess.length === 0) {
+        cell.innerHTML = '<div class="free">Free</div>';
+      } else {
+        cell.innerHTML = slotSess.map(sess => cardHTML(sess, sess.group)).join('<div style="height:5px"></div>');
+      }
+      grid.appendChild(cell);
+      s++;
+    }
+  });
+}
+
+function init(){
+  const tabsWrap = document.getElementById('tabs');
+  const groups = ['ALL', 'ME1-01', 'ME1-02', 'ME1-03', 'ME1-04'];
+  const labels = {
+    'ALL': 'All Groups',
+    'ME1-01': 'ME1 — 01',
+    'ME1-02': 'ME1 — 02',
+    'ME1-03': 'ME1 — 03',
+    'ME1-04': 'ME1 — 04',
+  };
+  let current = 'ME1-01';
+
+  function render(){
+    tabsWrap.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.g === current));
+    if (current === 'ALL'){
+      renderAllGroupsGrid();
+    } else {
+      renderGrid(current);
+    }
+  }
+
+  groups.forEach(g => {
+    const btn = document.createElement('button');
+    btn.className = 'tab';
+    btn.dataset.g = g;
+    btn.textContent = labels[g];
+    btn.onclick = () => { current = g; render(); };
+    tabsWrap.appendChild(btn);
+  });
+
+  render();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
