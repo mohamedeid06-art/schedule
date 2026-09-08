@@ -151,6 +151,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
+  position: relative;
 }
 .action-btn.icon-only {
   width: 36px;
@@ -176,6 +177,144 @@ body {
   background: #1d4ed8;
 }
 .action-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+/* Glowing Notification Bell Badge */
+.notif-badge-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  background: #ef4444;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  display: none;
+}
+.notif-badge-dot.active {
+  display: block;
+  animation: notif-pulse 1.8s infinite;
+}
+@keyframes notif-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* Modal Overlay for Announcements */
+.notif-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.notif-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.notif-modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 460px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+.notif-modal-overlay.open .notif-modal-card {
+  transform: scale(1);
+}
+.notif-modal-head {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notif-modal-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.notif-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.notif-modal-close:hover {
+  background: var(--surface-alt);
+  color: var(--text-main);
+}
+.notif-modal-body {
+  padding: 14px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notif-item {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.notif-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notif-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563eb;
+  letter-spacing: 0.02em;
+}
+.notif-tag.urgent {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+.notif-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text-muted);
+}
+.notif-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.notif-item-body {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
 
 /* Live Status Strip */
 .live-status {
@@ -723,7 +862,7 @@ body {
     print-color-adjust: exact !important;
   }
 
-  .top-actions, .control-bar, .view-tabs, .days-bar, .panel-assessments, .live-status, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn {
+  .top-actions, .control-bar, .view-tabs, .days-bar, .panel-assessments, .live-status, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #notifBtn {
     display: none !important;
   }
 
@@ -910,7 +1049,12 @@ body {
 
     <!-- Actions Bar -->
     <div class="top-actions">
-      <!-- PWA In-App Install Button -->
+      <!-- Notification Bell with Glow Indicator -->
+      <button class="action-btn icon-only" id="notifBtn" title="Announcements & Alerts">
+        <span class="notif-badge-dot" id="notifBadge"></span>
+        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+      </button>
+
       <button class="action-btn install-btn" id="pwaInstallBtn" title="Install App on Device">
         <span>📲 Install App</span>
       </button>
@@ -989,9 +1133,24 @@ body {
 
 </div>
 
+<!-- Announcements Modal Dialog -->
+<div class="notif-modal-overlay" id="notifModal">
+  <div class="notif-modal-card">
+    <div class="notif-modal-head">
+      <div class="notif-modal-title">
+        <svg style="width:16px;height:16px;fill:#2563eb" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+        Announcements & Alerts
+      </div>
+      <button class="notif-modal-close" id="closeNotifModal" title="Close">&times;</button>
+    </div>
+    <div class="notif-modal-body" id="notifList"></div>
+  </div>
+</div>
+
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
+// Campus Building Directory
 const ROOM_INFO = {
   "3103-414": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 3 (Capacity: 414)",
   "3101-306": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 1 (Capacity: 306)",
@@ -1018,6 +1177,19 @@ const COURSES = {
   "MDP G121": { name: "Materials Science", color: "var(--c-mdp2)" },
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
+
+// Announcements List (Sorted Newest First)
+// Any new ID will automatically cause the bell to glow/pulse until opened
+const NOTIFICATIONS = [
+  {
+    id: "ann-01",
+    date: "8 Sep 2026",
+    tag: "Welcome",
+    isUrgent: false,
+    title: "Welcome to Mechanical Engineering (Batch 30)",
+    body: "Fall Semester timetable is now active. Official lectures and tutorials commence on Saturday, 19 September 2026."
+  }
+];
 
 const ASSESSMENTS = [];
 
@@ -1098,6 +1270,57 @@ function parseMinutes(t) {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 }
+
+// Announcements & Bell Engine
+function initNotifications() {
+  const badge = document.getElementById("notifBadge");
+  const readIds = JSON.parse(localStorage.getItem("cufe_read_notifs") || "[]");
+
+  // Check if any notification is unread
+  const hasUnread = NOTIFICATIONS.some(n => !readIds.includes(n.id));
+  if (hasUnread) {
+    badge.classList.add("active");
+  } else {
+    badge.classList.remove("active");
+  }
+
+  // Render modal list
+  const list = document.getElementById("notifList");
+  if (NOTIFICATIONS.length === 0) {
+    list.innerHTML = `<div style="text-align:center;color:var(--text-muted);font-size:12.5px;padding:24px 0">No notifications posted.</div>`;
+    return;
+  }
+
+  list.innerHTML = NOTIFICATIONS.map(n => `
+    <div class="notif-item">
+      <div class="notif-top-row">
+        <span class="notif-tag ${n.isUrgent ? 'urgent' : ''}">${n.tag}</span>
+        <span class="notif-date">${n.date}</span>
+      </div>
+      <div class="notif-item-title">${n.title}</div>
+      <div class="notif-item-body">${n.body}</div>
+    </div>
+  `).join("");
+}
+
+function openNotifModal() {
+  document.getElementById("notifModal").classList.add("open");
+  
+  // Mark all current announcements as read
+  const allIds = NOTIFICATIONS.map(n => n.id);
+  localStorage.setItem("cufe_read_notifs", JSON.stringify(allIds));
+  document.getElementById("notifBadge").classList.remove("active");
+}
+
+function closeNotifModal() {
+  document.getElementById("notifModal").classList.remove("open");
+}
+
+document.getElementById("notifBtn").addEventListener("click", openNotifModal);
+document.getElementById("closeNotifModal").addEventListener("click", closeNotifModal);
+document.getElementById("notifModal").addEventListener("click", (e) => {
+  if (e.target.id === "notifModal") closeNotifModal();
+});
 
 function updateAcademicCalendarInfo() {
   const now = new Date();
@@ -1541,6 +1764,7 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   updateThemeIcon(next);
 });
 
+// Dynamic Context Print Handler
 document.getElementById("printBtn").addEventListener("click", () => {
   document.body.classList.remove("print-day-mode", "print-week-mode");
 
@@ -1597,8 +1821,10 @@ window.addEventListener('appinstalled', () => {
   deferredPrompt = null;
 });
 
+// Initial Setup
 initDeviceMode();
 initTheme();
+initNotifications();
 renderLegend();
 render();
 setInterval(updateLiveTracker, 60000);
