@@ -54,12 +54,11 @@ body {
 
 /* Responsive Frame Container (Defaults to Mobile Dimensions) */
 .container {
-  max-width: 480px; /* Default Mobile Dimensions */
+  max-width: 480px;
   margin: 0 auto;
   transition: max-width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Expanded Desktop Class */
 .container.pc-mode {
   max-width: 1240px;
 }
@@ -641,6 +640,10 @@ body {
   color: var(--text-muted);
 }
 
+.day-print-header {
+  display: none;
+}
+
 /* Legend */
 .legend {
   margin-top: 20px;
@@ -693,14 +696,9 @@ body {
 }
 
 /* ========================================================
-   PROFESSIONAL A4 LANDSCAPE PRINT ENGINE (ZERO CLIPPING)
+   UNIVERSAL PRINT ENGINE (A4 PORTRAIT FOR DAY, LANDSCAPE FOR WEEK)
    ======================================================== */
 @media print {
-  @page {
-    size: A4 landscape !important;
-    margin: 8mm !important;
-  }
-  
   html, body {
     background: #ffffff !important;
     color: #000000 !important;
@@ -710,7 +708,7 @@ body {
     print-color-adjust: exact !important;
   }
 
-  .top-actions, .control-bar, .view-tabs, .days-bar, .panel-assessments, .live-status, .legend-hint, .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn {
+  .top-actions, .control-bar, .view-tabs, .days-bar, .panel-assessments, .live-status, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn {
     display: none !important;
   }
 
@@ -723,18 +721,64 @@ body {
 
   .masthead {
     border-bottom: 2px solid #0f172a !important;
-    padding-bottom: 10px !important;
+    padding-bottom: 8px !important;
     margin-bottom: 12px !important;
   }
   .dept-title {
-    font-size: 20px !important;
+    font-size: 19px !important;
     color: #0f172a !important;
   }
   .uni-title, .faculty-title, .date-academic-strip {
     color: #334155 !important;
   }
 
-  .matrix-wrapper {
+  /* --- DAY VIEW PRINT RULES --- */
+  body.print-day-mode .matrix-wrapper,
+  body.print-day-mode .legend {
+    display: none !important;
+  }
+  body.print-day-mode .day-print-header {
+    display: block !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    margin-bottom: 14px !important;
+    padding-bottom: 6px !important;
+    border-bottom: 1.5px solid #e2e8f0 !important;
+  }
+  body.print-day-mode .timeline-wrap {
+    display: flex !important;
+    max-width: 100% !important;
+    gap: 12px !important;
+  }
+  body.print-day-mode .timeline-item {
+    gap: 14px !important;
+    page-break-inside: avoid !important;
+  }
+  body.print-day-mode .timeline-card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    border-left: 4px solid var(--c) !important;
+  }
+  body.print-day-mode .time-col .time-start,
+  body.print-day-mode .card-title,
+  body.print-day-mode .card-code {
+    color: #0f172a !important;
+  }
+  body.print-day-mode .break-card {
+    background: #f8fafc !important;
+    border: 1px dashed #cbd5e1 !important;
+    color: #475569 !important;
+  }
+
+  /* --- WEEK VIEW PRINT RULES --- */
+  body.print-week-mode .timeline-wrap,
+  body.print-week-mode .day-print-header {
+    display: none !important;
+  }
+  body.print-week-mode .matrix-wrapper {
+    display: block !important;
     box-shadow: none !important;
     border: 1.5px solid #0f172a !important;
     border-radius: 4px !important;
@@ -742,20 +786,16 @@ body {
     background: #ffffff !important;
     page-break-inside: avoid !important;
   }
-
-  .matrix-scroll {
+  body.print-week-mode .matrix-scroll {
     overflow: visible !important;
   }
-
-  /* Full 5-day grid scaled to fit 100% of A4 landscape */
-  .matrix-grid {
+  body.print-week-mode .matrix-grid {
     min-width: 0 !important;
     width: 100% !important;
     grid-template-columns: 70px repeat(5, 1fr) !important;
     grid-template-rows: 32px repeat(8, minmax(56px, auto)) !important;
   }
-
-  .matrix-head {
+  body.print-week-mode .matrix-head {
     background: #f1f5f9 !important;
     border-bottom: 1.5px solid #0f172a !important;
     border-right: 1px solid #cbd5e1 !important;
@@ -764,15 +804,14 @@ body {
     font-weight: 800 !important;
     padding: 4px 6px !important;
   }
-  .matrix-head.is-today {
+  body.print-week-mode .matrix-head.is-today {
     background: #f1f5f9 !important;
     color: #0f172a !important;
   }
-  .matrix-head .today-pill {
+  body.print-week-mode .matrix-head .today-pill {
     display: none !important;
   }
-
-  .matrix-time {
+  body.print-week-mode .matrix-time {
     background: #f8fafc !important;
     border-bottom: 1px solid #cbd5e1 !important;
     border-right: 1.5px solid #0f172a !important;
@@ -780,14 +819,12 @@ body {
     font-size: 10px !important;
     padding: 2px !important;
   }
-
-  .matrix-cell {
+  body.print-week-mode .matrix-cell {
     border-bottom: 1px solid #cbd5e1 !important;
     border-right: 1px solid #cbd5e1 !important;
     padding: 3px !important;
   }
-
-  .grid-card {
+  body.print-week-mode .grid-card {
     box-shadow: none !important;
     border: 1px solid #94a3b8 !important;
     border-left: 3.5px solid var(--c) !important;
@@ -796,46 +833,44 @@ body {
     break-inside: avoid !important;
     background: #ffffff !important;
   }
-  .grid-card.dimmed { opacity: 1 !important; }
-  
-  .grid-card .code {
+  body.print-week-mode .grid-card.dimmed { opacity: 1 !important; }
+  body.print-week-mode .grid-card .code {
     font-size: 10px !important;
     color: #0f172a !important;
   }
-  .grid-card .type {
+  body.print-week-mode .grid-card .type {
     font-size: 8px !important;
     background: #f1f5f9 !important;
     color: #334155 !important;
     padding: 0 3px !important;
   }
-  .grid-card .title {
+  body.print-week-mode .grid-card .title {
     font-size: 9px !important;
     color: #334155 !important;
     margin-top: 1px !important;
     line-height: 1.2 !important;
   }
-  .grid-card .footer {
+  body.print-week-mode .grid-card .footer {
     font-size: 8.5px !important;
     padding-top: 2px !important;
     border-top: 1px dashed #cbd5e1 !important;
     color: #475569 !important;
   }
-  .grid-card .room-badge {
+  body.print-week-mode .grid-card .room-badge {
     background: #f1f5f9 !important;
     border: 1px solid #cbd5e1 !important;
     padding: 0 4px !important;
     font-size: 8px !important;
     color: #0f172a !important;
   }
-
-  .legend {
+  body.print-week-mode .legend {
     margin-top: 10px !important;
     padding: 6px 10px !important;
     border: 1px solid #cbd5e1 !important;
     gap: 6px 14px !important;
     page-break-inside: avoid !important;
   }
-  .legend-item {
+  body.print-week-mode .legend-item {
     font-size: 9px !important;
     color: #334155 !important;
   }
@@ -862,7 +897,6 @@ body {
 
     <!-- Actions Bar -->
     <div class="top-actions">
-      <!-- Mobile vs PC Mode Toggle -->
       <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)">
         <span id="deviceModeIcon">💻</span>
         <span id="deviceModeText">PC View</span>
@@ -873,7 +907,7 @@ body {
         <span>Calendar</span>
       </button>
       
-      <button class="action-btn icon-only" id="printBtn" title="Print Full Timetable (A4 Landscape)">
+      <button class="action-btn icon-only" id="printBtn" title="Print Schedule">
         <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
       </button>
       
@@ -939,7 +973,7 @@ body {
 
 <script>
 // Official Semester Start Date: September 19, 2026
-const ACADEMIC_YEAR_START = new Date(2026, 8, 19); // 19/9/2026
+const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
 // Campus Building Directory
 const ROOM_INFO = {
@@ -1311,7 +1345,13 @@ function renderDailyAgenda() {
     return;
   }
 
-  let html = `<div class="timeline-wrap">`;
+  let html = `
+    <div class="day-print-header">
+      Schedule for ${activeDay} — (${activeGroup})
+    </div>
+    <div class="timeline-wrap">
+  `;
+
   for (let i = 0; i < daySessions.length; i++) {
     const s = daySessions[i];
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
@@ -1435,7 +1475,7 @@ document.getElementById("sectionSelect").addEventListener("change", (e) => {
   render();
 });
 
-// Device Mode Management (Mobile Dimensions Default vs PC Width Toggle)
+// Device Mode Management
 function initDeviceMode() {
   const saved = localStorage.getItem("cufe_device_mode") || "mobile";
   setDeviceMode(saved);
@@ -1491,16 +1531,26 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   updateThemeIcon(next);
 });
 
-// Full Week Print Handler (Switches view & triggers clean landscape print)
+// Context-Aware Print Handler
 document.getElementById("printBtn").addEventListener("click", () => {
-  const prevView = activeView;
-  setView('week');
-  setTimeout(() => {
-    window.print();
-    if (prevView !== 'week') {
-      setView(prevView);
-    }
-  }, 200);
+  document.body.classList.remove("print-day-mode", "print-week-mode");
+  
+  let dynamicStyle = document.getElementById("dynamicPrintPageStyle");
+  if (!dynamicStyle) {
+    dynamicStyle = document.createElement("style");
+    dynamicStyle.id = "dynamicPrintPageStyle";
+    document.head.appendChild(dynamicStyle);
+  }
+
+  if (activeView === "day") {
+    document.body.classList.add("print-day-mode");
+    dynamicStyle.innerHTML = "@page { size: A4 portrait !important; margin: 10mm !important; }";
+  } else {
+    document.body.classList.add("print-week-mode");
+    dynamicStyle.innerHTML = "@page { size: A4 landscape !important; margin: 8mm !important; }";
+  }
+
+  window.print();
 });
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
