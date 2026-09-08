@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cairo University · Faculty of Engineering — Mechanical Engineering</title>
+
+<!-- PWA Manifest & Icons -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ME-1 Schedule">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -63,7 +73,7 @@ body {
   max-width: 1240px;
 }
 
-/* Institutional Masthead */
+/* Masthead */
 .masthead {
   border-bottom: 2px solid var(--border);
   padding-bottom: 18px;
@@ -155,6 +165,15 @@ body {
   background: var(--surface-alt);
   color: #2563eb;
   border-color: #2563eb;
+}
+.action-btn.install-btn {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+  display: none;
+}
+.action-btn.install-btn:hover {
+  background: #1d4ed8;
 }
 .action-btn svg { width: 15px; height: 15px; fill: currentColor; }
 
@@ -307,7 +326,7 @@ body {
   color: var(--text-muted);
 }
 
-/* Day Selector for Agenda View */
+/* Day Selector */
 .days-bar {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -640,9 +659,7 @@ body {
   color: var(--text-muted);
 }
 
-.day-print-header {
-  display: none;
-}
+.day-print-header { display: none; }
 
 /* Legend */
 .legend {
@@ -695,9 +712,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* ========================================================
-   UNIVERSAL PRINT ENGINE (A4 PORTRAIT FOR DAY, LANDSCAPE FOR WEEK)
-   ======================================================== */
+/* Universal Print Engine */
 @media print {
   html, body {
     background: #ffffff !important;
@@ -732,7 +747,6 @@ body {
     color: #334155 !important;
   }
 
-  /* --- DAY VIEW PRINT RULES --- */
   body.print-day-mode .matrix-wrapper,
   body.print-day-mode .legend {
     display: none !important;
@@ -772,7 +786,6 @@ body {
     color: #475569 !important;
   }
 
-  /* --- WEEK VIEW PRINT RULES --- */
   body.print-week-mode .timeline-wrap,
   body.print-week-mode .day-print-header {
     display: none !important;
@@ -897,6 +910,11 @@ body {
 
     <!-- Actions Bar -->
     <div class="top-actions">
+      <!-- PWA In-App Install Button -->
+      <button class="action-btn install-btn" id="pwaInstallBtn" title="Install App on Device">
+        <span>📲 Install App</span>
+      </button>
+
       <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)">
         <span id="deviceModeIcon">💻</span>
         <span id="deviceModeText">PC View</span>
@@ -972,10 +990,8 @@ body {
 </div>
 
 <script>
-// Official Semester Start Date: September 19, 2026
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
-// Campus Building Directory
 const ROOM_INFO = {
   "3103-414": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 3 (Capacity: 414)",
   "3101-306": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 1 (Capacity: 306)",
@@ -1083,7 +1099,6 @@ function parseMinutes(t) {
   return h * 60 + m;
 }
 
-// Academic Week & Date Indicator
 function updateAcademicCalendarInfo() {
   const now = new Date();
   const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -1105,7 +1120,6 @@ function updateAcademicCalendarInfo() {
   }
 }
 
-// Live Status Engine
 function updateLiveTracker() {
   const now = new Date();
   document.getElementById("liveClock").textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1174,13 +1188,11 @@ function updateLiveTracker() {
   }
 }
 
-// Room Guide
 function showRoomDetails(roomCode) {
   const info = ROOM_INFO[roomCode] || "Faculty of Engineering · Giza Campus";
   alert(`📍 Hall / Lab Location Details:\n\nRoom Code: ${roomCode}\n${info}`);
 }
 
-// iCalendar Export (.ics)
 function exportToCalendar() {
   const activeSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
   
@@ -1230,7 +1242,6 @@ function exportToCalendar() {
   URL.revokeObjectURL(url);
 }
 
-// Full Week Grid Matrix
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -1330,7 +1341,6 @@ function renderWeekMatrix() {
   });
 }
 
-// Daily Agenda
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
@@ -1338,6 +1348,9 @@ function renderDailyAgenda() {
 
   if (daySessions.length === 0) {
     container.innerHTML = `
+      <div class="day-print-header">
+        Daily Schedule: ${activeDay} — (${activeGroup})
+      </div>
       <div class="empty-state">
         <h3>No classes scheduled for ${activeDay}</h3>
         <p style="font-size:13px;margin-top:4px">You have a free day off!</p>
@@ -1347,7 +1360,7 @@ function renderDailyAgenda() {
 
   let html = `
     <div class="day-print-header">
-      Schedule for ${activeDay} — (${activeGroup})
+      Daily Schedule: ${activeDay} — (${activeGroup})
     </div>
     <div class="timeline-wrap">
   `;
@@ -1422,7 +1435,6 @@ function renderDaysBar() {
   }).join("");
 }
 
-// Legend
 function renderLegend() {
   const legend = document.getElementById("legend");
   legend.innerHTML = `
@@ -1475,7 +1487,6 @@ document.getElementById("sectionSelect").addEventListener("change", (e) => {
   render();
 });
 
-// Device Mode Management
 function initDeviceMode() {
   const saved = localStorage.getItem("cufe_device_mode") || "mobile";
   setDeviceMode(saved);
@@ -1507,7 +1518,6 @@ document.getElementById("deviceModeBtn").addEventListener("click", () => {
   setDeviceMode(isPc ? "mobile" : "pc");
 });
 
-// Theme Management
 function initTheme() {
   const saved = localStorage.getItem("cufe_theme") || "light";
   document.documentElement.setAttribute("data-theme", saved);
@@ -1531,23 +1541,22 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   updateThemeIcon(next);
 });
 
-// Context-Aware Print Handler
 document.getElementById("printBtn").addEventListener("click", () => {
   document.body.classList.remove("print-day-mode", "print-week-mode");
-  
-  let dynamicStyle = document.getElementById("dynamicPrintPageStyle");
-  if (!dynamicStyle) {
-    dynamicStyle = document.createElement("style");
-    dynamicStyle.id = "dynamicPrintPageStyle";
-    document.head.appendChild(dynamicStyle);
+
+  let printStyle = document.getElementById("dynamicPrintPageRule");
+  if (!printStyle) {
+    printStyle = document.createElement("style");
+    printStyle.id = "dynamicPrintPageRule";
+    document.head.appendChild(printStyle);
   }
 
   if (activeView === "day") {
     document.body.classList.add("print-day-mode");
-    dynamicStyle.innerHTML = "@page { size: A4 portrait !important; margin: 10mm !important; }";
+    printStyle.innerHTML = "@page { size: A4 portrait !important; margin: 12mm !important; }";
   } else {
     document.body.classList.add("print-week-mode");
-    dynamicStyle.innerHTML = "@page { size: A4 landscape !important; margin: 8mm !important; }";
+    printStyle.innerHTML = "@page { size: A4 landscape !important; margin: 8mm !important; }";
   }
 
   window.print();
@@ -1555,7 +1564,39 @@ document.getElementById("printBtn").addEventListener("click", () => {
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
 
-// Initial Setup
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((err) => {
+      console.log('Service Worker registration failed:', err);
+    });
+  });
+}
+
+let deferredPrompt;
+const installBtn = document.getElementById('pwaInstallBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'inline-flex';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      installBtn.style.display = 'none';
+    }
+    deferredPrompt = null;
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+  deferredPrompt = null;
+});
+
 initDeviceMode();
 initTheme();
 renderLegend();
