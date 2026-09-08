@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cufe-me1-v2';
+const CACHE_NAME = 'cufe-me1-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -16,7 +16,11 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => Promise.all(
-      keys.map((k) => { if (k !== CACHE_NAME) return caches.delete(k); })
+      keys.map((k) => {
+        if (k !== CACHE_NAME) {
+          return caches.delete(k);
+        }
+      })
     ))
   );
   self.clients.claim();
@@ -24,6 +28,13 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+    fetch(e.request)
+      .then((networkResponse) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(e.request, networkResponse.clone());
+          return networkResponse;
+        });
+      })
+      .catch(() => caches.match(e.request))
   );
 });
