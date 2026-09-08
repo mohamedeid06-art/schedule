@@ -7,7 +7,7 @@
 
 <!-- PWA Manifest & Icons -->
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#070d19">
+<meta name="theme-color" content="#0d141d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ME-1 Schedule">
@@ -20,48 +20,50 @@
 
 <style>
 :root {
-  --bg: #070d19;
-  --surface: #0e1726;
-  --surface-alt: #142034;
-  --border: #1e2e4a;
-  --border-dark: #2a3f66;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-subtle: #64748b;
+  /* Minimal Matte Slate & Ocean/Ice Palette */
+  --bg: #0d141d;
+  --surface: #141f2d;
+  --surface-alt: #1b293b;
+  --border: #23344a;
+  --border-dark: #304764;
+  --text-main: #edf5f9;
+  --text-muted: #859bb3;
+  --text-subtle: #576f87;
   
-  --gold: #d4a32a;
-  --gold-glow: rgba(212, 163, 42, 0.25);
-  --gold-light: #fff0a6;
+  --accent: #2ba4cc;
+  --accent-light: #6ec4e0;
+  --accent-glow: rgba(43, 164, 204, 0.2);
+  --bone: #eae3d5;
+  --bone-glow: rgba(234, 227, 213, 0.15);
 
-  --c-gen: #d97706;
-  --c-mth: #3b82f6;
-  --c-emc: #8b5cf6;
-  --c-mdp1: #0ea5e9;
-  --c-mdp2: #10b981;
+  --c-gen: #38bdf8;
+  --c-mth: #2ba4cc;
+  --c-emc: #6366f1;
+  --c-mdp1: #14b8a6;
+  --c-mdp2: #0284c7;
   --c-epe: #f43f5e;
 }
 
 [data-theme="light"] {
-  --bg: #f8fafc;
+  --bg: #eef5f8;
   --surface: #ffffff;
-  --surface-alt: #f1f5f9;
-  --border: #e2e8f0;
-  --border-dark: #cbd5e1;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-subtle: #94a3b8;
-  --gold: #b8861b;
-  --gold-glow: rgba(184, 134, 27, 0.15);
+  --surface-alt: #deebf2;
+  --border: #c2d7e3;
+  --border-dark: #a5c3d3;
+  --text-main: #0c1926;
+  --text-muted: #506a7e;
+  --text-subtle: #7997ab;
+  --accent: #197a9c;
+  --accent-light: #2ba4cc;
+  --accent-glow: rgba(25, 122, 156, 0.14);
+  --bone: #23344a;
+  --bone-glow: rgba(35, 52, 74, 0.1);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
 
 body {
   background-color: var(--bg);
-  background-image: 
-    linear-gradient(rgba(212, 163, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 163, 42, 0.035) 1px, transparent 1px);
-  background-size: 24px 24px;
   color: var(--text-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
@@ -96,7 +98,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent-light);
 }
 .faculty-title {
   font-size: 12px;
@@ -121,9 +123,9 @@ body {
   font-weight: 800;
   padding: 2px 7px;
   border-radius: 6px;
-  background: var(--gold-glow);
-  color: var(--gold);
-  border: 1px solid var(--gold);
+  background: var(--bone-glow);
+  color: var(--bone);
+  border: 1px solid var(--border-dark);
   letter-spacing: 0.05em;
 }
 .container.pc-mode .dept-title {
@@ -145,12 +147,12 @@ body {
   font-weight: 700;
   padding: 2px 7px;
   border-radius: 9999px;
-  background: var(--gold-glow);
-  color: var(--gold);
-  border: 1px solid var(--gold);
+  background: var(--accent-glow);
+  color: var(--accent-light);
+  border: 1px solid var(--accent);
 }
 
-/* Top Quick Tools Bar */
+/* Actions Bar */
 .top-actions {
   display: flex;
   align-items: center;
@@ -179,16 +181,16 @@ body {
 }
 .action-btn:hover {
   color: var(--text-main);
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 .action-btn.active-mode {
   background: var(--surface-alt);
-  color: var(--gold);
-  border-color: var(--gold);
+  color: var(--accent-light);
+  border-color: var(--accent);
 }
 .action-btn svg { width: 15px; height: 15px; fill: currentColor; }
 
-/* Glowing Live Status Card */
+/* Live Status Strip */
 .live-status {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -201,7 +203,7 @@ body {
   flex-wrap: wrap;
   gap: 10px;
   font-size: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 .live-left {
   display: flex;
@@ -217,7 +219,7 @@ body {
   animation: live-pulse 2s infinite;
 }
 .live-indicator.idle {
-  background: #64748b;
+  background: #576f87;
   box-shadow: none;
   animation: none;
 }
@@ -230,7 +232,7 @@ body {
 .live-time-now {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--gold);
+  color: var(--accent-light);
 }
 
 /* Control Bar */
@@ -266,10 +268,10 @@ body {
   border-radius: 8px;
   outline: none;
   cursor: pointer;
-  border-left: 3px solid var(--gold);
+  border-left: 3px solid var(--accent);
 }
 
-/* Swipe Day Bar */
+/* Day Selector */
 .days-bar {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -299,16 +301,27 @@ body {
   display: inline-block;
   font-size: 8.5px;
   font-weight: 800;
-  color: var(--gold);
+  color: var(--accent-light);
   margin-top: 1px;
 }
 .day-btn.active {
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 .day-btn.active .day-name {
-  color: var(--gold);
+  color: var(--accent-light);
   font-weight: 800;
+}
+
+/* Dimming & Highlighting */
+.grid-card.dimmed, .timeline-card.dimmed {
+  opacity: 0.15 !important;
+  filter: grayscale(80%);
+}
+.grid-card.highlighted, .timeline-card.highlighted {
+  box-shadow: 0 0 0 2.5px var(--c), 0 4px 14px rgba(0,0,0,0.4) !important;
+  transform: scale(1.02);
+  z-index: 5;
 }
 
 /* Timeline Layout */
@@ -407,7 +420,7 @@ body {
   border-radius: 4px;
 }
 .badge-type { background: var(--surface-alt); color: var(--text-muted); }
-.badge-all { background: rgba(217, 119, 6, 0.15); color: #d97706; }
+.badge-all { background: rgba(43, 164, 204, 0.18); color: var(--accent-light); }
 .badge-live { background: rgba(16, 185, 129, 0.15); color: #10b981; }
 
 .card-title {
@@ -482,16 +495,16 @@ body {
   color: var(--text-muted);
 }
 .matrix-head.is-today {
-  background: var(--gold-glow);
-  color: var(--gold);
+  background: var(--accent-glow);
+  color: var(--accent-light);
 }
 .matrix-head .today-pill {
   font-size: 8px;
   font-weight: 800;
   padding: 1px 4px;
   border-radius: 3px;
-  background: var(--gold);
-  color: #070d19;
+  background: var(--accent);
+  color: #fff;
 }
 .matrix-time {
   background: var(--surface-alt);
@@ -521,6 +534,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 3.5px solid var(--c);
+  transition: all 0.15s ease;
 }
 .grid-card .code {
   font-family: 'JetBrains Mono', monospace;
@@ -536,6 +550,10 @@ body {
   background: var(--surface-alt);
   color: var(--text-muted);
   text-transform: uppercase;
+}
+.grid-card .type.all {
+  background: rgba(43, 164, 204, 0.18);
+  color: var(--accent-light);
 }
 .grid-card .title {
   font-size: 10.5px;
@@ -571,7 +589,7 @@ body {
   color: var(--text-subtle);
 }
 
-/* Glassmorphism Floating Bottom Bar */
+/* Floating Glass Bottom Nav */
 .bottom-nav {
   position: fixed;
   bottom: 16px;
@@ -579,22 +597,22 @@ body {
   transform: translateX(-50%);
   width: calc(100% - 24px);
   max-width: 440px;
-  background: rgba(14, 23, 38, 0.85);
+  background: rgba(20, 31, 45, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(212, 163, 42, 0.25);
+  border: 1px solid var(--border-dark);
   border-radius: 20px;
   padding: 6px 12px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   z-index: 900;
 }
 [data-theme="light"] .bottom-nav {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(184, 134, 27, 0.25);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  border-color: var(--border);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 .nav-item {
   border: none;
@@ -613,7 +631,7 @@ body {
 .nav-item svg { width: 18px; height: 18px; fill: currentColor; }
 .nav-item span { font-size: 10.5px; font-weight: 700; }
 .nav-item.active {
-  color: var(--gold);
+  color: var(--accent-light);
 }
 .nav-notif-dot {
   position: absolute;
@@ -630,11 +648,11 @@ body {
   box-shadow: 0 0 6px #ef4444;
 }
 
-/* Modal Overlay for Announcements */
+/* Announcements Modal */
 .notif-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(4, 8, 19, 0.75);
+  background: rgba(13, 20, 29, 0.75);
   backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;
@@ -648,7 +666,7 @@ body {
 .notif-modal-overlay.open { opacity: 1; pointer-events: auto; }
 .notif-modal-card {
   background: var(--surface);
-  border: 1px solid var(--gold);
+  border: 1px solid var(--border-dark);
   border-radius: 14px;
   width: 100%;
   max-width: 440px;
@@ -668,7 +686,7 @@ body {
 .notif-modal-title {
   font-size: 13.5px;
   font-weight: 800;
-  color: var(--gold);
+  color: var(--accent-light);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -707,8 +725,8 @@ body {
   font-weight: 800;
   padding: 2px 6px;
   border-radius: 4px;
-  background: var(--gold-glow);
-  color: var(--gold);
+  background: var(--accent-glow);
+  color: var(--accent-light);
 }
 .notif-date {
   font-family: 'JetBrains Mono', monospace;
@@ -726,7 +744,7 @@ body {
   line-height: 1.4;
 }
 
-/* Legend */
+/* Legend with Clickable Highlight Filter */
 .legend {
   margin-top: 18px;
   background: var(--surface);
@@ -735,30 +753,163 @@ body {
   padding: 10px 14px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 14px;
+  gap: 8px 16px;
   align-items: center;
 }
-.legend-hint { font-size: 11px; font-weight: 700; color: var(--gold); margin-right: 4px; }
+.legend-hint { font-size: 11px; font-weight: 700; color: var(--accent-light); margin-right: 4px; }
 .legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
+  font-size: 11.5px;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 2px 5px;
-  border-radius: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  user-select: none;
 }
-.legend-item.active { background: var(--surface-alt); color: var(--text-main); font-weight: 700; }
+.legend-item:hover {
+  background: var(--surface-alt);
+  color: var(--text-main);
+}
+.legend-item.active {
+  background: var(--surface-alt);
+  border-color: var(--accent);
+  color: var(--accent-light);
+  font-weight: 800;
+}
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
 /* Print Mode */
 @media print {
-  body { background: #ffffff !important; color: #000 !important; padding: 0 !important; background-image: none !important; }
-  .top-actions, .control-bar, .days-bar, .bottom-nav, .notif-modal-overlay, #liveStatusBox, .legend-hint { display: none !important; }
-  .container { max-width: 100% !important; }
-  body.print-day-mode .matrix-wrapper { display: none !important; }
-  body.print-week-mode .timeline-wrap { display: none !important; }
+  @page {
+    size: A4 landscape !important;
+    margin: 8mm !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-image: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .top-actions, .control-bar, .days-bar, .bottom-nav, .notif-modal-overlay, #liveStatusBox, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .masthead {
+    border-bottom: 2px solid #0f172a !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 12px !important;
+  }
+  .dept-title { font-size: 19px !important; color: #0f172a !important; }
+  .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
+
+  body.print-day-mode .matrix-wrapper,
+  body.print-day-mode .legend {
+    display: none !important;
+  }
+  body.print-day-mode .timeline-wrap {
+    display: flex !important;
+    max-width: 100% !important;
+    gap: 12px !important;
+  }
+  body.print-day-mode .timeline-item {
+    gap: 14px !important;
+    page-break-inside: avoid !important;
+  }
+  body.print-day-mode .timeline-card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    border-left: 4px solid var(--c) !important;
+  }
+
+  body.print-week-mode .timeline-wrap {
+    display: none !important;
+  }
+  body.print-week-mode .matrix-wrapper {
+    display: block !important;
+    box-shadow: none !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+  }
+  body.print-week-mode .matrix-scroll {
+    overflow: visible !important;
+  }
+  body.print-week-mode .matrix-grid {
+    min-width: 0 !important;
+    width: 100% !important;
+    grid-template-columns: 70px repeat(5, 1fr) !important;
+    grid-template-rows: 32px repeat(8, minmax(56px, auto)) !important;
+  }
+  body.print-week-mode .matrix-head {
+    background: #f1f5f9 !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    border-right: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 4px 6px !important;
+  }
+  body.print-week-mode .matrix-head.is-today {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+  body.print-week-mode .matrix-head .today-pill { display: none !important; }
+  body.print-week-mode .matrix-time {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1.5px solid #0f172a !important;
+    color: #334155 !important;
+    font-size: 10px !important;
+    padding: 2px !important;
+  }
+  body.print-week-mode .matrix-cell {
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1px solid #cbd5e1 !important;
+    padding: 3px !important;
+  }
+  body.print-week-mode .grid-card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 3.5px solid var(--c) !important;
+    border-radius: 4px !important;
+    padding: 4px 6px !important;
+    break-inside: avoid !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  body.print-week-mode .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
+  body.print-week-mode .grid-card .type { font-size: 8px !important; background: #f1f5f9 !important; color: #334155 !important; padding: 0 3px !important; }
+  body.print-week-mode .grid-card .title { font-size: 9px !important; color: #334155 !important; margin-top: 1px !important; line-height: 1.2 !important; }
+  body.print-week-mode .grid-card .footer { font-size: 8.5px !important; padding-top: 2px !important; border-top: 1px dashed #cbd5e1 !important; color: #475569 !important; }
+  body.print-week-mode .grid-card .room-badge { background: #f1f5f9 !important; border: 1px solid #cbd5e1 !important; padding: 0 4px !important; font-size: 8px !important; color: #0f172a !important; }
+  body.print-week-mode .legend {
+    margin-top: 10px !important;
+    padding: 6px 10px !important;
+    border: 1px solid #cbd5e1 !important;
+    gap: 6px 14px !important;
+    page-break-inside: avoid !important;
+  }
+  body.print-week-mode .legend-item { font-size: 9px !important; color: #334155 !important; }
 }
 </style>
 </head>
@@ -783,7 +934,7 @@ body {
       </div>
     </div>
 
-    <!-- Quick Tools -->
+    <!-- Actions Bar -->
     <div class="top-actions">
       <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)">
         <span id="deviceModeIcon">💻</span>
@@ -826,25 +977,25 @@ body {
     </div>
   </div>
 
-  <!-- Day Selector (With Swipe hint) -->
+  <!-- Day Selector -->
   <div class="days-bar" id="daysBar"></div>
 
   <!-- View Slot -->
   <main id="viewContainer"></main>
 
-  <!-- Legend -->
+  <!-- Legend with Clickable Highlight Filter -->
   <div class="legend" id="legend"></div>
 
 </div>
 
 <!-- Floating Glass Bottom Navigation Bar -->
 <nav class="bottom-nav">
-  <button class="nav-item active" id="navDayBtn" onclick="setView('day')">
+  <button class="nav-item" id="navDayBtn" onclick="setView('day')">
     <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-    <span>Today</span>
+    <span>Daily</span>
   </button>
 
-  <button class="nav-item" id="navWeekBtn" onclick="setView('week')">
+  <button class="nav-item active" id="navWeekBtn" onclick="setView('week')">
     <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
     <span>Full Week</span>
   </button>
@@ -866,7 +1017,7 @@ body {
   <div class="notif-modal-card">
     <div class="notif-modal-head">
       <div class="notif-modal-title">
-        <svg style="width:16px;height:16px;fill:var(--gold)" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+        <svg style="width:16px;height:16px;fill:var(--accent-light)" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
         Announcements & Alerts
       </div>
       <button class="notif-modal-close" id="closeNotifModal">&times;</button>
@@ -970,7 +1121,7 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
-let activeView = "day"; // Defaults directly to Native Daily View
+let activeView = "week";
 let activeGroup = "ME1-01";
 let highlightedCourse = null;
 
@@ -1041,7 +1192,7 @@ function updateAcademicCalendarInfo() {
   }
 }
 
-// Live Status & Real-Time Card Glow
+// Live Status Tracker
 function updateLiveTracker() {
   const now = new Date();
   document.getElementById("liveClock").textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1143,7 +1294,7 @@ function exportToCalendar() {
   a.click();
 }
 
-// Daily View with Glowing Active Card
+// Daily View
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
@@ -1170,8 +1321,9 @@ function renderDailyAgenda() {
     const startMin = parseMinutes(TIME_STARTS[s.start]);
     const endMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
     
-    // Check if this class is happening right now
     const isLive = isActualToday && (currentMinutes >= startMin && currentMinutes < endMin);
+    const isDimmed = highlightedCourse && highlightedCourse !== s.code;
+    const isHighlighted = highlightedCourse === s.code;
 
     if (i > 0) {
       const prevEnd = daySessions[i - 1].start + daySessions[i - 1].span;
@@ -1196,13 +1348,12 @@ function renderDailyAgenda() {
           <div class="rail-dot" style="--c: ${course.color}"></div>
           <div class="rail-line"></div>
         </div>
-        <div class="timeline-card ${isLive ? 'is-live' : ''}" style="border-left: 3.5px solid ${course.color}">
+        <div class="timeline-card ${isLive ? 'is-live' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="border-left: 3.5px solid ${course.color}">
           <div class="card-top">
             <span class="card-code" style="--c: ${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px">
               ${isLive ? '<span class="badge badge-live">● LIVE NOW</span>' : ''}
-              ${isShared ? '<span class="badge badge-all">ALL GROUPS</span>' : ''}
-              <span class="badge badge-type">${s.type}</span>
+              ${isShared ? '<span class="badge badge-all">LEC · ALL</span>' : `<span class="badge badge-type">${s.type}</span>`}
             </div>
           </div>
           <div class="card-title">${course.name}</div>
@@ -1218,7 +1369,7 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
-// Week Grid
+// Full Week Grid Matrix
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -1272,15 +1423,19 @@ function renderWeekMatrix() {
       }
 
       const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
+      const isShared = sess.group === "ALL";
+      const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
+      const isHighlighted = highlightedCourse === sess.code;
+
       const cell = document.createElement("div");
       cell.className = "matrix-cell";
       cell.style.gridColumn = `${col}`;
       cell.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       cell.innerHTML = `
-        <div class="grid-card" style="--c: ${course.color}">
+        <div class="grid-card ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
-            <span class="type">${sess.group === 'ALL' ? 'ALL' : sess.type}</span>
+            <span class="type ${isShared ? 'all' : ''}">${isShared ? 'LEC · ALL' : sess.type}</span>
           </div>
           <div class="title">${course.name}</div>
           <div class="footer">
@@ -1320,7 +1475,7 @@ function renderDaysBar() {
   }).join("");
 }
 
-// Swipe Gesture Recognition (Touch Events)
+// Swipe Recognition
 let touchStartX = 0;
 let touchEndX = 0;
 
@@ -1340,29 +1495,38 @@ function attachSwipeListeners() {
 
 function handleSwipeGesture() {
   const diff = touchEndX - touchStartX;
-  if (Math.abs(diff) < 45) return; // Ignore small movements
+  if (Math.abs(diff) < 45) return;
 
   const currentIndex = DAYS.findIndex(d => d.full === activeDay);
   if (diff < 0 && currentIndex < DAYS.length - 1) {
-    // Swipe Left -> Next Day
     selectDay(DAYS[currentIndex + 1].full);
   } else if (diff > 0 && currentIndex > 0) {
-    // Swipe Right -> Prev Day
     selectDay(DAYS[currentIndex - 1].full);
   }
 }
 
+// Clickable Legend with Dimming
 function renderLegend() {
   const legend = document.getElementById("legend");
   legend.innerHTML = `
-    <span class="legend-hint">Subjects:</span>
+    <span class="legend-hint">Filter Subject:</span>
     ${Object.entries(COURSES).map(([code, c]) => `
-      <div class="legend-item">
+      <div class="legend-item ${highlightedCourse === code ? 'active' : ''}" onclick="toggleHighlight('${code}')">
         <span class="legend-dot" style="background:${c.color}"></span>
-        <b>${code}</b>
+        <b>${code}</b> <span style="font-size:11px">${c.name}</span>
       </div>
     `).join("")}
   `;
+}
+
+function toggleHighlight(code) {
+  highlightedCourse = (highlightedCourse === code) ? null : code;
+  renderLegend();
+  if (activeView === "week") {
+    renderWeekMatrix();
+  } else {
+    renderDailyAgenda();
+  }
 }
 
 function render() {
@@ -1441,11 +1605,25 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// Print Engine
+// Dynamic Context Print Handler
 document.getElementById("printBtn").addEventListener("click", () => {
   document.body.classList.remove("print-day-mode", "print-week-mode");
-  if (activeView === "day") document.body.classList.add("print-day-mode");
-  else document.body.classList.add("print-week-mode");
+
+  let printStyle = document.getElementById("dynamicPrintPageRule");
+  if (!printStyle) {
+    printStyle = document.createElement("style");
+    printStyle.id = "dynamicPrintPageRule";
+    document.head.appendChild(printStyle);
+  }
+
+  if (activeView === "day") {
+    document.body.classList.add("print-day-mode");
+    printStyle.innerHTML = "@page { size: A4 portrait !important; margin: 10mm !important; }";
+  } else {
+    document.body.classList.add("print-week-mode");
+    printStyle.innerHTML = "@page { size: A4 landscape !important; margin: 8mm !important; }";
+  }
+
   window.print();
 });
 
