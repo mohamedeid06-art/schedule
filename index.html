@@ -162,6 +162,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
 }
 .action-btn {
   background: var(--surface);
@@ -192,6 +193,15 @@ body {
   background: var(--surface-alt);
   color: var(--accent-light);
   border-color: var(--accent);
+}
+.action-btn.install-btn {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  display: none;
+}
+.action-btn.install-btn:hover {
+  opacity: 0.9;
 }
 .action-btn svg { width: 15px; height: 15px; fill: currentColor; }
 
@@ -669,7 +679,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 24px);
-  max-width: 440px;
+  max-width: 480px;
   background: rgba(20, 31, 45, 0.9);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -900,7 +910,7 @@ body {
     print-color-adjust: exact !important;
   }
 
-  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay, #liveStatusBox, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn {
+  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay, #liveStatusBox, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
 
@@ -1038,6 +1048,11 @@ body {
 
     <!-- Actions Bar -->
     <div class="top-actions">
+      <!-- PWA Top Install Button -->
+      <button class="action-btn install-btn" id="pwaTopInstallBtn" title="Install Application">
+        <span>📲 Install</span>
+      </button>
+
       <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)">
         <span id="deviceModeIcon">💻</span>
         <span id="deviceModeText">PC View</span>
@@ -1113,6 +1128,12 @@ body {
     <span class="nav-notif-dot" id="navNotifDot"></span>
     <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
     <span>Alerts</span>
+  </button>
+
+  <!-- PWA Nav Install Button -->
+  <button class="nav-item" id="pwaNavInstallBtn" style="display:none;" title="Install Application">
+    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+    <span>Install</span>
   </button>
 </nav>
 
@@ -1847,6 +1868,39 @@ document.getElementById("printBtn").addEventListener("click", () => {
 });
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
+
+// PWA Install Prompt Engine
+let deferredPrompt;
+const topInstallBtn = document.getElementById('pwaTopInstallBtn');
+const navInstallBtn = document.getElementById('pwaNavInstallBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (topInstallBtn) topInstallBtn.style.display = 'inline-flex';
+  if (navInstallBtn) navInstallBtn.style.display = 'inline-flex';
+});
+
+async function triggerPwaInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      if (topInstallBtn) topInstallBtn.style.display = 'none';
+      if (navInstallBtn) navInstallBtn.style.display = 'none';
+    }
+    deferredPrompt = null;
+  }
+}
+
+if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
+if (navInstallBtn) navInstallBtn.addEventListener('click', triggerPwaInstall);
+
+window.addEventListener('appinstalled', () => {
+  if (topInstallBtn) topInstallBtn.style.display = 'none';
+  if (navInstallBtn) navInstallBtn.style.display = 'none';
+  deferredPrompt = null;
+});
 
 // Init
 initDeviceMode();
