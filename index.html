@@ -679,8 +679,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 24px);
-  max-width: 480px;
-  background: rgba(20, 31, 45, 0.9);
+  max-width: 500px;
+  background: rgba(20, 31, 45, 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-dark);
@@ -693,7 +693,7 @@ body {
   z-index: 900;
 }
 [data-theme="light"] .bottom-nav {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border-color: var(--border);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
@@ -704,7 +704,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  padding: 6px 12px;
+  padding: 6px 10px;
   color: var(--text-muted);
   cursor: pointer;
   border-radius: 12px;
@@ -712,14 +712,14 @@ body {
   position: relative;
 }
 .nav-item svg { width: 18px; height: 18px; fill: currentColor; }
-.nav-item span { font-size: 10.5px; font-weight: 700; }
+.nav-item span { font-size: 10px; font-weight: 700; }
 .nav-item.active {
   color: var(--accent-light);
 }
 .nav-notif-dot {
   position: absolute;
   top: 6px;
-  right: 12px;
+  right: 10px;
   width: 7px;
   height: 7px;
   background: #ef4444;
@@ -733,10 +733,10 @@ body {
 .nav-task-badge {
   position: absolute;
   top: 4px;
-  right: 10px;
+  right: 8px;
   background: var(--quiz-color);
   color: #fff;
-  font-size: 8.5px;
+  font-size: 8px;
   font-weight: 800;
   padding: 1px 4px;
   border-radius: 9999px;
@@ -767,8 +767,8 @@ body {
   border: 1px solid var(--border-dark);
   border-radius: 14px;
   width: 100%;
-  max-width: 450px;
-  max-height: 80vh;
+  max-width: 480px;
+  max-height: 82vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -804,55 +804,102 @@ body {
   flex-direction: column;
   gap: 10px;
 }
-.modal-item {
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.modal-item.assessment-card {
-  border-left: 4px solid var(--quiz-color);
-}
-.modal-top-row {
+
+/* Drive Hub Accordion Styles */
+.drive-main-link-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.modal-tag {
-  font-size: 9.5px;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 4px;
   background: var(--accent-glow);
+  border: 1px solid var(--accent);
   color: var(--accent-light);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease;
+  margin-bottom: 4px;
 }
-.modal-tag.quiz {
-  background: var(--quiz-glow);
-  color: var(--quiz-color);
+.drive-main-link-btn:hover {
+  background: rgba(43, 164, 204, 0.3);
 }
-.modal-date {
+.course-accordion {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+.course-accordion.open {
+  border-color: var(--accent);
+}
+.accordion-header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.acc-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.acc-color-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+.acc-code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-}
-.modal-item-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text-main);
 }
-.modal-item-body {
-  font-size: 11.5px;
+.acc-name {
+  font-size: 11px;
   color: var(--text-muted);
-  line-height: 1.45;
+  display: block;
 }
-.modal-item-extra {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
+.acc-arrow {
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+.course-accordion.open .acc-arrow {
+  transform: rotate(180deg);
+}
+.accordion-content {
+  padding: 0 14px 12px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px dashed var(--border);
+  margin-top: 2px;
+  padding-top: 10px;
+}
+.course-accordion.open .accordion-content {
+  display: flex;
+}
+.drive-sub-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.drive-sub-btn:hover {
+  border-color: var(--accent);
   color: var(--accent-light);
-  margin-top: 4px;
 }
 
 /* Legend */
@@ -1117,6 +1164,12 @@ body {
     <span>Full Week</span>
   </button>
 
+  <!-- Materials & Google Drive Tab -->
+  <button class="nav-item" id="navDriveBtn" onclick="openDriveModal()">
+    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+    <span>Drive</span>
+  </button>
+
   <!-- Deadlines & Quizzes Modal Trigger -->
   <button class="nav-item" id="navTaskBtn" onclick="openAssessmentModal()">
     <span class="nav-task-badge" id="navTaskBadge">0</span>
@@ -1129,13 +1182,33 @@ body {
     <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
     <span>Alerts</span>
   </button>
-
-  <!-- PWA Nav Install Button -->
-  <button class="nav-item" id="pwaNavInstallBtn" style="display:none;" title="Install Application">
-    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-    <span>Install</span>
-  </button>
 </nav>
+
+<!-- Materials & Drive Hub Modal -->
+<div class="modal-overlay" id="driveModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">
+        <svg style="width:17px;height:17px;fill:var(--accent-light)" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+        Course Materials & Drive
+      </div>
+      <button class="modal-close" id="closeDriveModal">&times;</button>
+    </div>
+    <div class="modal-body" id="driveList">
+      <!-- Main Semester Drive Button -->
+      <a href="https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4" target="_blank" rel="noopener noreferrer" class="drive-main-link-btn">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span>📁</span>
+          <span>Open Main 1st Semester Drive Folder</span>
+        </div>
+        <span>↗</span>
+      </a>
+
+      <!-- Accordion List for Each Course -->
+      <div id="courseAccordionList" style="display:flex;flex-direction:column;gap:8px;margin-top:4px"></div>
+    </div>
+  </div>
+</div>
 
 <!-- Announcements Modal -->
 <div class="modal-overlay" id="notifModal">
@@ -1168,6 +1241,57 @@ body {
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
+const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
+
+// Drive Subfolders Database (Defaults directly to main semester folder if specific link not set)
+const DRIVE_DATA = {
+  "MTH G102": {
+    hasLabs: false,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE
+  },
+  "EMC G101": {
+    hasLabs: false,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE
+  },
+  "MDP G111": {
+    hasLabs: true,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE,
+    labs: MAIN_SEMESTER_DRIVE
+  },
+  "MDP G121": {
+    hasLabs: true,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE,
+    labs: MAIN_SEMESTER_DRIVE
+  },
+  "EPE G113": {
+    hasLabs: true,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE,
+    labs: MAIN_SEMESTER_DRIVE
+  },
+  "GEN G119": {
+    hasLabs: false,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE
+  }
+};
+
 const ROOM_INFO = {
   "3103-414": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 3 (Capacity: 414)",
   "3101-306": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 1 (Capacity: 306)",
@@ -1195,7 +1319,7 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
 
-// Quizzes & Deadlines Repository (Empty by default)
+// Quizzes & Deadlines Repository
 const ASSESSMENTS = [];
 
 const NOTIFICATIONS = [
@@ -1276,6 +1400,68 @@ function parseMinutes(t) {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 }
+
+// Drive Modal Render Engine
+function initDriveHub() {
+  const container = document.getElementById("courseAccordionList");
+  container.innerHTML = Object.entries(COURSES).map(([code, c]) => {
+    const d = DRIVE_DATA[code] || { hasLabs: false, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
+    return `
+      <div class="course-accordion" id="acc-${code.replace(/\s+/g, '')}">
+        <div class="accordion-header" onclick="toggleAccordion('${code.replace(/\s+/g, '')}')">
+          <div class="acc-left">
+            <span class="acc-color-dot" style="background:${c.color}"></span>
+            <div>
+              <span class="acc-code">${code}</span>
+              <span class="acc-name">${c.name}</span>
+            </div>
+          </div>
+          <span class="acc-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <a href="${d.lectures || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+            <span>📑 Lectures & Slides</span>
+            <span>↗</span>
+          </a>
+          <a href="${d.sheets || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+            <span>📝 Sheets & Tutorials</span>
+            <span>↗</span>
+          </a>
+          <a href="${d.exams || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+            <span>🎯 Past Exams & Quizzes</span>
+            <span>↗</span>
+          </a>
+          ${d.hasLabs ? `
+            <a href="${d.labs || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+              <span>🧪 Labs & Reports</span>
+              <span>↗</span>
+            </a>
+          ` : ''}
+          <a href="${d.folder || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" style="background:var(--accent-glow);color:var(--accent-light);border-color:var(--accent)">
+            <span>📂 Open Full Course Folder</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function toggleAccordion(id) {
+  const el = document.getElementById(`acc-${id}`);
+  if (el) el.classList.toggle("open");
+}
+
+function openDriveModal() {
+  document.getElementById("driveModal").classList.add("open");
+}
+function closeDriveModal() {
+  document.getElementById("driveModal").classList.remove("open");
+}
+document.getElementById("closeDriveModal").addEventListener("click", closeDriveModal);
+document.getElementById("driveModal").addEventListener("click", (e) => {
+  if (e.target.id === "driveModal") closeDriveModal();
+});
 
 // Active Assessments for Current Selected Section
 function getActiveSectionAssessments() {
@@ -1497,7 +1683,7 @@ function exportToCalendar() {
   a.click();
 }
 
-// Daily View with Section Assessments Integration
+// Daily View
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
@@ -1591,7 +1777,7 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
-// Full Week Grid Matrix with Assessment Highlights
+// Full Week Grid Matrix
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -1872,13 +2058,11 @@ document.getElementById("calendarBtn").addEventListener("click", exportToCalenda
 // PWA Install Prompt Engine
 let deferredPrompt;
 const topInstallBtn = document.getElementById('pwaTopInstallBtn');
-const navInstallBtn = document.getElementById('pwaNavInstallBtn');
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   if (topInstallBtn) topInstallBtn.style.display = 'inline-flex';
-  if (navInstallBtn) navInstallBtn.style.display = 'inline-flex';
 });
 
 async function triggerPwaInstall() {
@@ -1887,18 +2071,15 @@ async function triggerPwaInstall() {
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
       if (topInstallBtn) topInstallBtn.style.display = 'none';
-      if (navInstallBtn) navInstallBtn.style.display = 'none';
     }
     deferredPrompt = null;
   }
 }
 
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
-if (navInstallBtn) navInstallBtn.addEventListener('click', triggerPwaInstall);
 
 window.addEventListener('appinstalled', () => {
   if (topInstallBtn) topInstallBtn.style.display = 'none';
-  if (navInstallBtn) navInstallBtn.style.display = 'none';
   deferredPrompt = null;
 });
 
@@ -1906,6 +2087,7 @@ window.addEventListener('appinstalled', () => {
 initDeviceMode();
 initTheme();
 initNotifications();
+initDriveHub();
 renderLegend();
 render();
 setInterval(updateLiveTracker, 60000);
