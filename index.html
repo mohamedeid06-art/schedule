@@ -72,7 +72,7 @@ body {
   color: var(--text-main);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
-  padding: 20px 12px 96px;
+  padding: 20px 12px 105px;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -286,7 +286,7 @@ body {
   border-left: 3px solid var(--accent);
 }
 
-/* Day Selector */
+/* Segmented Date Strip */
 .days-bar {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -294,53 +294,60 @@ body {
   background: var(--surface-alt);
   border: 1px solid var(--border);
   padding: 4px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-bottom: 16px;
 }
 .day-btn {
   border: none;
   background: transparent;
-  padding: 8px 2px;
-  border-radius: 7px;
+  padding: 7px 2px;
+  border-radius: 9px;
   cursor: pointer;
   text-align: center;
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
 .day-btn .day-name {
-  display: block;
-  font-size: 11.5px;
-  font-weight: 600;
+  font-size: 10.5px;
+  font-weight: 700;
   color: var(--text-muted);
 }
+.day-btn .day-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-main);
+}
 .day-btn .today-tag {
-  display: inline-block;
-  font-size: 8.5px;
+  font-size: 8px;
   font-weight: 800;
   color: var(--accent-light);
-  margin-top: 1px;
 }
 .day-btn.has-quiz {
   border: 1px solid var(--quiz-color);
   background: var(--quiz-glow);
 }
 .day-btn.has-quiz .quiz-badge-dot {
-  display: inline-block;
-  font-size: 8.5px;
+  font-size: 8px;
   font-weight: 800;
   color: var(--quiz-color);
-  margin-top: 1px;
 }
 .day-btn.active {
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 .day-btn.active .day-name {
   color: var(--accent-light);
-  font-weight: 800;
+}
+.day-btn.active .day-num {
+  color: var(--accent-light);
 }
 
-/* Assessment Alert Banner inside Day View */
+/* Alert Banner */
 .day-assessment-banner {
   background: var(--quiz-glow);
   border: 1px solid var(--quiz-color);
@@ -390,10 +397,12 @@ body {
   flex-direction: column;
   gap: 14px;
   touch-action: pan-y;
+  position: relative;
 }
 .timeline-item {
   display: flex;
   gap: 12px;
+  position: relative;
 }
 .time-col {
   width: 80px;
@@ -447,19 +456,55 @@ body {
 }
 .timeline-item:last-child .rail-line { display: none; }
 
+/* Current Time Indicator Line */
+.current-time-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  z-index: 10;
+}
+.time-line-tag {
+  width: 80px;
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 800;
+  color: #ef4444;
+}
+.time-line-indicator {
+  flex: 1;
+  height: 2px;
+  background: #ef4444;
+  position: relative;
+  border-radius: 2px;
+}
+.time-line-indicator::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+/* Polished Card Layout */
 .timeline-card {
   flex: 1;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 12px;
   padding: 12px 14px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   transition: all 0.15s ease;
   position: relative;
 }
 .timeline-card.is-live {
   border-color: #10b981;
-  box-shadow: 0 0 14px rgba(16, 185, 129, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 0 16px rgba(16, 185, 129, 0.25);
 }
 .timeline-card.has-task-border {
   border-color: var(--quiz-color);
@@ -472,15 +517,15 @@ body {
 }
 .card-code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12.5px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
   color: var(--c);
 }
 .badge {
   font-size: 9px;
   font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 4px;
+  padding: 2px 6px;
+  border-radius: 5px;
 }
 .badge-type { background: var(--surface-alt); color: var(--text-muted); }
 .badge-all { background: rgba(43, 164, 204, 0.18); color: var(--accent-light); }
@@ -492,14 +537,27 @@ body {
   font-weight: 700;
   color: var(--text-main);
   line-height: 1.35;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
-.card-room {
+.card-room-pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  color: var(--text-muted);
+  font-weight: 700;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--accent-light);
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.card-room-pill:hover {
+  border-color: var(--accent);
+  background: var(--surface);
 }
 
 .break-item {
@@ -933,6 +991,37 @@ body {
   gap: 10px;
 }
 
+/* Floating Glass Toast Notification */
+.floating-toast {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(20, 31, 45, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--accent);
+  color: var(--text-main);
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 90%;
+}
+.floating-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* Legend */
 .legend {
   margin-top: 18px;
@@ -988,7 +1077,7 @@ body {
     print-color-adjust: exact !important;
   }
 
-  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay, #liveStatusBox, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
+  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay, .floating-toast, #liveStatusBox, .legend-hint, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
 
@@ -1150,7 +1239,7 @@ body {
     </div>
   </header>
 
-  <!-- Live Status Strip (Only visible in Schedule Views) -->
+  <!-- Live Status Strip -->
   <div class="live-status" id="liveStatusBox">
     <div class="live-left">
       <span class="live-indicator" id="liveDot"></span>
@@ -1159,7 +1248,7 @@ body {
     <span class="live-time-now" id="liveClock"></span>
   </div>
 
-  <!-- Control Bar (Only visible in Schedule Views) -->
+  <!-- Control Bar -->
   <div class="control-bar" id="scheduleControlBar">
     <div class="group-controls">
       <span class="control-label">Section:</span>
@@ -1172,10 +1261,10 @@ body {
     </div>
   </div>
 
-  <!-- Day Selector -->
+  <!-- Day Selector (With Dynamic Numbers) -->
   <div class="days-bar" id="daysBar"></div>
 
-  <!-- View Slot (Dynamic Screen Switching) -->
+  <!-- View Slot -->
   <main id="viewContainer"></main>
 
   <!-- Legend with Clickable Highlight Filter -->
@@ -1195,7 +1284,7 @@ body {
     <span>Full Week</span>
   </button>
 
-  <!-- Materials & Google Drive Screen Switcher -->
+  <!-- In-App Drive View Switcher -->
   <button class="nav-item" id="navDriveBtn" onclick="setView('drive')">
     <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
     <span>Drive</span>
@@ -1214,6 +1303,12 @@ body {
     <span>Alerts</span>
   </button>
 </nav>
+
+<!-- Floating Glass Toast -->
+<div class="floating-toast" id="toastBox">
+  <span id="toastIcon">📍</span>
+  <span id="toastText">Location Info</span>
+</div>
 
 <!-- Announcements Modal -->
 <div class="modal-overlay" id="notifModal">
@@ -1298,21 +1393,21 @@ const DRIVE_DATA = {
 };
 
 const ROOM_INFO = {
-  "3103-414": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 3 (Capacity: 414)",
-  "3101-306": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 1 (Capacity: 306)",
-  "7104-360": "Building 7 (Main Lecture Complex) — 1st Floor, Hall 4 (Capacity: 360)",
-  "15401-300": "Building 15 (Architecture/Drafting) — 4th Floor, Drawing Hall 1",
-  "14201-50": "Building 14 — 2nd Floor, Room 1 (Capacity: 50)",
-  "14301-50": "Building 14 — 3rd Floor, Room 1 (Capacity: 50)",
-  "14302-50": "Building 14 — 3rd Floor, Room 2 (Capacity: 50)",
-  "14100-(104)": "Building 14 — 1st Floor, Room 100 (Capacity: 104)",
-  "17400-56": "Building 17 (Electrical Dept.) — 4th Floor, Room (Capacity: 56)",
-  "17301-56": "Building 17 (Electrical Dept.) — 3rd Floor, Room 1 (Capacity: 56)",
-  "17302-148": "Building 17 (Electrical Dept.) — 3rd Floor, Room 2 (Capacity: 148)",
-  "17200-56": "Building 17 (Electrical Dept.) — 2nd Floor, Room (Capacity: 56)",
-  "17102-148": "Building 17 (Electrical Dept.) — 1st Floor, Room 2 (Capacity: 148)",
-  "19302-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 2 (Capacity: 48)",
-  "19301-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 1 (Capacity: 48)"
+  "3103-414": "Building 3 (Mechanical) — 1st Floor, Hall 3 (Cap: 414)",
+  "3101-306": "Building 3 (Mechanical) — 1st Floor, Hall 1 (Cap: 306)",
+  "7104-360": "Building 7 (Main Lecture Complex) — 1st Floor, Hall 4 (Cap: 360)",
+  "15401-300": "Building 15 (Drafting) — 4th Floor, Drawing Hall 1",
+  "14201-50": "Building 14 — 2nd Floor, Room 1 (Cap: 50)",
+  "14301-50": "Building 14 — 3rd Floor, Room 1 (Cap: 50)",
+  "14302-50": "Building 14 — 3rd Floor, Room 2 (Cap: 50)",
+  "14100-(104)": "Building 14 — 1st Floor, Room 100 (Cap: 104)",
+  "17400-56": "Building 17 (Electrical) — 4th Floor, Room (Cap: 56)",
+  "17301-56": "Building 17 (Electrical) — 3rd Floor, Room 1 (Cap: 56)",
+  "17302-148": "Building 17 (Electrical) — 3rd Floor, Room 2 (Cap: 148)",
+  "17200-56": "Building 17 (Electrical) — 2nd Floor, Room (Cap: 56)",
+  "17102-148": "Building 17 (Electrical) — 1st Floor, Room 2 (Cap: 148)",
+  "19302-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 2 (Cap: 48)",
+  "19301-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 1 (Cap: 48)"
 };
 
 const COURSES = {
@@ -1406,7 +1501,33 @@ function parseMinutes(t) {
   return h * 60 + m;
 }
 
-// Render In-App Full Drive View
+// Micro-interaction Haptic Feedback
+function triggerHaptic() {
+  if (navigator.vibrate) {
+    navigator.vibrate(10);
+  }
+}
+
+// Modern Toast Notification (Floating Glass Pill)
+let toastTimer;
+function showToast(text, icon = "📍") {
+  triggerHaptic();
+  const box = document.getElementById("toastBox");
+  document.getElementById("toastIcon").textContent = icon;
+  document.getElementById("toastText").textContent = text;
+  box.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    box.classList.remove("show");
+  }, 3200);
+}
+
+function showRoomDetails(roomCode) {
+  const info = ROOM_INFO[roomCode] || "Faculty of Engineering · Giza Campus";
+  showToast(`${roomCode}: ${info}`, "🏛️");
+}
+
+// In-App Drive View Screen
 function renderDriveScreen() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -1419,7 +1540,7 @@ function renderDriveScreen() {
         <div class="drive-header-desc">
           All lectures, tutorial sheets, and previous exams for Batch 30 (1st Semester), organized by subject.
         </div>
-        <a href="${MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-main-link-btn">
+        <a href="${MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-main-link-btn" onclick="triggerHaptic()">
           <div style="display:flex;align-items:center;gap:8px">
             <span>📁</span>
             <span>Open Main 1st Semester Drive Folder</span>
@@ -1444,25 +1565,25 @@ function renderDriveScreen() {
                 <span class="acc-arrow">▼</span>
               </div>
               <div class="accordion-content">
-                <a href="${d.lectures || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                <a href="${d.lectures || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" onclick="triggerHaptic()">
                   <span>📑 Lectures & Slides</span>
                   <span>↗</span>
                 </a>
-                <a href="${d.sheets || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                <a href="${d.sheets || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" onclick="triggerHaptic()">
                   <span>📝 Sheets & Tutorials</span>
                   <span>↗</span>
                 </a>
-                <a href="${d.exams || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                <a href="${d.exams || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" onclick="triggerHaptic()">
                   <span>🎯 Past Exams & Quizzes</span>
                   <span>↗</span>
                 </a>
                 ${d.hasLabs ? `
-                  <a href="${d.labs || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                  <a href="${d.labs || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" onclick="triggerHaptic()">
                     <span>🧪 Labs & Reports</span>
                     <span>↗</span>
                   </a>
                 ` : ''}
-                <a href="${d.folder || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" style="background:var(--accent-glow);color:var(--accent-light);border-color:var(--accent)">
+                <a href="${d.folder || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" style="background:var(--accent-glow);color:var(--accent-light);border-color:var(--accent)" onclick="triggerHaptic()">
                   <span>📂 Open Full Subject Folder</span>
                   <span>↗</span>
                 </a>
@@ -1476,6 +1597,7 @@ function renderDriveScreen() {
 }
 
 function toggleAccordion(id) {
+  triggerHaptic();
   const el = document.getElementById(`acc-${id}`);
   if (el) el.classList.toggle("open");
 }
@@ -1528,6 +1650,7 @@ function initAssessments() {
 }
 
 function openAssessmentModal(specificDay = null) {
+  triggerHaptic();
   initAssessments();
   document.getElementById("assessmentModal").classList.add("open");
 }
@@ -1564,6 +1687,7 @@ function initNotifications() {
 }
 
 function openNotifModal() {
+  triggerHaptic();
   document.getElementById("notifModal").classList.add("open");
   const allIds = NOTIFICATIONS.map(n => n.id);
   localStorage.setItem("cufe_read_notifs", JSON.stringify(allIds));
@@ -1664,12 +1788,8 @@ function updateLiveTracker() {
   }
 }
 
-function showRoomDetails(roomCode) {
-  const info = ROOM_INFO[roomCode] || "Faculty of Engineering · Giza Campus";
-  alert(`📍 Hall / Lab Location Details:\n\nRoom Code: ${roomCode}\n${info}`);
-}
-
 function exportToCalendar() {
+  triggerHaptic();
   const activeSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
   let ics = [
     "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Cairo University//ME1 Schedule//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH",
@@ -1700,7 +1820,7 @@ function exportToCalendar() {
   a.click();
 }
 
-// Daily View
+// Daily View with Timeline Indicator & Glass Layered Cards
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
@@ -1735,6 +1855,7 @@ function renderDailyAgenda() {
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const isActualToday = (activeDay === todayDayName);
+  let timeLineInserted = false;
 
   for (let i = 0; i < daySessions.length; i++) {
     const s = daySessions[i];
@@ -1747,6 +1868,18 @@ function renderDailyAgenda() {
     const hasTask = dayTasks.some(t => t.code === s.code);
     const isDimmed = highlightedCourse && highlightedCourse !== s.code;
     const isHighlighted = highlightedCourse === s.code;
+
+    // Insert Live Time Indicator Line if between classes
+    if (isActualToday && !timeLineInserted && currentMinutes < startMin) {
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      html += `
+        <div class="current-time-line">
+          <div class="time-line-tag">${timeStr} NOW</div>
+          <div class="time-line-indicator"></div>
+        </div>
+      `;
+      timeLineInserted = true;
+    }
 
     if (i > 0) {
       const prevEnd = daySessions[i - 1].start + daySessions[i - 1].span;
@@ -1771,7 +1904,7 @@ function renderDailyAgenda() {
           <div class="rail-dot" style="--c: ${course.color}"></div>
           <div class="rail-line"></div>
         </div>
-        <div class="timeline-card ${isLive ? 'is-live' : ''} ${hasTask ? 'has-task-border' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="border-left: 3.5px solid ${course.color}">
+        <div class="timeline-card ${isLive ? 'is-live' : ''} ${hasTask ? 'has-task-border' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="border-left: 4px solid ${course.color}">
           <div class="card-top">
             <span class="card-code" style="--c: ${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px">
@@ -1781,8 +1914,9 @@ function renderDailyAgenda() {
             </div>
           </div>
           <div class="card-title">${course.name}</div>
-          <div class="card-room">
-            <span class="room-badge" onclick="showRoomDetails('${s.room}')">${s.room}</span>
+          <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">
+            <span>🏛️</span>
+            <span>${s.room}</span>
           </div>
         </div>
       </div>`;
@@ -1896,6 +2030,7 @@ function renderWeekMatrix() {
   });
 }
 
+// Days Bar with Dynamic Real Dates calculation
 function renderDaysBar() {
   const bar = document.getElementById("daysBar");
   if (activeView === "week" || activeView === "drive") {
@@ -1903,7 +2038,18 @@ function renderDaysBar() {
     return;
   }
   bar.style.display = "grid";
-  bar.innerHTML = DAYS.map(d => {
+
+  // Calculate dates of the current week (Sunday to Thursday)
+  const today = new Date();
+  const currentDayOfWeek = today.getDay(); // 0 is Sunday
+  const sunday = new Date(today);
+  sunday.setDate(today.getDate() - currentDayOfWeek);
+
+  bar.innerHTML = DAYS.map((d, idx) => {
+    const dayDate = new Date(sunday);
+    dayDate.setDate(sunday.getDate() + idx);
+    const dateNum = dayDate.getDate();
+
     const isToday = (d.full === todayDayName);
     const dayTasks = getDayAssessments(d.full);
     const hasQuiz = dayTasks.length > 0;
@@ -1911,6 +2057,7 @@ function renderDaysBar() {
     return `
       <button class="day-btn ${d.full === activeDay ? 'active' : ''} ${hasQuiz ? 'has-quiz' : ''}" onclick="selectDay('${d.full}')">
         <span class="day-name">${d.short}</span>
+        <span class="day-num">${dateNum}</span>
         ${hasQuiz ? '<span class="quiz-badge-dot">⚡ QUIZ</span>' : (isToday ? '<span class="today-tag">TODAY</span>' : '')}
       </button>`;
   }).join("");
@@ -1966,6 +2113,7 @@ function renderLegend() {
 }
 
 function toggleHighlight(code) {
+  triggerHaptic();
   highlightedCourse = (highlightedCourse === code) ? null : code;
   renderLegend();
   if (activeView === "week") {
@@ -2010,17 +2158,20 @@ function render() {
 }
 
 function setView(mode) {
+  triggerHaptic();
   activeView = mode;
   render();
 }
 
 function selectDay(day) {
+  triggerHaptic();
   activeDay = day;
   renderDaysBar();
   renderDailyAgenda();
 }
 
 document.getElementById("sectionSelect").addEventListener("change", (e) => {
+  triggerHaptic();
   activeGroup = e.target.value;
   render();
 });
@@ -2053,6 +2204,7 @@ function setDeviceMode(mode) {
 }
 
 document.getElementById("deviceModeBtn").addEventListener("click", () => {
+  triggerHaptic();
   const isPc = document.getElementById("mainContainer").classList.contains("pc-mode");
   setDeviceMode(isPc ? "mobile" : "pc");
 });
@@ -2064,14 +2216,16 @@ function initTheme() {
 }
 
 document.getElementById("themeBtn").addEventListener("click", () => {
+  triggerHaptic();
   const current = document.documentElement.getAttribute("data-theme") || "dark";
   const next = current === "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("cufe_theme", next);
 });
 
-// Dynamic Context Print Handler
+// Print Handler
 document.getElementById("printBtn").addEventListener("click", () => {
+  triggerHaptic();
   document.body.classList.remove("print-day-mode", "print-week-mode");
 
   let printStyle = document.getElementById("dynamicPrintPageRule");
@@ -2094,7 +2248,7 @@ document.getElementById("printBtn").addEventListener("click", () => {
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
 
-// PWA Install Prompt Engine
+// PWA Install Engine
 let deferredPrompt;
 const topInstallBtn = document.getElementById('pwaTopInstallBtn');
 
@@ -2105,6 +2259,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 async function triggerPwaInstall() {
+  triggerHaptic();
   if (deferredPrompt) {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
