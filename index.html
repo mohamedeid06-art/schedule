@@ -672,6 +672,133 @@ body {
   color: var(--text-subtle);
 }
 
+/* Dedicated In-App Drive View */
+.drive-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.drive-header-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.drive-header-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.drive-header-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.drive-main-link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.drive-main-link-btn:hover {
+  background: rgba(43, 164, 204, 0.35);
+  transform: translateY(-1px);
+}
+.course-accordion {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.15s ease;
+}
+.course-accordion.open {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+.accordion-header {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.acc-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.acc-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+.acc-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.acc-name {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 1px;
+}
+.acc-arrow {
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+.course-accordion.open .acc-arrow {
+  transform: rotate(180deg);
+}
+.accordion-content {
+  padding: 0 14px 14px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px dashed var(--border);
+  margin-top: 2px;
+  padding-top: 12px;
+}
+.course-accordion.open .accordion-content {
+  display: flex;
+}
+.drive-sub-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.drive-sub-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-light);
+  background: var(--surface);
+}
+
 /* Floating Glass Bottom Nav */
 .bottom-nav {
   position: fixed;
@@ -1023,7 +1150,7 @@ body {
     </div>
   </header>
 
-  <!-- Live Status Strip -->
+  <!-- Live Status Strip (Only visible in Schedule Views) -->
   <div class="live-status" id="liveStatusBox">
     <div class="live-left">
       <span class="live-indicator" id="liveDot"></span>
@@ -1032,8 +1159,8 @@ body {
     <span class="live-time-now" id="liveClock"></span>
   </div>
 
-  <!-- Control Bar -->
-  <div class="control-bar">
+  <!-- Control Bar (Only visible in Schedule Views) -->
+  <div class="control-bar" id="scheduleControlBar">
     <div class="group-controls">
       <span class="control-label">Section:</span>
       <select class="section-select" id="sectionSelect">
@@ -1048,7 +1175,7 @@ body {
   <!-- Day Selector -->
   <div class="days-bar" id="daysBar"></div>
 
-  <!-- View Slot -->
+  <!-- View Slot (Dynamic Screen Switching) -->
   <main id="viewContainer"></main>
 
   <!-- Legend with Clickable Highlight Filter -->
@@ -1068,11 +1195,11 @@ body {
     <span>Full Week</span>
   </button>
 
-  <!-- Materials & Google Drive (Direct New Tab Link) -->
-  <a href="https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4" target="_blank" rel="noopener noreferrer" class="nav-item" id="navDriveBtn" title="Open Google Drive Folder">
+  <!-- Materials & Google Drive Screen Switcher -->
+  <button class="nav-item" id="navDriveBtn" onclick="setView('drive')">
     <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
     <span>Drive</span>
-  </a>
+  </button>
 
   <!-- Deadlines & Quizzes Modal Trigger -->
   <button class="nav-item" id="navTaskBtn" onclick="openAssessmentModal()">
@@ -1118,6 +1245,57 @@ body {
 
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
+
+const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
+
+// Drive Subfolders Database
+const DRIVE_DATA = {
+  "MTH G102": {
+    hasLabs: false,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE
+  },
+  "EMC G101": {
+    hasLabs: false,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE
+  },
+  "MDP G111": {
+    hasLabs: true,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE,
+    labs: MAIN_SEMESTER_DRIVE
+  },
+  "MDP G121": {
+    hasLabs: true,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE,
+    labs: MAIN_SEMESTER_DRIVE
+  },
+  "EPE G113": {
+    hasLabs: true,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE,
+    labs: MAIN_SEMESTER_DRIVE
+  },
+  "GEN G119": {
+    hasLabs: false,
+    folder: MAIN_SEMESTER_DRIVE,
+    lectures: MAIN_SEMESTER_DRIVE,
+    sheets: MAIN_SEMESTER_DRIVE,
+    exams: MAIN_SEMESTER_DRIVE
+  }
+};
 
 const ROOM_INFO = {
   "3103-414": "Building 3 (Mechanical Dept.) — 1st Floor, Hall 3 (Capacity: 414)",
@@ -1214,7 +1392,7 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
-let activeView = "week";
+let activeView = "week"; // 'week' | 'day' | 'drive'
 let activeGroup = "ME1-01";
 let highlightedCourse = null;
 
@@ -1226,6 +1404,80 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) {
   const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
+}
+
+// Render In-App Full Drive View
+function renderDriveScreen() {
+  const container = document.getElementById("viewContainer");
+  container.innerHTML = `
+    <div class="drive-view-container">
+      <div class="drive-header-card">
+        <div class="drive-header-title">
+          <span>📂</span>
+          <span>Course Materials & Drive</span>
+        </div>
+        <div class="drive-header-desc">
+          All lectures, tutorial sheets, and previous exams for Batch 30 (1st Semester), organized by subject.
+        </div>
+        <a href="${MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-main-link-btn">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span>📁</span>
+            <span>Open Main 1st Semester Drive Folder</span>
+          </div>
+          <span>↗</span>
+        </a>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        ${Object.entries(COURSES).map(([code, c]) => {
+          const d = DRIVE_DATA[code] || { hasLabs: false, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
+          return `
+            <div class="course-accordion" id="acc-${code.replace(/\s+/g, '')}">
+              <div class="accordion-header" onclick="toggleAccordion('${code.replace(/\s+/g, '')}')">
+                <div class="acc-left">
+                  <span class="acc-color-dot" style="background:${c.color}"></span>
+                  <div>
+                    <span class="acc-code">${code}</span>
+                    <span class="acc-name">${c.name}</span>
+                  </div>
+                </div>
+                <span class="acc-arrow">▼</span>
+              </div>
+              <div class="accordion-content">
+                <a href="${d.lectures || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                  <span>📑 Lectures & Slides</span>
+                  <span>↗</span>
+                </a>
+                <a href="${d.sheets || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                  <span>📝 Sheets & Tutorials</span>
+                  <span>↗</span>
+                </a>
+                <a href="${d.exams || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                  <span>🎯 Past Exams & Quizzes</span>
+                  <span>↗</span>
+                </a>
+                ${d.hasLabs ? `
+                  <a href="${d.labs || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn">
+                    <span>🧪 Labs & Reports</span>
+                    <span>↗</span>
+                  </a>
+                ` : ''}
+                <a href="${d.folder || MAIN_SEMESTER_DRIVE}" target="_blank" rel="noopener noreferrer" class="drive-sub-btn" style="background:var(--accent-glow);color:var(--accent-light);border-color:var(--accent)">
+                  <span>📂 Open Full Subject Folder</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function toggleAccordion(id) {
+  const el = document.getElementById(`acc-${id}`);
+  if (el) el.classList.toggle("open");
 }
 
 // Active Assessments for Current Selected Section
@@ -1458,7 +1710,6 @@ function renderDailyAgenda() {
 
   let html = `<div class="timeline-wrap" id="swipeArea">`;
 
-  // Distinct Warning Banner for Quizzes & Deadlines with Details Trigger
   if (dayTasks.length > 0) {
     html += `
       <div class="day-assessment-banner">
@@ -1647,7 +1898,7 @@ function renderWeekMatrix() {
 
 function renderDaysBar() {
   const bar = document.getElementById("daysBar");
-  if (activeView === "week") {
+  if (activeView === "week" || activeView === "drive") {
     bar.style.display = "none";
     return;
   }
@@ -1698,6 +1949,11 @@ function handleSwipeGesture() {
 // Clickable Legend with Dimming Filter
 function renderLegend() {
   const legend = document.getElementById("legend");
+  if (activeView === "drive") {
+    legend.style.display = "none";
+    return;
+  }
+  legend.style.display = "flex";
   legend.innerHTML = `
     <span class="legend-hint">Filter Subject:</span>
     ${Object.entries(COURSES).map(([code, c]) => `
@@ -1714,7 +1970,7 @@ function toggleHighlight(code) {
   renderLegend();
   if (activeView === "week") {
     renderWeekMatrix();
-  } else {
+  } else if (activeView === "day") {
     renderDailyAgenda();
   }
 }
@@ -1722,15 +1978,33 @@ function toggleHighlight(code) {
 function render() {
   renderDaysBar();
   initAssessments();
-  if (activeView === "week") {
-    renderWeekMatrix();
-    document.getElementById("navWeekBtn").classList.add("active");
-    document.getElementById("navDayBtn").classList.remove("active");
+  renderLegend();
+
+  const controlBar = document.getElementById("scheduleControlBar");
+  const liveBox = document.getElementById("liveStatusBox");
+
+  document.getElementById("navWeekBtn").classList.remove("active");
+  document.getElementById("navDayBtn").classList.remove("active");
+  document.getElementById("navDriveBtn").classList.remove("active");
+
+  if (activeView === "drive") {
+    controlBar.style.display = "none";
+    liveBox.style.display = "none";
+    document.getElementById("navDriveBtn").classList.add("active");
+    renderDriveScreen();
   } else {
-    renderDailyAgenda();
-    document.getElementById("navDayBtn").classList.add("active");
-    document.getElementById("navWeekBtn").classList.remove("active");
+    controlBar.style.display = "flex";
+    liveBox.style.display = "flex";
+
+    if (activeView === "week") {
+      document.getElementById("navWeekBtn").classList.add("active");
+      renderWeekMatrix();
+    } else {
+      document.getElementById("navDayBtn").classList.add("active");
+      renderDailyAgenda();
+    }
   }
+
   updateLiveTracker();
   updateAcademicCalendarInfo();
 }
@@ -1852,7 +2126,6 @@ window.addEventListener('appinstalled', () => {
 initDeviceMode();
 initTheme();
 initNotifications();
-renderLegend();
 render();
 setInterval(updateLiveTracker, 60000);
 </script>
