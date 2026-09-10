@@ -1802,7 +1802,49 @@ function isAssessmentUpcoming(dateStr) {
   }
 }
 
-// فلترة الكويزات النشطة فقط والتي لم ينتهِ موعدها
+// دالة لجلب تاريخ اليوم المحدد في الأسبوع الحالي المعروض
+function getDisplayedDateForDay(dayName) {
+  const dayObj = DAYS.find(d => d.full === dayName);
+  if (!dayObj) return null;
+  
+  const today = new Date();
+  const currentDayOfWeek = today.getDay(); // 0 = Sunday
+  const sunday = new Date(today);
+  sunday.setDate(today.getDate() - currentDayOfWeek);
+  
+  const targetDate = new Date(sunday);
+  targetDate.setDate(sunday.getDate() + dayObj.dayIdx);
+  return targetDate;
+}
+
+// دالة فحص ما إذا كان الكويز يقع بالفعل في هذا الأسبوع المعروض
+function isAssessmentInCurrentWeek(aDateStr, dayName) {
+  if (!aDateStr) return false;
+  const displayedDate = getDisplayedDateForDay(dayName);
+  if (!displayedDate) return false;
+
+  try {
+    const now = new Date();
+    let targetDate;
+    if (aDateStr.includes('/')) {
+      const parts = aDateStr.split('/');
+      if (parts.length === 3) targetDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    } else {
+      const parsed = new Date(`${aDateStr} ${now.getFullYear()}`);
+      if (!isNaN(parsed.getTime())) targetDate = parsed;
+    }
+
+    if (!targetDate) return false;
+
+    // مطابقة اليوم والشهر مع الأسبوع المعروض حالياً
+    return targetDate.getDate() === displayedDate.getDate() && 
+           targetDate.getMonth() === displayedDate.getMonth();
+  } catch (e) {
+    return false;
+  }
+}
+
+// فلترة الكويزات النشطة للسكشن (التي لم تنتهِ صلاحيتها)
 function getActiveSectionAssessments() {
   return ASSESSMENTS.filter(a => {
     const matchesGroup = (a.group === "ALL" || a.group === activeGroup);
@@ -1811,8 +1853,11 @@ function getActiveSectionAssessments() {
   });
 }
 
+// التعديل: إظهار التحذير في الجدول وشريط الأيام فقط لو الكويز في نفس الأسبوع المعروض
 function getDayAssessments(dayName) {
-  return getActiveSectionAssessments().filter(a => a.day === dayName);
+  return getActiveSectionAssessments().filter(a => {
+    return a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName);
+  });
 }
 
 function initAssessments() {
