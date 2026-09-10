@@ -2531,7 +2531,11 @@ async function triggerPwaInstall() {
   triggerHaptic();
 
   if (isIos) {
-    showToast("اصحاب الآيفون متعبين كالعادة ومحتاجين معاملة خاصة 🍏🙄: دوس على زرار Share ⎋ تحت في سفاري واختار Add to Home Screen ➕ عشان ينزل تطبيق!", "📲");
+    const iosMsg = "بتوع الآيفون متعبين كالعادة ومحتاجين معاملة خاصة 🍏🙄:\n" +
+                   "١. اضغط زر المشاركة (Share) ⎋\n" +
+                   "٢. انزل واختار \u202AView More\u202C\n" +
+                   "٣. اضغط على \u202AAdd to Home Screen\u202C ➕";
+    showToast(iosMsg, "📲");
     return;
   }
 
