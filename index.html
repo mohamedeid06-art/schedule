@@ -1643,7 +1643,7 @@ function showToast(text, icon = "📍") {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
     box.classList.remove("show");
-  }, 3200);
+  }, 4500);
 }
 
 function showRoomDetails(roomCode) {
@@ -1853,7 +1853,7 @@ function getActiveSectionAssessments() {
   });
 }
 
-// التعديل: إظهار التحذير في الجدول وشريط الأيام فقط لو الكويز في نفس الأسبوع المعروض
+// إظهار التحذير في الجدول وشريط الأيام فقط لو الكويز في نفس الأسبوع المعروض
 function getDayAssessments(dayName) {
   return getActiveSectionAssessments().filter(a => {
     return a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName);
@@ -2510,8 +2510,16 @@ document.getElementById("printBtn").addEventListener("click", () => {
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
 
+// PWA Install Engine for Android & iOS
 let deferredPrompt;
 const topInstallBtn = document.getElementById('pwaTopInstallBtn');
+
+const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+
+if (isIos && !isInStandaloneMode && topInstallBtn) {
+  topInstallBtn.style.display = 'inline-flex';
+}
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
@@ -2521,6 +2529,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 async function triggerPwaInstall() {
   triggerHaptic();
+
+  if (isIos) {
+    showToast("اصحاب الآيفون متعبين كالعادة ومحتاجين معاملة خاصة 🍏🙄: دوس على زرار Share ⎋ تحت في سفاري واختار Add to Home Screen ➕ عشان ينزل تطبيق!", "📲");
+    return;
+  }
+
   if (deferredPrompt) {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
@@ -2528,6 +2542,8 @@ async function triggerPwaInstall() {
       if (topInstallBtn) topInstallBtn.style.display = 'none';
     }
     deferredPrompt = null;
+  } else {
+    showToast("لتثبيت التطبيق: افتح قائمة المتصفح واضغط Install أو Add to Home Screen 📲", "📲");
   }
 }
 
@@ -2537,6 +2553,11 @@ window.addEventListener('appinstalled', () => {
   if (topInstallBtn) topInstallBtn.style.display = 'none';
   deferredPrompt = null;
 });
+
+// Service Worker Registration for Offline Mode
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
 
 // Init
 initDeviceMode();
