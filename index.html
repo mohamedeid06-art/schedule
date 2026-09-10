@@ -1155,7 +1155,7 @@ body {
   margin-top: 4px;
 }
 
-/* Floating Glass Toast Notification (High Contrast Fix) */
+/* Floating Glass Toast Notification (High Contrast) */
 .floating-toast {
   position: fixed;
   bottom: 84px;
@@ -1504,6 +1504,13 @@ body {
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
+// Google Sheets Sync IDs
+const QUIZZES_SHEET_ID = "1vYP4V4CrjeTtZkYU7TPbTvIQ4TqJZ2BWvipBvT5j1B0";
+const ALERTS_SHEET_ID  = "1mearSta_QWzdR0EzGyU-o7EYipAFibOMrRIcqyL9f7E";
+
+const QUIZZES_CSV_URL = `https://docs.google.com/spreadsheets/d/${QUIZZES_SHEET_ID}/gviz/tq?tqx=out:csv`;
+const ALERTS_CSV_URL   = `https://docs.google.com/spreadsheets/d/${ALERTS_SHEET_ID}/gviz/tq?tqx=out:csv`;
+
 const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
 
 const DRIVE_DATA = {
@@ -1542,9 +1549,8 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
 
-const ASSESSMENTS = [];
-
-const NOTIFICATIONS = [
+let ASSESSMENTS = [];
+let NOTIFICATIONS = [
   {
     id: "ann-01",
     date: "8 Sep 2026",
@@ -1645,6 +1651,53 @@ function showRoomDetails(roomCode) {
   showToast(`${roomCode}: ${info}`, "🏛️");
 }
 
+// CSV Parser Engine
+function parseCSV(text) {
+  const lines = text.trim().split(/\r\n|\n/);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.replace(/^"(.*)"$/, '$1').trim());
+  return lines.slice(1).map(line => {
+    const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+    const row = {};
+    headers.forEach((h, i) => {
+      let val = values[i] || '';
+      val = val.replace(/^"(.*)"$/, '$1').replace(/""/g, '"').trim();
+      row[h] = val;
+    });
+    return row;
+  });
+}
+
+// Live Cloud Sync with Google Sheets
+async function syncFromGoogleSheets() {
+  try {
+    const [qRes, aRes] = await Promise.all([
+      fetch(QUIZZES_CSV_URL),
+      fetch(ALERTS_CSV_URL)
+    ]);
+
+    if (qRes.ok) {
+      const qText = await qRes.text();
+      const parsedQ = parseCSV(qText);
+      if (parsedQ.length > 0) ASSESSMENTS = parsedQ;
+    }
+
+    if (aRes.ok) {
+      const aText = await aRes.text();
+      const parsedA = parseCSV(aText);
+      if (parsedA.length > 0) NOTIFICATIONS = parsedA;
+    }
+
+    initNotifications();
+    initAssessments();
+    renderDaysBar();
+    if (activeView === 'week') renderWeekMatrix();
+    else if (activeView === 'day') renderDailyAgenda();
+  } catch (e) {
+    console.warn("Could not sync with Google Sheets (offline mode active).", e);
+  }
+}
+
 // In-App Drive View Screen
 function renderDriveScreen() {
   const container = document.getElementById("viewContainer");
@@ -1720,8 +1773,42 @@ function toggleAccordion(id) {
   if (el) el.classList.toggle("open");
 }
 
+// دالة التحقق من أن موعد الكويز أو التسليم لم ينتهِ بعد
+function isAssessmentUpcoming(dateStr) {
+  if (!dateStr) return true;
+  try {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+    let targetDate;
+    if (dateStr.includes('/')) {
+      const parts = dateStr.split('/');
+      if (parts.length === 3) {
+        targetDate = new Date(parts[2], parts[1] - 1, parts[0]);
+      }
+    } else {
+      const parsed = new Date(`${dateStr} ${now.getFullYear()}`);
+      if (!isNaN(parsed.getTime())) {
+        targetDate = parsed;
+      }
+    }
+
+    if (!targetDate || isNaN(targetDate.getTime())) return true;
+    
+    targetDate.setHours(23, 59, 59, 999);
+    return targetDate >= todayStart;
+  } catch (e) {
+    return true;
+  }
+}
+
+// فلترة الكويزات النشطة فقط والتي لم ينتهِ موعدها
 function getActiveSectionAssessments() {
-  return ASSESSMENTS.filter(a => a.group === "ALL" || a.group === activeGroup);
+  return ASSESSMENTS.filter(a => {
+    const matchesGroup = (a.group === "ALL" || a.group === activeGroup);
+    const isUpcoming = isAssessmentUpcoming(a.date);
+    return matchesGroup && isUpcoming;
+  });
 }
 
 function getDayAssessments(dayName) {
@@ -1747,7 +1834,7 @@ function initAssessments() {
       <div style="text-align:center;color:var(--text-muted);padding:32px 16px;">
         <div style="font-size:26px;margin-bottom:8px">📋</div>
         <div style="font-size:13.5px;font-weight:700;color:var(--text-main);margin-bottom:4px">No Upcoming Quizzes or Tasks</div>
-        <div style="font-size:11.5px">All clear! No deadlines or assessments currently scheduled for this section.</div>
+        <div style="font-size:11.5px">All clear! No upcoming deadlines or assessments scheduled for this section.</div>
       </div>`;
     return;
   }
@@ -1755,11 +1842,11 @@ function initAssessments() {
   container.innerHTML = activeList.map(a => `
     <div class="modal-item assessment-card">
       <div class="modal-top-row">
-        <span class="modal-tag quiz">${a.type.toUpperCase()}</span>
-        <span class="modal-date">${a.date}</span>
+        <span class="modal-tag quiz">${(a.type || 'TASK').toUpperCase()}</span>
+        <span class="modal-date">${a.date || ''}</span>
       </div>
-      <div class="modal-item-title">${a.code} — ${a.title}</div>
-      <div class="modal-item-body">${a.desc}</div>
+      <div class="modal-item-title">${a.code || ''} — ${a.title || ''}</div>
+      <div class="modal-item-body">${a.desc || ''}</div>
       ${a.location ? `<div class="modal-item-extra">📍 Location: ${a.location}</div>` : ''}
     </div>
   `).join("");
@@ -1792,11 +1879,11 @@ function initNotifications() {
   list.innerHTML = NOTIFICATIONS.map(n => `
     <div class="modal-item">
       <div class="modal-top-row">
-        <span class="modal-tag">${n.tag}</span>
-        <span class="modal-date">${n.date}</span>
+        <span class="modal-tag">${n.tag || 'Notice'}</span>
+        <span class="modal-date">${n.date || ''}</span>
       </div>
-      <div class="modal-item-title">${n.title}</div>
-      <div class="modal-item-body">${n.body}</div>
+      <div class="modal-item-title">${n.title || ''}</div>
+      <div class="modal-item-body">${n.body || ''}</div>
     </div>
   `).join("");
 }
@@ -2409,8 +2496,8 @@ window.addEventListener('appinstalled', () => {
 // Init
 initDeviceMode();
 initTheme();
-initNotifications();
 render();
+syncFromGoogleSheets();
 setInterval(updateLiveTracker, 60000);
 </script>
 </body>
