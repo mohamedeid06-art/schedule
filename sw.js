@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cufe-me1-v4';
+const CACHE_NAME = 'cufe-me1-v5';
 const ASSETS = [
   './',
   './index.html',
@@ -27,15 +27,14 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // تجاهل أي طلب مش GET أو مش http/https
-  if (e.request.method !== 'GET' || !e.request.url.startsWith('http')) {
+  // تجاهل أي طلب مش GET أو أي رابط خارجي مش تابع لنفس النطاق (زي Google Drive)
+  if (e.request.method !== 'GET' || !e.request.url.startsWith(self.location.origin)) {
     return;
   }
 
   e.respondWith(
     fetch(e.request)
       .then((networkResponse) => {
-        // لا يتم حفظ الاستجابة في الكاش إلا إذا كانت ناجحة وصالحة
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -45,13 +44,10 @@ self.addEventListener('fetch', (e) => {
         return networkResponse;
       })
       .catch(async () => {
-        // لو مفيش إنترنت، اسحب من الكاش
         const cachedResponse = await caches.match(e.request);
         if (cachedResponse) {
           return cachedResponse;
         }
-
-        // لو الصفحة الرئيسية مطلوبة، ارجع لـ index.html
         if (e.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
