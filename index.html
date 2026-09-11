@@ -20,11 +20,10 @@
 
 <style>
 :root {
-  /* Minimal Matte Slate & Ocean/Ice Palette */
   --bg: #0d141d;
   --surface: #141f2d;
   --surface-alt: #1b293b;
-  --surface-glass: rgba(20, 31, 45, 0.75);
+  --surface-glass: rgba(20, 31, 45, 0.85);
   --border: #23344a;
   --border-dark: #304764;
   --border-glow: rgba(43, 164, 204, 0.35);
@@ -53,7 +52,7 @@
   --bg: #eef5f8;
   --surface: #ffffff;
   --surface-alt: #deebf2;
-  --surface-glass: rgba(255, 255, 255, 0.85);
+  --surface-glass: rgba(255, 255, 255, 0.9);
   --border: #c2d7e3;
   --border-dark: #a5c3d3;
   --border-glow: rgba(25, 122, 156, 0.3);
@@ -838,155 +837,192 @@ body {
   color: var(--text-subtle);
 }
 
-/* Dedicated In-App Drive View */
-.drive-view-container {
+/* ==========================================================
+   PRO ACADEMIC VAULT (DRIVE HUB) STYLING 
+   ================================================---------- */
+.vault-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.vault-hero {
+  background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, rgba(20, 31, 45, 0.9) 100%);
+  border: 1px solid var(--border-glow);
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-.drive-header-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
+
+.vault-hero-top {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  align-items: center;
+  justify-content: space-between;
 }
-.drive-header-title {
-  font-size: 16px;
+
+.vault-title {
+  font-size: 18px;
   font-weight: 800;
   color: var(--text-main);
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.drive-header-desc {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-.drive-btn-action {
-  cursor: pointer;
-  user-select: none;
-}
-.drive-main-link-btn {
+
+.vault-search-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: var(--accent-glow);
-  border: 1px solid var(--accent);
-  color: var(--accent-light);
+  gap: 10px;
+  color: var(--text-main);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.vault-search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-size: 13px;
+  width: 100%;
+  font-family: inherit;
+}
+.vault-search-box input::placeholder {
+  color: var(--text-subtle);
+}
+
+.vault-main-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 420px) {
+  .vault-main-links { grid-template-columns: 1fr; }
+}
+
+.vault-btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
   padding: 12px 14px;
   border-radius: 10px;
   font-size: 12.5px;
   font-weight: 700;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(43, 164, 204, 0.15);
-}
-.drive-main-link-btn:hover {
-  background: rgba(43, 164, 204, 0.35);
-  transform: translateY(-1px);
-}
-.drive-archive-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(43, 164, 204, 0.25);
+}
+.vault-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.vault-btn-archive {
   background: var(--surface-alt);
-  border: 1px solid var(--border);
   color: var(--text-muted);
-  padding: 10px 14px;
+  border: 1px solid var(--border);
+  padding: 12px 14px;
   border-radius: 10px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
   transition: all 0.2s ease;
 }
-.drive-archive-btn:hover {
+.vault-btn-archive:hover {
   border-color: var(--accent);
   color: var(--text-main);
   transform: translateY(-1px);
 }
-.course-accordion {
+
+/* Course Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .courses-grid { grid-template-columns: 1fr; }
+}
+
+.course-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-}
-.course-accordion.open {
-  border-color: var(--accent);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-}
-.accordion-header {
-  padding: 14px;
+  border-radius: 14px;
+  padding: 16px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  user-select: none;
-}
-.acc-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.acc-color-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-}
-.acc-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-main);
-}
-.acc-name {
-  font-size: 11.5px;
-  color: var(--text-muted);
-  display: block;
-  margin-top: 1px;
-}
-.acc-arrow {
-  font-size: 11px;
-  color: var(--text-muted);
-  transition: transform 0.2s ease;
-}
-.course-accordion.open .acc-arrow {
-  transform: rotate(180deg);
-}
-.accordion-content {
-  padding: 0 14px 14px;
-  display: none;
   flex-direction: column;
-  gap: 8px;
-  border-top: 1px dashed var(--border);
-  margin-top: 2px;
-  padding-top: 12px;
+  gap: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 12px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
 }
-.course-accordion.open .accordion-content {
-  display: flex;
+.course-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
 }
-.drive-sub-btn {
+.course-card-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 8px;
+}
+.course-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--c);
+}
+.course-name {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* Category Icon Grid */
+.category-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 4px;
+}
+.cat-icon-btn {
   background: var(--surface-alt);
   border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  transition: all 0.15s ease;
+  border-radius: 9px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
   cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
 }
-.drive-sub-btn:hover {
+.cat-icon-btn span.emoji { font-size: 15px; }
+.cat-icon-btn:hover {
+  background: var(--surface);
   border-color: var(--accent);
   color: var(--accent-light);
-  background: var(--surface);
   transform: translateY(-1px);
 }
 
@@ -1392,7 +1428,7 @@ body {
 <div class="container" id="mainContainer">
 
   <!-- Header -->
-  <header class="masthead">
+  <header class="masthead" id="mainHeader">
     <div>
       <div class="uni-title">Cairo University · Faculty of Engineering</div>
       <div class="faculty-title">Department of Mechanical Engineering</div>
@@ -1550,12 +1586,12 @@ function openSafeDriveLink(url) {
 }
 
 const DRIVE_DATA = {
-  "MTH G102": { hasLabs: false, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "EMC G101": { hasLabs: false, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "MDP G111": { hasLabs: true, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
-  "MDP G121": { hasLabs: true, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
-  "EPE G113": { hasLabs: true, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
-  "GEN G119": { hasLabs: false, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
+  "MTH G102": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "EMC G101": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "MDP G111": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
+  "MDP G121": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
+  "EPE G113": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
+  "GEN G119": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
 const ROOM_INFO = {
@@ -1738,76 +1774,84 @@ async function syncFromGoogleSheets() {
   }
 }
 
-// In-App Drive View Screen
+// Professional Pro Academic Vault (Drive View Screen with Grid Cards & Search)
 function renderDriveScreen() {
   const container = document.getElementById("viewContainer");
+  const searchQuery = window._driveSearchQuery || "";
+
+  const filteredCourses = Object.entries(COURSES).filter(([code, c]) => {
+    return code.toLowerCase().includes(searchQuery.toLowerCase()) || 
+           c.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   container.innerHTML = `
-    <div class="drive-view-container cascade-item">
-      <div class="drive-header-card">
-        <div class="drive-header-title">
-          <span>📂</span>
-          <span>Course Materials & Drive</span>
-        </div>
-        <div class="drive-header-desc">
-          Official academic resources for Batch 30, with access to previous year archives.
+    <div class="vault-container">
+      <div class="vault-hero">
+        <div class="vault-hero-top">
+          <div class="vault-title">
+            <span>📂</span>
+            <span>Academic Vault</span>
+          </div>
+          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
         </div>
         
-        <!-- Batch 30 Main Drive Button -->
-        <div class="drive-main-link-btn drive-btn-action" onclick="openSafeDriveLink('${MAIN_SEMESTER_DRIVE}')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span>📁</span>
-            <span>Batch 30 Main Google Drive</span>
-          </div>
-          <span>↗</span>
+        <div class="vault-search-box">
+          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="driveSearchInput" placeholder="Search subject code or name..." value="${searchQuery}" oninput="handleDriveSearch(this.value)">
         </div>
 
-        <!-- Batch 29 Archive Drive Button -->
-        <div class="drive-archive-btn drive-btn-action" onclick="openSafeDriveLink('${ARCHIVE_BATCH29_DRIVE}')">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span>🗄️</span>
-            <span>Batch 29 Archive Drive (Previous Year)</span>
+        <div class="vault-main-links">
+          <div class="vault-btn-primary drive-btn-action" onclick="openSafeDriveLink('${MAIN_SEMESTER_DRIVE}')">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span>📁</span>
+              <span>Batch 30 Drive</span>
+            </div>
+            <span>↗</span>
           </div>
-          <span>↗</span>
+
+          <div class="vault-btn-archive drive-btn-action" onclick="openSafeDriveLink('${ARCHIVE_BATCH29_DRIVE}')">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span>🗄️</span>
+              <span>Batch 29 Archive</span>
+            </div>
+            <span>↗</span>
+          </div>
         </div>
       </div>
 
-      <div style="display:flex;flex-direction:column;gap:10px">
-        ${Object.entries(COURSES).map(([code, c], idx) => {
-          const d = DRIVE_DATA[code] || { hasLabs: false, folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
+      <div class="courses-grid" id="coursesGridContainer">
+        ${filteredCourses.length === 0 ? `
+          <div style="grid-column: span 2; text-align:center; padding:32px; color:var(--text-muted);">
+            No matching subjects found.
+          </div>
+        ` : filteredCourses.map(([code, c], idx) => {
+          const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
           return `
-            <div class="course-accordion cascade-item" style="animation-delay: ${idx * 0.05}s" id="acc-${code.replace(/\s+/g, '')}">
-              <div class="accordion-header" onclick="toggleAccordion('${code.replace(/\s+/g, '')}')">
-                <div class="acc-left">
-                  <span class="acc-color-dot" style="background:${c.color}"></span>
-                  <div>
-                    <span class="acc-code">${code}</span>
-                    <span class="acc-name">${c.name}</span>
-                  </div>
+            <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
+              <div class="course-card-top">
+                <div>
+                  <div class="course-code">${code}</div>
+                  <div class="course-name">${c.name}</div>
                 </div>
-                <span class="acc-arrow">▼</span>
+                <span style="width:10px;height:10px;border-radius:3px;background:${c.color};flex-shrink:0;"></span>
               </div>
-              <div class="accordion-content">
-                <div class="drive-sub-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')">
-                  <span>📑 Lectures & Slides</span>
-                  <span>↗</span>
+
+              <div class="category-icons-grid">
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')" title="Lectures & Slides">
+                  <span class="emoji">📑</span>
+                  <span>Slides</span>
                 </div>
-                <div class="drive-sub-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')">
-                  <span>📝 Sheets & Tutorials</span>
-                  <span>↗</span>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')" title="Sheets & Tutorials">
+                  <span class="emoji">📝</span>
+                  <span>Sheets</span>
                 </div>
-                <div class="drive-sub-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')">
-                  <span>🎯 Past Exams & Quizzes</span>
-                  <span>↗</span>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')" title="Past Exams">
+                  <span class="emoji">🎯</span>
+                  <span>Exams</span>
                 </div>
-                ${d.hasLabs ? `
-                  <div class="drive-sub-btn" onclick="openSafeDriveLink('${d.labs || MAIN_SEMESTER_DRIVE}')">
-                    <span>🧪 Labs & Reports</span>
-                    <span>↗</span>
-                  </div>
-                ` : ''}
-                <div class="drive-sub-btn" style="background:var(--accent-glow);color:var(--accent-light);border-color:var(--accent)" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')">
-                  <span>📂 Open Subject Drive Folder</span>
-                  <span>↗</span>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')" title="Open Folder">
+                  <span class="emoji">📂</span>
+                  <span>Folder</span>
                 </div>
               </div>
             </div>
@@ -1818,10 +1862,54 @@ function renderDriveScreen() {
   `;
 }
 
-function toggleAccordion(id) {
-  triggerHaptic();
-  const el = document.getElementById(`acc-${id}`);
-  if (el) el.classList.toggle("open");
+function handleDriveSearch(val) {
+  window._driveSearchQuery = val;
+  const gridContainer = document.getElementById("coursesGridContainer");
+  if (!gridContainer) return;
+  
+  const filteredCourses = Object.entries(COURSES).filter(([code, c]) => {
+    return code.toLowerCase().includes(val.toLowerCase()) || 
+           c.name.toLowerCase().includes(val.toLowerCase());
+  });
+
+  if (filteredCourses.length === 0) {
+    gridContainer.innerHTML = `<div style="grid-column: span 2; text-align:center; padding:32px; color:var(--text-muted);">No matching subjects found.</div>`;
+    return;
+  }
+
+  gridContainer.innerHTML = filteredCourses.map(([code, c], idx) => {
+    const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
+    return `
+      <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
+        <div class="course-card-top">
+          <div>
+            <div class="course-code">${code}</div>
+            <div class="course-name">${c.name}</div>
+          </div>
+          <span style="width:10px;height:10px;border-radius:3px;background:${c.color};flex-shrink:0;"></span>
+        </div>
+
+        <div class="category-icons-grid">
+          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')" title="Lectures & Slides">
+            <span class="emoji">📑</span>
+            <span>Slides</span>
+          </div>
+          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')" title="Sheets & Tutorials">
+            <span class="emoji">📝</span>
+            <span>Sheets</span>
+          </div>
+          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')" title="Past Exams">
+            <span class="emoji">🎯</span>
+            <span>Exams</span>
+          </div>
+          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')" title="Open Folder">
+            <span class="emoji">📂</span>
+            <span>Folder</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
 }
 
 // دالة التحقق من أن موعد الكويز أو التسليم لم ينتهِ بعد
@@ -2444,6 +2532,7 @@ function render() {
 
   const controlBar = document.getElementById("scheduleControlBar");
   const liveBox = document.getElementById("liveStatusBox");
+  const mainHeader = document.getElementById("mainHeader");
 
   document.getElementById("navWeekBtn").classList.remove("active");
   document.getElementById("navDayBtn").classList.remove("active");
@@ -2452,11 +2541,13 @@ function render() {
   if (activeView === "drive") {
     controlBar.style.display = "none";
     liveBox.style.display = "none";
+    if (mainHeader) mainHeader.style.display = "none"; // إخفاء الهيدر القديم بالكامل في تاب الدرايف
     document.getElementById("navDriveBtn").classList.add("active");
     renderDriveScreen();
   } else {
     controlBar.style.display = "flex";
     liveBox.style.display = "flex";
+    if (mainHeader) mainHeader.style.display = "flex"; // إظهار الهيدر في الجدول العادي
 
     if (activeView === "week") {
       document.getElementById("navWeekBtn").classList.add("active");
@@ -2592,7 +2683,7 @@ async function triggerPwaInstall() {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
-      if (topInstallBtn) topInstallBtn.style.display = 'none';
+      if (topInstallBtn) topInstallBtn.style.display : 'none';
     }
     deferredPrompt = null;
   } else {
