@@ -15,7 +15,7 @@
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -265,75 +265,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Up Next Hero Card */
-.hero-card {
-  background: linear-gradient(135deg, rgba(43, 164, 204, 0.12) 0%, rgba(20, 31, 45, 0.85) 100%);
-  border: 1px solid var(--border-glow);
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
-  position: relative;
-  overflow: hidden;
-}
-.hero-card::after {
-  content: '';
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.hero-pill {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: var(--accent-glow);
-  color: var(--accent-light);
-  border: 1px solid var(--accent);
-  padding: 2px 7px;
-  border-radius: 6px;
-}
-.hero-timer {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-}
-.hero-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--text-main);
-  line-height: 1.3;
-}
-.hero-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 10px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.hero-room-badge {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent-light);
-  cursor: pointer;
-}
-
 /* Control Bar */
 .control-bar {
   display: flex;
@@ -396,297 +327,22 @@ body {
   align-items: center;
   gap: 2px;
 }
-.day-btn .day-name {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-.day-btn .day-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--text-main);
-}
-.day-btn .today-tag {
-  font-size: 8px;
-  font-weight: 800;
-  color: var(--accent-light);
-}
-.day-btn.has-quiz {
-  border: 1px solid var(--quiz-color);
-  background: var(--quiz-glow);
-}
-.day-btn.has-quiz .quiz-badge-dot {
-  font-size: 8px;
-  font-weight: 800;
-  color: var(--quiz-color);
-}
-.day-btn.active {
-  background: var(--surface);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
-}
-.day-btn.active .day-name {
-  color: var(--accent-light);
-}
-.day-btn.active .day-num {
-  color: var(--accent-light);
-}
+.day-btn .day-name { font-size: 10.5px; font-weight: 700; color: var(--text-muted); }
+.day-btn .day-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 800; color: var(--text-main); }
+.day-btn .today-tag { font-size: 8px; font-weight: 800; color: var(--accent-light); }
+.day-btn.has-quiz { border: 1px solid var(--quiz-color); background: var(--quiz-glow); }
+.day-btn.has-quiz .quiz-badge-dot { font-size: 8px; font-weight: 800; color: var(--quiz-color); }
+.day-btn.active { background: var(--surface); box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); }
+.day-btn.active .day-name, .day-btn.active .day-num { color: var(--accent-light); }
 
-/* Alert Banner */
-.day-assessment-banner {
-  background: var(--quiz-glow);
-  border: 1px solid var(--quiz-color);
-  border-radius: 10px;
-  padding: 10px 14px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--text-main);
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
-}
-.day-assessment-banner strong {
-  color: var(--quiz-color);
-}
-.details-btn {
-  background: var(--quiz-color);
-  color: #fff;
-  border: none;
-  padding: 5px 12px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: opacity 0.15s ease;
-}
-.details-btn:hover {
-  opacity: 0.9;
-}
-
-/* Staggered Cascade Entry Animation */
+/* Staggered Animation */
 @keyframes cardCascade {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.cascade-item {
-  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+.cascade-item { animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-/* Dimming & Highlighting */
-.grid-card.dimmed, .timeline-card.dimmed {
-  opacity: 0.15 !important;
-  filter: grayscale(80%);
-}
-.grid-card.highlighted, .timeline-card.highlighted {
-  box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.45) !important;
-  transform: scale(1.02);
-  z-index: 5;
-}
-
-/* Timeline Layout */
-.timeline-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  touch-action: pan-y;
-  position: relative;
-}
-.timeline-item {
-  display: flex;
-  gap: 12px;
-  position: relative;
-}
-.time-col {
-  width: 80px;
-  flex-shrink: 0;
-  text-align: right;
-  padding-top: 2px;
-}
-.time-start {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-main);
-}
-.time-end {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-.time-dur {
-  display: inline-block;
-  font-size: 9px;
-  font-weight: 600;
-  background: var(--surface-alt);
-  color: var(--text-muted);
-  padding: 1px 5px;
-  border-radius: 4px;
-  margin-top: 4px;
-}
-.rail {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.rail-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  border: 2.5px solid var(--c);
-  background: var(--surface);
-  z-index: 2;
-  margin-top: 4px;
-}
-.rail-line {
-  position: absolute;
-  top: 16px;
-  bottom: -20px;
-  width: 2px;
-  background: var(--border);
-}
-.timeline-item:last-child .rail-line { display: none; }
-
-/* Current Time Indicator Line */
-.current-time-line {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 4px 0;
-  z-index: 10;
-}
-.time-line-tag {
-  width: 80px;
-  text-align: right;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 800;
-  color: #ef4444;
-}
-.time-line-indicator {
-  flex: 1;
-  height: 2px;
-  background: #ef4444;
-  position: relative;
-  border-radius: 2px;
-}
-.time-line-indicator::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: -3px;
-  width: 8px;
-  height: 8px;
-  background: #ef4444;
-  border-radius: 50%;
-  box-shadow: 0 0 6px #ef4444;
-}
-
-/* Polished Card Layout */
-.timeline-card {
-  flex: 1;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 3px 8px rgba(0,0,0,0.18);
-  border-radius: 12px;
-  padding: 13px 15px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-.timeline-card:hover {
-  transform: translateY(-1px);
-}
-.timeline-card.is-live {
-  border-color: #10b981;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 0 18px rgba(16, 185, 129, 0.25);
-}
-.timeline-card.has-task-border {
-  border-color: var(--quiz-color);
-}
-.card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-.card-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--c);
-}
-.badge {
-  font-size: 9px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 5px;
-}
-.badge-type { background: var(--surface-alt); color: var(--text-muted); }
-.badge-all { background: rgba(43, 164, 204, 0.18); color: var(--accent-light); }
-.badge-live { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-.badge-task { background: var(--quiz-color); color: #ffffff; cursor: pointer; }
-
-.card-title {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.35;
-  margin-bottom: 10px;
-}
-.card-room-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  color: var(--accent-light);
-  padding: 4px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-.card-room-pill:hover {
-  border-color: var(--accent);
-  background: var(--surface);
-  transform: translateY(-1px);
-}
-
-.break-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: -4px 0;
-}
-.break-spacer { width: 80px; flex-shrink: 0; }
-.break-card {
-  flex: 1;
-  border: 1px dashed var(--border);
-  background: var(--surface-alt);
-  border-radius: 8px;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-/* Full Week Grid Matrix */
+/* Grid Matrix */
 .matrix-wrapper {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -694,10 +350,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0,0,0,0.2);
 }
-.matrix-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
+.matrix-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .matrix-grid {
   display: grid;
   grid-template-columns: 80px repeat(5, minmax(170px, 1fr));
@@ -716,35 +369,11 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-.matrix-head.corner {
-  justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-}
-.matrix-head.is-today {
-  background: var(--accent-glow);
-  color: var(--accent-light);
-}
-.matrix-head.has-quiz-day {
-  border-top: 3px solid var(--quiz-color);
-}
-.matrix-head .today-pill {
-  font-size: 8px;
-  font-weight: 800;
-  padding: 1px 4px;
-  border-radius: 3px;
-  background: var(--accent);
-  color: #fff;
-}
-.matrix-head .quiz-pill {
-  font-size: 8px;
-  font-weight: 800;
-  padding: 1px 4px;
-  border-radius: 3px;
-  background: var(--quiz-color);
-  color: #fff;
-}
+.matrix-head.corner { justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); }
+.matrix-head.is-today { background: var(--accent-glow); color: var(--accent-light); }
+.matrix-head.has-quiz-day { border-top: 3px solid var(--quiz-color); }
+.matrix-head .today-pill { font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px; background: var(--accent); color: #fff; }
+.matrix-head .quiz-pill { font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px; background: var(--quiz-color); color: #fff; }
 .matrix-time {
   background: var(--surface-alt);
   border-bottom: 1px solid var(--border);
@@ -757,13 +386,7 @@ body {
   font-weight: 600;
   color: var(--text-muted);
 }
-.matrix-cell {
-  border-bottom: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  padding: 4px;
-  display: flex;
-  flex-direction: column;
-}
+.matrix-cell { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 4px; display: flex; flex-direction: column; }
 .grid-card {
   height: 100%;
   border-radius: 7px;
@@ -776,75 +399,115 @@ body {
   transition: all 0.15s ease;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
-.grid-card.has-task {
-  border-color: var(--quiz-color);
-}
-.grid-card .code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--text-main);
-}
-.grid-card .type {
-  font-size: 8.5px;
-  font-weight: 700;
-  padding: 1px 4px;
-  border-radius: 3px;
-  background: var(--surface-alt);
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-.grid-card .type.all {
-  background: rgba(43, 164, 204, 0.18);
-  color: var(--accent-light);
-}
-.grid-card .type.quiz-tag {
-  background: var(--quiz-color);
-  color: #fff;
-  cursor: pointer;
-}
-.grid-card .title {
-  font-size: 10.5px;
-  color: var(--text-muted);
-  margin-top: 2px;
-  line-height: 1.25;
-}
-.grid-card .footer {
-  margin-top: auto;
-  padding-top: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  color: var(--text-muted);
-  border-top: 1px dashed var(--border);
-}
-.room-badge {
-  background: var(--surface-alt);
-  padding: 1px 5px;
-  border-radius: 4px;
-  color: var(--text-main);
-  font-weight: 600;
-  cursor: pointer;
-}
-.cell-empty {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color: var(--text-subtle);
-}
+.grid-card .code { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700; color: var(--text-main); }
+.grid-card .type { font-size: 8.5px; font-weight: 700; padding: 1px 4px; border-radius: 3px; background: var(--surface-alt); color: var(--text-muted); text-transform: uppercase; }
+.grid-card .type.all { background: rgba(43, 164, 204, 0.18); color: var(--accent-light); }
+.grid-card .title { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.25; }
+.grid-card .footer { margin-top: auto; padding-top: 4px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); border-top: 1px dashed var(--border); }
+.room-badge { background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; color: var(--text-main); font-weight: 600; cursor: pointer; }
+.cell-empty { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-subtle); }
 
-/* Pro Academic Vault (Drive Hub) */
-.vault-container {
+/* Daily Timeline */
+.timeline-wrap { display: flex; flex-direction: column; gap: 14px; position: relative; }
+.timeline-item { display: flex; gap: 12px; position: relative; }
+.time-col { width: 80px; flex-shrink: 0; text-align: right; padding-top: 2px; }
+.time-start { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--text-main); }
+.time-end { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+.time-dur { display: inline-block; font-size: 9px; font-weight: 600; background: var(--surface-alt); color: var(--text-muted); padding: 1px 5px; border-radius: 4px; margin-top: 4px; }
+.rail { position: relative; display: flex; flex-direction: column; align-items: center; }
+.rail-dot { width: 11px; height: 11px; border-radius: 50%; border: 2.5px solid var(--c); background: var(--surface); z-index: 2; margin-top: 4px; }
+.rail-line { position: absolute; top: 16px; bottom: -20px; width: 2px; background: var(--border); }
+.timeline-item:last-child .rail-line { display: none; }
+.timeline-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; position: relative; }
+.card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+.card-title { font-size: 13.5px; font-weight: 700; color: var(--text-main); line-height: 1.35; margin-bottom: 10px; }
+.card-room-pill { display: inline-flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; background: var(--surface-alt); border: 1px solid var(--border); color: var(--accent-light); padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+
+/* ==========================================================
+   WEEKLY GUIDE SPECIFIC STYLING
+   ================================================---------- */
+.guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.guide-hero {
+  background: linear-gradient(135deg, rgba(43, 164, 204, 0.18) 0%, rgba(20, 31, 45, 0.9) 100%);
+  border: 1px solid var(--border-glow);
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  gap: 12px;
+}
+.guide-hero-top { display: flex; align-items: center; justify-content: space-between; }
+.guide-title { font-size: 17px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+
+/* Week Selector Strip */
+.week-tabs-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.week-tab-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.week-tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(43, 164, 204, 0.3);
 }
 
+/* Guide Subject Cards */
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--c);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+.guide-card-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.guide-code { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 800; color: var(--c); }
+.guide-name { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+.guide-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  background: var(--surface-alt);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.guide-label { font-weight: 700; color: var(--accent-light); min-width: 85px; flex-shrink: 0; }
+.guide-val { color: var(--text-main); line-height: 1.4; }
+
+.guide-summary-btn {
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.guide-summary-btn:hover { background: rgba(43, 164, 204, 0.3); transform: translateY(-1px); }
+
+/* Vault (Drive) Hub Styling */
+.vault-container { display: flex; flex-direction: column; gap: 16px; animation: cardCascade 0.3s forwards; }
 .vault-hero {
   background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, rgba(20, 31, 45, 0.9) 100%);
   border: 1px solid var(--border-glow);
@@ -853,24 +516,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-
-.vault-hero-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.vault-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.vault-hero-top { display: flex; align-items: center; justify-content: space-between; }
+.vault-title { font-size: 18px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
 .vault-search-box {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -879,32 +527,10 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--text-main);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
-
-.vault-search-box input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text-main);
-  font-size: 13px;
-  width: 100%;
-  font-family: inherit;
-}
-.vault-search-box input::placeholder {
-  color: var(--text-subtle);
-}
-
-.vault-main-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-@media (max-width: 420px) {
-  .vault-main-links { grid-template-columns: 1fr; }
-}
-
+.vault-search-box input { background: transparent; border: none; outline: none; color: var(--text-main); font-size: 13px; width: 100%; font-family: inherit; }
+.vault-main-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 420px) { .vault-main-links { grid-template-columns: 1fr; } }
 .vault-btn-primary {
   background: var(--accent);
   color: #fff;
@@ -917,12 +543,7 @@ body {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(43, 164, 204, 0.25);
 }
-.vault-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-
 .vault-btn-archive {
   background: var(--surface-alt);
   color: var(--text-muted);
@@ -935,24 +556,9 @@ body {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
 }
-.vault-btn-archive:hover {
-  border-color: var(--accent);
-  color: var(--text-main);
-  transform: translateY(-1px);
-}
-
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-@media (max-width: 600px) {
-  .courses-grid { grid-template-columns: 1fr; }
-}
-
+.courses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 600px) { .courses-grid { grid-template-columns: 1fr; } }
 .course-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -961,42 +567,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 4px 12px rgba(0,0,0,0.15);
-  position: relative;
-  overflow: hidden;
 }
-.course-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-.course-card-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
-}
-.course-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--c);
-}
-.course-name {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 600;
-  line-height: 1.35;
-  margin-top: 2px;
-}
-
-.category-icons-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  margin-top: 4px;
-}
+.category-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .cat-icon-btn {
   background: var(--surface-alt);
   border: 1px solid var(--border);
@@ -1008,18 +580,8 @@ body {
   gap: 4px;
   color: var(--text-muted);
   cursor: pointer;
-  transition: all 0.15s ease;
-  text-decoration: none;
   font-size: 9px;
   font-weight: 700;
-  text-align: center;
-}
-.cat-icon-btn span.emoji { font-size: 15px; }
-.cat-icon-btn:hover {
-  background: var(--surface);
-  border-color: var(--accent);
-  color: var(--accent-light);
-  transform: translateY(-1px);
 }
 
 /* Floating Glass Bottom Nav */
@@ -1039,14 +601,10 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
   z-index: 900;
 }
-[data-theme="light"] .bottom-nav {
-  background: rgba(255, 255, 255, 0.88);
-  border-color: var(--border);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-}
+[data-theme="light"] .bottom-nav { background: rgba(255, 255, 255, 0.88); border-color: var(--border); }
 .nav-item {
   border: none;
   background: transparent;
@@ -1054,161 +612,18 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  padding: 6px 10px;
+  padding: 6px 8px;
   color: var(--text-muted);
   cursor: pointer;
   border-radius: 12px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   position: relative;
-  text-decoration: none;
 }
-.nav-item svg { width: 18px; height: 18px; fill: currentColor; }
-.nav-item span { font-size: 10px; font-weight: 700; }
-.nav-item.active {
-  color: var(--accent-light);
-  transform: translateY(-2px);
-}
-.nav-notif-dot {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  width: 7px;
-  height: 7px;
-  background: #ef4444;
-  border-radius: 50%;
-  display: none;
-}
-.nav-notif-dot.active {
-  display: block;
-  box-shadow: 0 0 6px #ef4444;
-}
-.nav-task-badge {
-  position: absolute;
-  top: 4px;
-  right: 8px;
-  background: var(--quiz-color);
-  color: #fff;
-  font-size: 8px;
-  font-weight: 800;
-  padding: 1px 4px;
-  border-radius: 9999px;
-  display: none;
-}
-.nav-task-badge.active {
-  display: block;
-}
+.nav-item svg { width: 17px; height: 17px; fill: currentColor; }
+.nav-item span { font-size: 9.5px; font-weight: 700; }
+.nav-item.active { color: var(--accent-light); transform: translateY(-2px); }
 
-/* Modals */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(13, 20, 29, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.modal-overlay.open { opacity: 1; pointer-events: auto; }
-.modal-card {
-  background: var(--surface);
-  border: 1px solid var(--border-dark);
-  border-radius: 16px;
-  width: 100%;
-  max-width: 480px;
-  max-height: 82vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 24px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
-}
-.modal-head {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.modal-title {
-  font-size: 13.5px;
-  font-weight: 800;
-  color: var(--accent-light);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.modal-close {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 22px;
-  padding: 2px 6px;
-}
-.modal-body {
-  padding: 14px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.modal-item {
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.modal-item.assessment-card {
-  border-left: 4px solid var(--quiz-color);
-}
-.modal-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.modal-tag {
-  font-size: 9.5px;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--accent-glow);
-  color: var(--accent-light);
-}
-.modal-tag.quiz {
-  background: var(--quiz-glow);
-  color: var(--quiz-color);
-}
-.modal-date {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-}
-.modal-item-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-main);
-}
-.modal-item-body {
-  font-size: 11.5px;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-.modal-item-extra {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  color: var(--accent-light);
-  margin-top: 4px;
-}
-
-/* Floating Glass Toast Notification */
+/* Toast */
 .floating-toast {
   position: fixed;
   bottom: 84px;
@@ -1225,7 +640,7 @@ body {
   z-index: 2000;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
   display: block;
   text-align: right;
   direction: rtl;
@@ -1233,41 +648,34 @@ body {
   line-height: 1.65;
   width: max-content;
   max-width: 88vw;
-  box-sizing: border-box;
 }
-.floating-toast #toastIcon { display: none !important; }
-.floating-toast #toastText { color: #ffffff !important; display: block; }
 .floating-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+
+/* Modals */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.75);
+  backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal-card {
+  background: var(--surface); border: 1px solid var(--border-dark); border-radius: 16px;
+  width: 100%; max-width: 480px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden;
+}
+.modal-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: 13.5px; font-weight: 800; color: var(--accent-light); }
+.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 22px; }
+.modal-body { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.modal-item { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
 
 /* Legend */
 .legend {
-  margin-top: 18px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  align-items: center;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  margin-top: 18px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
 }
 .legend-hint { font-size: 11px; font-weight: 700; color: var(--accent-light); margin-right: 4px; }
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-.legend-item:hover { background: var(--surface-alt); color: var(--text-main); }
-.legend-item.active { background: var(--surface-alt); border-color: var(--accent); color: var(--accent-light); font-weight: 800; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-muted); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+.legend-item.active { background: var(--surface-alt); color: var(--accent-light); font-weight: 800; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
 @media print {
@@ -1298,32 +706,16 @@ body {
       </div>
     </div>
 
-    <!-- Actions Bar -->
     <div class="top-actions">
-      <button class="action-btn install-btn" id="pwaTopInstallBtn" title="Install Application">
-        <span>📲 Install</span>
-      </button>
-
-      <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)">
-        <span id="deviceModeIcon">💻</span>
-        <span id="deviceModeText">PC View</span>
-      </button>
-
-      <button class="action-btn icon-only" id="calendarBtn" title="Download .ics Calendar">
-        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg>
-      </button>
-      
-      <button class="action-btn icon-only" id="printBtn" title="Print Schedule">
-        <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-      </button>
-      
-      <button class="action-btn icon-only" id="themeBtn" title="Theme Mode">
-        <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-      </button>
+      <button class="action-btn install-btn" id="pwaTopInstallBtn" title="Install Application"><span>📲 Install</span></button>
+      <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)"><span id="deviceModeIcon">💻</span><span id="deviceModeText">PC View</span></button>
+      <button class="action-btn icon-only" id="calendarBtn" title="Download .ics Calendar"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg></button>
+      <button class="action-btn icon-only" id="printBtn" title="Print Schedule"><svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg></button>
+      <button class="action-btn icon-only" id="themeBtn" title="Theme Mode"><svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg></button>
     </div>
   </header>
 
-  <!-- Dynamic Island Capsule -->
+  <!-- Live Status Capsule -->
   <div class="live-status-capsule" id="liveStatusBox">
     <div class="live-left">
       <span class="live-indicator" id="liveDot"></span>
@@ -1356,7 +748,7 @@ body {
 
 </div>
 
-<!-- Floating Glass Bottom Nav -->
+<!-- Bottom Navigation Bar with Guide Tab -->
 <nav class="bottom-nav">
   <button class="nav-item" id="navDayBtn" onclick="setView('day')">
     <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
@@ -1365,7 +757,12 @@ body {
 
   <button class="nav-item active" id="navWeekBtn" onclick="setView('week')">
     <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
-    <span>Full Week</span>
+    <span>Schedule</span>
+  </button>
+
+  <button class="nav-item" id="navGuideBtn" onclick="setView('guide')">
+    <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+    <span>Guide</span>
   </button>
 
   <button class="nav-item" id="navDriveBtn" onclick="setView('drive')">
@@ -1374,13 +771,13 @@ body {
   </button>
 
   <button class="nav-item" id="navTaskBtn" onclick="openAssessmentModal()">
-    <span class="nav-task-badge" id="navTaskBadge">0</span>
+    <span class="nav-task-badge" id="navTaskBadge" style="display:none">0</span>
     <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
     <span>Tasks</span>
   </button>
 
   <button class="nav-item" id="navNotifBtn" onclick="openNotifModal()">
-    <span class="nav-notif-dot" id="navNotifDot"></span>
+    <span class="nav-notif-dot" id="navNotifDot" style="display:none"></span>
     <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
     <span>Alerts</span>
   </button>
@@ -1388,7 +785,6 @@ body {
 
 <!-- Floating Glass Toast -->
 <div class="floating-toast" id="toastBox">
-  <span id="toastIcon">📍</span>
   <span id="toastText">Location Info</span>
 </div>
 
@@ -1396,25 +792,19 @@ body {
 <div class="modal-overlay" id="notifModal">
   <div class="modal-card">
     <div class="modal-head">
-      <div class="modal-title">
-        <svg style="width:16px;height:16px;fill:var(--accent-light)" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
-        Announcements & Alerts
-      </div>
-      <button class="modal-close" id="closeNotifModal">×</button>
+      <div class="modal-title">Announcements & Alerts</div>
+      <button class="modal-close" onclick="closeNotifModal()">×</button>
     </div>
     <div class="modal-body" id="notifList"></div>
   </div>
 </div>
 
-<!-- Deadlines & Quizzes Details Modal -->
+<!-- Deadlines Modal -->
 <div class="modal-overlay" id="assessmentModal">
   <div class="modal-card">
     <div class="modal-head">
-      <div class="modal-title" style="color: var(--quiz-color);">
-        <svg style="width:16px;height:16px;fill:var(--quiz-color)" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        Quizzes & Deadlines Details (<span id="modalSectionBadge">ME1-01</span>)
-      </div>
-      <button class="modal-close" id="closeAssessmentModal">×</button>
+      <div class="modal-title" style="color: var(--quiz-color);">Quizzes & Deadlines (<span id="modalSectionBadge">ME1-01</span>)</div>
+      <button class="modal-close" onclick="closeAssessmentModal()">×</button>
     </div>
     <div class="modal-body" id="assessmentList"></div>
   </div>
@@ -1423,11 +813,14 @@ body {
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
+// Google Sheets Sync IDs
 const QUIZZES_SHEET_ID = "1vYP4V4CrjeTtZkYU7TPbTvIQ4TqJZ2BWvipBvT5j1B0";
 const ALERTS_SHEET_ID  = "1mearSta_QWzdR0EzGyU-o7EYipAFibOMrRIcqyL9f7E";
+const WEEKLY_GUIDE_SHEET_ID = "1EA8YyyArFjEjQBlVu932pYJXgQaS51TEzunIdQuBsas";
 
 const QUIZZES_CSV_URL = `https://docs.google.com/spreadsheets/d/${QUIZZES_SHEET_ID}/gviz/tq?tqx=out:csv`;
 const ALERTS_CSV_URL   = `https://docs.google.com/spreadsheets/d/${ALERTS_SHEET_ID}/gviz/tq?tqx=out:csv`;
+const WEEKLY_GUIDE_CSV_URL = `https://docs.google.com/spreadsheets/d/${WEEKLY_GUIDE_SHEET_ID}/gviz/tq?tqx=out:csv`;
 
 const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1GsVU0lpQXxKWLFeoVfjvTov1XmsNbn8o?usp=drive_link";
 const ARCHIVE_BATCH29_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
@@ -1437,14 +830,46 @@ function openSafeDriveLink(url) {
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
+const COURSES = {
+  "GEN G119": { name: "Entrepreneurship & Innovation", color: "var(--c-gen)" },
+  "MTH G102": { name: "Linear Algebra & Multivariable Integrals", color: "var(--c-mth)" },
+  "EMC G101": { name: "Dynamics of Rigid Bodies", color: "var(--c-emc)" },
+  "MDP G111": { name: "Computer-Aided Mechanical Drafting", color: "var(--c-mdp1)" },
+  "MDP G121": { name: "Materials Science", color: "var(--c-mdp2)" },
+  "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
+};
+
 const DRIVE_DATA = {
   "MTH G102": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "EMC G101": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "MDP G111": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
-  "MDP G121": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
-  "EPE G113": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE, labs: MAIN_SEMESTER_DRIVE },
+  "MDP G111": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "MDP G121": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "EPE G113": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "GEN G119": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
+
+let WEEKLY_GUIDE_DATA = [
+  {
+    week: "Week 1",
+    code: "MTH G102",
+    lectures: "Lec 1: Matrices Operations, Types, and Determinants",
+    sheet: "Sheet 1: Problems 1 to 14 (Odd numbers assigned)",
+    practice: "Midterm 2024 (Problem 1) + Recommended Textbook Ex. 1.2",
+    summary_title: "ملخص أول أسبوع جبر",
+    summary_url: MAIN_SEMESTER_DRIVE
+  },
+  {
+    week: "Week 1",
+    code: "EMC G101",
+    lectures: "Lec 1: Rectilinear Kinematics (Continuous Motion)",
+    sheet: "Sheet 1: Questions 1 to 6",
+    practice: "Hibbeler Dynamics: Ch 12 (Selected Problems)",
+    summary_title: "ملخص كينماتيكا مع أمثلة محلولة",
+    summary_url: MAIN_SEMESTER_DRIVE
+  }
+];
+
+let selectedGuideWeek = "Week 1";
 
 const ROOM_INFO = {
   "3103-414": "Building 3 (Mechanical) — 1st Floor, Hall 3 (Cap: 414)",
@@ -1464,24 +889,14 @@ const ROOM_INFO = {
   "19301-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 1 (Cap: 48)"
 };
 
-const COURSES = {
-  "GEN G119": { name: "Entrepreneurship & Innovation", color: "var(--c-gen)" },
-  "MTH G102": { name: "Linear Algebra & Multivariable Integrals", color: "var(--c-mth)" },
-  "EMC G101": { name: "Dynamics of Rigid Bodies", color: "var(--c-emc)" },
-  "MDP G111": { name: "Computer-Aided Mechanical Drafting", color: "var(--c-mdp1)" },
-  "MDP G121": { name: "Materials Science", color: "var(--c-mdp2)" },
-  "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
-};
-
 let ASSESSMENTS = [];
 let NOTIFICATIONS = [
   {
     id: "ann-01",
     date: "8 Sep 2026",
     tag: "Batch 30",
-    isUrgent: false,
     title: "Welcome to Mechanical Engineering (Batch 30)",
-    body: "Fall Semester timetable is now active. Official lectures and tutorials commence on Saturday, 19 September 2026."
+    body: "Fall Semester timetable is now active. Lectures commence Saturday, 19 September 2026."
   }
 ];
 
@@ -1497,9 +912,7 @@ const SLOTS = ["8:00 - 8:50","9:00 - 9:50","10:00 - 10:50","11:00 - 11:50","12:0
 const TIME_STARTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"];
 const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:50", "15:50"];
 
-function formatTime(start, span) {
-  return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`;
-}
+function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
@@ -1539,35 +952,22 @@ const jsDay = jsDateNow.getDay();
 let activeDay = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : "Sunday";
 const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 
-function parseMinutes(t) {
-  const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
-}
-
-function triggerHaptic() {
-  if (navigator.vibrate) navigator.vibrate(10);
-}
+function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
+function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
 let toastTimer;
-function showToast(text, icon = "📍") {
+function showToast(text) {
   triggerHaptic();
   const box = document.getElementById("toastBox");
-  const iconSpan = document.getElementById("toastIcon");
-  if (icon) {
-    iconSpan.textContent = icon;
-    iconSpan.style.display = 'none';
-  }
   document.getElementById("toastText").textContent = text;
   box.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    box.classList.remove("show");
-  }, 4800);
+  toastTimer = setTimeout(() => box.classList.remove("show"), 4800);
 }
 
 function showRoomDetails(roomCode) {
   const info = ROOM_INFO[roomCode] || "Faculty of Engineering · Giza Campus";
-  showToast(`${roomCode}: ${info}`, "🏛️");
+  showToast(`${roomCode}: ${info}`);
 }
 
 function parseCSV(text) {
@@ -1586,39 +986,139 @@ function parseCSV(text) {
   });
 }
 
+// Sync from Google Sheets
 async function syncFromGoogleSheets() {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 4000);
 
-    const [qRes, aRes] = await Promise.all([
+    const [qRes, aRes, gRes] = await Promise.all([
       fetch(QUIZZES_CSV_URL, { signal: controller.signal }).catch(() => null),
-      fetch(ALERTS_CSV_URL, { signal: controller.signal }).catch(() => null)
+      fetch(ALERTS_CSV_URL, { signal: controller.signal }).catch(() => null),
+      fetch(WEEKLY_GUIDE_CSV_URL, { signal: controller.signal }).catch(() => null)
     ]);
     clearTimeout(timeoutId);
 
     if (qRes && qRes.ok) {
       const qText = await qRes.text();
-      const parsedQ = parseCSV(qText);
-      if (parsedQ.length > 0) ASSESSMENTS = parsedQ;
+      const parsed = parseCSV(qText);
+      if (parsed.length > 0) ASSESSMENTS = parsed;
     }
-
     if (aRes && aRes.ok) {
       const aText = await aRes.text();
-      const parsedA = parseCSV(aText);
-      if (parsedA.length > 0) NOTIFICATIONS = parsedA;
+      const parsed = parseCSV(aText);
+      if (parsed.length > 0) NOTIFICATIONS = parsed;
+    }
+    if (gRes && gRes.ok) {
+      const gText = await gRes.text();
+      const parsed = parseCSV(gText);
+      if (parsed.length > 0) WEEKLY_GUIDE_DATA = parsed;
     }
   } catch (e) {
-    console.warn("Using offline/default schedule data.", e);
+    console.warn("Using offline fallback data.", e);
   } finally {
     initNotifications();
     initAssessments();
     renderDaysBar();
     if (activeView === 'week') renderWeekMatrix();
     else if (activeView === 'day') renderDailyAgenda();
+    else if (activeView === 'guide') renderGuideScreen();
   }
 }
 
+// ==========================================
+// WEEKLY GUIDE RENDER ENGINE
+// ==========================================
+function renderGuideScreen() {
+  const container = document.getElementById("viewContainer");
+  const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
+  if (!availableWeeks.includes(selectedGuideWeek) && availableWeeks.length > 0) {
+    selectedGuideWeek = availableWeeks[0];
+  }
+
+  const weekItems = WEEKLY_GUIDE_DATA.filter(d => d.week === selectedGuideWeek);
+
+  container.innerHTML = `
+    <div class="guide-container">
+      <div class="guide-hero">
+        <div class="guide-hero-top">
+          <div class="guide-title">
+            <span>📖</span>
+            <span>Weekly Academic Guide</span>
+          </div>
+          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
+        </div>
+
+        <div class="week-tabs-scroll">
+          ${(availableWeeks.length > 0 ? availableWeeks : ["Week 1", "Week 2"]).map(w => `
+            <button class="week-tab-btn ${w === selectedGuideWeek ? 'active' : ''}" onclick="selectGuideWeek('${w}')">
+              ${w}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        ${weekItems.length === 0 ? `
+          <div style="text-align:center;padding:36px;color:var(--text-muted);background:var(--surface);border-radius:14px;border:1px dashed var(--border)">
+            No guides uploaded yet for ${selectedGuideWeek}.
+          </div>
+        ` : weekItems.map((item, idx) => {
+          const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
+          return `
+            <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay: ${idx * 0.05}s">
+              <div class="guide-card-head">
+                <div>
+                  <div class="guide-code">${item.code}</div>
+                  <div class="guide-name">${course.name}</div>
+                </div>
+              </div>
+
+              ${item.lectures ? `
+                <div class="guide-row">
+                  <span class="guide-label">📑 Lectures:</span>
+                  <span class="guide-val">${item.lectures}</span>
+                </div>
+              ` : ''}
+
+              ${item.sheet ? `
+                <div class="guide-row">
+                  <span class="guide-label">📝 Tutorials:</span>
+                  <span class="guide-val">${item.sheet}</span>
+                </div>
+              ` : ''}
+
+              ${item.practice ? `
+                <div class="guide-row">
+                  <span class="guide-label">🎯 Practice:</span>
+                  <span class="guide-val">${item.practice}</span>
+                </div>
+              ` : ''}
+
+              ${item.summary_url ? `
+                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.summary_url}')">
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <span>💡</span>
+                    <span>${item.summary_title || 'Student Summary & Notes'}</span>
+                  </div>
+                  <span>↗</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function selectGuideWeek(week) {
+  triggerHaptic();
+  selectedGuideWeek = week;
+  renderGuideScreen();
+}
+
+// Drive View Screen
 function renderDriveScreen() {
   const container = document.getElementById("viewContainer");
   const searchQuery = window._driveSearchQuery || "";
@@ -1632,10 +1132,7 @@ function renderDriveScreen() {
     <div class="vault-container">
       <div class="vault-hero">
         <div class="vault-hero-top">
-          <div class="vault-title">
-            <span>📂</span>
-            <span>Academic Vault</span>
-          </div>
+          <div class="vault-title"><span>📂</span><span>Academic Vault</span></div>
           <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
         </div>
         
@@ -1645,58 +1142,33 @@ function renderDriveScreen() {
         </div>
 
         <div class="vault-main-links">
-          <div class="vault-btn-primary drive-btn-action" onclick="openSafeDriveLink('${MAIN_SEMESTER_DRIVE}')">
-            <div style="display:flex;align-items:center;gap:8px">
-              <span>📁</span>
-              <span>Batch 30 Drive</span>
-            </div>
+          <div class="vault-btn-primary" onclick="openSafeDriveLink('${MAIN_SEMESTER_DRIVE}')">
+            <div style="display:flex;align-items:center;gap:8px"><span>📁</span><span>Batch 30 Drive</span></div>
             <span>↗</span>
           </div>
-
-          <div class="vault-btn-archive drive-btn-action" onclick="openSafeDriveLink('${ARCHIVE_BATCH29_DRIVE}')">
-            <div style="display:flex;align-items:center;gap:8px">
-              <span>🗄️</span>
-              <span>Batch 29 Archive</span>
-            </div>
+          <div class="vault-btn-archive" onclick="openSafeDriveLink('${ARCHIVE_BATCH29_DRIVE}')">
+            <div style="display:flex;align-items:center;gap:8px"><span>🗄️</span><span>Batch 29 Archive</span></div>
             <span>↗</span>
           </div>
         </div>
       </div>
 
       <div class="courses-grid" id="coursesGridContainer">
-        ${filteredCourses.length === 0 ? `
-          <div style="grid-column: span 2; text-align:center; padding:32px; color:var(--text-muted);">
-            No matching subjects found.
-          </div>
-        ` : filteredCourses.map(([code, c], idx) => {
+        ${filteredCourses.map(([code, c], idx) => {
           const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
           return `
             <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
-              <div class="course-card-top">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
                 <div>
-                  <div class="course-code">${code}</div>
-                  <div class="course-name">${c.name}</div>
+                  <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${c.color}">${code}</div>
+                  <div style="font-size:12px;color:var(--text-muted);font-weight:600">${c.name}</div>
                 </div>
-                <span style="width:10px;height:10px;border-radius:3px;background:${c.color};flex-shrink:0;"></span>
               </div>
-
               <div class="category-icons-grid">
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')" title="Lectures & Slides">
-                  <span class="emoji">📑</span>
-                  <span>Slides</span>
-                </div>
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')" title="Sheets & Tutorials">
-                  <span class="emoji">📝</span>
-                  <span>Sheets</span>
-                </div>
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')" title="Past Exams">
-                  <span class="emoji">🎯</span>
-                  <span>Exams</span>
-                </div>
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')" title="Open Folder">
-                  <span class="emoji">📂</span>
-                  <span>Folder</span>
-                </div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📑</span><span>Slides</span></div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📝</span><span>Sheets</span></div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">🎯</span><span>Exams</span></div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📂</span><span>Folder</span></div>
               </div>
             </div>
           `;
@@ -1708,52 +1180,7 @@ function renderDriveScreen() {
 
 function handleDriveSearch(val) {
   window._driveSearchQuery = val;
-  const gridContainer = document.getElementById("coursesGridContainer");
-  if (!gridContainer) return;
-  
-  const filteredCourses = Object.entries(COURSES).filter(([code, c]) => {
-    return code.toLowerCase().includes(val.toLowerCase()) || 
-           c.name.toLowerCase().includes(val.toLowerCase());
-  });
-
-  if (filteredCourses.length === 0) {
-    gridContainer.innerHTML = `<div style="grid-column: span 2; text-align:center; padding:32px; color:var(--text-muted);">No matching subjects found.</div>`;
-    return;
-  }
-
-  gridContainer.innerHTML = filteredCourses.map(([code, c], idx) => {
-    const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
-    return `
-      <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
-        <div class="course-card-top">
-          <div>
-            <div class="course-code">${code}</div>
-            <div class="course-name">${c.name}</div>
-          </div>
-          <span style="width:10px;height:10px;border-radius:3px;background:${c.color};flex-shrink:0;"></span>
-        </div>
-
-        <div class="category-icons-grid">
-          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')" title="Lectures & Slides">
-            <span class="emoji">📑</span>
-            <span>Slides</span>
-          </div>
-          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')" title="Sheets & Tutorials">
-            <span class="emoji">📝</span>
-            <span>Sheets</span>
-          </div>
-          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')" title="Past Exams">
-            <span class="emoji">🎯</span>
-            <span>Exams</span>
-          </div>
-          <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')" title="Open Folder">
-            <span class="emoji">📂</span>
-            <span>Folder</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }).join("");
+  renderDriveScreen();
 }
 
 function isAssessmentUpcoming(dateStr) {
@@ -1811,17 +1238,11 @@ function isAssessmentInCurrentWeek(aDateStr, dayName) {
 }
 
 function getActiveSectionAssessments() {
-  return ASSESSMENTS.filter(a => {
-    const matchesGroup = (a.group === "ALL" || a.group === activeGroup);
-    const isUpcoming = isAssessmentUpcoming(a.date);
-    return matchesGroup && isUpcoming;
-  });
+  return ASSESSMENTS.filter(a => (a.group === "ALL" || a.group === activeGroup) && isAssessmentUpcoming(a.date));
 }
 
 function getDayAssessments(dayName) {
-  return getActiveSectionAssessments().filter(a => {
-    return a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName);
-  });
+  return getActiveSectionAssessments().filter(a => a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName));
 }
 
 function initAssessments() {
@@ -1829,67 +1250,48 @@ function initAssessments() {
   const badge = document.getElementById("navTaskBadge");
   if (activeList.length > 0) {
     badge.textContent = activeList.length;
-    badge.classList.add("active");
+    badge.style.display = "block";
   } else {
-    badge.classList.remove("active");
+    badge.style.display = "none";
   }
   document.getElementById("modalSectionBadge").textContent = activeGroup;
 
   const container = document.getElementById("assessmentList");
   if (activeList.length === 0) {
-    container.innerHTML = `
-      <div style="text-align:center;color:var(--text-muted);padding:32px 16px;">
-        <div style="font-size:26px;margin-bottom:8px">📋</div>
-        <div style="font-size:13.5px;font-weight:700;color:var(--text-main);margin-bottom:4px">No Upcoming Quizzes or Tasks</div>
-        <div style="font-size:11.5px">All clear! No upcoming deadlines or assessments scheduled for this section.</div>
-      </div>`;
+    container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:32px 16px;">No upcoming quizzes or tasks.</div>`;
     return;
   }
-
   container.innerHTML = activeList.map(a => `
-    <div class="modal-item assessment-card">
-      <div class="modal-top-row">
-        <span class="modal-tag quiz">${(a.type || 'TASK').toUpperCase()}</span>
-        <span class="modal-date">${a.date || ''}</span>
+    <div class="modal-item" style="border-left: 4px solid var(--quiz-color)">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:9.5px;font-weight:800;color:var(--quiz-color)">${(a.type || 'TASK').toUpperCase()}</span>
+        <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${a.date || ''}</span>
       </div>
-      <div class="modal-item-title">${a.code || ''} — ${a.title || ''}</div>
-      <div class="modal-item-body">${a.desc || ''}</div>
-      ${a.location ? `<div class="modal-item-extra">📍 Location: ${a.location}</div>` : ''}
+      <div style="font-size:13px;font-weight:700;color:var(--text-main)">${a.code || ''} — ${a.title || ''}</div>
+      <div style="font-size:11.5px;color:var(--text-muted)">${a.desc || ''}</div>
     </div>
   `).join("");
 }
 
-function openAssessmentModal() {
-  triggerHaptic();
-  initAssessments();
-  document.getElementById("assessmentModal").classList.add("open");
-}
-
-function closeAssessmentModal() {
-  document.getElementById("assessmentModal").classList.remove("open");
-}
-
-document.getElementById("closeAssessmentModal").addEventListener("click", closeAssessmentModal);
-document.getElementById("assessmentModal").addEventListener("click", (e) => {
-  if (e.target.id === "assessmentModal") closeAssessmentModal();
-});
+function openAssessmentModal() { triggerHaptic(); initAssessments(); document.getElementById("assessmentModal").classList.add("open"); }
+function closeAssessmentModal() { document.getElementById("assessmentModal").classList.remove("open"); }
+document.getElementById("assessmentModal").addEventListener("click", e => { if (e.target.id === "assessmentModal") closeAssessmentModal(); });
 
 function initNotifications() {
   const dot = document.getElementById("navNotifDot");
   const readIds = JSON.parse(localStorage.getItem("cufe_read_notifs") || "[]");
   const hasUnread = NOTIFICATIONS.some(n => !readIds.includes(n.id));
-  if (hasUnread) dot.classList.add("active");
-  else dot.classList.remove("active");
+  dot.style.display = hasUnread ? "block" : "none";
 
   const list = document.getElementById("notifList");
   list.innerHTML = NOTIFICATIONS.map(n => `
     <div class="modal-item">
-      <div class="modal-top-row">
-        <span class="modal-tag">${n.tag || 'Notice'}</span>
-        <span class="modal-date">${n.date || ''}</span>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:9.5px;font-weight:800;color:var(--accent-light)">${n.tag || 'Notice'}</span>
+        <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${n.date || ''}</span>
       </div>
-      <div class="modal-item-title">${n.title || ''}</div>
-      <div class="modal-item-body">${n.body || ''}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text-main)">${n.title || ''}</div>
+      <div style="font-size:11.5px;color:var(--text-muted)">${n.body || ''}</div>
     </div>
   `).join("");
 }
@@ -1899,22 +1301,15 @@ function openNotifModal() {
   document.getElementById("notifModal").classList.add("open");
   const allIds = NOTIFICATIONS.map(n => n.id);
   localStorage.setItem("cufe_read_notifs", JSON.stringify(allIds));
-  document.getElementById("navNotifDot").classList.remove("active");
+  document.getElementById("navNotifDot").style.display = "none";
 }
 
-function closeNotifModal() {
-  document.getElementById("notifModal").classList.remove("open");
-}
-
-document.getElementById("closeNotifModal").addEventListener("click", closeNotifModal);
-document.getElementById("notifModal").addEventListener("click", (e) => {
-  if (e.target.id === "notifModal") closeNotifModal();
-});
+function closeNotifModal() { document.getElementById("notifModal").classList.remove("open"); }
+document.getElementById("notifModal").addEventListener("click", e => { if (e.target.id === "notifModal") closeNotifModal(); });
 
 function updateAcademicCalendarInfo() {
   const now = new Date();
-  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  document.getElementById("fullDateDisplay").textContent = now.toLocaleDateString('en-US', options);
+  document.getElementById("fullDateDisplay").textContent = now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   const todayZero = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const startZero = new Date(ACADEMIC_YEAR_START.getFullYear(), ACADEMIC_YEAR_START.getMonth(), ACADEMIC_YEAR_START.getDate());
@@ -1922,10 +1317,11 @@ function updateAcademicCalendarInfo() {
 
   const badge = document.getElementById("academicWeekBadge");
   if (diffDays < 0) {
-    const daysLeft = Math.abs(diffDays);
-    badge.textContent = `Starts in ${daysLeft} day${daysLeft > 1 ? 's' : ''}`;
+    badge.textContent = `Starts in ${Math.abs(diffDays)} days`;
   } else {
-    badge.textContent = `Academic Week ${Math.floor(diffDays / 7) + 1}`;
+    const curWeekNum = Math.floor(diffDays / 7) + 1;
+    badge.textContent = `Academic Week ${curWeekNum}`;
+    selectedGuideWeek = `Week ${curWeekNum}`;
   }
 }
 
@@ -1985,9 +1381,7 @@ function updateLiveTracker() {
     text.innerHTML = `Now: <strong>${activeSession.code}</strong> (${activeSession.remaining}m left)`;
   } else if (nextSession) {
     dot.className = "live-indicator idle";
-    const hrs = Math.floor(nextSession.wait / 60);
-    const mins = nextSession.wait % 60;
-    text.innerHTML = `Next: <strong>${nextSession.code}</strong> in ${hrs > 0 ? hrs + 'h ' : ''}${mins}m`;
+    text.innerHTML = `Next: <strong>${nextSession.code}</strong> in ${nextSession.wait}m`;
   } else {
     dot.className = "live-indicator idle";
     text.innerHTML = `Classes finished for ${todayName}`;
@@ -2033,116 +1427,32 @@ function renderDailyAgenda() {
   const dayTasks = getDayAssessments(activeDay);
   let html = `<div class="timeline-wrap" id="swipeArea">`;
 
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  const isActualToday = (activeDay === todayDayName);
-
-  if (isActualToday && daySessions.length > 0) {
-    let nextHero = daySessions.find(s => parseMinutes(TIME_ENDS[s.start + s.span - 1]) > currentMinutes);
-    if (nextHero) {
-      const heroCourse = COURSES[nextHero.code] || { name: nextHero.code };
-      const heroStartMin = parseMinutes(TIME_STARTS[nextHero.start]);
-      const isNow = currentMinutes >= heroStartMin;
-      html += `
-        <div class="hero-card cascade-item">
-          <div class="hero-top">
-            <span class="hero-pill">${isNow ? '● In Progress' : '⚡ Up Next'}</span>
-            <span class="hero-timer">${formatTime(nextHero.start, nextHero.span)}</span>
-          </div>
-          <div class="hero-title">${nextHero.code} — ${heroCourse.name}</div>
-          <div class="hero-meta">
-            <span class="hero-room-badge" onclick="showRoomDetails('${nextHero.room}')">📍 ${nextHero.room}</span>
-            <span>${nextHero.type}</span>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  if (dayTasks.length > 0) {
-    html += `
-      <div class="day-assessment-banner cascade-item">
-        <div>
-          <strong>⚡ Assessment Alert Today:</strong> 
-          ${dayTasks.map(t => `${t.type} in ${t.code} (${t.title})`).join(" · ")}
-        </div>
-        <button class="details-btn" onclick="openAssessmentModal()">Details</button>
-      </div>
-    `;
-  }
-
   if (daySessions.length === 0) {
-    html += `
-      <div class="cascade-item" style="background:var(--surface);border:1px dashed var(--border);border-radius:14px;padding:36px;text-align:center;color:var(--text-muted)">
-        <h3>No classes scheduled for ${activeDay}</h3>
-        <p style="font-size:12.5px;margin-top:4px">Enjoy your day off!</p>
-      </div></div>`;
+    html += `<div style="background:var(--surface);border:1px dashed var(--border);border-radius:14px;padding:36px;text-align:center;color:var(--text-muted)"><h3>No classes scheduled for ${activeDay}</h3></div></div>`;
     container.innerHTML = html;
     return;
   }
-
-  let timeLineInserted = false;
 
   for (let i = 0; i < daySessions.length; i++) {
     const s = daySessions[i];
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
-    const startMin = parseMinutes(TIME_STARTS[s.start]);
-    const endMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
-    
-    const isLive = isActualToday && (currentMinutes >= startMin && currentMinutes < endMin);
-    const hasTask = dayTasks.some(t => t.code === s.code);
-    const isDimmed = highlightedCourse && highlightedCourse !== s.code;
-    const isHighlighted = highlightedCourse === s.code;
-
-    if (isActualToday && !timeLineInserted && currentMinutes < startMin) {
-      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      html += `
-        <div class="current-time-line cascade-item">
-          <div class="time-line-tag">${timeStr} NOW</div>
-          <div class="time-line-indicator"></div>
-        </div>
-      `;
-      timeLineInserted = true;
-    }
-
-    if (i > 0) {
-      const prevEnd = daySessions[i - 1].start + daySessions[i - 1].span;
-      const gap = s.start - prevEnd;
-      if (gap > 0) {
-        html += `
-          <div class="break-item cascade-item" style="animation-delay:${i * 0.04}s">
-            <div class="break-spacer"></div>
-            <div class="break-card">☕ Free Gap · ${gap * 50} mins</div>
-          </div>`;
-      }
-    }
 
     html += `
       <div class="timeline-item cascade-item" style="animation-delay:${i * 0.05}s">
         <div class="time-col">
           <div class="time-start">${TIME_STARTS[s.start]}</div>
           <div class="time-end">${TIME_ENDS[s.start + s.span - 1]}</div>
-          <span class="time-dur">${s.span * 50} mins</span>
+          <span class="time-dur">${s.span * 50}m</span>
         </div>
-        <div class="rail">
-          <div class="rail-dot" style="--c: ${course.color}"></div>
-          <div class="rail-line"></div>
-        </div>
-        <div class="timeline-card ${isLive ? 'is-live' : ''} ${hasTask ? 'has-task-border' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="border-left: 4px solid ${course.color}">
+        <div class="rail"><div class="rail-dot" style="--c: ${course.color}"></div><div class="rail-line"></div></div>
+        <div class="timeline-card" style="border-left: 4px solid ${course.color}">
           <div class="card-top">
-            <span class="card-code" style="--c: ${course.color}">${s.code}</span>
-            <div style="display:flex;gap:4px">
-              ${hasTask ? `<span class="badge badge-task" onclick="openAssessmentModal()" title="Click for details">⚡ QUIZ / DUE</span>` : ''}
-              ${isLive ? '<span class="badge badge-live">● LIVE NOW</span>' : ''}
-              ${isShared ? '<span class="badge badge-all">LEC · ALL</span>' : `<span class="badge badge-type">${s.type}</span>`}
-            </div>
+            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
+            <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${isShared ? 'LEC · ALL' : s.type}</span>
           </div>
           <div class="card-title">${course.name}</div>
-          <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">
-            <span>🏛️</span>
-            <span>${s.room}</span>
-          </div>
+          <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room}</div>
         </div>
       </div>`;
   }
@@ -2168,20 +1478,11 @@ function renderWeekMatrix() {
 
   DAYS.forEach((d, i) => {
     const isToday = (d.full === todayDayName);
-    const dayTasks = getDayAssessments(d.full);
-    const hasQuiz = dayTasks.length > 0;
-
     const head = document.createElement("div");
-    head.className = "matrix-head" + (isToday ? " is-today" : "") + (hasQuiz ? " has-quiz-day" : "");
+    head.className = "matrix-head" + (isToday ? " is-today" : "");
     head.style.gridColumn = `${i + 2}`;
     head.style.gridRow = "1";
-    head.innerHTML = `
-      <span>${d.full}</span> 
-      <div style="display:flex;gap:3px">
-        ${hasQuiz ? `<span class="quiz-pill" onclick="openAssessmentModal()" style="cursor:pointer;" title="Click for Quiz/Deadline Details">⚡ QUIZ</span>` : ''}
-        ${isToday ? '<span class="today-pill">TODAY</span>' : ''}
-      </div>
-    `;
+    head.innerHTML = `<span>${d.full}</span> ${isToday ? '<span class="today-pill">TODAY</span>' : ''}`;
     grid.appendChild(head);
   });
 
@@ -2198,38 +1499,28 @@ function renderWeekMatrix() {
     const col = dIdx + 2;
     const daySessions = SESSIONS.filter(s => s.day === d.full && (s.group === "ALL" || s.group === activeGroup))
                                 .sort((a, b) => a.start - b.start);
-    const dayTasks = getDayAssessments(d.full);
 
     let currentSlot = 0;
     daySessions.forEach(sess => {
       if (sess.start > currentSlot) {
-        const freeSpan = sess.start - currentSlot;
         const freeCell = document.createElement("div");
         freeCell.className = "matrix-cell";
         freeCell.style.gridColumn = `${col}`;
-        freeCell.style.gridRow = `${currentSlot + 2} / span ${freeSpan}`;
+        freeCell.style.gridRow = `${currentSlot + 2} / span ${sess.start - currentSlot}`;
         freeCell.innerHTML = `<div class="cell-empty">—</div>`;
         grid.appendChild(freeCell);
       }
 
       const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
-      const isShared = sess.group === "ALL";
-      const hasTask = dayTasks.some(t => t.code === sess.code);
-      const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
-      const isHighlighted = highlightedCourse === sess.code;
-
       const cell = document.createElement("div");
       cell.className = "matrix-cell";
       cell.style.gridColumn = `${col}`;
       cell.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       cell.innerHTML = `
-        <div class="grid-card ${hasTask ? 'has-task' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}">
+        <div class="grid-card" style="--c: ${course.color}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
-            <div style="display:flex;gap:3px">
-              ${hasTask ? `<span class="type quiz-tag" onclick="openAssessmentModal()" title="Click for details">⚡ QUIZ</span>` : ''}
-              <span class="type ${isShared ? 'all' : ''}">${isShared ? 'LEC · ALL' : sess.type}</span>
-            </div>
+            <span class="type">${sess.group === "ALL" ? 'LEC' : 'SEC'}</span>
           </div>
           <div class="title">${course.name}</div>
           <div class="footer">
@@ -2254,37 +1545,32 @@ function renderWeekMatrix() {
 
 function renderDaysBar() {
   const bar = document.getElementById("daysBar");
-  if (activeView === "week" || activeView === "drive") {
+  if (activeView !== "day") {
     bar.style.display = "none";
     return;
   }
   bar.style.display = "grid";
 
   const today = new Date();
-  const currentDayOfWeek = today.getDay();
   const sunday = new Date(today);
-  sunday.setDate(today.getDate() - currentDayOfWeek);
+  sunday.setDate(today.getDate() - today.getDay());
 
   bar.innerHTML = DAYS.map((d, idx) => {
     const dayDate = new Date(sunday);
     dayDate.setDate(sunday.getDate() + idx);
     const dateNum = dayDate.getDate();
     const isToday = (d.full === todayDayName);
-    const dayTasks = getDayAssessments(d.full);
-    const hasQuiz = dayTasks.length > 0;
-
     return `
-      <button class="day-btn ${d.full === activeDay ? 'active' : ''} ${hasQuiz ? 'has-quiz' : ''}" onclick="selectDay('${d.full}')">
+      <button class="day-btn ${d.full === activeDay ? 'active' : ''}" onclick="selectDay('${d.full}')">
         <span class="day-name">${d.short}</span>
         <span class="day-num">${dateNum}</span>
-        ${hasQuiz ? '<span class="quiz-badge-dot">⚡ QUIZ</span>' : (isToday ? '<span class="today-tag">TODAY</span>' : '')}
+        ${isToday ? '<span class="today-tag">TODAY</span>' : ''}
       </button>`;
   }).join("");
 }
 
 let touchStartX = 0;
 let touchEndX = 0;
-
 function attachSwipeListeners() {
   const swipeArea = document.getElementById("swipeArea");
   if (!swipeArea) return;
@@ -2301,7 +1587,7 @@ function attachSwipeListeners() {
 
 function renderLegend() {
   const legend = document.getElementById("legend");
-  if (activeView === "drive") {
+  if (activeView === "drive" || activeView === "guide") {
     legend.style.display = "none";
     return;
   }
@@ -2337,13 +1623,20 @@ function render() {
   document.getElementById("navWeekBtn").classList.remove("active");
   document.getElementById("navDayBtn").classList.remove("active");
   document.getElementById("navDriveBtn").classList.remove("active");
+  document.getElementById("navGuideBtn").classList.remove("active");
 
-  if (activeView === "drive") {
+  if (activeView === "drive" || activeView === "guide") {
     controlBar.style.display = "none";
     liveBox.style.display = "none";
     if (mainHeader) mainHeader.style.display = "none";
-    document.getElementById("navDriveBtn").classList.add("active");
-    renderDriveScreen();
+
+    if (activeView === "drive") {
+      document.getElementById("navDriveBtn").classList.add("active");
+      renderDriveScreen();
+    } else {
+      document.getElementById("navGuideBtn").classList.add("active");
+      renderGuideScreen();
+    }
   } else {
     controlBar.style.display = "flex";
     liveBox.style.display = "flex";
@@ -2362,30 +1655,12 @@ function render() {
   updateAcademicCalendarInfo();
 }
 
-function setView(mode) {
-  triggerHaptic();
-  activeView = mode;
-  render();
-}
+function setView(mode) { triggerHaptic(); activeView = mode; render(); }
+function selectDay(day) { triggerHaptic(); activeDay = day; renderDaysBar(); renderDailyAgenda(); }
 
-function selectDay(day) {
-  triggerHaptic();
-  activeDay = day;
-  renderDaysBar();
-  renderDailyAgenda();
-}
+document.getElementById("sectionSelect").addEventListener("change", e => { triggerHaptic(); activeGroup = e.target.value; render(); });
 
-document.getElementById("sectionSelect").addEventListener("change", (e) => {
-  triggerHaptic();
-  activeGroup = e.target.value;
-  render();
-});
-
-function initDeviceMode() {
-  const saved = localStorage.getItem("cufe_device_mode") || "mobile";
-  setDeviceMode(saved);
-}
-
+function initDeviceMode() { setDeviceMode(localStorage.getItem("cufe_device_mode") || "mobile"); }
 function setDeviceMode(mode) {
   const container = document.getElementById("mainContainer");
   const btn = document.getElementById("deviceModeBtn");
@@ -2420,28 +1695,13 @@ function initTheme() {
 
 document.getElementById("themeBtn").addEventListener("click", () => {
   triggerHaptic();
-  const current = document.documentElement.getAttribute("data-theme") || "dark";
-  const next = current === "dark" ? "light" : "dark";
+  const next = (document.documentElement.getAttribute("data-theme") === "dark") ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("cufe_theme", next);
 });
 
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
-  document.body.classList.remove("print-day-mode", "print-week-mode");
-  let printStyle = document.getElementById("dynamicPrintPageRule");
-  if (!printStyle) {
-    printStyle = document.createElement("style");
-    printStyle.id = "dynamicPrintPageRule";
-    document.head.appendChild(printStyle);
-  }
-  if (activeView === "day") {
-    document.body.classList.add("print-day-mode");
-    printStyle.innerHTML = "@page { size: A4 portrait !important; margin: 10mm !important; }";
-  } else {
-    document.body.classList.add("print-week-mode");
-    printStyle.innerHTML = "@page { size: A4 landscape !important; margin: 8mm !important; }";
-  }
   window.print();
 });
 
@@ -2456,7 +1716,7 @@ if (isIos && !isInStandaloneMode && topInstallBtn) {
   topInstallBtn.style.display = 'inline-flex';
 }
 
-window.addEventListener('beforeinstallprompt', (e) => {
+window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
   if (topInstallBtn) topInstallBtn.style.display = 'inline-flex';
@@ -2465,11 +1725,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 async function triggerPwaInstall() {
   triggerHaptic();
   if (isIos) {
-    const iosMsg = "جماعة الآيفون كالعادة ليهم خطوات خاصة 🍏🙄\n" +
-                   "• اضغط علامة المشاركة فوق في المتصفح\n" +
-                   "• انزل تحت واختار View More\n" +
-                   "• اختار Add to Home Screen";
-    showToast(iosMsg, "");
+    showToast("جماعة الآيفون كالعادة ليهم خطوات خاصة 🍏🙄:\n• اضغط علامة المشاركة فوق\n• انزل تحت واختار View More\n• اختار Add to Home Screen");
     return;
   }
   if (deferredPrompt) {
@@ -2478,7 +1734,7 @@ async function triggerPwaInstall() {
     if (outcome === 'accepted' && topInstallBtn) topInstallBtn.style.display = 'none';
     deferredPrompt = null;
   } else {
-    showToast("لتثبيت التطبيق: افتح قائمة المتصفح واضغط Install أو Add to Home Screen 📲", "");
+    showToast("لتثبيت التطبيق: افتح قائمة المتصفح واضغط Add to Home Screen 📲");
   }
 }
 
