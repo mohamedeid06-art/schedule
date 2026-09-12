@@ -335,6 +335,21 @@ body {
 .day-btn.active { background: var(--surface); box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); }
 .day-btn.active .day-name, .day-btn.active .day-num { color: var(--accent-light); }
 
+/* Highlight & Dimming Engine */
+.grid-card, .timeline-card {
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.grid-card.dimmed, .timeline-card.dimmed {
+  opacity: 0.15 !important;
+  filter: grayscale(80%);
+}
+.grid-card.highlighted, .timeline-card.highlighted {
+  opacity: 1 !important;
+  box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.45) !important;
+  transform: scale(1.02);
+  z-index: 5;
+}
+
 /* Attendance Highlight Badge */
 .badge-attendance {
   background: rgba(249, 115, 22, 0.2) !important;
@@ -413,7 +428,6 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 3.5px solid var(--c);
-  transition: all 0.15s ease;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 .grid-card .code { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700; color: var(--text-main); }
@@ -691,9 +705,7 @@ body {
 .legend-item.active { background: var(--surface-alt); color: var(--accent-light); font-weight: 800; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
-/* ==========================================================
-   PRINT ENGINE (Landscape A4 Full Schedule)
-   ================================================---------- */
+/* Print Engine (Landscape A4 Full Schedule) */
 @media print {
   @page {
     size: A4 landscape !important;
@@ -709,7 +721,6 @@ body {
     print-color-adjust: exact !important;
   }
 
-  /* إخفاء كل العناصر غير الضرورية */
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
@@ -732,7 +743,6 @@ body {
   .dept-title { font-size: 18px !important; color: #0f172a !important; }
   .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
 
-  /* إجبار الجدول الكامل على الظهور مفروداً في الطباعة */
   .matrix-wrapper {
     display: block !important;
     box-shadow: none !important;
@@ -963,7 +973,6 @@ const DRIVE_DATA = {
   "GEN G119": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
-// تم تفريغ المصفوفة حتى يعتمد فقط على ما تدخله في الشيت
 let WEEKLY_GUIDE_DATA = [];
 let selectedGuideWeek = "Week 1";
 
@@ -1010,7 +1019,6 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص مع تحديد الحضور على سكشن MDP G111 ومحاضرة MTH G102
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1083,7 +1091,6 @@ function parseCSV(text) {
   });
 }
 
-// Sync from Google Sheets
 async function syncFromGoogleSheets() {
   try {
     const controller = new AbortController();
@@ -1109,7 +1116,6 @@ async function syncFromGoogleSheets() {
     if (gRes && gRes.ok) {
       const gText = await gRes.text();
       const parsed = parseCSV(gText);
-      // فلترة الصفوف بحيث نأخذ فقط الصفوف التي تم ملؤها بالفعل
       WEEKLY_GUIDE_DATA = parsed.filter(row => row.week && row.code && (row.lectures || row.sheet || row.practice || row.summary_title));
     }
   } catch (e) {
@@ -1124,9 +1130,6 @@ async function syncFromGoogleSheets() {
   }
 }
 
-// ==========================================
-// WEEKLY GUIDE RENDER ENGINE
-// ==========================================
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1216,7 +1219,6 @@ function selectGuideWeek(week) {
   renderGuideScreen();
 }
 
-// Drive View Screen
 function renderDriveScreen() {
   const container = document.getElementById("viewContainer");
   const searchQuery = window._driveSearchQuery || "";
@@ -1522,7 +1524,6 @@ function renderDailyAgenda() {
   const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
                               .sort((a, b) => a.start - b.start);
 
-  const dayTasks = getDayAssessments(activeDay);
   let html = `<div class="timeline-wrap" id="swipeArea">`;
 
   if (daySessions.length === 0) {
@@ -1536,6 +1537,9 @@ function renderDailyAgenda() {
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
 
+    const isDimmed = highlightedCourse && highlightedCourse !== s.code;
+    const isHighlighted = highlightedCourse === s.code;
+
     html += `
       <div class="timeline-item cascade-item" style="animation-delay:${i * 0.05}s">
         <div class="time-col">
@@ -1544,7 +1548,7 @@ function renderDailyAgenda() {
           <span class="time-dur">${s.span * 50}m</span>
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${s.attendance ? 'has-attendance-check' : ''}" style="border-left: 4px solid ${course.color}">
+        <div class="timeline-card ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
@@ -1613,12 +1617,15 @@ function renderWeekMatrix() {
       }
 
       const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
+      const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
+      const isHighlighted = highlightedCourse === sess.code;
+
       const cell = document.createElement("div");
       cell.className = "matrix-cell";
       cell.style.gridColumn = `${col}`;
       cell.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       cell.innerHTML = `
-        <div class="grid-card ${sess.attendance ? 'has-attendance-check' : ''}" style="--c: ${course.color}">
+        <div class="grid-card ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
@@ -1804,7 +1811,6 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// دالة الطباعة: تحويل العرض أوتوماتيك لـ Full Week وطباعة الصفحة كاملة
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
