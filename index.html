@@ -335,6 +335,23 @@ body {
 .day-btn.active { background: var(--surface); box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); }
 .day-btn.active .day-name, .day-btn.active .day-num { color: var(--accent-light); }
 
+/* Attendance Highlight Badge */
+.badge-attendance {
+  background: rgba(249, 115, 22, 0.2) !important;
+  color: #f97316 !important;
+  border: 1px solid #f97316 !important;
+  font-size: 8.5px !important;
+  font-weight: 800 !important;
+  padding: 1px 5px !important;
+  border-radius: 4px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.has-attendance-check {
+  box-shadow: inset -3px 0 0 #f97316 !important;
+}
+
 /* Staggered Animation */
 @keyframes cardCascade {
   from { opacity: 0; transform: translateY(12px); }
@@ -423,9 +440,7 @@ body {
 .card-title { font-size: 13.5px; font-weight: 700; color: var(--text-main); line-height: 1.35; margin-bottom: 10px; }
 .card-room-pill { display: inline-flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; background: var(--surface-alt); border: 1px solid var(--border); color: var(--accent-light); padding: 4px 8px; border-radius: 6px; cursor: pointer; }
 
-/* ==========================================================
-   WEEKLY GUIDE SPECIFIC STYLING
-   ================================================---------- */
+/* Weekly Guide */
 .guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .guide-hero {
   background: linear-gradient(135deg, rgba(43, 164, 204, 0.18) 0%, rgba(20, 31, 45, 0.9) 100%);
@@ -439,7 +454,6 @@ body {
 .guide-hero-top { display: flex; align-items: center; justify-content: space-between; }
 .guide-title { font-size: 17px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
 
-/* Week Selector Strip */
 .week-tabs-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
 .week-tab-btn {
   background: var(--surface);
@@ -460,7 +474,6 @@ body {
   box-shadow: 0 4px 12px rgba(43, 164, 204, 0.3);
 }
 
-/* Guide Subject Cards */
 .guide-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -678,10 +691,112 @@ body {
 .legend-item.active { background: var(--surface-alt); color: var(--accent-light); font-weight: 800; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
+/* ==========================================================
+   PRINT ENGINE (Landscape A4 Full Schedule)
+   ================================================---------- */
 @media print {
-  @page { size: A4 landscape !important; margin: 8mm !important; }
-  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
-  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay, .floating-toast, .hero-card, .live-status-capsule, .legend-hint { display: none !important; }
+  @page {
+    size: A4 landscape !important;
+    margin: 6mm !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* إخفاء كل العناصر غير الضرورية */
+  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
+  .floating-toast, .live-status-capsule, .vault-container, .guide-container,
+  .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .masthead {
+    display: flex !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 8px !important;
+  }
+  .dept-title { font-size: 18px !important; color: #0f172a !important; }
+  .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
+
+  /* إجبار الجدول الكامل على الظهور مفروداً في الطباعة */
+  .matrix-wrapper {
+    display: block !important;
+    box-shadow: none !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+  .matrix-scroll { overflow: visible !important; }
+  .matrix-grid {
+    display: grid !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    grid-template-columns: 68px repeat(5, 1fr) !important;
+    grid-template-rows: 28px repeat(8, minmax(50px, auto)) !important;
+  }
+  .matrix-head {
+    background: #f1f5f9 !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    border-right: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 3px 6px !important;
+  }
+  .matrix-time {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1.5px solid #0f172a !important;
+    color: #334155 !important;
+    font-size: 9.5px !important;
+    padding: 2px !important;
+  }
+  .matrix-cell {
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1px solid #cbd5e1 !important;
+    padding: 2px !important;
+  }
+  .grid-card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 3.5px solid var(--c) !important;
+    border-radius: 4px !important;
+    padding: 3px 5px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    filter: none !important;
+    break-inside: avoid !important;
+  }
+  .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
+  .grid-card .type { font-size: 7.5px !important; background: #f1f5f9 !important; color: #334155 !important; padding: 0 3px !important; }
+  .grid-card .title { font-size: 8.5px !important; color: #334155 !important; margin-top: 1px !important; line-height: 1.2 !important; }
+  .grid-card .footer { font-size: 8px !important; padding-top: 2px !important; border-top: 1px dashed #cbd5e1 !important; color: #475569 !important; }
+  .grid-card .room-badge { background: #f1f5f9 !important; border: 1px solid #cbd5e1 !important; padding: 0 3px !important; font-size: 7.5px !important; color: #0f172a !important; }
+
+  .legend {
+    display: flex !important;
+    margin-top: 8px !important;
+    padding: 4px 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    gap: 4px 12px !important;
+    page-break-inside: avoid !important;
+  }
+  .legend-item { font-size: 8.5px !important; color: #334155 !important; }
 }
 </style>
 </head>
@@ -848,27 +963,8 @@ const DRIVE_DATA = {
   "GEN G119": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
-let WEEKLY_GUIDE_DATA = [
-  {
-    week: "Week 1",
-    code: "MTH G102",
-    lectures: "Lec 1: Matrices Operations, Types, and Determinants",
-    sheet: "Sheet 1: Problems 1 to 14 (Odd numbers assigned)",
-    practice: "Midterm 2024 (Problem 1) + Recommended Textbook Ex. 1.2",
-    summary_title: "ملخص أول أسبوع جبر",
-    summary_url: MAIN_SEMESTER_DRIVE
-  },
-  {
-    week: "Week 1",
-    code: "EMC G101",
-    lectures: "Lec 1: Rectilinear Kinematics (Continuous Motion)",
-    sheet: "Sheet 1: Questions 1 to 6",
-    practice: "Hibbeler Dynamics: Ch 12 (Selected Problems)",
-    summary_title: "ملخص كينماتيكا مع أمثلة محلولة",
-    summary_url: MAIN_SEMESTER_DRIVE
-  }
-];
-
+// تم تفريغ المصفوفة حتى يعتمد فقط على ما تدخله في الشيت
+let WEEKLY_GUIDE_DATA = [];
 let selectedGuideWeek = "Week 1";
 
 const ROOM_INFO = {
@@ -914,20 +1010,21 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
+// جدول الحصص مع تحديد الحضور على سكشن MDP G111 ومحاضرة MTH G102
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300" },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50" },
+  { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
+  { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial / Lab", room: "17400-56" },
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 3, group: "ME1-01", code: "EMC G101", type: "Tutorial", room: "19302-48" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)" },
-  { day: "Monday", start: 2, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300" },
-  { day: "Monday", start: 2, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50" },
+  { day: "Monday", start: 2, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
+  { day: "Monday", start: 2, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
   { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial / Lab", room: "19302-48" },
   { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial / Lab", room: "17301-56" },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148" },
-  { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360" },
+  { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
   { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "17200-56" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-02", code: "EMC G101", type: "Tutorial", room: "17102-148" },
@@ -1012,7 +1109,8 @@ async function syncFromGoogleSheets() {
     if (gRes && gRes.ok) {
       const gText = await gRes.text();
       const parsed = parseCSV(gText);
-      if (parsed.length > 0) WEEKLY_GUIDE_DATA = parsed;
+      // فلترة الصفوف بحيث نأخذ فقط الصفوف التي تم ملؤها بالفعل
+      WEEKLY_GUIDE_DATA = parsed.filter(row => row.week && row.code && (row.lectures || row.sheet || row.practice || row.summary_title));
     }
   } catch (e) {
     console.warn("Using offline fallback data.", e);
@@ -1446,10 +1544,13 @@ function renderDailyAgenda() {
           <span class="time-dur">${s.span * 50}m</span>
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card" style="border-left: 4px solid ${course.color}">
+        <div class="timeline-card ${s.attendance ? 'has-attendance-check' : ''}" style="border-left: 4px solid ${course.color}">
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
-            <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${isShared ? 'LEC · ALL' : s.type}</span>
+            <div style="display:flex;gap:4px;align-items:center;">
+              ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
+              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${isShared ? 'LEC · ALL' : s.type}</span>
+            </div>
           </div>
           <div class="card-title">${course.name}</div>
           <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room}</div>
@@ -1517,10 +1618,13 @@ function renderWeekMatrix() {
       cell.style.gridColumn = `${col}`;
       cell.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       cell.innerHTML = `
-        <div class="grid-card" style="--c: ${course.color}">
+        <div class="grid-card ${sess.attendance ? 'has-attendance-check' : ''}" style="--c: ${course.color}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
-            <span class="type">${sess.group === "ALL" ? 'LEC' : 'SEC'}</span>
+            <div style="display:flex;gap:3px;align-items:center;">
+              ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
+              <span class="type">${sess.group === "ALL" ? 'LEC' : 'SEC'}</span>
+            </div>
           </div>
           <div class="title">${course.name}</div>
           <div class="footer">
@@ -1700,9 +1804,15 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
+// دالة الطباعة: تحويل العرض أوتوماتيك لـ Full Week وطباعة الصفحة كاملة
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
-  window.print();
+  if (activeView !== "week") {
+    setView("week");
+  }
+  setTimeout(() => {
+    window.print();
+  }, 250);
 });
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
