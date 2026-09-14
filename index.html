@@ -364,7 +364,29 @@ body {
   gap: 2px;
 }
 .has-attendance-check {
-  box-shadow: inset -3px 0 0 #f97316 !important;
+  box-shadow: inset -3.5px 0 0 #f97316 !important;
+}
+
+/* Free Gap Item */
+.break-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: -4px 0;
+}
+.break-spacer { width: 80px; flex-shrink: 0; }
+.break-card {
+  flex: 1;
+  border: 1px dashed var(--border);
+  background: var(--surface-alt);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 /* Staggered Animation */
@@ -687,13 +709,61 @@ body {
 .modal-overlay.open { opacity: 1; pointer-events: auto; }
 .modal-card {
   background: var(--surface); border: 1px solid var(--border-dark); border-radius: 16px;
-  width: 100%; max-width: 480px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden;
+  width: 100%; max-width: 520px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
 }
 .modal-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
 .modal-title { font-size: 13.5px; font-weight: 800; color: var(--accent-light); }
 .modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 22px; }
 .modal-body { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
 .modal-item { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+
+/* Interactive Campus Navigator */
+.map-canvas-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #090e15;
+}
+.map-canvas-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.map-legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  margin-top: 10px;
+}
+.map-legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--surface-alt);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.map-legend-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  color: var(--accent-light);
+  background: var(--surface);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+@keyframes mapPulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 10px #f97316); }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+.pulse-marker {
+  animation: mapPulse 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
 
 /* Legend */
 .legend {
@@ -913,6 +983,130 @@ body {
   <span id="toastText">Location Info</span>
 </div>
 
+<!-- Interactive Campus Navigator Modal -->
+<div class="modal-overlay" id="mapModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">
+        <span>🗺️</span>
+        <span id="mapModalTitle">CUFE Campus Navigator</span>
+      </div>
+      <button class="modal-close" onclick="closeMapModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="map-canvas-container">
+        <svg viewBox="0 0 900 600">
+          <defs>
+            <radialGradient id="pulseGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f97316" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- Campus Road Grid & Outline -->
+          <rect width="900" height="600" fill="#0d141d" />
+          <path d="M 80,0 L 80,600 M 0,220 L 900,220 M 0,440 L 900,440" stroke="#1f2d3f" stroke-width="28" fill="none" />
+          <text x="110" y="245" fill="#475569" font-size="11" font-weight="700" font-family="'JetBrains Mono'">UNIVERSITY STREET (شارع الجامعة)</text>
+
+          <!-- Buildings Outline (Geolocated to Campus Map) -->
+          <!-- Building 3: Architecture & Computer Eng. -->
+          <g id="map-bldg-3" onclick="highlightBuilding(3)" style="cursor:pointer">
+            <rect x="420" y="70" width="130" height="90" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="2" />
+            <text x="485" y="120" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 3</text>
+            <text x="485" y="140" fill="#94a3b8" font-size="9" text-anchor="middle">Architecture</text>
+          </g>
+
+          <!-- Building 7: El-Sawy Hall -->
+          <g id="map-bldg-7" onclick="highlightBuilding(7)" style="cursor:pointer">
+            <rect x="340" y="100" width="60" height="70" rx="6" fill="#1e293b" stroke="#06b6d4" stroke-width="2" />
+            <text x="370" y="140" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">7</text>
+            <text x="370" y="155" fill="#94a3b8" font-size="8" text-anchor="middle">El-Sawy</text>
+          </g>
+
+          <!-- Building 15: Student Services Building -->
+          <g id="map-bldg-15" onclick="highlightBuilding(15)" style="cursor:pointer">
+            <rect x="130" y="100" width="90" height="80" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+            <text x="175" y="145" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 15</text>
+            <text x="175" y="165" fill="#94a3b8" font-size="8" text-anchor="middle">Services (Drafting)</text>
+          </g>
+
+          <!-- Building 14: New Mechanical Design -->
+          <g id="map-bldg-14" onclick="highlightBuilding(14)" style="cursor:pointer">
+            <rect x="250" y="110" width="70" height="75" rx="6" fill="#1e293b" stroke="#eab308" stroke-width="2" />
+            <text x="285" y="150" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 14</text>
+            <text x="285" y="168" fill="#94a3b8" font-size="8" text-anchor="middle">Design</text>
+          </g>
+
+          <!-- Building 17: New Mechanical Power -->
+          <g id="map-bldg-17" onclick="highlightBuilding(17)" style="cursor:pointer">
+            <rect x="620" y="270" width="110" height="90" rx="6" fill="#1e293b" stroke="#a855f7" stroke-width="2" />
+            <text x="675" y="320" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 17</text>
+            <text x="675" y="340" fill="#94a3b8" font-size="8" text-anchor="middle">Power New</text>
+          </g>
+
+          <!-- Building 19: Mechanical Power (Automotive) -->
+          <g id="map-bldg-19" onclick="highlightBuilding(19)" style="cursor:pointer">
+            <rect x="420" y="270" width="120" height="85" rx="6" fill="#1e293b" stroke="#ec4899" stroke-width="2" />
+            <text x="480" y="315" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 19</text>
+            <text x="480" y="335" fill="#94a3b8" font-size="8" text-anchor="middle">Automotive</text>
+          </g>
+
+          <!-- Dynamic Active Pulse Pin Target -->
+          <g id="activeMapPin" style="display:none;">
+            <circle id="pulseRing" cx="0" cy="0" r="28" fill="url(#pulseGlow)" class="pulse-marker" />
+            <circle id="pinCenter" cx="0" cy="0" r="7" fill="#f97316" stroke="#fff" stroke-width="2" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="map-legend-list">
+        <div class="map-legend-row" onclick="highlightBuilding(15)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="map-legend-num">15</span>
+            <b>Student Services Building (صالة رسم 15401)</b>
+          </div>
+          <span>📍</span>
+        </div>
+        <div class="map-legend-row" onclick="highlightBuilding(14)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="map-legend-num">14</span>
+            <b>New Mechanical Design Building (سكاشن 14)</b>
+          </div>
+          <span>📍</span>
+        </div>
+        <div class="map-legend-row" onclick="highlightBuilding(7)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="map-legend-num">7</span>
+            <b>El-Sawy Hall Complex (مدرج الساوي 7104)</b>
+          </div>
+          <span>📍</span>
+        </div>
+        <div class="map-legend-row" onclick="highlightBuilding(3)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="map-legend-num">3</span>
+            <b>Architecture & Computer Eng. Building (مدرج 3103)</b>
+          </div>
+          <span>📍</span>
+        </div>
+        <div class="map-legend-row" onclick="highlightBuilding(17)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="map-legend-num">17</span>
+            <b>New Mechanical Power Building (مبنى القوى الجديد)</b>
+          </div>
+          <span>📍</span>
+        </div>
+        <div class="map-legend-row" onclick="highlightBuilding(19)">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="map-legend-num">19</span>
+            <b>Mechanical Power (Automotive) Building (سيارات)</b>
+          </div>
+          <span>📍</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Announcements Modal -->
 <div class="modal-overlay" id="notifModal">
   <div class="modal-card">
@@ -976,22 +1170,43 @@ const DRIVE_DATA = {
 let WEEKLY_GUIDE_DATA = [];
 let selectedGuideWeek = "Week 1";
 
+// قاموس المباني الرسمي بالإنجليزية المعتمدة
 const ROOM_INFO = {
-  "3103-414": "Building 3 (Mechanical) — 1st Floor, Hall 3 (Cap: 414)",
-  "3101-306": "Building 3 (Mechanical) — 1st Floor, Hall 1 (Cap: 306)",
-  "7104-360": "Building 7 (Main Lecture Complex) — 1st Floor, Hall 4 (Cap: 360)",
-  "15401-300": "Building 15 (Drafting) — 4th Floor, Drawing Hall 1",
-  "14201-50": "Building 14 — 2nd Floor, Room 1 (Cap: 50)",
-  "14301-50": "Building 14 — 3rd Floor, Room 1 (Cap: 50)",
-  "14302-50": "Building 14 — 3rd Floor, Room 2 (Cap: 50)",
-  "14100-(104)": "Building 14 — 1st Floor, Room 100 (Cap: 104)",
-  "17400-56": "Building 17 (Electrical) — 4th Floor, Room (Cap: 56)",
-  "17301-56": "Building 17 (Electrical) — 3rd Floor, Room 1 (Cap: 56)",
-  "17302-148": "Building 17 (Electrical) — 3rd Floor, Room 2 (Cap: 148)",
-  "17200-56": "Building 17 (Electrical) — 2nd Floor, Room (Cap: 56)",
-  "17102-148": "Building 17 (Electrical) — 1st Floor, Room 2 (Cap: 148)",
-  "19302-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 2 (Cap: 48)",
-  "19301-48": "Building 19 (Mechanical Annex) — 3rd Floor, Room 1 (Cap: 48)"
+  // Building 3: Architecture & Computer Engineering
+  "3103-414": "Building 3 (Architecture & Computer Eng.) — 1st Floor, Hall 3 (Cap: 414)",
+  "3101-306": "Building 3 (Architecture & Computer Eng.) — 1st Floor, Hall 1 (Cap: 306)",
+
+  // Building 7: El-Sawy Hall Complex
+  "7104-360": "Building 7 (El-Sawy Hall Complex) — Hall 4 (Cap: 360)",
+
+  // Building 14: New Mechanical Design Building
+  "14201-50": "Building 14 (New Mechanical Design) — 2nd Floor, Room 1 (Cap: 50)",
+  "14301-50": "Building 14 (New Mechanical Design) — 3rd Floor, Room 1 (Cap: 50)",
+  "14302-50": "Building 14 (New Mechanical Design) — 3rd Floor, Room 2 (Cap: 50)",
+  "14100-(104)": "Building 14 (New Mechanical Design) — 1st Floor, Hall 100 (Cap: 104)",
+
+  // Building 15: Student Services Building
+  "15401-300": "Building 15 (Student Services Building) — 4th Floor, Drawing Hall 1",
+
+  // Building 17: New Mechanical Power Engineering Building
+  "17400-56": "Building 17 (New Mechanical Power Eng.) — 4th Floor, Room 56",
+  "17301-56": "Building 17 (New Mechanical Power Eng.) — 3rd Floor, Room 1",
+  "17302-148": "Building 17 (New Mechanical Power Eng.) — 3rd Floor, Hall 2 (Cap: 148)",
+  "17200-56": "Building 17 (New Mechanical Power Eng.) — 2nd Floor, Room 56",
+  "17102-148": "Building 17 (New Mechanical Power Eng.) — 1st Floor, Hall 2 (Cap: 148)",
+
+  // Building 19: Mechanical Power Engineering Building (Automotive)
+  "19302-48": "Building 19 (Mechanical Power Eng. - Automotive) — 3rd Floor, Room 2",
+  "19301-48": "Building 19 (Mechanical Power Eng. - Automotive) — 3rd Floor, Room 1"
+};
+
+const BUILDING_COORDS = {
+  3:  { x: 485, y: 115, name: "Building 3 (Architecture & Computer Eng.)" },
+  7:  { x: 370, y: 135, name: "Building 7 (El-Sawy Hall Complex)" },
+  14: { x: 285, y: 147, name: "Building 14 (New Mechanical Design)" },
+  15: { x: 175, y: 140, name: "Building 15 (Student Services Building)" },
+  17: { x: 675, y: 315, name: "Building 17 (New Mechanical Power Eng.)" },
+  19: { x: 480, y: 312, name: "Building 19 (Mechanical Power Eng. - Automotive)" }
 };
 
 let ASSESSMENTS = [];
@@ -1019,6 +1234,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
+// جدول الحصص مع تفعيل علامة الحضور
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1070,10 +1286,56 @@ function showToast(text) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 4800);
 }
 
+// دالة فتح وتحديد المبنى في الخريطة التفاعلية
 function showRoomDetails(roomCode) {
+  triggerHaptic();
   const info = ROOM_INFO[roomCode] || "Faculty of Engineering · Giza Campus";
-  showToast(`${roomCode}: ${info}`);
+  showToast(`${roomCode}:\n${info}`);
+
+  let bldgNum = parseInt(roomCode.substring(0, 2));
+  if (isNaN(bldgNum) || !BUILDING_COORDS[bldgNum]) {
+    bldgNum = parseInt(roomCode.substring(0, 1));
+  }
+
+  if (BUILDING_COORDS[bldgNum]) {
+    setTimeout(() => {
+      openMapModal(bldgNum, roomCode);
+    }, 450);
+  }
 }
+
+function openMapModal(bldgNum = null, roomCode = "") {
+  triggerHaptic();
+  const modal = document.getElementById("mapModal");
+  modal.classList.add("open");
+  if (bldgNum) {
+    highlightBuilding(bldgNum);
+    document.getElementById("mapModalTitle").textContent = `${roomCode ? roomCode + ' — ' : ''}${BUILDING_COORDS[bldgNum].name}`;
+  }
+}
+
+function closeMapModal() {
+  document.getElementById("mapModal").classList.remove("open");
+}
+
+function highlightBuilding(bldgNum) {
+  triggerHaptic();
+  const target = BUILDING_COORDS[bldgNum];
+  const pin = document.getElementById("activeMapPin");
+  if (!target || !pin) return;
+
+  pin.style.display = "block";
+  document.getElementById("pulseRing").setAttribute("cx", target.x);
+  document.getElementById("pulseRing").setAttribute("cy", target.y);
+  document.getElementById("pinCenter").setAttribute("cx", target.x);
+  document.getElementById("pinCenter").setAttribute("cy", target.y);
+
+  document.getElementById("mapModalTitle").textContent = target.name;
+}
+
+document.getElementById("mapModal").addEventListener("click", e => {
+  if (e.target.id === "mapModal") closeMapModal();
+});
 
 function parseCSV(text) {
   const lines = text.trim().split(/\r\n|\n/);
@@ -1091,6 +1353,7 @@ function parseCSV(text) {
   });
 }
 
+// مزامنة البيانات السحابية
 async function syncFromGoogleSheets() {
   try {
     const controller = new AbortController();
@@ -1130,157 +1393,16 @@ async function syncFromGoogleSheets() {
   }
 }
 
-function renderGuideScreen() {
-  const container = document.getElementById("viewContainer");
-  const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
-  if (!availableWeeks.includes(selectedGuideWeek) && availableWeeks.length > 0) {
-    selectedGuideWeek = availableWeeks[0];
-  }
-
-  const weekItems = WEEKLY_GUIDE_DATA.filter(d => d.week === selectedGuideWeek);
-
-  container.innerHTML = `
-    <div class="guide-container">
-      <div class="guide-hero">
-        <div class="guide-hero-top">
-          <div class="guide-title">
-            <span>📖</span>
-            <span>Weekly Academic Guide</span>
-          </div>
-          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
-        </div>
-
-        <div class="week-tabs-scroll">
-          ${(availableWeeks.length > 0 ? availableWeeks : ["Week 1", "Week 2"]).map(w => `
-            <button class="week-tab-btn ${w === selectedGuideWeek ? 'active' : ''}" onclick="selectGuideWeek('${w}')">
-              ${w}
-            </button>
-          `).join("")}
-        </div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:12px">
-        ${weekItems.length === 0 ? `
-          <div style="text-align:center;padding:36px;color:var(--text-muted);background:var(--surface);border-radius:14px;border:1px dashed var(--border)">
-            No guides uploaded yet for ${selectedGuideWeek}.
-          </div>
-        ` : weekItems.map((item, idx) => {
-          const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
-          return `
-            <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay: ${idx * 0.05}s">
-              <div class="guide-card-head">
-                <div>
-                  <div class="guide-code">${item.code}</div>
-                  <div class="guide-name">${course.name}</div>
-                </div>
-              </div>
-
-              ${item.lectures ? `
-                <div class="guide-row">
-                  <span class="guide-label">📑 Lectures:</span>
-                  <span class="guide-val">${item.lectures}</span>
-                </div>
-              ` : ''}
-
-              ${item.sheet ? `
-                <div class="guide-row">
-                  <span class="guide-label">📝 Tutorials:</span>
-                  <span class="guide-val">${item.sheet}</span>
-                </div>
-              ` : ''}
-
-              ${item.practice ? `
-                <div class="guide-row">
-                  <span class="guide-label">🎯 Practice:</span>
-                  <span class="guide-val">${item.practice}</span>
-                </div>
-              ` : ''}
-
-              ${item.summary_url ? `
-                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.summary_url}')">
-                  <div style="display:flex;align-items:center;gap:6px">
-                    <span>💡</span>
-                    <span>${item.summary_title || 'Student Summary & Notes'}</span>
-                  </div>
-                  <span>↗</span>
-                </div>
-              ` : ''}
-            </div>
-          `;
-        }).join("")}
-      </div>
-    </div>
-  `;
-}
-
-function selectGuideWeek(week) {
-  triggerHaptic();
-  selectedGuideWeek = week;
-  renderGuideScreen();
-}
-
-function renderDriveScreen() {
-  const container = document.getElementById("viewContainer");
-  const searchQuery = window._driveSearchQuery || "";
-
-  const filteredCourses = Object.entries(COURSES).filter(([code, c]) => {
-    return code.toLowerCase().includes(searchQuery.toLowerCase()) || 
-           c.name.toLowerCase().includes(searchQuery.toLowerCase());
-  });
-
-  container.innerHTML = `
-    <div class="vault-container">
-      <div class="vault-hero">
-        <div class="vault-hero-top">
-          <div class="vault-title"><span>📂</span><span>Academic Vault</span></div>
-          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
-        </div>
-        
-        <div class="vault-search-box">
-          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input type="text" id="driveSearchInput" placeholder="Search subject code or name..." value="${searchQuery}" oninput="handleDriveSearch(this.value)">
-        </div>
-
-        <div class="vault-main-links">
-          <div class="vault-btn-primary" onclick="openSafeDriveLink('${MAIN_SEMESTER_DRIVE}')">
-            <div style="display:flex;align-items:center;gap:8px"><span>📁</span><span>Batch 30 Drive</span></div>
-            <span>↗</span>
-          </div>
-          <div class="vault-btn-archive" onclick="openSafeDriveLink('${ARCHIVE_BATCH29_DRIVE}')">
-            <div style="display:flex;align-items:center;gap:8px"><span>🗄️</span><span>Batch 29 Archive</span></div>
-            <span>↗</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="courses-grid" id="coursesGridContainer">
-        ${filteredCourses.map(([code, c], idx) => {
-          const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
-          return `
-            <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start">
-                <div>
-                  <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${c.color}">${code}</div>
-                  <div style="font-size:12px;color:var(--text-muted);font-weight:600">${c.name}</div>
-                </div>
-              </div>
-              <div class="category-icons-grid">
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📑</span><span>Slides</span></div>
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📝</span><span>Sheets</span></div>
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">🎯</span><span>Exams</span></div>
-                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📂</span><span>Folder</span></div>
-              </div>
-            </div>
-          `;
-        }).join("")}
-      </div>
-    </div>
-  `;
-}
-
-function handleDriveSearch(val) {
-  window._driveSearchQuery = val;
-  renderDriveScreen();
+function getDisplayedDateForDay(dayName) {
+  const dayObj = DAYS.find(d => d.full === dayName);
+  if (!dayObj) return null;
+  const today = new Date();
+  const currentDayOfWeek = today.getDay();
+  const sunday = new Date(today);
+  sunday.setDate(today.getDate() - currentDayOfWeek);
+  const targetDate = new Date(sunday);
+  targetDate.setDate(sunday.getDate() + dayObj.dayIdx);
+  return targetDate;
 }
 
 function isAssessmentUpcoming(dateStr) {
@@ -1302,18 +1424,6 @@ function isAssessmentUpcoming(dateStr) {
   } catch (e) {
     return true;
   }
-}
-
-function getDisplayedDateForDay(dayName) {
-  const dayObj = DAYS.find(d => d.full === dayName);
-  if (!dayObj) return null;
-  const today = new Date();
-  const currentDayOfWeek = today.getDay();
-  const sunday = new Date(today);
-  sunday.setDate(today.getDate() - currentDayOfWeek);
-  const targetDate = new Date(sunday);
-  targetDate.setDate(sunday.getDate() + dayObj.dayIdx);
-  return targetDate;
 }
 
 function isAssessmentInCurrentWeek(aDateStr, dayName) {
@@ -1524,6 +1634,7 @@ function renderDailyAgenda() {
   const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
                               .sort((a, b) => a.start - b.start);
 
+  const dayTasks = getDayAssessments(activeDay);
   let html = `<div class="timeline-wrap" id="swipeArea">`;
 
   if (daySessions.length === 0) {
@@ -1539,6 +1650,19 @@ function renderDailyAgenda() {
 
     const isDimmed = highlightedCourse && highlightedCourse !== s.code;
     const isHighlighted = highlightedCourse === s.code;
+    const hasTask = dayTasks.some(t => t.code === s.code);
+
+    if (i > 0) {
+      const prevEnd = daySessions[i - 1].start + daySessions[i - 1].span;
+      const gap = s.start - prevEnd;
+      if (gap > 0) {
+        html += `
+          <div class="break-item cascade-item" style="animation-delay:${i * 0.04}s">
+            <div class="break-spacer"></div>
+            <div class="break-card">☕ Free Gap · ${gap * 50} mins</div>
+          </div>`;
+      }
+    }
 
     html += `
       <div class="timeline-item cascade-item" style="animation-delay:${i * 0.05}s">
@@ -1552,6 +1676,7 @@ function renderDailyAgenda() {
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
+              ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ / DUE</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
               <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${isShared ? 'LEC · ALL' : s.type}</span>
             </div>
@@ -1583,11 +1708,20 @@ function renderWeekMatrix() {
 
   DAYS.forEach((d, i) => {
     const isToday = (d.full === todayDayName);
+    const dayTasks = getDayAssessments(d.full);
+    const hasQuiz = dayTasks.length > 0;
+
     const head = document.createElement("div");
-    head.className = "matrix-head" + (isToday ? " is-today" : "");
+    head.className = "matrix-head" + (isToday ? " is-today" : "") + (hasQuiz ? " has-quiz-day" : "");
     head.style.gridColumn = `${i + 2}`;
     head.style.gridRow = "1";
-    head.innerHTML = `<span>${d.full}</span> ${isToday ? '<span class="today-pill">TODAY</span>' : ''}`;
+    head.innerHTML = `
+      <span>${d.full}</span> 
+      <div style="display:flex;gap:3px">
+        ${hasQuiz ? `<span class="quiz-pill" onclick="openAssessmentModal()" style="cursor:pointer;" title="Click for Quiz Details">⚡ QUIZ</span>` : ''}
+        ${isToday ? '<span class="today-pill">TODAY</span>' : ''}
+      </div>
+    `;
     grid.appendChild(head);
   });
 
@@ -1604,6 +1738,7 @@ function renderWeekMatrix() {
     const col = dIdx + 2;
     const daySessions = SESSIONS.filter(s => s.day === d.full && (s.group === "ALL" || s.group === activeGroup))
                                 .sort((a, b) => a.start - b.start);
+    const dayTasks = getDayAssessments(d.full);
 
     let currentSlot = 0;
     daySessions.forEach(sess => {
@@ -1619,6 +1754,7 @@ function renderWeekMatrix() {
       const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
       const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
       const isHighlighted = highlightedCourse === sess.code;
+      const hasTask = dayTasks.some(t => t.code === sess.code);
 
       const cell = document.createElement("div");
       cell.className = "matrix-cell";
@@ -1629,6 +1765,7 @@ function renderWeekMatrix() {
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
+              ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
               <span class="type">${sess.group === "ALL" ? 'LEC' : 'SEC'}</span>
             </div>
@@ -1671,11 +1808,14 @@ function renderDaysBar() {
     dayDate.setDate(sunday.getDate() + idx);
     const dateNum = dayDate.getDate();
     const isToday = (d.full === todayDayName);
+    const dayTasks = getDayAssessments(d.full);
+    const hasQuiz = dayTasks.length > 0;
+
     return `
-      <button class="day-btn ${d.full === activeDay ? 'active' : ''}" onclick="selectDay('${d.full}')">
+      <button class="day-btn ${d.full === activeDay ? 'active' : ''} ${hasQuiz ? 'has-quiz' : ''}" onclick="selectDay('${d.full}')">
         <span class="day-name">${d.short}</span>
         <span class="day-num">${dateNum}</span>
-        ${isToday ? '<span class="today-tag">TODAY</span>' : ''}
+        ${hasQuiz ? '<span class="quiz-badge-dot">⚡ QUIZ</span>' : (isToday ? '<span class="today-tag">TODAY</span>' : '')}
       </button>`;
   }).join("");
 }
@@ -1720,6 +1860,159 @@ function toggleHighlight(code) {
   renderLegend();
   if (activeView === "week") renderWeekMatrix();
   else if (activeView === "day") renderDailyAgenda();
+}
+
+function renderGuideScreen() {
+  const container = document.getElementById("viewContainer");
+  const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
+  if (!availableWeeks.includes(selectedGuideWeek) && availableWeeks.length > 0) {
+    selectedGuideWeek = availableWeeks[0];
+  }
+
+  const weekItems = WEEKLY_GUIDE_DATA.filter(d => d.week === selectedGuideWeek);
+
+  container.innerHTML = `
+    <div class="guide-container">
+      <div class="guide-hero">
+        <div class="guide-hero-top">
+          <div class="guide-title">
+            <span>📖</span>
+            <span>Weekly Academic Guide</span>
+          </div>
+          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
+        </div>
+
+        <div class="week-tabs-scroll">
+          ${(availableWeeks.length > 0 ? availableWeeks : ["Week 1", "Week 2"]).map(w => `
+            <button class="week-tab-btn ${w === selectedGuideWeek ? 'active' : ''}" onclick="selectGuideWeek('${w}')">
+              ${w}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        ${weekItems.length === 0 ? `
+          <div style="text-align:center;padding:36px;color:var(--text-muted);background:var(--surface);border-radius:14px;border:1px dashed var(--border)">
+            No guides uploaded yet for ${selectedGuideWeek}.
+          </div>
+        ` : weekItems.map((item, idx) => {
+          const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
+          return `
+            <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay: ${idx * 0.05}s">
+              <div class="guide-card-head">
+                <div>
+                  <div class="guide-code">${item.code}</div>
+                  <div class="guide-name">${course.name}</div>
+                </div>
+              </div>
+
+              ${item.lectures ? `
+                <div class="guide-row">
+                  <span class="guide-label">📑 Lectures:</span>
+                  <span class="guide-val">${item.lectures}</span>
+                </div>
+              ` : ''}
+
+              ${item.sheet ? `
+                <div class="guide-row">
+                  <span class="guide-label">📝 Tutorials:</span>
+                  <span class="guide-val">${item.sheet}</span>
+                </div>
+              ` : ''}
+
+              ${item.practice ? `
+                <div class="guide-row">
+                  <span class="guide-label">🎯 Practice:</span>
+                  <span class="guide-val">${item.practice}</span>
+                </div>
+              ` : ''}
+
+              ${item.summary_url ? `
+                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.summary_url}')">
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <span>💡</span>
+                    <span>${item.summary_title || 'Student Summary & Notes'}</span>
+                  </div>
+                  <span>↗</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function selectGuideWeek(week) {
+  triggerHaptic();
+  selectedGuideWeek = week;
+  renderGuideScreen();
+}
+
+function renderDriveScreen() {
+  const container = document.getElementById("viewContainer");
+  const searchQuery = window._driveSearchQuery || "";
+
+  const filteredCourses = Object.entries(COURSES).filter(([code, c]) => {
+    return code.toLowerCase().includes(searchQuery.toLowerCase()) || 
+           c.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+  container.innerHTML = `
+    <div class="vault-container">
+      <div class="vault-hero">
+        <div class="vault-hero-top">
+          <div class="vault-title"><span>📂</span><span>Academic Vault</span></div>
+          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
+        </div>
+        
+        <div class="vault-search-box">
+          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="driveSearchInput" placeholder="Search subject code or name..." value="${searchQuery}" oninput="handleDriveSearch(this.value)">
+        </div>
+
+        <div class="vault-main-links">
+          <div class="vault-btn-primary" onclick="openSafeDriveLink('${MAIN_SEMESTER_DRIVE}')">
+            <div style="display:flex;align-items:center;gap:8px"><span>📁</span><span>Batch 30 Drive</span></div>
+            <span>↗</span>
+          </div>
+          <div class="vault-btn-archive" onclick="openSafeDriveLink('${ARCHIVE_BATCH29_DRIVE}')">
+            <div style="display:flex;align-items:center;gap:8px"><span>🗄️</span><span>Batch 29 Archive</span></div>
+            <span>↗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="courses-grid" id="coursesGridContainer">
+        ${filteredCourses.map(([code, c], idx) => {
+          const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
+          return `
+            <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${c.color}">${code}</div>
+                  <div style="font-size:12px;color:var(--text-muted);font-weight:600">${c.name}</div>
+                </div>
+              </div>
+              <div class="category-icons-grid">
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.lectures || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📑</span><span>Slides</span></div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.sheets || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📝</span><span>Sheets</span></div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">🎯</span><span>Exams</span></div>
+                <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📂</span><span>Folder</span></div>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function handleDriveSearch(val) {
+  window._driveSearchQuery = val;
+  renderDriveScreen();
 }
 
 function render() {
@@ -1811,6 +2104,7 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
+// دالة الطباعة: نقل إلى وضع الجدول الكامل وطباعة الصفحة بجودة عالية
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
