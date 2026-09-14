@@ -335,7 +335,7 @@ body {
 .day-btn.active { background: var(--surface); box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); }
 .day-btn.active .day-name, .day-btn.active .day-num { color: var(--accent-light); }
 
-/* Highlight & Dimming Engine */
+/* Highlight & Dimming */
 .grid-card, .timeline-card {
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -350,7 +350,7 @@ body {
   z-index: 5;
 }
 
-/* Attendance Highlight Badge */
+/* Attendance Badge */
 .badge-attendance {
   background: rgba(249, 115, 22, 0.2) !important;
   color: #f97316 !important;
@@ -389,7 +389,7 @@ body {
   font-weight: 600;
 }
 
-/* Staggered Animation */
+/* Staggered Cascade */
 @keyframes cardCascade {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -672,97 +672,127 @@ body {
 .nav-item span { font-size: 9.5px; font-weight: 700; }
 .nav-item.active { color: var(--accent-light); transform: translateY(-2px); }
 
-/* Toast */
-.floating-toast {
-  position: fixed;
-  bottom: 84px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: #0f172a;
-  border: 1px solid var(--accent);
-  color: #ffffff !important;
-  padding: 14px 18px;
-  border-radius: 18px;
-  font-size: 12.5px;
-  font-weight: 600;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
-  z-index: 2000;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.25s ease;
-  display: block;
-  text-align: right;
-  direction: rtl;
-  white-space: pre-line;
-  line-height: 1.65;
-  width: max-content;
-  max-width: 88vw;
-}
-.floating-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
-
-/* Modals */
+/* ==========================================================
+   INTERACTIVE CAMPUS MAP MODAL & NEON ROUTE ENGINE
+   ================================================---------- */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.75);
-  backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center;
-  padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.85);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  z-index: 1200; display: flex; align-items: center; justify-content: center;
+  padding: 14px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
 }
 .modal-overlay.open { opacity: 1; pointer-events: auto; }
 .modal-card {
-  background: var(--surface); border: 1px solid var(--border-dark); border-radius: 16px;
-  width: 100%; max-width: 520px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border-dark); border-radius: 18px;
+  width: 100%; max-width: 580px; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.6);
 }
 .modal-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.modal-title { font-size: 13.5px; font-weight: 800; color: var(--accent-light); }
-.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 22px; }
-.modal-body { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-.modal-item { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+.modal-title { font-size: 14px; font-weight: 800; color: var(--accent-light); display: flex; align-items: center; gap: 8px; }
+.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 24px; padding: 0 6px; }
+.modal-body { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
 
-/* Interactive Campus Navigator */
-.map-canvas-container {
+/* SVG Map Canvas */
+.map-canvas-wrapper {
   position: relative;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: #090e15;
 }
-.map-canvas-container svg {
+.map-canvas-wrapper svg {
   width: 100%;
   height: auto;
   display: block;
 }
-.map-legend-list {
+
+/* Glowing Path & Animations */
+@keyframes neonDash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+.glowing-route {
+  stroke: #f97316;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 8 6;
+  animation: neonDash 1.2s linear infinite;
+  filter: drop-shadow(0 0 6px #f97316) drop-shadow(0 0 12px rgba(249, 115, 22, 0.6));
+}
+
+@keyframes markerPulse {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 12px #f97316); }
+  100% { transform: scale(0.85); opacity: 0.8; }
+}
+.map-pulse-marker {
+  animation: markerPulse 1.6s infinite ease-in-out;
+  transform-origin: center;
+}
+
+/* Map Info Card HUD */
+.map-hud-card {
+  background: var(--surface-alt);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 11.5px;
-  margin-top: 10px;
+  gap: 4px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
-.map-legend-row {
+.map-hud-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
-  background: var(--surface-alt);
-  border-radius: 8px;
-  border: 1px solid var(--border);
 }
-.map-legend-num {
-  font-family: 'JetBrains Mono', monospace;
+.map-hud-details {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
+.map-building-pill {
+  font-size: 10px;
   font-weight: 800;
-  color: var(--accent-light);
-  background: var(--surface);
   padding: 2px 7px;
-  border-radius: 5px;
+  border-radius: 6px;
+  background: var(--accent-glow);
+  color: var(--accent-light);
+  border: 1px solid var(--accent);
 }
-@keyframes mapPulse {
-  0% { transform: scale(0.9); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 10px #f97316); }
-  100% { transform: scale(0.9); opacity: 0.8; }
+
+/* Legend List */
+.map-bldg-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-size: 11px;
 }
-.pulse-marker {
-  animation: mapPulse 1.5s infinite ease-in-out;
-  transform-origin: center;
+@media (max-width: 440px) { .map-bldg-list { grid-template-columns: 1fr; } }
+.map-bldg-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.map-bldg-btn:hover {
+  border-color: var(--accent);
+  color: var(--text-main);
+  background: var(--surface-alt);
 }
 
 /* Legend */
@@ -775,108 +805,12 @@ body {
 .legend-item.active { background: var(--surface-alt); color: var(--accent-light); font-weight: 800; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
-/* Print Engine (Landscape A4 Full Schedule) */
+/* Print Mode */
 @media print {
-  @page {
-    size: A4 landscape !important;
-    margin: 6mm !important;
-  }
-
-  html, body {
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
+  @page { size: A4 landscape !important; margin: 6mm !important; }
+  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
-  .floating-toast, .live-status-capsule, .vault-container, .guide-container,
-  .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
-    display: none !important;
-  }
-
-  .container {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  .masthead {
-    display: flex !important;
-    border-bottom: 2px solid #0f172a !important;
-    padding-bottom: 6px !important;
-    margin-bottom: 8px !important;
-  }
-  .dept-title { font-size: 18px !important; color: #0f172a !important; }
-  .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
-
-  .matrix-wrapper {
-    display: block !important;
-    box-shadow: none !important;
-    border: 1.5px solid #0f172a !important;
-    border-radius: 4px !important;
-    overflow: visible !important;
-    background: #ffffff !important;
-  }
-  .matrix-scroll { overflow: visible !important; }
-  .matrix-grid {
-    display: grid !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    grid-template-columns: 68px repeat(5, 1fr) !important;
-    grid-template-rows: 28px repeat(8, minmax(50px, auto)) !important;
-  }
-  .matrix-head {
-    background: #f1f5f9 !important;
-    border-bottom: 1.5px solid #0f172a !important;
-    border-right: 1px solid #cbd5e1 !important;
-    color: #0f172a !important;
-    font-size: 11px !important;
-    font-weight: 800 !important;
-    padding: 3px 6px !important;
-  }
-  .matrix-time {
-    background: #f8fafc !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    border-right: 1.5px solid #0f172a !important;
-    color: #334155 !important;
-    font-size: 9.5px !important;
-    padding: 2px !important;
-  }
-  .matrix-cell {
-    border-bottom: 1px solid #cbd5e1 !important;
-    border-right: 1px solid #cbd5e1 !important;
-    padding: 2px !important;
-  }
-  .grid-card {
-    box-shadow: none !important;
-    border: 1px solid #94a3b8 !important;
-    border-left: 3.5px solid var(--c) !important;
-    border-radius: 4px !important;
-    padding: 3px 5px !important;
-    background: #ffffff !important;
-    opacity: 1 !important;
-    filter: none !important;
-    break-inside: avoid !important;
-  }
-  .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
-  .grid-card .type { font-size: 7.5px !important; background: #f1f5f9 !important; color: #334155 !important; padding: 0 3px !important; }
-  .grid-card .title { font-size: 8.5px !important; color: #334155 !important; margin-top: 1px !important; line-height: 1.2 !important; }
-  .grid-card .footer { font-size: 8px !important; padding-top: 2px !important; border-top: 1px dashed #cbd5e1 !important; color: #475569 !important; }
-  .grid-card .room-badge { background: #f1f5f9 !important; border: 1px solid #cbd5e1 !important; padding: 0 3px !important; font-size: 7.5px !important; color: #0f172a !important; }
-
-  .legend {
-    display: flex !important;
-    margin-top: 8px !important;
-    padding: 4px 8px !important;
-    border: 1px solid #cbd5e1 !important;
-    gap: 4px 12px !important;
-    page-break-inside: avoid !important;
-  }
-  .legend-item { font-size: 8.5px !important; color: #334155 !important; }
+  .live-status-capsule, .vault-container, .guide-container, .timeline-wrap { display: none !important; }
 }
 </style>
 </head>
@@ -902,6 +836,9 @@ body {
     </div>
 
     <div class="top-actions">
+      <button class="action-btn" id="openMapBtn" onclick="openCampusMap()" title="Campus Map & Routes">
+        <span>🗺️ Map</span>
+      </button>
       <button class="action-btn install-btn" id="pwaTopInstallBtn" title="Install Application"><span>📲 Install</span></button>
       <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)"><span id="deviceModeIcon">💻</span><span id="deviceModeText">PC View</span></button>
       <button class="action-btn icon-only" id="calendarBtn" title="Download .ics Calendar"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg></button>
@@ -978,131 +915,139 @@ body {
   </button>
 </nav>
 
-<!-- Floating Glass Toast -->
-<div class="floating-toast" id="toastBox">
-  <span id="toastText">Location Info</span>
-</div>
-
-<!-- Interactive Campus Navigator Modal -->
+<!-- Interactive Campus Navigator Modal with Glowing Paths -->
 <div class="modal-overlay" id="mapModal">
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title">
         <span>🗺️</span>
-        <span id="mapModalTitle">CUFE Campus Navigator</span>
+        <span>CUFE Campus Navigator & Guidance</span>
       </div>
       <button class="modal-close" onclick="closeMapModal()">×</button>
     </div>
     <div class="modal-body">
-      <div class="map-canvas-container">
-        <svg viewBox="0 0 900 600">
+
+      <!-- Interactive SVG Vector Map -->
+      <div class="map-canvas-wrapper">
+        <svg viewBox="0 0 920 620" id="campusSvgMap">
           <defs>
-            <radialGradient id="pulseGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#f97316" stop-opacity="0.9" />
+            <radialGradient id="targetPulse" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f97316" stop-opacity="0.95" />
               <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
             </radialGradient>
           </defs>
 
-          <!-- Campus Road Grid & Outline -->
-          <rect width="900" height="600" fill="#0d141d" />
-          <path d="M 80,0 L 80,600 M 0,220 L 900,220 M 0,440 L 900,440" stroke="#1f2d3f" stroke-width="28" fill="none" />
-          <text x="110" y="245" fill="#475569" font-size="11" font-weight="700" font-family="'JetBrains Mono'">UNIVERSITY STREET (شارع الجامعة)</text>
+          <!-- Campus Grounds Base -->
+          <rect width="920" height="620" fill="#0d141d" />
 
-          <!-- Buildings Outline (Geolocated to Campus Map) -->
-          <!-- Building 3: Architecture & Computer Eng. -->
-          <g id="map-bldg-3" onclick="highlightBuilding(3)" style="cursor:pointer">
-            <rect x="420" y="70" width="130" height="90" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="2" />
-            <text x="485" y="120" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 3</text>
-            <text x="485" y="140" fill="#94a3b8" font-size="9" text-anchor="middle">Architecture</text>
+          <!-- Main Roads & Internal Streets -->
+          <!-- University Street -->
+          <path d="M 0,260 L 920,260" stroke="#1b293b" stroke-width="32" fill="none" />
+          <text x="30" y="275" fill="#475569" font-size="11" font-weight="700" font-family="'JetBrains Mono'">UNIVERSITY STREET (شارع الجامعة)</text>
+
+          <!-- Internal Campus Corridor Paths -->
+          <path d="M 80,0 L 80,620 M 240,40 L 240,260 M 360,40 L 360,260 M 500,40 L 500,260 M 340,260 L 340,580 M 540,260 L 540,580 M 700,260 L 700,580" stroke="#162231" stroke-width="16" fill="none" />
+
+          <!-- Main Gate Entrance -->
+          <g id="mainGatePoint" transform="translate(80, 260)">
+            <circle cx="0" cy="0" r="14" fill="#2ba4cc" opacity="0.3" />
+            <circle cx="0" cy="0" r="7" fill="#2ba4cc" />
+            <text x="14" y="5" fill="#6ec4e0" font-size="11" font-weight="800" font-family="'JetBrains Mono'">MAIN GATE</text>
           </g>
 
-          <!-- Building 7: El-Sawy Hall -->
-          <g id="map-bldg-7" onclick="highlightBuilding(7)" style="cursor:pointer">
-            <rect x="340" y="100" width="60" height="70" rx="6" fill="#1e293b" stroke="#06b6d4" stroke-width="2" />
-            <text x="370" y="140" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">7</text>
-            <text x="370" y="155" fill="#94a3b8" font-size="8" text-anchor="middle">El-Sawy</text>
+          <!-- Campus Buildings (Geolocated accurately from official CUFE Masterplan) -->
+          <!-- Building 15: Student Services & Drafting (صالة رسم 15401) -->
+          <g id="svg-bldg-15" onclick="routeToBuilding(15)" style="cursor:pointer">
+            <rect x="120" y="50" width="105" height="90" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2.5" />
+            <text x="172" y="98" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 15</text>
+            <text x="172" y="118" fill="#94a3b8" font-size="9" text-anchor="middle">Services / CAD</text>
           </g>
 
-          <!-- Building 15: Student Services Building -->
-          <g id="map-bldg-15" onclick="highlightBuilding(15)" style="cursor:pointer">
-            <rect x="130" y="100" width="90" height="80" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
-            <text x="175" y="145" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 15</text>
-            <text x="175" y="165" fill="#94a3b8" font-size="8" text-anchor="middle">Services (Drafting)</text>
+          <!-- Building 14: New Mechanical Design (سكاشن ميكانيكا) -->
+          <g id="svg-bldg-14" onclick="routeToBuilding(14)" style="cursor:pointer">
+            <rect x="255" y="60" width="85" height="85" rx="8" fill="#1e293b" stroke="#eab308" stroke-width="2.5" />
+            <text x="297" y="105" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 14</text>
+            <text x="297" y="125" fill="#94a3b8" font-size="9" text-anchor="middle">Mech Design</text>
           </g>
 
-          <!-- Building 14: New Mechanical Design -->
-          <g id="map-bldg-14" onclick="highlightBuilding(14)" style="cursor:pointer">
-            <rect x="250" y="110" width="70" height="75" rx="6" fill="#1e293b" stroke="#eab308" stroke-width="2" />
-            <text x="285" y="150" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 14</text>
-            <text x="285" y="168" fill="#94a3b8" font-size="8" text-anchor="middle">Design</text>
+          <!-- Building 7: El-Sawy Hall Complex (مدرج الساوي 7104) -->
+          <g id="svg-bldg-7" onclick="routeToBuilding(7)" style="cursor:pointer">
+            <rect x="375" y="70" width="80" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2.5" />
+            <text x="415" y="115" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 7</text>
+            <text x="415" y="135" fill="#94a3b8" font-size="9" text-anchor="middle">El-Sawy Hall</text>
           </g>
 
-          <!-- Building 17: New Mechanical Power -->
-          <g id="map-bldg-17" onclick="highlightBuilding(17)" style="cursor:pointer">
-            <rect x="620" y="270" width="110" height="90" rx="6" fill="#1e293b" stroke="#a855f7" stroke-width="2" />
-            <text x="675" y="320" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 17</text>
-            <text x="675" y="340" fill="#94a3b8" font-size="8" text-anchor="middle">Power New</text>
+          <!-- Building 3: Architecture & Computer Eng. (مدرج 3103) -->
+          <g id="svg-bldg-3" onclick="routeToBuilding(3)" style="cursor:pointer">
+            <rect x="495" y="50" width="145" height="110" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5" />
+            <text x="567" y="105" fill="#fff" font-size="15" font-weight="800" text-anchor="middle">BLDG 3</text>
+            <text x="567" y="127" fill="#94a3b8" font-size="9.5" text-anchor="middle">Architecture & Computers</text>
           </g>
 
-          <!-- Building 19: Mechanical Power (Automotive) -->
-          <g id="map-bldg-19" onclick="highlightBuilding(19)" style="cursor:pointer">
-            <rect x="420" y="270" width="120" height="85" rx="6" fill="#1e293b" stroke="#ec4899" stroke-width="2" />
-            <text x="480" y="315" fill="#fff" font-size="13" font-weight="800" text-anchor="middle">BLDG 19</text>
-            <text x="480" y="335" fill="#94a3b8" font-size="8" text-anchor="middle">Automotive</text>
+          <!-- Building 19: Mechanical Power (Automotive) (سيارات) -->
+          <g id="svg-bldg-19" onclick="routeToBuilding(19)" style="cursor:pointer">
+            <rect x="360" y="340" width="140" height="95" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="2.5" />
+            <text x="430" y="390" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 19</text>
+            <text x="430" y="410" fill="#94a3b8" font-size="9" text-anchor="middle">Power (Automotive)</text>
           </g>
 
-          <!-- Dynamic Active Pulse Pin Target -->
-          <g id="activeMapPin" style="display:none;">
-            <circle id="pulseRing" cx="0" cy="0" r="28" fill="url(#pulseGlow)" class="pulse-marker" />
-            <circle id="pinCenter" cx="0" cy="0" r="7" fill="#f97316" stroke="#fff" stroke-width="2" />
+          <!-- Building 17: New Mechanical Power Eng. (مبنى القوى الجديد) -->
+          <g id="svg-bldg-17" onclick="routeToBuilding(17)" style="cursor:pointer">
+            <rect x="560" y="340" width="150" height="100" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="2.5" />
+            <text x="635" y="390" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 17</text>
+            <text x="635" y="410" fill="#94a3b8" font-size="9" text-anchor="middle">Mech Power (New)</text>
+          </g>
+
+          <!-- Dynamic Glowing Animated Path Route -->
+          <path id="activeGlowPath" class="glowing-route" d="" style="display:none;" />
+
+          <!-- Dynamic Target Pulse Pin -->
+          <g id="activeTargetPin" style="display:none;">
+            <circle id="pulseTargetCircle" cx="0" cy="0" r="32" fill="url(#targetPulse)" class="map-pulse-marker" />
+            <circle id="pinCore" cx="0" cy="0" r="8" fill="#f97316" stroke="#fff" stroke-width="2.5" />
           </g>
         </svg>
       </div>
 
-      <div class="map-legend-list">
-        <div class="map-legend-row" onclick="highlightBuilding(15)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="map-legend-num">15</span>
-            <b>Student Services Building (صالة رسم 15401)</b>
-          </div>
-          <span>📍</span>
+      <!-- Focused Guidance HUD -->
+      <div class="map-hud-card" id="mapHudCard">
+        <div class="map-hud-title">
+          <span id="hudBldgName">Select any room or building</span>
+          <span class="map-building-pill" id="hudFloorBadge">READY</span>
         </div>
-        <div class="map-legend-row" onclick="highlightBuilding(14)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="map-legend-num">14</span>
-            <b>New Mechanical Design Building (سكاشن 14)</b>
-          </div>
-          <span>📍</span>
-        </div>
-        <div class="map-legend-row" onclick="highlightBuilding(7)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="map-legend-num">7</span>
-            <b>El-Sawy Hall Complex (مدرج الساوي 7104)</b>
-          </div>
-          <span>📍</span>
-        </div>
-        <div class="map-legend-row" onclick="highlightBuilding(3)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="map-legend-num">3</span>
-            <b>Architecture & Computer Eng. Building (مدرج 3103)</b>
-          </div>
-          <span>📍</span>
-        </div>
-        <div class="map-legend-row" onclick="highlightBuilding(17)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="map-legend-num">17</span>
-            <b>New Mechanical Power Building (مبنى القوى الجديد)</b>
-          </div>
-          <span>📍</span>
-        </div>
-        <div class="map-legend-row" onclick="highlightBuilding(19)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="map-legend-num">19</span>
-            <b>Mechanical Power (Automotive) Building (سيارات)</b>
-          </div>
-          <span>📍</span>
+        <div class="map-hud-details" id="hudBldgDesc">
+          Click on any room code in your daily or weekly schedule, and the campus navigator will guide you with a glowing route directly from the main gate to the hall entrance.
         </div>
       </div>
+
+      <!-- Quick Building Switcher -->
+      <div class="map-bldg-list">
+        <div class="map-bldg-btn" onclick="routeToBuilding(15, '15401')">
+          <span>Building 15 (Services / Drafting)</span>
+          <span style="color:var(--accent-light)">15401 ↗</span>
+        </div>
+        <div class="map-bldg-btn" onclick="routeToBuilding(14, '14301')">
+          <span>Building 14 (Mech Design)</span>
+          <span style="color:var(--accent-light)">14301 ↗</span>
+        </div>
+        <div class="map-bldg-btn" onclick="routeToBuilding(7, '7104')">
+          <span>Building 7 (El-Sawy Hall)</span>
+          <span style="color:var(--accent-light)">7104 ↗</span>
+        </div>
+        <div class="map-bldg-btn" onclick="routeToBuilding(3, '3103')">
+          <span>Building 3 (Architecture & Computers)</span>
+          <span style="color:var(--accent-light)">3103 ↗</span>
+        </div>
+        <div class="map-bldg-btn" onclick="routeToBuilding(17, '17302')">
+          <span>Building 17 (Power New)</span>
+          <span style="color:var(--accent-light)">17302 ↗</span>
+        </div>
+        <div class="map-bldg-btn" onclick="routeToBuilding(19, '19302')">
+          <span>Building 19 (Automotive)</span>
+          <span style="color:var(--accent-light)">19302 ↗</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1173,40 +1118,65 @@ let selectedGuideWeek = "Week 1";
 // قاموس المباني الرسمي بالإنجليزية المعتمدة
 const ROOM_INFO = {
   // Building 3: Architecture & Computer Engineering
-  "3103-414": "Building 3 (Architecture & Computer Eng.) — 1st Floor, Hall 3 (Cap: 414)",
-  "3101-306": "Building 3 (Architecture & Computer Eng.) — 1st Floor, Hall 1 (Cap: 306)",
+  "3103-414": { bldg: 3, floor: "1st Floor", hall: "Hall 3 (Capacity: 414)", name: "Building 3 (Architecture & Computer Eng.)" },
+  "3101-306": { bldg: 3, floor: "1st Floor", hall: "Hall 1 (Capacity: 306)", name: "Building 3 (Architecture & Computer Eng.)" },
 
   // Building 7: El-Sawy Hall Complex
-  "7104-360": "Building 7 (El-Sawy Hall Complex) — Hall 4 (Cap: 360)",
+  "7104-360": { bldg: 7, floor: "1st Floor", hall: "Hall 4 (Capacity: 360)", name: "Building 7 (El-Sawy Hall Complex)" },
 
   // Building 14: New Mechanical Design Building
-  "14201-50": "Building 14 (New Mechanical Design) — 2nd Floor, Room 1 (Cap: 50)",
-  "14301-50": "Building 14 (New Mechanical Design) — 3rd Floor, Room 1 (Cap: 50)",
-  "14302-50": "Building 14 (New Mechanical Design) — 3rd Floor, Room 2 (Cap: 50)",
-  "14100-(104)": "Building 14 (New Mechanical Design) — 1st Floor, Hall 100 (Cap: 104)",
+  "14201-50": { bldg: 14, floor: "2nd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14301-50": { bldg: 14, floor: "3rd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14302-50": { bldg: 14, floor: "3rd Floor", hall: "Room 2 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14100-(104)": { bldg: 14, floor: "1st Floor", hall: "Hall 100 (Capacity: 104)", name: "Building 14 (New Mechanical Design)" },
 
   // Building 15: Student Services Building
-  "15401-300": "Building 15 (Student Services Building) — 4th Floor, Drawing Hall 1",
+  "15401-300": { bldg: 15, floor: "4th Floor", hall: "Drawing Hall 1 (Capacity: 300)", name: "Building 15 (Student Services Building)" },
 
   // Building 17: New Mechanical Power Engineering Building
-  "17400-56": "Building 17 (New Mechanical Power Eng.) — 4th Floor, Room 56",
-  "17301-56": "Building 17 (New Mechanical Power Eng.) — 3rd Floor, Room 1",
-  "17302-148": "Building 17 (New Mechanical Power Eng.) — 3rd Floor, Hall 2 (Cap: 148)",
-  "17200-56": "Building 17 (New Mechanical Power Eng.) — 2nd Floor, Room 56",
-  "17102-148": "Building 17 (New Mechanical Power Eng.) — 1st Floor, Hall 2 (Cap: 148)",
+  "17400-56": { bldg: 17, floor: "4th Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17301-56": { bldg: 17, floor: "3rd Floor", hall: "Room 1 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17302-148": { bldg: 17, floor: "3rd Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17200-56": { bldg: 17, floor: "2nd Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17102-148": { bldg: 17, floor: "1st Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
 
   // Building 19: Mechanical Power Engineering Building (Automotive)
-  "19302-48": "Building 19 (Mechanical Power Eng. - Automotive) — 3rd Floor, Room 2",
-  "19301-48": "Building 19 (Mechanical Power Eng. - Automotive) — 3rd Floor, Room 1"
+  "19302-48": { bldg: 19, floor: "3rd Floor", hall: "Room 2 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" },
+  "19301-48": { bldg: 19, floor: "3rd Floor", hall: "Room 1 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" }
 };
 
-const BUILDING_COORDS = {
-  3:  { x: 485, y: 115, name: "Building 3 (Architecture & Computer Eng.)" },
-  7:  { x: 370, y: 135, name: "Building 7 (El-Sawy Hall Complex)" },
-  14: { x: 285, y: 147, name: "Building 14 (New Mechanical Design)" },
-  15: { x: 175, y: 140, name: "Building 15 (Student Services Building)" },
-  17: { x: 675, y: 315, name: "Building 17 (New Mechanical Power Eng.)" },
-  19: { x: 480, y: 312, name: "Building 19 (Mechanical Power Eng. - Automotive)" }
+// نقاط ومسارات الملاحة التفاعلية (Glowing Neon Routes from Main Gate)
+const CAMPUS_NAV_DATA = {
+  3: {
+    pinX: 567, pinY: 105,
+    name: "Building 3 (Architecture & Computer Eng.)",
+    path: "M 80,260 L 500,260 L 500,105 L 567,105"
+  },
+  7: {
+    pinX: 415, pinY: 115,
+    name: "Building 7 (El-Sawy Hall Complex)",
+    path: "M 80,260 L 360,260 L 360,115 L 415,115"
+  },
+  14: {
+    pinX: 297, pinY: 105,
+    name: "Building 14 (New Mechanical Design)",
+    path: "M 80,260 L 240,260 L 240,105 L 297,105"
+  },
+  15: {
+    pinX: 172, pinY: 98,
+    name: "Building 15 (Student Services Building)",
+    path: "M 80,260 L 80,98 L 172,98"
+  },
+  17: {
+    pinX: 635, pinY: 390,
+    name: "Building 17 (New Mechanical Power Eng.)",
+    path: "M 80,260 L 700,260 L 700,390 L 635,390"
+  },
+  19: {
+    pinX: 430, pinY: 390,
+    name: "Building 19 (Mechanical Power Eng. - Automotive)",
+    path: "M 80,260 L 340,260 L 340,390 L 430,390"
+  }
 };
 
 let ASSESSMENTS = [];
@@ -1276,41 +1246,34 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-let toastTimer;
-function showToast(text) {
-  triggerHaptic();
-  const box = document.getElementById("toastBox");
-  document.getElementById("toastText").textContent = text;
-  box.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => box.classList.remove("show"), 4800);
-}
-
-// دالة فتح وتحديد المبنى في الخريطة التفاعلية
+// Navigation & Interactive Glowing Route Engine
 function showRoomDetails(roomCode) {
   triggerHaptic();
-  const info = ROOM_INFO[roomCode] || "Faculty of Engineering · Giza Campus";
-  showToast(`${roomCode}:\n${info}`);
+  let roomMeta = ROOM_INFO[roomCode];
 
-  let bldgNum = parseInt(roomCode.substring(0, 2));
-  if (isNaN(bldgNum) || !BUILDING_COORDS[bldgNum]) {
-    bldgNum = parseInt(roomCode.substring(0, 1));
+  let bldgNum = null;
+  if (roomMeta) {
+    bldgNum = roomMeta.bldg;
+  } else {
+    bldgNum = parseInt(roomCode.substring(0, 2));
+    if (isNaN(bldgNum) || !CAMPUS_NAV_DATA[bldgNum]) {
+      bldgNum = parseInt(roomCode.substring(0, 1));
+    }
   }
 
-  if (BUILDING_COORDS[bldgNum]) {
-    setTimeout(() => {
-      openMapModal(bldgNum, roomCode);
-    }, 450);
-  }
+  openCampusMap(bldgNum, roomCode);
 }
 
-function openMapModal(bldgNum = null, roomCode = "") {
+function openCampusMap(bldgNum = null, roomCode = "") {
   triggerHaptic();
   const modal = document.getElementById("mapModal");
   modal.classList.add("open");
-  if (bldgNum) {
-    highlightBuilding(bldgNum);
-    document.getElementById("mapModalTitle").textContent = `${roomCode ? roomCode + ' — ' : ''}${BUILDING_COORDS[bldgNum].name}`;
+
+  if (bldgNum && CAMPUS_NAV_DATA[bldgNum]) {
+    routeToBuilding(bldgNum, roomCode);
+  } else {
+    // Default open state
+    routeToBuilding(15, "15401");
   }
 }
 
@@ -1318,19 +1281,35 @@ function closeMapModal() {
   document.getElementById("mapModal").classList.remove("open");
 }
 
-function highlightBuilding(bldgNum) {
+function routeToBuilding(bldgNum, specificRoom = "") {
   triggerHaptic();
-  const target = BUILDING_COORDS[bldgNum];
-  const pin = document.getElementById("activeMapPin");
-  if (!target || !pin) return;
+  const nav = CAMPUS_NAV_DATA[bldgNum];
+  if (!nav) return;
 
+  // Active glowing path
+  const glowPath = document.getElementById("activeGlowPath");
+  glowPath.setAttribute("d", nav.path);
+  glowPath.style.display = "block";
+
+  // Target pulse pin
+  const pin = document.getElementById("activeTargetPin");
   pin.style.display = "block";
-  document.getElementById("pulseRing").setAttribute("cx", target.x);
-  document.getElementById("pulseRing").setAttribute("cy", target.y);
-  document.getElementById("pinCenter").setAttribute("cx", target.x);
-  document.getElementById("pinCenter").setAttribute("cy", target.y);
+  document.getElementById("pulseTargetCircle").setAttribute("cx", nav.pinX);
+  document.getElementById("pulseTargetCircle").setAttribute("cy", nav.pinY);
+  document.getElementById("pinCore").setAttribute("cx", nav.pinX);
+  document.getElementById("pinCore").setAttribute("cy", nav.pinY);
 
-  document.getElementById("mapModalTitle").textContent = target.name;
+  // HUD Update
+  let roomMeta = ROOM_INFO[specificRoom];
+  if (roomMeta) {
+    document.getElementById("hudBldgName").textContent = `${specificRoom} · ${nav.name}`;
+    document.getElementById("hudFloorBadge").textContent = roomMeta.floor.toUpperCase();
+    document.getElementById("hudBldgDesc").textContent = `${roomMeta.hall} — Glowing neon path is now routing directly from the Main Gate to the building entrance.`;
+  } else {
+    document.getElementById("hudBldgName").textContent = nav.name;
+    document.getElementById("hudFloorBadge").textContent = `BLDG ${bldgNum}`;
+    document.getElementById("hudBldgDesc").textContent = `Follow the glowing neon route from the Main Gate to reach Building ${bldgNum}.`;
+  }
 }
 
 document.getElementById("mapModal").addEventListener("click", e => {
@@ -1617,7 +1596,7 @@ function exportToCalendar() {
     ics.push(`DTEND;TZID=Africa/Cairo:202609${19 + dayOffsets[s.day]}T${eTime}`);
     ics.push(`RRULE:FREQ=WEEKLY;BYDAY=${rruleDays[s.day]}`);
     ics.push(`SUMMARY:${s.code} - ${s.type}`);
-    ics.push(`LOCATION:${(ROOM_INFO[s.room] || s.room).replace(/,/g, "\\,")}`);
+    ics.push(`LOCATION:${s.room}`);
     ics.push("END:VEVENT");
   });
   ics.push("END:VCALENDAR");
@@ -1682,7 +1661,7 @@ function renderDailyAgenda() {
             </div>
           </div>
           <div class="card-title">${course.name}</div>
-          <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room}</div>
+          <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
         </div>
       </div>`;
   }
@@ -1773,7 +1752,7 @@ function renderWeekMatrix() {
           <div class="title">${course.name}</div>
           <div class="footer">
             <span>${formatTime(sess.start, sess.span)}</span>
-            <span class="room-badge" onclick="showRoomDetails('${sess.room}')">${sess.room}</span>
+            <span class="room-badge" onclick="showRoomDetails('${sess.room}')">${sess.room} ↗</span>
           </div>
         </div>`;
       grid.appendChild(cell);
