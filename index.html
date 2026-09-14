@@ -61,7 +61,7 @@
   --text-subtle: #7997ab;
   --accent: #197a9c;
   --accent-light: #2ba4cc;
-  --accent-glow: rgba(255, 255, 255, 0.14);
+  --accent-glow: rgba(25, 122, 156, 0.14);
   --bone: #23344a;
   --bone-glow: rgba(35, 52, 74, 0.1);
   --quiz-color: #ea580c;
@@ -670,7 +670,81 @@ body {
 .nav-item span { font-size: 9.5px; font-weight: 700; }
 .nav-item.active { color: var(--accent-light); transform: translateY(-2px); }
 
-/* Modals (Tasks & Announcements) */
+/* FOCUSED ROOM DETAILS TOAST WITH DIRECT GOOGLE MAPS LINK */
+.floating-toast {
+  position: fixed;
+  bottom: 84px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #0f172a;
+  border: 1.5px solid var(--accent);
+  color: #ffffff !important;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.65);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  direction: ltr;
+  width: max-content;
+  max-width: 90vw;
+}
+.floating-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.toast-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.toast-room-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--accent-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.toast-floor-pill {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--accent-glow);
+  color: var(--accent-light);
+  border: 1px solid var(--accent);
+}
+.toast-info-text {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+.toast-maps-btn {
+  background: #2ba4cc;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  margin-top: 2px;
+}
+.toast-maps-btn:hover { opacity: 0.9; }
+
+/* Modals */
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(13, 20, 29, 0.75);
   backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center;
@@ -714,7 +788,7 @@ body {
   }
 
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
-  .live-status-capsule, .vault-container, .guide-container,
+  .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
@@ -824,9 +898,6 @@ body {
     </div>
 
     <div class="top-actions">
-      <a href="map.html" class="action-btn" title="Open 3D Campus Navigator">
-        <span>🗺️ 3D Map</span>
-      </a>
       <button class="action-btn install-btn" id="pwaTopInstallBtn" title="Install Application"><span>📲 Install</span></button>
       <button class="action-btn" id="deviceModeBtn" title="Switch layout width (Mobile / PC)"><span id="deviceModeIcon">💻</span><span id="deviceModeText">PC View</span></button>
       <button class="action-btn icon-only" id="calendarBtn" title="Download .ics Calendar"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg></button>
@@ -903,6 +974,22 @@ body {
   </button>
 </nav>
 
+<!-- FOCUSED ROOM DETAILS TOAST WITH DIRECT GOOGLE MAPS LINK -->
+<div class="floating-toast" id="toastBox">
+  <div class="toast-top-row">
+    <div class="toast-room-tag">
+      <span>🏛️</span>
+      <span id="toastRoomTitle">Room</span>
+    </div>
+    <span class="toast-floor-pill" id="toastFloorPill">1ST FLOOR</span>
+  </div>
+  <div class="toast-info-text" id="toastRoomBody">Location Details</div>
+  <a id="toastMapsLink" href="#" target="_blank" rel="noopener noreferrer" class="toast-maps-btn">
+    <span>📍 Open in Google Maps</span>
+    <span>↗</span>
+  </a>
+</div>
+
 <!-- Announcements Modal -->
 <div class="modal-overlay" id="notifModal">
   <div class="modal-card">
@@ -932,10 +1019,12 @@ const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 const QUIZZES_SHEET_ID = "1vYP4V4CrjeTtZkYU7TPbTvIQ4TqJZ2BWvipBvT5j1B0";
 const ALERTS_SHEET_ID  = "1mearSta_QWzdR0EzGyU-o7EYipAFibOMrRIcqyL9f7E";
 const WEEKLY_GUIDE_SHEET_ID = "1EA8YyyArFjEjQBlVu932pYJXgQaS51TEzunIdQuBsas";
+const BUILDINGS_LOCATIONS_SHEET_ID = "1A38Yix4nay_Yu6-iaol4Gt7MvB9HofLBJ_vowznStGs";
 
 const QUIZZES_CSV_URL = `https://docs.google.com/spreadsheets/d/${QUIZZES_SHEET_ID}/gviz/tq?tqx=out:csv`;
 const ALERTS_CSV_URL   = `https://docs.google.com/spreadsheets/d/${ALERTS_SHEET_ID}/gviz/tq?tqx=out:csv`;
 const WEEKLY_GUIDE_CSV_URL = `https://docs.google.com/spreadsheets/d/${WEEKLY_GUIDE_SHEET_ID}/gviz/tq?tqx=out:csv`;
+const BUILDINGS_CSV_URL = `https://docs.google.com/spreadsheets/d/${BUILDINGS_LOCATIONS_SHEET_ID}/gviz/tq?tqx=out:csv`;
 
 const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1GsVU0lpQXxKWLFeoVfjvTov1XmsNbn8o?usp=drive_link";
 const ARCHIVE_BATCH29_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
@@ -966,6 +1055,33 @@ const DRIVE_DATA = {
 let WEEKLY_GUIDE_DATA = [];
 let selectedGuideWeek = "Week 1";
 
+let BUILDING_MAP_URLS = {
+  3:  "https://maps.google.com/?q=30.0271,31.2091",
+  7:  "https://maps.google.com/?q=30.0267,31.2078",
+  14: "https://maps.google.com/?q=30.0264,31.2069",
+  15: "https://maps.google.com/?q=30.0261,31.2056",
+  17: "https://maps.google.com/?q=30.0245,31.2085",
+  19: "https://maps.google.com/?q=30.0243,31.2072"
+};
+
+const ROOM_INFO = {
+  "3103-414": { bldg: 3, floor: "1st Floor", hall: "Hall 3 (Capacity: 414)", name: "Building 3 (Architecture & Computer Eng.)" },
+  "3101-306": { bldg: 3, floor: "1st Floor", hall: "Hall 1 (Capacity: 306)", name: "Building 3 (Architecture & Computer Eng.)" },
+  "7104-360": { bldg: 7, floor: "1st Floor", hall: "Hall 4 (Capacity: 360)", name: "Building 7 (El-Sawy Hall Complex)" },
+  "14201-50": { bldg: 14, floor: "2nd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14301-50": { bldg: 14, floor: "3rd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14302-50": { bldg: 14, floor: "3rd Floor", hall: "Room 2 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14100-(104)": { bldg: 14, floor: "1st Floor", hall: "Hall 100 (Capacity: 104)", name: "Building 14 (New Mechanical Design)" },
+  "15401-300": { bldg: 15, floor: "4th Floor", hall: "Drawing Hall 1 (Capacity: 300)", name: "Building 15 (Student Services Building)" },
+  "17400-56": { bldg: 17, floor: "4th Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17301-56": { bldg: 17, floor: "3rd Floor", hall: "Room 1 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17302-148": { bldg: 17, floor: "3rd Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17200-56": { bldg: 17, floor: "2nd Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17102-148": { bldg: 17, floor: "1st Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "19302-48": { bldg: 19, floor: "3rd Floor", hall: "Room 2 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" },
+  "19301-48": { bldg: 19, floor: "3rd Floor", hall: "Room 1 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" }
+};
+
 let ASSESSMENTS = [];
 let NOTIFICATIONS = [
   {
@@ -991,7 +1107,6 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص مع تحديد الحضور لمساق الرسم السوليد ومحاضرة الماث
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1033,10 +1148,30 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// الانتقال المباشر لصفحة الخريطة ثلاثية الأبعاد مع تركيز الكاميرا على القاعة
+let toastTimer;
 function showRoomDetails(roomCode) {
   triggerHaptic();
-  window.location.href = `map.html?room=${encodeURIComponent(roomCode)}`;
+  const roomMeta = ROOM_INFO[roomCode];
+  const box = document.getElementById("toastBox");
+  
+  if (roomMeta) {
+    document.getElementById("toastRoomTitle").textContent = roomCode;
+    document.getElementById("toastFloorPill").textContent = roomMeta.floor.toUpperCase();
+    document.getElementById("toastRoomBody").textContent = `${roomMeta.name} — ${roomMeta.hall}`;
+    
+    const mapLink = BUILDING_MAP_URLS[roomMeta.bldg] || "https://maps.google.com/?q=Faculty+of+Engineering+Cairo+University";
+    document.getElementById("toastMapsLink").setAttribute("href", mapLink);
+    document.getElementById("toastMapsLink").style.display = "inline-flex";
+  } else {
+    document.getElementById("toastRoomTitle").textContent = roomCode;
+    document.getElementById("toastFloorPill").textContent = "FACULTY";
+    document.getElementById("toastRoomBody").textContent = "Faculty of Engineering · Giza Campus";
+    document.getElementById("toastMapsLink").setAttribute("href", "https://maps.google.com/?q=Faculty+of+Engineering+Cairo+University");
+  }
+
+  box.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
 function parseCSV(text) {
@@ -1055,16 +1190,16 @@ function parseCSV(text) {
   });
 }
 
-// مزامنة البيانات السحابية
 async function syncFromGoogleSheets() {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 4000);
 
-    const [qRes, aRes, gRes] = await Promise.all([
+    const [qRes, aRes, gRes, bRes] = await Promise.all([
       fetch(QUIZZES_CSV_URL, { signal: controller.signal }).catch(() => null),
       fetch(ALERTS_CSV_URL, { signal: controller.signal }).catch(() => null),
-      fetch(WEEKLY_GUIDE_CSV_URL, { signal: controller.signal }).catch(() => null)
+      fetch(WEEKLY_GUIDE_CSV_URL, { signal: controller.signal }).catch(() => null),
+      fetch(BUILDINGS_CSV_URL, { signal: controller.signal }).catch(() => null)
     ]);
     clearTimeout(timeoutId);
 
@@ -1082,6 +1217,16 @@ async function syncFromGoogleSheets() {
       const gText = await gRes.text();
       const parsed = parseCSV(gText);
       WEEKLY_GUIDE_DATA = parsed.filter(row => row.week && row.code && (row.lectures || row.sheet || row.practice || row.summary_title));
+    }
+    if (bRes && bRes.ok) {
+      const bText = await bRes.text();
+      const parsed = parseCSV(bText);
+      parsed.forEach(row => {
+        const num = parseInt(row.bldg || row.building);
+        if (num && (row.url || row.maps_link || row.link)) {
+          BUILDING_MAP_URLS[num] = row.url || row.maps_link || row.link;
+        }
+      });
     }
   } catch (e) {
     console.warn("Using offline fallback data.", e);
@@ -1867,5 +2012,3 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
-
-
