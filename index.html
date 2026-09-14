@@ -61,7 +61,7 @@
   --text-subtle: #7997ab;
   --accent: #197a9c;
   --accent-light: #2ba4cc;
-  --accent-glow: rgba(25, 122, 156, 0.14);
+  --accent-glow: rgba(255, 255, 255, 0.14);
   --bone: #23344a;
   --bone-glow: rgba(35, 52, 74, 0.1);
   --quiz-color: #ea580c;
@@ -203,9 +203,6 @@ body {
   color: #ffffff;
   border-color: var(--accent);
   display: none;
-}
-.action-btn.install-btn:hover {
-  opacity: 0.9;
 }
 .action-btn svg { width: 15px; height: 15px; fill: currentColor; }
 
@@ -673,127 +670,113 @@ body {
 .nav-item.active { color: var(--accent-light); transform: translateY(-2px); }
 
 /* ==========================================================
-   INTERACTIVE CAMPUS MAP MODAL & NEON ROUTE ENGINE
+   INTERACTIVE REAL-GEOMETRY VECTOR MAP MODAL
    ================================================---------- */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.85);
+  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.88);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   z-index: 1200; display: flex; align-items: center; justify-content: center;
-  padding: 14px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+  padding: 12px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
 }
 .modal-overlay.open { opacity: 1; pointer-events: auto; }
 .modal-card {
   background: var(--surface); border: 1px solid var(--border-dark); border-radius: 18px;
-  width: 100%; max-width: 580px; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden;
+  width: 100%; max-width: 580px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden;
   box-shadow: 0 24px 48px rgba(0,0,0,0.6);
 }
-.modal-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-head { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
 .modal-title { font-size: 14px; font-weight: 800; color: var(--accent-light); display: flex; align-items: center; gap: 8px; }
 .modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 24px; padding: 0 6px; }
 .modal-body { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
 
-/* SVG Map Canvas */
-.map-canvas-wrapper {
+/* Real Campus SVG Canvas */
+.campus-vector-container {
   position: relative;
   width: 100%;
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: #090e15;
+  background: #cbd5e1; /* Realistic architectural paper tone */
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.15);
 }
-.map-canvas-wrapper svg {
+.campus-vector-container svg {
   width: 100%;
   height: auto;
   display: block;
 }
 
 /* Glowing Path & Animations */
-@keyframes neonDash {
+@keyframes dashNeonGlow {
   to {
     stroke-dashoffset: -40;
   }
 }
-.glowing-route {
-  stroke: #f97316;
-  stroke-width: 4.5;
+.neon-path-line {
+  stroke: #ea580c;
+  stroke-width: 7;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 8 6;
-  animation: neonDash 1.2s linear infinite;
-  filter: drop-shadow(0 0 6px #f97316) drop-shadow(0 0 12px rgba(249, 115, 22, 0.6));
+  stroke-dasharray: 10 7;
+  animation: dashNeonGlow 1.2s linear infinite;
+  filter: drop-shadow(0 0 6px #ea580c) drop-shadow(0 0 16px rgba(234, 88, 12, 0.85));
 }
 
-@keyframes markerPulse {
-  0% { transform: scale(0.85); opacity: 0.8; }
-  50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 12px #f97316); }
-  100% { transform: scale(0.85); opacity: 0.8; }
+@keyframes pulseWaveBeat {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 14px #ea580c); }
+  100% { transform: scale(0.8); opacity: 0.8; }
 }
-.map-pulse-marker {
-  animation: markerPulse 1.6s infinite ease-in-out;
+.pulse-wave-ring {
+  animation: pulseWaveBeat 1.4s infinite ease-in-out;
   transform-origin: center;
 }
 
-/* Map Info Card HUD */
-.map-hud-card {
+/* Focused Location HUD */
+.location-hud-box {
   background: var(--surface-alt);
   border: 1px solid var(--accent);
   border-radius: 12px;
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  gap: 5px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
 }
-.map-hud-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--accent-light);
+.hud-head-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.map-hud-details {
-  font-size: 12px;
-  color: #cbd5e1;
-  line-height: 1.45;
+.hud-room-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--accent-light);
 }
-.map-building-pill {
+.hud-floor-pill {
   font-size: 10px;
   font-weight: 800;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 6px;
   background: var(--accent-glow);
   color: var(--accent-light);
   border: 1px solid var(--accent);
 }
+.hud-desc {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.45;
+}
 
-/* Legend List */
-.map-bldg-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  font-size: 11px;
+/* Modals */
+.modal-overlay-task {
+  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.75);
+  backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center;
+  padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
 }
-@media (max-width: 440px) { .map-bldg-list { grid-template-columns: 1fr; } }
-.map-bldg-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 8px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 600;
-  transition: all 0.15s ease;
-}
-.map-bldg-btn:hover {
-  border-color: var(--accent);
-  color: var(--text-main);
-  background: var(--surface-alt);
-}
+.modal-overlay-task.open { opacity: 1; pointer-events: auto; }
+.modal-body-task { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.modal-item-task { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
 
 /* Legend */
 .legend {
@@ -805,12 +788,108 @@ body {
 .legend-item.active { background: var(--surface-alt); color: var(--accent-light); font-weight: 800; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
-/* Print Mode */
+/* Print Engine (Landscape A4 Full Schedule) */
 @media print {
-  @page { size: A4 landscape !important; margin: 6mm !important; }
-  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
-  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
-  .live-status-capsule, .vault-container, .guide-container, .timeline-wrap { display: none !important; }
+  @page {
+    size: A4 landscape !important;
+    margin: 6mm !important;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay, .modal-overlay-task,
+  .live-status-capsule, .vault-container, .guide-container,
+  .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
+    display: none !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .masthead {
+    display: flex !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 8px !important;
+  }
+  .dept-title { font-size: 18px !important; color: #0f172a !important; }
+  .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
+
+  .matrix-wrapper {
+    display: block !important;
+    box-shadow: none !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+  .matrix-scroll { overflow: visible !important; }
+  .matrix-grid {
+    display: grid !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    grid-template-columns: 68px repeat(5, 1fr) !important;
+    grid-template-rows: 28px repeat(8, minmax(50px, auto)) !important;
+  }
+  .matrix-head {
+    background: #f1f5f9 !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    border-right: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 3px 6px !important;
+  }
+  .matrix-time {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1.5px solid #0f172a !important;
+    color: #334155 !important;
+    font-size: 9.5px !important;
+    padding: 2px !important;
+  }
+  .matrix-cell {
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1px solid #cbd5e1 !important;
+    padding: 2px !important;
+  }
+  .grid-card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 3.5px solid var(--c) !important;
+    border-radius: 4px !important;
+    padding: 3px 5px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    filter: none !important;
+    break-inside: avoid !important;
+  }
+  .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
+  .grid-card .type { font-size: 7.5px !important; background: #f1f5f9 !important; color: #334155 !important; padding: 0 3px !important; }
+  .grid-card .title { font-size: 8.5px !important; color: #334155 !important; margin-top: 1px !important; line-height: 1.2 !important; }
+  .grid-card .footer { font-size: 8px !important; padding-top: 2px !important; border-top: 1px dashed #cbd5e1 !important; color: #475569 !important; }
+  .grid-card .room-badge { background: #f1f5f9 !important; border: 1px solid #cbd5e1 !important; padding: 0 3px !important; font-size: 7.5px !important; color: #0f172a !important; }
+
+  .legend {
+    display: flex !important;
+    margin-top: 8px !important;
+    padding: 4px 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    gap: 4px 12px !important;
+    page-break-inside: avoid !important;
+  }
+  .legend-item { font-size: 8.5px !important; color: #334155 !important; }
 }
 </style>
 </head>
@@ -836,7 +915,7 @@ body {
     </div>
 
     <div class="top-actions">
-      <button class="action-btn" id="openMapBtn" onclick="openCampusMap()" title="Campus Map & Routes">
+      <button class="action-btn" id="openMapBtn" onclick="openCampusMap()" title="Campus Map & Guidance">
         <span>🗺️ Map</span>
       </button>
       <button class="action-btn install-btn" id="pwaTopInstallBtn" title="Install Application"><span>📲 Install</span></button>
@@ -915,136 +994,123 @@ body {
   </button>
 </nav>
 
-<!-- Interactive Campus Navigator Modal with Glowing Paths -->
+<!-- REAL-GEOMETRY VECTOR CAMPUS NAVIGATOR MODAL -->
 <div class="modal-overlay" id="mapModal">
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title">
         <span>🗺️</span>
-        <span>CUFE Campus Navigator & Guidance</span>
+        <span id="mapModalHeaderTitle">Campus Guidance</span>
       </div>
       <button class="modal-close" onclick="closeMapModal()">×</button>
     </div>
     <div class="modal-body">
 
-      <!-- Interactive SVG Vector Map -->
-      <div class="map-canvas-wrapper">
-        <svg viewBox="0 0 920 620" id="campusSvgMap">
+      <!-- Complete Realistic Vector Map of CUFE (Based on Official Map) -->
+      <div class="campus-vector-container">
+        <svg viewBox="0 0 1000 680" id="cufeRealisticSvg">
           <defs>
-            <radialGradient id="targetPulse" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#f97316" stop-opacity="0.95" />
-              <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+            <radialGradient id="pulseGlowGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ea580c" stop-opacity="0.95" />
+              <stop offset="100%" stop-color="#ea580c" stop-opacity="0" />
             </radialGradient>
           </defs>
 
-          <!-- Campus Grounds Base -->
-          <rect width="920" height="620" fill="#0d141d" />
+          <!-- Campus Background Grounds -->
+          <rect width="1000" height="680" fill="#e2e8f0" />
 
-          <!-- Main Roads & Internal Streets -->
-          <!-- University Street -->
-          <path d="M 0,260 L 920,260" stroke="#1b293b" stroke-width="32" fill="none" />
-          <text x="30" y="275" fill="#475569" font-size="11" font-weight="700" font-family="'JetBrains Mono'">UNIVERSITY STREET (شارع الجامعة)</text>
+          <!-- Zoo Garden / Green Area (حديقة الحيوان) -->
+          <path d="M 50,0 L 400,0 L 400,190 L 50,190 Z" fill="#bbf7d0" stroke="#86efac" stroke-width="2" />
+          <text x="220" y="90" fill="#15803d" font-size="13" font-weight="700" text-anchor="middle">حديقة الحيوان (Zoo)</text>
 
-          <!-- Internal Campus Corridor Paths -->
-          <path d="M 80,0 L 80,620 M 240,40 L 240,260 M 360,40 L 360,260 M 500,40 L 500,260 M 340,260 L 340,580 M 540,260 L 540,580 M 700,260 L 700,580" stroke="#162231" stroke-width="16" fill="none" />
+          <!-- University Campus Quad (الحرم الجامعي) -->
+          <path d="M 50,470 L 420,470 L 420,680 L 50,680 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2" />
+          <text x="235" y="580" fill="#64748b" font-size="14" font-weight="800" text-anchor="middle">الحرم الجامعي (Main Campus)</text>
 
-          <!-- Main Gate Entrance -->
-          <g id="mainGatePoint" transform="translate(80, 260)">
-            <circle cx="0" cy="0" r="14" fill="#2ba4cc" opacity="0.3" />
-            <circle cx="0" cy="0" r="7" fill="#2ba4cc" />
-            <text x="14" y="5" fill="#6ec4e0" font-size="11" font-weight="800" font-family="'JetBrains Mono'">MAIN GATE</text>
+          <!-- Main Roads (Asphalt Gray) -->
+          <!-- Nahdet Masr Street (شارع نهضة مصر مع المنحنى) -->
+          <path d="M 0,0 L 50,0 L 50,680 L 0,680 Z" fill="#64748b" />
+          <text x="25" y="340" fill="#f8fafc" font-size="11" font-weight="700" transform="rotate(-90 25,340)" text-anchor="middle">شارع نهضة مصر</text>
+
+          <!-- University Street (شارع الجامعة) -->
+          <path d="M 50,220 L 1000,220 L 1000,290 L 50,290 Z" fill="#475569" />
+          <text x="700" y="260" fill="#f8fafc" font-size="13" font-weight="800" font-family="'JetBrains Mono'">شارع الجامعة (UNIVERSITY ST.)</text>
+
+          <!-- Campus Internal Passages -->
+          <path d="M 170,220 L 170,170 M 290,220 L 290,140 M 390,220 L 390,130 M 520,220 L 520,100 M 410,290 L 410,480 M 550,290 L 550,480" stroke="#cbd5e1" stroke-width="14" fill="none" stroke-linecap="round" />
+
+          <!-- Main Gate Pin (بوابة كلية الهندسة الرئيسية) -->
+          <g transform="translate(100, 255)">
+            <circle cx="0" cy="0" r="16" fill="#0284c7" opacity="0.3" />
+            <circle cx="0" cy="0" r="8" fill="#0284c7" />
+            <text x="14" y="5" fill="#0369a1" font-size="11" font-weight="800" font-family="'JetBrains Mono'">MAIN GATE</text>
           </g>
 
-          <!-- Campus Buildings (Geolocated accurately from official CUFE Masterplan) -->
-          <!-- Building 15: Student Services & Drafting (صالة رسم 15401) -->
-          <g id="svg-bldg-15" onclick="routeToBuilding(15)" style="cursor:pointer">
-            <rect x="120" y="50" width="105" height="90" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2.5" />
-            <text x="172" y="98" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 15</text>
-            <text x="172" y="118" fill="#94a3b8" font-size="9" text-anchor="middle">Services / CAD</text>
+          <!-- REALISTIC BUILDINGS (Identical to Faculty Map) -->
+
+          <!-- Building 15: Student Services & Drafting (صالة رسم 15401) [الكتلة الحمراء الكبيرة] -->
+          <g id="bldg-geom-15" onclick="routeToBuilding(15, '15401')" style="cursor:pointer">
+            <rect x="110" y="60" width="120" height="110" rx="8" fill="#f87171" stroke="#dc2626" stroke-width="2.5" />
+            <rect x="130" y="80" width="80" height="70" fill="#ef4444" rx="4" />
+            <text x="170" y="115" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 15</text>
+            <text x="170" y="132" fill="#fef2f2" font-size="9" text-anchor="middle">Services (15401)</text>
           </g>
 
-          <!-- Building 14: New Mechanical Design (سكاشن ميكانيكا) -->
-          <g id="svg-bldg-14" onclick="routeToBuilding(14)" style="cursor:pointer">
-            <rect x="255" y="60" width="85" height="85" rx="8" fill="#1e293b" stroke="#eab308" stroke-width="2.5" />
-            <text x="297" y="105" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 14</text>
-            <text x="297" y="125" fill="#94a3b8" font-size="9" text-anchor="middle">Mech Design</text>
+          <!-- Building 14: New Mechanical Design (مبنى التصميم الميكانيكي الجديد) [الكتلة الخضراء] -->
+          <g id="bldg-geom-14" onclick="routeToBuilding(14, '14301')" style="cursor:pointer">
+            <polygon points="245,70 325,100 295,180 215,150" fill="#86efac" stroke="#16a34a" stroke-width="2.5" />
+            <text x="270" y="130" fill="#14532d" font-size="13" font-weight="800" text-anchor="middle">BLDG 14</text>
+            <text x="270" y="145" fill="#14532d" font-size="8.5" text-anchor="middle">Mech Design</text>
           </g>
 
-          <!-- Building 7: El-Sawy Hall Complex (مدرج الساوي 7104) -->
-          <g id="svg-bldg-7" onclick="routeToBuilding(7)" style="cursor:pointer">
-            <rect x="375" y="70" width="80" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2.5" />
-            <text x="415" y="115" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 7</text>
-            <text x="415" y="135" fill="#94a3b8" font-size="9" text-anchor="middle">El-Sawy Hall</text>
+          <!-- Building 7: El-Sawy Hall (مدرج الساوي 7104) [الكتلة الزرقاء الإسطوانية] -->
+          <g id="bldg-geom-7" onclick="routeToBuilding(7, '7104')" style="cursor:pointer">
+            <circle cx="395" cy="115" r="42" fill="#38bdf8" stroke="#0284c7" stroke-width="2.5" />
+            <text x="395" y="115" fill="#0f172a" font-size="14" font-weight="800" text-anchor="middle">BLDG 7</text>
+            <text x="395" y="132" fill="#0f172a" font-size="8.5" font-weight="700" text-anchor="middle">El-Sawy (7104)</text>
           </g>
 
-          <!-- Building 3: Architecture & Computer Eng. (مدرج 3103) -->
-          <g id="svg-bldg-3" onclick="routeToBuilding(3)" style="cursor:pointer">
-            <rect x="495" y="50" width="145" height="110" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5" />
-            <text x="567" y="105" fill="#fff" font-size="15" font-weight="800" text-anchor="middle">BLDG 3</text>
-            <text x="567" y="127" fill="#94a3b8" font-size="9.5" text-anchor="middle">Architecture & Computers</text>
+          <!-- Building 3: Architecture & Computer Eng. (مدرج 3103) [الكتلة الرمادية الكبيرة المتعرجة] -->
+          <g id="bldg-geom-3" onclick="routeToBuilding(3, '3103')" style="cursor:pointer">
+            <path d="M 460,40 L 610,40 L 610,180 L 530,180 L 530,120 L 460,120 Z" fill="#93c5fd" stroke="#2563eb" stroke-width="2.5" />
+            <text x="545" y="85" fill="#1e3a8a" font-size="15" font-weight="800" text-anchor="middle">BLDG 3</text>
+            <text x="545" y="103" fill="#1e3a8a" font-size="9" font-weight="600" text-anchor="middle">Architecture & Computers</text>
           </g>
 
-          <!-- Building 19: Mechanical Power (Automotive) (سيارات) -->
-          <g id="svg-bldg-19" onclick="routeToBuilding(19)" style="cursor:pointer">
-            <rect x="360" y="340" width="140" height="95" rx="8" fill="#1e293b" stroke="#ec4899" stroke-width="2.5" />
-            <text x="430" y="390" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 19</text>
-            <text x="430" y="410" fill="#94a3b8" font-size="9" text-anchor="middle">Power (Automotive)</text>
+          <!-- Building 19: Mechanical Power - Automotive (سيارات) [الكتلة أسفل شارع الجامعة] -->
+          <g id="bldg-geom-19" onclick="routeToBuilding(19, '19302')" style="cursor:pointer">
+            <rect x="345" y="340" width="130" height="95" rx="6" fill="#f472b6" stroke="#db2777" stroke-width="2.5" />
+            <text x="410" y="385" fill="#831843" font-size="14" font-weight="800" text-anchor="middle">BLDG 19</text>
+            <text x="410" y="405" fill="#831843" font-size="9" text-anchor="middle">Automotive (سيارات)</text>
           </g>
 
-          <!-- Building 17: New Mechanical Power Eng. (مبنى القوى الجديد) -->
-          <g id="svg-bldg-17" onclick="routeToBuilding(17)" style="cursor:pointer">
-            <rect x="560" y="340" width="150" height="100" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="2.5" />
-            <text x="635" y="390" fill="#fff" font-size="14" font-weight="800" text-anchor="middle">BLDG 17</text>
-            <text x="635" y="410" fill="#94a3b8" font-size="9" text-anchor="middle">Mech Power (New)</text>
+          <!-- Building 17: New Mechanical Power (مبنى القوى الجديد) -->
+          <g id="bldg-geom-17" onclick="routeToBuilding(17, '17302')" style="cursor:pointer">
+            <rect x="500" y="340" width="135" height="100" rx="6" fill="#c084fc" stroke="#9333ea" stroke-width="2.5" />
+            <text x="567" y="385" fill="#581c87" font-size="14" font-weight="800" text-anchor="middle">BLDG 17</text>
+            <text x="567" y="405" fill="#581c87" font-size="9" text-anchor="middle">Power New (القوى الجديد)</text>
           </g>
 
-          <!-- Dynamic Glowing Animated Path Route -->
-          <path id="activeGlowPath" class="glowing-route" d="" style="display:none;" />
+          <!-- DYNAMIC ANIMATED GLOWING NEON ROUTE -->
+          <path id="realGlowNeonPath" class="neon-path-line" d="" style="display:none;" />
 
-          <!-- Dynamic Target Pulse Pin -->
-          <g id="activeTargetPin" style="display:none;">
-            <circle id="pulseTargetCircle" cx="0" cy="0" r="32" fill="url(#targetPulse)" class="map-pulse-marker" />
-            <circle id="pinCore" cx="0" cy="0" r="8" fill="#f97316" stroke="#fff" stroke-width="2.5" />
+          <!-- TARGET PULSE PIN -->
+          <g id="realTargetPinMarker" style="display:none;">
+            <circle id="markerWaveRadius" cx="0" cy="0" r="36" fill="url(#pulseGlowGrad)" class="pulse-wave-ring" />
+            <circle id="markerCoreDot" cx="0" cy="0" r="9" fill="#ea580c" stroke="#ffffff" stroke-width="3" />
           </g>
         </svg>
       </div>
 
-      <!-- Focused Guidance HUD -->
-      <div class="map-hud-card" id="mapHudCard">
-        <div class="map-hud-title">
-          <span id="hudBldgName">Select any room or building</span>
-          <span class="map-building-pill" id="hudFloorBadge">READY</span>
+      <!-- Focused Location HUD (Only the Selected Hall) -->
+      <div class="location-hud-box" id="locationHudBox">
+        <div class="hud-head-row">
+          <span class="hud-room-code" id="hudRoomCode">—</span>
+          <span class="hud-floor-pill" id="hudFloorPill">—</span>
         </div>
-        <div class="map-hud-details" id="hudBldgDesc">
-          Click on any room code in your daily or weekly schedule, and the campus navigator will guide you with a glowing route directly from the main gate to the hall entrance.
-        </div>
-      </div>
-
-      <!-- Quick Building Switcher -->
-      <div class="map-bldg-list">
-        <div class="map-bldg-btn" onclick="routeToBuilding(15, '15401')">
-          <span>Building 15 (Services / Drafting)</span>
-          <span style="color:var(--accent-light)">15401 ↗</span>
-        </div>
-        <div class="map-bldg-btn" onclick="routeToBuilding(14, '14301')">
-          <span>Building 14 (Mech Design)</span>
-          <span style="color:var(--accent-light)">14301 ↗</span>
-        </div>
-        <div class="map-bldg-btn" onclick="routeToBuilding(7, '7104')">
-          <span>Building 7 (El-Sawy Hall)</span>
-          <span style="color:var(--accent-light)">7104 ↗</span>
-        </div>
-        <div class="map-bldg-btn" onclick="routeToBuilding(3, '3103')">
-          <span>Building 3 (Architecture & Computers)</span>
-          <span style="color:var(--accent-light)">3103 ↗</span>
-        </div>
-        <div class="map-bldg-btn" onclick="routeToBuilding(17, '17302')">
-          <span>Building 17 (Power New)</span>
-          <span style="color:var(--accent-light)">17302 ↗</span>
-        </div>
-        <div class="map-bldg-btn" onclick="routeToBuilding(19, '19302')">
-          <span>Building 19 (Automotive)</span>
-          <span style="color:var(--accent-light)">19302 ↗</span>
+        <div class="hud-desc" id="hudBuildingName">—</div>
+        <div class="hud-desc" style="font-size:11.5px;color:var(--accent-light);" id="hudRouteInstruction">
+          Glowing neon path shows your direct walking route from the Main Gate to the building entrance.
         </div>
       </div>
 
@@ -1053,24 +1119,24 @@ body {
 </div>
 
 <!-- Announcements Modal -->
-<div class="modal-overlay" id="notifModal">
+<div class="modal-overlay-task" id="notifModal">
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title">Announcements & Alerts</div>
       <button class="modal-close" onclick="closeNotifModal()">×</button>
     </div>
-    <div class="modal-body" id="notifList"></div>
+    <div class="modal-body-task" id="notifList"></div>
   </div>
 </div>
 
 <!-- Deadlines Modal -->
-<div class="modal-overlay" id="assessmentModal">
+<div class="modal-overlay-task" id="assessmentModal">
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title" style="color: var(--quiz-color);">Quizzes & Deadlines (<span id="modalSectionBadge">ME1-01</span>)</div>
       <button class="modal-close" onclick="closeAssessmentModal()">×</button>
     </div>
-    <div class="modal-body" id="assessmentList"></div>
+    <div class="modal-body-task" id="assessmentList"></div>
   </div>
 </div>
 
@@ -1145,37 +1211,37 @@ const ROOM_INFO = {
   "19301-48": { bldg: 19, floor: "3rd Floor", hall: "Room 1 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" }
 };
 
-// نقاط ومسارات الملاحة التفاعلية (Glowing Neon Routes from Main Gate)
-const CAMPUS_NAV_DATA = {
-  3: {
-    pinX: 567, pinY: 105,
-    name: "Building 3 (Architecture & Computer Eng.)",
-    path: "M 80,260 L 500,260 L 500,105 L 567,105"
-  },
-  7: {
-    pinX: 415, pinY: 115,
-    name: "Building 7 (El-Sawy Hall Complex)",
-    path: "M 80,260 L 360,260 L 360,115 L 415,115"
+// مسارات النيون المباشرة من البوابة الرئيسية (100, 255)
+const VECTOR_NAV_ROUTES = {
+  15: {
+    pinX: 170, pinY: 115,
+    name: "Building 15 (Student Services Building)",
+    path: "M 100,255 L 170,255 L 170,115"
   },
   14: {
-    pinX: 297, pinY: 105,
+    pinX: 270, pinY: 130,
     name: "Building 14 (New Mechanical Design)",
-    path: "M 80,260 L 240,260 L 240,105 L 297,105"
+    path: "M 100,255 L 290,255 L 290,140 L 270,130"
   },
-  15: {
-    pinX: 172, pinY: 98,
-    name: "Building 15 (Student Services Building)",
-    path: "M 80,260 L 80,98 L 172,98"
+  7: {
+    pinX: 395, pinY: 115,
+    name: "Building 7 (El-Sawy Hall Complex)",
+    path: "M 100,255 L 390,255 L 390,130 L 395,115"
   },
-  17: {
-    pinX: 635, pinY: 390,
-    name: "Building 17 (New Mechanical Power Eng.)",
-    path: "M 80,260 L 700,260 L 700,390 L 635,390"
+  3: {
+    pinX: 545, pinY: 90,
+    name: "Building 3 (Architecture & Computer Eng.)",
+    path: "M 100,255 L 520,255 L 520,100 L 545,90"
   },
   19: {
-    pinX: 430, pinY: 390,
+    pinX: 410, pinY: 390,
     name: "Building 19 (Mechanical Power Eng. - Automotive)",
-    path: "M 80,260 L 340,260 L 340,390 L 430,390"
+    path: "M 100,255 L 410,255 L 410,390"
+  },
+  17: {
+    pinX: 567, pinY: 390,
+    name: "Building 17 (New Mechanical Power Eng.)",
+    path: "M 100,255 L 550,255 L 550,390 L 567,390"
   }
 };
 
@@ -1204,7 +1270,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص مع تفعيل علامة الحضور
+// جدول الحصص
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1246,17 +1312,17 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// Navigation & Interactive Glowing Route Engine
+// الملاحة المباشرة نحو القاعة المحددة
 function showRoomDetails(roomCode) {
   triggerHaptic();
   let roomMeta = ROOM_INFO[roomCode];
+  let bldgNum = 15;
 
-  let bldgNum = null;
   if (roomMeta) {
     bldgNum = roomMeta.bldg;
   } else {
     bldgNum = parseInt(roomCode.substring(0, 2));
-    if (isNaN(bldgNum) || !CAMPUS_NAV_DATA[bldgNum]) {
+    if (isNaN(bldgNum) || !VECTOR_NAV_ROUTES[bldgNum]) {
       bldgNum = parseInt(roomCode.substring(0, 1));
     }
   }
@@ -1264,51 +1330,49 @@ function showRoomDetails(roomCode) {
   openCampusMap(bldgNum, roomCode);
 }
 
-function openCampusMap(bldgNum = null, roomCode = "") {
+function openCampusMap(bldgNum = 15, roomCode = "15401") {
   triggerHaptic();
   const modal = document.getElementById("mapModal");
   modal.classList.add("open");
 
-  if (bldgNum && CAMPUS_NAV_DATA[bldgNum]) {
-    routeToBuilding(bldgNum, roomCode);
-  } else {
-    // Default open state
-    routeToBuilding(15, "15401");
-  }
+  if (!VECTOR_NAV_ROUTES[bldgNum]) bldgNum = 15;
+  routeToBuilding(bldgNum, roomCode);
 }
 
 function closeMapModal() {
   document.getElementById("mapModal").classList.remove("open");
 }
 
-function routeToBuilding(bldgNum, specificRoom = "") {
+function routeToBuilding(bldgNum, roomCode = "") {
   triggerHaptic();
-  const nav = CAMPUS_NAV_DATA[bldgNum];
+  const nav = VECTOR_NAV_ROUTES[bldgNum];
   if (!nav) return;
 
-  // Active glowing path
-  const glowPath = document.getElementById("activeGlowPath");
-  glowPath.setAttribute("d", nav.path);
-  glowPath.style.display = "block";
+  // رسم خط النيون التفاعلي
+  const pathEl = document.getElementById("realGlowNeonPath");
+  pathEl.setAttribute("d", nav.path);
+  pathEl.style.display = "block";
 
-  // Target pulse pin
-  const pin = document.getElementById("activeTargetPin");
-  pin.style.display = "block";
-  document.getElementById("pulseTargetCircle").setAttribute("cx", nav.pinX);
-  document.getElementById("pulseTargetCircle").setAttribute("cy", nav.pinY);
-  document.getElementById("pinCore").setAttribute("cx", nav.pinX);
-  document.getElementById("pinCore").setAttribute("cy", nav.pinY);
+  // تحريك الـ Pin
+  const pinGroup = document.getElementById("realTargetPinMarker");
+  pinGroup.style.display = "block";
+  document.getElementById("markerWaveRadius").setAttribute("cx", nav.pinX);
+  document.getElementById("markerWaveRadius").setAttribute("cy", nav.pinY);
+  document.getElementById("markerCoreDot").setAttribute("cx", nav.pinX);
+  document.getElementById("markerCoreDot").setAttribute("cy", nav.pinY);
 
-  // HUD Update
-  let roomMeta = ROOM_INFO[specificRoom];
-  if (roomMeta) {
-    document.getElementById("hudBldgName").textContent = `${specificRoom} · ${nav.name}`;
-    document.getElementById("hudFloorBadge").textContent = roomMeta.floor.toUpperCase();
-    document.getElementById("hudBldgDesc").textContent = `${roomMeta.hall} — Glowing neon path is now routing directly from the Main Gate to the building entrance.`;
+  // تحديث الـ HUD للقاعة دي فقط
+  const meta = ROOM_INFO[roomCode];
+  if (meta) {
+    document.getElementById("mapModalHeaderTitle").textContent = `${roomCode} Location Guide`;
+    document.getElementById("hudRoomCode").textContent = roomCode;
+    document.getElementById("hudFloorPill").textContent = meta.floor.toUpperCase();
+    document.getElementById("hudBuildingName").textContent = `${meta.name} — ${meta.hall}`;
   } else {
-    document.getElementById("hudBldgName").textContent = nav.name;
-    document.getElementById("hudFloorBadge").textContent = `BLDG ${bldgNum}`;
-    document.getElementById("hudBldgDesc").textContent = `Follow the glowing neon route from the Main Gate to reach Building ${bldgNum}.`;
+    document.getElementById("mapModalHeaderTitle").textContent = nav.name;
+    document.getElementById("hudRoomCode").textContent = `Building ${bldgNum}`;
+    document.getElementById("hudFloorPill").textContent = "CAMPUS MAP";
+    document.getElementById("hudBuildingName").textContent = nav.name;
   }
 }
 
@@ -1451,7 +1515,7 @@ function initAssessments() {
     return;
   }
   container.innerHTML = activeList.map(a => `
-    <div class="modal-item" style="border-left: 4px solid var(--quiz-color)">
+    <div class="modal-item-task" style="border-left: 4px solid var(--quiz-color)">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span style="font-size:9.5px;font-weight:800;color:var(--quiz-color)">${(a.type || 'TASK').toUpperCase()}</span>
         <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${a.date || ''}</span>
@@ -1474,7 +1538,7 @@ function initNotifications() {
 
   const list = document.getElementById("notifList");
   list.innerHTML = NOTIFICATIONS.map(n => `
-    <div class="modal-item">
+    <div class="modal-item-task">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <span style="font-size:9.5px;font-weight:800;color:var(--accent-light)">${n.tag || 'Notice'}</span>
         <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${n.date || ''}</span>
@@ -2083,7 +2147,7 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// دالة الطباعة: نقل إلى وضع الجدول الكامل وطباعة الصفحة بجودة عالية
+// محرك الطباعة الشامل (Landscape A4)
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
@@ -2114,7 +2178,7 @@ window.addEventListener('beforeinstallprompt', e => {
 async function triggerPwaInstall() {
   triggerHaptic();
   if (isIos) {
-    showToast("جماعة الآيفون كالعادة ليهم خطوات خاصة 🍏🙄:\n• اضغط علامة المشاركة فوق\n• انزل تحت واختار View More\n• اختار Add to Home Screen");
+    alert("جماعة الآيفون كالعادة ليهم خطوات خاصة 🍏🙄:\n• اضغط علامة المشاركة فوق\n• انزل تحت واختار View More\n• اختار Add to Home Screen");
     return;
   }
   if (deferredPrompt) {
@@ -2122,17 +2186,10 @@ async function triggerPwaInstall() {
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted' && topInstallBtn) topInstallBtn.style.display = 'none';
     deferredPrompt = null;
-  } else {
-    showToast("لتثبيت التطبيق: افتح قائمة المتصفح واضغط Add to Home Screen 📲");
   }
 }
 
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
-
-window.addEventListener('appinstalled', () => {
-  if (topInstallBtn) topInstallBtn.style.display = 'none';
-  deferredPrompt = null;
-});
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(() => {});
@@ -2146,5 +2203,3 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
-
-
