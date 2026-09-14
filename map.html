@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>CUFE 3D Campus Navigator — Batch 30</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+<!-- Three.js + OrbitControls -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<!-- TWEEN for smooth camera transitions -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #080d14;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #edf5f9;
+  user-select: none;
+}
+
+#canvas3d {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Top Floating Bar */
+.top-nav-hud {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 100;
+}
+.btn-back {
+  background: rgba(20, 31, 45, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #23344a;
+  color: #6ec4e0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+.btn-back:hover {
+  background: #2ba4cc;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.campus-badge {
+  background: rgba(20, 31, 45, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid #23344a;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  color: #6ec4e0;
+}
+
+/* Focused Room Information HUD */
+.room-hud-card {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 500px;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid #2ba4cc;
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 16px 36px rgba(0,0,0,0.65);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.hud-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hud-room-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 800;
+  color: #6ec4e0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hud-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(43, 164, 204, 0.2);
+  color: #6ec4e0;
+  border: 1px solid #2ba4cc;
+}
+.hud-desc-bldg {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+.hud-desc-details {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Instruction Toast */
+.hint-controls {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 20, 29, 0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<div class="top-nav-hud">
+  <a href="index.html" class="btn-back">
+    <span>← Back to Schedule</span>
+  </a>
+  <span class="campus-badge">CUFE 3D CAMPUS</span>
+</div>
+
+<div class="hint-controls">
+  <span>👆 Drag to rotate 360° · Pinch to zoom</span>
+</div>
+
+<!-- Bottom Info Card -->
+<div class="room-hud-card" id="roomHud">
+  <div class="hud-row-top">
+    <div class="hud-room-title">
+      <span>🏛️</span>
+      <span id="hudRoomCode">Select a Building</span>
+    </div>
+    <span class="hud-pill" id="hudFloorPill">GROUND</span>
+  </div>
+  <div class="hud-desc-bldg" id="hudBldgName">Campus Overview</div>
+  <div class="hud-desc-details" id="hudDetails">
+    Tap any building or room from your timetable to trigger real-time 3D camera navigation with a glowing neon pathway from the Main Gate.
+  </div>
+</div>
+
+<canvas id="canvas3d"></canvas>
+
+<script>
+// Official Room Meta Registry
+const ROOM_INFO = {
+  // Building 3: Architecture & Computer Engineering
+  "3103-414": { bldg: 3, floor: "1st Floor", hall: "Hall 3 (Capacity: 414)", name: "Building 3 (Architecture & Computer Eng.)" },
+  "3101-306": { bldg: 3, floor: "1st Floor", hall: "Hall 1 (Capacity: 306)", name: "Building 3 (Architecture & Computer Eng.)" },
+
+  // Building 7: El-Sawy Hall Complex
+  "7104-360": { bldg: 7, floor: "1st Floor", hall: "Hall 4 (Capacity: 360)", name: "Building 7 (El-Sawy Hall Complex)" },
+
+  // Building 14: New Mechanical Design Building
+  "14201-50": { bldg: 14, floor: "2nd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14301-50": { bldg: 14, floor: "3rd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14302-50": { bldg: 14, floor: "3rd Floor", hall: "Room 2 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
+  "14100-(104)": { bldg: 14, floor: "1st Floor", hall: "Hall 100 (Capacity: 104)", name: "Building 14 (New Mechanical Design)" },
+
+  // Building 15: Student Services Building (Drafting)
+  "15401-300": { bldg: 15, floor: "4th Floor", hall: "Drawing Hall 1 (Capacity: 300)", name: "Building 15 (Student Services Building)" },
+
+  // Building 17: New Mechanical Power Engineering Building
+  "17400-56": { bldg: 17, floor: "4th Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17301-56": { bldg: 17, floor: "3rd Floor", hall: "Room 1 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17302-148": { bldg: 17, floor: "3rd Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17200-56": { bldg: 17, floor: "2nd Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
+  "17102-148": { bldg: 17, floor: "1st Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
+
+  // Building 19: Mechanical Power Engineering Building (Automotive)
+  "19302-48": { bldg: 19, floor: "3rd Floor", hall: "Room 2 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" },
+  "19301-48": { bldg: 19, floor: "3rd Floor", hall: "Room 1 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" }
+};
+
+// 3D Geometry Spatial Coordinates
+const BLDG_3D_DATA = {
+  15: {
+    name: "Building 15 (Student Services / Drafting)",
+    x: -32, z: -28, w: 18, d: 18, h: 14,
+    color: 0xef4444,
+    route: [
+      new THREE.Vector3(-45, 0.4, 0),
+      new THREE.Vector3(-32, 0.4, 0),
+      new THREE.Vector3(-32, 0.4, -18)
+    ]
+  },
+  14: {
+    name: "Building 14 (New Mechanical Design)",
+    x: -12, z: -32, w: 14, d: 15, h: 12,
+    color: 0x22c55e,
+    route: [
+      new THREE.Vector3(-45, 0.4, 0),
+      new THREE.Vector3(-12, 0.4, 0),
+      new THREE.Vector3(-12, 0.4, -22)
+    ]
+  },
+  7: {
+    name: "Building 7 (El-Sawy Hall Complex)",
+    x: 8, z: -30, w: 13, d: 14, h: 10, isCylinder: true,
+    color: 0x06b6d4,
+    route: [
+      new THREE.Vector3(-45, 0.4, 0),
+      new THREE.Vector3(8, 0.4, 0),
+      new THREE.Vector3(8, 0.4, -20)
+    ]
+  },
+  3: {
+    name: "Building 3 (Architecture & Computer Eng.)",
+    x: 32, z: -28, w: 24, d: 20, h: 16,
+    color: 0x3b82f6,
+    route: [
+      new THREE.Vector3(-45, 0.4, 0),
+      new THREE.Vector3(32, 0.4, 0),
+      new THREE.Vector3(32, 0.4, -16)
+    ]
+  },
+  19: {
+    name: "Building 19 (Mechanical Power - Automotive)",
+    x: 10, z: 28, w: 18, d: 16, h: 11,
+    color: 0xec4899,
+    route: [
+      new THREE.Vector3(-45, 0.4, 0),
+      new THREE.Vector3(10, 0.4, 0),
+      new THREE.Vector3(10, 0.4, 18)
+    ]
+  },
+  17: {
+    name: "Building 17 (New Mechanical Power Eng.)",
+    x: 34, z: 30, w: 20, d: 18, h: 13,
+    color: 0xa855f7,
+    route: [
+      new THREE.Vector3(-45, 0.4, 0),
+      new THREE.Vector3(34, 0.4, 0),
+      new THREE.Vector3(34, 0.4, 19)
+    ]
+  }
+};
+
+// Three.js Scene Setup
+const canvas = document.getElementById("canvas3d");
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a1018);
+scene.fog = new THREE.FogExp2(0x0a1018, 0.008);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.5, 500);
+camera.position.set(-60, 65, 75);
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.maxPolarAngle = Math.PI / 2.1;
+controls.minDistance = 20;
+controls.maxDistance = 160;
+controls.target.set(5, 0, 0);
+
+// Realistic Lighting
+const ambientLight = new THREE.AmbientLight(0xdce7f5, 0.85);
+scene.add(ambientLight);
+
+const sunLight = new THREE.DirectionalLight(0xfff8ee, 1.3);
+sunLight.position.set(60, 100, 40);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.width = 2048;
+sunLight.shadow.mapSize.height = 2048;
+sunLight.shadow.bias = -0.0005;
+scene.add(sunLight);
+
+// Campus Grounds (Plane)
+const groundMat = new THREE.MeshLambertMaterial({ color: 0x141f2d });
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(240, 200), groundMat);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// Main University Street (شارع الجامعة)
+const roadMat = new THREE.MeshLambertMaterial({ color: 0x233245 });
+const mainRoad = new THREE.Mesh(new THREE.PlaneGeometry(240, 14), roadMat);
+mainRoad.rotation.x = -Math.PI / 2;
+mainRoad.position.y = 0.05;
+scene.add(mainRoad);
+
+// Zoo Garden Greenery Zone (حديقة الحيوان)
+const parkMat = new THREE.MeshLambertMaterial({ color: 0x14532d });
+const zooPark = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), parkMat);
+zooPark.rotation.x = -Math.PI / 2;
+zooPark.position.set(-80, 0.06, -55);
+scene.add(zooPark);
+
+// Main Gate Object (بوابة الكلية)
+const gateGeo = new THREE.CylinderGeometry(2, 2, 6, 16);
+const gateMat = new THREE.MeshStandardMaterial({ color: 0x2ba4cc, emissive: 0x197a9c, emissiveIntensity: 0.5 });
+const gate = new THREE.Mesh(gateGeo, gateMat);
+gate.position.set(-45, 3, 0);
+gate.castShadow = true;
+scene.add(gate);
+
+// Mesh Dictionaries
+const buildingMeshes = {};
+const raycastObjects = [];
+
+// Construct 3D Buildings
+Object.entries(BLDG_3D_DATA).forEach(([bldgId, b]) => {
+  let geo;
+  if (b.isCylinder) {
+    geo = new THREE.CylinderGeometry(b.w / 2, b.w / 2, b.h, 32);
+  } else {
+    geo = new THREE.BoxGeometry(b.w, b.h, b.d);
+  }
+
+  const mat = new THREE.MeshStandardMaterial({
+    color: b.color,
+    roughness: 0.4,
+    metalness: 0.1
+  });
+
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(b.x, b.h / 2, b.z);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  mesh.userData = { bldgId: parseInt(bldgId) };
+
+  scene.add(mesh);
+  buildingMeshes[bldgId] = mesh;
+  raycastObjects.push(mesh);
+});
+
+// Glowing Neon Route Path Variables
+let currentPathMesh = null;
+let currentPulseRing = null;
+
+function drawGlowingRoute(points) {
+  if (currentPathMesh) {
+    scene.remove(currentPathMesh);
+    currentPathMesh.geometry.dispose();
+  }
+
+  const curve = new THREE.CatmullRomCurve3(points);
+  const tubeGeo = new THREE.TubeGeometry(curve, 64, 0.6, 8, false);
+  const tubeMat = new THREE.MeshBasicMaterial({
+    color: 0xf97316,
+    wireframe: false
+  });
+
+  currentPathMesh = new THREE.Mesh(tubeGeo, tubeMat);
+  scene.add(currentPathMesh);
+
+  // Pulse Target Beacon Ring
+  if (!currentPulseRing) {
+    const ringGeo = new THREE.RingGeometry(1, 4.5, 32);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0xf97316, side: THREE.DoubleSide });
+    currentPulseRing = new THREE.Mesh(ringGeo, ringMat);
+    currentPulseRing.rotation.x = -Math.PI / 2;
+    scene.add(currentPulseRing);
+  }
+
+  const lastPoint = points[points.length - 1];
+  currentPulseRing.position.set(lastPoint.x, 0.2, lastPoint.z);
+  currentPulseRing.visible = true;
+}
+
+// Camera Smooth Transition
+function focusBuilding(bldgNum, roomCode = "") {
+  const bldg = BLDG_3D_DATA[bldgNum];
+  if (!bldg) return;
+
+  drawGlowingRoute(bldg.route);
+
+  // Update HUD
+  const meta = ROOM_INFO[roomCode];
+  if (meta) {
+    document.getElementById("hudRoomCode").textContent = roomCode;
+    document.getElementById("hudFloorPill").textContent = meta.floor.toUpperCase();
+    document.getElementById("hudBldgName").textContent = meta.name;
+    document.getElementById("hudDetails").textContent = `${meta.hall} — Follow the 3D glowing path from the Main Gate directly into the building.`;
+  } else {
+    document.getElementById("hudRoomCode").textContent = `Building ${bldgNum}`;
+    document.getElementById("hudFloorPill").textContent = `BLDG ${bldgNum}`;
+    document.getElementById("hudBldgName").textContent = bldg.name;
+    document.getElementById("hudDetails").textContent = `Navigating from the Main Gate to Building ${bldgNum}. Rotate the map to inspect back entrances.`;
+  }
+
+  // Camera Animation using TWEEN
+  const targetCamX = bldg.x - 22;
+  const targetCamY = 32;
+  const targetCamZ = bldg.z + 36;
+
+  new TWEEN.Tween(camera.position)
+    .to({ x: targetCamX, y: targetCamY, z: targetCamZ }, 1100)
+    .easing(TWEEN.Easing.Cubic.Out)
+    .start();
+
+  new TWEEN.Tween(controls.target)
+    .to({ x: bldg.x, y: 4, z: bldg.z }, 1100)
+    .easing(TWEEN.Easing.Cubic.Out)
+    .start();
+}
+
+// URL Parameter Handling
+function initFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const room = params.get("room") || "14301";
+
+  let bldgNum = 14;
+  if (ROOM_INFO[room]) {
+    bldgNum = ROOM_INFO[room].bldg;
+  } else {
+    bldgNum = parseInt(room.substring(0, 2)) || parseInt(room.substring(0, 1)) || 14;
+  }
+
+  setTimeout(() => {
+    focusBuilding(bldgNum, room);
+  }, 400);
+}
+
+// Raycaster for Direct 3D Building Click
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener("pointerdown", (e) => {
+  if (e.target.tagName !== "CANVAS") return;
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(raycastObjects);
+
+  if (intersects.length > 0) {
+    const bldgId = intersects[0].object.userData.bldgId;
+    if (bldgId) focusBuilding(bldgId);
+  }
+});
+
+// Window Resize
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Render Loop
+let clock = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  TWEEN.update();
+  controls.update();
+
+  // Pulse animation on target beacon
+  if (currentPulseRing && currentPulseRing.visible) {
+    clock += 0.04;
+    const scale = 1 + Math.sin(clock * 3) * 0.25;
+    currentPulseRing.scale.set(scale, scale, 1);
+  }
+
+  renderer.render(scene, camera);
+}
+
+animate();
+initFromUrl();
+</script>
+</body>
+</html>
