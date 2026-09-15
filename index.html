@@ -1053,24 +1053,24 @@ body {
   <!-- Segmented Day Bar -->
   <div class="days-bar" id="daysBar"></div>
 
-  <!-- Dynamics Monday 3-Slots Switcher Banner (Displays for Monday & Week) -->
+  <!-- Dynamics Monday 3-Slots Switcher Banner (Toggleable) -->
   <div class="dynamics-switcher-banner" id="dynamicsSwitcherBanner" style="display:none;">
     <div class="dyn-banner-top">
       <span>⚡ مواعيد سكشن الديناميكا (يوم الاثنين)</span>
-      <span style="font-size:10.5px;color:var(--text-muted)">اختر الميعاد المناسب لك:</span>
+      <span style="font-size:10px;color:var(--text-muted)">اضغط لاختيار الميعاد أو إلغائه</span>
     </div>
     <div class="dyn-pills-row">
-      <button class="dyn-pill-btn" id="dynSlot1Btn" onclick="setDynamicsSlot('1')">
+      <button class="dyn-pill-btn" id="dynSlot1Btn" onclick="toggleDynamicsSlot('1')">
         <span>الميعاد 1</span>
         <span class="time">8:00 – 11:00</span>
         <span class="room-tag">📍 19208</span>
       </button>
-      <button class="dyn-pill-btn" id="dynSlot2Btn" onclick="setDynamicsSlot('2')">
+      <button class="dyn-pill-btn" id="dynSlot2Btn" onclick="toggleDynamicsSlot('2')">
         <span>الميعاد 2</span>
         <span class="time">11:00 – 2:00</span>
         <span class="room-tag">📍 19208</span>
       </button>
-      <button class="dyn-pill-btn" id="dynSlot3Btn" onclick="setDynamicsSlot('3')">
+      <button class="dyn-pill-btn" id="dynSlot3Btn" onclick="toggleDynamicsSlot('3')">
         <span>الميعاد 3</span>
         <span class="time">2:00 – 5:00</span>
         <span class="room-tag">📍 17201</span>
@@ -1308,14 +1308,12 @@ const DAYS = [
   { full: "Thursday", short: "THU", dayIdx: 4 }
 ];
 
-// 9 فترات لتغطية مواعيد اليوم بالكامل حتى الساعة 5:00
 const SLOTS = ["8:00 - 8:50","9:00 - 9:50","10:00 - 10:50","11:00 - 11:50","12:00 - 12:50","1:00 - 1:50","2:00 - 2:50","3:00 - 3:50","4:00 - 4:50"];
 const TIME_STARTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
 const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:50", "15:50", "16:50"];
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص (بدون أي سكاشن ديناميكا لباقي الأيام)
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1349,7 +1347,6 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
-// الـ 3 مواعيد لسكشن الديناميكا يوم الاثنين
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "ALL", code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "ALL", code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
@@ -1359,7 +1356,7 @@ const MONDAY_DYNAMICS_SLOTS = {
 let activeView = "week";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
-let selectedDynamicsSlot = '2'; // الميعاد الافتراضي المعروض
+let selectedDynamicsSlot = null; // لا يوجد ميعاد محدد افتراضياً
 
 const jsDateNow = new Date();
 const jsDay = jsDateNow.getDay();
@@ -1369,16 +1366,19 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// حساب الحصص المعروضة بما فيها الميعاد المختار حالياً للديناميكا
+// حساب الحصص المعروضة مع إضافة سكشن الديناميكا في حال كان مفعلاً فقط
 function getActiveEffectiveSessions() {
   const baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
-  const activeDyn = MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot];
-  return [...baseSessions, activeDyn];
+  if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
+    return [...baseSessions, MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]];
+  }
+  return baseSessions;
 }
 
-function setDynamicsSlot(slotKey) {
+// دالة التبديل: الضغط على الميعاد يفعله، والضغط عليه ثانية يلغيه تماماً
+function toggleDynamicsSlot(slotKey) {
   triggerHaptic();
-  selectedDynamicsSlot = slotKey;
+  selectedDynamicsSlot = (selectedDynamicsSlot === slotKey) ? null : slotKey;
   render();
 }
 
@@ -1422,7 +1422,6 @@ function showRoomDetails(roomCode) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
-// دالة فتح كبسولة المادة ودليل النجاة
 function openCourseCapsule(code) {
   triggerHaptic();
   const modal = document.getElementById("capsuleModal");
