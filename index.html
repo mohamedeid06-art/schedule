@@ -87,7 +87,7 @@ body {
 }
 
 .container.pc-mode {
-  max-width: 1240px;
+  max-width: 1280px;
 }
 
 /* Masthead */
@@ -420,6 +420,24 @@ body {
   box-shadow: inset -3.5px 0 0 #f97316 !important;
 }
 
+/* Dynamics Floating Glow Highlight */
+.is-dynamics-card {
+  border: 1.5px solid #6366f1 !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, var(--surface) 100%) !important;
+}
+
+/* Multi-Lane Parallel Cell Container */
+.matrix-cell-lanes {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+}
+.matrix-cell-lanes .grid-card {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Free Gap Item */
 .break-item {
   display: flex;
@@ -460,9 +478,9 @@ body {
 .matrix-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .matrix-grid {
   display: grid;
-  grid-template-columns: 80px repeat(5, minmax(170px, 1fr));
+  grid-template-columns: 80px repeat(5, minmax(180px, 1fr));
   grid-template-rows: 38px repeat(9, minmax(70px, auto));
-  min-width: 930px;
+  min-width: 980px;
 }
 .matrix-head {
   background: var(--surface-alt);
@@ -1314,7 +1332,6 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص (المحاضرات + سكاشن المواد التانية)
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1336,7 +1353,7 @@ const SESSIONS = [
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "17200-56" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "14302-50" },
   
-  // الأربعاء (محاضرة سوليد + سكاشن ماتيريال + محاضرة ديناميكا المشتركة)
+  // الأربعاء
   { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "14302-50" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "19301-48" },
@@ -1348,7 +1365,6 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
-// مواعيد سكاشن الديناميكا المتاحة حصرياً يوم الاثنين (نوعها Tutorial وتظهر كـ SEC)
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
@@ -1358,7 +1374,7 @@ const MONDAY_DYNAMICS_SLOTS = {
 let activeView = "week";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
-let selectedDynamicsSlot = null; // مفيش ميعاد محدد افتراضياً لراحة الطالب
+let selectedDynamicsSlot = null;
 
 const jsDateNow = new Date();
 const jsDay = jsDateNow.getDay();
@@ -1368,7 +1384,6 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// حساب الحصص المعروضة مع إضافة سكشن الديناميكا في حال كان مفعلاً فقط
 function getActiveEffectiveSessions() {
   const baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
   if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
@@ -1377,7 +1392,6 @@ function getActiveEffectiveSessions() {
   return baseSessions;
 }
 
-// دالة التبديل: الضغط على الميعاد يفعله، والضغط عليه ثانية يلغيه تماماً
 function toggleDynamicsSlot(slotKey) {
   triggerHaptic();
   selectedDynamicsSlot = (selectedDynamicsSlot === slotKey) ? null : slotKey;
@@ -1424,7 +1438,6 @@ function showRoomDetails(roomCode) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
-// دالة فتح كبسولة المادة ودليل النجاة
 function openCourseCapsule(code) {
   triggerHaptic();
   const modal = document.getElementById("capsuleModal");
@@ -1847,7 +1860,7 @@ function renderDailyAgenda() {
           <span class="time-dur">${s.span * 50}m</span>
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
+        <div class="timeline-card ${s.isDynSec ? 'is-dynamics-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
@@ -1916,31 +1929,61 @@ function renderWeekMatrix() {
 
   DAYS.forEach((d, dIdx) => {
     const col = dIdx + 2;
-    const daySessions = effectiveSessions.filter(s => s.day === d.full).sort((a, b) => a.start - b.start);
+    const daySessions = effectiveSessions.filter(s => s.day === d.full);
     const dayTasks = getDayAssessments(d.full);
 
-    let currentSlot = 0;
+    // بناء شبكة من 9 فترات لتوزيع الحصص بدون تداخل
+    const slotMatrix = Array.from({ length: 9 }, () => []);
     daySessions.forEach(sess => {
-      if (sess.start > currentSlot) {
-        const freeCell = document.createElement("div");
-        freeCell.className = "matrix-cell";
-        freeCell.style.gridColumn = `${col}`;
-        freeCell.style.gridRow = `${currentSlot + 2} / span ${sess.start - currentSlot}`;
-        freeCell.innerHTML = `<div class="cell-empty">—</div>`;
-        grid.appendChild(freeCell);
+      slotMatrix[sess.start].push(sess);
+    });
+
+    let currentSlot = 0;
+    while (currentSlot < 9) {
+      const sessList = slotMatrix[currentSlot];
+      if (!sessList || sessList.length === 0) {
+        // فحص هل هناك حصة تشغل هذه الفترة بدأت سابقاً
+        const isCovered = daySessions.some(s => s.start < currentSlot && (s.start + s.span) > currentSlot);
+        if (!isCovered) {
+          const freeCell = document.createElement("div");
+          freeCell.className = "matrix-cell";
+          freeCell.style.gridColumn = `${col}`;
+          freeCell.style.gridRow = `${currentSlot + 2}`;
+          freeCell.innerHTML = `<div class="cell-empty">—</div>`;
+          grid.appendChild(freeCell);
+        }
+        currentSlot++;
+        continue;
       }
 
-      const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
-      const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
-      const isHighlighted = highlightedCourse === sess.code;
-      const hasTask = dayTasks.some(t => t.code === sess.code);
-
+      // تحديد أطول span للحصص التي تبدأ في هذه الفترة
+      const maxSpan = Math.max(...sessList.map(s => s.span));
       const cell = document.createElement("div");
       cell.className = "matrix-cell";
       cell.style.gridColumn = `${col}`;
-      cell.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
-      cell.innerHTML = `
-        <div class="grid-card ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}">
+      cell.style.gridRow = `${currentSlot + 2} / span ${maxSpan}`;
+
+      // تقسيم متوازي (Lanes) إذا وُجدت حصتان متزامنتان في نفس البداية أو تتداخلان
+      const laneWrap = document.createElement("div");
+      laneWrap.className = sessList.length > 1 ? "matrix-cell-lanes" : "matrix-cell-single";
+      laneWrap.style.display = "flex";
+      laneWrap.style.gap = "4px";
+      laneWrap.style.width = "100%";
+      laneWrap.style.height = "100%";
+
+      sessList.forEach(sess => {
+        const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
+        const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
+        const isHighlighted = highlightedCourse === sess.code;
+        const hasTask = dayTasks.some(t => t.code === sess.code);
+
+        const card = document.createElement("div");
+        card.className = `grid-card ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}`;
+        card.style.setProperty("--c", course.color);
+        card.style.flex = "1";
+        card.style.minWidth = "0";
+
+        card.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
@@ -1955,19 +1998,13 @@ function renderWeekMatrix() {
             <div style="display:flex;gap:4px;align-items:center;">
               <span class="room-badge" onclick="showRoomDetails('${sess.room}')">${sess.room} ↗</span>
             </div>
-          </div>
-        </div>`;
-      grid.appendChild(cell);
-      currentSlot = sess.start + sess.span;
-    });
+          </div>`;
+        laneWrap.appendChild(card);
+      });
 
-    if (currentSlot < 9) {
-      const freeCell = document.createElement("div");
-      freeCell.className = "matrix-cell";
-      freeCell.style.gridColumn = `${col}`;
-      freeCell.style.gridRow = `${currentSlot + 2} / span ${9 - currentSlot}`;
-      freeCell.innerHTML = `<div class="cell-empty">—</div>`;
-      grid.appendChild(freeCell);
+      cell.appendChild(laneWrap);
+      grid.appendChild(cell);
+      currentSlot += maxSpan;
     }
   });
 }
