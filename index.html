@@ -1173,6 +1173,7 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
 
+// الداتا الشاملة لكبسولات المواد الـ 6 كاملة لدليل النجاة لدفعة 30
 const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119",
@@ -1217,15 +1218,54 @@ const COURSE_CAPSULES = {
       { title: "🎬 كورس أساسيات سوليد ووركس (عربي)", url: "https://youtube.com/playlist?list=PLAAyGuHqGArb8PA0rz67umpZxo62YN6LJ&si=BZ26lY7_tPsE7-ZC" },
       { title: "🎬 SolidWorks Tutorials for Beginners (English)", url: "https://www.youtube.com/playlist?list=PLCyNBva9d5vc" }
     ]
+  },
+  "MDP G121": {
+    code: "MDP G121",
+    name: "Materials Science",
+    hours: "3 Credit Hours",
+    grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (كويزات وأساينمنتات مع المعيد وتقييم المعمل)\n• 40 درجة فاينال",
+    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها (انسى شغل ملازم إعدادي).\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين (م. مؤيد) بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.",
+    links: [
+      { title: "📁 درايف الدفعة لمادة الماتيريال", url: MAIN_SEMESTER_DRIVE }
+    ],
+    playlists: []
+  },
+  "EPE G113": {
+    code: "EPE G113",
+    name: "Electrical & Electronics Engineering (EPE I)",
+    hours: "3 Credit Hours",
+    grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة Classwork (أعمال سنة)",
+    tips: "1. المادة جديدة في اللائحة وعبارة عن Circuits & Electronics Fundamentals، الدنيا فيها سهلة وأخف من المعروف عن السيركتس لأن التركيز الأكبر على الـ Basics.\n2. الميدتيرم: بيجي 4 أسئلة كويسين ومباشرين.\n3. الفاينال: 4 أسئلة كل سؤال نقطتين (a, b) يعني إجمالي 8 أسئلة (نص الامتحان تقريباً Circuits والنص التاني Electronics).\n4. المذاكرة المعتمدة: حل ومتابعة بلاي ليست الباشمهندسين بتغطي كل أفكار الامتحان.",
+    links: [
+      { title: "📁 فولدر درايف مادة الكهربية من دفعة 29", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
+    ],
+    playlists: [
+      { title: "🎬 شرح سيركتس وإلكترونكس — م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" },
+      { title: "🎬 شرح السيركتس والأساسيات — م. محمد ماهر", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" }
+    ]
+  },
+  "EMC G101": {
+    code: "EMC G101",
+    name: "Dynamics of Rigid Bodies",
+    hours: "3 Credit Hours",
+    grading: "• 40 درجة فاينال (جدول MCQ زي ميكانيكا إعدادي وفيه None)\n• 20 درجة ميدتيرم (نفس نظام الجدول)\n• 30 درجة كويزين (كويز بـ 20 والتاني بـ 10، والدكتور بيحسب الأعلى من 20)\n• 10 درجات Take Home Exam (THE)",
+    tips: "1. من أخف المواد وامتحاناتها بتتكرر، وبيدرسها د. سمير أبو هديمة وهو دكتور محترم ومتعاون جداً وبيحب الحضور ولو حد جاوب في المحاضرة بياخد بونص.\n2. سر درجات الـ 10: بيكون فيه 9 (THE) بتتسلم أسبوعياً كل جمعة (منها MCQ ومقالي من الشيت)، لو سلمت في أول يومين بتاخد بونص، ولو اتأخرت بتاخد ماينس! درجاتها مضمونة وهدية وبيجي منها الميد والفاينال بالحرف.\n3. سكاشن التمارين يوم الإثنين فقط، اختار أي ميعاد من الـ 3 يناسبك واحضر فيه.",
+    links: [
+      { title: "📁 فولدر درايف مادة الديناميكا من دفعة 29", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }
+    ],
+    playlists: [
+      { title: "🎬 سكاشن وتمارين ديناميكا — م. أحمد فوزي", url: "https://youtube.com/playlist?list=PLO2pEkARUG7gJgjD7oF0u6nv_dhE-y36I&si=2Rf_nz5QBlo_5ZgP" },
+      { title: "🎬 سكاشن وحل مسائل — م. إنجي", url: "https://youtube.com/playlist?list=PLSRWGfn5iCH9hwKUQfbIjGAFyruE6IsCA&si=pzp_Hxt5UixgwWMq" }
+    ]
   }
 };
 
 const DRIVE_DATA = {
   "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "EMC G101": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "EMC G101": { folder: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G111": { folder: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G121": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "EPE G113": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "EPE G113": { folder: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "GEN G119": { folder: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
@@ -1772,7 +1812,6 @@ function exportToCalendar() {
   a.click();
 }
 
-// بناء الجدول اليومي الدقيق مع كاشف التداخل الزمني
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const effectiveSessions = getActiveEffectiveSessions();
@@ -1855,7 +1894,6 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
-// بناء خريطة الأسبوع المطلقة بدقة 100%
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -2153,7 +2191,7 @@ function renderDriveScreen() {
         </div>
         
         <div class="vault-search-box">
-          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 14z"/></svg>
           <input type="text" id="driveSearchInput" placeholder="Search subject code or name..." value="${searchQuery}" oninput="handleDriveSearch(this.value)">
         </div>
 
@@ -2299,7 +2337,7 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// محرك الطباعة
+// محرك الطباعة الشامل
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
