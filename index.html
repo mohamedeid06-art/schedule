@@ -459,7 +459,7 @@ body {
 }
 .cascade-item { animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-/* Grid Matrix Layout - True 9 Time-Slots Architecture */
+/* Grid Matrix Layout */
 .matrix-wrapper {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -515,7 +515,6 @@ body {
   pointer-events: none;
 }
 
-/* Precision Positioned Grid Card */
 .grid-card-positioned {
   padding: 3px;
   z-index: 2;
@@ -540,21 +539,54 @@ body {
 .room-badge { background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; color: var(--text-main); font-weight: 600; cursor: pointer; }
 .matrix-guide-btn { color: var(--accent-light); cursor: pointer; font-size: 10px; font-weight: 700; }
 
-/* Daily Timeline */
+/* Daily Timeline Styling with Conflict Indicators */
 .timeline-wrap { display: flex; flex-direction: column; gap: 14px; position: relative; }
 .timeline-item { display: flex; gap: 12px; position: relative; }
 .time-col { width: 80px; flex-shrink: 0; text-align: right; padding-top: 2px; }
 .time-start { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--text-main); }
 .time-end { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
 .time-dur { display: inline-block; font-size: 9px; font-weight: 600; background: var(--surface-alt); color: var(--text-muted); padding: 1px 5px; border-radius: 4px; margin-top: 4px; }
+.overlap-tag {
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  padding: 1px 5px;
+  border-radius: 4px;
+  display: block;
+  margin-top: 4px;
+}
 .rail { position: relative; display: flex; flex-direction: column; align-items: center; }
 .rail-dot { width: 11px; height: 11px; border-radius: 50%; border: 2.5px solid var(--c); background: var(--surface); z-index: 2; margin-top: 4px; }
 .rail-line { position: absolute; top: 16px; bottom: -20px; width: 2px; background: var(--border); }
 .timeline-item:last-child .rail-line { display: none; }
 .timeline-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; position: relative; }
+.timeline-card.has-conflict { border-right: 3.5px dashed #ef4444 !important; }
 .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
 .card-title { font-size: 13.5px; font-weight: 700; color: var(--text-main); line-height: 1.35; margin-bottom: 10px; }
 .card-room-pill { display: inline-flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; background: var(--surface-alt); border: 1px solid var(--border); color: var(--accent-light); padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+
+/* Daily Conflict Notice Alert Banner */
+.conflict-notice-banner {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  border-radius: 7px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  direction: rtl;
+  text-align: right;
+}
+[data-theme="light"] .conflict-notice-banner {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
 
 /* Weekly Guide */
 .guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -1248,7 +1280,6 @@ const DAYS = [
   { full: "Thursday", short: "THU", dayIdx: 4 }
 ];
 
-// 9 فترات زمنية كاملة من 8:00 صباحاً حتى 5:00 مساءً
 const SLOTS = ["8:00 - 8:50","9:00 - 9:50","10:00 - 10:50","11:00 - 11:50","12:00 - 12:50","1:00 - 1:50","2:00 - 2:50","3:00 - 3:50","4:00 - 4:50"];
 const TIME_STARTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
 const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:50", "15:50", "16:50"];
@@ -1288,7 +1319,7 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
-// مواعيد سكاشن الديناميكا المتاحة حصرياً يوم الاثنين (3 ساعات كاملة لكل ميعاد)
+// مواعيد سكاشن الديناميكا المتاحة حصرياً يوم الاثنين (3 ساعات كاملة)
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
@@ -1298,7 +1329,7 @@ const MONDAY_DYNAMICS_SLOTS = {
 let activeView = "week";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
-let selectedDynamicsSlot = null; // لا يوجد ميعاد محدد افتراضياً
+let selectedDynamicsSlot = null;
 
 const jsDateNow = new Date();
 const jsDay = jsDateNow.getDay();
@@ -1741,6 +1772,7 @@ function exportToCalendar() {
   a.click();
 }
 
+// بناء الجدول اليومي الدقيق مع كاشف التداخل الزمني
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const effectiveSessions = getActiveEffectiveSessions();
@@ -1755,26 +1787,35 @@ function renderDailyAgenda() {
     return;
   }
 
+  let maxEndSoFar = 0;
   for (let i = 0; i < daySessions.length; i++) {
     const s = daySessions[i];
+    const sEnd = s.start + s.span;
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
+
+    // كشف التداخل الزمني الفعلي مع أي حصة أخرى في نفس اليوم
+    const conflicts = daySessions.filter(other => 
+      other !== s &&
+      s.start < (other.start + other.span) &&
+      (s.start + s.span) > other.start
+    );
+    const hasConflict = conflicts.length > 0;
+
+    // حساب الفترات الفاضية الحقيقية فقط بعد انتهاء جميع الحصص السابقة
+    if (i > 0 && s.start > maxEndSoFar) {
+      const gap = s.start - maxEndSoFar;
+      html += `
+        <div class="break-item cascade-item" style="animation-delay:${i * 0.04}s">
+          <div class="break-spacer"></div>
+          <div class="break-card">☕ Free Gap · ${gap * 50} mins</div>
+        </div>`;
+    }
+    maxEndSoFar = Math.max(maxEndSoFar, sEnd);
 
     const isDimmed = highlightedCourse && highlightedCourse !== s.code;
     const isHighlighted = highlightedCourse === s.code;
     const hasTask = dayTasks.some(t => t.code === s.code);
-
-    if (i > 0) {
-      const prevEnd = daySessions[i - 1].start + daySessions[i - 1].span;
-      const gap = s.start - prevEnd;
-      if (gap > 0) {
-        html += `
-          <div class="break-item cascade-item" style="animation-delay:${i * 0.04}s">
-            <div class="break-spacer"></div>
-            <div class="break-card">☕ Free Gap · ${gap * 50} mins</div>
-          </div>`;
-      }
-    }
 
     html += `
       <div class="timeline-item cascade-item" style="animation-delay:${i * 0.05}s">
@@ -1782,9 +1823,17 @@ function renderDailyAgenda() {
           <div class="time-start">${TIME_STARTS[s.start]}</div>
           <div class="time-end">${TIME_ENDS[s.start + s.span - 1]}</div>
           <span class="time-dur">${s.span * 50}m</span>
+          ${hasConflict ? '<span class="overlap-tag">⚠️ متداخل</span>' : ''}
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${s.isDynSec ? 'is-dynamics-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
+        <div class="timeline-card ${s.isDynSec ? 'is-dynamics-card' : ''} ${hasConflict ? 'has-conflict' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
+          
+          ${hasConflict ? `
+            <div class="conflict-notice-banner">
+              <span>⚠️ وقت متداخل ومتزامن مع: ${conflicts.map(c => c.code).join(' و ')}</span>
+            </div>
+          ` : ''}
+
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
@@ -1806,7 +1855,7 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
-// بناء خريطة الأسبوع المطلقة بدقة 100% بدون أي تراكب أو اختفاء
+// بناء خريطة الأسبوع المطلقة بدقة 100%
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -1850,7 +1899,7 @@ function renderWeekMatrix() {
     grid.appendChild(timeCell);
   });
 
-  // رسم خلفيات الفترات الفارغة أولاً
+  // رسم خانات الفترات الفارغة
   for (let c = 2; c <= 6; c++) {
     for (let r = 2; r <= 10; r++) {
       const emptyBg = document.createElement("div");
@@ -1869,7 +1918,6 @@ function renderWeekMatrix() {
     const daySessions = effectiveSessions.filter(s => s.day === d.full);
     const dayTasks = getDayAssessments(d.full);
 
-    // كشف أي تداخل زمني وتقسيم العرض بدقة (Dual Lanes)
     daySessions.forEach(sess => {
       const hasConflict = daySessions.some(other => 
         other !== sess &&
@@ -1881,9 +1929,9 @@ function renderWeekMatrix() {
       let leftStyle = "left: 0;";
 
       if (hasConflict) {
-        widthStyle = "width: calc(50% - 2px);";
+        widthStyle = "width: calc(50% - 3px);";
         if (sess.isDynSec) {
-          leftStyle = "left: calc(50% + 2px);";
+          leftStyle = "left: calc(50% + 3px);";
         } else {
           leftStyle = "left: 0;";
         }
@@ -2251,7 +2299,7 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// محرك الطباعة الشامل (Landscape A4)
+// محرك الطباعة
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
