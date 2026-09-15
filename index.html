@@ -365,6 +365,17 @@ body {
   box-shadow: inset -3.5px 0 0 #f97316 !important;
 }
 
+/* Custom Swapped Badge */
+.badge-swapped {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #10b981 !important;
+  border: 1px solid #10b981 !important;
+  font-size: 8px !important;
+  font-weight: 800 !important;
+  padding: 1px 4px !important;
+  border-radius: 4px !important;
+}
+
 /* Free Gap Item */
 .break-item {
   display: flex;
@@ -456,6 +467,7 @@ body {
 .grid-card .title { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.25; }
 .grid-card .footer { margin-top: auto; padding-top: 4px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); border-top: 1px dashed var(--border); }
 .room-badge { background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; color: var(--text-main); font-weight: 600; cursor: pointer; }
+.swap-icon-btn { cursor: pointer; color: var(--accent-light); font-size: 11px; padding: 0 3px; }
 .cell-empty { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-subtle); }
 
 /* Daily Timeline */
@@ -553,7 +565,7 @@ body {
 }
 .guide-summary-btn:hover { background: rgba(43, 164, 204, 0.3); transform: translateY(-1px); }
 
-/* Vault (Drive) Hub Styling */
+/* Vault (Drive Hub) & Course Capsule Styling */
 .vault-container { display: flex; flex-direction: column; gap: 16px; animation: cardCascade 0.3s forwards; }
 .vault-hero {
   background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, rgba(20, 31, 45, 0.9) 100%);
@@ -613,7 +625,7 @@ body {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 .category-icons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .cat-icon-btn {
@@ -629,6 +641,25 @@ body {
   cursor: pointer;
   font-size: 9px;
   font-weight: 700;
+}
+.capsule-open-btn {
+  background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, rgba(20, 31, 45, 0.8) 100%);
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+  border-radius: 9px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: all 0.2s ease;
+}
+.capsule-open-btn:hover {
+  background: rgba(43, 164, 204, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Floating Glass Bottom Nav */
@@ -726,6 +757,12 @@ body {
   color: #cbd5e1;
   line-height: 1.4;
 }
+.toast-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
 .toast-maps-btn {
   background: #2ba4cc;
   color: #ffffff;
@@ -740,26 +777,106 @@ body {
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.15s ease;
-  margin-top: 2px;
 }
-.toast-maps-btn:hover { opacity: 0.9; }
+.toast-swap-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
 
 /* Modals */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.75);
-  backdrop-filter: blur(8px); z-index: 1000; display: flex; align-items: center; justify-content: center;
+  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.8);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  z-index: 1000; display: flex; align-items: center; justify-content: center;
   padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
 }
 .modal-overlay.open { opacity: 1; pointer-events: auto; }
 .modal-card {
-  background: var(--surface); border: 1px solid var(--border-dark); border-radius: 16px;
-  width: 100%; max-width: 480px; max-height: 82vh; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border-dark); border-radius: 18px;
+  width: 100%; max-width: 520px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 .modal-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.modal-title { font-size: 13.5px; font-weight: 800; color: var(--accent-light); }
-.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 22px; }
-.modal-body { padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.modal-title { font-size: 14px; font-weight: 800; color: var(--accent-light); display: flex; align-items: center; gap: 8px; }
+.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 24px; }
+.modal-body { padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
 .modal-item { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+
+/* Slot Switcher Card Styling */
+.slot-alt-option {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.slot-alt-option:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateY(-1px);
+}
+.slot-alt-option.active-chosen {
+  border: 2px solid #10b981;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+/* Capsule Detailed Sections */
+.capsule-box {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.capsule-box-head {
+  font-size: 12.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.capsule-text {
+  font-size: 12px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  white-space: pre-line;
+  direction: rtl;
+  text-align: right;
+}
+.capsule-link-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--accent-light);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.capsule-link-btn:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
 
 /* Legend */
 .legend {
@@ -918,13 +1035,19 @@ body {
   <!-- Control Bar -->
   <div class="control-bar" id="scheduleControlBar">
     <div class="group-controls">
-      <span class="control-label">Section:</span>
-      <select class="section-select" id="sectionSelect">
-        <option value="ME1-01">Section 01</option>
-        <option value="ME1-02">Section 02</option>
-        <option value="ME1-03">Section 03</option>
-        <option value="ME1-04">Section 04</option>
-      </select>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="control-label">Section:</span>
+        <select class="section-select" id="sectionSelect">
+          <option value="ME1-01">Section 01</option>
+          <option value="ME1-02">Section 02</option>
+          <option value="ME1-03">Section 03</option>
+          <option value="ME1-04">Section 04</option>
+        </select>
+      </div>
+
+      <button id="resetSwapsBtn" class="action-btn" style="display:none;height:30px;font-size:11px;color:#f97316;border-color:#f97316;" onclick="resetAllSwaps()">
+        ↺ Reset Custom Slots
+      </button>
     </div>
   </div>
 
@@ -939,7 +1062,7 @@ body {
 
 </div>
 
-<!-- Bottom Navigation Bar with Guide Tab -->
+<!-- Bottom Navigation Bar -->
 <nav class="bottom-nav">
   <button class="nav-item" id="navDayBtn" onclick="setView('day')">
     <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
@@ -974,7 +1097,7 @@ body {
   </button>
 </nav>
 
-<!-- FOCUSED ROOM DETAILS TOAST WITH DIRECT GOOGLE MAPS LINK -->
+<!-- Room Details Toast with Direct Google Maps Link -->
 <div class="floating-toast" id="toastBox">
   <div class="toast-top-row">
     <div class="toast-room-tag">
@@ -984,10 +1107,26 @@ body {
     <span class="toast-floor-pill" id="toastFloorPill">1ST FLOOR</span>
   </div>
   <div class="toast-info-text" id="toastRoomBody">Location Details</div>
-  <a id="toastMapsLink" href="#" target="_blank" rel="noopener noreferrer" class="toast-maps-btn">
-    <span>📍 Open in Google Maps</span>
-    <span>↗</span>
-  </a>
+  <div class="toast-actions-row">
+    <a id="toastMapsLink" href="#" target="_blank" rel="noopener noreferrer" class="toast-maps-btn">
+      <span>📍 Open in Maps</span>
+      <span>↗</span>
+    </a>
+    <button id="toastSwapBtn" class="toast-swap-btn" style="display:none;">
+      <span>⇄ Swap Slot</span>
+    </button>
+  </div>
+</div>
+
+<!-- Slot Switcher Modal (Choose from 3 Alternative Slots) -->
+<div class="modal-overlay" id="slotSwitcherModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title" id="slotSwitcherTitle">⇄ Choose Tutorial / Lab Slot</div>
+      <button class="modal-close" onclick="closeSlotSwitcherModal()">×</button>
+    </div>
+    <div class="modal-body" id="slotSwitcherBody"></div>
+  </div>
 </div>
 
 <!-- Announcements Modal -->
@@ -1009,6 +1148,17 @@ body {
       <button class="modal-close" onclick="closeAssessmentModal()">×</button>
     </div>
     <div class="modal-body" id="assessmentList"></div>
+  </div>
+</div>
+
+<!-- Course Survival Capsule Modal -->
+<div class="modal-overlay" id="capsuleModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title" id="capsuleModalTitle">💡 Course Survival Guide</div>
+      <button class="modal-close" onclick="closeCapsuleModal()">×</button>
+    </div>
+    <div class="modal-body" id="capsuleModalBody"></div>
   </div>
 </div>
 
@@ -1035,21 +1185,69 @@ function openSafeDriveLink(url) {
 }
 
 const COURSES = {
-  "GEN G119": { name: "Entrepreneurship & Innovation", color: "var(--c-gen)" },
+  "GEN G119": { name: "Entrepreneurship & Marketing", color: "var(--c-gen)" },
   "MTH G102": { name: "Linear Algebra & Multivariable Integrals", color: "var(--c-mth)" },
   "EMC G101": { name: "Dynamics of Rigid Bodies", color: "var(--c-emc)" },
-  "MDP G111": { name: "Computer-Aided Mechanical Drafting", color: "var(--c-mdp1)" },
+  "MDP G111": { name: "Computer-Aided Mechanical Drafting (SolidWorks)", color: "var(--c-mdp1)" },
   "MDP G121": { name: "Materials Science", color: "var(--c-mdp2)" },
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
 
+// الداتا الشاملة لكبسولات المواد ودليل النجاة
+const COURSE_CAPSULES = {
+  "GEN G119": {
+    code: "GEN G119",
+    name: "Marketing & Entrepreneurship",
+    hours: "2 Credit Hours",
+    grading: "• 40 درجة كويزات (6 كويزات بيتاخد أعلى 4)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
+    tips: "الكويزات بتيجي كل سنة متكررة بالحرف وبنفس ترتيب الأسئلة والاختيارات من الـ Test Bank! \nالميدتيرم والفاينال بيكونوا تجميعة من نفس الـ 6 كويزات دي بالحرف، يعني معاك الـ 6 كويزات تضمن الـ A+ في جيبك.\n\nتنبيه: كل شابتر ليه كويز واحد، ما عدا شابتر 1 ليه كويزين (40 سؤال: 20 في كويز 1 و20 في كويز 6).",
+    links: [
+      { title: "📁 فولدر المراجع والـ Test Bank (100 سؤال لكل شابتر)", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" },
+      { title: "🎯 فولدر الكويزات المتكررة المضمونة (خلاصة المادة A+)", url: "https://drive.google.com/drive/folders/1utSDriJ1mlgJvZlVEPl9yqichocubE4h" }
+    ],
+    playlists: []
+  },
+  "MTH G102": {
+    code: "MTH G102",
+    name: "Linear Algebra & Multivariable Integration",
+    hours: "3 Credit Hours",
+    grading: "• الميدتيرم من 30 درجة (20 درجة تكامل + 10 درجات جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في درجات أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتشوفه",
+    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتعة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل، والدكتورة بتسأل في المفاهيم بالميد.\n3. ⚠️ تنبيه غياب هام جداً: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف والعدد القليل بيأثر على التعامل.",
+    links: [
+      { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" }
+    ],
+    playlists: [
+      { title: "🎬 جبر (طرق حل سريعة) — د. أحمد عصام", url: "https://youtube.com/playlist?list=PLPAM-Io7zvPrGUSNKLNgSpSFhgGxiXexz&si=4jvfWlMZaTa4_vLb" },
+      { title: "🎬 جبر (فهم الـ Concepts) — د. سماح", url: "https://youtube.com/playlist?list=PLm0BTSPNOKJRl_MaRhKPKb46bv2RlR-bK&si=5IMdIy3hQ5bjb-NQ" },
+      { title: "🎬 تكامل — سكاشن م. باسم", url: "https://youtube.com/playlist?list=PLMgw9qylvawgvPycR_kCxQV69oVBL1nfE&si=FwJb50mY-rE0DW4p" },
+      { title: "🎬 تكامل — قناة م. أحمد المغربي", url: "https://youtube.com/playlist?list=PLdlvqNEtwNjpdMGBxLju2472aqK09shpE&si=4FsMR5X5ZEi2fkdm" }
+    ]
+  },
+  "MDP G111": {
+    code: "MDP G111",
+    name: "Computer-Aided Mechanical Drafting (SolidWorks)",
+    hours: "3 Credit Hours",
+    grading: "• 40 درجة Classwork (رسمة كل أسبوع بالسكشن المعيد بيقيمك عليها)\n• 20 درجة ميدتيرم (رسم على البرنامج وإيجاد وزن القطعة بالماتريال المطلوبة)\n• 40 درجة فاينال (نفس نظام الميدتيرم بالوزن)",
+    tips: "1. المادة لا تعتمد على الرسم اليدوي، أهم حاجة فهم الأبعاد والـ Thickness وطريقة التعامل مع SolidWorks.\n2. سر تصحيح الميد والفاينال: المعيد مش بيشوف رسمتك! بيطلب منك ترسم بماتريال معينة وتحسب الوزن (Mass) لو راسم بعد غلط الوزن هيطلع غلط.\n3. الجزء النظري مهم جداً وعليه جزء محترم من الدرجات (المسامير، القلاووظ، السوست، الـ Keys، والـ Bearings) وملوش أي مصدر غير سلايدات المحاضرة لأن المنهج بيتغير كل سنة.\n4. د. مصطفى رشاد ود. عصام الجداوي مش بيدققوا في الغياب لكن كلامهم في المحاضرة بيجي منه الامتحان.",
+    links: [
+      { title: "📁 درايف الدفعة لمادة السوليد", url: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-" },
+      { title: "📘 كتاب رسم طيران (جاء منه أغلب رسومات الامتحانات)", url: "https://drive.google.com/file/d/1fxMIKQySXbeZibpLqv_E_FEIb6AR-Q7v/view?usp=drivesdk" },
+      { title: "📗 كتاب الرسم الميكانيكي (جاء منه أغلب السكاشن)", url: "https://drive.google.com/file/d/1NuP1NAaLXCJ64rz3T9lrCTgDMe-sZvrV/view?usp=drivesdk" }
+    ],
+    playlists: [
+      { title: "🎬 كورس أساسيات سوليد ووركس (عربي)", url: "https://youtube.com/playlist?list=PLAAyGuHqGArb8PA0rz67umpZxo62YN6LJ&si=BZ26lY7_tPsE7-ZC" },
+      { title: "🎬 SolidWorks Tutorials for Beginners (English)", url: "https://www.youtube.com/playlist?list=PLCyNBva9d5vc" }
+    ]
+  }
+};
+
 const DRIVE_DATA = {
-  "MTH G102": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "EMC G101": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "MDP G111": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "MDP G111": { folder: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G121": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "EPE G113": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "GEN G119": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
+  "GEN G119": { folder: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
 let WEEKLY_GUIDE_DATA = [];
@@ -1107,38 +1305,46 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
+// جدول الحصص الخام لجميع السكاشن والمحاضرات
 const SESSIONS = [
-  { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial / Lab", room: "17400-56" },
-  { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
-  { day: "Monday", start: 2, span: 3, group: "ME1-01", code: "EMC G101", type: "Tutorial", room: "19302-48" },
-  { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)" },
-  { day: "Monday", start: 2, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Monday", start: 2, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
-  { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial / Lab", room: "19302-48" },
-  { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial / Lab", room: "17301-56" },
-  { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148" },
-  { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
-  { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "17200-56" },
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-02", code: "EMC G101", type: "Tutorial", room: "17102-148" },
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "14302-50" },
-  { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "14302-50" },
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-03", code: "EMC G101", type: "Tutorial", room: "19302-48" },
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "19301-48" },
-  { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
-  { day: "Thursday", start: 0, span: 3, group: "ME1-04", code: "EMC G101", type: "Tutorial", room: "14100-(104)" },
-  { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50" },
-  { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50" },
-  { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
+  { id: "gen_lec", day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
+  { id: "mdp1_sec1", day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
+  { id: "mdp1_sec2", day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
+  { id: "epe_sec3",  day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial / Lab", room: "17400-56" },
+  
+  { id: "mdp2_lec", day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
+  { id: "emc_sec1",  day: "Monday", start: 2, span: 3, group: "ME1-01", code: "EMC G101", type: "Tutorial", room: "19302-48" },
+  { id: "mth_sec2",  day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)" },
+  { id: "mdp1_sec3", day: "Monday", start: 2, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
+  { id: "mdp1_sec4", day: "Monday", start: 2, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
+  { id: "epe_sec1",  day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial / Lab", room: "19302-48" },
+  { id: "epe_sec2",  day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial / Lab", room: "17301-56" },
+  { id: "mth_sec3",  day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148" },
+  
+  { id: "mth_lec",  day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
+  { id: "epe_lec",  day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
+  { id: "mdp2_sec1", day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "17200-56" },
+  { id: "emc_sec2",  day: "Tuesday", start: 4, span: 3, group: "ME1-02", code: "EMC G101", type: "Tutorial", room: "17102-148" },
+  { id: "mdp2_sec3", day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "14302-50" },
+  
+  { id: "mdp1_lec", day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
+  { id: "mdp2_sec2", day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "14302-50" },
+  { id: "emc_sec3",  day: "Wednesday", start: 2, span: 3, group: "ME1-03", code: "EMC G101", type: "Tutorial", room: "19302-48" },
+  { id: "mdp2_sec4", day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "19301-48" },
+  { id: "emc_lec",  day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
+  
+  { id: "emc_sec4", day: "Thursday", start: 0, span: 3, group: "ME1-04", code: "EMC G101", type: "Tutorial", room: "14100-(104)" },
+  { id: "mth_sec1", day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50" },
+  { id: "mth_sec4", day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50" },
+  { id: "epe_sec4", day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
 let activeView = "week";
-let activeGroup = "ME1-01";
+let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
+
+// مصفوفة التبديلات المخصصة لكل سكشن: { [code]: sessionId }
+let customSwappedSlots = JSON.parse(localStorage.getItem(`cufe_swaps_${activeGroup}`) || "{}");
 
 const jsDateNow = new Date();
 const jsDay = jsDateNow.getDay();
@@ -1148,8 +1354,32 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
+// حساب الحصص المعروضة للسكشن مع تطبيق التبديلات الفردية
+function getActiveEffectiveSessions() {
+  const lectures = SESSIONS.filter(s => s.group === "ALL");
+  const defaultTutorials = SESSIONS.filter(s => s.group === activeGroup);
+
+  const effectiveTutorials = defaultTutorials.map(defSess => {
+    const swappedSessionId = customSwappedSlots[defSess.code];
+    if (swappedSessionId) {
+      const altSess = SESSIONS.find(s => s.id === swappedSessionId);
+      if (altSess) return { ...altSess, isSwapped: true };
+    }
+    return defSess;
+  });
+
+  return [...lectures, ...effectiveTutorials];
+}
+
+// دالة فحص وتحديث زر استرجاع التبديلات
+function updateResetSwapsBtnVisibility() {
+  const btn = document.getElementById("resetSwapsBtn");
+  const hasSwaps = Object.keys(customSwappedSlots).length > 0;
+  if (btn) btn.style.display = hasSwaps ? "inline-flex" : "none";
+}
+
 let toastTimer;
-function showRoomDetails(roomCode) {
+function showRoomDetails(roomCode, sessCode = null, isLecture = false) {
   triggerHaptic();
   const roomMeta = ROOM_INFO[roomCode];
   const box = document.getElementById("toastBox");
@@ -1169,10 +1399,196 @@ function showRoomDetails(roomCode) {
     document.getElementById("toastMapsLink").setAttribute("href", "https://maps.google.com/?q=Faculty+of+Engineering+Cairo+University");
   }
 
+  const swapBtn = document.getElementById("toastSwapBtn");
+  if (!isLecture && sessCode) {
+    swapBtn.style.display = "inline-flex";
+    swapBtn.onclick = () => {
+      box.classList.remove("show");
+      openSlotSwitcherModal(sessCode);
+    };
+  } else {
+    swapBtn.style.display = "none";
+  }
+
   box.classList.add("show");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
+
+// ==========================================
+// SLOT SWITCHER MODAL (3 ALTERNATIVES)
+// ==========================================
+function openSlotSwitcherModal(code) {
+  triggerHaptic();
+  const modal = document.getElementById("slotSwitcherModal");
+  const title = document.getElementById("slotSwitcherTitle");
+  const body = document.getElementById("slotSwitcherBody");
+
+  const course = COURSES[code] || { name: code };
+  title.innerHTML = `⇄ Alternate Slots · <span style="font-family:'JetBrains Mono';color:var(--accent-light);">${code}</span>`;
+
+  // إيجاد الـ 4 مواعيد الخاصة بالمادة (ميعاد الطالب + 3 مواعيد بديلة في باقي السكاشن)
+  const allTutorialsForCode = SESSIONS.filter(s => s.code === code && s.group !== "ALL");
+  const myOriginalSession = allTutorialsForCode.find(s => s.group === activeGroup);
+  const currentChosenSessionId = customSwappedSlots[code] || (myOriginalSession ? myOriginalSession.id : null);
+
+  // الـ 3 مواعيد البديلة
+  const alternativeSlots = allTutorialsForCode.filter(s => s.group !== activeGroup);
+
+  let html = `
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.4;">
+      ميعاد سكشنك الأصلي هو: <b style="color:var(--text-main)">${myOriginalSession ? myOriginalSession.group + ' (' + myOriginalSession.day + ' ' + formatTime(myOriginalSession.start, myOriginalSession.span) + ')' : ''}</b>.<br>
+      تقدر تختار ميعاد من <b>الـ 3 مواعيد البديلة</b> في السكاشن التانية وهيتبدل في جدولك تلقائياً:
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+  `;
+
+  alternativeSlots.forEach(alt => {
+    const isChosen = currentChosenSessionId === alt.id;
+    html += `
+      <div class="slot-alt-option ${isChosen ? 'active-chosen' : ''}" onclick="applySlotSwap('${code}', '${alt.id}')">
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--text-main);display:flex;align-items:center;gap:6px;">
+            <span>📅 ${alt.day}</span>
+            <span style="font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--surface);color:var(--accent-light);">${alt.group}</span>
+          </div>
+          <div style="font-family:'JetBrains Mono';font-size:11.5px;color:var(--text-muted);margin-top:2px;">
+            ⏰ ${formatTime(alt.start, alt.span)} · 📍 ${alt.room}
+          </div>
+        </div>
+        <button class="action-btn" style="height:28px;font-size:11px;${isChosen ? 'background:#10b981;color:#fff;border-color:#10b981;' : ''}">
+          ${isChosen ? '✓ Selected' : 'Choose'}
+        </button>
+      </div>
+    `;
+  });
+
+  html += `
+    </div>
+
+    ${customSwappedSlots[code] ? `
+      <button class="action-btn" style="margin-top:10px;height:34px;width:100%;justify-content:center;color:#f97316;border-color:#f97316;" onclick="resetSingleSlotSwap('${code}')">
+        ↺ الرجوع للميعاد الأصلي لسكشني (${activeGroup})
+      </button>
+    ` : ''}
+  `;
+
+  body.innerHTML = html;
+  modal.classList.add("open");
+}
+
+function closeSlotSwitcherModal() {
+  document.getElementById("slotSwitcherModal").classList.remove("open");
+}
+
+document.getElementById("slotSwitcherModal").addEventListener("click", e => {
+  if (e.target.id === "slotSwitcherModal") closeSlotSwitcherModal();
+});
+
+function applySlotSwap(code, newSessionId) {
+  triggerHaptic();
+  customSwappedSlots[code] = newSessionId;
+  localStorage.setItem(`cufe_swaps_${activeGroup}`, JSON.stringify(customSwappedSlots));
+  closeSlotSwitcherModal();
+  updateResetSwapsBtnVisibility();
+  render();
+}
+
+function resetSingleSlotSwap(code) {
+  triggerHaptic();
+  delete customSwappedSlots[code];
+  localStorage.setItem(`cufe_swaps_${activeGroup}`, JSON.stringify(customSwappedSlots));
+  closeSlotSwitcherModal();
+  updateResetSwapsBtnVisibility();
+  render();
+}
+
+function resetAllSwaps() {
+  triggerHaptic();
+  customSwappedSlots = {};
+  localStorage.removeItem(`cufe_swaps_${activeGroup}`);
+  updateResetSwapsBtnVisibility();
+  render();
+}
+
+// دالة فتح كبسولة المادة ودليل النجاة
+function openCourseCapsule(code) {
+  triggerHaptic();
+  const modal = document.getElementById("capsuleModal");
+  const modalTitle = document.getElementById("capsuleModalTitle");
+  const modalBody = document.getElementById("capsuleModalBody");
+
+  const course = COURSES[code] || { name: code, color: "var(--accent)" };
+  const cap = COURSE_CAPSULES[code];
+
+  modalTitle.innerHTML = `<span style="color:${course.color};font-family:'JetBrains Mono';font-size:16px;">${code}</span> — Course Capsule`;
+
+  if (!cap) {
+    modalBody.innerHTML = `
+      <div style="text-align:center;padding:36px 16px;color:var(--text-muted);display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <span style="font-size:36px">⏳</span>
+        <b style="color:var(--text-main);font-size:14px;">قريباً جداً...</b>
+        <p style="font-size:12px;line-height:1.5;">جاري تجهيز دليل النجاة وتقسيمة درجات مادة ${course.name} من أوائل الدفعة.</p>
+      </div>
+    `;
+  } else {
+    modalBody.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border);">
+        <span style="font-size:13px;font-weight:700;color:var(--text-main);">${cap.name}</span>
+        <span style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--accent-glow);color:var(--accent-light);border:1px solid var(--accent);">${cap.hours}</span>
+      </div>
+
+      <div class="capsule-box" style="border-left: 4px solid var(--accent);">
+        <div class="capsule-box-head" style="color:var(--accent-light);">
+          <span>📊</span><span>تقسيمة الدرجات والميدتيرم</span>
+        </div>
+        <div class="capsule-text">${cap.grading}</div>
+      </div>
+
+      <div class="capsule-box" style="border-left: 4px solid #f97316;">
+        <div class="capsule-box-head" style="color:#f97316;">
+          <span>💡</span><span>خلاصة المادة وسر الـ A+ (نصيحة الدفعة)</span>
+        </div>
+        <div class="capsule-text">${cap.tips}</div>
+      </div>
+
+      ${cap.links && cap.links.length > 0 ? `
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);">المصادر والكتب المباشرة:</span>
+          ${cap.links.map(l => `
+            <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn">
+              <span>${l.title}</span>
+              <span>↗</span>
+            </a>
+          `).join("")}
+        </div>
+      ` : ''}
+
+      ${cap.playlists && cap.playlists.length > 0 ? `
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
+          ${cap.playlists.map(p => `
+            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #ef4444;">
+              <span style="color:#f8fafc;">${p.title}</span>
+              <span style="color:#ef4444;">▶</span>
+            </a>
+          `).join("")}
+        </div>
+      ` : ''}
+    `;
+  }
+
+  modal.classList.add("open");
+}
+
+function closeCapsuleModal() {
+  document.getElementById("capsuleModal").classList.remove("open");
+}
+
+document.getElementById("capsuleModal").addEventListener("click", e => {
+  if (e.target.id === "capsuleModal") closeCapsuleModal();
+});
 
 function parseCSV(text) {
   const lines = text.trim().split(/\r\n|\n/);
@@ -1409,8 +1825,8 @@ function updateLiveTracker() {
   }
 
   const todayName = DAYS[dayIndex].full;
-  const todaySessions = SESSIONS.filter(s => s.day === todayName && (s.group === "ALL" || s.group === activeGroup))
-                                .sort((a, b) => a.start - b.start);
+  const effectiveSessions = getActiveEffectiveSessions();
+  const todaySessions = effectiveSessions.filter(s => s.day === todayName).sort((a, b) => a.start - b.start);
 
   if (todaySessions.length === 0) {
     dot.className = "live-indicator idle";
@@ -1447,7 +1863,7 @@ function updateLiveTracker() {
 
 function exportToCalendar() {
   triggerHaptic();
-  const activeSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
+  const effectiveSessions = getActiveEffectiveSessions();
   let ics = [
     "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Cairo University//ME1 Schedule//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH",
     `X-WR-CALNAME:CUFE ME1 (${activeGroup})`,"X-WR-TIMEZONE:Africa/Cairo"
@@ -1455,7 +1871,7 @@ function exportToCalendar() {
   const rruleDays = { "Sunday": "SU", "Monday": "MO", "Tuesday": "TU", "Wednesday": "WE", "Thursday": "TH" };
   const dayOffsets = { "Sunday": 1, "Monday": 2, "Tuesday": 3, "Wednesday": 4, "Thursday": 5 };
 
-  activeSessions.forEach((s, idx) => {
+  effectiveSessions.forEach((s, idx) => {
     const sTime = TIME_STARTS[s.start].replace(":", "") + "00";
     const eTime = TIME_ENDS[s.start + s.span - 1].replace(":", "") + "00";
     ics.push("BEGIN:VEVENT");
@@ -1478,8 +1894,8 @@ function exportToCalendar() {
 
 function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
-  const daySessions = SESSIONS.filter(s => s.day === activeDay && (s.group === "ALL" || s.group === activeGroup))
-                              .sort((a, b) => a.start - b.start);
+  const effectiveSessions = getActiveEffectiveSessions();
+  const daySessions = effectiveSessions.filter(s => s.day === activeDay).sort((a, b) => a.start - b.start);
 
   const dayTasks = getDayAssessments(activeDay);
   let html = `<div class="timeline-wrap" id="swipeArea">`;
@@ -1523,13 +1939,20 @@ function renderDailyAgenda() {
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
+              ${s.isSwapped ? '<span class="badge-swapped">⇄ SWAPPED</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ / DUE</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
               <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${isShared ? 'LEC · ALL' : s.type}</span>
             </div>
           </div>
           <div class="card-title">${course.name}</div>
-          <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="card-room-pill" onclick="showRoomDetails('${s.room}', '${s.code}', ${isShared})">📍 ${s.room} ↗</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              ${!isShared ? `<span class="swap-icon-btn" onclick="openSlotSwitcherModal('${s.code}')" title="Choose from 3 alternate slots">⇄ Swap</span>` : ''}
+              <span style="font-size:11px;font-weight:700;color:var(--accent-light);cursor:pointer;" onclick="openCourseCapsule('${s.code}')">💡 Guide</span>
+            </div>
+          </div>
         </div>
       </div>`;
   }
@@ -1581,10 +2004,11 @@ function renderWeekMatrix() {
     grid.appendChild(timeCell);
   });
 
+  const effectiveSessions = getActiveEffectiveSessions();
+
   DAYS.forEach((d, dIdx) => {
     const col = dIdx + 2;
-    const daySessions = SESSIONS.filter(s => s.day === d.full && (s.group === "ALL" || s.group === activeGroup))
-                                .sort((a, b) => a.start - b.start);
+    const daySessions = effectiveSessions.filter(s => s.day === d.full).sort((a, b) => a.start - b.start);
     const dayTasks = getDayAssessments(d.full);
 
     let currentSlot = 0;
@@ -1602,6 +2026,7 @@ function renderWeekMatrix() {
       const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
       const isHighlighted = highlightedCourse === sess.code;
       const hasTask = dayTasks.some(t => t.code === sess.code);
+      const isShared = sess.group === "ALL";
 
       const cell = document.createElement("div");
       cell.className = "matrix-cell";
@@ -1612,15 +2037,19 @@ function renderWeekMatrix() {
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
+              ${sess.isSwapped ? '<span class="badge-swapped">⇄</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span class="type">${sess.group === "ALL" ? 'LEC' : 'SEC'}</span>
+              <span class="type">${sess.group === "ALL" ? 'LEC' : (sess.isSwapped ? sess.group : 'SEC')}</span>
             </div>
           </div>
           <div class="title">${course.name}</div>
           <div class="footer">
             <span>${formatTime(sess.start, sess.span)}</span>
-            <span class="room-badge" onclick="showRoomDetails('${sess.room}')">${sess.room} ↗</span>
+            <div style="display:flex;gap:4px;align-items:center;">
+              ${!isShared ? `<span class="swap-icon-btn" onclick="openSlotSwitcherModal('${sess.code}')" title="Choose from 3 alternate slots">⇄</span>` : ''}
+              <span class="room-badge" onclick="showRoomDetails('${sess.room}', '${sess.code}', ${isShared})">${sess.room} ↗</span>
+            </div>
           </div>
         </div>`;
       grid.appendChild(cell);
@@ -1752,6 +2181,7 @@ function renderGuideScreen() {
                   <div class="guide-code">${item.code}</div>
                   <div class="guide-name">${course.name}</div>
                 </div>
+                <button class="action-btn" style="height:28px;font-size:10.5px;" onclick="openCourseCapsule('${item.code}')">💡 Guide</button>
               </div>
 
               ${item.lectures ? `
@@ -1849,6 +2279,10 @@ function renderDriveScreen() {
                 <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.exams || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">🎯</span><span>Exams</span></div>
                 <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')"><span style="font-size:15px">📂</span><span>Folder</span></div>
               </div>
+              <div class="capsule-open-btn" onclick="openCourseCapsule('${code}')">
+                <span>💡 Course Survival Capsule & Tips</span>
+                <span>↗</span>
+              </div>
             </div>
           `;
         }).join("")}
@@ -1866,6 +2300,7 @@ function render() {
   renderDaysBar();
   initAssessments();
   renderLegend();
+  updateResetSwapsBtnVisibility();
 
   const controlBar = document.getElementById("scheduleControlBar");
   const liveBox = document.getElementById("liveStatusBox");
@@ -1909,7 +2344,14 @@ function render() {
 function setView(mode) { triggerHaptic(); activeView = mode; render(); }
 function selectDay(day) { triggerHaptic(); activeDay = day; renderDaysBar(); renderDailyAgenda(); }
 
-document.getElementById("sectionSelect").addEventListener("change", e => { triggerHaptic(); activeGroup = e.target.value; render(); });
+document.getElementById("sectionSelect").value = activeGroup;
+document.getElementById("sectionSelect").addEventListener("change", e => {
+  triggerHaptic();
+  activeGroup = e.target.value;
+  localStorage.setItem("cufe_active_group", activeGroup);
+  customSwappedSlots = JSON.parse(localStorage.getItem(`cufe_swaps_${activeGroup}`) || "{}");
+  render();
+});
 
 function initDeviceMode() { setDeviceMode(localStorage.getItem("cufe_device_mode") || "mobile"); }
 function setDeviceMode(mode) {
@@ -2012,3 +2454,5 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
+
+
