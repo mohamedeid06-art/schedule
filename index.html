@@ -49,23 +49,23 @@
 }
 
 [data-theme="light"] {
-  --bg: #eef5f8;
+  --bg: #f1f5f9;
   --surface: #ffffff;
-  --surface-alt: #deebf2;
-  --surface-glass: rgba(255, 255, 255, 0.85);
-  --border: #c2d7e3;
-  --border-dark: #a5c3d3;
-  --border-glow: rgba(25, 122, 156, 0.3);
-  --text-main: #0c1926;
-  --text-muted: #506a7e;
-  --text-subtle: #7997ab;
-  --accent: #197a9c;
-  --accent-light: #2ba4cc;
-  --accent-glow: rgba(255, 255, 255, 0.14);
-  --bone: #23344a;
-  --bone-glow: rgba(35, 52, 74, 0.1);
+  --surface-alt: #e2e8f0;
+  --surface-glass: rgba(255, 255, 255, 0.9);
+  --border: #cbd5e1;
+  --border-dark: #94a3b8;
+  --border-glow: rgba(14, 116, 144, 0.3);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #64748b;
+  --accent: #0284c7;
+  --accent-light: #0369a1;
+  --accent-glow: rgba(2, 132, 199, 0.12);
+  --bone: #334155;
+  --bone-glow: rgba(51, 65, 85, 0.08);
   --quiz-color: #ea580c;
-  --quiz-glow: rgba(234, 88, 12, 0.15);
+  --quiz-glow: rgba(234, 88, 12, 0.12);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -87,7 +87,7 @@ body {
 }
 
 .container.pc-mode {
-  max-width: 1280px;
+  max-width: 1300px;
 }
 
 /* Masthead */
@@ -221,7 +221,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   font-size: 12px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
   max-width: 100%;
 }
 .live-left {
@@ -240,7 +240,7 @@ body {
   flex-shrink: 0;
 }
 .live-indicator.idle {
-  background: #576f87;
+  background: #64748b;
   box-shadow: none;
   animation: none;
 }
@@ -302,7 +302,7 @@ body {
 
 /* Dynamics Monday 3-Slots Switcher Banner */
 .dynamics-switcher-banner {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(20, 31, 45, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, var(--surface-alt) 100%);
   border: 1px solid var(--c-emc);
   border-radius: 14px;
   padding: 12px 14px;
@@ -310,7 +310,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 .dyn-banner-top {
   display: flex;
@@ -318,7 +318,7 @@ body {
   justify-content: space-between;
   font-size: 12px;
   font-weight: 700;
-  color: #c7d2fe;
+  color: var(--text-main);
 }
 .dyn-pills-row {
   display: grid;
@@ -342,17 +342,21 @@ body {
 }
 .dyn-pill-btn.active {
   background: #6366f1;
-  color: #ffffff;
+  color: #ffffff !important;
   border-color: #6366f1;
   box-shadow: 0 3px 10px rgba(99, 102, 241, 0.35);
+}
+.dyn-pill-btn.active span {
+  color: #ffffff !important;
 }
 .dyn-pill-btn span.time {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11.5px;
+  color: var(--text-main);
 }
 .dyn-pill-btn span.room-tag {
   font-size: 9px;
-  opacity: 0.85;
+  color: var(--text-muted);
 }
 
 /* Segmented Date Strip */
@@ -385,7 +389,7 @@ body {
 .day-btn .today-tag { font-size: 8px; font-weight: 800; color: var(--accent-light); }
 .day-btn.has-quiz { border: 1px solid var(--quiz-color); background: var(--quiz-glow); }
 .day-btn.has-quiz .quiz-badge-dot { font-size: 8px; font-weight: 800; color: var(--quiz-color); }
-.day-btn.active { background: var(--surface); box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); }
+.day-btn.active { background: var(--surface); box-shadow: 0 3px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.08); }
 .day-btn.active .day-name, .day-btn.active .day-num { color: var(--accent-light); }
 
 /* Highlight & Dimming */
@@ -398,16 +402,16 @@ body {
 }
 .grid-card.highlighted, .timeline-card.highlighted {
   opacity: 1 !important;
-  box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.45) !important;
+  box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.2) !important;
   transform: scale(1.02);
   z-index: 5;
 }
 
 /* Attendance Badge */
 .badge-attendance {
-  background: rgba(249, 115, 22, 0.2) !important;
-  color: #f97316 !important;
-  border: 1px solid #f97316 !important;
+  background: rgba(249, 115, 22, 0.18) !important;
+  color: #ea580c !important;
+  border: 1px solid #ea580c !important;
   font-size: 8.5px !important;
   font-weight: 800 !important;
   padding: 1px 5px !important;
@@ -417,25 +421,13 @@ body {
   gap: 2px;
 }
 .has-attendance-check {
-  box-shadow: inset -3.5px 0 0 #f97316 !important;
+  box-shadow: inset -3.5px 0 0 #ea580c !important;
 }
 
-/* Dynamics Floating Glow Highlight */
+/* Dynamics Highlight Card */
 .is-dynamics-card {
   border: 1.5px solid #6366f1 !important;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, var(--surface) 100%) !important;
-}
-
-/* Multi-Lane Parallel Cell Container */
-.matrix-cell-lanes {
-  display: flex;
-  gap: 4px;
-  width: 100%;
-  height: 100%;
-}
-.matrix-cell-lanes .grid-card {
-  flex: 1;
-  min-width: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, var(--surface) 100%) !important;
 }
 
 /* Free Gap Item */
@@ -467,19 +459,19 @@ body {
 }
 .cascade-item { animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-/* Grid Matrix */
+/* Grid Matrix Layout - True 9 Time-Slots Architecture */
 .matrix-wrapper {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 .matrix-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .matrix-grid {
   display: grid;
   grid-template-columns: 80px repeat(5, minmax(180px, 1fr));
-  grid-template-rows: 38px repeat(9, minmax(70px, auto));
+  grid-template-rows: 38px repeat(9, 72px);
   min-width: 980px;
 }
 .matrix-head {
@@ -499,6 +491,7 @@ body {
 .matrix-head.has-quiz-day { border-top: 3px solid var(--quiz-color); }
 .matrix-head .today-pill { font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px; background: var(--accent); color: #fff; }
 .matrix-head .quiz-pill { font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px; background: var(--quiz-color); color: #fff; }
+
 .matrix-time {
   background: var(--surface-alt);
   border-bottom: 1px solid var(--border);
@@ -507,13 +500,30 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--text-muted);
 }
-.matrix-cell { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 4px; display: flex; flex-direction: column; }
+.matrix-cell-empty {
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+/* Precision Positioned Grid Card */
+.grid-card-positioned {
+  padding: 3px;
+  z-index: 2;
+  box-sizing: border-box;
+}
 .grid-card {
   height: 100%;
+  width: 100%;
   border-radius: 7px;
   padding: 6px 8px;
   display: flex;
@@ -521,16 +531,14 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 3.5px solid var(--c);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 .grid-card .code { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700; color: var(--text-main); }
 .grid-card .type { font-size: 8.5px; font-weight: 700; padding: 1px 4px; border-radius: 3px; background: var(--surface-alt); color: var(--text-muted); text-transform: uppercase; }
-.grid-card .type.all { background: rgba(43, 164, 204, 0.18); color: var(--accent-light); }
 .grid-card .title { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.25; }
 .grid-card .footer { margin-top: auto; padding-top: 4px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); border-top: 1px dashed var(--border); }
 .room-badge { background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; color: var(--text-main); font-weight: 600; cursor: pointer; }
 .matrix-guide-btn { color: var(--accent-light); cursor: pointer; font-size: 10px; font-weight: 700; }
-.cell-empty { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-subtle); }
 
 /* Daily Timeline */
 .timeline-wrap { display: flex; flex-direction: column; gap: 14px; position: relative; }
@@ -551,7 +559,7 @@ body {
 /* Weekly Guide */
 .guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .guide-hero {
-  background: linear-gradient(135deg, rgba(43, 164, 204, 0.18) 0%, rgba(20, 31, 45, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(43, 164, 204, 0.18) 0%, var(--surface-alt) 100%);
   border: 1px solid var(--border-glow);
   border-radius: 16px;
   padding: 16px;
@@ -591,7 +599,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 .guide-card-head { display: flex; justify-content: space-between; align-items: flex-start; }
 .guide-code { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 800; color: var(--c); }
@@ -625,12 +633,12 @@ body {
   text-decoration: none;
   transition: all 0.2s ease;
 }
-.guide-summary-btn:hover { background: rgba(43, 164, 204, 0.3); transform: translateY(-1px); }
+.guide-summary-btn:hover { background: rgba(43, 164, 204, 0.25); transform: translateY(-1px); }
 
-/* Vault (Drive Hub) & Course Capsule Styling */
+/* Vault (Drive Hub) */
 .vault-container { display: flex; flex-direction: column; gap: 16px; animation: cardCascade 0.3s forwards; }
 .vault-hero {
-  background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, rgba(20, 31, 45, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, var(--surface-alt) 100%);
   border: 1px solid var(--border-glow);
   border-radius: 16px;
   padding: 20px;
@@ -705,7 +713,7 @@ body {
   font-weight: 700;
 }
 .capsule-open-btn {
-  background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, rgba(20, 31, 45, 0.8) 100%);
+  background: linear-gradient(135deg, rgba(43, 164, 204, 0.12) 0%, var(--surface-alt) 100%);
   border: 1px solid var(--accent);
   color: var(--accent-light);
   border-radius: 9px;
@@ -720,11 +728,11 @@ body {
   transition: all 0.2s ease;
 }
 .capsule-open-btn:hover {
-  background: rgba(43, 164, 204, 0.3);
+  background: var(--accent-glow);
   transform: translateY(-1px);
 }
 
-/* Floating Glass Bottom Nav */
+/* Floating Bottom Nav */
 .bottom-nav {
   position: fixed;
   bottom: 16px;
@@ -741,10 +749,10 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
   z-index: 900;
 }
-[data-theme="light"] .bottom-nav { background: rgba(255, 255, 255, 0.88); border-color: var(--border); }
+[data-theme="light"] .bottom-nav { background: rgba(255, 255, 255, 0.9); border-color: var(--border); }
 .nav-item {
   border: none;
   background: transparent;
@@ -769,14 +777,14 @@ body {
   bottom: 84px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: #0f172a;
+  background: var(--surface);
   border: 1.5px solid var(--accent);
-  color: #ffffff !important;
+  color: var(--text-main) !important;
   padding: 14px 18px;
   border-radius: 16px;
   font-size: 12.5px;
   font-weight: 600;
-  box-shadow: 0 14px 36px rgba(0,0,0,0.65);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.35);
   z-index: 2000;
   opacity: 0;
   pointer-events: none;
@@ -816,12 +824,12 @@ body {
 }
 .toast-info-text {
   font-size: 12px;
-  color: #cbd5e1;
+  color: var(--text-muted);
   line-height: 1.4;
 }
 .toast-maps-btn {
   background: #2ba4cc;
-  color: #ffffff;
+  color: #ffffff !important;
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 11.5px;
@@ -839,7 +847,7 @@ body {
 
 /* Modals */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.8);
+  position: fixed; inset: 0; background: rgba(13, 20, 29, 0.7);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   z-index: 1000; display: flex; align-items: center; justify-content: center;
   padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
@@ -848,7 +856,7 @@ body {
 .modal-card {
   background: var(--surface); border: 1px solid var(--border-dark); border-radius: 18px;
   width: 100%; max-width: 520px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 .modal-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
 .modal-title { font-size: 14px; font-weight: 800; color: var(--accent-light); display: flex; align-items: center; gap: 8px; }
@@ -875,7 +883,7 @@ body {
 }
 .capsule-text {
   font-size: 12px;
-  color: #cbd5e1;
+  color: var(--text-main);
   line-height: 1.6;
   white-space: pre-line;
   direction: rtl;
@@ -911,108 +919,22 @@ body {
 .legend-item.active { background: var(--surface-alt); color: var(--accent-light); font-weight: 800; }
 .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
 
-/* Print Engine (Landscape A4 Full Schedule) */
+/* Print Mode */
 @media print {
-  @page {
-    size: A4 landscape !important;
-    margin: 6mm !important;
-  }
-
-  html, body {
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
+  @page { size: A4 landscape !important; margin: 6mm !important; }
+  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .dynamics-switcher-banner, .timeline-wrap, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
-
-  .container {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  .masthead {
-    display: flex !important;
-    border-bottom: 2px solid #0f172a !important;
-    padding-bottom: 6px !important;
-    margin-bottom: 8px !important;
-  }
-  .dept-title { font-size: 18px !important; color: #0f172a !important; }
-  .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
-
-  .matrix-wrapper {
-    display: block !important;
-    box-shadow: none !important;
-    border: 1.5px solid #0f172a !important;
-    border-radius: 4px !important;
-    overflow: visible !important;
-    background: #ffffff !important;
-  }
-  .matrix-scroll { overflow: visible !important; }
-  .matrix-grid {
-    display: grid !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    grid-template-columns: 68px repeat(5, 1fr) !important;
-    grid-template-rows: 26px repeat(9, minmax(46px, auto)) !important;
-  }
-  .matrix-head {
-    background: #f1f5f9 !important;
-    border-bottom: 1.5px solid #0f172a !important;
-    border-right: 1px solid #cbd5e1 !important;
-    color: #0f172a !important;
-    font-size: 11px !important;
-    font-weight: 800 !important;
-    padding: 3px 6px !important;
-  }
-  .matrix-time {
-    background: #f8fafc !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    border-right: 1.5px solid #0f172a !important;
-    color: #334155 !important;
-    font-size: 9px !important;
-    padding: 2px !important;
-  }
-  .matrix-cell {
-    border-bottom: 1px solid #cbd5e1 !important;
-    border-right: 1px solid #cbd5e1 !important;
-    padding: 2px !important;
-  }
-  .grid-card {
-    box-shadow: none !important;
-    border: 1px solid #94a3b8 !important;
-    border-left: 3.5px solid var(--c) !important;
-    border-radius: 4px !important;
-    padding: 3px 5px !important;
-    background: #ffffff !important;
-    opacity: 1 !important;
-    filter: none !important;
-    break-inside: avoid !important;
-  }
-  .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
-  .grid-card .type { font-size: 7.5px !important; background: #f1f5f9 !important; color: #334155 !important; padding: 0 3px !important; }
-  .grid-card .title { font-size: 8.5px !important; color: #334155 !important; margin-top: 1px !important; line-height: 1.2 !important; }
-  .grid-card .footer { font-size: 8px !important; padding-top: 2px !important; border-top: 1px dashed #cbd5e1 !important; color: #475569 !important; }
-  .grid-card .room-badge { background: #f1f5f9 !important; border: 1px solid #cbd5e1 !important; padding: 0 3px !important; font-size: 7.5px !important; color: #0f172a !important; }
-
-  .legend {
-    display: flex !important;
-    margin-top: 8px !important;
-    padding: 4px 8px !important;
-    border: 1px solid #cbd5e1 !important;
-    gap: 4px 12px !important;
-    page-break-inside: avoid !important;
-  }
-  .legend-item { font-size: 8.5px !important; color: #334155 !important; }
+  .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  .matrix-wrapper { border: 1.5px solid #0f172a !important; box-shadow: none !important; }
+  .matrix-grid { grid-template-columns: 68px repeat(5, 1fr) !important; grid-template-rows: 26px repeat(9, 52px) !important; min-width: 0 !important; }
+  .matrix-head { background: #f1f5f9 !important; color: #0f172a !important; font-size: 11px !important; }
+  .matrix-time { background: #f8fafc !important; color: #334155 !important; font-size: 9px !important; }
+  .grid-card { border: 1px solid #94a3b8 !important; border-left: 3.5px solid var(--c) !important; background: #ffffff !important; }
+  .grid-card .code { color: #0f172a !important; }
 }
 </style>
 </head>
@@ -1075,21 +997,21 @@ body {
   <div class="dynamics-switcher-banner" id="dynamicsSwitcherBanner" style="display:none;">
     <div class="dyn-banner-top">
       <span>⚡ مواعيد سكشن الديناميكا (يوم الاثنين)</span>
-      <span style="font-size:10px;color:var(--text-muted)">اضغط لاختيار الميعاد أو إلغائه</span>
+      <span style="font-size:10.5px;color:var(--text-muted)">اضغط لاختيار الميعاد أو إلغائه</span>
     </div>
     <div class="dyn-pills-row">
       <button class="dyn-pill-btn" id="dynSlot1Btn" onclick="toggleDynamicsSlot('1')">
-        <span>الميعاد 1</span>
+        <span>الميعاد 1 (3 ساعات)</span>
         <span class="time">8:00 – 11:00</span>
         <span class="room-tag">📍 19208</span>
       </button>
       <button class="dyn-pill-btn" id="dynSlot2Btn" onclick="toggleDynamicsSlot('2')">
-        <span>الميعاد 2</span>
+        <span>الميعاد 2 (3 ساعات)</span>
         <span class="time">11:00 – 2:00</span>
         <span class="room-tag">📍 19208</span>
       </button>
       <button class="dyn-pill-btn" id="dynSlot3Btn" onclick="toggleDynamicsSlot('3')">
-        <span>الميعاد 3</span>
+        <span>الميعاد 3 (3 ساعات)</span>
         <span class="time">2:00 – 5:00</span>
         <span class="room-tag">📍 17201</span>
       </button>
@@ -1326,6 +1248,7 @@ const DAYS = [
   { full: "Thursday", short: "THU", dayIdx: 4 }
 ];
 
+// 9 فترات زمنية كاملة من 8:00 صباحاً حتى 5:00 مساءً
 const SLOTS = ["8:00 - 8:50","9:00 - 9:50","10:00 - 10:50","11:00 - 11:50","12:00 - 12:50","1:00 - 1:50","2:00 - 2:50","3:00 - 3:50","4:00 - 4:50"];
 const TIME_STARTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
 const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:50", "15:50", "16:50"];
@@ -1365,6 +1288,7 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
+// مواعيد سكاشن الديناميكا المتاحة حصرياً يوم الاثنين (3 ساعات كاملة لكل ميعاد)
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
@@ -1374,7 +1298,7 @@ const MONDAY_DYNAMICS_SLOTS = {
 let activeView = "week";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
-let selectedDynamicsSlot = null;
+let selectedDynamicsSlot = null; // لا يوجد ميعاد محدد افتراضياً
 
 const jsDateNow = new Date();
 const jsDay = jsDateNow.getDay();
@@ -1495,7 +1419,7 @@ function openCourseCapsule(code) {
           <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
           ${cap.playlists.map(p => `
             <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #ef4444;">
-              <span style="color:#f8fafc;">${p.title}</span>
+              <span style="color:var(--text-main);">${p.title}</span>
               <span style="color:#ef4444;">▶</span>
             </a>
           `).join("")}
@@ -1882,6 +1806,7 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
+// بناء خريطة الأسبوع المطلقة بدقة 100% بدون أي تراكب أو اختفاء
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -1925,6 +1850,18 @@ function renderWeekMatrix() {
     grid.appendChild(timeCell);
   });
 
+  // رسم خلفيات الفترات الفارغة أولاً
+  for (let c = 2; c <= 6; c++) {
+    for (let r = 2; r <= 10; r++) {
+      const emptyBg = document.createElement("div");
+      emptyBg.className = "matrix-cell-empty";
+      emptyBg.style.gridColumn = `${c}`;
+      emptyBg.style.gridRow = `${r}`;
+      emptyBg.innerHTML = "—";
+      grid.appendChild(emptyBg);
+    }
+  }
+
   const effectiveSessions = getActiveEffectiveSessions();
 
   DAYS.forEach((d, dIdx) => {
@@ -1932,58 +1869,41 @@ function renderWeekMatrix() {
     const daySessions = effectiveSessions.filter(s => s.day === d.full);
     const dayTasks = getDayAssessments(d.full);
 
-    // بناء شبكة من 9 فترات لتوزيع الحصص بدون تداخل
-    const slotMatrix = Array.from({ length: 9 }, () => []);
+    // كشف أي تداخل زمني وتقسيم العرض بدقة (Dual Lanes)
     daySessions.forEach(sess => {
-      slotMatrix[sess.start].push(sess);
-    });
+      const hasConflict = daySessions.some(other => 
+        other !== sess &&
+        sess.start < (other.start + other.span) &&
+        (sess.start + sess.span) > other.start
+      );
 
-    let currentSlot = 0;
-    while (currentSlot < 9) {
-      const sessList = slotMatrix[currentSlot];
-      if (!sessList || sessList.length === 0) {
-        // فحص هل هناك حصة تشغل هذه الفترة بدأت سابقاً
-        const isCovered = daySessions.some(s => s.start < currentSlot && (s.start + s.span) > currentSlot);
-        if (!isCovered) {
-          const freeCell = document.createElement("div");
-          freeCell.className = "matrix-cell";
-          freeCell.style.gridColumn = `${col}`;
-          freeCell.style.gridRow = `${currentSlot + 2}`;
-          freeCell.innerHTML = `<div class="cell-empty">—</div>`;
-          grid.appendChild(freeCell);
+      let widthStyle = "width: 100%;";
+      let leftStyle = "left: 0;";
+
+      if (hasConflict) {
+        widthStyle = "width: calc(50% - 2px);";
+        if (sess.isDynSec) {
+          leftStyle = "left: calc(50% + 2px);";
+        } else {
+          leftStyle = "left: 0;";
         }
-        currentSlot++;
-        continue;
       }
 
-      // تحديد أطول span للحصص التي تبدأ في هذه الفترة
-      const maxSpan = Math.max(...sessList.map(s => s.span));
-      const cell = document.createElement("div");
-      cell.className = "matrix-cell";
-      cell.style.gridColumn = `${col}`;
-      cell.style.gridRow = `${currentSlot + 2} / span ${maxSpan}`;
+      const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
+      const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
+      const isHighlighted = highlightedCourse === sess.code;
+      const hasTask = dayTasks.some(t => t.code === sess.code);
 
-      // تقسيم متوازي (Lanes) إذا وُجدت حصتان متزامنتان في نفس البداية أو تتداخلان
-      const laneWrap = document.createElement("div");
-      laneWrap.className = sessList.length > 1 ? "matrix-cell-lanes" : "matrix-cell-single";
-      laneWrap.style.display = "flex";
-      laneWrap.style.gap = "4px";
-      laneWrap.style.width = "100%";
-      laneWrap.style.height = "100%";
+      const posWrap = document.createElement("div");
+      posWrap.className = "grid-card-positioned";
+      posWrap.style.gridColumn = `${col}`;
+      posWrap.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
+      posWrap.style.position = "relative";
+      posWrap.style.height = "100%";
 
-      sessList.forEach(sess => {
-        const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
-        const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
-        const isHighlighted = highlightedCourse === sess.code;
-        const hasTask = dayTasks.some(t => t.code === sess.code);
-
-        const card = document.createElement("div");
-        card.className = `grid-card ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}`;
-        card.style.setProperty("--c", course.color);
-        card.style.flex = "1";
-        card.style.minWidth = "0";
-
-        card.innerHTML = `
+      posWrap.innerHTML = `
+        <div class="grid-card ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
+             style="--c: ${course.color}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
@@ -1998,14 +1918,11 @@ function renderWeekMatrix() {
             <div style="display:flex;gap:4px;align-items:center;">
               <span class="room-badge" onclick="showRoomDetails('${sess.room}')">${sess.room} ↗</span>
             </div>
-          </div>`;
-        laneWrap.appendChild(card);
-      });
-
-      cell.appendChild(laneWrap);
-      grid.appendChild(cell);
-      currentSlot += maxSpan;
-    }
+          </div>
+        </div>
+      `;
+      grid.appendChild(posWrap);
+    });
   });
 }
 
