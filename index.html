@@ -61,7 +61,7 @@
   --text-subtle: #7997ab;
   --accent: #197a9c;
   --accent-light: #2ba4cc;
-  --accent-glow: rgba(25, 122, 156, 0.14);
+  --accent-glow: rgba(255, 255, 255, 0.14);
   --bone: #23344a;
   --bone-glow: rgba(35, 52, 74, 0.1);
   --quiz-color: #ea580c;
@@ -1314,6 +1314,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
+// جدول الحصص (المحاضرات + سكاشن المواد التانية)
 const SESSIONS = [
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
@@ -1335,7 +1336,7 @@ const SESSIONS = [
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "17200-56" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "14302-50" },
   
-  // الأربعاء
+  // الأربعاء (محاضرة سوليد + سكاشن ماتيريال + محاضرة ديناميكا المشتركة)
   { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "14302-50" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "19301-48" },
@@ -1347,16 +1348,17 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
 ];
 
+// مواعيد سكاشن الديناميكا المتاحة حصرياً يوم الاثنين (نوعها Tutorial وتظهر كـ SEC)
 const MONDAY_DYNAMICS_SLOTS = {
-  "1": { day: "Monday", start: 0, span: 3, group: "ALL", code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
-  "2": { day: "Monday", start: 3, span: 3, group: "ALL", code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
-  "3": { day: "Monday", start: 6, span: 3, group: "ALL", code: "EMC G101", type: "Tutorial (Slot 3)", room: "17201" }
+  "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
+  "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
+  "3": { day: "Monday", start: 6, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 3)", room: "17201" }
 };
 
 let activeView = "week";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
-let selectedDynamicsSlot = null; // لا يوجد ميعاد محدد افتراضياً
+let selectedDynamicsSlot = null; // مفيش ميعاد محدد افتراضياً لراحة الطالب
 
 const jsDateNow = new Date();
 const jsDay = jsDateNow.getDay();
@@ -1422,6 +1424,7 @@ function showRoomDetails(roomCode) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
+// دالة فتح كبسولة المادة ودليل النجاة
 function openCourseCapsule(code) {
   triggerHaptic();
   const modal = document.getElementById("capsuleModal");
@@ -1850,7 +1853,7 @@ function renderDailyAgenda() {
             <div style="display:flex;gap:4px;align-items:center;">
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ / DUE</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${isShared ? 'LEC · ALL' : s.type}</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC · ALL' : s.type)}</span>
             </div>
           </div>
           <div class="card-title">${course.name}</div>
@@ -1943,7 +1946,7 @@ function renderWeekMatrix() {
             <div style="display:flex;gap:3px;align-items:center;">
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span class="type">${sess.group === "ALL" ? 'LEC' : 'SEC'}</span>
+              <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC' : 'SEC')}</span>
             </div>
           </div>
           <div class="title">${course.name}</div>
