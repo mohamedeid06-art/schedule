@@ -6,7 +6,7 @@
 <title>CUFE · Mechanical Engineering — Batch 30</title>
 
 <!-- PWA Manifest & Icons -->
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?v=4">
 <meta name="theme-color" content="#0d141d">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -263,43 +263,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Control Bar */
-.control-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-.group-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  justify-content: space-between;
-}
-.control-label {
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.section-select {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  font-family: inherit;
-  font-size: 12.5px;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 9px;
-  outline: none;
-  cursor: pointer;
-  border-left: 3.5px solid var(--accent);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-}
-
 /* Dynamics Monday 3-Slots Switcher Banner */
 .dynamics-switcher-banner {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, var(--surface-alt) 100%);
@@ -546,47 +509,14 @@ body {
 .time-start { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--text-main); }
 .time-end { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
 .time-dur { display: inline-block; font-size: 9px; font-weight: 600; background: var(--surface-alt); color: var(--text-muted); padding: 1px 5px; border-radius: 4px; margin-top: 4px; }
-.overlap-tag {
-  font-size: 8.5px;
-  font-weight: 800;
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.15);
-  padding: 1px 5px;
-  border-radius: 4px;
-  display: block;
-  margin-top: 4px;
-}
 .rail { position: relative; display: flex; flex-direction: column; align-items: center; }
 .rail-dot { width: 11px; height: 11px; border-radius: 50%; border: 2.5px solid var(--c); background: var(--surface); z-index: 2; margin-top: 4px; }
 .rail-line { position: absolute; top: 16px; bottom: -20px; width: 2px; background: var(--border); }
 .timeline-item:last-child .rail-line { display: none; }
 .timeline-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; position: relative; }
-.timeline-card.has-conflict { border-right: 3.5px dashed #ef4444 !important; }
 .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
 .card-title { font-size: 13.5px; font-weight: 700; color: var(--text-main); line-height: 1.35; margin-bottom: 10px; }
 .card-room-pill { display: inline-flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; background: var(--surface-alt); border: 1px solid var(--border); color: var(--accent-light); padding: 4px 8px; border-radius: 6px; cursor: pointer; }
-
-/* Daily Conflict Notice Alert Banner */
-.conflict-notice-banner {
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  color: #f87171;
-  border-radius: 7px;
-  padding: 5px 8px;
-  font-size: 11px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-bottom: 8px;
-  direction: rtl;
-  text-align: right;
-}
-[data-theme="light"] .conflict-notice-banner {
-  background: #fef2f2;
-  border-color: #fca5a5;
-  color: #dc2626;
-}
 
 /* Weekly Guide */
 .guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -1173,6 +1103,7 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
 
+// الداتا الشاملة لكبسولات المواد الـ 6 كاملة لدليل النجاة لدفعة 30
 const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119",
@@ -1284,19 +1215,8 @@ const ROOM_INFO = {
   "3103-414": { bldg: 3, floor: "1st Floor", hall: "Hall 3 (Capacity: 414)", name: "Building 3 (Architecture & Computer Eng.)" },
   "3101-306": { bldg: 3, floor: "1st Floor", hall: "Hall 1 (Capacity: 306)", name: "Building 3 (Architecture & Computer Eng.)" },
   "7104-360": { bldg: 7, floor: "1st Floor", hall: "Hall 4 (Capacity: 360)", name: "Building 7 (El-Sawy Hall Complex)" },
-  "14201-50": { bldg: 14, floor: "2nd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
-  "14301-50": { bldg: 14, floor: "3rd Floor", hall: "Room 1 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
-  "14302-50": { bldg: 14, floor: "3rd Floor", hall: "Room 2 (Capacity: 50)", name: "Building 14 (New Mechanical Design)" },
-  "14100-(104)": { bldg: 14, floor: "1st Floor", hall: "Hall 100 (Capacity: 104)", name: "Building 14 (New Mechanical Design)" },
   "15401-300": { bldg: 15, floor: "4th Floor", hall: "Drawing Hall 1 (Capacity: 300)", name: "Building 15 (Student Services Building)" },
-  "17400-56": { bldg: 17, floor: "4th Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
-  "17301-56": { bldg: 17, floor: "3rd Floor", hall: "Room 1 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
-  "17302-148": { bldg: 17, floor: "3rd Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
-  "17200-56": { bldg: 17, floor: "2nd Floor", hall: "Room 56 (Capacity: 56)", name: "Building 17 (New Mechanical Power Eng.)" },
-  "17102-148": { bldg: 17, floor: "1st Floor", hall: "Hall 2 (Capacity: 148)", name: "Building 17 (New Mechanical Power Eng.)" },
   "17201":     { bldg: 17, floor: "2nd Floor", hall: "Room 201 (Dynamics)", name: "Building 17 (New Mechanical Power Eng.)" },
-  "19302-48": { bldg: 19, floor: "3rd Floor", hall: "Room 2 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" },
-  "19301-48": { bldg: 19, floor: "3rd Floor", hall: "Room 1 (Capacity: 48)", name: "Building 19 (Mechanical Power Eng. - Automotive)" },
   "19208":     { bldg: 19, floor: "2nd Floor", hall: "Room 208 (Dynamics)", name: "Building 19 (Mechanical Power Eng. - Automotive)" }
 };
 
@@ -1325,35 +1245,24 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص (سكشن السوليد مجمع يوم الأحد لجميع السكاشن ALL، وتم تفريغ سكشن السوليد من الإثنين)
+// جدول الحصص الرسمي: المحاضرات + سكشن السوليد الموحد فقط (تم حذف كافة السكاشن الفردية الملغاة)
 const SESSIONS = [
-  // الأحد: محاضرة جين + سكشن السوليد الموحد للدفعة كلها بصالة الرسم 15401
+  // الأحد: محاضرة جين + سكشن السوليد الموحد للدفعة كلها
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ALL", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   
-  // الاثنين: محاضرة ماتيريال + سكاشن باقي المواد (تم تفريغ سكشن السوليد من الإثنين تماماً)
+  // الاثنين: محاضرة ماتيريال فقط
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
-  { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)" },
-  { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial / Lab", room: "19302-48" },
-  { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial / Lab", room: "17301-56" },
-  { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148" },
   
-  // الثلاثاء
+  // الثلاثاء: محاضرة ماث + محاضرة كهربا
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
   { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "17200-56" },
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "14302-50" },
   
-  // الأربعاء
+  // الأربعاء: محاضرة سوليد + محاضرة ديناميكا
   { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "14302-50" },
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "19301-48" },
-  { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
+  { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" }
   
-  // الخميس
-  { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50" },
-  { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50" },
-  { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial / Lab", room: "14301-50" },
+  // الخميس: إجازة تماماً بدون أي محاضرات
 ];
 
 // مواعيد سكاشن الديناميكا المتاحة حصرياً يوم الاثنين (3 ساعات كاملة)
@@ -1830,15 +1739,7 @@ function renderDailyAgenda() {
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
 
-    // كشف التداخل الزمني الفعلي مع أي حصة أخرى في نفس اليوم
-    const conflicts = daySessions.filter(other => 
-      other !== s &&
-      s.start < (other.start + other.span) &&
-      (s.start + s.span) > other.start
-    );
-    const hasConflict = conflicts.length > 0;
-
-    // حساب الفترات الفاضية الحقيقية فقط بعد انتهاء جميع الحصص السابقة
+    // حساب الفترات الفاضية
     if (i > 0 && s.start > maxEndSoFar) {
       const gap = s.start - maxEndSoFar;
       html += `
@@ -1859,23 +1760,15 @@ function renderDailyAgenda() {
           <div class="time-start">${TIME_STARTS[s.start]}</div>
           <div class="time-end">${TIME_ENDS[s.start + s.span - 1]}</div>
           <span class="time-dur">${s.span * 50}m</span>
-          ${hasConflict ? '<span class="overlap-tag">⚠️ متداخل</span>' : ''}
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${s.isDynSec ? 'is-dynamics-card' : ''} ${hasConflict ? 'has-conflict' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
-          
-          ${hasConflict ? `
-            <div class="conflict-notice-banner">
-              <span>⚠️ وقت متداخل ومتزامن مع: ${conflicts.map(c => c.code).join(' و ')}</span>
-            </div>
-          ` : ''}
-
+        <div class="timeline-card ${s.isDynSec ? 'is-dynamics-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4px solid ${course.color}">
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${course.color}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ / DUE</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC / SEC · ALL' : s.type)}</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (s.code === "MDP G111" && s.day === "Sunday" ? 'SEC' : 'LEC')}</span>
             </div>
           </div>
           <div class="card-title">${course.name}</div>
@@ -1954,24 +1847,6 @@ function renderWeekMatrix() {
     const dayTasks = getDayAssessments(d.full);
 
     daySessions.forEach(sess => {
-      const hasConflict = daySessions.some(other => 
-        other !== sess &&
-        sess.start < (other.start + other.span) &&
-        (sess.start + sess.span) > other.start
-      );
-
-      let widthStyle = "width: 100%;";
-      let leftStyle = "left: 0;";
-
-      if (hasConflict) {
-        widthStyle = "width: calc(50% - 3px);";
-        if (sess.isDynSec) {
-          leftStyle = "left: calc(50% + 3px);";
-        } else {
-          leftStyle = "left: 0;";
-        }
-      }
-
       const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
       const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
       const isHighlighted = highlightedCourse === sess.code;
@@ -1986,13 +1861,13 @@ function renderWeekMatrix() {
 
       posWrap.innerHTML = `
         <div class="grid-card ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
-             style="--c: ${course.color}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
+             style="--c: ${course.color}; position: absolute; top: 2px; bottom: 2px; left: 0; width: 100%;">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC/SEC' : 'SEC')}</span>
+              <span class="type">${sess.isDynSec ? 'SEC' : (sess.code === "MDP G111" && sess.day === "Sunday" ? 'SEC' : 'LEC')}</span>
             </div>
           </div>
           <div class="title">${course.name}</div>
@@ -2384,7 +2259,7 @@ window.addEventListener('appinstalled', () => {
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=4').catch(() => {});
 }
 
 initDeviceMode();
