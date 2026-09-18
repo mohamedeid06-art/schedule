@@ -1,5 +1,5 @@
-const CACHE_NAME = 'cufe-me1-v5';
-const ASSETS = [
+// في ملف sw.js غير اسم الكاش لـ v2 أو v3
+const CACHE_NAME = 'cufe-me1-v3';const ASSETS = [
   './',
   './index.html',
   './manifest.json',
