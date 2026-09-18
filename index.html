@@ -539,7 +539,7 @@ body {
 .room-badge { background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; color: var(--text-main); font-weight: 600; cursor: pointer; }
 .matrix-guide-btn { color: var(--accent-light); cursor: pointer; font-size: 10px; font-weight: 700; }
 
-/* Daily Timeline Styling with Conflict Indicators */
+/* Daily Timeline */
 .timeline-wrap { display: flex; flex-direction: column; gap: 14px; position: relative; }
 .timeline-item { display: flex; gap: 12px; position: relative; }
 .time-col { width: 80px; flex-shrink: 0; text-align: right; padding-top: 2px; }
@@ -1173,7 +1173,6 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
 };
 
-// الداتا الشاملة لكبسولات المواد الـ 6 كاملة لدليل النجاة لدفعة 30
 const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119",
@@ -1208,7 +1207,7 @@ const COURSE_CAPSULES = {
     name: "Computer-Aided Mechanical Drafting (SolidWorks)",
     hours: "3 Credit Hours",
     grading: "• 40 درجة Classwork (رسمة كل أسبوع بالسكشن المعيد بيقيمك عليها)\n• 20 درجة ميدتيرم (رسم على البرنامج وإيجاد وزن القطعة بالماتريال المطلوبة)\n• 40 درجة فاينال (نفس نظام الميدتيرم بالوزن)",
-    tips: "1. المادة لا تعتمد على الرسم اليدوي، أهم حاجة فهم الأبعاد والـ Thickness وطريقة التعامل مع SolidWorks.\n2. سر تصحيح الميد والفاينال: المعيد مش بيشوف رسمتك! بيطلب منك ترسم بماتريال معينة وتحسب الوزن (Mass) لو راسم بعد غلط الوزن هيطلع غلط.\n3. الجزء النظري مهم جداً وعليه جزء محترم من الدرجات (المسامير، القلاووظ، السوست، الـ Keys، والـ Bearings) وملوش أي مصدر غير سلايدات المحاضرة لأن المنهج بيتغير كل سنة.\n4. د. مصطفى رشاد ود. عصام الجداوي مش بيدققوا في الغياب لكن كلامهم في المحاضرة بيجي منه الامتحان.",
+    tips: "1. المادة لا تعتمد على الرسم اليدوي، أهم حاجة فهم الأبعاد والـ Thickness وطريقة التعامل مع SolidWorks.\n2. سر تصحيح الميد والفاينال: المعيد مش بيشوف رسمتك! بيطلب منك ترسم بماتريال معينة وتحسب الوزن (Mass) لو راسم بعد غلط الوزن هيطلع غلط.\n3. الجزء النظري مهم جداً وعليه جزء محترم من الدرجات (المسامير، القلاووظ، السوست، الـ Keys، والـ Bearings) وملوش أي مصدر غير سلايدات المحاضرة لأن المنهج بيتغير كل سنة.\n4. سكشن السوليد موحد للدفعة كلها يوم الأحد 10-1 بصالة رسم 15401، ود. مصطفى رشاد ود. عصام الجداوي كلامهم مهم جداً فالمحاضرة.",
     links: [
       { title: "📁 درايف الدفعة لمادة السوليد", url: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-" },
       { title: "📘 كتاب رسم طيران (جاء منه أغلب رسومات الامتحانات)", url: "https://drive.google.com/file/d/1fxMIKQySXbeZibpLqv_E_FEIb6AR-Q7v/view?usp=drivesdk" },
@@ -1326,17 +1325,15 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
+// جدول الحصص (سكشن السوليد مجمع يوم الأحد لجميع السكاشن ALL، وتم تفريغ سكشن السوليد من الإثنين)
 const SESSIONS = [
+  // الأحد: محاضرة جين + سكشن السوليد الموحد للدفعة كلها بصالة الرسم 15401
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial / Lab", room: "17400-56" },
+  { day: "Sunday", start: 2, span: 3, group: "ALL", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   
-  // الاثنين
+  // الاثنين: محاضرة ماتيريال + سكاشن باقي المواد (تم تفريغ سكشن السوليد من الإثنين تماماً)
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)" },
-  { day: "Monday", start: 2, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Monday", start: 2, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
   { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial / Lab", room: "19302-48" },
   { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial / Lab", room: "17301-56" },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148" },
@@ -1878,7 +1875,7 @@ function renderDailyAgenda() {
             <div style="display:flex;gap:4px;align-items:center;">
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ / DUE</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC · ALL' : s.type)}</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC / SEC · ALL' : s.type)}</span>
             </div>
           </div>
           <div class="card-title">${course.name}</div>
@@ -1995,7 +1992,7 @@ function renderWeekMatrix() {
             <div style="display:flex;gap:3px;align-items:center;">
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC' : 'SEC')}</span>
+              <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC/SEC' : 'SEC')}</span>
             </div>
           </div>
           <div class="title">${course.name}</div>
@@ -2120,7 +2117,7 @@ function renderGuideScreen() {
         ` : weekItems.map((item, idx) => {
           const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
           return `
-            <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay: ${idx * 0.05}s">
+            <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay:${idx * 0.05}s">
               <div class="guide-card-head">
                 <div>
                   <div class="guide-code">${item.code}</div>
@@ -2191,7 +2188,7 @@ function renderDriveScreen() {
         </div>
         
         <div class="vault-search-box">
-          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 14z"/></svg>
+          <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <input type="text" id="driveSearchInput" placeholder="Search subject code or name..." value="${searchQuery}" oninput="handleDriveSearch(this.value)">
         </div>
 
@@ -2211,7 +2208,7 @@ function renderDriveScreen() {
         ${filteredCourses.map(([code, c], idx) => {
           const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
           return `
-            <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay: ${idx * 0.04}s">
+            <div class="course-card cascade-item" style="--c: ${c.color}; animation-delay:${idx * 0.04}s">
               <div style="display:flex;justify-content:space-between;align-items:flex-start">
                 <div>
                   <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${c.color}">${code}</div>
@@ -2337,7 +2334,7 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// محرك الطباعة الشامل
+// محرك الطباعة
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
