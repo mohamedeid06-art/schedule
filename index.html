@@ -6,7 +6,7 @@
 <title>CUFE · Mechanical Engineering — Batch 30</title>
 
 <!-- PWA Manifest & Icons -->
-<link rel="manifest" href="manifest.json?v=10">
+<link rel="manifest" href="manifest.json?v=11">
 <meta name="theme-color" content="#080c14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -93,11 +93,7 @@
   --quiz-glow: rgba(234, 88, 12, 0.12);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background-color: var(--bg);
@@ -121,7 +117,7 @@ body {
   max-width: 1340px;
 }
 
-/* Celebration Masthead */
+/* Header */
 .masthead {
   background: var(--surface-glass);
   backdrop-filter: blur(20px);
@@ -172,9 +168,7 @@ body {
   letter-spacing: 0.06em;
   box-shadow: 0 0 12px rgba(2, 132, 199, 0.45);
 }
-.container.pc-mode .dept-title {
-  font-size: 28px;
-}
+.container.pc-mode .dept-title { font-size: 28px; }
 
 .date-academic-strip {
   display: flex;
@@ -196,7 +190,7 @@ body {
   border: 1px solid var(--accent-light);
 }
 
-/* First Week Grand Celebration Welcome Banner */
+/* First Week Welcome Banner */
 .first-week-celebration-banner {
   background: linear-gradient(135deg, rgba(2, 132, 199, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%);
   border: 1.5px solid #38bdf8;
@@ -256,32 +250,11 @@ body {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   text-decoration: none;
 }
-.action-btn.icon-only {
-  width: 38px;
-  padding: 0;
-  justify-content: center;
-}
-.action-btn:hover {
-  color: var(--text-main);
-  border-color: var(--accent-light);
-  transform: translateY(-1px);
-}
-.action-btn.active-mode {
-  background: var(--accent-glow);
-  color: var(--accent-light);
-  border-color: var(--accent-light);
-}
-.action-btn.install-btn {
-  background: var(--accent);
-  color: #ffffff;
-  border-color: var(--accent);
-  display: none;
-}
-.action-btn svg {
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-}
+.action-btn.icon-only { width: 38px; padding: 0; justify-content: center; }
+.action-btn:hover { color: var(--text-main); border-color: var(--accent-light); transform: translateY(-1px); }
+.action-btn.active-mode { background: var(--accent-glow); color: var(--accent-light); border-color: var(--accent-light); }
+.action-btn.install-btn { background: var(--accent); color: #ffffff; border-color: var(--accent); display: none; }
+.action-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* Dynamic Island Capsule */
 .live-status-capsule {
@@ -299,45 +272,20 @@ body {
   font-size: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
-.live-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
+.live-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .live-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-  animation: live-pulse 2s infinite;
-  flex-shrink: 0;
+  width: 8px; height: 8px; border-radius: 50%; background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25); animation: live-pulse 2s infinite; flex-shrink: 0;
 }
-.live-indicator.idle {
-  background: #64748b;
-  box-shadow: none;
-  animation: none;
-}
+.live-indicator.idle { background: #64748b; box-shadow: none; animation: none; }
 @keyframes live-pulse {
   0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
   70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
-.live-text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.live-text strong {
-  color: var(--text-main);
-}
-.live-time-now {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent-light);
-}
+.live-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.live-text strong { color: var(--text-main); }
+.live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-light); }
 
 /* Control Bar */
 .control-bar {
@@ -536,7 +484,7 @@ body {
   box-shadow: inset -3.5px 0 0 #ea580c !important;
 }
 
-/* Cancelled Badge & Style (أول أسبوع فقط) */
+/* Cancelled Badge & Style */
 .badge-cancelled {
   background: rgba(239, 68, 68, 0.2) !important;
   color: #ef4444 !important;
@@ -563,7 +511,7 @@ body {
   color: var(--cancelled-text) !important;
 }
 
-/* Soft Green Glow for SolidWorks Card (بدون أي جملة زيادة) */
+/* Soft Green Glow for SolidWorks Card */
 .solid-soft-glow-card {
   background: var(--solid-glow-bg) !important;
   border: 1.5px solid var(--solid-glow-border) !important;
@@ -571,29 +519,10 @@ body {
   box-shadow: var(--solid-glow-shadow) !important;
 }
 
-/* Free Gap Item */
-.break-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: -4px 0;
-}
-.break-spacer {
-  width: 80px;
-  flex-shrink: 0;
-}
-.break-card {
-  flex: 1;
-  border: 1px dashed var(--border);
-  background: var(--surface-alt);
-  border-radius: 8px;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  color: var(--text-muted);
-  font-weight: 600;
+/* Dynamics Highlight Card */
+.is-dynamics-card {
+  border: 1.5px solid #6366f1 !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, var(--surface) 100%) !important;
 }
 
 /* Highlight & Dimming */
@@ -1818,7 +1747,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي والمحدث من الـ PDF (مع استثناء سكاشن الديناميكا لتكون بالسويتش فقط)
+// جدول الحصص الرسمي والمحدث من الـ PDF (مع استثناء سكاشن الديناميكا لتكون بالسويتش فقط)[cite: 8]
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
@@ -1853,7 +1782,7 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301-50" }
 ];
 
-// مواعيد سكشن الديناميكا المعتمدة حصرياً ليوم الإثنين بالسويتش
+// مواعيد سكشن الديناميكا المعتمدة حصرياً ليوم الإثنين بالسويتش[cite: 1]
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
@@ -1897,7 +1826,7 @@ function getActiveEffectiveSessions() {
   let baseSessions = [];
 
   if (isWeek1) {
-    // الأسبوع الأول: سكشن السوليد موحد يوم الأحد 10-1 للكل، وباقي السكاشن ملغية
+    // الأسبوع الأول: سكشن السوليد موحد يوم الأحد 10-1 للكل، وباقي السكاشن ملغية[cite: 8]
     baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup).map(s => {
       if (s.code === "MDP G111" && s.type.includes("Tutorial")) {
         return {
@@ -1935,7 +1864,6 @@ function toggleDynamicsSlot(slotKey) {
 function updateDynamicsBannerUI() {
   const banner = document.getElementById("dynamicsSwitcherBanner");
   if (!banner) return;
-  // يظهر السويتش فقط في الأسبوع العادي (Week 2+) وفي يوم الإثنين أو الأسبوعي
   const showBanner = (currentDisplayWeek > 1) && ((activeView === 'week') || (activeView === 'day' && activeDay === 'Monday'));
   banner.style.display = showBanner ? 'flex' : 'none';
 
@@ -2406,6 +2334,7 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
+// بناء خريطة الأسبوع المطلقة بدقة 100% مع ميزة تقسيم المسارات المتجاورة (Multi-Lane Split)
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -2467,7 +2396,7 @@ function renderWeekMatrix() {
     }
   }
 
-  // 5. إسقاط الحصص في أماكنها الحقيقية بدقة
+  // 5. إسقاط الحصص في أماكنها الحقيقية بدقة مع فحص التداخل وتقسيم المسار (Parallel Multi-Lane)
   const effectiveSessions = getActiveEffectiveSessions();
 
   DAYS.forEach((d, dIdx) => {
@@ -2476,6 +2405,26 @@ function renderWeekMatrix() {
     const dayTasks = getDayAssessments(d.full);
 
     daySessions.forEach(sess => {
+      // كشف أي تداخل زمني في نفس اليوم
+      const hasConflict = daySessions.some(other => 
+        other !== sess &&
+        sess.start < (other.start + other.span) &&
+        (sess.start + sess.span) > other.start
+      );
+
+      let widthStyle = "width: 100%;";
+      let leftStyle = "left: 0;";
+
+      // لو فيه تعارض زمني: قسم العمود لخطين متجاورين متساويين بدقة
+      if (hasConflict) {
+        widthStyle = "width: calc(50% - 3px);";
+        if (sess.isDynSec) {
+          leftStyle = "left: calc(50% + 3px);";
+        } else {
+          leftStyle = "left: 0;";
+        }
+      }
+
       const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
       const isDimmed = highlightedCourse && highlightedCourse !== sess.code;
       const isHighlighted = highlightedCourse === sess.code;
@@ -2485,11 +2434,13 @@ function renderWeekMatrix() {
       posWrap.className = "grid-card-positioned";
       posWrap.style.gridColumn = `${col}`;
       posWrap.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
+      posWrap.style.position = "relative";
+      posWrap.style.height = "100%";
       posWrap.style.zIndex = sess.cancelled ? "3" : "5";
 
       posWrap.innerHTML = `
-        <div class="grid-card ${sess.isSolidMain ? 'solid-soft-glow-card' : ''} ${sess.cancelled ? 'is-cancelled-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
-             style="--c: ${sess.cancelled ? '#ef4444' : course.color};">
+        <div class="grid-card ${sess.isSolidMain ? 'solid-soft-glow-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.cancelled ? 'is-cancelled-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
+             style="--c: ${sess.cancelled ? '#ef4444' : course.color}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
@@ -2842,7 +2793,7 @@ async function triggerPwaInstall() {
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=10').catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=11').catch(() => {});
 }
 
 initDeviceMode();
