@@ -6,7 +6,7 @@
 <title>CUFE · Mechanical Engineering — Batch 30</title>
 
 <!-- PWA Manifest & Icons -->
-<link rel="manifest" href="manifest.json?v=14">
+<link rel="manifest" href="manifest.json?v=15">
 <meta name="theme-color" content="#080c14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -293,7 +293,7 @@ body {
 .live-text strong { color: var(--text-main); }
 .live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-light); }
 
-/* UP NEXT & LIVE HERO CARD (FEATURED IN DAILY VIEW) */
+/* UP NEXT & LIVE HERO CARD (دائماً جاهز ونشط) */
 .up-next-hero {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
   border: 1.5px solid var(--border-glow);
@@ -1493,28 +1493,93 @@ body {
   cursor: pointer;
 }
 
-/* Print Mode A4 Landscape */
+/* Full Print Engine - A4 Landscape */
 @media print {
-  @page { size: A4 landscape !important; margin: 6mm !important; }
-  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
+  @page {
+    size: A4 landscape !important;
+    margin: 6mm !important;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .dynamics-switcher-banner, .first-week-celebration-banner, .up-next-hero, .realtime-laser-row, .timeline-wrap,
   #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
-  .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
-  .masthead { display: flex !important; border-bottom: 2px solid #0f172a !important; padding-bottom: 6px !important; margin-bottom: 8px !important; background: transparent !important; box-shadow: none !important; }
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .masthead {
+    display: flex !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 8px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
   .dept-title { font-size: 18px !important; color: #0f172a !important; }
   .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
-  .matrix-wrapper { display: block !important; box-shadow: none !important; border: 1.5px solid #0f172a !important; border-radius: 4px !important; overflow: visible !important; background: #ffffff !important; }
+  .matrix-wrapper {
+    display: block !important;
+    box-shadow: none !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
   .matrix-scroll { overflow: visible !important; }
-  .matrix-grid { display: grid !important; min-width: 0 !important; width: 100% !important; grid-template-columns: 68px repeat(5, 1fr) !important; grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important; }
-  .matrix-head { background: #f1f5f9 !important; border-bottom: 1.5px solid #0f172a !important; border-right: 1px solid #cbd5e1 !important; color: #0f172a !important; font-size: 11px !important; font-weight: 800 !important; padding: 3px 6px !important; }
-  .matrix-time { background: #f8fafc !important; border-bottom: 1px solid #cbd5e1 !important; border-right: 1.5px solid #0f172a !important; color: #334155 !important; font-size: 9px !important; padding: 2px !important; }
-  .grid-card { box-shadow: none !important; border: 1px solid #94a3b8 !important; border-left: 3.5px solid var(--c) !important; border-radius: 4px !important; padding: 3px 5px !important; background: #ffffff !important; opacity: 1 !important; filter: none !important; }
+  .matrix-grid {
+    display: grid !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    grid-template-columns: 68px repeat(5, 1fr) !important;
+    grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important;
+  }
+  .matrix-head {
+    background: #f1f5f9 !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    border-right: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 3px 6px !important;
+  }
+  .matrix-time {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1.5px solid #0f172a !important;
+    color: #334155 !important;
+    font-size: 9px !important;
+    padding: 2px !important;
+  }
+  .grid-card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 3.5px solid var(--c) !important;
+    border-radius: 4px !important;
+    padding: 3px 5px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
   .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
-  .legend { display: flex !important; margin-top: 8px !important; padding: 4px 8px !important; border: 1px solid #cbd5e1 !important; gap: 4px 12px !important; }
+  .legend {
+    display: flex !important;
+    margin-top: 8px !important;
+    padding: 4px 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    gap: 4px 12px !important;
+  }
 }
 </style>
 </head>
@@ -1902,7 +1967,7 @@ const MONDAY_DYNAMICS_SLOTS = {
   "3": { day: "Monday", start: 6, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 3)", room: "17201" }
 };
 
-let activeView = "week";
+let activeView = "day"; // العرض الافتراضي Daily لتظهر بطاقة UP NEXT فوراً
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
 let selectedDynamicsSlot = null;
@@ -1942,7 +2007,6 @@ function getActiveEffectiveSessions() {
   if (isWeek1) {
     baseSessions = SESSIONS.filter(s => {
       if (s.group !== "ALL" && s.group !== activeGroup) return false;
-      // استبعاد سكشن الكهرباء القديم للأحد لسكشن 3 حتى لا يتصادم مع سكشن السوليد الموحد
       if (s.day === "Sunday" && s.start === 2 && s.code === "EPE G113") return false;
       return true;
     }).map(s => {
@@ -1959,7 +2023,6 @@ function getActiveEffectiveSessions() {
       return s;
     });
 
-    // إضافة سكشن السوليد للأحد لو مش مضاف لسكشن 3 أو 4
     const hasSolidSunday = baseSessions.some(s => s.code === "MDP G111" && s.day === "Sunday" && s.start === 2);
     if (!hasSolidSunday) {
       baseSessions.push({
@@ -1969,12 +2032,10 @@ function getActiveEffectiveSessions() {
       });
     }
 
-    // إزالة سكشن السوليد من الإثنين في الأسبوع الأول
     baseSessions = baseSessions.filter(s => 
       !(s.code === "MDP G111" && s.day === "Monday" && s.type.includes("Tutorial"))
     );
   } else {
-    // بعد أول أسبوع: الجدول العادي بالكامل
     baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
     if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
       baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
@@ -2401,6 +2462,7 @@ function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const effectiveSessions = getActiveEffectiveSessions();
   const daySessions = effectiveSessions.filter(s => s.day === activeDay).sort((a, b) => a.start - b.start);
+  const activeDaySessions = daySessions.filter(s => !s.cancelled);
 
   const dayTasks = getDayAssessments(activeDay);
   let html = '';
@@ -2409,13 +2471,12 @@ function renderDailyAgenda() {
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const isSelectedDayToday = (activeDay === todayDayName);
 
-  // حساب الحصة التي تعمل الآن أو الحصة القادمة لعرضها في كارت UP NEXT / LIVE
+  // حساب الحصة النشطة الآن أو القادمة
   let liveSession = null;
   let upcomingSession = null;
 
   if (isSelectedDayToday) {
-    for (const s of daySessions) {
-      if (s.cancelled) continue;
+    for (const s of activeDaySessions) {
       const sStartMin = parseMinutes(TIME_STARTS[s.start]);
       const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
       if (currentMinutes >= sStartMin && currentMinutes < sEndMin) {
@@ -2427,8 +2488,14 @@ function renderDailyAgenda() {
     }
   }
 
-  // 1. إضافة كارت UP NEXT الفخم بأعلى الجدول اليومي
-  const targetHeroSession = liveSession || upcomingSession;
+  // إذا لم نكن في نفس اللحظة (مثلاً في الويك إند أو بالليل أو نعاين يوماً آخر)،
+  // يتم عرض أول حصة شغالة في ذلك اليوم كـ UP NEXT دائماً
+  let targetHeroSession = liveSession || upcomingSession;
+  if (!targetHeroSession && activeDaySessions.length > 0) {
+    targetHeroSession = activeDaySessions[0];
+  }
+
+  // 1. كارت الـ UP NEXT & LIVE الفخم
   if (targetHeroSession) {
     const heroCourse = COURSES[targetHeroSession.code] || { name: targetHeroSession.code, color: "var(--accent)" };
     const isLive = !!liveSession;
@@ -2445,7 +2512,7 @@ function renderDailyAgenda() {
           <div class="up-next-room-pill" onclick="showRoomDetails('${targetHeroSession.room}')">📍 ${targetHeroSession.room} ↗</div>
           <span class="up-next-type-tag">${targetHeroSession.isDynSec ? 'Tutorial' : (targetHeroSession.isSolidMain ? 'Tutorial / Lab (ALL)' : targetHeroSession.type)}</span>
           <span style="margin-right:auto;font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:${isLive ? '#ef4444' : 'var(--accent-light)'}">
-            ${isLive ? `${liveSession.remaining}m left` : `starts in ${upcomingSession.wait}m`}
+            ${isLive ? `${liveSession.remaining}m left` : (upcomingSession ? `starts in ${upcomingSession.wait}m` : 'Next Class')}
           </span>
         </div>
       </div>
@@ -2470,7 +2537,7 @@ function renderDailyAgenda() {
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
 
-    // رسم خط الليزر الأحمر الواقعي (Real-time Laser Timeline with Clock)
+    // رسم خط الليزر الأحمر المباشر
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
       const nowStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       html += `
@@ -2530,7 +2597,6 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
-// بناء خريطة الأسبوع المطلقة بدقة 100% مع ميزة تقسيم المسارات المتجاورة (Multi-Lane Split)
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -2608,7 +2674,6 @@ function renderWeekMatrix() {
       const sEndMin = parseMinutes(TIME_ENDS[sess.start + sess.span - 1]);
       const isLiveNow = isDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !sess.cancelled;
 
-      // كشف أي تداخل زمني حقيقي بين حصتين فعليتين
       const hasConflict = daySessions.some(other => 
         other !== sess &&
         sess.start < (other.start + other.span) &&
@@ -2618,7 +2683,6 @@ function renderWeekMatrix() {
       let widthStyle = "width: 100%;";
       let leftStyle = "left: 0;";
 
-      // لو فيه تعارض زمني حقيقي: قسم العمود لخطين متجاورين متساويين بدقة
       if (hasConflict) {
         widthStyle = "width: calc(50% - 3px);";
         if (sess.isDynSec) {
@@ -2952,14 +3016,12 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
-// محرك الطباعة الفوري المحدث للهواتف والكمبيوتر
+// محرك الطباعة الفوري
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic();
   if (activeView !== "week") {
     setView("week");
   }
-  
-  // استدعاء فوري ومباشر لضمان فتح نافذة الطباعة على الموبايل
   try {
     window.print();
   } catch (e) {
@@ -3001,7 +3063,7 @@ async function triggerPwaInstall() {
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=14').catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=15').catch(() => {});
 }
 
 initDeviceMode();
