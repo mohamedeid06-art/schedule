@@ -6,7 +6,7 @@
 <title>CUFE · Mechanical Engineering — Batch 30</title>
 
 <!-- PWA Manifest & Icons -->
-<link rel="manifest" href="manifest.json?v=12">
+<link rel="manifest" href="manifest.json?v=13">
 <meta name="theme-color" content="#080c14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -511,7 +511,7 @@ body {
   color: var(--cancelled-text) !important;
 }
 
-/* Soft Green Glow for SolidWorks Card (100% صافي وراقي بدون أي جمل زيادة) */
+/* Soft Green Glow for SolidWorks Card */
 .solid-soft-glow-card {
   background: var(--solid-glow-bg) !important;
   border: 1.5px solid var(--solid-glow-border) !important;
@@ -1340,28 +1340,93 @@ body {
   cursor: pointer;
 }
 
-/* Print Mode A4 Landscape */
+/* Full Print Engine - A4 Landscape */
 @media print {
-  @page { size: A4 landscape !important; margin: 6mm !important; }
-  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
+  @page {
+    size: A4 landscape !important;
+    margin: 6mm !important;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .dynamics-switcher-banner, .first-week-celebration-banner, .timeline-wrap,
   #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
-  .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
-  .masthead { display: flex !important; border-bottom: 2px solid #0f172a !important; padding-bottom: 6px !important; margin-bottom: 8px !important; background: transparent !important; box-shadow: none !important; }
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .masthead {
+    display: flex !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 8px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
   .dept-title { font-size: 18px !important; color: #0f172a !important; }
   .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
-  .matrix-wrapper { display: block !important; box-shadow: none !important; border: 1.5px solid #0f172a !important; border-radius: 4px !important; overflow: visible !important; background: #ffffff !important; }
+  .matrix-wrapper {
+    display: block !important;
+    box-shadow: none !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
   .matrix-scroll { overflow: visible !important; }
-  .matrix-grid { display: grid !important; min-width: 0 !important; width: 100% !important; grid-template-columns: 68px repeat(5, 1fr) !important; grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important; }
-  .matrix-head { background: #f1f5f9 !important; border-bottom: 1.5px solid #0f172a !important; border-right: 1px solid #cbd5e1 !important; color: #0f172a !important; font-size: 11px !important; font-weight: 800 !important; padding: 3px 6px !important; }
-  .matrix-time { background: #f8fafc !important; border-bottom: 1px solid #cbd5e1 !important; border-right: 1.5px solid #0f172a !important; color: #334155 !important; font-size: 9px !important; padding: 2px !important; }
-  .grid-card { box-shadow: none !important; border: 1px solid #94a3b8 !important; border-left: 3.5px solid var(--c) !important; border-radius: 4px !important; padding: 3px 5px !important; background: #ffffff !important; opacity: 1 !important; filter: none !important; }
+  .matrix-grid {
+    display: grid !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    grid-template-columns: 68px repeat(5, 1fr) !important;
+    grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important;
+  }
+  .matrix-head {
+    background: #f1f5f9 !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    border-right: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 3px 6px !important;
+  }
+  .matrix-time {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1.5px solid #0f172a !important;
+    color: #334155 !important;
+    font-size: 9px !important;
+    padding: 2px !important;
+  }
+  .grid-card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 3.5px solid var(--c) !important;
+    border-radius: 4px !important;
+    padding: 3px 5px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
   .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
-  .legend { display: flex !important; margin-top: 8px !important; padding: 4px 8px !important; border: 1px solid #cbd5e1 !important; gap: 4px 12px !important; }
+  .legend {
+    display: flex !important;
+    margin-top: 8px !important;
+    padding: 4px 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    gap: 4px 12px !important;
+  }
 }
 </style>
 </head>
@@ -1707,7 +1772,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي والمحدث من الـ PDF[cite: 8]
+// جدول الحصص الرسمي والمحدث من الـ PDF (مع استثناء سكاشن الديناميكا لتكون بالسويتش فقط)[cite: 8]
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
@@ -1781,16 +1846,15 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// معالجة ذكية للأسبوع الأول واستبعاد تضارب سكشن 3
+// معالجة دقيقة للأسبوع الأول ومنع أي تداخل وهمي لسكشن 3
 function getActiveEffectiveSessions() {
   const isWeek1 = (currentDisplayWeek === 1);
   let baseSessions = [];
 
   if (isWeek1) {
-    // الأسبوع الأول: سكشن السوليد موحد يوم الأحد 10-1 للكل، وباقي السكاشن ملغية
-    // استبعاد سكشن كهرباء سكشن 3 يوم الأحد من 10-1 حتى لا يتصادم مع سكشن السوليد الموحد
     baseSessions = SESSIONS.filter(s => {
       if (s.group !== "ALL" && s.group !== activeGroup) return false;
+      // استبعاد سكشن الكهرباء القديم للأحد لسكشن 3 حتى لا يتصادم مع سكشن السوليد الموحد
       if (s.day === "Sunday" && s.start === 2 && s.code === "EPE G113") return false;
       return true;
     }).map(s => {
@@ -1807,7 +1871,7 @@ function getActiveEffectiveSessions() {
       return s;
     });
 
-    // إضافة سكشن السوليد لسكشن 3 وسكشن 4 لأنهم في الأصل ليس لديهم سكشن سوليد يوم الأحد
+    // إضافة سكشن السوليد للأحد لو مش مضاف لسكشن 3 أو 4
     const hasSolidSunday = baseSessions.some(s => s.code === "MDP G111" && s.day === "Sunday" && s.start === 2);
     if (!hasSolidSunday) {
       baseSessions.push({
@@ -1817,7 +1881,7 @@ function getActiveEffectiveSessions() {
       });
     }
 
-    // إزالة سكشن السوليد من الإثنين لسكشن 3 و4 في الأسبوع الأول فقط
+    // إزالة سكشن السوليد من الإثنين في الأسبوع الأول
     baseSessions = baseSessions.filter(s => 
       !(s.code === "MDP G111" && s.day === "Monday" && s.type.includes("Tutorial"))
     );
@@ -2024,7 +2088,7 @@ function getDisplayedDateForDay(dayName) {
   const today = new Date();
   const currentDayOfWeek = today.getDay();
   const sunday = new Date(today);
-  sunday.setDate(today.getDate() - today.getDay());
+  sunday.setDate(today.getDate() - currentDayOfWeek);
   const targetDate = new Date(sunday);
   targetDate.setDate(sunday.getDate() + dayObj.dayIdx);
   return targetDate;
@@ -2382,7 +2446,7 @@ function renderWeekMatrix() {
     const dayTasks = getDayAssessments(d.full);
 
     daySessions.forEach(sess => {
-      // كشف أي تداخل زمني في نفس اليوم
+      // كشف أي تداخل زمني حقيقي بين حصتين فعليتين
       const hasConflict = daySessions.some(other => 
         other !== sess &&
         sess.start < (other.start + other.span) &&
@@ -2392,7 +2456,7 @@ function renderWeekMatrix() {
       let widthStyle = "width: 100%;";
       let leftStyle = "left: 0;";
 
-      // لو فيه تعارض زمني: قسم العمود لخطين متجاورين متساويين بدقة
+      // لو فيه تعارض زمني حقيقي: قسم العمود لخطين متجاورين متساويين بدقة
       if (hasConflict) {
         widthStyle = "width: calc(50% - 3px);";
         if (sess.isDynSec) {
@@ -2725,6 +2789,21 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   localStorage.setItem("cufe_theme", next);
 });
 
+// محرك الطباعة الفوري المحدث للهواتف والكمبيوتر
+document.getElementById("printBtn").addEventListener("click", () => {
+  triggerHaptic();
+  if (activeView !== "week") {
+    setView("week");
+  }
+  
+  // استدعاء فوري ومباشر دون تأخير زمني لمنع متصفح الموبايل من حظر الطباعة
+  try {
+    window.print();
+  } catch (e) {
+    window.open(window.location.href, '_blank');
+  }
+});
+
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
 
 let deferredPrompt;
@@ -2759,7 +2838,7 @@ async function triggerPwaInstall() {
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=12').catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=13').catch(() => {});
 }
 
 initDeviceMode();
