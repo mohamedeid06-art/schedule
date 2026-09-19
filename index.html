@@ -6,7 +6,7 @@
 <title>CUFE · Mechanical Engineering — Batch 30</title>
 
 <!-- PWA Manifest & Icons -->
-<link rel="manifest" href="manifest.json?v=13">
+<link rel="manifest" href="manifest.json?v=14">
 <meta name="theme-color" content="#080c14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -51,6 +51,9 @@
   --solid-glow-border: #10b981;
   --solid-glow-shadow: 0 0 16px rgba(16, 185, 129, 0.28);
 
+  --live-pulse-color: #ef4444;
+  --live-card-glow: 0 0 20px rgba(239, 68, 68, 0.3);
+
   --quiz-color: #f97316;
   --quiz-glow: rgba(249, 115, 22, 0.25);
 
@@ -88,6 +91,9 @@
   --solid-glow-bg: rgba(16, 185, 129, 0.15);
   --solid-glow-border: #059669;
   --solid-glow-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+
+  --live-pulse-color: #dc2626;
+  --live-card-glow: 0 0 16px rgba(220, 38, 38, 0.2);
 
   --quiz-color: #ea580c;
   --quiz-glow: rgba(234, 88, 12, 0.12);
@@ -286,6 +292,153 @@ body {
 .live-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .live-text strong { color: var(--text-main); }
 .live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-light); }
+
+/* UP NEXT & LIVE HERO CARD (FEATURED IN DAILY VIEW) */
+.up-next-hero {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1.5px solid var(--border-glow);
+  border-radius: 18px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  animation: cardCascade 0.3s ease forwards;
+}
+[data-theme="light"] .up-next-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.up-next-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.up-next-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.up-next-badge.is-live {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  animation: liveBadgePulse 1.8s infinite;
+}
+.up-next-badge.is-upcoming {
+  background: var(--accent-glow);
+  color: var(--accent-light);
+  border: 1px solid var(--accent);
+}
+@keyframes liveBadgePulse {
+  0% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+  70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.up-next-time-range {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.up-next-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+.up-next-bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.up-next-room-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--accent-light);
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.up-next-type-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* REALTIME RED LASER TIMELINE INDICATOR */
+.realtime-laser-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 10px;
+  position: relative;
+  z-index: 10;
+}
+.realtime-laser-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 800;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  padding: 1px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.realtime-laser-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+.realtime-laser-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, #ef4444 0%, rgba(239, 68, 68, 0.15) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+}
+
+/* LIVE CARD GLOW IN TIMELINE & GRID */
+.timeline-card.is-live-card, .grid-card.is-live-card {
+  box-shadow: var(--live-card-glow), 0 4px 14px rgba(0,0,0,0.25) !important;
+  border-color: #ef4444 !important;
+  border-left-color: #ef4444 !important;
+}
+.badge-live-now {
+  background: rgba(239, 68, 68, 0.22) !important;
+  color: #ef4444 !important;
+  border: 1px solid #ef4444 !important;
+  font-size: 8.5px !important;
+  font-weight: 800 !important;
+  padding: 1px 6px !important;
+  border-radius: 4px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  animation: liveBadgePulse 1.8s infinite;
+}
 
 /* Control Bar */
 .control-bar {
@@ -1340,93 +1493,28 @@ body {
   cursor: pointer;
 }
 
-/* Full Print Engine - A4 Landscape */
+/* Print Mode A4 Landscape */
 @media print {
-  @page {
-    size: A4 landscape !important;
-    margin: 6mm !important;
-  }
-  html, body {
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+  @page { size: A4 landscape !important; margin: 6mm !important; }
+  html, body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; margin: 0 !important; }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
-  .dynamics-switcher-banner, .first-week-celebration-banner, .timeline-wrap,
+  .dynamics-switcher-banner, .first-week-celebration-banner, .up-next-hero, .realtime-laser-row, .timeline-wrap,
   #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
-  .container {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .masthead {
-    display: flex !important;
-    border-bottom: 2px solid #0f172a !important;
-    padding-bottom: 6px !important;
-    margin-bottom: 8px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
+  .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  .masthead { display: flex !important; border-bottom: 2px solid #0f172a !important; padding-bottom: 6px !important; margin-bottom: 8px !important; background: transparent !important; box-shadow: none !important; }
   .dept-title { font-size: 18px !important; color: #0f172a !important; }
   .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
-  .matrix-wrapper {
-    display: block !important;
-    box-shadow: none !important;
-    border: 1.5px solid #0f172a !important;
-    border-radius: 4px !important;
-    overflow: visible !important;
-    background: #ffffff !important;
-  }
+  .matrix-wrapper { display: block !important; box-shadow: none !important; border: 1.5px solid #0f172a !important; border-radius: 4px !important; overflow: visible !important; background: #ffffff !important; }
   .matrix-scroll { overflow: visible !important; }
-  .matrix-grid {
-    display: grid !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    grid-template-columns: 68px repeat(5, 1fr) !important;
-    grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important;
-  }
-  .matrix-head {
-    background: #f1f5f9 !important;
-    border-bottom: 1.5px solid #0f172a !important;
-    border-right: 1px solid #cbd5e1 !important;
-    color: #0f172a !important;
-    font-size: 11px !important;
-    font-weight: 800 !important;
-    padding: 3px 6px !important;
-  }
-  .matrix-time {
-    background: #f8fafc !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    border-right: 1.5px solid #0f172a !important;
-    color: #334155 !important;
-    font-size: 9px !important;
-    padding: 2px !important;
-  }
-  .grid-card {
-    box-shadow: none !important;
-    border: 1px solid #94a3b8 !important;
-    border-left: 3.5px solid var(--c) !important;
-    border-radius: 4px !important;
-    padding: 3px 5px !important;
-    background: #ffffff !important;
-    opacity: 1 !important;
-    filter: none !important;
-  }
+  .matrix-grid { display: grid !important; min-width: 0 !important; width: 100% !important; grid-template-columns: 68px repeat(5, 1fr) !important; grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important; }
+  .matrix-head { background: #f1f5f9 !important; border-bottom: 1.5px solid #0f172a !important; border-right: 1px solid #cbd5e1 !important; color: #0f172a !important; font-size: 11px !important; font-weight: 800 !important; padding: 3px 6px !important; }
+  .matrix-time { background: #f8fafc !important; border-bottom: 1px solid #cbd5e1 !important; border-right: 1.5px solid #0f172a !important; color: #334155 !important; font-size: 9px !important; padding: 2px !important; }
+  .grid-card { box-shadow: none !important; border: 1px solid #94a3b8 !important; border-left: 3.5px solid var(--c) !important; border-radius: 4px !important; padding: 3px 5px !important; background: #ffffff !important; opacity: 1 !important; filter: none !important; }
   .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
-  .legend {
-    display: flex !important;
-    margin-top: 8px !important;
-    padding: 4px 8px !important;
-    border: 1px solid #cbd5e1 !important;
-    gap: 4px 12px !important;
-  }
+  .legend { display: flex !important; margin-top: 8px !important; padding: 4px 8px !important; border: 1px solid #cbd5e1 !important; gap: 4px 12px !important; }
 }
 </style>
 </head>
@@ -1772,7 +1860,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي والمحدث من الـ PDF (مع استثناء سكاشن الديناميكا لتكون بالسويتش فقط)[cite: 8]
+// جدول الحصص الرسمي والمحدث من الـ PDF[cite: 8]
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
@@ -2315,7 +2403,56 @@ function renderDailyAgenda() {
   const daySessions = effectiveSessions.filter(s => s.day === activeDay).sort((a, b) => a.start - b.start);
 
   const dayTasks = getDayAssessments(activeDay);
-  let html = `<div class="timeline-wrap" id="swipeArea">`;
+  let html = '';
+
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const isSelectedDayToday = (activeDay === todayDayName);
+
+  // حساب الحصة التي تعمل الآن أو الحصة القادمة لعرضها في كارت UP NEXT / LIVE
+  let liveSession = null;
+  let upcomingSession = null;
+
+  if (isSelectedDayToday) {
+    for (const s of daySessions) {
+      if (s.cancelled) continue;
+      const sStartMin = parseMinutes(TIME_STARTS[s.start]);
+      const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
+      if (currentMinutes >= sStartMin && currentMinutes < sEndMin) {
+        liveSession = { ...s, remaining: sEndMin - currentMinutes };
+        break;
+      } else if (currentMinutes < sStartMin && !upcomingSession) {
+        upcomingSession = { ...s, wait: sStartMin - currentMinutes };
+      }
+    }
+  }
+
+  // 1. إضافة كارت UP NEXT الفخم بأعلى الجدول اليومي
+  const targetHeroSession = liveSession || upcomingSession;
+  if (targetHeroSession) {
+    const heroCourse = COURSES[targetHeroSession.code] || { name: targetHeroSession.code, color: "var(--accent)" };
+    const isLive = !!liveSession;
+    html += `
+      <div class="up-next-hero">
+        <div class="up-next-top">
+          <span class="up-next-badge ${isLive ? 'is-live' : 'is-upcoming'}">
+            ${isLive ? '🔴 LIVE NOW' : '⚡ UP NEXT'}
+          </span>
+          <span class="up-next-time-range">${TIME_STARTS[targetHeroSession.start]} – ${TIME_ENDS[targetHeroSession.start + targetHeroSession.span - 1]}</span>
+        </div>
+        <div class="up-next-title">${targetHeroSession.code} — ${heroCourse.name}</div>
+        <div class="up-next-bottom">
+          <div class="up-next-room-pill" onclick="showRoomDetails('${targetHeroSession.room}')">📍 ${targetHeroSession.room} ↗</div>
+          <span class="up-next-type-tag">${targetHeroSession.isDynSec ? 'Tutorial' : (targetHeroSession.isSolidMain ? 'Tutorial / Lab (ALL)' : targetHeroSession.type)}</span>
+          <span style="margin-right:auto;font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:${isLive ? '#ef4444' : 'var(--accent-light)'}">
+            ${isLive ? `${liveSession.remaining}m left` : `starts in ${upcomingSession.wait}m`}
+          </span>
+        </div>
+      </div>
+    `;
+  }
+
+  html += `<div class="timeline-wrap" id="swipeArea">`;
 
   if (daySessions.length === 0) {
     html += `<div style="background:var(--surface);border:1px dashed var(--border);border-radius:16px;padding:36px;text-align:center;color:var(--text-muted)"><h3>No classes scheduled for ${activeDay}</h3></div></div>`;
@@ -2324,12 +2461,28 @@ function renderDailyAgenda() {
   }
 
   let maxEndSoFar = 0;
+  let laserRendered = false;
+
   for (let i = 0; i < daySessions.length; i++) {
     const s = daySessions[i];
-    const sEnd = s.start + s.span;
+    const sStartMin = parseMinutes(TIME_STARTS[s.start]);
+    const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
 
+    // رسم خط الليزر الأحمر الواقعي (Real-time Laser Timeline with Clock)
+    if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
+      const nowStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      html += `
+        <div class="realtime-laser-row">
+          <span class="realtime-laser-badge">${nowStr} NOW</span>
+          <div class="realtime-laser-line"></div>
+        </div>
+      `;
+      laserRendered = true;
+    }
+
+    // حساب الفترات الفاضية
     if (i > 0 && s.start > maxEndSoFar && !s.cancelled) {
       const gap = s.start - maxEndSoFar;
       html += `
@@ -2338,8 +2491,9 @@ function renderDailyAgenda() {
           <div class="break-card">☕ Free Gap · ${gap * 50} mins</div>
         </div>`;
     }
-    if (!s.cancelled) maxEndSoFar = Math.max(maxEndSoFar, sEnd);
+    if (!s.cancelled) maxEndSoFar = Math.max(maxEndSoFar, s.start + s.span);
 
+    const isCurrentActive = isSelectedDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !s.cancelled;
     const isDimmed = highlightedCourse && highlightedCourse !== s.code;
     const isHighlighted = highlightedCourse === s.code;
     const hasTask = dayTasks.some(t => t.code === s.code);
@@ -2351,11 +2505,12 @@ function renderDailyAgenda() {
           <div class="time-end">${TIME_ENDS[s.start + s.span - 1]}</div>
           <span class="time-dur">${s.span * 50}m</span>
         </div>
-        <div class="rail"><div class="rail-dot" style="--c: ${s.cancelled ? '#ef4444' : course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4px solid ${s.cancelled ? '#ef4444' : course.color}">
+        <div class="rail"><div class="rail-dot" style="--c: ${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
+        <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4px solid ${isCurrentActive ? '#ef4444' : (s.cancelled ? '#ef4444' : course.color)}">
           <div class="card-top">
-            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${s.cancelled ? '#ef4444' : course.color}">${s.code}</span>
+            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
+              ${isCurrentActive ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${s.cancelled ? '<span class="badge-cancelled">❌ ملغي (أسبوع 1)</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
@@ -2439,13 +2594,20 @@ function renderWeekMatrix() {
 
   // 5. إسقاط الحصص في أماكنها الحقيقية بدقة مع فحص التداخل وتقسيم المسار (Parallel Multi-Lane)
   const effectiveSessions = getActiveEffectiveSessions();
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
   DAYS.forEach((d, dIdx) => {
     const col = dIdx + 2;
+    const isDayToday = (d.full === todayDayName);
     const daySessions = effectiveSessions.filter(s => s.day === d.full);
     const dayTasks = getDayAssessments(d.full);
 
     daySessions.forEach(sess => {
+      const sStartMin = parseMinutes(TIME_STARTS[sess.start]);
+      const sEndMin = parseMinutes(TIME_ENDS[sess.start + sess.span - 1]);
+      const isLiveNow = isDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !sess.cancelled;
+
       // كشف أي تداخل زمني حقيقي بين حصتين فعليتين
       const hasConflict = daySessions.some(other => 
         other !== sess &&
@@ -2477,14 +2639,15 @@ function renderWeekMatrix() {
       posWrap.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       posWrap.style.position = "relative";
       posWrap.style.height = "100%";
-      posWrap.style.zIndex = sess.cancelled ? "3" : "5";
+      posWrap.style.zIndex = isLiveNow ? "10" : (sess.cancelled ? "3" : "5");
 
       posWrap.innerHTML = `
-        <div class="grid-card ${sess.isSolidMain ? 'solid-soft-glow-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.cancelled ? 'is-cancelled-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
-             style="--c: ${sess.cancelled ? '#ef4444' : course.color}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
+        <div class="grid-card ${isLiveNow ? 'is-live-card' : ''} ${sess.isSolidMain ? 'solid-soft-glow-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.cancelled ? 'is-cancelled-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
+             style="--c: ${isLiveNow ? '#ef4444' : (sess.cancelled ? '#ef4444' : course.color)}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <span class="code">${sess.code}</span>
+            <span class="code" style="${isLiveNow ? 'color:#ef4444' : ''}">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
+              ${isLiveNow ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${sess.cancelled ? '<span class="badge-cancelled">❌ ملغي</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
@@ -2796,7 +2959,7 @@ document.getElementById("printBtn").addEventListener("click", () => {
     setView("week");
   }
   
-  // استدعاء فوري ومباشر دون تأخير زمني لمنع متصفح الموبايل من حظر الطباعة
+  // استدعاء فوري ومباشر لضمان فتح نافذة الطباعة على الموبايل
   try {
     window.print();
   } catch (e) {
@@ -2838,7 +3001,7 @@ async function triggerPwaInstall() {
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=13').catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=14').catch(() => {});
 }
 
 initDeviceMode();
