@@ -62,7 +62,6 @@
 
 <style>
 :root {
-  /* الوضع الفاتح الافتراضي (Modern Crisp Light) */
   --bg: #f8fafc;
   --bg-pattern: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.1) 0%, transparent 60%),
                 radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
@@ -95,7 +94,6 @@
   --quiz-color: #ea580c;
   --quiz-glow: rgba(234, 88, 12, 0.12);
 
-  /* باليتة المواد الهندسية الفاخرة */
   --c-mth: #0284c7;
   --c-mdp1: #10b981;
   --c-emc: #8b5cf6;
@@ -281,6 +279,54 @@ body {
   box-shadow: 0 0 8px rgba(2, 132, 199, 0.4);
 }
 
+/* Actions Bar */
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.action-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+.action-btn.icon-only { width: 38px; padding: 0; justify-content: center; }
+.action-btn:hover { color: var(--text-main); border-color: var(--accent); transform: translateY(-1px); }
+.action-btn.active-mode { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
+.action-btn.install-btn { background: var(--accent); color: #ffffff; border-color: var(--accent); display: none; }
+.action-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Instagram Header Button Style */
+.insta-header-btn {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(220, 39, 67, 0.3) !important;
+}
+.insta-header-btn:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 16px rgba(220, 39, 67, 0.45) !important;
+  filter: brightness(1.08);
+}
+.insta-header-btn svg {
+  fill: #ffffff !important;
+  width: 15px;
+  height: 15px;
+}
+
 /* Dynamic Samsung-Style Carousel Banners */
 .banner-carousel-container {
   width: 100%;
@@ -381,36 +427,6 @@ body {
   background: var(--accent);
   opacity: 1;
 }
-
-/* Actions Bar */
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.action-btn {
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  height: 38px;
-  padding: 0 12px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
-  text-decoration: none;
-}
-.action-btn.icon-only { width: 38px; padding: 0; justify-content: center; }
-.action-btn:hover { color: var(--text-main); border-color: var(--accent); transform: translateY(-1px); }
-.action-btn.active-mode { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
-.action-btn.install-btn { background: var(--accent); color: #ffffff; border-color: var(--accent); display: none; }
-.action-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* Dynamic Island Capsule */
 .live-status-capsule {
@@ -824,7 +840,7 @@ body {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, var(--surface) 100%) !important;
 }
 
-/* Free Gap Item - New Break Card Widget */
+/* Free Gap Item - Break Card Widget */
 .break-item {
   display: flex;
   align-items: center;
@@ -1775,6 +1791,12 @@ body {
     </div>
 
     <div class="top-actions">
+      <!-- Instagram Header Button (Idea #1) -->
+      <a href="https://www.instagram.com/cufe_mecha30?stkn=OGFqYm85YWM0dDFk" target="_blank" rel="noopener noreferrer" class="action-btn insta-header-btn" onclick="triggerHaptic('heavy')" title="Instagram Batch 30 Vibes">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Batch 30 📸</span>
+      </a>
+
       <button class="action-btn install-btn" id="pwaTopInstallBtn"><span>📲 Install</span></button>
       <button class="action-btn" id="deviceModeBtn"><span id="deviceModeIcon">💻</span><span id="deviceModeText">PC View</span></button>
       <button class="action-btn icon-only" id="calendarBtn" title="Calendar .ics"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5v-5z"/></svg></button>
@@ -1783,7 +1805,7 @@ body {
     </div>
   </header>
 
-  <!-- Interactive Day Progress Bar (Design Idea #1) -->
+  <!-- Interactive Day Progress Bar -->
   <div class="day-progress-container" id="dayProgressContainer">
     <div class="day-progress-header">
       <span id="dayProgressLabel">Day Progress: 0%</span>
@@ -2132,14 +2154,13 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي المحدث بعد نقل سكشن السوليد لسكشن 3 و 4 ليوم الأحد
+// جدول الحصص الرسمي المحدث
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "17400-56" },
-  // سكشن السوليد لسكشن 3 و 4 الأحد 1:00 إلى 3:50
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
 
@@ -2578,7 +2599,6 @@ function updateAcademicCalendarInfo() {
   selectedGuideWeek = `Week ${currentDisplayWeek}`;
 }
 
-// Day Progress Bar Tracker (Design Idea #1)
 function updateDayProgressBar() {
   const progressBox = document.getElementById("dayProgressContainer");
   const barFill = document.getElementById("dayProgressBar");
@@ -2601,8 +2621,8 @@ function updateDayProgressBar() {
   }
 
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  const startDayMin = 8 * 60; // 8:00 AM
-  const endDayMin = 17 * 60;  // 5:00 PM
+  const startDayMin = 8 * 60;
+  const endDayMin = 17 * 60;
   
   let percentage = 0;
   if (currentMinutes <= startDayMin) {
@@ -2756,7 +2776,6 @@ function renderDailyAgenda() {
     targetHeroSession = activeDaySessions[0];
   }
 
-  // Dynamic Hero Card with Subject Ambient Glow (Design Idea #2)
   if (targetHeroSession) {
     const heroCourse = COURSES[targetHeroSession.code] || { name: targetHeroSession.code, color: "var(--accent)", hex: "#0284c7" };
     const isLive = !!liveSession;
@@ -2810,7 +2829,6 @@ function renderDailyAgenda() {
       laserRendered = true;
     }
 
-    // Break Widget (Design Idea #3)
     if (i > 0 && s.start > maxEndSoFar && !s.cancelled) {
       const gapMins = (s.start - maxEndSoFar) * 50;
       html += `
@@ -3263,7 +3281,6 @@ document.getElementById("deviceModeBtn").addEventListener("click", () => {
   setDeviceMode(isPc ? "mobile" : "pc");
 });
 
-// Dynamic Status Bar Updater
 function updateStatusBarColor(theme) {
   const meta = document.getElementById("themeColorMeta");
   if (meta) {
@@ -3286,7 +3303,6 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   updateStatusBarColor(next);
 });
 
-// محرك الطباعة الفوري لصفحة واحدة A4 بالعرض
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic("heavy");
   if (activeView !== "week") {
@@ -3334,7 +3350,6 @@ async function triggerPwaInstall() {
 
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
 
-// محرك سلايدر البانرات الديناميكي بأسلوب سامسونج
 let currentBannerIdx = 0;
 const bannerTrack = document.getElementById('bannerTrack');
 const totalCarouselBanners = 2;
