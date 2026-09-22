@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,9 +7,9 @@
 
 <!-- PWA Manifest & Icons -->
 <link rel="manifest" href="manifest.json?v=15">
-<meta name="theme-color" content="#080c14">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ME-1 Schedule">
 <link rel="apple-touch-icon" href="icon.svg">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -62,12 +62,55 @@
 
 <style>
 :root {
+  /* الوضع الفاتح الافتراضي (Modern Crisp Light) */
+  --bg: #f8fafc;
+  --bg-pattern: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+  --surface: #ffffff;
+  --surface-alt: #f1f5f9;
+  --surface-glass: rgba(255, 255, 255, 0.88);
+  --border: #e2e8f0;
+  --border-dark: #cbd5e1;
+  --border-glow: rgba(2, 132, 199, 0.2);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #64748b;
+  --accent: #0284c7;
+  --accent-light: #0369a1;
+  --accent-glow: rgba(2, 132, 199, 0.12);
+  --bone: #334155;
+  --bone-glow: rgba(51, 65, 85, 0.08);
+
+  --cancelled-bg: #fef2f2;
+  --cancelled-border: #fca5a5;
+  --cancelled-text: #dc2626;
+
+  --solid-glow-bg: rgba(16, 185, 129, 0.12);
+  --solid-glow-border: #059669;
+  --solid-glow-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+
+  --live-pulse-color: #dc2626;
+  --live-card-glow: 0 0 16px rgba(220, 38, 38, 0.2);
+
+  --quiz-color: #ea580c;
+  --quiz-glow: rgba(234, 88, 12, 0.12);
+
+  /* باليتة المواد الهندسية الفاخرة المحدثة */
+  --c-mth: #0284c7;   /* Linear Algebra - Electric Sky */
+  --c-mdp1: #10b981;  /* SolidWorks - Emerald */
+  --c-emc: #8b5cf6;   /* Dynamics - Royal Violet */
+  --c-mdp2: #f59e0b;  /* Materials - Warm Amber */
+  --c-epe: #f43f5e;   /* Electrical - Neon Rose */
+  --c-gen: #06b6d4;   /* Entrepreneurship - Deep Teal */
+}
+
+[data-theme="dark"] {
   --bg: #070b12;
-  --bg-pattern: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.22) 0%, transparent 55%),
-                radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+  --bg-pattern: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.2) 0%, transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.12) 0%, transparent 50%);
   --surface: #0f172a;
   --surface-alt: #162035;
-  --surface-glass: rgba(15, 23, 42, 0.82);
+  --surface-glass: rgba(15, 23, 42, 0.84);
   --border: #1e293b;
   --border-dark: #2c3c58;
   --border-glow: rgba(56, 189, 248, 0.35);
@@ -82,7 +125,7 @@
   --bone: #eae3d5;
   --bone-glow: rgba(234, 227, 213, 0.15);
 
-  --cancelled-bg: rgba(239, 68, 68, 0.06);
+  --cancelled-bg: rgba(239, 68, 68, 0.08);
   --cancelled-border: rgba(239, 68, 68, 0.35);
   --cancelled-text: #f87171;
 
@@ -96,46 +139,12 @@
   --quiz-color: #f97316;
   --quiz-glow: rgba(249, 115, 22, 0.25);
 
-  --c-gen: #38bdf8;
-  --c-mth: #0ea5e9;
-  --c-emc: #818cf8;
-  --c-mdp1: #10b981;
-  --c-mdp2: #06b6d4;
-  --c-epe: #f43f5e;
-}
-
-[data-theme="light"] {
-  --bg: #f8fafc;
-  --bg-pattern: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
-  --surface: #ffffff;
-  --surface-alt: #f1f5f9;
-  --surface-glass: rgba(255, 255, 255, 0.92);
-  --border: #cbd5e1;
-  --border-dark: #94a3b8;
-  --border-glow: rgba(2, 132, 199, 0.25);
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --text-subtle: #64748b;
-  --accent: #0284c7;
-  --accent-light: #0369a1;
-  --accent-glow: rgba(2, 132, 199, 0.12);
-  --bone: #334155;
-  --bone-glow: rgba(51, 65, 85, 0.08);
-
-  --cancelled-bg: #fef2f2;
-  --cancelled-border: #fca5a5;
-  --cancelled-text: #dc2626;
-
-  --solid-glow-bg: rgba(16, 185, 129, 0.15);
-  --solid-glow-border: #059669;
-  --solid-glow-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
-
-  --live-pulse-color: #dc2626;
-  --live-card-glow: 0 0 16px rgba(220, 38, 38, 0.2);
-
-  --quiz-color: #ea580c;
-  --quiz-glow: rgba(234, 88, 12, 0.12);
+  --c-mth: #38bdf8;
+  --c-mdp1: #34d399;
+  --c-emc: #a78bfa;
+  --c-mdp2: #fbbf24;
+  --c-epe: #fb7185;
+  --c-gen: #22d3ee;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -170,20 +179,20 @@ body {
   border: 1px solid var(--border-glow);
   border-radius: 20px;
   padding: 16px 20px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 .uni-title {
   font-size: 10.5px;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent-light);
+  color: var(--accent);
 }
 .faculty-title {
   font-size: 12px;
@@ -211,7 +220,7 @@ body {
   background: linear-gradient(135deg, #0284c7 0%, #8b5cf6 100%);
   color: #fff;
   letter-spacing: 0.06em;
-  box-shadow: 0 0 12px rgba(2, 132, 199, 0.45);
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.35);
 }
 .container.pc-mode .dept-title { font-size: 28px; }
 
@@ -231,8 +240,45 @@ body {
   padding: 2px 8px;
   border-radius: 9999px;
   background: var(--accent-glow);
-  color: var(--accent-light);
-  border: 1px solid var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+/* Day Progress Bar Widget */
+.day-progress-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.day-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.day-progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: var(--surface-alt);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.day-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #0284c7 0%, #10b981 100%);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.4);
 }
 
 /* Dynamic Samsung-Style Carousel Banners */
@@ -264,15 +310,15 @@ body {
   gap: 12px;
   direction: rtl;
   text-align: right;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
 }
 .banner-festive {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%);
-  border: 1.5px solid #38bdf8;
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%);
+  border: 1.5px solid var(--accent);
 }
 .banner-task {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(2, 132, 199, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%);
   border: 1.5px solid #10b981;
 }
 .banner-card .festive-icon {
@@ -288,11 +334,11 @@ body {
   flex: 1;
 }
 .banner-card .festive-msg strong {
-  color: #38bdf8;
+  color: var(--accent);
   font-weight: 800;
 }
 .banner-card.banner-task .festive-msg strong {
-  color: #34d399;
+  color: #059669;
 }
 .banner-action-link {
   display: inline-flex;
@@ -306,7 +352,7 @@ body {
   font-weight: 700;
   font-size: 11px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
   transition: transform 0.15s ease, background 0.15s ease;
 }
 .banner-action-link:hover {
@@ -325,14 +371,14 @@ body {
   height: 7px;
   border-radius: 50%;
   background: var(--text-subtle);
-  opacity: 0.4;
+  opacity: 0.3;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 .carousel-dots .dot.active {
   width: 20px;
   border-radius: 10px;
-  background: var(--accent-light);
+  background: var(--accent);
   opacity: 1;
 }
 
@@ -357,12 +403,12 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
   text-decoration: none;
 }
 .action-btn.icon-only { width: 38px; padding: 0; justify-content: center; }
-.action-btn:hover { color: var(--text-main); border-color: var(--accent-light); transform: translateY(-1px); }
-.action-btn.active-mode { background: var(--accent-glow); color: var(--accent-light); border-color: var(--accent-light); }
+.action-btn:hover { color: var(--text-main); border-color: var(--accent); transform: translateY(-1px); }
+.action-btn.active-mode { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
 .action-btn.install-btn { background: var(--accent); color: #ffffff; border-color: var(--accent); display: none; }
 .action-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
@@ -380,7 +426,7 @@ body {
   justify-content: space-between;
   gap: 12px;
   font-size: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
 }
 .live-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .live-indicator {
@@ -395,26 +441,22 @@ body {
 }
 .live-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .live-text strong { color: var(--text-main); }
-.live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-light); }
+.live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent); }
 
-/* UP NEXT & LIVE HERO CARD */
+/* UP NEXT & LIVE HERO CARD WITH DYNAMIC BACKDROP GLOW */
 .up-next-hero {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
-  border: 1.5px solid var(--border-glow);
-  border-radius: 18px;
-  padding: 16px 18px;
+  border-radius: 20px;
+  padding: 18px 20px;
   margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.22);
   position: relative;
   overflow: hidden;
   animation: cardCascade 0.3s ease forwards;
-}
-[data-theme="light"] .up-next-hero {
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 .up-next-top {
   display: flex;
@@ -432,14 +474,14 @@ body {
   gap: 5px;
 }
 .up-next-badge.is-live {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.15);
   color: #ef4444;
   border: 1px solid #ef4444;
   animation: liveBadgePulse 1.8s infinite;
 }
 .up-next-badge.is-upcoming {
   background: var(--accent-glow);
-  color: var(--accent-light);
+  color: var(--accent);
   border: 1px solid var(--accent);
 }
 @keyframes liveBadgePulse {
@@ -454,7 +496,7 @@ body {
   color: var(--text-muted);
 }
 .up-next-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--text-main);
   letter-spacing: -0.01em;
@@ -471,9 +513,9 @@ body {
   font-weight: 700;
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--accent-light);
-  padding: 3px 8px;
-  border-radius: 6px;
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -499,7 +541,7 @@ body {
   font-size: 10px;
   font-weight: 800;
   color: #ef4444;
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.12);
   border: 1px solid rgba(239, 68, 68, 0.4);
   padding: 1px 6px;
   border-radius: 4px;
@@ -519,19 +561,19 @@ body {
 .realtime-laser-line {
   flex: 1;
   height: 2px;
-  background: linear-gradient(90deg, #ef4444 0%, rgba(239, 68, 68, 0.15) 100%);
+  background: linear-gradient(90deg, #ef4444 0%, rgba(239, 68, 68, 0.1) 100%);
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
 }
 
 /* LIVE CARD GLOW IN TIMELINE & GRID */
 .timeline-card.is-live-card, .grid-card.is-live-card {
-  box-shadow: var(--live-card-glow), 0 4px 14px rgba(0,0,0,0.25) !important;
+  box-shadow: var(--live-card-glow), 0 4px 14px rgba(0,0,0,0.12) !important;
   border-color: #ef4444 !important;
   border-left-color: #ef4444 !important;
 }
 .badge-live-now {
-  background: rgba(239, 68, 68, 0.22) !important;
+  background: rgba(239, 68, 68, 0.18) !important;
   color: #ef4444 !important;
   border: 1px solid #ef4444 !important;
   font-size: 8.5px !important;
@@ -578,8 +620,8 @@ body {
   border-radius: 12px;
   outline: none;
   cursor: pointer;
-  border-left: 4px solid var(--accent-light);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-left: 4px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 /* Manual Week Preview Switcher */
@@ -610,7 +652,7 @@ body {
 
 /* Dynamics Monday 3-Slots Switcher Banner */
 .dynamics-switcher-banner {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.16) 0%, var(--surface) 100%);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%);
   border: 1.5px solid var(--c-emc);
   border-radius: 16px;
   padding: 12px 16px;
@@ -618,7 +660,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.1);
 }
 .dyn-banner-top {
   display: flex;
@@ -649,10 +691,10 @@ body {
   transition: all 0.2s ease;
 }
 .dyn-pill-btn.active {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   color: #ffffff !important;
-  border-color: #6366f1;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+  border-color: #8b5cf6;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
 }
 .dyn-pill-btn.active span {
   color: #ffffff !important;
@@ -705,7 +747,7 @@ body {
 .day-btn .today-tag {
   font-size: 8px;
   font-weight: 800;
-  color: var(--accent-light);
+  color: var(--accent);
 }
 .day-btn.has-quiz {
   border: 1px solid var(--quiz-color);
@@ -718,15 +760,15 @@ body {
 }
 .day-btn.active {
   background: var(--surface);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 .day-btn.active .day-name, .day-btn.active .day-num {
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
 /* Attendance Badge */
 .badge-attendance {
-  background: rgba(249, 115, 22, 0.18) !important;
+  background: rgba(249, 115, 22, 0.15) !important;
   color: #ea580c !important;
   border: 1px solid #ea580c !important;
   font-size: 8.5px !important;
@@ -743,9 +785,9 @@ body {
 
 /* Cancelled Badge & Style */
 .badge-cancelled {
-  background: rgba(239, 68, 68, 0.2) !important;
-  color: #ef4444 !important;
-  border: 1px solid #ef4444 !important;
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #dc2626 !important;
+  border: 1px solid #fca5a5 !important;
   font-size: 8.5px !important;
   font-weight: 800 !important;
   padding: 1px 5px !important;
@@ -755,7 +797,7 @@ body {
   gap: 2px;
 }
 .is-cancelled-card {
-  opacity: 0.52 !important;
+  opacity: 0.55 !important;
   background: var(--cancelled-bg) !important;
   border-color: var(--cancelled-border) !important;
   border-left-color: #ef4444 !important;
@@ -778,33 +820,38 @@ body {
 
 /* Dynamics Highlight Card */
 .is-dynamics-card {
-  border: 1.5px solid #6366f1 !important;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, var(--surface) 100%) !important;
+  border: 1.5px solid #8b5cf6 !important;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, var(--surface) 100%) !important;
 }
 
-/* Free Gap Item */
+/* Free Gap Item - New Break Card Widget */
 .break-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: -4px 0;
+  margin: -2px 0;
 }
 .break-spacer {
   width: 80px;
   flex-shrink: 0;
 }
-.break-card {
+.break-card-widget {
   flex: 1;
-  border: 1px dashed var(--border);
+  border: 1.5px dashed var(--border-dark);
   background: var(--surface-alt);
-  border-radius: 8px;
-  padding: 6px 10px;
+  border-radius: 12px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
   font-size: 11.5px;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.break-card-widget:hover {
+  border-color: var(--accent);
+  background: var(--surface);
 }
 
 /* Highlight & Dimming */
@@ -817,18 +864,18 @@ body {
 }
 .grid-card.highlighted, .timeline-card.highlighted {
   opacity: 1 !important;
-  box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.2) !important;
+  box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.12) !important;
   transform: scale(1.02);
   z-index: 5;
 }
 
 /* Staggered Cascade */
 @keyframes cardCascade {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .cascade-item {
-  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardCascade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Grid Matrix Layout */
@@ -837,7 +884,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
 }
 .matrix-scroll {
   overflow-x: auto;
@@ -869,7 +916,7 @@ body {
 }
 .matrix-head.is-today {
   background: var(--accent-glow);
-  color: var(--accent-light);
+  color: var(--accent);
 }
 .matrix-head.has-quiz-day {
   border-top: 3px solid var(--quiz-color);
@@ -927,12 +974,12 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 4px solid var(--c);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .grid-card:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 .grid-card .code {
   font-family: 'JetBrains Mono', monospace;
@@ -976,7 +1023,7 @@ body {
   cursor: pointer;
 }
 .matrix-guide-btn {
-  color: var(--accent-light);
+  color: var(--accent);
   cursor: pointer;
   font-size: 10px;
   font-weight: 800;
@@ -1077,7 +1124,7 @@ body {
   font-weight: 700;
   background: var(--surface-alt);
   border: 1px solid var(--border);
-  color: var(--accent-light);
+  color: var(--accent);
   padding: 4px 8px;
   border-radius: 6px;
   cursor: pointer;
@@ -1091,7 +1138,7 @@ body {
   animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .guide-hero {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.16) 0%, var(--surface-alt) 100%);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, var(--surface-alt) 100%);
   border: 1px solid var(--border-glow);
   border-radius: 18px;
   padding: 18px;
@@ -1135,7 +1182,7 @@ body {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(43, 164, 204, 0.3);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
 .guide-card {
@@ -1147,7 +1194,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 .guide-card-head {
   display: flex;
@@ -1179,7 +1226,7 @@ body {
 }
 .guide-label {
   font-weight: 700;
-  color: var(--accent-light);
+  color: var(--accent);
   min-width: 85px;
   flex-shrink: 0;
 }
@@ -1191,7 +1238,7 @@ body {
 .guide-summary-btn {
   background: var(--accent-glow);
   border: 1px solid var(--accent);
-  color: var(--accent-light);
+  color: var(--accent);
   padding: 10px 14px;
   border-radius: 9px;
   font-size: 12px;
@@ -1204,7 +1251,7 @@ body {
   transition: all 0.2s ease;
 }
 .guide-summary-btn:hover {
-  background: rgba(43, 164, 204, 0.25);
+  background: rgba(2, 132, 199, 0.2);
   transform: translateY(-1px);
 }
 
@@ -1216,7 +1263,7 @@ body {
   animation: cardCascade 0.3s forwards;
 }
 .vault-hero {
-  background: linear-gradient(135deg, rgba(43, 164, 204, 0.15) 0%, var(--surface-alt) 100%);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, var(--surface-alt) 100%);
   border: 1px solid var(--border-glow);
   border-radius: 18px;
   padding: 20px;
@@ -1309,7 +1356,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 .category-icons-grid {
   display: grid;
@@ -1332,8 +1379,8 @@ body {
 }
 .capsule-open-btn {
   background: var(--accent-glow);
-  border: 1px solid var(--accent-light);
-  color: var(--accent-light);
+  border: 1px solid var(--accent);
+  color: var(--accent);
   border-radius: 10px;
   padding: 8px 10px;
   font-size: 11px;
@@ -1344,7 +1391,7 @@ body {
   cursor: pointer;
 }
 
-/* Floating Bottom Nav */
+/* Floating Bottom Nav with Active Indicator Pill */
 .bottom-nav {
   position: fixed;
   bottom: 16px;
@@ -1357,12 +1404,13 @@ body {
   -webkit-backdrop-filter: blur(24px);
   border: 1.5px solid var(--border-glow);
   border-radius: 26px;
-  padding: 8px 10px;
+  padding: 6px 8px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
   z-index: 900;
+  overflow: hidden;
 }
 .nav-item {
   border: none;
@@ -1371,12 +1419,13 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  padding: 6px 8px;
+  padding: 6px 12px;
   color: var(--text-muted);
   cursor: pointer;
-  border-radius: 14px;
-  transition: all 0.2s ease;
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  z-index: 2;
 }
 .nav-item svg {
   width: 18px;
@@ -1388,8 +1437,9 @@ body {
   font-weight: 800;
 }
 .nav-item.active {
-  color: var(--accent-light);
-  transform: translateY(-2px);
+  color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 /* Legend */
@@ -1407,7 +1457,7 @@ body {
 .legend-hint {
   font-size: 11px;
   font-weight: 700;
-  color: var(--accent-light);
+  color: var(--accent);
   margin-right: 4px;
 }
 .legend-item {
@@ -1422,7 +1472,7 @@ body {
 }
 .legend-item.active {
   background: var(--surface-alt);
-  color: var(--accent-light);
+  color: var(--accent);
   font-weight: 800;
 }
 .legend-dot {
@@ -1435,7 +1485,7 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(8, 12, 20, 0.8);
+  background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 1000;
@@ -1461,7 +1511,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
 }
 .modal-head {
   padding: 14px 20px;
@@ -1473,7 +1523,7 @@ body {
 .modal-title {
   font-size: 14px;
   font-weight: 800;
-  color: var(--accent-light);
+  color: var(--accent);
 }
 .modal-close {
   background: transparent;
@@ -1516,7 +1566,7 @@ body {
 .capsule-link-btn {
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--accent-light);
+  color: var(--accent);
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 12px;
@@ -1540,7 +1590,7 @@ body {
   border-radius: 16px;
   font-size: 12.5px;
   font-weight: 600;
-  box-shadow: 0 14px 36px rgba(0,0,0,0.35);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.12);
   z-index: 2000;
   opacity: 0;
   pointer-events: none;
@@ -1568,7 +1618,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 15px;
   font-weight: 800;
-  color: var(--accent-light);
+  color: var(--accent);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -1579,11 +1629,11 @@ body {
   padding: 2px 7px;
   border-radius: 6px;
   background: var(--accent-glow);
-  color: var(--accent-light);
+  color: var(--accent);
   border: 1px solid var(--accent);
 }
 .toast-maps-btn {
-  background: #2ba4cc;
+  background: #0284c7;
   color: #ffffff !important;
   padding: 8px 12px;
   border-radius: 8px;
@@ -1597,93 +1647,19 @@ body {
   cursor: pointer;
 }
 
-/* Full Print Engine - A4 Landscape */
+/* Print Engine */
 @media print {
-  @page {
-    size: A4 landscape !important;
-    margin: 6mm !important;
-  }
-  html, body {
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+  @page { size: A4 landscape !important; margin: 6mm !important; }
+  html, body { background: #fff !important; color: #000 !important; padding: 0 !important; margin: 0 !important; }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .dynamics-switcher-banner, .banner-carousel-container, .up-next-hero, .realtime-laser-row, .timeline-wrap,
-  #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
+  .day-progress-container, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
-  .container {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .masthead {
-    display: flex !important;
-    border-bottom: 2px solid #0f172a !important;
-    padding-bottom: 6px !important;
-    margin-bottom: 8px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  .dept-title { font-size: 18px !important; color: #0f172a !important; }
-  .uni-title, .faculty-title, .date-academic-strip { color: #334155 !important; }
-  .matrix-wrapper {
-    display: block !important;
-    box-shadow: none !important;
-    border: 1.5px solid #0f172a !important;
-    border-radius: 4px !important;
-    overflow: visible !important;
-    background: #ffffff !important;
-  }
-  .matrix-scroll { overflow: visible !important; }
-  .matrix-grid {
-    display: grid !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    grid-template-columns: 68px repeat(5, 1fr) !important;
-    grid-template-rows: 26px repeat(9, minmax(48px, auto)) !important;
-  }
-  .matrix-head {
-    background: #f1f5f9 !important;
-    border-bottom: 1.5px solid #0f172a !important;
-    border-right: 1px solid #cbd5e1 !important;
-    color: #0f172a !important;
-    font-size: 11px !important;
-    font-weight: 800 !important;
-    padding: 3px 6px !important;
-  }
-  .matrix-time {
-    background: #f8fafc !important;
-    border-bottom: 1px solid #cbd5e1 !important;
-    border-right: 1.5px solid #0f172a !important;
-    color: #334155 !important;
-    font-size: 9px !important;
-    padding: 2px !important;
-  }
-  .grid-card {
-    box-shadow: none !important;
-    border: 1px solid #94a3b8 !important;
-    border-left: 3.5px solid var(--c) !important;
-    border-radius: 4px !important;
-    padding: 3px 5px !important;
-    background: #ffffff !important;
-    opacity: 1 !important;
-    filter: none !important;
-  }
-  .grid-card .code { font-size: 10px !important; color: #0f172a !important; }
-  .legend {
-    display: flex !important;
-    margin-top: 8px !important;
-    padding: 4px 8px !important;
-    border: 1px solid #cbd5e1 !important;
-    gap: 4px 12px !important;
-  }
+  .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  .matrix-wrapper { display: block !important; box-shadow: none !important; border: 1.5px solid #0f172a !important; background: #fff !important; }
+  .matrix-grid { display: grid !important; width: 100% !important; grid-template-columns: 68px repeat(5, 1fr) !important; }
 }
 </style>
 </head>
@@ -1691,7 +1667,7 @@ body {
 
 <div class="container" id="mainContainer">
 
-  <!-- Celebration Header -->
+  <!-- Header -->
   <header class="masthead" id="mainHeader">
     <div>
       <div class="uni-title">Cairo University · Faculty of Engineering</div>
@@ -1717,19 +1693,26 @@ body {
     </div>
   </header>
 
+  <!-- Interactive Day Progress Bar (Design Idea #1) -->
+  <div class="day-progress-container" id="dayProgressContainer">
+    <div class="day-progress-header">
+      <span id="dayProgressLabel">Day Progress: 0%</span>
+      <span id="dayProgressRemaining">Loading schedule...</span>
+    </div>
+    <div class="day-progress-bar-bg">
+      <div class="day-progress-bar-fill" id="dayProgressBar"></div>
+    </div>
+  </div>
+
   <!-- Dynamic Samsung-Style Carousel Banners -->
   <div class="banner-carousel-container" id="firstWeekBanner">
     <div class="banner-carousel-track" id="bannerTrack">
-      
-      <!-- الكارت الأول: إلغاء محاضرة السوليد -->
       <div class="banner-card banner-festive">
         <div class="festive-icon">🎉</div>
         <div class="festive-msg">
           <strong>تنبيه هام:</strong> بكرة محاضرة السوليد ملغية إن شاء الله، ونبدأ من أول الأسبوع الجاي بإذن الله محاضرات وسكاشن 🥳❤️
         </div>
       </div>
-
-      <!-- الكارت الثاني: تمرين السوليد ووركس -->
       <div class="banner-card banner-task">
         <div class="festive-icon">📐</div>
         <div class="festive-msg">
@@ -1742,10 +1725,7 @@ body {
           </div>
         </div>
       </div>
-
     </div>
-
-    <!-- مؤشرات السلايدر (Samsung Dots) -->
     <div class="carousel-dots" id="carouselDots">
       <span class="dot active" onclick="goToBanner(0)"></span>
       <span class="dot" onclick="goToBanner(1)"></span>
@@ -1774,7 +1754,6 @@ body {
         </select>
       </div>
 
-      <!-- تبديل العرض بين الأسبوع الأول والجدول العادي -->
       <div class="week-preview-switcher">
         <button class="week-prev-btn active" id="viewWeek1Btn" onclick="setManualWeekView(1)">الأسبوع 1 (ملغي)</button>
         <button class="week-prev-btn" id="viewWeekRegularBtn" onclick="setManualWeekView(2)">الجدول العادي (الكامل)</button>
@@ -1785,7 +1764,7 @@ body {
   <!-- Day Selector Strip -->
   <div class="days-bar" id="daysBar"></div>
 
-  <!-- Dynamics Monday 3-Slots Switcher Banner (Week 2 onwards) -->
+  <!-- Dynamics Monday 3-Slots Switcher Banner -->
   <div class="dynamics-switcher-banner" id="dynamicsSwitcherBanner" style="display:none;">
     <div class="dyn-banner-top">
       <span>⚡ سكشن الديناميكا (يوم الاثنين فقط)</span>
@@ -1818,7 +1797,7 @@ body {
 
 </div>
 
-<!-- Elevated Glass Bottom Nav -->
+<!-- Floating Bottom Nav -->
 <nav class="bottom-nav">
   <button class="nav-item" id="navDayBtn" onclick="setView('day')">
     <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
@@ -1916,20 +1895,21 @@ const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1GsVU0lpQXxK
 const ARCHIVE_BATCH29_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
 
 function openSafeDriveLink(url) {
-  triggerHaptic();
+  triggerHaptic("heavy");
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
+// باليتة المواد المحدثة
 const COURSES = {
-  "GEN G119": { name: "Entrepreneurship & Marketing", color: "var(--c-gen)" },
-  "MTH G102": { name: "Linear Algebra & Multivariable Integrals", color: "var(--c-mth)" },
-  "EMC G101": { name: "Dynamics of Rigid Bodies", color: "var(--c-emc)" },
-  "MDP G111": { name: "Computer-Aided Mechanical Drafting (SolidWorks)", color: "var(--c-mdp1)" },
-  "MDP G121": { name: "Materials Science", color: "var(--c-mdp2)" },
-  "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)" },
+  "GEN G119": { name: "Entrepreneurship & Marketing", color: "var(--c-gen)", hex: "#06b6d4" },
+  "MTH G102": { name: "Linear Algebra & Multivariable Integrals", color: "var(--c-mth)", hex: "#0284c7" },
+  "EMC G101": { name: "Dynamics of Rigid Bodies", color: "var(--c-emc)", hex: "#8b5cf6" },
+  "MDP G111": { name: "Computer-Aided Mechanical Drafting (SolidWorks)", color: "var(--c-mdp1)", hex: "#10b981" },
+  "MDP G121": { name: "Materials Science", color: "var(--c-mdp2)", hex: "#f59e0b" },
+  "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)", hex: "#f43f5e" },
 };
 
-// كبسولات المواد الـ 6 كاملة لدليل النجاة لدفعة 30
+// كبسولات المواد
 const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119", name: "Marketing & Entrepreneurship", hours: "2 Credit Hours",
@@ -1975,7 +1955,7 @@ const COURSE_CAPSULES = {
   "MDP G121": {
     code: "MDP G121", name: "Materials Science", hours: "3 Credit Hours",
     grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (كويزات وأساينمنتات مع المعيد وتقييم المعمل)\n• 40 درجة فاينال",
-    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها (انسى شغل ملازم إعدادي).\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح (مبسط جداً أو أكاديمي أعلى) وبيشرحلك من السلايدات والمراجع العلمية مباشرة بدون فبركة أو هبد.",
+    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها (انسى شغل ملازم إعدادي).\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح وبيشرحلك من السلايدات والمراجع العلمية مباشرة.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماتيريال", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" },
       { title: "🤖 أداة Explainpaper لشرح السلايدات بالذكاء الاصطناعي", url: "https://www.explainpaper.com/" }
@@ -2064,14 +2044,13 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي والمحدث
+// جدول الحصص الرسمي المحدث بعد نقل سكشن السوليد لسكشن 3 و 4 ليوم الأحد
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "17400-56" },
-  // نقل سكشن السوليد لسكشن 3 و 4 ليوم الأحد من 1 إلى 3.50
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
 
@@ -2100,7 +2079,6 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301-50" }
 ];
 
-// مواعيد سكشن الديناميكا المعتمدة حصرياً ليوم الإثنين بالسويتش
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
@@ -2124,7 +2102,7 @@ function calculateActualAcademicWeek() {
 let currentDisplayWeek = calculateActualAcademicWeek();
 
 function setManualWeekView(wk) {
-  triggerHaptic();
+  triggerHaptic("light");
   currentDisplayWeek = wk;
   document.getElementById("viewWeek1Btn").className = `week-prev-btn ${wk === 1 ? 'active' : ''}`;
   document.getElementById("viewWeekRegularBtn").className = `week-prev-btn ${wk !== 1 ? 'active' : ''}`;
@@ -2137,9 +2115,14 @@ let activeDay = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : "Sunday";
 const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
-function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// معالجة دقيقة للأسبوع الأول ومنع أي تداخل وهمي
+// Dynamic Haptics (Design Idea #7)
+function triggerHaptic(type = "light") {
+  if (!navigator.vibrate) return;
+  if (type === "heavy") navigator.vibrate([15, 30, 20]);
+  else navigator.vibrate(8);
+}
+
 function getActiveEffectiveSessions() {
   const isWeek1 = (currentDisplayWeek === 1);
   let baseSessions = [];
@@ -2150,7 +2133,6 @@ function getActiveEffectiveSessions() {
       if (s.day === "Sunday" && s.start === 2 && s.code === "EPE G113") return false;
       return true;
     }).map(s => {
-      // سكشن السوليد الموحد للأسبوع الأول
       if (s.code === "MDP G111" && s.type.includes("Tutorial")) {
         return {
           day: "Sunday", start: 2, span: 3, group: "ALL",
@@ -2158,11 +2140,9 @@ function getActiveEffectiveSessions() {
           attendance: true, isSolidMain: true
         };
       }
-      // إلغاء محاضرة السوليد يوم الأربعاء حصرياً في جدول الأسبوع الأول
       if (s.code === "MDP G111" && s.day === "Wednesday" && s.type.includes("Lecture")) {
         return { ...s, cancelled: true };
       }
-      // إلغاء باقي السكاشن للأسبوع الأول
       if (s.type.includes("Tutorial")) {
         return { ...s, cancelled: true };
       }
@@ -2182,7 +2162,6 @@ function getActiveEffectiveSessions() {
       !(s.code === "MDP G111" && s.day === "Monday" && s.type.includes("Tutorial"))
     );
   } else {
-    // الجدول العادي الكامل
     baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
     if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
       baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
@@ -2193,7 +2172,7 @@ function getActiveEffectiveSessions() {
 }
 
 function toggleDynamicsSlot(slotKey) {
-  triggerHaptic();
+  triggerHaptic("light");
   selectedDynamicsSlot = (selectedDynamicsSlot === slotKey) ? null : slotKey;
   render();
 }
@@ -2218,7 +2197,7 @@ function updateFirstWeekBannerUI() {
 
 let toastTimer;
 function showRoomDetails(roomCode) {
-  triggerHaptic();
+  triggerHaptic("heavy");
   const roomMeta = ROOM_INFO[roomCode];
   const box = document.getElementById("toastBox");
   
@@ -2241,7 +2220,7 @@ function showRoomDetails(roomCode) {
 }
 
 function openCourseCapsule(code) {
-  triggerHaptic();
+  triggerHaptic("heavy");
   const modal = document.getElementById("capsuleModal");
   const modalTitle = document.getElementById("capsuleModalTitle");
   const modalBody = document.getElementById("capsuleModalBody");
@@ -2263,11 +2242,11 @@ function openCourseCapsule(code) {
     modalBody.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;border-bottom:1px solid var(--border);">
         <span style="font-size:13px;font-weight:800;color:var(--text-main);">${cap.name}</span>
-        <span style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--accent-glow);color:var(--accent-light);border:1px solid var(--accent);">${cap.hours}</span>
+        <span style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--accent-glow);color:var(--accent);border:1px solid var(--accent);">${cap.hours}</span>
       </div>
 
       <div class="capsule-box" style="border-left: 4px solid var(--accent);">
-        <div class="capsule-box-head" style="color:var(--accent-light);">
+        <div class="capsule-box-head" style="color:var(--accent);">
           <span>📊</span><span>تقسيمة الدرجات والميدتيرم</span>
         </div>
         <div class="capsule-text">${cap.grading}</div>
@@ -2296,9 +2275,9 @@ function openCourseCapsule(code) {
         <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
           <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
           ${cap.playlists.map(p => `
-            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #ef4444;">
+            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #f43f5e;">
               <span style="color:var(--text-main);">${p.title}</span>
-              <span style="color:#ef4444;">▶</span>
+              <span style="color:#f43f5e;">▶</span>
             </a>
           `).join("")}
         </div>
@@ -2468,7 +2447,7 @@ function initAssessments() {
   `).join("");
 }
 
-function openAssessmentModal() { triggerHaptic(); initAssessments(); document.getElementById("assessmentModal").classList.add("open"); }
+function openAssessmentModal() { triggerHaptic("heavy"); initAssessments(); document.getElementById("assessmentModal").classList.add("open"); }
 function closeAssessmentModal() { document.getElementById("assessmentModal").classList.remove("open"); }
 document.getElementById("assessmentModal").addEventListener("click", e => { if (e.target.id === "assessmentModal") closeAssessmentModal(); });
 
@@ -2482,7 +2461,7 @@ function initNotifications() {
   list.innerHTML = NOTIFICATIONS.map(n => `
     <div class="modal-item">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:9.5px;font-weight:800;color:var(--accent-light)">${n.tag || 'Notice'}</span>
+        <span style="font-size:9.5px;font-weight:800;color:var(--accent)">${n.tag || 'Notice'}</span>
         <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${n.date || ''}</span>
       </div>
       <div style="font-size:13px;font-weight:700;color:var(--text-main)">${n.title || ''}</div>
@@ -2492,7 +2471,7 @@ function initNotifications() {
 }
 
 function openNotifModal() {
-  triggerHaptic();
+  triggerHaptic("heavy");
   document.getElementById("notifModal").classList.add("open");
   const allIds = NOTIFICATIONS.map(n => n.id);
   localStorage.setItem("cufe_read_notifs", JSON.stringify(allIds));
@@ -2511,6 +2490,51 @@ function updateAcademicCalendarInfo() {
   selectedGuideWeek = `Week ${currentDisplayWeek}`;
 }
 
+// Day Progress Bar Tracker (Design Idea #1)
+function updateDayProgressBar() {
+  const progressBox = document.getElementById("dayProgressContainer");
+  const barFill = document.getElementById("dayProgressBar");
+  const label = document.getElementById("dayProgressLabel");
+  const remaining = document.getElementById("dayProgressRemaining");
+  
+  if (activeView === "drive" || activeView === "guide") {
+    if (progressBox) progressBox.style.display = "none";
+    return;
+  }
+  if (progressBox) progressBox.style.display = "flex";
+
+  const now = new Date();
+  const dayIndex = now.getDay();
+  if (dayIndex === 5 || dayIndex === 6) {
+    label.textContent = "Weekend Chill";
+    remaining.textContent = "Enjoy your weekend! ☕";
+    barFill.style.width = "100%";
+    return;
+  }
+
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const startDayMin = 8 * 60; // 8:00 AM
+  const endDayMin = 17 * 60;  // 5:00 PM
+  
+  let percentage = 0;
+  if (currentMinutes <= startDayMin) {
+    percentage = 0;
+    label.textContent = "Day Progress: 0%";
+    remaining.textContent = "Classes start at 8:00 AM ☀️";
+  } else if (currentMinutes >= endDayMin) {
+    percentage = 100;
+    label.textContent = "Day Completed: 100%";
+    remaining.textContent = "Great work today! 👏";
+  } else {
+    percentage = Math.round(((currentMinutes - startDayMin) / (endDayMin - startDayMin)) * 100);
+    label.textContent = `Day Progress: ${percentage}%`;
+    const effSessions = getActiveEffectiveSessions().filter(s => s.day === DAYS[dayIndex].full && !s.cancelled);
+    const leftCount = effSessions.filter(s => parseMinutes(TIME_ENDS[s.start + s.span - 1]) > currentMinutes).length;
+    remaining.textContent = leftCount > 0 ? `${leftCount} class${leftCount > 1 ? 'es' : ''} left today` : "Classes finished for today 🎉";
+  }
+  barFill.style.width = `${percentage}%`;
+}
+
 function updateLiveTracker() {
   const now = new Date();
   document.getElementById("liveClock").textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -2525,6 +2549,7 @@ function updateLiveTracker() {
   if (diffDays > 0) {
     dot.className = "live-indicator idle";
     text.innerHTML = `Summer Vacation · <strong>Starts in ${diffDays}d (19 Sep 2026)</strong>`;
+    updateDayProgressBar();
     return;
   }
 
@@ -2534,6 +2559,7 @@ function updateLiveTracker() {
   if (dayIndex === 5 || dayIndex === 6) {
     dot.className = "live-indicator idle";
     text.innerHTML = "Weekend · <strong>No classes scheduled today</strong>";
+    updateDayProgressBar();
     return;
   }
 
@@ -2544,6 +2570,7 @@ function updateLiveTracker() {
   if (todaySessions.length === 0) {
     dot.className = "live-indicator idle";
     text.innerHTML = `No classes scheduled today (${todayName})`;
+    updateDayProgressBar();
     return;
   }
 
@@ -2572,10 +2599,12 @@ function updateLiveTracker() {
     dot.className = "live-indicator idle";
     text.innerHTML = `Classes finished for ${todayName}`;
   }
+  
+  updateDayProgressBar();
 }
 
 function exportToCalendar() {
-  triggerHaptic();
+  triggerHaptic("heavy");
   const effectiveSessions = getActiveEffectiveSessions().filter(s => !s.cancelled);
   let ics = [
     "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Cairo University//ME1 Schedule//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH",
@@ -2639,11 +2668,13 @@ function renderDailyAgenda() {
     targetHeroSession = activeDaySessions[0];
   }
 
+  // Dynamic Hero Card with Subject Ambient Glow (Design Idea #2)
   if (targetHeroSession) {
-    const heroCourse = COURSES[targetHeroSession.code] || { name: targetHeroSession.code, color: "var(--accent)" };
+    const heroCourse = COURSES[targetHeroSession.code] || { name: targetHeroSession.code, color: "var(--accent)", hex: "#0284c7" };
     const isLive = !!liveSession;
+    const heroGlowColor = heroCourse.hex || "#0284c7";
     html += `
-      <div class="up-next-hero">
+      <div class="up-next-hero" style="background: linear-gradient(135deg, ${heroGlowColor}18 0%, var(--surface) 100%); border: 1.5px solid ${heroGlowColor}50; box-shadow: 0 10px 28px ${heroGlowColor}22;">
         <div class="up-next-top">
           <span class="up-next-badge ${isLive ? 'is-live' : 'is-upcoming'}">
             ${isLive ? '🔴 LIVE NOW' : '⚡ UP NEXT'}
@@ -2654,7 +2685,7 @@ function renderDailyAgenda() {
         <div class="up-next-bottom">
           <div class="up-next-room-pill" onclick="showRoomDetails('${targetHeroSession.room}')">📍 ${targetHeroSession.room} ↗</div>
           <span class="up-next-type-tag">${targetHeroSession.isDynSec ? 'Tutorial' : (targetHeroSession.isSolidMain ? 'Tutorial / Lab (ALL)' : targetHeroSession.type)}</span>
-          <span style="margin-right:auto;font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:${isLive ? '#ef4444' : 'var(--accent-light)'}">
+          <span style="margin-right:auto;font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:${isLive ? '#ef4444' : 'var(--accent)'}">
             ${isLive ? `${liveSession.remaining}m left` : (upcomingSession ? `starts in ${upcomingSession.wait}m` : 'Next Class')}
           </span>
         </div>
@@ -2677,7 +2708,7 @@ function renderDailyAgenda() {
     const s = daySessions[i];
     const sStartMin = parseMinutes(TIME_STARTS[s.start]);
     const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
-    const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
+    const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)", hex: "#0284c7" };
     const isShared = s.group === "ALL";
 
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
@@ -2691,12 +2722,16 @@ function renderDailyAgenda() {
       laserRendered = true;
     }
 
+    // Break Widget (Design Idea #3)
     if (i > 0 && s.start > maxEndSoFar && !s.cancelled) {
-      const gap = s.start - maxEndSoFar;
+      const gapMins = (s.start - maxEndSoFar) * 50;
       html += `
         <div class="break-item cascade-item" style="animation-delay:${i * 0.04}s">
           <div class="break-spacer"></div>
-          <div class="break-card">☕ Free Gap · ${gap * 50} mins</div>
+          <div class="break-card-widget">
+            <span>☕ Free Break Period</span>
+            <span style="font-family:'JetBrains Mono';font-size:10.5px;color:var(--accent);">${gapMins} mins</span>
+          </div>
         </div>`;
     }
     if (!s.cancelled) maxEndSoFar = Math.max(maxEndSoFar, s.start + s.span);
@@ -2728,7 +2763,7 @@ function renderDailyAgenda() {
           <div class="card-title">${course.name}</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
-            <span style="font-size:11px;font-weight:800;color:var(--accent-light);cursor:pointer;" onclick="openCourseCapsule('${s.code}')">💡 Guide</span>
+            <span style="font-size:11px;font-weight:800;color:var(--accent);cursor:pointer;" onclick="openCourseCapsule('${s.code}')">💡 Guide</span>
           </div>
         </div>
       </div>`;
@@ -2933,7 +2968,7 @@ function renderLegend() {
 }
 
 function toggleHighlight(code) {
-  triggerHaptic();
+  triggerHaptic("light");
   highlightedCourse = (highlightedCourse === code) ? null : code;
   renderLegend();
   if (activeView === "week") renderWeekMatrix();
@@ -2954,7 +2989,7 @@ function renderGuideScreen() {
       <div class="guide-hero">
         <div class="guide-hero-top">
           <div class="guide-title"><span>📖</span><span>Weekly Academic Guide</span></div>
-          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
+          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent)">BATCH 30</span>
         </div>
         <div class="week-tabs-scroll">
           ${(availableWeeks.length > 0 ? availableWeeks : ["Week 1", "Week 2"]).map(w => `
@@ -2992,7 +3027,7 @@ function renderGuideScreen() {
     </div>`;
 }
 
-function selectGuideWeek(week) { triggerHaptic(); selectedGuideWeek = week; renderGuideScreen(); }
+function selectGuideWeek(week) { triggerHaptic("light"); selectedGuideWeek = week; renderGuideScreen(); }
 
 function renderDriveScreen() {
   const container = document.getElementById("viewContainer");
@@ -3004,7 +3039,7 @@ function renderDriveScreen() {
       <div class="vault-hero">
         <div class="vault-hero-top">
           <div class="vault-title"><span>📂</span><span>Academic Vault</span></div>
-          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent-light)">BATCH 30</span>
+          <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent)">BATCH 30</span>
         </div>
         <div class="vault-search-box">
           <svg style="width:16px;height:16px;fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -3048,7 +3083,7 @@ function triggerFirstWeekWelcomeConfetti() {
           particleCount: 75,
           spread: 80,
           origin: { y: 0.2 },
-          colors: ['#38bdf8', '#818cf8', '#10b981', '#f97316', '#f43f5e']
+          colors: ['#0284c7', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e']
         });
       } catch(e) {}
     }, 450);
@@ -3101,12 +3136,12 @@ function render() {
   updateAcademicCalendarInfo();
 }
 
-function setView(mode) { triggerHaptic(); activeView = mode; render(); }
-function selectDay(day) { triggerHaptic(); activeDay = day; renderDaysBar(); renderDailyAgenda(); updateDynamicsBannerUI(); }
+function setView(mode) { triggerHaptic("light"); activeView = mode; render(); }
+function selectDay(day) { triggerHaptic("light"); activeDay = day; renderDaysBar(); renderDailyAgenda(); updateDynamicsBannerUI(); }
 
 document.getElementById("sectionSelect").value = activeGroup;
 document.getElementById("sectionSelect").addEventListener("change", e => {
-  triggerHaptic();
+  triggerHaptic("heavy");
   activeGroup = e.target.value;
   localStorage.setItem("cufe_active_group", activeGroup);
   render();
@@ -3135,26 +3170,28 @@ function setDeviceMode(mode) {
 }
 
 document.getElementById("deviceModeBtn").addEventListener("click", () => {
-  triggerHaptic();
+  triggerHaptic("light");
   const isPc = document.getElementById("mainContainer").classList.contains("pc-mode");
   setDeviceMode(isPc ? "mobile" : "pc");
 });
 
+// ثيم افتراضي Light Mode
 function initTheme() {
-  const saved = localStorage.getItem("cufe_theme") || "dark";
+  const saved = localStorage.getItem("cufe_theme") || "light";
   document.documentElement.setAttribute("data-theme", saved);
 }
 
 document.getElementById("themeBtn").addEventListener("click", () => {
-  triggerHaptic();
-  const next = (document.documentElement.getAttribute("data-theme") === "dark") ? "light" : "dark";
+  triggerHaptic("light");
+  const current = document.documentElement.getAttribute("data-theme") || "light";
+  const next = (current === "dark") ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("cufe_theme", next);
 });
 
-// محرك الطباعة الفوري
+// محرك الطباعة
 document.getElementById("printBtn").addEventListener("click", () => {
-  triggerHaptic();
+  triggerHaptic("heavy");
   if (activeView !== "week") {
     setView("week");
   }
@@ -3183,7 +3220,7 @@ window.addEventListener('beforeinstallprompt', e => {
 });
 
 async function triggerPwaInstall() {
-  triggerHaptic();
+  triggerHaptic("heavy");
   if (isIos) {
     alert("لإضافة التطبيق في الآيفون 🍏:\n• اضغط علامة المشاركة بالأسفل\n• اختر Add to Home Screen");
     return;
