@@ -196,40 +196,105 @@ body {
   border: 1px solid var(--accent-light);
 }
 
-/* First Week Welcome Banner */
-.first-week-celebration-banner {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%);
-  border: 1.5px solid #38bdf8;
-  border-radius: 16px;
-  padding: 14px 18px;
+/* Dynamic Samsung-Style Carousel Banners */
+.banner-carousel-container {
+  width: 100%;
   margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.banner-carousel-track {
   display: flex;
-  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 10px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.banner-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.banner-card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  border-radius: 16px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: flex-start;
   gap: 12px;
-  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.25);
-  animation: cardCascade 0.35s ease forwards;
   direction: rtl;
   text-align: right;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
 }
-.festive-icon {
-  font-size: 26px;
+.banner-festive {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.22) 0%, rgba(139, 92, 246, 0.22) 100%);
+  border: 1.5px solid #38bdf8;
+}
+.banner-task {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(2, 132, 199, 0.2) 100%);
+  border: 1.5px solid #10b981;
+}
+.banner-card .festive-icon {
+  font-size: 24px;
   flex-shrink: 0;
-  animation: pulseRotate 3s infinite ease-in-out;
+  margin-top: 2px;
 }
-@keyframes pulseRotate {
-  0% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.15) rotate(10deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
-.festive-msg {
+.banner-card .festive-msg {
   font-size: 12.5px;
   line-height: 1.55;
   color: var(--text-main);
   font-weight: 600;
+  flex: 1;
 }
-.festive-msg strong {
+.banner-card .festive-msg strong {
   color: #38bdf8;
   font-weight: 800;
+}
+.banner-card.banner-task .festive-msg strong {
+  color: #34d399;
+}
+.banner-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: #0284c7;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 11px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.banner-action-link:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.carousel-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-subtle);
+  opacity: 0.4;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.carousel-dots .dot.active {
+  width: 20px;
+  border-radius: 10px;
+  background: var(--accent-light);
+  opacity: 1;
 }
 
 /* Actions Bar */
@@ -293,7 +358,7 @@ body {
 .live-text strong { color: var(--text-main); }
 .live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent-light); }
 
-/* UP NEXT & LIVE HERO CARD (دائماً جاهز ونشط) */
+/* UP NEXT & LIVE HERO CARD */
 .up-next-hero {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
   border: 1.5px solid var(--border-glow);
@@ -1509,7 +1574,7 @@ body {
   }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
-  .dynamics-switcher-banner, .first-week-celebration-banner, .up-next-hero, .realtime-laser-row, .timeline-wrap,
+  .dynamics-switcher-banner, .banner-carousel-container, .up-next-hero, .realtime-laser-row, .timeline-wrap,
   #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
@@ -1613,11 +1678,38 @@ body {
     </div>
   </header>
 
-  <!-- First Week Grand Celebration Welcome Banner -->
-  <div class="first-week-celebration-banner" id="firstWeekBanner" style="display:none;">
-    <div class="festive-icon">🎉</div>
-    <div class="festive-msg">
-**تنبيه هام:** بكرة محاضرة السوليد ملغية إن شاء الله، ونبدأ من أول الأسبوع الجاي بإذن الله محاضرات سوليد وسكاشن 🥳❤️ 
+  <!-- Dynamic Samsung-Style Carousel Banners -->
+  <div class="banner-carousel-container" id="firstWeekBanner">
+    <div class="banner-carousel-track" id="bannerTrack">
+      
+      <!-- الكارت الأول: إلغاء محاضرة السوليد -->
+      <div class="banner-card banner-festive">
+        <div class="festive-icon">🎉</div>
+        <div class="festive-msg">
+          <strong>تنبيه هام:</strong> بكرة محاضرة السوليد ملغية إن شاء الله، ونبدأ من أول الأسبوع الجاي بإذن الله محاضرات وسكاشن 🥳❤️
+        </div>
+      </div>
+
+      <!-- الكارت الثاني: تمرين السوليد ووركس -->
+      <div class="banner-card banner-task">
+        <div class="festive-icon">📐</div>
+        <div class="festive-msg">
+          <strong>تمرين SolidWorks مهم جداً:</strong> البشمهندس قال كله يتدرب عليه ويتعلم الأوامر ويرسمه، مهم جداً يا شباب بالتوفيق إن شاء الله ❤️
+          <div>
+            <a href="https://youtu.be/VLVvU0LWBZQ?si=_Z11wUOeSzbZvYyB" target="_blank" rel="noopener noreferrer" class="banner-action-link">
+              <span>🎬 مشاهدة شرح رسم التمرين (Pulley Bracket)</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- مؤشرات السلايدر (Samsung Dots) -->
+    <div class="carousel-dots" id="carouselDots">
+      <span class="dot active" onclick="goToBanner(0)"></span>
+      <span class="dot" onclick="goToBanner(1)"></span>
     </div>
   </div>
 
@@ -1739,7 +1831,7 @@ body {
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title">Announcements & Alerts</div>
-      <button class="modal-close" onclick="closeNotifModal()">&times;</button>
+      <button class="modal-close" onclick="closeNotifModal()">×</button>
     </div>
     <div class="modal-body" id="notifList"></div>
   </div>
@@ -1750,7 +1842,7 @@ body {
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title" style="color: var(--quiz-color);">Quizzes & Deadlines (<span id="modalSectionBadge">ME1-01</span>)</div>
-      <button class="modal-close" onclick="closeAssessmentModal()">&times;</button>
+      <button class="modal-close" onclick="closeAssessmentModal()">×</button>
     </div>
     <div class="modal-body" id="assessmentList"></div>
   </div>
@@ -1761,7 +1853,7 @@ body {
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title" id="capsuleModalTitle">💡 Course Survival Guide</div>
-      <button class="modal-close" onclick="closeCapsuleModal()">&times;</button>
+      <button class="modal-close" onclick="closeCapsuleModal()">×</button>
     </div>
     <div class="modal-body" id="capsuleModalBody"></div>
   </div>
@@ -1810,7 +1902,7 @@ const COURSE_CAPSULES = {
     ],
     playlists: []
   },
-"MTH G102": {
+  "MTH G102": {
     code: "MTH G102", name: "Linear Algebra & Multivariable Integration", hours: "3 Credit Hours",
     grading: "• الميدتيرم من 30 درجة (20 درجة تكامل + 10 درجات جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في درجات أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتشوفه",
     tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتعة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل، والدكتورة بتسأل في المفاهيم بالميد.\n3. ⚠️ تنبيه غياب هام جداً: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف والعدد القليل بيأثر على التعامل.",
@@ -1826,7 +1918,7 @@ const COURSE_CAPSULES = {
       { title: "🎬 تكامل — قناة م. أحمد المغربي", url: "https://youtube.com/playlist?list=PLdlvqNEtwNjpdMGBxLju2472aqK09shpE&si=4FsMR5X5ZEi2fkdm" }
     ]
   },
- "MDP G111": {
+  "MDP G111": {
     code: "MDP G111", name: "Computer-Aided Mechanical Drafting (SolidWorks)", hours: "3 Credit Hours",
     grading: "• 40 درجة Classwork (رسمة كل أسبوع بالسكشن المعيد بيقيمك عليها)\n• 20 درجة ميدتيرم (رسم على البرنامج وإيجاد وزن القطعة بالماتريال المطلوبة)\n• 40 درجة فاينال (نفس نظام الميدتيرم بالوزن)",
     tips: "1. المادة لا تعتمد على الرسم اليدوي، أهم حاجة فهم الأبعاد والـ Thickness وطريقة التعامل مع SolidWorks.\n2. سر تصحيح الميد والفاينال: المعيد مش بيشوف رسمتك! بيطلب منك ترسم بماتريال معينة وتحسب الوزن (Mass) لو راسم بعد غلط الوزن هيطلع غلط.\n3. الجزء النظري مهم جداً وعليه جزء محترم من الدرجات (المسامير، القلاووظ، السوست، الـ Keys، والـ Bearings) وملوش أي مصدر غير سلايدات المحاضرة لأن المنهج بيتغير كل سنة.\n4. سكشن السوليد موحد للدفعة كلها في أول أسبوع، وبيرجع لمواعيد السكاشن المعتادة بعد كدة.",
@@ -1841,7 +1933,7 @@ const COURSE_CAPSULES = {
       { title: "🎬 SolidWorks Tutorials for Beginners (English)", url: "https://www.youtube.com/playlist?list=PLCyNBva9d5vc" }
     ]
   },
- "MDP G121": {
+  "MDP G121": {
     code: "MDP G121", name: "Materials Science", hours: "3 Credit Hours",
     grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (كويزات وأساينمنتات مع المعيد وتقييم المعمل)\n• 40 درجة فاينال",
     tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها (انسى شغل ملازم إعدادي).\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح (مبسط جداً أو أكاديمي أعلى) وبيشرحلك من السلايدات والمراجع العلمية مباشرة بدون فبركة أو هبد.",
@@ -1866,7 +1958,7 @@ const COURSE_CAPSULES = {
     grading: "• 40 درجة فاينال (جدول MCQ زي ميكانيكا إعدادي وفيه None)\n• 20 درجة ميدتيرم (نفس نظام الجدول)\n• 30 درجة كويزين (كويز بـ 20 والتاني بـ 10، والدكتور بيحسب الأعلى من 20)\n• 10 درجات Take Home Exam (THE)",
     tips: "1. من أخف المواد وامتحاناتها بتتكرر، وبيدرسها د. سمير أبو هديمة وهو دكتور محترم ومتعاون جداً وبيحب الحضور ولو حد جاوب في المحاضرة بياخد بونص.\n2. سر درجات الـ 10: بيكون فيه 9 (THE) بتتسلم أسبوعياً كل جمعة (منها MCQ ومقالي من الشيت)، لو سلمت في أول يومين بتاخد بونص، ولو اتأخرت بتاخد ماينس! درجاتها مضمونة وهدية وبيجي منها الميد والفاينال بالحرف.\n3. سكاشن التمارين يوم الإثنين فقط، اختار أي ميعاد من الـ 3 يناسبك واحضر فيه.",
     links: [{ title: "📁 فولدر درايف مادة الديناميكا من دفعة 29", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }],
-   playlists: [
+    playlists: [
       { title: "🎬 سكاشن وتمارين ديناميكا — م. أحمد فوزي", url: "https://youtube.com/playlist?list=PL02pEkARUG7gJgjD7Of0u6nv_dhE-y36I&si=2Rf_nz5QBlo_5ZgP" },
       { title: "🎬 سكاشن وحل مسائل — م. إنجي", url: "https://youtube.com/playlist?list=PLSRWGfn5iCH9hwKUQfbIjGAFyruE6IsCA&si=pzp_Hxt5UixgwwMq" },
       { title: "🎬 شرح ديناميكا — د. سمير هديمه", url: "https://youtube.com/playlist?list=PLYbUaz7Vj6gQPsCYu-Tao-RDAZQ3z_vEh&si=Mh9qfErpHwgVH_-k" }
@@ -1878,7 +1970,7 @@ const DRIVE_DATA = {
   "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "EMC G101": { folder: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G111": { folder: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "MDP G121": { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "MDP G121": { folder: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", lectures: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", sheets: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", exams: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" },
   "EPE G113": { folder: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "GEN G119": { folder: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
@@ -1933,7 +2025,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي والمحدث من الـ PDF[cite: 8]
+// جدول الحصص الرسمي والمحدث من الـ PDF
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
@@ -1968,14 +2060,14 @@ const SESSIONS = [
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301-50" }
 ];
 
-// مواعيد سكشن الديناميكا المعتمدة حصرياً ليوم الإثنين بالسويتش[cite: 1]
+// مواعيد سكشن الديناميكا المعتمدة حصرياً ليوم الإثنين بالسويتش
 const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "19208" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "19208" },
   "3": { day: "Monday", start: 6, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 3)", room: "17201" }
 };
 
-let activeView = "day"; // العرض الافتراضي Daily لتظهر بطاقة UP NEXT فوراً
+let activeView = "day";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
 let selectedDynamicsSlot = null;
@@ -2007,7 +2099,7 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(10); }
 
-// معالجة دقيقة للأسبوع الأول ومنع أي تداخل وهمي لسكشن 3
+// معالجة دقيقة للأسبوع الأول ومنع أي تداخل وهمي
 function getActiveEffectiveSessions() {
   const isWeek1 = (currentDisplayWeek === 1);
   let baseSessions = [];
@@ -2018,6 +2110,7 @@ function getActiveEffectiveSessions() {
       if (s.day === "Sunday" && s.start === 2 && s.code === "EPE G113") return false;
       return true;
     }).map(s => {
+      // سكشن السوليد الموحد للأسبوع الأول
       if (s.code === "MDP G111" && s.type.includes("Tutorial")) {
         return {
           day: "Sunday", start: 2, span: 3, group: "ALL",
@@ -2025,6 +2118,11 @@ function getActiveEffectiveSessions() {
           attendance: true, isSolidMain: true
         };
       }
+      // إلغاء محاضرة السوليد يوم الأربعاء حصرياً في جدول الأسبوع الأول
+      if (s.code === "MDP G111" && s.day === "Wednesday" && s.type.includes("Lecture")) {
+        return { ...s, cancelled: true };
+      }
+      // إلغاء باقي السكاشن للأسبوع الأول
       if (s.type.includes("Tutorial")) {
         return { ...s, cancelled: true };
       }
@@ -2044,6 +2142,7 @@ function getActiveEffectiveSessions() {
       !(s.code === "MDP G111" && s.day === "Monday" && s.type.includes("Tutorial"))
     );
   } else {
+    // الجدول العادي الكامل (كل المحاضرات والسكاشن شغالة بدون إلغاء)
     baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
     if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
       baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
@@ -2074,7 +2173,7 @@ function updateDynamicsBannerUI() {
 function updateFirstWeekBannerUI() {
   const banner = document.getElementById("firstWeekBanner");
   if (!banner) return;
-  banner.style.display = (currentDisplayWeek === 1 && activeView !== "drive" && activeView !== "guide") ? "flex" : "none";
+  banner.style.display = (currentDisplayWeek === 1 && activeView !== "drive" && activeView !== "guide") ? "block" : "none";
 }
 
 let toastTimer;
@@ -2479,7 +2578,6 @@ function renderDailyAgenda() {
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const isSelectedDayToday = (activeDay === todayDayName);
 
-  // حساب الحصة النشطة الآن أو القادمة
   let liveSession = null;
   let upcomingSession = null;
 
@@ -2496,14 +2594,11 @@ function renderDailyAgenda() {
     }
   }
 
-  // إذا لم نكن في نفس اللحظة (مثلاً في الويك إند أو بالليل أو نعاين يوماً آخر)،
-  // يتم عرض أول حصة شغالة في ذلك اليوم كـ UP NEXT دائماً
   let targetHeroSession = liveSession || upcomingSession;
   if (!targetHeroSession && activeDaySessions.length > 0) {
     targetHeroSession = activeDaySessions[0];
   }
 
-  // 1. كارت الـ UP NEXT & LIVE الفخم
   if (targetHeroSession) {
     const heroCourse = COURSES[targetHeroSession.code] || { name: targetHeroSession.code, color: "var(--accent)" };
     const isLive = !!liveSession;
@@ -2545,7 +2640,6 @@ function renderDailyAgenda() {
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)" };
     const isShared = s.group === "ALL";
 
-    // رسم خط الليزر الأحمر المباشر
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
       const nowStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       html += `
@@ -2557,7 +2651,6 @@ function renderDailyAgenda() {
       laserRendered = true;
     }
 
-    // حساب الفترات الفاضية
     if (i > 0 && s.start > maxEndSoFar && !s.cancelled) {
       const gap = s.start - maxEndSoFar;
       html += `
@@ -2616,7 +2709,6 @@ function renderWeekMatrix() {
 
   const grid = document.getElementById("matrixGrid");
   
-  // 1. الخلية الركنية (TIME)
   const corner = document.createElement("div");
   corner.className = "matrix-head corner";
   corner.style.gridColumn = "1";
@@ -2624,7 +2716,6 @@ function renderWeekMatrix() {
   corner.textContent = "TIME";
   grid.appendChild(corner);
 
-  // 2. رؤوس الأيام الخمسة
   DAYS.forEach((d, i) => {
     const isToday = (d.full === todayDayName);
     const dayTasks = getDayAssessments(d.full);
@@ -2644,7 +2735,6 @@ function renderWeekMatrix() {
     grid.appendChild(head);
   });
 
-  // 3. عمود التوقيت الرئيسي على الشمال (9 فترات كاملة)
   SLOTS.forEach((slot, s) => {
     const timeCell = document.createElement("div");
     timeCell.className = "matrix-time";
@@ -2654,7 +2744,6 @@ function renderWeekMatrix() {
     grid.appendChild(timeCell);
   });
 
-  // 4. رسم خانات الشبكة كخلفية ثابتة
   for (let c = 2; c <= 6; c++) {
     for (let r = 2; r <= 10; r++) {
       const emptyBg = document.createElement("div");
@@ -2666,7 +2755,6 @@ function renderWeekMatrix() {
     }
   }
 
-  // 5. إسقاط الحصص في أماكنها الحقيقية بدقة مع فحص التداخل وتقسيم المسار (Parallel Multi-Lane)
   const effectiveSessions = getActiveEffectiveSessions();
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
@@ -3074,6 +3162,45 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js?v=15').catch(() => {});
 }
 
+// محرك سلايدر البانرات الديناميكي بأسلوب سامسونج
+let currentBannerIdx = 0;
+const bannerTrack = document.getElementById('bannerTrack');
+const totalCarouselBanners = 2;
+
+function goToBanner(index) {
+  if (!bannerTrack) return;
+  currentBannerIdx = index;
+  const width = bannerTrack.clientWidth;
+  bannerTrack.scrollTo({ left: width * index, behavior: 'smooth' });
+  updateBannerDots(index);
+}
+
+function updateBannerDots(index) {
+  const dots = document.querySelectorAll('#carouselDots .dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+if (bannerTrack) {
+  bannerTrack.addEventListener('scroll', () => {
+    const width = bannerTrack.clientWidth;
+    const index = Math.round(bannerTrack.scrollLeft / width);
+    if (index !== currentBannerIdx && index >= 0 && index < totalCarouselBanners) {
+      currentBannerIdx = index;
+      updateBannerDots(index);
+    }
+  }, { passive: true });
+
+  setInterval(() => {
+    const bannerContainer = document.getElementById("firstWeekBanner");
+    if (bannerContainer && bannerContainer.style.display !== "none") {
+      currentBannerIdx = (currentBannerIdx + 1) % totalCarouselBanners;
+      goToBanner(currentBannerIdx);
+    }
+  }, 5500);
+}
+
 initDeviceMode();
 initTheme();
 render();
@@ -3083,3 +3210,5 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
+
+
