@@ -2,14 +2,14 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CUFE · Mechanical Engineering — Batch 30</title>
 
-<!-- PWA Manifest & Icons -->
+<!-- PWA Manifest & Dynamic Status Bar Theming -->
 <link rel="manifest" href="manifest.json?v=15">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f8fafc" id="themeColorMeta">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ME-1 Schedule">
 <link rel="apple-touch-icon" href="icon.svg">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -95,13 +95,13 @@
   --quiz-color: #ea580c;
   --quiz-glow: rgba(234, 88, 12, 0.12);
 
-  /* باليتة المواد الهندسية الفاخرة المحدثة */
-  --c-mth: #0284c7;   /* Linear Algebra - Electric Sky */
-  --c-mdp1: #10b981;  /* SolidWorks - Emerald */
-  --c-emc: #8b5cf6;   /* Dynamics - Royal Violet */
-  --c-mdp2: #f59e0b;  /* Materials - Warm Amber */
-  --c-epe: #f43f5e;   /* Electrical - Neon Rose */
-  --c-gen: #06b6d4;   /* Entrepreneurship - Deep Teal */
+  /* باليتة المواد الهندسية الفاخرة */
+  --c-mth: #0284c7;
+  --c-mdp1: #10b981;
+  --c-emc: #8b5cf6;
+  --c-mdp2: #f59e0b;
+  --c-epe: #f43f5e;
+  --c-gen: #06b6d4;
 }
 
 [data-theme="dark"] {
@@ -1647,19 +1647,109 @@ body {
   cursor: pointer;
 }
 
-/* Print Engine */
+/* Full Print Engine - A4 Landscape (Single Page Guaranteed) */
 @media print {
-  @page { size: A4 landscape !important; margin: 6mm !important; }
-  html, body { background: #fff !important; color: #000 !important; padding: 0 !important; margin: 0 !important; }
+  @page {
+    size: A4 landscape !important;
+    margin: 4mm 6mm !important;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .dynamics-switcher-banner, .banner-carousel-container, .up-next-hero, .realtime-laser-row, .timeline-wrap,
   .day-progress-container, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
-  .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
-  .matrix-wrapper { display: block !important; box-shadow: none !important; border: 1.5px solid #0f172a !important; background: #fff !important; }
-  .matrix-grid { display: grid !important; width: 100% !important; grid-template-columns: 68px repeat(5, 1fr) !important; }
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .masthead {
+    display: flex !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    padding: 4px 6px !important;
+    margin-bottom: 6px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .dept-title { font-size: 16px !important; color: #0f172a !important; margin-top: 0 !important; }
+  .uni-title { font-size: 9px !important; color: #475569 !important; }
+  .faculty-title { font-size: 10px !important; color: #475569 !important; }
+  .date-academic-strip { font-size: 10px !important; color: #475569 !important; margin-top: 2px !important; }
+  
+  .matrix-wrapper {
+    display: block !important;
+    box-shadow: none !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 4px !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  .matrix-scroll { overflow: visible !important; }
+  .matrix-grid {
+    display: grid !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    grid-template-columns: 62px repeat(5, 1fr) !important;
+    grid-template-rows: 24px repeat(9, minmax(32px, 36px)) !important;
+  }
+  .matrix-head {
+    background: #f1f5f9 !important;
+    border-bottom: 1.5px solid #0f172a !important;
+    border-right: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    padding: 2px 4px !important;
+  }
+  .matrix-time {
+    background: #f8fafc !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-right: 1.5px solid #0f172a !important;
+    color: #334155 !important;
+    font-size: 8.5px !important;
+    padding: 1px !important;
+  }
+  .grid-card {
+    box-shadow: none !important;
+    border: 1px solid #94a3b8 !important;
+    border-left: 3px solid var(--c) !important;
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  .grid-card .code { font-size: 9.5px !important; color: #0f172a !important; }
+  .grid-card .title { font-size: 8.5px !important; line-height: 1.1 !important; }
+  .grid-card .footer { font-size: 8px !important; padding-top: 1px !important; }
+  
+  .legend {
+    display: flex !important;
+    margin-top: 6px !important;
+    padding: 3px 6px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    gap: 4px 10px !important;
+    font-size: 9px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  .legend-item { padding: 1px 4px !important; font-size: 9px !important; }
 }
 </style>
 </head>
@@ -1899,7 +1989,6 @@ function openSafeDriveLink(url) {
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
-// باليتة المواد المحدثة
 const COURSES = {
   "GEN G119": { name: "Entrepreneurship & Marketing", color: "var(--c-gen)", hex: "#06b6d4" },
   "MTH G102": { name: "Linear Algebra & Multivariable Integrals", color: "var(--c-mth)", hex: "#0284c7" },
@@ -1909,7 +1998,6 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)", hex: "#f43f5e" },
 };
 
-// كبسولات المواد
 const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119", name: "Marketing & Entrepreneurship", hours: "2 Credit Hours",
@@ -1955,7 +2043,7 @@ const COURSE_CAPSULES = {
   "MDP G121": {
     code: "MDP G121", name: "Materials Science", hours: "3 Credit Hours",
     grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (كويزات وأساينمنتات مع المعيد وتقييم المعمل)\n• 40 درجة فاينال",
-    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها (انسى شغل ملازم إعدادي).\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح وبيشرحلك من السلايدات والمراجع العلمية مباشرة.",
+    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها.\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح وبيشرحلك من السلايدات والمراجع العلمية مباشرة.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماتيريال", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" },
       { title: "🤖 أداة Explainpaper لشرح السلايدات بالذكاء الاصطناعي", url: "https://www.explainpaper.com/" }
@@ -2051,6 +2139,7 @@ const SESSIONS = [
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "17400-56" },
+  // سكشن السوليد لسكشن 3 و 4 الأحد 1:00 إلى 3:50
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
 
@@ -2116,7 +2205,6 @@ const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 
 function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
 
-// Dynamic Haptics (Design Idea #7)
 function triggerHaptic(type = "light") {
   if (!navigator.vibrate) return;
   if (type === "heavy") navigator.vibrate([15, 30, 20]);
@@ -3175,10 +3263,18 @@ document.getElementById("deviceModeBtn").addEventListener("click", () => {
   setDeviceMode(isPc ? "mobile" : "pc");
 });
 
-// ثيم افتراضي Light Mode
+// Dynamic Status Bar Updater
+function updateStatusBarColor(theme) {
+  const meta = document.getElementById("themeColorMeta");
+  if (meta) {
+    meta.setAttribute("content", theme === "dark" ? "#070b12" : "#f8fafc");
+  }
+}
+
 function initTheme() {
   const saved = localStorage.getItem("cufe_theme") || "light";
   document.documentElement.setAttribute("data-theme", saved);
+  updateStatusBarColor(saved);
 }
 
 document.getElementById("themeBtn").addEventListener("click", () => {
@@ -3187,19 +3283,22 @@ document.getElementById("themeBtn").addEventListener("click", () => {
   const next = (current === "dark") ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("cufe_theme", next);
+  updateStatusBarColor(next);
 });
 
-// محرك الطباعة
+// محرك الطباعة الفوري لصفحة واحدة A4 بالعرض
 document.getElementById("printBtn").addEventListener("click", () => {
   triggerHaptic("heavy");
   if (activeView !== "week") {
     setView("week");
   }
-  try {
-    window.print();
-  } catch (e) {
-    window.open(window.location.href, '_blank');
-  }
+  setTimeout(() => {
+    try {
+      window.print();
+    } catch (e) {
+      window.open(window.location.href, '_blank');
+    }
+  }, 150);
 });
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
