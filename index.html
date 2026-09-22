@@ -24,6 +24,8 @@
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "be8af091-ec34-4809-bb64-4729e6ffc306",
+      serviceWorkerPath: "OneSignalSDKWorker.js",
+      serviceWorkerParam: { scope: "/schedule/" },
       notifyButton: {
         enable: true,
       },
@@ -467,7 +469,7 @@ body {
   gap: 8px;
   margin: 6px 0 10px;
   position: relative;
-  z-10;
+  z-index: 10;
 }
 .realtime-laser-badge {
   font-family: 'JetBrains Mono', monospace;
@@ -3224,3 +3226,5 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
+
+
