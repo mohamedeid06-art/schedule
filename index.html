@@ -32,11 +32,24 @@
           enable: true,
           position: 'bottom-left',
           size: 'medium',
-          showCredit: false
+          showCredit: false,
+          displayPredicate: function() {
+            return !OneSignal.Notifications.permission;
+          }
         },
         allowLocalhostAsSecureOrigin: true,
       });
-      await OneSignal.Notifications.requestPermission();
+
+      OneSignal.Notifications.addEventListener("permissionChange", function(permission) {
+        if (permission) {
+          const bell = document.getElementById("onesignal-bell-container");
+          if (bell) bell.style.display = "none";
+        }
+      });
+
+      if (!OneSignal.Notifications.permission) {
+        await OneSignal.Notifications.requestPermission();
+      }
     } catch (err) {
       console.error("OneSignal Init Error:", err);
     }
@@ -2051,22 +2064,23 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي والمحدث من الـ PDF
+// جدول الحصص الرسمي والمحدث
 const SESSIONS = [
   // الأحد
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "17400-56" },
+  // نقل سكشن السوليد لسكشن 3 و 4 ليوم الأحد من 1 إلى 3.50
+  { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
+  { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
 
   // الاثنين
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
-  { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)" },
-  { day: "Monday", start: 2, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Monday", start: 2, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
+  { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: true },
   { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "17202-148" },
   { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "17301-56" },
-  { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148" },
+  { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: true },
 
   // الثلاثاء
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
@@ -2081,8 +2095,8 @@ const SESSIONS = [
   { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
 
   // الخميس
-  { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50" },
-  { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50" },
+  { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: true },
+  { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: true },
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301-50" }
 ];
 
@@ -2168,7 +2182,7 @@ function getActiveEffectiveSessions() {
       !(s.code === "MDP G111" && s.day === "Monday" && s.type.includes("Tutorial"))
     );
   } else {
-    // الجدول العادي الكامل (كل المحاضرات والسكاشن شغالة بدون إلغاء)
+    // الجدول العادي الكامل
     baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
     if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
       baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
