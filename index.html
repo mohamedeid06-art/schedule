@@ -24,6 +24,7 @@
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "be8af091-ec34-4809-bb64-4729e6ffc306",
+      safari_web_id: "web.onesignal.auto.35c3b21f-3634-4ed2-bd52-fd09e2637415",
       serviceWorkerPath: "sw.js",
       serviceWorkerParam: { scope: "/schedule/" },
       notifyButton: {
@@ -3173,10 +3174,6 @@ async function triggerPwaInstall() {
 }
 
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=15').catch(() => {});
-}
 
 // محرك سلايدر البانرات الديناميكي بأسلوب سامسونج
 let currentBannerIdx = 0;
