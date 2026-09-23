@@ -367,6 +367,10 @@ body {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%);
   border: 1.5px solid #10b981;
 }
+.banner-dynamics {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(2, 132, 199, 0.12) 100%);
+  border: 1.5px solid #8b5cf6;
+}
 .banner-card .festive-icon {
   font-size: 24px;
   flex-shrink: 0;
@@ -386,6 +390,9 @@ body {
 .banner-card.banner-task .festive-msg strong {
   color: #059669;
 }
+.banner-card.banner-dynamics .festive-msg strong {
+  color: #8b5cf6;
+}
 .banner-action-link {
   display: inline-flex;
   align-items: center;
@@ -400,6 +407,14 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
   transition: transform 0.15s ease, background 0.15s ease;
+}
+.banner-action-link.dyn-link {
+  background: #8b5cf6;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+.banner-action-link.dyn-link:hover {
+  background: #7c3aed;
+  transform: translateY(-1px);
 }
 .banner-action-link:hover {
   background: #0369a1;
@@ -1407,7 +1422,7 @@ body {
   cursor: pointer;
 }
 
-/* Floating Bottom Nav with Active Indicator Pill */
+/* Floating Bottom Nav */
 .bottom-nav {
   position: fixed;
   bottom: 16px;
@@ -1791,7 +1806,7 @@ body {
     </div>
 
     <div class="top-actions">
-      <!-- Instagram Header Button (Idea #1) -->
+      <!-- Instagram Header Button -->
       <a href="https://www.instagram.com/cufe_mecha30?stkn=OGFqYm85YWM0dDFk" target="_blank" rel="noopener noreferrer" class="action-btn insta-header-btn" onclick="triggerHaptic('heavy')" title="Instagram Batch 30 Vibes">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         <span>Batch 30 📸</span>
@@ -1819,12 +1834,16 @@ body {
   <!-- Dynamic Samsung-Style Carousel Banners -->
   <div class="banner-carousel-container" id="firstWeekBanner">
     <div class="banner-carousel-track" id="bannerTrack">
+      
+      <!-- الكارت الأول: إلغاء محاضرة السوليد -->
       <div class="banner-card banner-festive">
         <div class="festive-icon">🎉</div>
         <div class="festive-msg">
           <strong>تنبيه هام:</strong> بكرة محاضرة السوليد ملغية إن شاء الله، ونبدأ من أول الأسبوع الجاي بإذن الله محاضرات وسكاشن 🥳❤️
         </div>
       </div>
+
+      <!-- الكارت الثاني: تمرين السوليد ووركس -->
       <div class="banner-card banner-task">
         <div class="festive-icon">📐</div>
         <div class="festive-msg">
@@ -1837,10 +1856,28 @@ body {
           </div>
         </div>
       </div>
+
+      <!-- الكارت الثالث: تسجيل أعمال سنة مادة الديناميكا -->
+      <div class="banner-card banner-dynamics">
+        <div class="festive-icon">⚡</div>
+        <div class="festive-msg">
+          <strong>تسجيل أعمال سنة الديناميكا (هام جداً):</strong> رابط تسجيل بيانات أعمال السنة لجميع طلاب الدفعة لاستلام الامتحانات الأسبوعية (Take Home Exams) على البريد المسجل.
+          <div>
+            <a href="https://sites.google.com/eng.cu.edu.eg/planedynamics100" target="_blank" rel="noopener noreferrer" class="banner-action-link dyn-link">
+              <span>📝 تسجيل بيانات أعمال السنة (Plane Dynamics)</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- مؤشرات السلايدر (Samsung Dots) محدثة لـ 3 كروت -->
     <div class="carousel-dots" id="carouselDots">
       <span class="dot active" onclick="goToBanner(0)"></span>
       <span class="dot" onclick="goToBanner(1)"></span>
+      <span class="dot" onclick="goToBanner(2)"></span>
     </div>
   </div>
 
@@ -3350,9 +3387,10 @@ async function triggerPwaInstall() {
 
 if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
 
+// محرك سلايدر البانرات الديناميكي المحدث (3 كروت)
 let currentBannerIdx = 0;
 const bannerTrack = document.getElementById('bannerTrack');
-const totalCarouselBanners = 2;
+const totalCarouselBanners = 3;
 
 function goToBanner(index) {
   if (!bannerTrack) return;
