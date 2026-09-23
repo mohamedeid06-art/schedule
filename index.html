@@ -67,7 +67,7 @@
                 radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
   --surface: #ffffff;
   --surface-alt: #f1f5f9;
-  --surface-glass: rgba(255, 255, 255, 0.88);
+  --surface-glass: rgba(255, 255, 255, 0.92);
   --border: #e2e8f0;
   --border-dark: #cbd5e1;
   --border-glow: rgba(2, 132, 199, 0.2);
@@ -108,7 +108,7 @@
                 radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.12) 0%, transparent 50%);
   --surface: #0f172a;
   --surface-alt: #162035;
-  --surface-glass: rgba(15, 23, 42, 0.84);
+  --surface-glass: rgba(15, 23, 42, 0.9);
   --border: #1e293b;
   --border-dark: #2c3c58;
   --border-glow: rgba(56, 189, 248, 0.35);
@@ -145,7 +145,11 @@
   --c-gen: #22d3ee;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 
 body {
   background-color: var(--bg);
@@ -154,7 +158,7 @@ body {
   color: var(--text-main);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height: 100vh;
-  padding: 16px 12px 135px;
+  padding: 16px 12px 140px;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -474,7 +478,7 @@ body {
 .live-text strong { color: var(--text-main); }
 .live-time-now { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--accent); }
 
-/* UP NEXT & LIVE HERO CARD WITH DYNAMIC BACKDROP GLOW */
+/* UP NEXT & LIVE HERO CARD */
 .up-next-hero {
   border-radius: 20px;
   padding: 18px 20px;
@@ -797,7 +801,7 @@ body {
   color: var(--accent);
 }
 
-/* Attendance Badge */
+/* Badges */
 .badge-attendance {
   background: rgba(249, 115, 22, 0.15) !important;
   color: #ea580c !important;
@@ -814,7 +818,6 @@ body {
   box-shadow: inset -3.5px 0 0 #ea580c !important;
 }
 
-/* Cancelled Badge & Style */
 .badge-cancelled {
   background: rgba(239, 68, 68, 0.15) !important;
   color: #dc2626 !important;
@@ -828,20 +831,18 @@ body {
   gap: 2px;
 }
 .is-cancelled-card {
-  opacity: 0.55 !important;
   background: var(--cancelled-bg) !important;
-  border-color: var(--cancelled-border) !important;
-  border-left-color: #ef4444 !important;
+  border: 1px solid var(--cancelled-border) !important;
+  border-left: 4.5px solid #ef4444 !important;
 }
-.is-cancelled-card .title {
+.is-cancelled-card .card-title {
   text-decoration: line-through !important;
-  color: var(--text-subtle) !important;
+  opacity: 0.75 !important;
 }
 .is-cancelled-card .code {
   color: var(--cancelled-text) !important;
 }
 
-/* Soft Green Glow for SolidWorks Card */
 .solid-soft-glow-card {
   background: var(--solid-glow-bg) !important;
   border: 1.5px solid var(--solid-glow-border) !important;
@@ -849,13 +850,12 @@ body {
   box-shadow: var(--solid-glow-shadow) !important;
 }
 
-/* Dynamics Highlight Card */
 .is-dynamics-card {
   border: 1.5px solid #8b5cf6 !important;
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, var(--surface) 100%) !important;
 }
 
-/* Free Gap Item - Break Card Widget */
+/* Free Gap Break Item */
 .break-item {
   display: flex;
   align-items: center;
@@ -885,7 +885,7 @@ body {
   background: var(--surface);
 }
 
-/* Highlight & Dimming */
+/* Dimming & Highlighting */
 .grid-card, .timeline-card {
   transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -900,7 +900,6 @@ body {
   z-index: 5;
 }
 
-/* Staggered Cascade */
 @keyframes cardCascade {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1053,23 +1052,9 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
-.matrix-guide-btn {
-  color: var(--accent);
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 800;
-}
-.matrix-links-btn {
-  color: #8b5cf6;
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 800;
-}
-.matrix-roadmap-btn {
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 800;
-}
+.matrix-guide-btn { color: var(--accent); cursor: pointer; font-size: 10px; font-weight: 800; }
+.matrix-links-btn { color: #8b5cf6; cursor: pointer; font-size: 10px; font-weight: 800; }
+.matrix-roadmap-btn { cursor: pointer; font-size: 10px; font-weight: 800; }
 
 /* Daily Timeline */
 .timeline-wrap {
@@ -1082,6 +1067,7 @@ body {
   display: flex;
   gap: 12px;
   position: relative;
+  align-items: stretch;
 }
 .time-col {
   width: 80px;
@@ -1116,6 +1102,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 16px;
+  flex-shrink: 0;
 }
 .rail-dot {
   width: 11px;
@@ -1125,6 +1113,7 @@ body {
   background: var(--surface);
   z-index: 2;
   margin-top: 4px;
+  flex-shrink: 0;
 }
 .rail-line {
   position: absolute;
@@ -1132,6 +1121,8 @@ body {
   bottom: -20px;
   width: 2px;
   background: var(--border);
+  left: 50%;
+  transform: translateX(-50%);
 }
 .timeline-item:last-child .rail-line {
   display: none;
@@ -1143,6 +1134,7 @@ body {
   border-radius: 14px;
   padding: 13px 15px;
   position: relative;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 .card-top {
   display: flex;
@@ -1172,318 +1164,48 @@ body {
   cursor: pointer;
 }
 .capsule-pill-btn {
-  font-size: 11px;
-  font-weight: 800;
-  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 4px 8px;
   border-radius: 6px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   border: 1px solid transparent;
   transition: all 0.15s ease;
 }
-.capsule-pill-btn.guide-pill {
-  color: var(--accent);
-  background: var(--accent-glow);
-  border-color: var(--accent);
-}
-.capsule-pill-btn.links-pill {
-  color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.12);
-  border-color: #8b5cf6;
-}
-.capsule-pill-btn.roadmap-pill {
-  color: #6366f1;
-  background: rgba(99, 102, 241, 0.12);
-  border-color: #6366f1;
-}
-.capsule-pill-btn.mat-roadmap-pill {
-  color: #f59e0b;
-  background: rgba(245, 158, 11, 0.12);
-  border-color: #f59e0b;
-}
-.capsule-pill-btn:hover {
-  transform: translateY(-1px);
-}
+.capsule-pill-btn.guide-pill { color: var(--accent); background: var(--accent-glow); border-color: rgba(2, 132, 199, 0.3); }
+.capsule-pill-btn.links-pill { color: #8b5cf6; background: rgba(139, 92, 246, 0.12); border-color: rgba(139, 92, 246, 0.3); }
+.capsule-pill-btn.roadmap-pill { color: #6366f1; background: rgba(99, 102, 241, 0.12); border-color: rgba(99, 102, 241, 0.3); }
+.capsule-pill-btn.mat-roadmap-pill { color: #f59e0b; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3); }
+.capsule-pill-btn:hover { transform: translateY(-1px); }
 
-/* Roadmap Timeline Styles */
-.roadmap-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 8px;
-}
-.roadmap-step {
-  display: flex;
-  gap: 12px;
-  position: relative;
-}
-.roadmap-step-indicator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 24px;
-  flex-shrink: 0;
-}
-.roadmap-step-circle {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--surface-alt);
-  border: 2px solid var(--border-dark);
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 800;
-  z-index: 2;
-}
-.roadmap-step-line {
-  flex: 1;
-  width: 2px;
-  background: var(--border);
-  margin: 4px 0;
-}
-.roadmap-step:last-child .roadmap-step-line {
-  display: none;
-}
-.roadmap-step.is-done .roadmap-step-circle {
-  background: #10b981;
-  border-color: #10b981;
-  color: #ffffff;
-}
-.roadmap-step.is-current .roadmap-step-circle {
-  background: var(--step-color, #8b5cf6);
-  border-color: var(--step-glow, #a78bfa);
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-  animation: liveBadgePulse 1.8s infinite;
-}
-.roadmap-step-card {
-  flex: 1;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: all 0.2s ease;
-}
-.roadmap-step.is-current .roadmap-step-card {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%);
-  border-color: var(--step-color, #8b5cf6);
-  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.18);
-}
-.roadmap-step-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.roadmap-week-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  font-weight: 800;
-  color: var(--step-color, #8b5cf6);
-}
-.roadmap-date-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-}
-.roadmap-topic-title {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.35;
-}
-.roadmap-the-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 9.5px;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 6px;
-  background: rgba(249, 115, 22, 0.15);
-  color: #ea580c;
-  border: 1px solid #ea580c;
-  width: fit-content;
-  margin-top: 2px;
-}
-.roadmap-sub-row {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 3px;
-  padding-top: 4px;
-  border-top: 1px dashed var(--border);
-}
-.roadmap-sub-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.roadmap-sub-badge {
-  font-size: 8.5px;
-  font-weight: 800;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-
-/* Weekly Guide */
-.guide-container {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.guide-hero {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, var(--surface-alt) 100%);
-  border: 1px solid var(--border-glow);
-  border-radius: 18px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.guide-hero-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.guide-title {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.week-tabs-scroll {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  -webkit-overflow-scrolling: touch;
-}
-.week-tab-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 11.5px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-.week-tab-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
-}
-
-.guide-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--c);
-  border-radius: 16px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-.guide-card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.guide-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--c);
-}
-.guide-name {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 600;
-  margin-top: 2px;
-}
-
-.guide-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 12px;
-  background: var(--surface-alt);
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-}
-.guide-label {
-  font-weight: 700;
-  color: var(--accent);
-  min-width: 85px;
-  flex-shrink: 0;
-}
-.guide-val {
-  color: var(--text-main);
-  line-height: 1.4;
-}
-
-.guide-summary-btn {
-  background: var(--accent-glow);
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 10px 14px;
-  border-radius: 9px;
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.guide-summary-btn:hover {
-  background: rgba(2, 132, 199, 0.2);
-  transform: translateY(-1px);
-}
-
-/* Vault (Drive Hub) */
-.vault-container {
+/* Tasks Hub Full Page Styling */
+.tasks-hub-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  animation: cardCascade 0.3s forwards;
+  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.vault-hero {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, var(--surface-alt) 100%);
-  border: 1px solid var(--border-glow);
-  border-radius: 18px;
-  padding: 20px;
+.tasks-hero {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.12) 0%, var(--surface-alt) 100%);
+  border: 1.5px solid var(--quiz-color);
+  border-radius: 20px;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.08);
 }
-.vault-hero-top {
+.tasks-hero-top {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
-.vault-title {
+.tasks-hero-title {
   font-size: 18px;
   font-weight: 800;
   color: var(--text-main);
@@ -1491,218 +1213,166 @@ body {
   align-items: center;
   gap: 8px;
 }
-.vault-search-box {
+
+/* Stats Bar */
+.tasks-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+.tasks-stat-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.vault-search-box input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text-main);
-  font-size: 13px;
-  width: 100%;
-  font-family: inherit;
-}
-.vault-main-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-@media (max-width: 420px) {
-  .vault-main-links {
-    grid-template-columns: 1fr;
-  }
-}
-.vault-btn-primary {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-size: 12.5px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-.vault-btn-archive {
-  background: var(--surface-alt);
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-@media (max-width: 600px) {
-  .courses-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.course-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
+  padding: 10px 8px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
-.category-icons-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.tasks-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.tasks-stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.open-calendar-hero-btn {
+  background: #ea580c;
+  color: #ffffff !important;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+  transition: transform 0.15s ease;
+}
+.open-calendar-hero-btn:hover {
+  transform: translateY(-1px);
+}
+.subject-pill-filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.sub-filter-pill {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.sub-filter-pill.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+}
+
+/* Take-Home Exam Card */
+.the-exam-card {
+  background: var(--surface);
+  border: 1.5px solid #8b5cf6;
+  border-left: 4.5px solid #8b5cf6;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.08);
+}
+.the-exam-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 6px;
 }
-.cat-icon-btn {
+.the-exam-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #8b5cf6;
+}
+.the-countdown-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.the-time-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.the-time-box {
   background: var(--surface-alt);
-  border: 1px solid var(--border);
+  padding: 8px 10px;
   border-radius: 10px;
-  padding: 8px 4px;
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  gap: 2px;
+}
+.the-time-label {
   color: var(--text-muted);
-  cursor: pointer;
   font-size: 9.5px;
   font-weight: 700;
 }
-.capsule-open-btn {
-  background: var(--accent-glow);
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  border-radius: 10px;
-  padding: 8px 10px;
+.the-time-val {
   font-size: 11px;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
 }
-.capsule-links-open-btn {
-  background: rgba(139, 92, 246, 0.12);
-  border: 1px solid #8b5cf6;
-  color: #8b5cf6;
+.the-bonus-box {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid #10b981;
   border-radius: 10px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   font-size: 11px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-.capsule-roadmap-open-btn {
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid #6366f1;
-  color: #6366f1;
-  border-radius: 10px;
-  padding: 8px 10px;
-  font-size: 11px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-.capsule-mat-roadmap-open-btn {
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid #f59e0b;
-  color: #f59e0b;
-  border-radius: 10px;
-  padding: 8px 10px;
-  font-size: 11px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
+  color: var(--text-main);
+  line-height: 1.45;
+  direction: rtl;
+  text-align: right;
 }
 
-/* Floating Bottom Nav */
-.bottom-nav {
-  position: fixed;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 24px);
-  max-width: 520px;
-  background: var(--surface-glass);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1.5px solid var(--border-glow);
-  border-radius: 26px;
-  padding: 6px 8px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
-  z-index: 900;
-  overflow: hidden;
-}
-.nav-item {
-  border: none;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  padding: 6px 12px;
-  color: var(--text-muted);
-  cursor: pointer;
-  border-radius: 16px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 2;
-}
-.nav-item svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-.nav-item span {
-  font-size: 10px;
-  font-weight: 800;
-}
-.nav-item.active {
-  color: var(--accent);
-  background: var(--accent-glow);
-  transform: translateY(-1px);
-}
-
-/* Legend */
+/* Legend (Clean Original Flexbox Wrapping) */
 .legend {
-  margin-top: 18px;
+  margin-top: 24px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
+  gap: 8px 14px;
   align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 .legend-hint {
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--accent);
   margin-right: 4px;
 }
@@ -1715,6 +1385,7 @@ body {
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 6px;
+  transition: all 0.2s ease;
 }
 .legend-item.active {
   background: var(--surface-alt);
@@ -1727,118 +1398,117 @@ body {
   border-radius: 2px;
 }
 
+/* Floating Bottom Nav (Exact Original Pill Structure) */
+.bottom-nav {
+  position: fixed !important;
+  bottom: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 24px) !important;
+  max-width: 520px !important;
+  background: var(--surface-glass) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1.5px solid var(--border-glow) !important;
+  border-radius: 26px !important;
+  padding: 6px 8px !important;
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12) !important;
+  z-index: 9999 !important;
+  overflow: visible !important;
+}
+.nav-item {
+  border: none !important;
+  background: transparent !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  padding: 6px 12px !important;
+  color: var(--text-muted) !important;
+  cursor: pointer !important;
+  border-radius: 16px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  text-decoration: none !important;
+}
+.nav-item svg {
+  width: 19px !important;
+  height: 19px !important;
+  fill: currentColor !important;
+  transition: transform 0.2s ease !important;
+}
+.nav-item span {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+}
+.nav-item.active {
+  color: var(--accent) !important;
+  background: var(--accent-glow) !important;
+  transform: translateY(-1px) !important;
+}
+.nav-task-badge {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  background: #ea580c;
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 10px;
+  border: 1.5px solid var(--surface);
+}
+.nav-notif-dot {
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  width: 7px;
+  height: 7px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 1.5px solid var(--surface);
+}
+
 /* Modals */
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  z-index: 10000; display: flex; align-items: center; justify-content: center;
+  padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
 }
-.modal-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
 .modal-card {
-  background: var(--surface);
-  border: 1px solid var(--border-dark);
-  border-radius: 20px;
-  width: 100%;
-  max-width: 540px;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+  background: var(--surface); border: 1px solid var(--border-dark); border-radius: 20px;
+  width: 100%; max-width: 540px; max-height: 85vh; display: flex; flex-direction: column;
+  overflow: hidden; box-shadow: 0 24px 48px rgba(0,0,0,0.15);
 }
-.modal-head {
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.modal-title {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--accent);
-}
-.modal-close {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 26px;
-}
-.modal-body {
-  padding: 18px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.capsule-box {
+.modal-head { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: 14px; font-weight: 800; color: var(--accent); }
+.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 26px; }
+.modal-body { padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.modal-item {
   background: var(--surface-alt);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
+  border-radius: 12px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-.capsule-box-head {
-  font-size: 13px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
   gap: 6px;
 }
-.capsule-text {
-  font-size: 12px;
-  color: var(--text-main);
-  line-height: 1.6;
-  white-space: pre-line;
-  direction: rtl;
-  text-align: right;
-}
-.capsule-link-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-decoration: none;
-  transition: all 0.15s ease;
-}
-.capsule-link-btn:hover {
-  background: var(--surface-alt);
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-.capsule-link-btn.dyn-theme {
-  color: #8b5cf6;
-}
-.capsule-link-btn.dyn-theme:hover {
-  border-color: #8b5cf6;
-}
+.capsule-box { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.capsule-box-head { font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+.capsule-text { font-size: 12px; color: var(--text-main); line-height: 1.6; white-space: pre-line; direction: rtl; text-align: right; }
+.capsule-link-btn { background: var(--surface); border: 1px solid var(--border); color: var(--accent); padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; text-decoration: none; }
 
 /* Floating Room Toast */
 .floating-toast {
   position: fixed;
-  bottom: 90px;
+  bottom: 85px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: var(--surface);
@@ -1849,7 +1519,7 @@ body {
   font-size: 12.5px;
   font-weight: 600;
   box-shadow: 0 14px 36px rgba(0,0,0,0.12);
-  z-index: 2000;
+  z-index: 10001;
   opacity: 0;
   pointer-events: none;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1905,7 +1575,322 @@ body {
   cursor: pointer;
 }
 
-/* Full Print Engine - A4 Landscape */
+/* Monthly Calendar Modal */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 10px; }
+.cal-day-name { text-align: center; font-size: 10.5px; font-weight: 800; color: var(--text-muted); padding: 4px 0; }
+.cal-day-cell { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 8px; min-height: 52px; padding: 4px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: all 0.15s ease; }
+.cal-day-cell:hover { border-color: var(--accent); background: var(--surface); }
+.cal-day-cell.other-month { opacity: 0.3; }
+.cal-day-cell.has-event { border-color: #ea580c; background: rgba(234, 88, 12, 0.06); }
+.cal-day-cell.today { border-color: var(--accent); background: var(--accent-glow); }
+.cal-day-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 800; color: var(--text-main); }
+.cal-dots-row { display: flex; gap: 2px; flex-wrap: wrap; }
+.cal-event-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+/* Roadmap Timeline */
+.roadmap-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.roadmap-step {
+  display: flex;
+  gap: 12px;
+  position: relative;
+}
+.roadmap-step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+.roadmap-step-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--step-color);
+  background: var(--surface);
+  color: var(--step-color);
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  z-index: 2;
+}
+.roadmap-step.is-done .roadmap-step-circle {
+  background: var(--step-color);
+  color: #ffffff;
+}
+.roadmap-step.is-current .roadmap-step-circle {
+  background: var(--step-color);
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--step-glow);
+}
+.roadmap-step-line {
+  flex: 1;
+  width: 2px;
+  background: var(--border);
+  margin-top: 2px;
+}
+.roadmap-step:last-child .roadmap-step-line {
+  display: none;
+}
+.roadmap-step-card {
+  flex: 1;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.roadmap-step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 800;
+}
+.roadmap-week-tag { color: var(--step-color); }
+.roadmap-date-tag { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+.roadmap-topic-title { font-size: 12px; font-weight: 700; color: var(--text-main); }
+.roadmap-the-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.12);
+  padding: 2px 6px;
+  border-radius: 5px;
+  width: fit-content;
+}
+.roadmap-sub-row {
+  display: flex;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.roadmap-sub-badge {
+  border: 1px solid var(--border);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+/* Vault / Drive Page */
+.vault-container, .guide-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.vault-hero, .guide-hero {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vault-hero-top, .guide-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vault-title, .guide-title {
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vault-search-box {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.vault-search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text-main);
+  width: 100%;
+}
+.vault-main-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.vault-btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.vault-btn-archive {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.courses-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.container.pc-mode .courses-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+.course-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--c);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.category-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 4px;
+}
+.cat-icon-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.capsule-open-btn, .capsule-links-open-btn, .capsule-roadmap-open-btn, .capsule-mat-roadmap-open-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.capsule-links-open-btn { color: #8b5cf6; }
+.capsule-roadmap-open-btn { color: #6366f1; }
+.capsule-mat-roadmap-open-btn { color: #f59e0b; }
+
+/* Guide Page Specifics */
+.week-tabs-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+.week-tab-btn {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.week-tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--c);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.guide-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.guide-code { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 800; }
+.guide-name { font-size: 11.5px; color: var(--text-muted); font-weight: 700; }
+.guide-row { font-size: 11.5px; display: flex; gap: 6px; }
+.guide-label { font-weight: 800; color: var(--text-muted); flex-shrink: 0; }
+.guide-val { color: var(--text-main); }
+.guide-summary-btn {
+  margin-top: 4px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* View Back Navigation */
+.view-back-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.view-back-btn {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--text-main);
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Print Engine */
 @media print {
   @page {
     size: A4 landscape !important;
@@ -1925,7 +1910,7 @@ body {
   .top-actions, .control-bar, .days-bar, .bottom-nav, .modal-overlay,
   .floating-toast, .live-status-capsule, .vault-container, .guide-container,
   .dynamics-switcher-banner, .banner-carousel-container, .up-next-hero, .realtime-laser-row, .timeline-wrap,
-  .day-progress-container, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
+  .day-progress-container, .tasks-hub-container, #deviceModeBtn, #calendarBtn, #printBtn, #themeBtn, #pwaTopInstallBtn {
     display: none !important;
   }
   .container {
@@ -2057,10 +2042,9 @@ body {
     </div>
   </div>
 
-  <!-- Dynamic Samsung-Style Carousel Banners -->
+  <!-- Dynamic Carousel Banners -->
   <div class="banner-carousel-container" id="firstWeekBanner">
     <div class="banner-carousel-track" id="bannerTrack">
-      
       <div class="banner-card banner-festive">
         <div class="festive-icon">🎉</div>
         <div class="festive-msg">
@@ -2093,7 +2077,6 @@ body {
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="carousel-dots" id="carouselDots">
@@ -2112,7 +2095,7 @@ body {
     <span class="live-time-now" id="liveClock"></span>
   </div>
 
-  <!-- Control Bar with Week 1 / Regular Preview Switcher -->
+  <!-- Control Bar -->
   <div class="control-bar" id="scheduleControlBar">
     <div class="group-controls">
       <div style="display:flex;align-items:center;gap:8px;">
@@ -2190,7 +2173,7 @@ body {
     <span>Drive</span>
   </button>
 
-  <button class="nav-item" id="navTaskBtn" onclick="openAssessmentModal()">
+  <button class="nav-item" id="navTaskBtn" onclick="setView('tasks')">
     <span class="nav-task-badge" id="navTaskBadge" style="display:none">0</span>
     <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
     <span>Tasks</span>
@@ -2226,17 +2209,6 @@ body {
   </div>
 </div>
 
-<!-- Deadlines Modal -->
-<div class="modal-overlay" id="assessmentModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <div class="modal-title" style="color: var(--quiz-color);">Quizzes & Deadlines (<span id="modalSectionBadge">ME1-01</span>)</div>
-      <button class="modal-close" onclick="closeAssessmentModal()">×</button>
-    </div>
-    <div class="modal-body" id="assessmentList"></div>
-  </div>
-</div>
-
 <!-- Course Survival Capsule Modal -->
 <div class="modal-overlay" id="capsuleModal">
   <div class="modal-card">
@@ -2248,7 +2220,7 @@ body {
   </div>
 </div>
 
-<!-- Specific Course Links Modal (Links Capsule) -->
+<!-- Specific Course Links Modal -->
 <div class="modal-overlay" id="linksModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -2278,6 +2250,30 @@ body {
       <button class="modal-close" onclick="closeMaterialsRoadmapModal()">×</button>
     </div>
     <div class="modal-body" id="materialsRoadmapModalBody"></div>
+  </div>
+</div>
+
+<!-- Monthly Interactive Calendar Modal -->
+<div class="modal-overlay" id="fullMonthCalendarModal">
+  <div class="modal-card" style="max-width: 600px;">
+    <div class="modal-head">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:16px;">📅</span>
+        <span class="modal-title" id="calMonthTitle" style="color:var(--accent);">Academic Calendar</span>
+      </div>
+      <button class="modal-close" onclick="closeMonthCalendarModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <button class="action-btn" style="height:30px;font-size:11px;" onclick="changeCalendarMonth(-1)">◀ السابق</button>
+        <span id="calCurrentMonthName" style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:var(--text-main);">Month Year</span>
+        <button class="action-btn" style="height:30px;font-size:11px;" onclick="changeCalendarMonth(1)">التالي ▶</button>
+      </div>
+
+      <div class="calendar-grid" id="fullCalendarGrid"></div>
+
+      <div id="calDayEventDetails" style="margin-top:12px;display:none;background:var(--surface-alt);border:1px solid var(--border);border-radius:12px;padding:12px;"></div>
+    </div>
   </div>
 </div>
 
@@ -2314,7 +2310,19 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)", hex: "#f43f5e" },
 };
 
-// خريطة منهج الديناميكا أسبوع بأسبوع
+// مواعيد تسليم الـ Take-Home Exams بالدقيقة
+const DYNAMICS_THE_EXAMS = [
+  { no: 1, name: "P200", start: "2026-09-25T19:00:00", deadline: "2026-10-09T19:00:00", examSheet: "https://drive.google.com/file/d/1G7wTSWQLSn8PGk4c76svzkVSXQMhf2Mk/view" },
+  { no: 2, name: "P135", start: "2026-10-09T19:00:00", deadline: "2026-10-16T19:00:00", examSheet: "https://drive.google.com/file/d/1oKKepdc3UJwztVRZI78XUFI7ozdit_S6/view" },
+  { no: 3, name: "P106", start: "2026-10-16T19:00:00", deadline: "2026-10-23T19:00:00", examSheet: "https://drive.google.com/file/d/1sQ8z2c6KSWZL3fqcDahuhjJZzS0WMLdZ/view" },
+  { no: 4, name: "P137v", start: "2026-10-23T19:00:00", deadline: "2026-10-30T19:00:00", examSheet: "https://drive.google.com/file/d/12uXkipt3rKvCEDTyhkvf4JctloCF516X/view" },
+  { no: 5, name: "P305", start: "2026-10-30T19:00:00", deadline: "2026-11-06T19:00:00", examSheet: "https://drive.google.com/file/d/18pbuDHPOQJafJeRllipa_LITQrvNGRNL/view" },
+  { no: 6, name: "P3501v", start: "2026-11-06T19:00:00", deadline: "2026-11-20T19:00:00", examSheet: "https://drive.google.com/file/d/15W7Yzak8s7pk9nwh5ZJAVyqOjC-_HDOR/view" },
+  { no: 7, name: "P356v", start: "2026-11-20T19:00:00", deadline: "2026-11-27T19:00:00", examSheet: "https://drive.google.com/file/d/1q6bJ5m6JnebbxDBhDU5GOIK1babvcP2A/view" },
+  { no: 8, name: "P325v", start: "2026-11-27T19:00:00", deadline: "2026-12-04T19:00:00", examSheet: "https://drive.google.com/file/d/1e5oGzzi4uTT4oay7hhHB0bP-yjmZhaoq/view" },
+  { no: 9, name: "P464", start: "2026-12-04T19:00:00", deadline: "2026-12-11T19:00:00", examSheet: "https://drive.google.com/file/d/1pIlU32osszyhQyhqZklv1Xal9PsvwEMd/view" }
+];
+
 let DYNAMICS_ROADMAP_STEPS = [
   { week: 1, title: "Course Introduction & Kinematics of Particles (Rectilinear Motion)", date: "Sep 20 - Sep 24", the: "—" },
   { week: 2, title: "Curvilinear Motion (Cartesian & Polar Coordinates)", date: "Sep 27 - Oct 01", the: "THE 1 Release" },
@@ -2332,7 +2340,6 @@ let DYNAMICS_ROADMAP_STEPS = [
   { week: 14, title: "Comprehensive Revision & Final Exams Preparation", date: "Dec 20 - Dec 24", the: "🎯 Final Revision" }
 ];
 
-// خريطة منهج الماتيريال المفرغة بدقة من صورة الجدول الرسمي
 const MATERIALS_ROADMAP_STEPS = [
   { week: 1, date: "Sep 21", lecture: "Introduction", tut: "No Tutorial (ملغي)", lab: null },
   { week: 2, date: "Sep 28", lecture: "Interatomic Bonding", tut: "Interatomic Bonding (Tut)", lab: null },
@@ -2351,22 +2358,22 @@ const MATERIALS_ROADMAP_STEPS = [
   { week: 15, date: "Dec 28", lecture: "Revision", tut: "Revision", lab: null }
 ];
 
-// كبسولة الروابط الرسمية لمادة الديناميكا
 const COURSE_CUSTOM_LINKS = {
   "EMC G101": {
-    title: "⚡ روابط أعمال السنة ومصادر د. سمير هديمة",
+    title: "⚡ روابط ومصادر د. سمير هديمة المعتمدة",
     desc: "جميع الروابط، الفورمز، درايف المحاضرات، وشيتات المتابعة المعتمدة لمادة الديناميكا (Plane Dynamics 100) لدفعة 30 ❤️",
     sheets: [
-      { title: "📁 فولدر درايف دكتور سمير الرسمي للمادة", url: "https://drive.google.com/drive/u/0/mobile/folders/1n9oTRCo6iE-k-MLe4rCGgVSnjuwtG1h_" },
-      { title: "📨 فورم طلب إعادة إرسال الامتحانات (THE) بأي وقت", url: "https://docs.google.com/forms/d/1DShk2ahQ0otap45Flo6RJbmlKzP4ScgKMfFRXnBAmO8/viewform?edit_requested=true" },
+      { title: "📁 فولدر درايف دكتور سمير الرسمي للمادة", url: "https://drive.google.com/drive/folders/1n9oTRCo6iE-k-MLe4rCGgVSnjuwtG1h_" },
+      { title: "📚 فولدر محاضرات الـ PDF وشيتات التمارين", url: "https://drive.google.com/drive/folders/1fbGTWzv6phQayo0PzQAxfRg7v1kyk5_Y" },
       { title: "📝 رابط تسجيل بيانات أعمال السنة (فورم الموقع الرسمي)", url: "https://sites.google.com/eng.cu.edu.eg/planedynamics100" },
+      { title: "📨 فورم طلب إعادة إرسال الامتحانات (THE) بأي وقت", url: "https://docs.google.com/forms/d/1DShk2ahQ0otap45Flo6RJbmlKzP4ScgKMfFRXnBAmO8/viewform?edit_requested=true" },
       { title: "📊 شيت متابعة أعمال السنة والدرجات الرسمية", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo" },
       { title: "📅 جدول ومواعيد المحاضرات بالتفصيل", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=807310814" },
       { title: "❓ شيت الأسئلة والاستفسارات الخاصة بالكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=1442330133" },
       { title: "📋 شيت الإكسيل المجمع لكل روابط الكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=534482259" }
     ],
     social: [
-      { title: "👥 جروب الفيسبوك الرسمي للمادة (MECN100)", url: "https://www.facebook.com/groups/MECN100" }
+      { title: "👥 جروب الفيسبوك الرسمي للمادة (MECN100)", url: "https://www.facebook.com/groups/138903046461531/" }
     ],
     videos: [
       { title: "🎬 شرح محاضرات الديناميكا يوتيوب — د. سمير هديمه", url: "https://www.youtube.com/playlist?list=PLYbUaz7Vj6gQPsCYu-Tao-RDAZQ3z_vEh" },
@@ -2380,7 +2387,7 @@ const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119", name: "Marketing & Entrepreneurship", hours: "2 Credit Hours",
     grading: "• 40 درجة كويزات (6 كويزات بيتاخد أعلى 4)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
-    tips: "الكويزات بتيجي كل سنة متكررة بالحرف وبنفس ترتيب الأسئلة والاختيارات من الـ Test Bank! \nالميدتيرم والفاينال بيكونوا تجميعة من نفس الـ 6 كويزات دي بالحرف، يعني معاك الـ 6 كويزات تضمن الـ A+ في جيبك.\n\nتنبيه: كل شابتر ليه كويز واحد، ما عدا شابتر 1 ليه كويزين (40 سؤال: 20 في كويز 1 و20 في كويز 6).",
+    tips: "الكويزات بتيجي كل سنة متكررة بالحرف وبنفس ترتيب الأسئلة والاختيارات من الـ Test Bank!\nالميدتيرم والفاينال بيكونوا تجميعة من نفس الـ 6 كويزات دي بالحرف.\n\nتنبيه: كل شابتر ليه كويز واحد، ما عدا شابتر 1 ليه كويزين (40 سؤال: 20 في كويز 1 و20 في كويز 6).",
     links: [
       { title: "📁 فولدر المراجع والـ Test Bank (100 سؤال لكل شابتر)", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" },
       { title: "🎯 فولدر الكويزات المتكررة المضمونة (خلاصة المادة A+)", url: "https://drive.google.com/drive/folders/1utSDriJ1mlgJvZlVEPl9yqichocubE4h" }
@@ -2390,7 +2397,7 @@ const COURSE_CAPSULES = {
   "MTH G102": {
     code: "MTH G102", name: "Linear Algebra & Multivariable Integration", hours: "3 Credit Hours",
     grading: "• الميدتيرم من 30 درجة (20 درجة تكامل + 10 درجات جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في درجات أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتشوفه",
-    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتعة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل، والدكتورة بتسأل في المفاهيم بالميد.\n3. ⚠️ تنبيه غياب هام جداً: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف والعدد القليل بيأثر على التعامل.",
+    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتازة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل.\n3. ⚠️ تنبيه غياب هام: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "💻 تحميل برنامج د. أحمد عبد النبي للكمبيوتر / ويندوز (LectraHub)", url: "https://www.lectrahub-edu.com/" },
@@ -2406,7 +2413,7 @@ const COURSE_CAPSULES = {
   "MDP G111": {
     code: "MDP G111", name: "Computer-Aided Mechanical Drafting (SolidWorks)", hours: "3 Credit Hours",
     grading: "• 40 درجة Classwork (رسمة كل أسبوع بالسكشن المعيد بيقيمك عليها)\n• 20 درجة ميدتيرم (رسم على البرنامج وإيجاد وزن القطعة بالماتريال المطلوبة)\n• 40 درجة فاينال (نفس نظام الميدتيرم بالوزن)",
-    tips: "1. المادة لا تعتمد على الرسم اليدوي، أهم حاجة فهم الأبعاد والـ Thickness وطريقة التعامل مع SolidWorks.\n2. سر تصحيح الميد والفاينال: المعيد مش بيشوف رسمتك! بيطلب منك ترسم بماتريال معينة وتحسب الوزن (Mass) لو راسم بعد غلط الوزن هيطلع غلط.\n3. الجزء النظري مهم جداً وعليه جزء محترم من الدرجات (المسامير، القلاووظ، السوست، الـ Keys، والـ Bearings) وملوش أي مصدر غير سلايدات المحاضرة لأن المنهج بيتغير كل سنة.\n4. سكشن السوليد موحد للدفعة كلها في أول أسبوع، وبيرجع لمواعيد السكاشن المعتادة بعد كدة.",
+    tips: "1. المادة تعتمد على التعامل مع SolidWorks وفهم الأبعاد والـ Thickness.\n2. سر تصحيح الميد والفاينال: حساب الـ Mass بدقة بناءً على الكثافة والأبعاد.\n3. الجزء النظري مهم جداً وعليه جزء من الدرجات ومصدره سلايدات المحاضرة.",
     links: [
       { title: "📁 درايف الدفعة لمادة السوليد", url: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-" },
       { title: "📘 كتاب رسم طيران (جاء منه أغلب رسومات الامتحانات)", url: "https://drive.google.com/file/d/1fxMIKQySXbeZibpLqv_E_FEIb6AR-Q7v/view?usp=drivesdk" },
@@ -2414,14 +2421,13 @@ const COURSE_CAPSULES = {
     ],
     playlists: [
       { title: "🎬 شرح سوليد ووركس ورسم ميكانيكي — م. أحمد أبو الفتوح", url: "https://youtube.com/playlist?list=PL0SkF1E_FGYVe_osPJrpOb67P9vPHNwQC&si=WGy1UkqhjiCkuoPD" },
-      { title: "🎬 كورس أساسيات سوليد ووركس (عربي)", url: "https://youtube.com/playlist?list=PLAAyGuHqGArb8PA0rz67umpZxo62YN6LJ&si=BZ26lY7_tPsE7-ZC" },
-      { title: "🎬 SolidWorks Tutorials for Beginners (English)", url: "https://www.youtube.com/playlist?list=PLCyNBva9d5vc" }
+      { title: "🎬 كورس أساسيات سوليد ووركس (عربي)", url: "https://youtube.com/playlist?list=PLAAyGuHqGArb8PA0rz67umpZxo62YN6LJ&si=BZ26lY7_tPsE7-ZC" }
     ]
   },
   "MDP G121": {
     code: "MDP G121", name: "Materials Science", hours: "3 Credit Hours",
-    grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (كويزات وأساينمنتات مع المعيد وتقييم المعمل)\n• 40 درجة فاينال",
-    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها.\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح وبيشرحلك من السلايدات والمراجع العلمية مباشرة.",
+    grading: "• 20 درجة ميدتيرم (الأسبوع الثامن)\n• 40 درجة أعمال سنة (كويزات وأساينمنتات وتقارير المعمل)\n• 40 درجة فاينال",
+    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس، الـ Atomic structure والـ Stress-Strain Curve أساسي بالميدتيرم.\n2. دكتور ممدوح (الجزء الثاني): الـ Phase diagram والـ Eutectic system.\n3. المعمل: تجارب عملية محددة بالجدول الزمني.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماتيريال", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" },
       { title: "🤖 أداة Explainpaper لشرح السلايدات بالذكاء الاصطناعي", url: "https://www.explainpaper.com/" }
@@ -2431,7 +2437,7 @@ const COURSE_CAPSULES = {
   "EPE G113": {
     code: "EPE G113", name: "Electrical & Electronics Engineering (EPE I)", hours: "3 Credit Hours",
     grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة Classwork (أعمال سنة)",
-    tips: "1. المادة جديدة في اللائحة وعبارة عن Circuits & Electronics Fundamentals، الدنيا فيها سهلة وأخف من المعروف عن السيركتس لأن التركيز الأكبر على الـ Basics.\n2. الميدتيرم: بيجي 4 أسئلة كويسين ومباشرين.\n3. الفاينال: 4 أسئلة كل سؤال نقطتين (a, b) يعني إجمالي 8 أسئلة (نص الامتحان تقريباً Circuits والنص التاني Electronics).\n4. المذاكرة المعتمدة: حل ومتابعة بلاي ليست الباشمهندسين بتغطي كل أفكار الامتحان.",
+    tips: "1. الأساسيات مهمة: Circuits & Electronics Fundamentals.\n2. الميدتيرم والفاينال أسئلتهم واضحة ومباشرة من شيتات التمارين وسلايدات الدكاترة.",
     links: [{ title: "📁 فولدر درايف مادة الكهربية من دفعة 29", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }],
     playlists: [
       { title: "🎬 شرح سيركتس وإلكترونكس — م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" },
@@ -2440,8 +2446,8 @@ const COURSE_CAPSULES = {
   },
   "EMC G101": {
     code: "EMC G101", name: "Dynamics of Rigid Bodies", hours: "3 Credit Hours",
-    grading: "• 40 درجة فاينال (جدول MCQ زي ميكانيكا إعدادي وفيه None)\n• 20 درجة ميدتيرم (نفس نظام الجدول)\n• 30 درجة كويزين (كويز بـ 20 والتاني بـ 10، والدكتور بيحسب الأعلى من 20)\n• 10 درجات Take Home Exam (THE)",
-    tips: "1. من أخف المواد وامتحاناتها بتتكرر، وبيدرسها د. سمير أبو هديمة وهو دكتور محترم ومتعاون جداً وبيحب الحضور ولو حد جاوب في المحاضرة بياخد بونص.\n2. سر درجات الـ 10: بيكون فيه 9 (THE) بتتسلم أسبوعياً كل جمعة (منها MCQ ومقالي من الشيت)، لو سلمت في أول يومين بتاخد بونص، ولو اتأخرت بتاخد ماينس! درجاتها مضمونة وهدية وبيجي منها الميد والفاينال بالحرف.\n3. سكاشن التمارين يوم الإثنين فقط، اختار أي ميعاد من الـ 3 يناسبك واحضر فيه.",
+    grading: "• 40 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة كويزين (الأعلى من 20 درجة)\n• 10 درجات Take Home Exam (THE)",
+    tips: "1. البونص الزمني للـ THE:\n   • أول 12 ساعة: +10% بونص.\n   • أول يومين: +5% بونص.\n   • التسليم قبل الديدلاين: 100% الدرجة.\n   • التأخير: خصم 10% لكل أسبوع تأخير!\n2. متابعة شيت الدرجات الأسبوعي يوم الجمعة.",
     links: [{ title: "📁 فولدر درايف مادة الديناميكا من دفعة 29", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }],
     playlists: []
   }
@@ -2506,9 +2512,8 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 
 function formatTime(start, span) { return `${TIME_STARTS[start]} – ${TIME_ENDS[start + span - 1]}`; }
 
-// جدول الحصص الرسمي المحدث
 const SESSIONS = [
-  // الأحد
+  // Sunday
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
@@ -2516,26 +2521,26 @@ const SESSIONS = [
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
 
-  // الاثنين
+  // Monday
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: true },
   { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "17202-148" },
   { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "17301-56" },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: true },
 
-  // الثلاثاء
+  // Tuesday
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
   { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "1204-(360)" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "7104-360" },
 
-  // الأربعاء
+  // Wednesday
   { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "19208-80" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "3102-306" },
   { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
 
-  // الخميس
+  // Thursday
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: true },
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: true },
   { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301-50" }
@@ -2551,6 +2556,8 @@ let activeView = "day";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
 let selectedDynamicsSlot = null;
+let selectedTasksCourse = "ALL";
+let calViewDate = new Date(2026, 8, 1);
 
 function calculateActualAcademicWeek() {
   const now = new Date();
@@ -2576,7 +2583,10 @@ const jsDay = jsDateNow.getDay();
 let activeDay = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : "Sunday";
 const todayDayName = (jsDay >= 0 && jsDay <= 4) ? DAYS[jsDay].full : null;
 
-function parseMinutes(t) { const [h, m] = t.split(":").map(Number); return h * 60 + m; }
+function parseMinutes(t) { 
+  const [h, m] = t.split(":").map(Number); 
+  return h * 60 + m; 
+}
 
 function triggerHaptic(type = "light") {
   if (!navigator.vibrate) return;
@@ -2653,7 +2663,7 @@ function updateDynamicsBannerUI() {
 function updateFirstWeekBannerUI() {
   const banner = document.getElementById("firstWeekBanner");
   if (!banner) return;
-  banner.style.display = (currentDisplayWeek === 1 && activeView !== "drive" && activeView !== "guide") ? "block" : "none";
+  banner.style.display = (currentDisplayWeek === 1 && activeView !== "drive" && activeView !== "guide" && activeView !== "tasks") ? "block" : "none";
 }
 
 let toastTimer;
@@ -2680,7 +2690,6 @@ function showRoomDetails(roomCode) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
-// دالة خريطة منهج الديناميكا
 function openDynamicsRoadmapModal() {
   triggerHaptic("heavy");
   const modal = document.getElementById("roadmapModal");
@@ -2734,7 +2743,6 @@ function openDynamicsRoadmapModal() {
 function closeRoadmapModal() { document.getElementById("roadmapModal").classList.remove("open"); }
 document.getElementById("roadmapModal").addEventListener("click", e => { if (e.target.id === "roadmapModal") closeRoadmapModal(); });
 
-// دالة خريطة منهج علم المواد المفرغة من الصورة
 function openMaterialsRoadmapModal() {
   triggerHaptic("heavy");
   const modal = document.getElementById("materialsRoadmapModal");
@@ -2795,7 +2803,6 @@ function openMaterialsRoadmapModal() {
 function closeMaterialsRoadmapModal() { document.getElementById("materialsRoadmapModal").classList.remove("open"); }
 document.getElementById("materialsRoadmapModal").addEventListener("click", e => { if (e.target.id === "materialsRoadmapModal") closeMaterialsRoadmapModal(); });
 
-// دالة كبسولة الروابط المخصصة (Links Capsule)
 function openCourseLinksModal(code) {
   triggerHaptic("heavy");
   const modal = document.getElementById("linksModal");
@@ -3010,11 +3017,12 @@ async function syncFromGoogleSheets() {
     console.warn("Using offline fallback data.", e);
   } finally {
     initNotifications();
-    initAssessments();
+    updateTaskBadge();
     renderDaysBar();
     if (activeView === 'week') renderWeekMatrix();
     else if (activeView === 'day') renderDailyAgenda();
     else if (activeView === 'guide') renderGuideScreen();
+    else if (activeView === 'tasks') renderTasksScreen();
   }
 }
 
@@ -3030,20 +3038,30 @@ function getDisplayedDateForDay(dayName) {
   return targetDate;
 }
 
+function getParsedDateObj(dateStr) {
+  if (!dateStr) return null;
+  try {
+    const d = new Date(dateStr);
+    if (!isNaN(d.getTime())) return d;
+    const now = new Date();
+    if (dateStr.includes('/')) {
+      const parts = dateStr.split('/');
+      if (parts.length === 3) return new Date(parts[2], parts[1] - 1, parts[0]);
+    } else {
+      const parsed = new Date(`${dateStr} ${now.getFullYear()}`);
+      if (!isNaN(parsed.getTime())) return parsed;
+    }
+  } catch (e) {}
+  return null;
+}
+
 function isAssessmentUpcoming(dateStr) {
   if (!dateStr) return true;
   try {
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    let targetDate;
-    if (dateStr.includes('/')) {
-      const parts = dateStr.split('/');
-      if (parts.length === 3) targetDate = new Date(parts[2], parts[1] - 1, parts[0]);
-    } else {
-      const parsed = new Date(`${dateStr} ${now.getFullYear()}`);
-      if (!isNaN(parsed.getTime())) targetDate = parsed;
-    }
-    if (!targetDate || isNaN(targetDate.getTime())) return true;
+    const targetDate = getParsedDateObj(dateStr);
+    if (!targetDate) return true;
     targetDate.setHours(23, 59, 59, 999);
     return targetDate >= todayStart;
   } catch (e) {
@@ -3055,21 +3073,9 @@ function isAssessmentInCurrentWeek(aDateStr, dayName) {
   if (!aDateStr) return false;
   const displayedDate = getDisplayedDateForDay(dayName);
   if (!displayedDate) return false;
-  try {
-    const now = new Date();
-    let targetDate;
-    if (aDateStr.includes('/')) {
-      const parts = aDateStr.split('/');
-      if (parts.length === 3) targetDate = new Date(parts[2], parts[1] - 1, parts[0]);
-    } else {
-      const parsed = new Date(`${aDateStr} ${now.getFullYear()}`);
-      if (!isNaN(parsed.getTime())) targetDate = parsed;
-    }
-    if (!targetDate) return false;
-    return targetDate.getDate() === displayedDate.getDate() && targetDate.getMonth() === displayedDate.getMonth();
-  } catch (e) {
-    return false;
-  }
+  const targetDate = getParsedDateObj(aDateStr);
+  if (!targetDate) return false;
+  return targetDate.getDate() === displayedDate.getDate() && targetDate.getMonth() === displayedDate.getMonth();
 }
 
 function getActiveSectionAssessments() {
@@ -3080,37 +3086,371 @@ function getDayAssessments(dayName) {
   return getActiveSectionAssessments().filter(a => a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName));
 }
 
-function initAssessments() {
-  const activeList = getActiveSectionAssessments();
+// دالة حساب الوقت المتبقي بالدقيقة والثانية للـ Take-Home Exams
+function getExactCountdown(deadlineStr) {
+  const target = new Date(deadlineStr);
+  if (isNaN(target.getTime())) return { text: "محدد", isUrgent: false, isPassed: false };
+  const now = new Date();
+  const diff = target.getTime() - now.getTime();
+
+  if (diff <= 0) {
+    return { text: "انتهى الديدلاين ❌", isUrgent: true, isPassed: true };
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+  let text = "";
+  if (days > 0) text += `${days} يوم و `;
+  text += `${hours} س و ${minutes} د`;
+
+  const isUrgent = days === 0;
+  return { text: `باقي: ${text}`, isUrgent, isPassed: false };
+}
+
+function formatExactDateDisplay(dateStr) {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+}
+
+function updateTaskBadge() {
   const badge = document.getElementById("navTaskBadge");
-  if (activeList.length > 0) {
-    badge.textContent = activeList.length;
+  const activeList = getActiveSectionAssessments();
+  const totalCount = activeList.length + DYNAMICS_THE_EXAMS.length;
+  if (totalCount > 0) {
+    badge.textContent = totalCount;
     badge.style.display = "block";
   } else {
     badge.style.display = "none";
   }
-  document.getElementById("modalSectionBadge").textContent = activeGroup;
-
-  const container = document.getElementById("assessmentList");
-  if (activeList.length === 0) {
-    container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:32px 16px;">No upcoming quizzes or tasks.</div>`;
-    return;
-  }
-  container.innerHTML = activeList.map(a => `
-    <div class="modal-item" style="border-left: 4px solid var(--quiz-color)">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:9.5px;font-weight:800;color:var(--quiz-color)">${(a.type || 'TASK').toUpperCase()}</span>
-        <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${a.date || ''}</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--text-main)">${a.code || ''} — ${a.title || ''}</div>
-      <div style="font-size:11.5px;color:var(--text-muted)">${a.desc || ''}</div>
-    </div>
-  `).join("");
 }
 
-function openAssessmentModal() { triggerHaptic("heavy"); initAssessments(); document.getElementById("assessmentModal").classList.add("open"); }
-function closeAssessmentModal() { document.getElementById("assessmentModal").classList.remove("open"); }
-document.getElementById("assessmentModal").addEventListener("click", e => { if (e.target.id === "assessmentModal") closeAssessmentModal(); });
+// دالة تجميع الأحداث والامتحانات للتقويم
+function getAllEventsForCalendar() {
+  const allEvents = [];
+  DYNAMICS_THE_EXAMS.forEach(ex => {
+    const d = getParsedDateObj(ex.deadline);
+    if (d) allEvents.push({ date: d, code: "EMC G101", title: `THE ${ex.no} Deadline (7:00 PM)`, type: "Exam Deadline", color: "#8b5cf6" });
+  });
+  getActiveSectionAssessments().forEach(a => {
+    const d = getParsedDateObj(a.date);
+    if (d) allEvents.push({ date: d, code: a.code, title: a.title, type: a.type || 'Task', color: COURSES[a.code]?.hex || '#ea580c' });
+  });
+  return allEvents;
+}
+
+// Full Tasks View
+function renderTasksScreen() {
+  const container = document.getElementById("viewContainer");
+  const courseKeys = ["ALL", ...Object.keys(COURSES)];
+
+  // حساب الإحصائيات
+  const now = new Date();
+  const activeList = getActiveSectionAssessments();
+  let urgentCount = 0;
+  let nearestDiff = Infinity;
+  let nearestTitle = "لا يوجد";
+
+  DYNAMICS_THE_EXAMS.forEach(ex => {
+    const d = new Date(ex.deadline);
+    const diff = d.getTime() - now.getTime();
+    if (diff > 0) {
+      if (diff < nearestDiff) {
+        nearestDiff = diff;
+        nearestTitle = `THE ${ex.no}`;
+      }
+      if (diff <= 48 * 3600 * 1000) urgentCount++;
+    }
+  });
+
+  activeList.forEach(a => {
+    const d = getParsedDateObj(a.date);
+    if (d) {
+      const diff = d.getTime() - now.getTime();
+      if (diff > 0) {
+        if (diff < nearestDiff) {
+          nearestDiff = diff;
+          nearestTitle = a.title || a.code;
+        }
+        if (diff <= 48 * 3600 * 1000) urgentCount++;
+      }
+    }
+  });
+
+  container.innerHTML = `
+    <div class="tasks-hub-container">
+      <div class="view-back-bar">
+        <button class="view-back-btn" onclick="setView('week')">
+          <span>◀</span><span>الرجوع للجدول</span>
+        </button>
+        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">TASKS & DEADLINES</span>
+      </div>
+
+      <div class="tasks-hero">
+        <div class="tasks-hero-top">
+          <div class="tasks-hero-title">
+            <span>📋</span>
+            <span>Assignments & Quizzes Hub</span>
+          </div>
+          <button class="open-calendar-hero-btn" onclick="openMonthCalendarModal()">
+            <span>📅 تقويم الشهر التفاعلي</span>
+            <span>↗</span>
+          </button>
+        </div>
+
+        <!-- ملخص الإحصائيات السريعة -->
+        <div class="tasks-stats-row">
+          <div class="tasks-stat-card">
+            <span class="tasks-stat-val" style="color:#8b5cf6;">${nearestTitle}</span>
+            <span class="tasks-stat-label">أقرب ديدلاين</span>
+          </div>
+          <div class="tasks-stat-card">
+            <span class="tasks-stat-val" style="color:#ef4444;">${urgentCount}</span>
+            <span class="tasks-stat-label">عاجل (48 ساعة)</span>
+          </div>
+          <div class="tasks-stat-card">
+            <span class="tasks-stat-val" style="color:#10b981;">${DYNAMICS_THE_EXAMS.length + activeList.length}</span>
+            <span class="tasks-stat-label">إجمالي المهام</span>
+          </div>
+        </div>
+
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.45;direction:rtl;text-align:right;">
+          مواعيد تسليم الـ Take-Home Exams بالدقيقة مع حساب توقيت البونص بدقة والعد التنازلي المباشر ⚡
+        </div>
+
+        <div class="subject-pill-filters">
+          ${courseKeys.map(code => `
+            <button class="sub-filter-pill ${selectedTasksCourse === code ? 'active' : ''}" onclick="filterTasksByCourse('${code}')">
+              ${code === 'ALL' ? '🌐 كل المواد' : code}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      ${(selectedTasksCourse === 'ALL' || selectedTasksCourse === 'EMC G101') ? `
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:14px;font-weight:800;color:#8b5cf6;display:flex;align-items:center;gap:6px;">
+              <span>⚡</span><span>Take-Home Exams (الديناميكا المستوية)</span>
+            </div>
+            <span style="font-family:'JetBrains Mono';font-size:11px;font-weight:800;color:var(--text-muted);">9 Exams</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            ${DYNAMICS_THE_EXAMS.map(exam => {
+              const countdown = getExactCountdown(exam.deadline);
+              const isUrgent = countdown.isUrgent;
+
+              return `
+                <div class="the-exam-card cascade-item">
+                  <div class="the-exam-card-head">
+                    <span class="the-exam-name">Exam ${exam.no} — Model (${exam.name})</span>
+                    <span class="the-countdown-badge" style="background:${isUrgent ? 'rgba(239,68,68,0.15)' : 'rgba(139,92,246,0.12)'};color:${isUrgent ? '#ef4444' : '#8b5cf6'};border:1px solid ${isUrgent ? '#ef4444' : '#8b5cf6'};">
+                      ${countdown.text}
+                    </span>
+                  </div>
+
+                  <div class="the-time-grid">
+                    <div class="the-time-box">
+                      <span class="the-time-label">🟢 بداية الامتحان بالدقيقة:</span>
+                      <span class="the-time-val" style="color:#10b981;">${formatExactDateDisplay(exam.start)}</span>
+                    </div>
+                    <div class="the-time-box">
+                      <span class="the-time-label">🔴 الديدلاين النهائي بالدقيقة:</span>
+                      <span class="the-time-val" style="color:#ef4444;">${formatExactDateDisplay(exam.deadline)}</span>
+                    </div>
+                  </div>
+
+                  <div class="the-bonus-box">
+                    💡 <b>نظام البونص المعتمد:</b><br>
+                    • أول 12 ساعة من وقت النزول ⬅️ <b>+10% بونص</b> (110%)<br>
+                    • أول 48 ساعة (يومين) ⬅️ <b>+5% بونص</b> (105%)<br>
+                    • بعد الديدلاين ⬅️ <b>خصم 10%</b> غرامة عن كل أسبوع تأخير.
+                  </div>
+
+                  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:2px;">
+                    <a href="${exam.examSheet}" target="_blank" rel="noopener noreferrer" class="action-btn" style="flex:1;justify-content:center;height:34px;font-size:11px;color:#8b5cf6;border-color:#8b5cf6;">
+                      <span>📥 ورقة الأسئلة العامة PDF</span><span>↗</span>
+                    </a>
+                    <a href="https://docs.google.com/forms/d/1DShk2ahQ0otap45Flo6RJbmlKzP4ScgKMfFRXnBAmO8/viewform?edit_requested=true" target="_blank" rel="noopener noreferrer" class="action-btn" style="flex:1;justify-content:center;height:34px;font-size:11px;">
+                      <span>📨 فورم استرجاع النموذج</span><span>↗</span>
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      ` : ''}
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+        <div style="font-size:14px;font-weight:800;color:var(--text-main);display:flex;align-items:center;gap:6px;">
+          <span>📌</span><span>المهام والكويزات من الشيت المباشر</span>
+        </div>
+        <div id="dynamicTasksSection"></div>
+      </div>
+    </div>
+  `;
+
+  renderDynamicSheetTasks();
+}
+
+function filterTasksByCourse(code) {
+  triggerHaptic("light");
+  selectedTasksCourse = code;
+  renderTasksScreen();
+}
+
+function renderDynamicSheetTasks() {
+  const container = document.getElementById("dynamicTasksSection");
+  if (!container) return;
+
+  let list = getActiveSectionAssessments();
+  if (selectedTasksCourse !== "ALL") {
+    list = list.filter(a => a.code === selectedTasksCourse);
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:28px 16px;background:var(--surface);border-radius:14px;border:1px dashed var(--border);color:var(--text-muted);font-size:12px;">
+        لا توجد مهام إضافية مسجلة لهذه المادة حالياً ✨
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = list.map(a => {
+    const cd = getExactCountdown(a.date);
+    const isUrgent = cd.isUrgent;
+
+    return `
+      <div class="modal-item" style="border-left: 4px solid ${isUrgent ? '#ef4444' : 'var(--quiz-color)'}; background:var(--surface); padding:12px 14px; border-radius:14px; border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span style="font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;background:${isUrgent ? 'rgba(239,68,68,0.15)' : 'var(--quiz-glow)'};color:${isUrgent ? '#ef4444' : 'var(--quiz-color)'}">${(a.type || 'TASK').toUpperCase()}</span>
+            <span style="font-family:'JetBrains Mono';font-size:10.5px;font-weight:700;color:var(--text-muted)">${a.date || ''}</span>
+          </div>
+          <span style="font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:${isUrgent ? '#ef4444' : 'var(--accent)'};background:var(--surface-alt);padding:2px 6px;border-radius:5px;border:1px solid var(--border);">${cd.text}</span>
+        </div>
+        <div style="font-size:13px;font-weight:800;color:var(--text-main);line-height:1.35;">${a.code || ''} — ${a.title || ''}</div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:3px;line-height:1.4;">${a.desc || ''}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+// Full Month Calendar
+function openMonthCalendarModal() {
+  triggerHaptic("heavy");
+  document.getElementById("fullMonthCalendarModal").classList.add("open");
+  renderCalendarMonthGrid();
+}
+
+function closeMonthCalendarModal() {
+  document.getElementById("fullMonthCalendarModal").classList.remove("open");
+}
+document.getElementById("fullMonthCalendarModal").addEventListener("click", e => {
+  if (e.target.id === "fullMonthCalendarModal") closeMonthCalendarModal();
+});
+
+function changeCalendarMonth(delta) {
+  triggerHaptic("light");
+  calViewDate.setMonth(calViewDate.getMonth() + delta);
+  renderCalendarMonthGrid();
+}
+
+function renderCalendarMonthGrid() {
+  const monthNameElem = document.getElementById("calCurrentMonthName");
+  const grid = document.getElementById("fullCalendarGrid");
+  const detailsBox = document.getElementById("calDayEventDetails");
+  detailsBox.style.display = "none";
+
+  const year = calViewDate.getFullYear();
+  const month = calViewDate.getMonth();
+  monthNameElem.textContent = calViewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+  const now = new Date();
+  const isThisMonth = (now.getFullYear() === year && now.getMonth() === month);
+
+  let html = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => `<div class="cal-day-name">${d}</div>`).join("");
+  const allEvents = getAllEventsForCalendar();
+
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const pDay = daysInPrevMonth - i;
+    html += `<div class="cal-day-cell other-month"><span class="cal-day-num">${pDay}</span></div>`;
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const cellDate = new Date(year, month, d);
+    const dayEvents = allEvents.filter(ev => ev.date.getFullYear() === year && ev.date.getMonth() === month && ev.date.getDate() === d);
+    const isToday = isThisMonth && (now.getDate() === d);
+    const hasEv = dayEvents.length > 0;
+
+    html += `
+      <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}')">
+        <span class="cal-day-num">${d}</span>
+        <div class="cal-dots-row">
+          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}: ${ev.title}"></span>`).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  grid.innerHTML = html;
+}
+
+function showCalendarDayDetails(dateIso) {
+  triggerHaptic("light");
+  const detailsBox = document.getElementById("calDayEventDetails");
+  const targetDate = new Date(dateIso);
+  const formatted = targetDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+  const y = targetDate.getFullYear();
+  const m = targetDate.getMonth();
+  const d = targetDate.getDate();
+
+  const events = getAllEventsForCalendar().filter(ev => {
+    return ev.date.getFullYear() === y && ev.date.getMonth() === m && ev.date.getDate() === d;
+  });
+
+  if (!events || events.length === 0) {
+    detailsBox.innerHTML = `
+      <div style="font-size:12px;color:var(--text-muted);display:flex;justify-content:space-between;align-items:center;">
+        <span>📅 ${formatted}</span>
+        <span>لا توجد تسليمات في هذا اليوم</span>
+      </div>
+    `;
+  } else {
+    detailsBox.innerHTML = `
+      <div style="font-size:12px;font-weight:800;color:var(--text-main);margin-bottom:6px;">
+        📅 ${formatted} (${events.length} Events)
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${events.map(ev => `
+          <div style="background:var(--surface);border:1px solid var(--border);border-left:3.5px solid ${ev.color};padding:6px 10px;border-radius:8px;font-size:11.5px;">
+            <b style="color:${ev.color};font-family:'JetBrains Mono';">${ev.code}</b> — <span>${ev.title}</span>
+            <span style="font-size:9.5px;color:var(--text-muted);display:block;margin-top:2px;">Type: ${ev.type}</span>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+  detailsBox.style.display = "block";
+}
 
 function initNotifications() {
   const dot = document.getElementById("navNotifDot");
@@ -3157,7 +3497,7 @@ function updateDayProgressBar() {
   const label = document.getElementById("dayProgressLabel");
   const remaining = document.getElementById("dayProgressRemaining");
   
-  if (activeView === "drive" || activeView === "guide") {
+  if (activeView === "drive" || activeView === "guide" || activeView === "tasks") {
     if (progressBox) progressBox.style.display = "none";
     return;
   }
@@ -3410,21 +3750,21 @@ function renderDailyAgenda() {
           <span class="time-dur">${s.span * 50}m</span>
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4px solid ${isCurrentActive ? '#ef4444' : (s.cancelled ? '#ef4444' : course.color)}">
+        <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCurrentActive ? '#ef4444' : (s.cancelled ? '#ef4444' : course.color)}">
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div style="display:flex;gap:4px;align-items:center;">
               ${isCurrentActive ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${s.cancelled ? '<span class="badge-cancelled">❌ ملغي (أسبوع 1)</span>' : ''}
-              ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
+              ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
               <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (s.isSolidMain ? 'SEC · ALL' : (isShared ? 'LEC' : 'SEC'))}</span>
             </div>
           </div>
           <div class="card-title">${course.name}</div>
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px;">
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
-            <div style="display:flex;align-items:center;gap:6px;">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
               ${isDynamics ? `<button class="capsule-pill-btn roadmap-pill" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
               ${isMaterials ? `<button class="capsule-pill-btn mat-roadmap-pill" onclick="openMaterialsRoadmapModal()">🗺️ Roadmap</button>` : ''}
               ${hasCustomLinks ? `<button class="capsule-pill-btn links-pill" onclick="openCourseLinksModal('${s.code}')">🔗 Links</button>` : ''}
@@ -3469,7 +3809,7 @@ function renderWeekMatrix() {
     head.innerHTML = `
       <span>${d.full}</span> 
       <div style="display:flex;gap:3px">
-        ${hasQuiz ? `<span class="quiz-pill" onclick="openAssessmentModal()" style="cursor:pointer;" title="Click for Quiz Details">⚡ QUIZ</span>` : ''}
+        ${hasQuiz ? `<span class="quiz-pill" onclick="setView('tasks')" style="cursor:pointer;" title="Click for Tasks Hub">⚡ QUIZ</span>` : ''}
         ${isToday ? '<span class="today-pill">TODAY</span>' : ''}
       </div>
     `;
@@ -3553,7 +3893,7 @@ function renderWeekMatrix() {
             <div style="display:flex;gap:3px;align-items:center;">
               ${isLiveNow ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${sess.cancelled ? '<span class="badge-cancelled">❌ ملغي</span>' : ''}
-              ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="openAssessmentModal()">⚡ QUIZ</span>` : ''}
+              ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
               <span class="type">${sess.isDynSec ? 'SEC' : (sess.isSolidMain ? 'SEC · ALL' : (sess.group === "ALL" ? 'LEC' : 'SEC'))}</span>
             </div>
@@ -3625,7 +3965,7 @@ function attachSwipeListeners() {
 function renderLegend() {
   const legend = document.getElementById("legend");
   if (!legend) return;
-  if (activeView === "drive" || activeView === "guide") {
+  if (activeView === "drive" || activeView === "guide" || activeView === "tasks") {
     legend.style.display = "none";
     return;
   }
@@ -3660,6 +4000,13 @@ function renderGuideScreen() {
 
   container.innerHTML = `
     <div class="guide-container">
+      <div class="view-back-bar">
+        <button class="view-back-btn" onclick="setView('week')">
+          <span>◀</span><span>الرجوع للجدول</span>
+        </button>
+        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">ACADEMIC GUIDE</span>
+      </div>
+
       <div class="guide-hero">
         <div class="guide-hero-top">
           <div class="guide-title"><span>📖</span><span>Weekly Academic Guide</span></div>
@@ -3719,6 +4066,13 @@ function renderDriveScreen() {
 
   container.innerHTML = `
     <div class="vault-container">
+      <div class="view-back-bar">
+        <button class="view-back-btn" onclick="setView('week')">
+          <span>◀</span><span>الرجوع للجدول</span>
+        </button>
+        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">ACADEMIC VAULT</span>
+      </div>
+
       <div class="vault-hero">
         <div class="vault-hero-top">
           <div class="vault-title"><span>📂</span><span>Academic Vault</span></div>
@@ -3734,7 +4088,7 @@ function renderDriveScreen() {
         </div>
       </div>
       <div class="courses-grid">
-        ${filteredCourses.map(([code, c], idx) => {
+        ${filteredCourses.map(([code, c]) => {
           const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
           const isDynamics = (code === "EMC G101");
           const isMaterials = (code === "MDP G121");
@@ -3796,7 +4150,7 @@ function triggerFirstWeekWelcomeConfetti() {
 
 function render() {
   renderDaysBar();
-  initAssessments();
+  updateTaskBadge();
   renderLegend();
   updateFirstWeekBannerUI();
   updateDynamicsBannerUI();
@@ -3804,28 +4158,44 @@ function render() {
   const controlBar = document.getElementById("scheduleControlBar");
   const liveBox = document.getElementById("liveStatusBox");
   const mainHeader = document.getElementById("mainHeader");
+  const daysBar = document.getElementById("daysBar");
+  const dynBanner = document.getElementById("dynamicsSwitcherBanner");
+  const fwBanner = document.getElementById("firstWeekBanner");
+  const legend = document.getElementById("legend");
+  const progressBox = document.getElementById("dayProgressContainer");
 
   document.getElementById("navWeekBtn").classList.remove("active");
   document.getElementById("navDayBtn").classList.remove("active");
   document.getElementById("navDriveBtn").classList.remove("active");
   document.getElementById("navGuideBtn").classList.remove("active");
+  document.getElementById("navTaskBtn").classList.remove("active");
 
-  if (activeView === "drive" || activeView === "guide") {
-    controlBar.style.display = "none";
-    liveBox.style.display = "none";
+  if (activeView === "drive" || activeView === "guide" || activeView === "tasks") {
+    if (controlBar) controlBar.style.display = "none";
+    if (liveBox) liveBox.style.display = "none";
     if (mainHeader) mainHeader.style.display = "none";
+    if (daysBar) daysBar.style.display = "none";
+    if (dynBanner) dynBanner.style.display = "none";
+    if (fwBanner) fwBanner.style.display = "none";
+    if (legend) legend.style.display = "none";
+    if (progressBox) progressBox.style.display = "none";
 
     if (activeView === "drive") {
       document.getElementById("navDriveBtn").classList.add("active");
       renderDriveScreen();
-    } else {
+    } else if (activeView === "guide") {
       document.getElementById("navGuideBtn").classList.add("active");
       renderGuideScreen();
+    } else if (activeView === "tasks") {
+      document.getElementById("navTaskBtn").classList.add("active");
+      renderTasksScreen();
     }
   } else {
-    controlBar.style.display = "flex";
-    liveBox.style.display = "flex";
+    if (controlBar) controlBar.style.display = "flex";
+    if (liveBox) liveBox.style.display = "flex";
     if (mainHeader) mainHeader.style.display = "flex";
+    if (legend) legend.style.display = "flex";
+    if (progressBox) progressBox.style.display = "flex";
 
     if (activeView === "week") {
       document.getElementById("navWeekBtn").classList.add("active");
@@ -3840,8 +4210,19 @@ function render() {
   updateAcademicCalendarInfo();
 }
 
-function setView(mode) { triggerHaptic("light"); activeView = mode; render(); }
-function selectDay(day) { triggerHaptic("light"); activeDay = day; renderDaysBar(); renderDailyAgenda(); updateDynamicsBannerUI(); }
+function setView(mode) { 
+  triggerHaptic("light"); 
+  activeView = mode; 
+  render(); 
+}
+
+function selectDay(day) { 
+  triggerHaptic("light"); 
+  activeDay = day; 
+  renderDaysBar(); 
+  renderDailyAgenda(); 
+  updateDynamicsBannerUI(); 
+}
 
 document.getElementById("sectionSelect").value = activeGroup;
 document.getElementById("sectionSelect").addEventListener("change", e => {
