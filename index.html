@@ -1207,136 +1207,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Roadmap Timeline Styles */
-.roadmap-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 8px;
-}
-.roadmap-step {
-  display: flex;
-  gap: 12px;
-  position: relative;
-}
-.roadmap-step-indicator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 24px;
-  flex-shrink: 0;
-}
-.roadmap-step-circle {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--surface-alt);
-  border: 2px solid var(--border-dark);
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 800;
-  z-index: 2;
-}
-.roadmap-step-line {
-  flex: 1;
-  width: 2px;
-  background: var(--border);
-  margin: 4px 0;
-}
-.roadmap-step:last-child .roadmap-step-line {
-  display: none;
-}
-.roadmap-step.is-done .roadmap-step-circle {
-  background: #10b981;
-  border-color: #10b981;
-  color: #ffffff;
-}
-.roadmap-step.is-current .roadmap-step-circle {
-  background: var(--step-color, #8b5cf6);
-  border-color: var(--step-glow, #a78bfa);
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-  animation: liveBadgePulse 1.8s infinite;
-}
-.roadmap-step-card {
-  flex: 1;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: all 0.2s ease;
-}
-.roadmap-step.is-current .roadmap-step-card {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%);
-  border-color: var(--step-color, #8b5cf6);
-  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.18);
-}
-.roadmap-step-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.roadmap-week-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  font-weight: 800;
-  color: var(--step-color, #8b5cf6);
-}
-.roadmap-date-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-}
-.roadmap-topic-title {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.35;
-}
-.roadmap-the-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 9.5px;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 6px;
-  background: rgba(249, 115, 22, 0.15);
-  color: #ea580c;
-  border: 1px solid #ea580c;
-  width: fit-content;
-  margin-top: 2px;
-}
-.roadmap-sub-row {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 3px;
-  padding-top: 4px;
-  border-top: 1px dashed var(--border);
-}
-.roadmap-sub-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.roadmap-sub-badge {
-  font-size: 8.5px;
-  font-weight: 800;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-
 /* Weekly Guide */
 .guide-container {
   display: flex;
@@ -2351,22 +2221,23 @@ const MATERIALS_ROADMAP_STEPS = [
   { week: 15, date: "Dec 28", lecture: "Revision", tut: "Revision", lab: null }
 ];
 
-// كبسولة الروابط الرسمية لمادة الديناميكا
+// كبسولة الروابط العامة لمادة الديناميكا (مستبعد منها بياناتك الشخصية تماماً)
 const COURSE_CUSTOM_LINKS = {
   "EMC G101": {
-    title: "⚡ روابط أعمال السنة ومصادر د. سمير هديمة",
+    title: "⚡ روابط ومصادر د. سمير هديمة المعتمدة",
     desc: "جميع الروابط، الفورمز، درايف المحاضرات، وشيتات المتابعة المعتمدة لمادة الديناميكا (Plane Dynamics 100) لدفعة 30 ❤️",
     sheets: [
-      { title: "📁 فولدر درايف دكتور سمير الرسمي للمادة", url: "https://drive.google.com/drive/u/0/mobile/folders/1n9oTRCo6iE-k-MLe4rCGgVSnjuwtG1h_" },
-      { title: "📨 فورم طلب إعادة إرسال الامتحانات (THE) بأي وقت", url: "https://docs.google.com/forms/d/1DShk2ahQ0otap45Flo6RJbmlKzP4ScgKMfFRXnBAmO8/viewform?edit_requested=true" },
+      { title: "📁 فولدر درايف دكتور سمير الرسمي للمادة", url: "https://drive.google.com/drive/folders/1n9oTRCo6iE-k-MLe4rCGgVSnjuwtG1h_" },
+      { title: "📚 فولدر محاضرات الـ PDF وشيتات التمارين", url: "https://drive.google.com/drive/folders/1fbGTWzv6phQayo0PzQAxfRg7v1kyk5_Y" },
       { title: "📝 رابط تسجيل بيانات أعمال السنة (فورم الموقع الرسمي)", url: "https://sites.google.com/eng.cu.edu.eg/planedynamics100" },
+      { title: "📨 فورم طلب إعادة إرسال الامتحانات (THE) بأي وقت", url: "https://docs.google.com/forms/d/1DShk2ahQ0otap45Flo6RJbmlKzP4ScgKMfFRXnBAmO8/viewform?edit_requested=true" },
       { title: "📊 شيت متابعة أعمال السنة والدرجات الرسمية", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo" },
       { title: "📅 جدول ومواعيد المحاضرات بالتفصيل", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=807310814" },
       { title: "❓ شيت الأسئلة والاستفسارات الخاصة بالكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=1442330133" },
       { title: "📋 شيت الإكسيل المجمع لكل روابط الكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=534482259" }
     ],
     social: [
-      { title: "👥 جروب الفيسبوك الرسمي للمادة (MECN100)", url: "https://www.facebook.com/groups/MECN100" }
+      { title: "👥 جروب الفيسبوك الرسمي للمادة (MECN100)", url: "https://www.facebook.com/groups/138903046461531/" }
     ],
     videos: [
       { title: "🎬 شرح محاضرات الديناميكا يوتيوب — د. سمير هديمه", url: "https://www.youtube.com/playlist?list=PLYbUaz7Vj6gQPsCYu-Tao-RDAZQ3z_vEh" },
@@ -2420,8 +2291,8 @@ const COURSE_CAPSULES = {
   },
   "MDP G121": {
     code: "MDP G121", name: "Materials Science", hours: "3 Credit Hours",
-    grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (كويزات وأساينمنتات مع المعيد وتقييم المعمل)\n• 40 درجة فاينال",
-    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها.\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: بيوريكم تجارب عملية (الـ Tensile والـ Compression).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح وبيشرحلك من السلايدات والمراجع العلمية مباشرة.",
+    grading: "• 20 درجة ميدتيرم (الأسبوع الثامن)\n• 40 درجة أعمال سنة (كويزات وأساينمنتات وتقارير المعمل)\n• 40 درجة فاينال",
+    tips: "1. دكتور إيهاب (الجزء الأول): احضروا شرحه كويس جداً، بيتكلم عن الـ Atomic structure وترتيب الذرات (ملهاش علاقة بكيمياء إعدادي). وجزء الـ Stress-Strain Curve بيجي عليه سؤال أساسي في الميدتيرم! الشيت يكفي جداً للجزء ده والمادة كلها.\n2. دكتور ممدوح (الجزء الثاني): بيتكلم عن الـ Eutectic system والـ Phase diagram، محتاج تركيز شوية وبرضه كله بيجي من الشيت.\n3. المعمل: فيه تجارب عملية محددة (Tension test في الأسبوع 6 و 7، Compression/hardness في الأسبوع 10، و Microstructure في الأسبوع 13).\n4. الكويزات: المعيدين بيقولوا على أنهي محاضرات، والأساينمنتات بيجي منها سؤال أو اتنين في الكويزات.\n5. المادة مضمونة، احفظ القوانين والنقاط المهمة والباقي فهم من الشيت.\n\n💡 أداة AI رايقة للمذاكرة النظري (Explainpaper): بترفع عليها ملف السلايدات، وأي نقطة أو سطر مش فاهمه بتعمل عليه Highlight وبتختار مستوى الشرح وبيشرحلك من السلايدات والمراجع العلمية مباشرة.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماتيريال", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" },
       { title: "🤖 أداة Explainpaper لشرح السلايدات بالذكاء الاصطناعي", url: "https://www.explainpaper.com/" }
@@ -2440,8 +2311,8 @@ const COURSE_CAPSULES = {
   },
   "EMC G101": {
     code: "EMC G101", name: "Dynamics of Rigid Bodies", hours: "3 Credit Hours",
-    grading: "• 40 درجة فاينال (جدول MCQ زي ميكانيكا إعدادي وفيه None)\n• 20 درجة ميدتيرم (نفس نظام الجدول)\n• 30 درجة كويزين (كويز بـ 20 والتاني بـ 10، والدكتور بيحسب الأعلى من 20)\n• 10 درجات Take Home Exam (THE)",
-    tips: "1. من أخف المواد وامتحاناتها بتتكرر، وبيدرسها د. سمير أبو هديمة وهو دكتور محترم ومتعاون جداً وبيحب الحضور ولو حد جاوب في المحاضرة بياخد بونص.\n2. سر درجات الـ 10: بيكون فيه 9 (THE) بتتسلم أسبوعياً كل جمعة (منها MCQ ومقالي من الشيت)، لو سلمت في أول يومين بتاخد بونص، ولو اتأخرت بتاخد ماينس! درجاتها مضمونة وهدية وبيجي منها الميد والفاينال بالحرف.\n3. سكاشن التمارين يوم الإثنين فقط، اختار أي ميعاد من الـ 3 يناسبك واحضر فيه.",
+    grading: "• 40 درجة فاينال (جدول MCQ زي ميكانيكا إعدادي وفيه None)\n• 20 درجة ميدتيرم (الأسبوع السابع تقريباً)\n• 30 درجة كويزين (كويز بـ 20 والتاني بـ 10، والدكتور بيحسب الأعلى من 20)\n• 10 درجات Take Home Exam (THE)",
+    tips: "1. استراتيجية البونص والدرجات في الـ THE:\n   • تسليم في أول 12 ساعة من نزول الامتحان ⬅️ بونص +10% (110%)\n   • تسليم في أول يومين ⬅️ بونص +5% (105%)\n   • تسليم في الميعاد قبل الديدلاين ⬅️ الدرجة كاملة 100%\n   • تأخير عن الديدلاين ⬅️ خصم -10% لكل أسبوع تأخير!\n   • تنبيه: كل إجابة خاطئة تخصم 0.25 درجة، والبونص لا يُضاف لدرجات الميدتيرم.\n2. إعلان الدرجات: الدكتور بينزل درجات الامتحانات كل يوم جمعة في شيت أعمال السنة.\n3. مكتب الدكتور: مبنى ميكانيكا، غرفة 20403.\n4. سكاشن التمارين يوم الإثنين فقط، اختار أي ميعاد من الـ 3 يناسبك واحضر فيه.",
     links: [{ title: "📁 فولدر درايف مادة الديناميكا من دفعة 29", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }],
     playlists: []
   }
@@ -2734,7 +2605,7 @@ function openDynamicsRoadmapModal() {
 function closeRoadmapModal() { document.getElementById("roadmapModal").classList.remove("open"); }
 document.getElementById("roadmapModal").addEventListener("click", e => { if (e.target.id === "roadmapModal") closeRoadmapModal(); });
 
-// دالة خريطة منهج علم المواد المفرغة من الصورة
+// دالة خريطة منهج علم المواد
 function openMaterialsRoadmapModal() {
   triggerHaptic("heavy");
   const modal = document.getElementById("materialsRoadmapModal");
@@ -2795,7 +2666,7 @@ function openMaterialsRoadmapModal() {
 function closeMaterialsRoadmapModal() { document.getElementById("materialsRoadmapModal").classList.remove("open"); }
 document.getElementById("materialsRoadmapModal").addEventListener("click", e => { if (e.target.id === "materialsRoadmapModal") closeMaterialsRoadmapModal(); });
 
-// دالة كبسولة الروابط المخصصة (Links Capsule)
+// دالة كبسولة الروابط المخصصة
 function openCourseLinksModal(code) {
   triggerHaptic("heavy");
   const modal = document.getElementById("linksModal");
@@ -3995,5 +3866,3 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
-
-
