@@ -558,65 +558,6 @@ body {
   color: var(--text-muted);
 }
 
-/* REALTIME RED LASER TIMELINE INDICATOR */
-.realtime-laser-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 6px 0 10px;
-  position: relative;
-  z-index: 10;
-}
-.realtime-laser-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 800;
-  color: #ef4444;
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  padding: 1px 6px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.realtime-laser-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 0 0 6px #ef4444;
-}
-.realtime-laser-line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, #ef4444 0%, rgba(239, 68, 68, 0.1) 100%);
-  border-radius: 2px;
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
-}
-
-/* LIVE CARD GLOW IN TIMELINE & GRID */
-.timeline-card.is-live-card, .grid-card.is-live-card {
-  box-shadow: var(--live-card-glow), 0 4px 14px rgba(0,0,0,0.12) !important;
-  border-color: #ef4444 !important;
-  border-left-color: #ef4444 !important;
-}
-.badge-live-now {
-  background: rgba(239, 68, 68, 0.18) !important;
-  color: #ef4444 !important;
-  border: 1px solid #ef4444 !important;
-  font-size: 8.5px !important;
-  font-weight: 800 !important;
-  padding: 1px 6px !important;
-  border-radius: 4px !important;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  animation: liveBadgePulse 1.8s infinite;
-}
-
 /* Control Bar */
 .control-bar {
   display: flex;
@@ -1207,6 +1148,164 @@ body {
   transform: translateY(-1px);
 }
 
+/* Tasks Filter Tabs */
+.task-filter-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.task-filter-btn {
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.task-filter-btn.active {
+  background: var(--quiz-color);
+  color: #ffffff;
+  border-color: var(--quiz-color);
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
+}
+
+/* Roadmap Timeline Styles */
+.roadmap-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+.roadmap-step {
+  display: flex;
+  gap: 12px;
+  position: relative;
+}
+.roadmap-step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+.roadmap-step-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  border: 2px solid var(--border-dark);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  z-index: 2;
+}
+.roadmap-step-line {
+  flex: 1;
+  width: 2px;
+  background: var(--border);
+  margin: 4px 0;
+}
+.roadmap-step:last-child .roadmap-step-line {
+  display: none;
+}
+.roadmap-step.is-done .roadmap-step-circle {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+.roadmap-step.is-current .roadmap-step-circle {
+  background: var(--step-color, #8b5cf6);
+  border-color: var(--step-glow, #a78bfa);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  animation: liveBadgePulse 1.8s infinite;
+}
+.roadmap-step-card {
+  flex: 1;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+.roadmap-step.is-current .roadmap-step-card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%);
+  border-color: var(--step-color, #8b5cf6);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.18);
+}
+.roadmap-step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.roadmap-week-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--step-color, #8b5cf6);
+}
+.roadmap-date-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.roadmap-topic-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+.roadmap-the-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+  border: 1px solid #ea580c;
+  width: fit-content;
+  margin-top: 2px;
+}
+.roadmap-sub-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--border);
+}
+.roadmap-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.roadmap-sub-badge {
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
 /* Weekly Guide */
 .guide-container {
   display: flex;
@@ -1507,7 +1606,7 @@ body {
   cursor: pointer;
 }
 
-/* Floating Bottom Nav */
+/* Floating Bottom Nav with Active Indicator Pill */
 .bottom-nav {
   position: fixed;
   bottom: 16px;
@@ -2096,14 +2195,24 @@ body {
   </div>
 </div>
 
-<!-- Deadlines Modal -->
+<!-- Deadlines & Monthly Tasks Modal (Enhanced with Month Filter) -->
 <div class="modal-overlay" id="assessmentModal">
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title" style="color: var(--quiz-color);">Quizzes & Deadlines (<span id="modalSectionBadge">ME1-01</span>)</div>
       <button class="modal-close" onclick="closeAssessmentModal()">×</button>
     </div>
-    <div class="modal-body" id="assessmentList"></div>
+    <div class="modal-body">
+      <!-- تبويبات التصفية الشهرية والأسبوعية -->
+      <div class="task-filter-bar">
+        <button class="task-filter-btn active" id="taskTabAll" onclick="setTaskFilter('all')">📅 كل الديدلاينز (Monthly / Term)</button>
+        <button class="task-filter-btn" id="taskTabWeek" onclick="setTaskFilter('week')">⚡ هذا الأسبوع فقط</button>
+        <button class="task-filter-btn" id="taskTabAssg" onclick="setTaskFilter('assg')">📝 الأساينمنتات والتسليمات</button>
+        <button class="task-filter-btn" id="taskTabQuiz" onclick="setTaskFilter('quiz')">🎯 الكويزات والميدتيرم</button>
+      </div>
+
+      <div id="assessmentList" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
   </div>
 </div>
 
@@ -2422,6 +2531,7 @@ let activeView = "day";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
 let highlightedCourse = null;
 let selectedDynamicsSlot = null;
+let activeTaskFilter = 'all'; // الفلتر المبدئي للمهام (كل المهام الشهرية)
 
 function calculateActualAcademicWeek() {
   const now = new Date();
@@ -2901,20 +3011,28 @@ function getDisplayedDateForDay(dayName) {
   return targetDate;
 }
 
+function getParsedDateObj(dateStr) {
+  if (!dateStr) return null;
+  try {
+    const now = new Date();
+    if (dateStr.includes('/')) {
+      const parts = dateStr.split('/');
+      if (parts.length === 3) return new Date(parts[2], parts[1] - 1, parts[0]);
+    } else {
+      const parsed = new Date(`${dateStr} ${now.getFullYear()}`);
+      if (!isNaN(parsed.getTime())) return parsed;
+    }
+  } catch (e) {}
+  return null;
+}
+
 function isAssessmentUpcoming(dateStr) {
   if (!dateStr) return true;
   try {
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    let targetDate;
-    if (dateStr.includes('/')) {
-      const parts = dateStr.split('/');
-      if (parts.length === 3) targetDate = new Date(parts[2], parts[1] - 1, parts[0]);
-    } else {
-      const parsed = new Date(`${dateStr} ${now.getFullYear()}`);
-      if (!isNaN(parsed.getTime())) targetDate = parsed;
-    }
-    if (!targetDate || isNaN(targetDate.getTime())) return true;
+    const targetDate = getParsedDateObj(dateStr);
+    if (!targetDate) return true;
     targetDate.setHours(23, 59, 59, 999);
     return targetDate >= todayStart;
   } catch (e) {
@@ -2926,21 +3044,9 @@ function isAssessmentInCurrentWeek(aDateStr, dayName) {
   if (!aDateStr) return false;
   const displayedDate = getDisplayedDateForDay(dayName);
   if (!displayedDate) return false;
-  try {
-    const now = new Date();
-    let targetDate;
-    if (aDateStr.includes('/')) {
-      const parts = aDateStr.split('/');
-      if (parts.length === 3) targetDate = new Date(parts[2], parts[1] - 1, parts[0]);
-    } else {
-      const parsed = new Date(`${aDateStr} ${now.getFullYear()}`);
-      if (!isNaN(parsed.getTime())) targetDate = parsed;
-    }
-    if (!targetDate) return false;
-    return targetDate.getDate() === displayedDate.getDate() && targetDate.getMonth() === displayedDate.getMonth();
-  } catch (e) {
-    return false;
-  }
+  const targetDate = getParsedDateObj(aDateStr);
+  if (!targetDate) return false;
+  return targetDate.getDate() === displayedDate.getDate() && targetDate.getMonth() === displayedDate.getMonth();
 }
 
 function getActiveSectionAssessments() {
@@ -2949,6 +3055,85 @@ function getActiveSectionAssessments() {
 
 function getDayAssessments(dayName) {
   return getActiveSectionAssessments().filter(a => a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName));
+}
+
+function getDaysRemainingText(dateStr) {
+  const targetDate = getParsedDateObj(dateStr);
+  if (!targetDate) return '';
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diffDays = Math.ceil((targetDate - todayStart) / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) return '⚠️ الديدلاين اليوم!';
+  if (diffDays === 1) return '⏳ غداً!';
+  if (diffDays > 1) return `باقي ${diffDays} يوم`;
+  return '';
+}
+
+function setTaskFilter(filterType) {
+  triggerHaptic("light");
+  activeTaskFilter = filterType;
+  ['all', 'week', 'assg', 'quiz'].forEach(t => {
+    const btn = document.getElementById(`taskTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+    if (btn) btn.className = `task-filter-btn ${t === filterType ? 'active' : ''}`;
+  });
+  renderTaskList();
+}
+
+function renderTaskList() {
+  const container = document.getElementById("assessmentList");
+  let list = getActiveSectionAssessments();
+  const now = new Date();
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  if (activeTaskFilter === 'week') {
+    list = list.filter(a => {
+      const d = getParsedDateObj(a.date);
+      if (!d) return true;
+      const diffDays = Math.ceil((d - todayStart) / (1000 * 60 * 60 * 24));
+      return diffDays <= 7;
+    });
+  } else if (activeTaskFilter === 'assg') {
+    list = list.filter(a => {
+      const typeStr = (a.type || '').toLowerCase();
+      return typeStr.includes('assign') || typeStr.includes('the') || typeStr.includes('task') || typeStr.includes('project');
+    });
+  } else if (activeTaskFilter === 'quiz') {
+    list = list.filter(a => {
+      const typeStr = (a.type || '').toLowerCase();
+      return typeStr.includes('quiz') || typeStr.includes('exam') || typeStr.includes('mid');
+    });
+  }
+
+  // ترتيب زمني تصاعدي من الأقرب للأبعد
+  list.sort((a, b) => {
+    const da = getParsedDateObj(a.date) || new Date(2099, 1, 1);
+    const db = getParsedDateObj(b.date) || new Date(2099, 1, 1);
+    return da - db;
+  });
+
+  if (list.length === 0) {
+    container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:32px 16px;background:var(--surface-alt);border-radius:12px;border:1px dashed var(--border);">لا توجد مهام أو تسليمات مطابقة لهذا الفلتر حالياً ✨</div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(a => {
+    const remainingText = getDaysRemainingText(a.date);
+    const isUrgent = remainingText.includes('اليوم') || remainingText.includes('غداً');
+
+    return `
+      <div class="modal-item" style="border-left: 4px solid ${isUrgent ? '#ef4444' : 'var(--quiz-color)'}; background:var(--surface-alt); padding:12px 14px; border-radius:12px; border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span style="font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;background:${isUrgent ? 'rgba(239,68,68,0.15)' : 'var(--quiz-glow)'};color:${isUrgent ? '#ef4444' : 'var(--quiz-color)'}">${(a.type || 'TASK').toUpperCase()}</span>
+            <span style="font-family:'JetBrains Mono';font-size:10.5px;font-weight:700;color:var(--text-muted)">${a.date || ''}</span>
+          </div>
+          ${remainingText ? `<span style="font-family:'JetBrains Mono';font-size:10px;font-weight:800;color:${isUrgent ? '#ef4444' : 'var(--accent)'};background:var(--surface);padding:2px 6px;border-radius:5px;border:1px solid var(--border);">${remainingText}</span>` : ''}
+        </div>
+        <div style="font-size:13px;font-weight:800;color:var(--text-main);line-height:1.35;">${a.code || ''} — ${a.title || ''}</div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:3px;line-height:1.4;">${a.desc || ''}</div>
+      </div>
+    `;
+  }).join("");
 }
 
 function initAssessments() {
@@ -2961,22 +3146,7 @@ function initAssessments() {
     badge.style.display = "none";
   }
   document.getElementById("modalSectionBadge").textContent = activeGroup;
-
-  const container = document.getElementById("assessmentList");
-  if (activeList.length === 0) {
-    container.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:32px 16px;">No upcoming quizzes or tasks.</div>`;
-    return;
-  }
-  container.innerHTML = activeList.map(a => `
-    <div class="modal-item" style="border-left: 4px solid var(--quiz-color)">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:9.5px;font-weight:800;color:var(--quiz-color)">${(a.type || 'TASK').toUpperCase()}</span>
-        <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${a.date || ''}</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--text-main)">${a.code || ''} — ${a.title || ''}</div>
-      <div style="font-size:11.5px;color:var(--text-muted)">${a.desc || ''}</div>
-    </div>
-  `).join("");
+  renderTaskList();
 }
 
 function openAssessmentModal() { triggerHaptic("heavy"); initAssessments(); document.getElementById("assessmentModal").classList.add("open"); }
@@ -3866,3 +4036,5 @@ setInterval(updateLiveTracker, 60000);
 </script>
 </body>
 </html>
+
+
