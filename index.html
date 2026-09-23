@@ -909,7 +909,7 @@ body {
   animation: cardCascade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Grid Matrix */
+/* Grid Matrix Layout */
 .matrix-wrapper {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1330,15 +1330,8 @@ body {
   flex-direction: column;
   gap: 2px;
 }
-.the-time-label {
-  color: var(--text-muted);
-  font-size: 9.5px;
-  font-weight: 700;
-}
-.the-time-val {
-  font-size: 11px;
-  font-weight: 800;
-}
+.the-time-label { color: var(--text-muted); font-size: 9.5px; font-weight: 700; }
+.the-time-val { font-size: 11px; font-weight: 800; }
 .the-bonus-box {
   background: rgba(16, 185, 129, 0.08);
   border: 1px solid #10b981;
@@ -2032,7 +2025,7 @@ body {
     </div>
   </header>
 
-  <!-- Interactive Day Progress Bar -->
+  <!-- Day Progress Bar -->
   <div class="day-progress-container" id="dayProgressContainer">
     <div class="day-progress-header">
       <span id="dayProgressLabel">Day Progress: 0%</span>
@@ -2398,7 +2391,7 @@ const COURSE_CAPSULES = {
   "MTH G102": {
     code: "MTH G102", name: "Linear Algebra & Multivariable Integration", hours: "3 Credit Hours",
     grading: "• الميدتيرم من 30 درجة (20 درجة تكامل + 10 درجات جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في درجات أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتشوفه",
-    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتعة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل.\n3. ⚠️ تنبيه غياب هام: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف.",
+    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتازة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل.\n3. ⚠️ تنبيه غياب هام: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "💻 تحميل برنامج د. أحمد عبد النبي للكمبيوتر / ويندوز (LectraHub)", url: "https://www.lectrahub-edu.com/" },
@@ -3136,6 +3129,20 @@ function updateTaskBadge() {
   }
 }
 
+// دالة تجميع الأحداث والامتحانات للتقويم
+function getAllEventsForCalendar() {
+  const allEvents = [];
+  DYNAMICS_THE_EXAMS.forEach(ex => {
+    const d = getParsedDateObj(ex.deadline);
+    if (d) allEvents.push({ date: d, code: "EMC G101", title: `THE ${ex.no} Deadline (7:00 PM)`, type: "Exam Deadline", color: "#8b5cf6" });
+  });
+  getActiveSectionAssessments().forEach(a => {
+    const d = getParsedDateObj(a.date);
+    if (d) allEvents.push({ date: d, code: a.code, title: a.title, type: a.type || 'Task', color: COURSES[a.code]?.hex || '#ea580c' });
+  });
+  return allEvents;
+}
+
 // Full Tasks View
 function renderTasksScreen() {
   const container = document.getElementById("viewContainer");
@@ -3374,16 +3381,7 @@ function renderCalendarMonthGrid() {
   const isThisMonth = (now.getFullYear() === year && now.getMonth() === month);
 
   let html = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => `<div class="cal-day-name">${d}</div>`).join("");
-
-  const allEvents = [];
-  DYNAMICS_THE_EXAMS.forEach(ex => {
-    const d = getParsedDateObj(ex.deadline);
-    if (d) allEvents.push({ date: d, code: "EMC G101", title: `THE ${ex.no} Deadline (7:00 PM)`, type: "Exam Deadline", color: "#8b5cf6" });
-  });
-  getActiveSectionAssessments().forEach(a => {
-    const d = getParsedDateObj(a.date);
-    if (d) allEvents.push({ date: d, code: a.code, title: a.title, type: a.type || 'Task', color: COURSES[a.code]?.hex || '#ea580c' });
-  });
+  const allEvents = getAllEventsForCalendar();
 
   for (let i = firstDay - 1; i >= 0; i--) {
     const pDay = daysInPrevMonth - i;
@@ -3396,10 +3394,8 @@ function renderCalendarMonthGrid() {
     const isToday = isThisMonth && (now.getDate() === d);
     const hasEv = dayEvents.length > 0;
 
-    const evDataAttr = encodeURIComponent(JSON.stringify(dayEvents));
-
     html += `
-      <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}', '${evDataAttr}')">
+      <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}')">
         <span class="cal-day-num">${d}</span>
         <div class="cal-dots-row">
           ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}:${ev.title}"></span>`).join("")}
@@ -3411,12 +3407,19 @@ function renderCalendarMonthGrid() {
   grid.innerHTML = html;
 }
 
-function showCalendarDayDetails(dateIso, encodedEvents) {
+function showCalendarDayDetails(dateIso) {
   triggerHaptic("light");
   const detailsBox = document.getElementById("calDayEventDetails");
-  const d = new Date(dateIso);
-  const formatted = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-  const events = JSON.parse(decodeURIComponent(encodedEvents));
+  const targetDate = new Date(dateIso);
+  const formatted = targetDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+  const y = targetDate.getFullYear();
+  const m = targetDate.getMonth();
+  const d = targetDate.getDate();
+
+  const events = getAllEventsForCalendar().filter(ev => {
+    return ev.date.getFullYear() === y && ev.date.getMonth() === m && ev.date.getDate() === d;
+  });
 
   if (!events || events.length === 0) {
     detailsBox.innerHTML = `
@@ -3675,8 +3678,19 @@ function render() {
   updateAcademicCalendarInfo();
 }
 
-function setView(mode) { triggerHaptic("light"); activeView = mode; render(); }
-function selectDay(day) { triggerHaptic("light"); activeDay = day; renderDaysBar(); renderDailyAgenda(); updateDynamicsBannerUI(); }
+function setView(mode) { 
+  triggerHaptic("light"); 
+  activeView = mode; 
+  render(); 
+}
+
+function selectDay(day) { 
+  triggerHaptic("light"); 
+  activeDay = day; 
+  renderDaysBar(); 
+  renderDailyAgenda(); 
+  updateDynamicsBannerUI(); 
+}
 
 document.getElementById("sectionSelect").value = activeGroup;
 document.getElementById("sectionSelect").addEventListener("change", e => {
