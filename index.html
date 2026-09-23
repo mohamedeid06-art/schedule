@@ -1065,6 +1065,12 @@ body {
   font-size: 10px;
   font-weight: 800;
 }
+.matrix-roadmap-btn {
+  color: #6366f1;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+}
 
 /* Daily Timeline */
 .timeline-wrap {
@@ -1188,8 +1194,120 @@ body {
   background: rgba(139, 92, 246, 0.12);
   border-color: #8b5cf6;
 }
+.capsule-pill-btn.roadmap-pill {
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.12);
+  border-color: #6366f1;
+}
 .capsule-pill-btn:hover {
   transform: translateY(-1px);
+}
+
+/* Roadmap Timeline Styles */
+.roadmap-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+.roadmap-step {
+  display: flex;
+  gap: 12px;
+  position: relative;
+}
+.roadmap-step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+.roadmap-step-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-alt);
+  border: 2px solid var(--border-dark);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  z-index: 2;
+}
+.roadmap-step-line {
+  flex: 1;
+  width: 2px;
+  background: var(--border);
+  margin: 4px 0;
+}
+.roadmap-step:last-child .roadmap-step-line {
+  display: none;
+}
+.roadmap-step.is-done .roadmap-step-circle {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+.roadmap-step.is-current .roadmap-step-circle {
+  background: #8b5cf6;
+  border-color: #a78bfa;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  animation: liveBadgePulse 1.8s infinite;
+}
+.roadmap-step-card {
+  flex: 1;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+.roadmap-step.is-current .roadmap-step-card {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%);
+  border-color: #8b5cf6;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.18);
+}
+.roadmap-step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.roadmap-week-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #8b5cf6;
+}
+.roadmap-date-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.roadmap-topic-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+.roadmap-the-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+  border: 1px solid #ea580c;
+  width: fit-content;
+  margin-top: 2px;
 }
 
 /* Weekly Guide */
@@ -1456,6 +1574,19 @@ body {
   background: rgba(139, 92, 246, 0.12);
   border: 1px solid #8b5cf6;
   color: #8b5cf6;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.capsule-roadmap-open-btn {
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid #6366f1;
+  color: #6366f1;
   border-radius: 10px;
   padding: 8px 10px;
   font-size: 11px;
@@ -1734,7 +1865,7 @@ body {
   cursor: pointer;
 }
 
-/* Full Print Engine - A4 Landscape (Single Page Guaranteed) */
+/* Full Print Engine - A4 Landscape */
 @media print {
   @page {
     size: A4 landscape !important;
@@ -1862,7 +1993,6 @@ body {
     </div>
 
     <div class="top-actions">
-      <!-- Instagram Header Button -->
       <a href="https://www.instagram.com/cufe_mecha30?stkn=OGFqYm85YWM0dDFk" target="_blank" rel="noopener noreferrer" class="action-btn insta-header-btn" onclick="triggerHaptic('heavy')" title="Instagram Batch 30 Vibes">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         <span>Batch 30 📸</span>
@@ -2089,6 +2219,17 @@ body {
   </div>
 </div>
 
+<!-- Dynamics Interactive Course Roadmap Modal -->
+<div class="modal-overlay" id="roadmapModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title" style="color: #6366f1;">🗺️ Dynamics Course Roadmap (EMC G101)</div>
+      <button class="modal-close" onclick="closeRoadmapModal()">×</button>
+    </div>
+    <div class="modal-body" id="roadmapModalBody"></div>
+  </div>
+</div>
+
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
@@ -2097,11 +2238,13 @@ const QUIZZES_SHEET_ID = "1vYP4V4CrjeTtZkYU7TPbTvIQ4TqJZ2BWvipBvT5j1B0";
 const ALERTS_SHEET_ID  = "1mearSta_QWzdR0EzGyU-o7EYipAFibOMrRIcqyL9f7E";
 const WEEKLY_GUIDE_SHEET_ID = "1EA8YyyArFjEjQBlVu932pYJXgQaS51TEzunIdQuBsas";
 const BUILDINGS_LOCATIONS_SHEET_ID = "1A38Yix4nay_Yu6-iaol4Gt7MvB9HofLBJ_vowznStGs";
+const DYNAMICS_MASTER_SHEET_ID = "1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo";
 
 const QUIZZES_CSV_URL = `https://docs.google.com/spreadsheets/d/${QUIZZES_SHEET_ID}/gviz/tq?tqx=out:csv`;
 const ALERTS_CSV_URL   = `https://docs.google.com/spreadsheets/d/${ALERTS_SHEET_ID}/gviz/tq?tqx=out:csv`;
 const WEEKLY_GUIDE_CSV_URL = `https://docs.google.com/spreadsheets/d/${WEEKLY_GUIDE_SHEET_ID}/gviz/tq?tqx=out:csv`;
 const BUILDINGS_CSV_URL = `https://docs.google.com/spreadsheets/d/${BUILDINGS_LOCATIONS_SHEET_ID}/gviz/tq?tqx=out:csv`;
+const DYNAMICS_SCHEDULE_CSV_URL = `https://docs.google.com/spreadsheets/d/${DYNAMICS_MASTER_SHEET_ID}/gviz/tq?tqx=out:csv&gid=807310814`;
 
 const MAIN_SEMESTER_DRIVE = "https://drive.google.com/drive/folders/1GsVU0lpQXxKWLFeoVfjvTov1XmsNbn8o?usp=drive_link";
 const ARCHIVE_BATCH29_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9BSuusZEH__ix5ZYnHFuNgrv4";
@@ -2120,17 +2263,37 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)", hex: "#f43f5e" },
 };
 
-// كبسولة الروابط الرسمية (مخصصة للديناميكا وباقي المواد مستقبلاً)
+// خريطة منهج الديناميكا المعتمدة أسبوع بأسبوع
+let DYNAMICS_ROADMAP_STEPS = [
+  { week: 1, title: "Course Introduction & Kinematics of Particles (Rectilinear Motion)", date: "Sep 20 - Sep 24", the: "—" },
+  { week: 2, title: "Curvilinear Motion (Cartesian & Polar Coordinates)", date: "Sep 27 - Oct 01", the: "THE 1 Release" },
+  { week: 3, title: "Normal and Tangential Coordinates & Relative Motion", date: "Oct 04 - Oct 08", the: "THE 2 Release (Submit THE 1)" },
+  { week: 4, title: "Kinetics of Particles: Newton's Second Law & Equations of Motion", date: "Oct 11 - Oct 15", the: "THE 3 Release (Submit THE 2)" },
+  { week: 5, title: "Work & Energy Principle for Particles", date: "Oct 18 - Oct 22", the: "THE 4 Release (Submit THE 3)" },
+  { week: 6, title: "Impulse & Linear/Angular Momentum & Impact", date: "Oct 25 - Oct 29", the: "THE 5 Release (Submit THE 4)" },
+  { week: 7, title: "Midterm Exam Week (Exam on Particles Dynamics)", date: "Nov 01 - Nov 05", the: "⚡ Midterm Exam Week" },
+  { week: 8, title: "Kinematics of Rigid Bodies (Translation & Fixed Axis Rotation)", date: "Nov 08 - Nov 12", the: "THE 6 Release (Submit THE 5)" },
+  { week: 9, title: "General Plane Motion: Velocity Analysis & Instantaneous Center (IC)", date: "Nov 15 - Nov 19", the: "THE 7 Release (Submit THE 6)" },
+  { week: 10, title: "General Plane Motion: Acceleration Analysis", date: "Nov 22 - Nov 26", the: "THE 8 Release (Submit THE 7)" },
+  { week: 11, title: "Planar Kinetics of a Rigid Body: Force and Acceleration", date: "Nov 29 - Dec 03", the: "THE 9 Release (Submit THE 8)" },
+  { week: 12, title: "Planar Kinetics: Work and Energy for Rigid Bodies", date: "Dec 06 - Dec 10", the: "Final THE Submission (THE 9)" },
+  { week: 13, title: "Planar Kinetics: Impulse and Momentum for Rigid Bodies", date: "Dec 13 - Dec 17", the: "Course Review & Bonus" },
+  { week: 14, title: "Comprehensive Revision & Final Exams Preparation", date: "Dec 20 - Dec 24", the: "🎯 Final Revision" }
+];
+
+// كبسولة الروابط الرسمية لمادة الديناميكا
 const COURSE_CUSTOM_LINKS = {
   "EMC G101": {
-    title: "⚡ روابط أعمال السنة وشروحات د. سمير هديمة",
-    desc: "كل الروابط والفورمز الخاصة بمادة الديناميكا (Plane Dynamics 100) متجمعة في مكان واحد لدفعة 30 ❤️",
+    title: "⚡ روابط أعمال السنة ومصادر د. سمير هديمة",
+    desc: "جميع الروابط، الفورمز، درايف المحاضرات، وشيتات المتابعة المعتمدة لمادة الديناميكا (Plane Dynamics 100) لدفعة 30 ❤️",
     sheets: [
-      { title: "📊 شيت متابعة أعمال السنة الرسمية", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo" },
+      { title: "📁 فولدر درايف دكتور سمير الرسمي للمادة", url: "https://drive.google.com/drive/u/0/mobile/folders/1n9oTRCo6iE-k-MLe4rCGgVSnjuwtG1h_" },
+      { title: "📨 فورم طلب إعادة إرسال الامتحانات (THE) بأي وقت", url: "https://docs.google.com/forms/d/1DShk2ahQ0otap45Flo6RJbmlKzP4ScgKMfFRXnBAmO8/viewform?edit_requested=true" },
+      { title: "📝 رابط تسجيل بيانات أعمال السنة (فورم الموقع الرسمي)", url: "https://sites.google.com/eng.cu.edu.eg/planedynamics100" },
+      { title: "📊 شيت متابعة أعمال السنة والدرجات الرسمية", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo" },
       { title: "📅 جدول ومواعيد المحاضرات بالتفصيل", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=807310814" },
       { title: "❓ شيت الأسئلة والاستفسارات الخاصة بالكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=1442330133" },
-      { title: "📋 شيت الإكسيل المجمع لكل روابط الكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=534482259" },
-      { title: "📝 رابط تسجيل بيانات أعمال السنة (فورم الموقع الرسمي)", url: "https://sites.google.com/eng.cu.edu.eg/planedynamics100" }
+      { title: "📋 شيت الإكسيل المجمع لكل روابط الكورس", url: "https://docs.google.com/spreadsheets/d/1vku_hv5X-4PMdHoPBlQ80XnTKzqsdp6GZdKIYh2fWbo/edit#gid=534482259" }
     ],
     social: [
       { title: "👥 جروب الفيسبوك الرسمي للمادة (MECN100)", url: "https://www.facebook.com/groups/MECN100" }
@@ -2447,6 +2610,60 @@ function showRoomDetails(roomCode) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
+// دالة خريطة المنهج التفاعلية لمادة الديناميكا (Roadmap Modal)
+function openDynamicsRoadmapModal() {
+  triggerHaptic("heavy");
+  const modal = document.getElementById("roadmapModal");
+  const body = document.getElementById("roadmapModalBody");
+  const currentAcademicWk = calculateActualAcademicWeek();
+
+  body.innerHTML = `
+    <div style="font-size:12px;color:var(--text-muted);line-height:1.5;direction:rtl;text-align:right;">
+      الخريطة الزمنية الرسمية لمقرر الديناميكا المستوية (EMC G101) مقسمة أسبوع بأسبوع، بالتسليمات ومواعيد الامتحانات.
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface-alt);padding:8px 12px;border-radius:10px;border:1px solid var(--border);margin-top:4px;">
+      <span style="font-size:11px;font-weight:700;color:var(--text-muted);">الأسبوع الأكاديمي الحالي:</span>
+      <span style="font-family:'JetBrains Mono';font-size:11.5px;font-weight:800;color:#8b5cf6;">Week ${currentAcademicWk}</span>
+    </div>
+
+    <div class="roadmap-timeline">
+      ${DYNAMICS_ROADMAP_STEPS.map(step => {
+        const isPast = step.week < currentAcademicWk;
+        const isCurrent = step.week === currentAcademicWk;
+        const stateClass = isPast ? 'is-done' : (isCurrent ? 'is-current' : '');
+
+        return `
+          <div class="roadmap-step ${stateClass}">
+            <div class="roadmap-step-indicator">
+              <div class="roadmap-step-circle">${isPast ? '✓' : step.week}</div>
+              <div class="roadmap-step-line"></div>
+            </div>
+            <div class="roadmap-step-card">
+              <div class="roadmap-step-head">
+                <span class="roadmap-week-tag">WEEK ${step.week} ${isCurrent ? '• 📍 أنت هنا' : ''}</span>
+                <span class="roadmap-date-tag">${step.date}</span>
+              </div>
+              <div class="roadmap-topic-title">${step.title}</div>
+              ${step.the !== '—' ? `<span class="roadmap-the-badge">⚡ ${step.the}</span>` : ''}
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+
+    <a href="https://docs.google.com/spreadsheets/d/${DYNAMICS_MASTER_SHEET_ID}/edit#gid=807310814" target="_blank" rel="noopener noreferrer" class="capsule-link-btn dyn-theme" style="margin-top:6px;">
+      <span>📊 فتح شيت جدول المحاضرات المباشر لجوجل</span>
+      <span>↗</span>
+    </a>
+  `;
+
+  modal.classList.add("open");
+}
+
+function closeRoadmapModal() { document.getElementById("roadmapModal").classList.remove("open"); }
+document.getElementById("roadmapModal").addEventListener("click", e => { if (e.target.id === "roadmapModal") closeRoadmapModal(); });
+
 // دالة كبسولة الروابط المخصصة (Links Capsule)
 function openCourseLinksModal(code) {
   triggerHaptic("heavy");
@@ -2461,6 +2678,12 @@ function openCourseLinksModal(code) {
   body.innerHTML = `
     <div style="font-size:12px;color:var(--text-muted);line-height:1.5;direction:rtl;text-align:right;">
       ${data.desc}
+    </div>
+
+    <div style="margin-top:2px;">
+      <button class="action-btn" style="width:100%;justify-content:center;background:rgba(99, 102, 241, 0.12);color:#6366f1;border-color:#6366f1;" onclick="closeLinksModal();openDynamicsRoadmapModal();">
+        <span>🗺️ فتح خريطة المنهج أسبوع بأسبوع (Roadmap)</span>
+      </button>
     </div>
 
     <div class="capsule-box" style="border-left: 4px solid #8b5cf6;">
@@ -2603,13 +2826,14 @@ function parseCSV(text) {
 async function syncFromGoogleSheets() {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 4000);
+    const timeoutId = setTimeout(() => controller.abort(), 4500);
 
-    const [qRes, aRes, gRes, bRes] = await Promise.all([
+    const [qRes, aRes, gRes, bRes, dynRes] = await Promise.all([
       fetch(QUIZZES_CSV_URL, { signal: controller.signal }).catch(() => null),
       fetch(ALERTS_CSV_URL, { signal: controller.signal }).catch(() => null),
       fetch(WEEKLY_GUIDE_CSV_URL, { signal: controller.signal }).catch(() => null),
-      fetch(BUILDINGS_CSV_URL, { signal: controller.signal }).catch(() => null)
+      fetch(BUILDINGS_CSV_URL, { signal: controller.signal }).catch(() => null),
+      fetch(DYNAMICS_SCHEDULE_CSV_URL, { signal: controller.signal }).catch(() => null)
     ]);
     clearTimeout(timeoutId);
 
@@ -2637,6 +2861,20 @@ async function syncFromGoogleSheets() {
           BUILDING_MAP_URLS[num] = row.url || row.maps_link || row.link;
         }
       });
+    }
+    if (dynRes && dynRes.ok) {
+      const dynText = await dynRes.text();
+      const parsed = parseCSV(dynText);
+      if (parsed.length > 3) {
+        // تحديث حي لجدول المنهج إن وجد في شيت دكتور سمير
+        const liveSteps = parsed.filter(r => r.Week || r.week).map((r, i) => ({
+          week: parseInt(r.Week || r.week) || (i + 1),
+          title: r.Topic || r.topic || r.Title || r.title || `Lecture ${i+1}`,
+          date: r.Date || r.date || '',
+          the: r.THE || r.the || '—'
+        }));
+        if (liveSteps.length > 0) DYNAMICS_ROADMAP_STEPS = liveSteps;
+      }
     }
   } catch (e) {
     console.warn("Using offline fallback data.", e);
@@ -3001,6 +3239,7 @@ function renderDailyAgenda() {
     const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)", hex: "#0284c7" };
     const isShared = s.group === "ALL";
+    const isDynamics = (s.code === "EMC G101");
     const hasCustomLinks = !!COURSE_CUSTOM_LINKS[s.code];
 
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
@@ -3055,6 +3294,7 @@ function renderDailyAgenda() {
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
             <div style="display:flex;align-items:center;gap:6px;">
+              ${isDynamics ? `<button class="capsule-pill-btn roadmap-pill" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
               ${hasCustomLinks ? `<button class="capsule-pill-btn links-pill" onclick="openCourseLinksModal('${s.code}')">🔗 Links</button>` : ''}
               <button class="capsule-pill-btn guide-pill" onclick="openCourseCapsule('${s.code}')">💡 Guide</button>
             </div>
@@ -3138,6 +3378,7 @@ function renderWeekMatrix() {
       const sStartMin = parseMinutes(TIME_STARTS[sess.start]);
       const sEndMin = parseMinutes(TIME_ENDS[sess.start + sess.span - 1]);
       const isLiveNow = isDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !sess.cancelled;
+      const isDynamics = (sess.code === "EMC G101");
       const hasCustomLinks = !!COURSE_CUSTOM_LINKS[sess.code];
 
       const hasConflict = daySessions.some(other => 
@@ -3187,6 +3428,7 @@ function renderWeekMatrix() {
           <div class="title">${course.name}</div>
           <div class="footer">
             <div style="display:flex;gap:4px;align-items:center;">
+              ${isDynamics ? `<span class="matrix-roadmap-btn" onclick="openDynamicsRoadmapModal()">🗺️ Map</span>` : ''}
               ${hasCustomLinks ? `<span class="matrix-links-btn" onclick="openCourseLinksModal('${sess.code}')">🔗 Links</span>` : ''}
               <span class="matrix-guide-btn" onclick="openCourseCapsule('${sess.code}')">💡 Guide</span>
             </div>
@@ -3302,7 +3544,9 @@ function renderGuideScreen() {
           </div>
         ` : weekItems.map((item, idx) => {
           const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
+          const isDynamics = (item.code === "EMC G101");
           const hasCustomLinks = !!COURSE_CUSTOM_LINKS[item.code];
+
           return `
             <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay:${idx * 0.05}s">
               <div class="guide-card-head">
@@ -3311,6 +3555,7 @@ function renderGuideScreen() {
                   <div class="guide-name">${course.name}</div>
                 </div>
                 <div style="display:flex;gap:6px;align-items:center;">
+                  ${isDynamics ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#6366f1;border-color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
                   ${hasCustomLinks ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#8b5cf6;border-color:#8b5cf6;" onclick="openCourseLinksModal('${item.code}')">🔗 Links</button>` : ''}
                   <button class="action-btn" style="height:28px;font-size:10.5px;" onclick="openCourseCapsule('${item.code}')">💡 Guide</button>
                 </div>
@@ -3355,7 +3600,9 @@ function renderDriveScreen() {
       <div class="courses-grid">
         ${filteredCourses.map(([code, c], idx) => {
           const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
+          const isDynamics = (code === "EMC G101");
           const hasCustomLinks = !!COURSE_CUSTOM_LINKS[code];
+
           return `
             <div class="course-card" style="--c: ${c.color}">
               <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${c.color}">${code}</div>
@@ -3367,6 +3614,11 @@ function renderDriveScreen() {
                 <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')"><span>📂</span><span>Folder</span></div>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px;margin-top:auto;">
+                ${isDynamics ? `
+                  <div class="capsule-roadmap-open-btn" onclick="openDynamicsRoadmapModal()">
+                    <span>🗺️ Course Roadmap & Timeline</span><span>↗</span>
+                  </div>
+                ` : ''}
                 ${hasCustomLinks ? `
                   <div class="capsule-links-open-btn" onclick="openCourseLinksModal('${code}')">
                     <span>🔗 Course Links & Hub</span><span>↗</span>
