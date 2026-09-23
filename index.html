@@ -1066,7 +1066,6 @@ body {
   font-weight: 800;
 }
 .matrix-roadmap-btn {
-  color: #6366f1;
   cursor: pointer;
   font-size: 10px;
   font-weight: 800;
@@ -1199,6 +1198,11 @@ body {
   background: rgba(99, 102, 241, 0.12);
   border-color: #6366f1;
 }
+.capsule-pill-btn.mat-roadmap-pill {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: #f59e0b;
+}
 .capsule-pill-btn:hover {
   transform: translateY(-1px);
 }
@@ -1251,8 +1255,8 @@ body {
   color: #ffffff;
 }
 .roadmap-step.is-current .roadmap-step-circle {
-  background: #8b5cf6;
-  border-color: #a78bfa;
+  background: var(--step-color, #8b5cf6);
+  border-color: var(--step-glow, #a78bfa);
   color: #ffffff;
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
   animation: liveBadgePulse 1.8s infinite;
@@ -1270,7 +1274,7 @@ body {
 }
 .roadmap-step.is-current .roadmap-step-card {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%);
-  border-color: #8b5cf6;
+  border-color: var(--step-color, #8b5cf6);
   box-shadow: 0 4px 14px rgba(139, 92, 246, 0.18);
 }
 .roadmap-step-head {
@@ -1282,7 +1286,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10.5px;
   font-weight: 800;
-  color: #8b5cf6;
+  color: var(--step-color, #8b5cf6);
 }
 .roadmap-date-tag {
   font-family: 'JetBrains Mono', monospace;
@@ -1308,6 +1312,29 @@ body {
   border: 1px solid #ea580c;
   width: fit-content;
   margin-top: 2px;
+}
+.roadmap-sub-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--border);
+}
+.roadmap-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.roadmap-sub-badge {
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 
 /* Weekly Guide */
@@ -1596,8 +1623,21 @@ body {
   justify-content: space-between;
   cursor: pointer;
 }
+.capsule-mat-roadmap-open-btn {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid #f59e0b;
+  color: #f59e0b;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
 
-/* Floating Bottom Nav with Active Indicator Pill */
+/* Floating Bottom Nav */
 .bottom-nav {
   position: fixed;
   bottom: 16px;
@@ -2230,6 +2270,17 @@ body {
   </div>
 </div>
 
+<!-- Materials Interactive Course Roadmap Modal -->
+<div class="modal-overlay" id="materialsRoadmapModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title" style="color: #f59e0b;">🗺️ Materials Science Roadmap (MDP G121)</div>
+      <button class="modal-close" onclick="closeMaterialsRoadmapModal()">×</button>
+    </div>
+    <div class="modal-body" id="materialsRoadmapModalBody"></div>
+  </div>
+</div>
+
 <script>
 const ACADEMIC_YEAR_START = new Date(2026, 8, 19);
 
@@ -2263,7 +2314,7 @@ const COURSES = {
   "EPE G113": { name: "Electrical & Electronics Engineering", color: "var(--c-epe)", hex: "#f43f5e" },
 };
 
-// خريطة منهج الديناميكا المعتمدة أسبوع بأسبوع
+// خريطة منهج الديناميكا أسبوع بأسبوع
 let DYNAMICS_ROADMAP_STEPS = [
   { week: 1, title: "Course Introduction & Kinematics of Particles (Rectilinear Motion)", date: "Sep 20 - Sep 24", the: "—" },
   { week: 2, title: "Curvilinear Motion (Cartesian & Polar Coordinates)", date: "Sep 27 - Oct 01", the: "THE 1 Release" },
@@ -2279,6 +2330,25 @@ let DYNAMICS_ROADMAP_STEPS = [
   { week: 12, title: "Planar Kinetics: Work and Energy for Rigid Bodies", date: "Dec 06 - Dec 10", the: "Final THE Submission (THE 9)" },
   { week: 13, title: "Planar Kinetics: Impulse and Momentum for Rigid Bodies", date: "Dec 13 - Dec 17", the: "Course Review & Bonus" },
   { week: 14, title: "Comprehensive Revision & Final Exams Preparation", date: "Dec 20 - Dec 24", the: "🎯 Final Revision" }
+];
+
+// خريطة منهج الماتيريال المفرغة بدقة من صورة الجدول الرسمي
+const MATERIALS_ROADMAP_STEPS = [
+  { week: 1, date: "Sep 21", lecture: "Introduction", tut: "No Tutorial (ملغي)", lab: null },
+  { week: 2, date: "Sep 28", lecture: "Interatomic Bonding", tut: "Interatomic Bonding (Tut)", lab: null },
+  { week: 3, date: "Oct 5", lecture: "Crystal Structures-1", tut: "Crystal Structures-1 (Tut)", lab: null },
+  { week: 4, date: "Oct 12", lecture: "Crystal Structures-2", tut: "Crystal Structures-2 (Tut)", lab: null },
+  { week: 5, date: "Oct 19", lecture: "Imperfections in Solids", tut: "Imperfections in Solids (Tut)", lab: null },
+  { week: 6, date: "Oct 26", lecture: "Mechanical Properties-1", tut: "Mechanical Properties-1 (Tut)", lab: "Tension test (Lab)" },
+  { week: 7, date: "Nov 2", lecture: "Mechanical Properties-2", tut: "Mechanical Properties-2 (Tut)", lab: "Tension test (Lab)" },
+  { week: 8, date: "Nov 9", lecture: "⚡ Midterm Exam", tut: "Midterm Exam Week", lab: null, isMidterm: true },
+  { week: 9, date: "Nov 16", lecture: "Diffusion", tut: "Diffusion (Tut)", lab: null },
+  { week: 10, date: "Nov 23", lecture: "Strengthening Mechanisms-1", tut: "—", lab: "Compression / Hardness test (Lab)" },
+  { week: 11, date: "Nov 30", lecture: "Strengthening Mechanisms-2", tut: "Strengthening (Tut)", lab: null },
+  { week: 12, date: "Dec 7", lecture: "Phase Diagrams", tut: "Phase Diagrams-1 (Tut)", lab: null },
+  { week: 13, date: "Dec 14", lecture: "Iron-Carbon Diagram", tut: "Phase Diagrams-2 (Tut)", lab: "Microstructure (Lab)" },
+  { week: 14, date: "Dec 21", lecture: "Classification of Ferrous alloys", tut: "Revision", lab: null },
+  { week: 15, date: "Dec 28", lecture: "Revision", tut: "Revision", lab: null }
 ];
 
 // كبسولة الروابط الرسمية لمادة الديناميكا
@@ -2610,7 +2680,7 @@ function showRoomDetails(roomCode) {
   toastTimer = setTimeout(() => box.classList.remove("show"), 6000);
 }
 
-// دالة خريطة المنهج التفاعلية لمادة الديناميكا (Roadmap Modal)
+// دالة خريطة منهج الديناميكا
 function openDynamicsRoadmapModal() {
   triggerHaptic("heavy");
   const modal = document.getElementById("roadmapModal");
@@ -2634,7 +2704,7 @@ function openDynamicsRoadmapModal() {
         const stateClass = isPast ? 'is-done' : (isCurrent ? 'is-current' : '');
 
         return `
-          <div class="roadmap-step ${stateClass}">
+          <div class="roadmap-step ${stateClass}" style="--step-color: #8b5cf6; --step-glow: #a78bfa;">
             <div class="roadmap-step-indicator">
               <div class="roadmap-step-circle">${isPast ? '✓' : step.week}</div>
               <div class="roadmap-step-line"></div>
@@ -2663,6 +2733,67 @@ function openDynamicsRoadmapModal() {
 
 function closeRoadmapModal() { document.getElementById("roadmapModal").classList.remove("open"); }
 document.getElementById("roadmapModal").addEventListener("click", e => { if (e.target.id === "roadmapModal") closeRoadmapModal(); });
+
+// دالة خريطة منهج علم المواد المفرغة من الصورة
+function openMaterialsRoadmapModal() {
+  triggerHaptic("heavy");
+  const modal = document.getElementById("materialsRoadmapModal");
+  const body = document.getElementById("materialsRoadmapModalBody");
+  const currentAcademicWk = calculateActualAcademicWeek();
+
+  body.innerHTML = `
+    <div style="font-size:12px;color:var(--text-muted);line-height:1.5;direction:rtl;text-align:right;">
+      الخريطة الرسمية لمقرر علم المواد (MDP G121) متضمنة المحاضرات والسكاشن وتجارب المعمل (Lab) والميدتيرم أسبوع بأسبوع.
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface-alt);padding:8px 12px;border-radius:10px;border:1px solid var(--border);margin-top:4px;">
+      <span style="font-size:11px;font-weight:700;color:var(--text-muted);">الأسبوع الأكاديمي الحالي:</span>
+      <span style="font-family:'JetBrains Mono';font-size:11.5px;font-weight:800;color:#f59e0b;">Week ${currentAcademicWk}</span>
+    </div>
+
+    <div class="roadmap-timeline">
+      ${MATERIALS_ROADMAP_STEPS.map(step => {
+        const isPast = step.week < currentAcademicWk;
+        const isCurrent = step.week === currentAcademicWk;
+        const stateClass = isPast ? 'is-done' : (isCurrent ? 'is-current' : '');
+
+        return `
+          <div class="roadmap-step ${stateClass}" style="--step-color: #f59e0b; --step-glow: #fbbf24;">
+            <div class="roadmap-step-indicator">
+              <div class="roadmap-step-circle">${isPast ? '✓' : step.week}</div>
+              <div class="roadmap-step-line"></div>
+            </div>
+            <div class="roadmap-step-card" style="${step.isMidterm ? 'border-color:#ea580c;background:rgba(234,88,12,0.06);' : ''}">
+              <div class="roadmap-step-head">
+                <span class="roadmap-week-tag" style="${step.isMidterm ? 'color:#ea580c;' : ''}">WEEK ${step.week} ${isCurrent ? '• 📍 أنت هنا' : ''}</span>
+                <span class="roadmap-date-tag">${step.date}</span>
+              </div>
+              <div class="roadmap-topic-title" style="${step.isMidterm ? 'color:#ea580c;font-weight:800;' : ''}">${step.lecture}</div>
+              
+              <div class="roadmap-sub-row">
+                <div class="roadmap-sub-item">
+                  <span class="roadmap-sub-badge">Tutorial</span>
+                  <span>${step.tut}</span>
+                </div>
+                ${step.lab ? `
+                  <div class="roadmap-sub-item" style="color:#059669;font-weight:700;">
+                    <span class="roadmap-sub-badge" style="border-color:#10b981;background:rgba(16,185,129,0.1);color:#059669;">Lab</span>
+                    <span>🔬 ${step.lab}</span>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+
+  modal.classList.add("open");
+}
+
+function closeMaterialsRoadmapModal() { document.getElementById("materialsRoadmapModal").classList.remove("open"); }
+document.getElementById("materialsRoadmapModal").addEventListener("click", e => { if (e.target.id === "materialsRoadmapModal") closeMaterialsRoadmapModal(); });
 
 // دالة كبسولة الروابط المخصصة (Links Capsule)
 function openCourseLinksModal(code) {
@@ -2866,7 +2997,6 @@ async function syncFromGoogleSheets() {
       const dynText = await dynRes.text();
       const parsed = parseCSV(dynText);
       if (parsed.length > 3) {
-        // تحديث حي لجدول المنهج إن وجد في شيت دكتور سمير
         const liveSteps = parsed.filter(r => r.Week || r.week).map((r, i) => ({
           week: parseInt(r.Week || r.week) || (i + 1),
           title: r.Topic || r.topic || r.Title || r.title || `Lecture ${i+1}`,
@@ -3240,6 +3370,7 @@ function renderDailyAgenda() {
     const course = COURSES[s.code] || { name: s.code, color: "var(--c-mth)", hex: "#0284c7" };
     const isShared = s.group === "ALL";
     const isDynamics = (s.code === "EMC G101");
+    const isMaterials = (s.code === "MDP G121");
     const hasCustomLinks = !!COURSE_CUSTOM_LINKS[s.code];
 
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
@@ -3295,6 +3426,7 @@ function renderDailyAgenda() {
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
             <div style="display:flex;align-items:center;gap:6px;">
               ${isDynamics ? `<button class="capsule-pill-btn roadmap-pill" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
+              ${isMaterials ? `<button class="capsule-pill-btn mat-roadmap-pill" onclick="openMaterialsRoadmapModal()">🗺️ Roadmap</button>` : ''}
               ${hasCustomLinks ? `<button class="capsule-pill-btn links-pill" onclick="openCourseLinksModal('${s.code}')">🔗 Links</button>` : ''}
               <button class="capsule-pill-btn guide-pill" onclick="openCourseCapsule('${s.code}')">💡 Guide</button>
             </div>
@@ -3379,6 +3511,7 @@ function renderWeekMatrix() {
       const sEndMin = parseMinutes(TIME_ENDS[sess.start + sess.span - 1]);
       const isLiveNow = isDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !sess.cancelled;
       const isDynamics = (sess.code === "EMC G101");
+      const isMaterials = (sess.code === "MDP G121");
       const hasCustomLinks = !!COURSE_CUSTOM_LINKS[sess.code];
 
       const hasConflict = daySessions.some(other => 
@@ -3428,7 +3561,8 @@ function renderWeekMatrix() {
           <div class="title">${course.name}</div>
           <div class="footer">
             <div style="display:flex;gap:4px;align-items:center;">
-              ${isDynamics ? `<span class="matrix-roadmap-btn" onclick="openDynamicsRoadmapModal()">🗺️ Map</span>` : ''}
+              ${isDynamics ? `<span class="matrix-roadmap-btn" style="color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Map</span>` : ''}
+              ${isMaterials ? `<span class="matrix-roadmap-btn" style="color:#f59e0b;" onclick="openMaterialsRoadmapModal()">🗺️ Map</span>` : ''}
               ${hasCustomLinks ? `<span class="matrix-links-btn" onclick="openCourseLinksModal('${sess.code}')">🔗 Links</span>` : ''}
               <span class="matrix-guide-btn" onclick="openCourseCapsule('${sess.code}')">💡 Guide</span>
             </div>
@@ -3545,6 +3679,7 @@ function renderGuideScreen() {
         ` : weekItems.map((item, idx) => {
           const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
           const isDynamics = (item.code === "EMC G101");
+          const isMaterials = (item.code === "MDP G121");
           const hasCustomLinks = !!COURSE_CUSTOM_LINKS[item.code];
 
           return `
@@ -3556,6 +3691,7 @@ function renderGuideScreen() {
                 </div>
                 <div style="display:flex;gap:6px;align-items:center;">
                   ${isDynamics ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#6366f1;border-color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
+                  ${isMaterials ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#f59e0b;border-color:#f59e0b;" onclick="openMaterialsRoadmapModal()">🗺️ Roadmap</button>` : ''}
                   ${hasCustomLinks ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#8b5cf6;border-color:#8b5cf6;" onclick="openCourseLinksModal('${item.code}')">🔗 Links</button>` : ''}
                   <button class="action-btn" style="height:28px;font-size:10.5px;" onclick="openCourseCapsule('${item.code}')">💡 Guide</button>
                 </div>
@@ -3601,6 +3737,7 @@ function renderDriveScreen() {
         ${filteredCourses.map(([code, c], idx) => {
           const d = DRIVE_DATA[code] || { folder: MAIN_SEMESTER_DRIVE, lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE };
           const isDynamics = (code === "EMC G101");
+          const isMaterials = (code === "MDP G121");
           const hasCustomLinks = !!COURSE_CUSTOM_LINKS[code];
 
           return `
@@ -3616,7 +3753,12 @@ function renderDriveScreen() {
               <div style="display:flex;flex-direction:column;gap:6px;margin-top:auto;">
                 ${isDynamics ? `
                   <div class="capsule-roadmap-open-btn" onclick="openDynamicsRoadmapModal()">
-                    <span>🗺️ Course Roadmap & Timeline</span><span>↗</span>
+                    <span>🗺️ Dynamics Roadmap</span><span>↗</span>
+                  </div>
+                ` : ''}
+                ${isMaterials ? `
+                  <div class="capsule-mat-roadmap-open-btn" onclick="openMaterialsRoadmapModal()">
+                    <span>🗺️ Materials Science Roadmap</span><span>↗</span>
                   </div>
                 ` : ''}
                 ${hasCustomLinks ? `
