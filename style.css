@@ -419,9 +419,7 @@ body {
 .capsule-pill-btn.roadmap-pill { color: #6366f1 !important; background: rgba(99, 102, 241, 0.12) !important; border-color: rgba(99, 102, 241, 0.35) !important; }
 .capsule-pill-btn.mat-roadmap-pill { color: #f59e0b !important; background: rgba(245, 158, 11, 0.12) !important; border-color: rgba(245, 158, 11, 0.35) !important; }
 
-/* ==========================================================================
-   Tasks Hub Styles
-   ========================================================================== */
+/* Tasks Hub Styles */
 .tasks-hub-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .tasks-main-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .tasks-header-left { display: flex; align-items: center; gap: 10px; }
@@ -504,39 +502,58 @@ body {
 .week-tab-btn { background: var(--surface-alt); border: 1px solid var(--border); color: var(--text-muted); padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .week-tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-.guide-card {
+/* كارت الجايد الأصلي النظيف */
+.guide-clean-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 4.5px solid var(--c);
-  border-radius: 18px;
-  padding: 16px;
+  border-radius: 20px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.04);
 }
 
-.guide-box-item {
-  background: var(--surface-alt);
+.guide-clean-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.guide-clean-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--c);
+  letter-spacing: 0.04em;
+}
+
+.guide-clean-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* البوكسات الثلاثة الأساسية مثل الصورة بالمللي */
+.guide-clean-row {
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 12px 14px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.guide-box-left {
+.guide-row-top {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-width: 220px;
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.guide-box-label {
+.guide-row-pill {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 800;
@@ -544,63 +561,87 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  min-width: 85px;
   flex-shrink: 0;
+  padding-top: 1px;
 }
 
-.guide-box-text {
-  font-size: 12px;
+.guide-row-text {
+  flex: 1;
+  font-size: 12.5px;
   color: var(--text-main);
+  line-height: 1.5;
   font-weight: 600;
-  line-height: 1.4;
 }
 
-.guide-box-actions {
+/* سطر اللينكات النظيف جداً داخل كل بوكس */
+.guide-links-shelf {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
+  padding-left: 97px; /* محاذاة اللينك تحت الكلام مش تحت العنوان */
 }
 
-.guide-action-pill {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 3px 8px;
-  border-radius: 6px;
-  font-size: 10.5px;
+@media (max-width: 480px) {
+  .guide-links-shelf {
+    padding-left: 0;
+    margin-top: 2px;
+  }
+}
+
+.guide-chip-link {
+  background: var(--surface-alt);
+  border: 1px solid var(--border-dark);
+  color: var(--text-main) !important;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: none !important;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  transition: all 0.15s ease;
+  gap: 5px;
+  transition: all 0.2s ease;
 }
 
-.guide-action-pill:hover {
+.guide-chip-link:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent) !important;
   transform: translateY(-1px);
 }
 
-.guide-summary-btn-box {
-  background: var(--surface-alt);
+.guide-chip-link.sol-chip {
+  color: #10b981 !important;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.guide-chip-link.yt-chip {
+  color: #f43f5e !important;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+/* زرار الملخص الأصفر العريض المتطابق مع الصورة الأصلية */
+.guide-summary-full-btn {
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 12.5px;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 13px;
   font-weight: 700;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   color: var(--text-main);
+  text-decoration: none;
   margin-top: 2px;
   transition: all 0.2s ease;
 }
 
-.guide-summary-btn-box:hover {
-  border-color: #f59e0b;
-  color: #f59e0b;
+.guide-summary-full-btn:hover {
+  border-color: #fbbf24;
+  color: #fbbf24;
 }
 
 /* Legend & Floating Bottom Nav */
