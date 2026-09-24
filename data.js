@@ -80,7 +80,7 @@ const COURSE_STATIC_ASSIGNMENTS = [
   }
 ];
 
-// جايد الأسبوع الأول: مادة الكهربية فقط (EPE G113)
+// دليل الأسبوع الدراسي الأول (الكهربية + التكامل والماث)
 const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 1",
@@ -98,6 +98,23 @@ const DEFAULT_WEEKLY_GUIDES = [
     ],
     summary_title: "ملخص المحاضرة الأولى (Electrical Summary)",
     summary_url: "https://drive.google.com/file/d/15OSsv6GFMQtj6et4yHNZ_EUM__P4fA_R/view?usp=drivesdk"
+  },
+  {
+    week: "Week 1",
+    code: "MTH G102",
+    lectures: "Double Integrals (Part 1)",
+    slides_url: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
+    sheet: "Sheet 1 & Assignment 1 (Double Integrals)",
+    sheet_url: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0",
+    solution_url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
+    practice: "حل مسائل الشيت وشرح م. عمار ياسر وم. أحمد المغربي",
+    playlists: [
+      { title: "م. عمار ياسر (كامل)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
+      { title: "م. أحمد المغربي (فيديو 1 كامل)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
+      { title: "م. أحمد المغربي (فيديو 2 حتى د 30:45)", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" }
+    ],
+    summary_title: "نوتس وملاحظات المحاضرة الأولى (Notes)",
+    summary_url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx"
   }
 ];
 
