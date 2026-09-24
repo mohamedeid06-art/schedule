@@ -16,7 +16,7 @@ let completedTasks = JSON.parse(localStorage.getItem("cufe_completed_tasks") || 
 let currentDetailedTask = null;
 let calViewDate = new Date(2026, 8, 1);
 
-let WEEKLY_GUIDE_DATA = [];
+let WEEKLY_GUIDE_DATA = typeof DEFAULT_WEEKLY_GUIDES !== 'undefined' ? [...DEFAULT_WEEKLY_GUIDES] : [];
 let selectedGuideWeek = "Week 1";
 let ASSESSMENTS = [];
 let NOTIFICATIONS = [
@@ -465,7 +465,10 @@ async function syncFromGoogleSheets() {
     if (gRes && gRes.ok) {
       const gText = await gRes.text();
       const parsed = parseCSV(gText);
-      WEEKLY_GUIDE_DATA = parsed.filter(row => row.week && row.code && (row.lectures || row.sheet || row.practice || row.summary_title));
+      const onlineGuides = parsed.filter(row => row.week && row.code && (row.lectures || row.sheet || row.practice || row.summary_title));
+      if (onlineGuides.length > 0) {
+        WEEKLY_GUIDE_DATA = onlineGuides;
+      }
     }
     if (bRes && bRes.ok) {
       const bText = await bRes.text();
@@ -594,7 +597,8 @@ function formatExactDateDisplay(dateStr) {
 function updateTaskBadge() {
   const badge = document.getElementById("navTaskBadge");
   const activeList = getActiveSectionAssessments();
-  const totalCount = activeList.length + DYNAMICS_THE_EXAMS.length;
+  const staticCount = (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') ? COURSE_STATIC_ASSIGNMENTS.length : 0;
+  const totalCount = activeList.length + DYNAMICS_THE_EXAMS.length + staticCount;
   if (totalCount > 0) {
     badge.textContent = totalCount;
     badge.style.display = "block";
@@ -609,6 +613,13 @@ function getAllEventsForCalendar() {
     const d = getParsedDateObj(ex.deadline);
     if (d) allEvents.push({ date: d, code: "EMC G101", title: `THE ${ex.no} Deadline (7:00 PM)`, type: "Exam Deadline", color: "#8b5cf6" });
   });
+  if (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') {
+    COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
+      const deadline = asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"];
+      const d = getParsedDateObj(deadline);
+      if (d) allEvents.push({ date: d, code: asgn.code, title: asgn.title, type: "Assignment", color: COURSES[asgn.code]?.hex || '#0284c7' });
+    });
+  }
   getActiveSectionAssessments().forEach(a => {
     const d = getParsedDateObj(a.date);
     if (d) allEvents.push({ date: d, code: a.code, title: a.title, type: a.type || 'Task', color: COURSES[a.code]?.hex || '#ea580c' });
@@ -617,12 +628,45 @@ function getAllEventsForCalendar() {
 }
 
 // ==========================================================================
-// Tasks Hub Controller (Exact UI Match with Screenshot)
+// Tasks Hub Controller
 // ==========================================================================
 function getAllCombinedTasks() {
   const list = [];
   
-  // 1. امتحانات الديناميكا
+  // 1. أساينمنت اللينير والتكليفات المباشرة (حسب السكشن)
+  if (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') {
+    COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
+      const deadline = asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"];
+      const cd = getExactCountdown(deadline);
+      const isDone = completedTasks.includes(asgn.id);
+
+      let priority = "scheduled";
+      if (isDone) priority = "done";
+      else if (cd.isUrgent) priority = "due-soon";
+      else if (cd.diff <= 7 * 24 * 3600 * 1000) priority = "upcoming";
+
+      list.push({
+        id: asgn.id,
+        code: asgn.code,
+        title: asgn.title,
+        type: asgn.type,
+        deadline: deadline,
+        start: asgn.start,
+        countdown: cd,
+        priority: priority,
+        desc: asgn.desc,
+        note: asgn.note,
+        files: [
+          { name: "MTH_G102_Linear_Assignment_1.pdf", url: asgn.folderUrl, size: "Drive Folder" }
+        ],
+        submissionUrl: asgn.folderUrl,
+        bonusPolicy: "تسليم ورقي مع بداية السكشن للمعيد.",
+        isDone: isDone
+      });
+    });
+  }
+
+  // 2. امتحانات الديناميكا الـ 9
   DYNAMICS_THE_EXAMS.forEach(ex => {
     const cd = getExactCountdown(ex.deadline);
     const id = `the-${ex.no}`;
@@ -654,7 +698,7 @@ function getAllCombinedTasks() {
     });
   });
 
-  // 2. مهام الشيت المباشرة
+  // 3. مهام الشيت المباشرة
   getActiveSectionAssessments().forEach((a, idx) => {
     const cd = getExactCountdown(a.date);
     const id = `sheet-task-${idx}`;
@@ -849,7 +893,6 @@ function renderTasksScreen() {
 function renderCompactTaskCardHtml(task) {
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", hex: "#0284c7" };
   
-  // تنسيق تواريخ البداية والنهاية بنظام المدى الزمني المتصل
   const sObj = new Date(task.start);
   const formattedStart = !isNaN(sObj.getTime()) 
     ? `${sObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • ${sObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
@@ -935,7 +978,7 @@ function openTaskDetails(taskId) {
         ${formattedStartDate ? `
           <div style="display:flex;align-items:center;gap:6px;">
             <span style="font-size:10.5px;font-weight:700;color:#10b981;">🟢 وقت النزول والبدء:</span>
-            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} •${formattedStartTime}</b>
+            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} • ${formattedStartTime}</b>
           </div>
         ` : ''}
         <div style="display:flex;align-items:center;gap:6px;">
@@ -1081,7 +1124,7 @@ function renderCalendarMonthGrid() {
       <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}')">
         <span class="cal-day-num">${d}</span>
         <div class="cal-dots-row">
-          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}:${ev.title}"></span>`).join("")}
+          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}: ${ev.title}"></span>`).join("")}
         </div>
       </div>
     `;
@@ -1668,6 +1711,7 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
+// عرض شاشة الجايد الأسبوعي (تم ربط روابط EPE G113 مباشرة)
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1722,14 +1766,38 @@ function renderGuideScreen() {
                   <button class="action-btn" style="height:28px;font-size:10.5px;" onclick="openCourseCapsule('${item.code}')">💡 Guide</button>
                 </div>
               </div>
-              ${item.lectures ? `<div class="guide-row"><span class="guide-label">📑 Lectures:</span><span class="guide-val">${item.lectures}</span></div>` : ''}
-              ${item.sheet ? `<div class="guide-row"><span class="guide-label">📝 Tutorials:</span><span class="guide-val">${item.sheet}</span></div>` : ''}
-              ${item.practice ? `<div class="guide-row"><span class="guide-label">🎯 Practice:</span><span class="guide-val">${item.practice}</span></div>` : ''}
-              ${item.summary_url ? `
-                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.summary_url}')">
-                  <div style="display:flex;align-items:center;gap:6px"><span>💡</span><span>${item.summary_title || 'Student Summary & Notes'}</span></div>
+
+              ${item.slides_url ? `
+                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.slides_url}')" style="border-left: 3.5px solid #38bdf8;">
+                  <div style="display:flex;align-items:center;gap:6px"><span>📑</span><span>Lecture Slides (المحاضرة)</span></div>
                   <span>↗</span>
-                </div>` : ''}
+                </div>
+              ` : ''}
+
+              ${item.sheet_url ? `
+                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.sheet_url}')" style="border-left: 3.5px solid #10b981;">
+                  <div style="display:flex;align-items:center;gap:6px"><span>📝</span><span>Sheet 1 Problems (الشيت)</span></div>
+                  <span>↗</span>
+                </div>
+              ` : ''}
+
+              ${item.solution_url ? `
+                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.solution_url}')" style="border-left: 3.5px solid #f59e0b;">
+                  <div style="display:flex;align-items:center;gap:6px"><span>🎯</span><span>Sheet 1 Solutions (إجابات وحل الشيت)</span></div>
+                  <span>↗</span>
+                </div>
+              ` : ''}
+
+              ${item.summary_url ? `
+                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.summary_url}')" style="border-left: 3.5px solid #8b5cf6;">
+                  <div style="display:flex;align-items:center;gap:6px"><span>💡</span><span>${item.summary_title || 'Summary of Lecture 1'}</span></div>
+                  <span>↗</span>
+                </div>
+              ` : ''}
+
+              ${item.lectures && !item.slides_url ? `<div class="guide-row"><span class="guide-label">📑 Lectures:</span><span class="guide-val">${item.lectures}</span></div>` : ''}
+              ${item.sheet && !item.sheet_url ? `<div class="guide-row"><span class="guide-label">📝 Tutorials:</span><span class="guide-val">${item.sheet}</span></div>` : ''}
+              ${item.practice ? `<div class="guide-row"><span class="guide-label">🎯 Practice:</span><span class="guide-val">${item.practice}</span></div>` : ''}
             </div>`;
         }).join("")}
       </div>
@@ -2058,5 +2126,3 @@ render();
 syncFromGoogleSheets();
 triggerFirstWeekWelcomeConfetti();
 setInterval(updateLiveTracker, 60000);
-
-
