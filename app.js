@@ -2,6 +2,13 @@
    CUFE Mechanical Engineering — Batch 30 Application Logic Engine
    ========================================================================== */
 
+// --- تنظيف الكاش القديم فوراً لمنع تعليق النسخ السابقة ---
+if (typeof caches !== 'undefined') {
+  caches.keys().then(names => {
+    names.forEach(name => caches.delete(name));
+  });
+}
+
 // --- Global Application State ---
 let activeView = "day";
 let activeGroup = localStorage.getItem("cufe_active_group") || "ME1-01";
@@ -16,6 +23,7 @@ let completedTasks = JSON.parse(localStorage.getItem("cufe_completed_tasks") || 
 let currentDetailedTask = null;
 let calViewDate = new Date(2026, 8, 1);
 
+// استخدام جايد مادة الكهربية فقط
 let WEEKLY_GUIDE_DATA = typeof DEFAULT_WEEKLY_GUIDES !== 'undefined' ? [...DEFAULT_WEEKLY_GUIDES] : [];
 let selectedGuideWeek = "Week 1";
 let ASSESSMENTS = [];
@@ -57,7 +65,7 @@ function calculateActualAcademicWeek() {
   return Math.floor(diffDays / 7) + 1;
 }
 
-// دالة جلب الحصص المعتمدة (الجدول الكامل الرسمي مباشرة بدون أي حصص ملغية)
+// دالة جلب الحصص المعتمدة (الجدول الكامل الرسمي دائماً - لا يوجد أي كود لإلغاء أي سكشن)
 function getActiveEffectiveSessions() {
   let baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
   if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
@@ -343,18 +351,6 @@ function openCourseCapsule(code) {
           `).join("")}
         </div>
       ` : ''}
-
-      ${cap.playlists && cap.playlists.length > 0 ? `
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-          <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
-          ${cap.playlists.map(p => `
-            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #f43f5e;">
-              <span style="color:var(--text-main);">${p.title}</span>
-              <span style="color:#f43f5e;">▶</span>
-            </a>
-          `).join("")}
-        </div>
-      ` : ''}
     `;
   }
 
@@ -386,10 +382,9 @@ async function syncFromGoogleSheets() {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 4500);
 
-    const [qRes, aRes, gRes, bRes, dynRes] = await Promise.all([
+    const [qRes, aRes, bRes, dynRes] = await Promise.all([
       fetch(QUIZZES_CSV_URL, { signal: controller.signal }).catch(() => null),
       fetch(ALERTS_CSV_URL, { signal: controller.signal }).catch(() => null),
-      fetch(WEEKLY_GUIDE_CSV_URL, { signal: controller.signal }).catch(() => null),
       fetch(BUILDINGS_CSV_URL, { signal: controller.signal }).catch(() => null),
       fetch(DYNAMICS_SCHEDULE_CSV_URL, { signal: controller.signal }).catch(() => null)
     ]);
@@ -404,14 +399,6 @@ async function syncFromGoogleSheets() {
       const aText = await aRes.text();
       const parsed = parseCSV(aText);
       if (parsed.length > 0) NOTIFICATIONS = parsed;
-    }
-    if (gRes && gRes.ok) {
-      const gText = await gRes.text();
-      const parsed = parseCSV(gText);
-      const onlineGuides = parsed.filter(row => row.week && row.code && (row.lectures || row.sheet || row.practice || row.summary_title));
-      if (onlineGuides.length > 0) {
-        WEEKLY_GUIDE_DATA = onlineGuides;
-      }
     }
     if (bRes && bRes.ok) {
       const bText = await bRes.text();
@@ -1054,7 +1041,7 @@ function renderCalendarMonthGrid() {
       <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}')">
         <span class="cal-day-num">${d}</span>
         <div class="cal-dots-row">
-          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}:${ev.title}"></span>`).join("")}
+          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}: ${ev.title}"></span>`).join("")}
         </div>
       </div>
     `;
@@ -1638,7 +1625,7 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
-// عرض الجايد الأسبوعي النظيف والمريح للعين طبق الأصل من الصورة المرجعية
+// عرض شاشة الجايد المتطابقة 100% مع الصورة الأصلية (لمادة الكهربية فقط)
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1678,68 +1665,63 @@ function renderGuideScreen() {
           const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
 
           return `
-            <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay:${idx * 0.05}s">
-              <div>
-                <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${course.color};">${item.code}</div>
-                <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-top:2px;">${course.name}</div>
+            <div class="guide-clean-card cascade-item" style="--c: ${course.color}; animation-delay:${idx * 0.05}s">
+              <div class="guide-clean-head">
+                <div class="guide-clean-code">${item.code}</div>
+                <div class="guide-clean-name">${course.name}</div>
               </div>
 
-              <!-- بوكس المحاضرات -->
+              <!-- بوكس 1: المحاضرات والسلايدات -->
               ${item.lectures ? `
-                <div class="guide-box-item">
-                  <div class="guide-box-left">
-                    <span class="guide-box-label">📑 Lectures:</span>
-                    <span class="guide-box-text">${item.lectures}</span>
+                <div class="guide-clean-row">
+                  <div class="guide-row-top">
+                    <span class="guide-row-pill">📑 Lectures:</span>
+                    <span class="guide-row-text">${item.lectures}</span>
                   </div>
                   ${item.slides_url ? `
-                    <div class="guide-box-actions">
-                      <a href="${item.slides_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill" style="color:#38bdf8;">
-                        <span>Slides</span> ↗
+                    <div class="guide-links-shelf">
+                      <a href="${item.slides_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link">
+                        <span>📥 سلايدات المحاضرة (Slides)</span> ↗
                       </a>
                     </div>
                   ` : ''}
                 </div>
               ` : ''}
 
-              <!-- بوكس السكاشن والشيتات -->
+              <!-- بوكس 2: السكاشن والشيت والحل -->
               ${item.sheet ? `
-                <div class="guide-box-item">
-                  <div class="guide-box-left">
-                    <span class="guide-box-label">📝 Tutorials:</span>
-                    <span class="guide-box-text">${item.sheet}</span>
+                <div class="guide-clean-row">
+                  <div class="guide-row-top">
+                    <span class="guide-row-pill">📝 Tutorials:</span>
+                    <span class="guide-row-text">${item.sheet}</span>
                   </div>
-                  <div class="guide-box-actions">
+                  <div class="guide-links-shelf">
                     ${item.sheet_url ? `
-                      <a href="${item.sheet_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill">
-                        <span>Sheet</span> ↗
+                      <a href="${item.sheet_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link">
+                        <span>📄 ملف الشيت (Sheet)</span> ↗
                       </a>
                     ` : ''}
                     ${item.solution_url ? `
-                      <a href="${item.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill" style="color:#10b981;">
-                        <span>Solution</span> ↗
-                      </a>
-                    ` : ''}
-                    ${item.folder_url ? `
-                      <a href="${item.folder_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill">
-                        <span>Folder</span> ↗
+                      <a href="${item.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link sol-chip">
+                        <span>✓ إجابات وحل الشيت</span> ↗
                       </a>
                     ` : ''}
                   </div>
                 </div>
               ` : ''}
 
-              <!-- بوكس التمارين وقوائم الشرح -->
+              <!-- بوكس 3: التمارين وفيديوهات الشرح -->
               ${(item.practice || (item.playlists && item.playlists.length > 0)) ? `
-                <div class="guide-box-item">
-                  <div class="guide-box-left">
-                    <span class="guide-box-label">🎯 Practice:</span>
-                    <span class="guide-box-text">${item.practice || 'حل المسائل ومتابعة الشرح'}</span>
+                <div class="guide-clean-row">
+                  <div class="guide-row-top">
+                    <span class="guide-row-pill">🎯 Practice:</span>
+                    <span class="guide-row-text">${item.practice || 'حل مسائل شيت 1 ومتابعة الفيديوهات'}</span>
                   </div>
                   ${item.playlists && item.playlists.length > 0 ? `
-                    <div class="guide-box-actions">
+                    <div class="guide-links-shelf">
                       ${item.playlists.map(pl => `
-                        <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill" style="color:#f43f5e;" title="${pl.title}">
-                          <span>▶ ${pl.title.split('(')[0].trim()}</span>
+                        <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link yt-chip">
+                          <span>🎬 ${pl.title}</span> ▶
                         </a>
                       `).join("")}
                     </div>
@@ -1747,15 +1729,15 @@ function renderGuideScreen() {
                 </div>
               ` : ''}
 
-              <!-- زرار الملخص الأصفر العريض بالسهم ↗ -->
+              <!-- زرار الملخص الأصفر العريض المتطابق مع الصورة -->
               ${item.summary_url ? `
-                <div class="guide-summary-btn-box" onclick="openSafeDriveLink('${item.summary_url}')">
-                  <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-size:15px;">💡</span>
-                    <span>${item.summary_title || 'ملخص أول أسبوع'}</span>
+                <a href="${item.summary_url}" target="_blank" rel="noopener noreferrer" class="guide-summary-full-btn">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:16px;">💡</span>
+                    <span style="font-weight:700;">${item.summary_title || 'ملخص المحاضرة الأولى (Electrical Summary)'}</span>
                   </div>
-                  <span style="font-size:13px;color:var(--text-subtle);">↗</span>
-                </div>
+                  <span style="font-size:14px;color:var(--accent);">↗</span>
+                </a>
               ` : ''}
             </div>`;
         }).join("")}
