@@ -1304,8 +1304,8 @@ function renderDailyAgenda() {
     for (const s of activeDaySessions) {
       const sStartMin = parseMinutes(TIME_STARTS[s.start]);
       const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
-      if (currentMinutes >= sStartMin && currentMinutes < sEndMin) {
-        liveSession = { ...s, remaining: sEndMin - currentMinutes };
+      if (currentMinutes >= sStartMin && currentMinutes < endMin) {
+        liveSession = { ...s, remaining: endMin - currentMinutes };
         break;
       } else if (currentMinutes < sStartMin && !upcomingSession) {
         upcomingSession = { ...s, wait: sStartMin - currentMinutes };
@@ -1401,9 +1401,11 @@ function renderDailyAgenda() {
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
         <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCurrentActive ? '#ef4444' : (s.cancelled ? '#ef4444' : course.color)}">
+          
+          <!-- الهيدر الجديد المنظم الذي يمنع تداخل النصوص والبادجات -->
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
-            <div style="display:flex;gap:4px;align-items:center;">
+            <div class="badges-group">
               ${isCurrentActive ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${s.cancelled ? '<span class="badge-cancelled">❌ ملغي (أسبوع 1)</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
@@ -1411,6 +1413,7 @@ function renderDailyAgenda() {
               <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (s.isSolidMain ? 'SEC · ALL' : (isShared ? 'LEC' : 'SEC'))}</span>
             </div>
           </div>
+
           <div class="card-title">${course.name}</div>
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px;">
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
@@ -1799,7 +1802,6 @@ function triggerFirstWeekWelcomeConfetti() {
 }
 
 function render() {
-  renderDaysBar();
   updateTaskBadge();
   renderLegend();
   updateFirstWeekBannerUI();
@@ -1844,15 +1846,17 @@ function render() {
     if (controlBar) controlBar.style.display = "flex";
     if (liveBox) liveBox.style.display = "flex";
     if (mainHeader) mainHeader.style.display = "flex";
-    if (daysBar) daysBar.style.display = "grid";
     if (legend) legend.style.display = "flex";
     if (progressBox) progressBox.style.display = "flex";
 
     if (activeView === "week") {
       document.getElementById("navWeekBtn").classList.add("active");
+      if (daysBar) daysBar.style.display = "none"; // إخفاء شريط الأيام من الجدول الأسبوعي
       renderWeekMatrix();
     } else {
       document.getElementById("navDayBtn").classList.add("active");
+      if (daysBar) daysBar.style.display = "grid"; // إظهاره في العرض اليومي فقط
+      renderDaysBar();
       renderDailyAgenda();
     }
   }
@@ -2028,3 +2032,5 @@ render();
 syncFromGoogleSheets();
 triggerFirstWeekWelcomeConfetti();
 setInterval(updateLiveTracker, 60000);
+
+
