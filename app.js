@@ -56,6 +56,16 @@ function triggerHaptic(type = "light") {
   else navigator.vibrate(8);
 }
 
+// فتح روابط الدرايف والملفات بأمان ومباشرة في صفحة جديدة
+function openSafeDriveLink(url) {
+  if (!url || url === "undefined" || url === "") {
+    alert("الرابط غير متوفر حالياً، جاري تحديثه قريباً!");
+    return;
+  }
+  triggerHaptic("light");
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
 function calculateActualAcademicWeek() {
   const now = new Date();
   const todayZero = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -65,7 +75,7 @@ function calculateActualAcademicWeek() {
   return Math.floor(diffDays / 7) + 1;
 }
 
-// دالة جلب الحصص المعتمدة (الجدول الكامل الرسمي دائماً - لا يوجد أي كود لإلغاء أي سكشن)
+// دالة جلب الحصص المعتمدة (الجدول الكامل الرسمي دائماً)
 function getActiveEffectiveSessions() {
   let baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
   if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
@@ -347,6 +357,18 @@ function openCourseCapsule(code) {
             <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn">
               <span>${l.title}</span>
               <span>↗</span>
+            </a>
+          `).join("")}
+        </div>
+      ` : ''}
+
+      ${cap.playlists && cap.playlists.length > 0 ? `
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
+          ${cap.playlists.map(p => `
+            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #f43f5e;">
+              <span style="color:var(--text-main);">${p.title}</span>
+              <span style="color:#f43f5e;">▶</span>
             </a>
           `).join("")}
         </div>
@@ -895,7 +917,7 @@ function openTaskDetails(taskId) {
         ${formattedStartDate ? `
           <div style="display:flex;align-items:center;gap:6px;">
             <span style="font-size:10.5px;font-weight:700;color:#10b981;">🟢 وقت النزول والبدء:</span>
-            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} • ${formattedStartTime}</b>
+            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} •${formattedStartTime}</b>
           </div>
         ` : ''}
         <div style="display:flex;align-items:center;gap:6px;">
@@ -1041,7 +1063,7 @@ function renderCalendarMonthGrid() {
       <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}')">
         <span class="cal-day-num">${d}</span>
         <div class="cal-dots-row">
-          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}: ${ev.title}"></span>`).join("")}
+          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}:${ev.title}"></span>`).join("")}
         </div>
       </div>
     `;
@@ -1625,7 +1647,7 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
-// عرض شاشة الجايد المتطابقة 100% مع الصورة الأصلية (لمادة الكهربية فقط)
+// عرض شاشة الجايد المتطابقة مع الصورة الأصلية (لمادة الكهربية فقط)
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
