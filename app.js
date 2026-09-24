@@ -57,63 +57,12 @@ function calculateActualAcademicWeek() {
   return Math.floor(diffDays / 7) + 1;
 }
 
-function setManualWeekView(wk) {
-  triggerHaptic("light");
-  currentDisplayWeek = wk;
-  const w1Btn = document.getElementById("viewWeek1Btn");
-  const wRegBtn = document.getElementById("viewWeekRegularBtn");
-  if (w1Btn && wRegBtn) {
-    w1Btn.className = `week-prev-btn ${wk === 1 ? 'active' : ''}`;
-    wRegBtn.className = `week-prev-btn ${wk !== 1 ? 'active' : ''}`;
-  }
-  render();
-}
-
+// دالة جلب الحصص المعتمدة (الجدول الكامل الرسمي مباشرة بدون أي حصص ملغية)
 function getActiveEffectiveSessions() {
-  const isWeek1 = (currentDisplayWeek === 1);
-  let baseSessions = [];
-
-  if (isWeek1) {
-    baseSessions = SESSIONS.filter(s => {
-      if (s.group !== "ALL" && s.group !== activeGroup) return false;
-      if (s.day === "Sunday" && s.start === 2 && s.code === "EPE G113") return false;
-      return true;
-    }).map(s => {
-      if (s.code === "MDP G111" && s.type.includes("Tutorial")) {
-        return {
-          day: "Sunday", start: 2, span: 3, group: "ALL",
-          code: "MDP G111", type: "Tutorial / Lab", room: "15401-300",
-          attendance: true, isSolidMain: true
-        };
-      }
-      if (s.code === "MDP G111" && s.day === "Wednesday" && s.type.includes("Lecture")) {
-        return { ...s, cancelled: true };
-      }
-      if (s.type.includes("Tutorial")) {
-        return { ...s, cancelled: true };
-      }
-      return s;
-    });
-
-    const hasSolidSunday = baseSessions.some(s => s.code === "MDP G111" && s.day === "Sunday" && s.start === 2);
-    if (!hasSolidSunday) {
-      baseSessions.push({
-        day: "Sunday", start: 2, span: 3, group: "ALL",
-        code: "MDP G111", type: "Tutorial / Lab", room: "15401-300",
-        attendance: true, isSolidMain: true
-      });
-    }
-
-    baseSessions = baseSessions.filter(s => 
-      !(s.code === "MDP G111" && s.day === "Monday" && s.type.includes("Tutorial"))
-    );
-  } else {
-    baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
-    if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
-      baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
-    }
+  let baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
+  if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
+    baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
   }
-
   return baseSessions;
 }
 
@@ -126,19 +75,13 @@ function toggleDynamicsSlot(slotKey) {
 function updateDynamicsBannerUI() {
   const banner = document.getElementById("dynamicsSwitcherBanner");
   if (!banner) return;
-  const showBanner = (currentDisplayWeek > 1) && ((activeView === 'week') || (activeView === 'day' && activeDay === 'Monday'));
+  const showBanner = ((activeView === 'week') || (activeView === 'day' && activeDay === 'Monday'));
   banner.style.display = showBanner ? 'flex' : 'none';
 
   ['1', '2', '3'].forEach(k => {
     const btn = document.getElementById(`dynSlot${k}Btn`);
     if (btn) btn.className = `dyn-pill-btn ${selectedDynamicsSlot === k ? 'active' : ''}`;
   });
-}
-
-function updateFirstWeekBannerUI() {
-  const banner = document.getElementById("firstWeekBanner");
-  if (!banner) return;
-  banner.style.display = (currentDisplayWeek === 1 && activeView !== "drive" && activeView !== "guide" && activeView !== "tasks") ? "block" : "none";
 }
 
 let toastTimer;
@@ -586,14 +529,6 @@ function getExactCountdown(deadlineStr) {
   return { text, isUrgent, isPassed: false, diff };
 }
 
-function formatExactDateDisplay(dateStr) {
-  const d = new Date(dateStr);
-  if (isNaN(d.getTime())) return dateStr;
-  return d.toLocaleString('en-US', {
-    weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true
-  });
-}
-
 function updateTaskBadge() {
   const badge = document.getElementById("navTaskBadge");
   const activeList = getActiveSectionAssessments();
@@ -633,7 +568,6 @@ function getAllEventsForCalendar() {
 function getAllCombinedTasks() {
   const list = [];
   
-  // 1. أساينمنت اللينير والتكليفات المباشرة
   if (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') {
     COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
       const deadline = asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"];
@@ -666,7 +600,6 @@ function getAllCombinedTasks() {
     });
   }
 
-  // 2. امتحانات الديناميكا الـ 9
   DYNAMICS_THE_EXAMS.forEach(ex => {
     const cd = getExactCountdown(ex.deadline);
     const id = `the-${ex.no}`;
@@ -698,7 +631,6 @@ function getAllCombinedTasks() {
     });
   });
 
-  // 3. مهام الشيت المباشرة
   getActiveSectionAssessments().forEach((a, idx) => {
     const cd = getExactCountdown(a.date);
     const id = `sheet-task-${idx}`;
@@ -889,7 +821,6 @@ function renderTasksScreen() {
   `;
 }
 
-// دالة رسم كروت المهام بشريط المدى الزمني المتصل والسهم الرابط
 function renderCompactTaskCardHtml(task) {
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", hex: "#0284c7" };
   
@@ -914,7 +845,6 @@ function renderCompactTaskCardHtml(task) {
 
       <div class="compact-task-title">${task.title}</div>
 
-      <!-- المدى الزمني المتصل: كبسولة تجمع من والى بسهم أنيق والعداد جنبه -->
       <div class="compact-task-meta" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;">
         <div style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono', monospace;font-size:11px;background:var(--surface-alt);padding:4px 8px;border-radius:8px;border:1px solid var(--border);">
           ${formattedStart ? `
@@ -1124,7 +1054,7 @@ function renderCalendarMonthGrid() {
       <div class="cal-day-cell ${isToday ? 'today' : ''} ${hasEv ? 'has-event' : ''}" onclick="showCalendarDayDetails('${cellDate.toISOString()}')">
         <span class="cal-day-num">${d}</span>
         <div class="cal-dots-row">
-          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}: ${ev.title}"></span>`).join("")}
+          ${dayEvents.map(ev => `<span class="cal-event-dot" style="background:${ev.color};" title="${ev.code}:${ev.title}"></span>`).join("")}
         </div>
       </div>
     `;
@@ -1248,7 +1178,7 @@ function updateDayProgressBar() {
   } else {
     percentage = Math.round(((currentMinutes - startDayMin) / (endDayMin - startDayMin)) * 100);
     label.textContent = `Day Progress: ${percentage}%`;
-    const effSessions = getActiveEffectiveSessions().filter(s => s.day === DAYS[dayIndex].full && !s.cancelled);
+    const effSessions = getActiveEffectiveSessions().filter(s => s.day === DAYS[dayIndex].full);
     const leftCount = effSessions.filter(s => parseMinutes(TIME_ENDS[s.start + s.span - 1]) > currentMinutes).length;
     remaining.textContent = leftCount > 0 ? `${leftCount} class${leftCount > 1 ? 'es' : ''} left today` : "Classes finished for today 🎉";
   }
@@ -1284,7 +1214,7 @@ function updateLiveTracker() {
   }
 
   const todayName = DAYS[dayIndex].full;
-  const effectiveSessions = getActiveEffectiveSessions().filter(s => !s.cancelled);
+  const effectiveSessions = getActiveEffectiveSessions();
   const todaySessions = effectiveSessions.filter(s => s.day === todayName).sort((a, b) => a.start - b.start);
 
   if (todaySessions.length === 0) {
@@ -1325,7 +1255,7 @@ function updateLiveTracker() {
 
 function exportToCalendar() {
   triggerHaptic("heavy");
-  const effectiveSessions = getActiveEffectiveSessions().filter(s => !s.cancelled);
+  const effectiveSessions = getActiveEffectiveSessions();
   let ics = [
     "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Cairo University//ME1 Schedule//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH",
     `X-WR-CALNAME:CUFE ME1 (${activeGroup})`,"X-WR-TIMEZONE:Africa/Cairo"
@@ -1358,7 +1288,6 @@ function renderDailyAgenda() {
   const container = document.getElementById("viewContainer");
   const effectiveSessions = getActiveEffectiveSessions();
   const daySessions = effectiveSessions.filter(s => s.day === activeDay).sort((a, b) => a.start - b.start);
-  const activeDaySessions = daySessions.filter(s => !s.cancelled);
 
   const dayTasks = getDayAssessments(activeDay);
   let html = '';
@@ -1371,11 +1300,11 @@ function renderDailyAgenda() {
   let upcomingSession = null;
 
   if (isSelectedDayToday) {
-    for (const s of activeDaySessions) {
+    for (const s of daySessions) {
       const sStartMin = parseMinutes(TIME_STARTS[s.start]);
       const sEndMin = parseMinutes(TIME_ENDS[s.start + s.span - 1]);
-      if (currentMinutes >= sStartMin && currentMinutes < endMin) {
-        liveSession = { ...s, remaining: endMin - currentMinutes };
+      if (currentMinutes >= sStartMin && currentMinutes < sEndMin) {
+        liveSession = { ...s, remaining: sEndMin - currentMinutes };
         break;
       } else if (currentMinutes < sStartMin && !upcomingSession) {
         upcomingSession = { ...s, wait: sStartMin - currentMinutes };
@@ -1384,8 +1313,8 @@ function renderDailyAgenda() {
   }
 
   let targetHeroSession = liveSession || upcomingSession;
-  if (!targetHeroSession && activeDaySessions.length > 0) {
-    targetHeroSession = activeDaySessions[0];
+  if (!targetHeroSession && daySessions.length > 0) {
+    targetHeroSession = daySessions[0];
   }
 
   if (targetHeroSession) {
@@ -1403,7 +1332,7 @@ function renderDailyAgenda() {
         <div class="up-next-title">${targetHeroSession.code} — ${heroCourse.name}</div>
         <div class="up-next-bottom">
           <div class="up-next-room-pill" onclick="showRoomDetails('${targetHeroSession.room}')">📍 ${targetHeroSession.room} ↗</div>
-          <span class="up-next-type-tag">${targetHeroSession.isDynSec ? 'Tutorial' : (targetHeroSession.isSolidMain ? 'Tutorial / Lab (ALL)' : targetHeroSession.type)}</span>
+          <span class="up-next-type-tag">${targetHeroSession.isDynSec ? 'Tutorial' : targetHeroSession.type}</span>
           <span style="margin-right:auto;font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:${isLive ? '#ef4444' : 'var(--accent)'}">
             ${isLive ? `${liveSession.remaining}m left` : (upcomingSession ? `starts in ${upcomingSession.wait}m` : 'Next Class')}
           </span>
@@ -1444,7 +1373,7 @@ function renderDailyAgenda() {
       laserRendered = true;
     }
 
-    if (i > 0 && s.start > maxEndSoFar && !s.cancelled) {
+    if (i > 0 && s.start > maxEndSoFar) {
       const gapMins = (s.start - maxEndSoFar) * 50;
       html += `
         <div class="break-item cascade-item" style="animation-delay:${i * 0.04}s">
@@ -1455,9 +1384,9 @@ function renderDailyAgenda() {
           </div>
         </div>`;
     }
-    if (!s.cancelled) maxEndSoFar = Math.max(maxEndSoFar, s.start + s.span);
+    maxEndSoFar = Math.max(maxEndSoFar, s.start + s.span);
 
-    const isCurrentActive = isSelectedDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !s.cancelled;
+    const isCurrentActive = isSelectedDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin);
     const isDimmed = highlightedCourse && highlightedCourse !== s.code;
     const isHighlighted = highlightedCourse === s.code;
     const hasTask = dayTasks.some(t => t.code === s.code);
@@ -1469,17 +1398,16 @@ function renderDailyAgenda() {
           <div class="time-end">${TIME_ENDS[s.start + s.span - 1]}</div>
           <span class="time-dur">${s.span * 50}m</span>
         </div>
-        <div class="rail"><div class="rail-dot" style="--c: ${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCurrentActive ? '#ef4444' : (s.cancelled ? '#ef4444' : course.color)}">
+        <div class="rail"><div class="rail-dot" style="--c: ${isCurrentActive ? '#ef4444' : course.color}"></div><div class="rail-line"></div></div>
+        <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4.5px solid ${isCurrentActive ? '#ef4444' : course.color}">
           
           <div class="card-top">
-            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
+            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCurrentActive ? '#ef4444' : course.color}">${s.code}</span>
             <div class="badges-group">
               ${isCurrentActive ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
-              ${s.cancelled ? '<span class="badge-cancelled">❌ ملغي (أسبوع 1)</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (s.isSolidMain ? 'SEC · ALL' : (isShared ? 'LEC' : 'SEC'))}</span>
+              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC' : 'SEC')}</span>
             </div>
           </div>
 
@@ -1571,7 +1499,7 @@ function renderWeekMatrix() {
     daySessions.forEach(sess => {
       const sStartMin = parseMinutes(TIME_STARTS[sess.start]);
       const sEndMin = parseMinutes(TIME_ENDS[sess.start + sess.span - 1]);
-      const isLiveNow = isDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin) && !sess.cancelled;
+      const isLiveNow = isDayToday && (currentMinutes >= sStartMin && currentMinutes < sEndMin);
       const isDynamics = (sess.code === "EMC G101");
       const isMaterials = (sess.code === "MDP G121");
       const hasCustomLinks = !!COURSE_CUSTOM_LINKS[sess.code];
@@ -1605,19 +1533,18 @@ function renderWeekMatrix() {
       posWrap.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       posWrap.style.position = "relative";
       posWrap.style.height = "100%";
-      posWrap.style.zIndex = isLiveNow ? "10" : (sess.cancelled ? "3" : "5");
+      posWrap.style.zIndex = isLiveNow ? "10" : "5";
 
       posWrap.innerHTML = `
-        <div class="grid-card ${isLiveNow ? 'is-live-card' : ''} ${sess.isSolidMain ? 'solid-soft-glow-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.cancelled ? 'is-cancelled-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
-             style="--c: ${isLiveNow ? '#ef4444' : (sess.cancelled ? '#ef4444' : course.color)}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
+        <div class="grid-card ${isLiveNow ? 'is-live-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
+             style="--c: ${isLiveNow ? '#ef4444' : course.color}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <span class="code" style="${isLiveNow ? 'color:#ef4444' : ''}">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
               ${isLiveNow ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
-              ${sess.cancelled ? '<span class="badge-cancelled">❌ ملغي</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${sess.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
-              <span class="type">${sess.isDynSec ? 'SEC' : (sess.isSolidMain ? 'SEC · ALL' : (sess.group === "ALL" ? 'LEC' : 'SEC'))}</span>
+              <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC' : 'SEC')}</span>
             </div>
           </div>
           <div class="title">${course.name}</div>
@@ -1711,7 +1638,7 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
-// عرض شاشة الجايد الأسبوعي بتصميم البوكسات المطابق للصورة 100%
+// عرض الجايد الأسبوعي النظيف والمريح للعين طبق الأصل من الصورة المرجعية
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1757,79 +1684,77 @@ function renderGuideScreen() {
                 <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-top:2px;">${course.name}</div>
               </div>
 
-              <!-- بوكس المحاضرات والـ Slides -->
+              <!-- بوكس المحاضرات -->
               ${item.lectures ? `
                 <div class="guide-box-item">
-                  <span class="guide-box-label">📑 Lectures:</span>
-                  <div class="guide-box-content">
-                    <div>${item.lectures}</div>
-                    ${item.slides_url ? `
-                      <div class="guide-links-subrow">
-                        <a href="${item.slides_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link">
-                          <span>📥 سلايدات المحاضرة (Slides)</span><span>↗</span>
-                        </a>
-                      </div>
-                    ` : ''}
+                  <div class="guide-box-left">
+                    <span class="guide-box-label">📑 Lectures:</span>
+                    <span class="guide-box-text">${item.lectures}</span>
                   </div>
+                  ${item.slides_url ? `
+                    <div class="guide-box-actions">
+                      <a href="${item.slides_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill" style="color:#38bdf8;">
+                        <span>Slides</span> ↗
+                      </a>
+                    </div>
+                  ` : ''}
                 </div>
               ` : ''}
 
-              <!-- بوكس السكاشن والشيتات والحلول -->
+              <!-- بوكس السكاشن والشيتات -->
               ${item.sheet ? `
                 <div class="guide-box-item">
-                  <span class="guide-box-label">📝 Tutorials:</span>
-                  <div class="guide-box-content">
-                    <div>${item.sheet}</div>
-                    ${(item.sheet_url || item.solution_url || item.folder_url) ? `
-                      <div class="guide-links-subrow">
-                        ${item.sheet_url ? `
-                          <a href="${item.sheet_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link">
-                            <span>📄 ملف الشيت (Sheet)</span><span>↗</span>
-                          </a>
-                        ` : ''}
-                        ${item.solution_url ? `
-                          <a href="${item.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link" style="color:#10b981;border-color:rgba(16,185,129,0.3);">
-                            <span>✓ إجابات وحل الشيت</span><span>↗</span>
-                          </a>
-                        ` : ''}
-                        ${item.folder_url ? `
-                          <a href="${item.folder_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link">
-                            <span>📁 فولدر أساينمنت الشيت</span><span>↗</span>
-                          </a>
-                        ` : ''}
-                      </div>
+                  <div class="guide-box-left">
+                    <span class="guide-box-label">📝 Tutorials:</span>
+                    <span class="guide-box-text">${item.sheet}</span>
+                  </div>
+                  <div class="guide-box-actions">
+                    ${item.sheet_url ? `
+                      <a href="${item.sheet_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill">
+                        <span>Sheet</span> ↗
+                      </a>
+                    ` : ''}
+                    ${item.solution_url ? `
+                      <a href="${item.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill" style="color:#10b981;">
+                        <span>Solution</span> ↗
+                      </a>
+                    ` : ''}
+                    ${item.folder_url ? `
+                      <a href="${item.folder_url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill">
+                        <span>Folder</span> ↗
+                      </a>
                     ` : ''}
                   </div>
                 </div>
               ` : ''}
 
-              <!-- بوكس التمارين والفيديوهات -->
+              <!-- بوكس التمارين وقوائم الشرح -->
               ${(item.practice || (item.playlists && item.playlists.length > 0)) ? `
                 <div class="guide-box-item">
-                  <span class="guide-box-label">🎯 Practice:</span>
-                  <div class="guide-box-content">
-                    <div>${item.practice || 'فيديوهات الشرح والتمارين الموصى بها:'}</div>
-                    ${item.playlists && item.playlists.length > 0 ? `
-                      <div class="guide-links-subrow">
-                        ${item.playlists.map(pl => `
-                          <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link" style="color:#f43f5e;border-color:rgba(244,63,94,0.3);">
-                            <span>🎬 ${pl.title}</span><span>▶</span>
-                          </a>
-                        `).join("")}
-                      </div>
-                    ` : ''}
+                  <div class="guide-box-left">
+                    <span class="guide-box-label">🎯 Practice:</span>
+                    <span class="guide-box-text">${item.practice || 'حل المسائل ومتابعة الشرح'}</span>
                   </div>
+                  ${item.playlists && item.playlists.length > 0 ? `
+                    <div class="guide-box-actions">
+                      ${item.playlists.map(pl => `
+                        <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="guide-action-pill" style="color:#f43f5e;" title="${pl.title}">
+                          <span>▶ ${pl.title.split('(')[0].trim()}</span>
+                        </a>
+                      `).join("")}
+                    </div>
+                  ` : ''}
                 </div>
               ` : ''}
 
-              <!-- زرار الملخص السفلي العريض طبق الأصل من الصورة -->
+              <!-- زرار الملخص الأصفر العريض بالسهم ↗ -->
               ${item.summary_url ? `
                 <div class="guide-summary-btn-box" onclick="openSafeDriveLink('${item.summary_url}')">
                   <div style="display:flex;align-items:center;gap:8px;">
                     <span style="font-size:15px;">💡</span>
                     <span>${item.summary_title || 'ملخص أول أسبوع'}</span>
                   </div>
-                  <span style="font-size:13px;color:var(--accent);">↗</span>
+                  <span style="font-size:13px;color:var(--text-subtle);">↗</span>
                 </div>
               ` : ''}
             </div>`;
@@ -1913,26 +1838,9 @@ function renderDriveScreen() {
 
 function handleDriveSearch(val) { window._driveSearchQuery = val; renderDriveScreen(); }
 
-function triggerFirstWeekWelcomeConfetti() {
-  if (currentDisplayWeek === 1 && !sessionStorage.getItem("cufe_confetti_shown")) {
-    sessionStorage.setItem("cufe_confetti_shown", "true");
-    setTimeout(() => {
-      try {
-        confetti({
-          particleCount: 75,
-          spread: 80,
-          origin: { y: 0.2 },
-          colors: ['#0284c7', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e']
-        });
-      } catch(e) {}
-    }, 450);
-  }
-}
-
 function render() {
   updateTaskBadge();
   renderLegend();
-  updateFirstWeekBannerUI();
   updateDynamicsBannerUI();
 
   const controlBar = document.getElementById("scheduleControlBar");
@@ -1940,7 +1848,6 @@ function render() {
   const mainHeader = document.getElementById("mainHeader");
   const daysBar = document.getElementById("daysBar");
   const dynBanner = document.getElementById("dynamicsSwitcherBanner");
-  const fwBanner = document.getElementById("firstWeekBanner");
   const legend = document.getElementById("legend");
   const progressBox = document.getElementById("dayProgressContainer");
 
@@ -1956,7 +1863,6 @@ function render() {
     if (mainHeader) mainHeader.style.display = "none";
     if (daysBar) daysBar.style.display = "none";
     if (dynBanner) dynBanner.style.display = "none";
-    if (fwBanner) fwBanner.style.display = "none";
     if (legend) legend.style.display = "none";
     if (progressBox) progressBox.style.display = "none";
 
@@ -2082,39 +1988,7 @@ document.getElementById("printBtn").addEventListener("click", () => {
 
 document.getElementById("calendarBtn").addEventListener("click", exportToCalendar);
 
-// PWA Install prompt handling
-let deferredPrompt;
-const topInstallBtn = document.getElementById('pwaTopInstallBtn');
-const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
-
-if (isIos && !isInStandaloneMode && topInstallBtn) {
-  topInstallBtn.style.display = 'inline-flex';
-}
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (topInstallBtn) topInstallBtn.style.display = 'inline-flex';
-});
-
-async function triggerPwaInstall() {
-  triggerHaptic("heavy");
-  if (isIos) {
-    alert("لإضافة التطبيق في الآيفون 🍏:\n• اضغط علامة المشاركة بالأسفل\n• اختر Add to Home Screen");
-    return;
-  }
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted' && topInstallBtn) topInstallBtn.style.display = 'none';
-    deferredPrompt = null;
-  }
-}
-
-if (topInstallBtn) topInstallBtn.addEventListener('click', triggerPwaInstall);
-
-// Banner Carousel Loop
+// Carousel Loop (3 Banners)
 let currentBannerIdx = 0;
 const bannerTrack = document.getElementById('bannerTrack');
 const totalCarouselBanners = 3;
@@ -2145,11 +2019,8 @@ if (bannerTrack) {
   }, { passive: true });
 
   setInterval(() => {
-    const bannerContainer = document.getElementById("firstWeekBanner");
-    if (bannerContainer && bannerContainer.style.display !== "none") {
-      currentBannerIdx = (currentBannerIdx + 1) % totalCarouselBanners;
-      goToBanner(currentBannerIdx);
-    }
+    currentBannerIdx = (currentBannerIdx + 1) % totalCarouselBanners;
+    goToBanner(currentBannerIdx);
   }, 5500);
 }
 
@@ -2158,5 +2029,4 @@ initDeviceMode();
 initTheme();
 render();
 syncFromGoogleSheets();
-triggerFirstWeekWelcomeConfetti();
 setInterval(updateLiveTracker, 60000);
