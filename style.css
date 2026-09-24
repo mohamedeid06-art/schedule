@@ -20,17 +20,7 @@
   --accent-glow: rgba(56, 189, 248, 0.18);
   --bone: #eae3d5;
 
-  --cancelled-bg: rgba(239, 68, 68, 0.08);
-  --cancelled-border: rgba(239, 68, 68, 0.35);
-  --cancelled-text: #f87171;
-
-  --solid-glow-bg: rgba(16, 185, 129, 0.12);
-  --solid-glow-border: #10b981;
-  --solid-glow-shadow: 0 0 16px rgba(16, 185, 129, 0.28);
-
   --live-pulse-color: #ef4444;
-  --live-card-glow: 0 0 20px rgba(239, 68, 68, 0.3);
-
   --quiz-color: #f97316;
   --quiz-glow: rgba(249, 115, 22, 0.25);
 
@@ -60,17 +50,7 @@
   --accent-glow: rgba(2, 132, 199, 0.12);
   --bone: #334155;
 
-  --cancelled-bg: #fef2f2;
-  --cancelled-border: #fca5a5;
-  --cancelled-text: #dc2626;
-
-  --solid-glow-bg: rgba(16, 185, 129, 0.12);
-  --solid-glow-border: #059669;
-  --solid-glow-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
-
   --live-pulse-color: #dc2626;
-  --live-card-glow: 0 0 16px rgba(220, 38, 38, 0.2);
-
   --quiz-color: #ea580c;
   --quiz-glow: rgba(234, 88, 12, 0.12);
 
@@ -255,14 +235,7 @@ body {
 .action-btn.install-btn { background: var(--accent); color: #ffffff; border-color: var(--accent); display: none; }
 .action-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-.insta-header-btn {
-  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
-  color: #ffffff !important;
-  border: none !important;
-}
-.insta-header-btn svg { fill: #ffffff !important; width: 15px; height: 15px; }
-
-/* Banners */
+/* Carousel Banners */
 .banner-carousel-container { width: 100%; margin-bottom: 14px; position: relative; overflow: hidden; }
 .banner-carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 10px; scrollbar-width: none; }
 .banner-carousel-track::-webkit-scrollbar { display: none; }
@@ -320,9 +293,6 @@ body {
 .group-controls { display: flex; align-items: center; gap: 10px; width: 100%; justify-content: space-between; flex-wrap: wrap; }
 .control-label { font-size: 12px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 .section-select { background: var(--surface); border: 1.5px solid var(--border); color: var(--text-main); font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 12px; outline: none; cursor: pointer; border-left: 4px solid var(--accent); }
-.week-preview-switcher { display: inline-flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2px; gap: 2px; }
-.week-prev-btn { border: none; background: transparent; padding: 5px 10px; font-size: 11px; font-weight: 700; border-radius: 9px; color: var(--text-muted); cursor: pointer; }
-.week-prev-btn.active { background: var(--accent); color: #ffffff; }
 
 /* Dynamics Monday Switcher */
 .dynamics-switcher-banner { background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, var(--surface) 100%); border: 1.5px solid var(--c-emc); border-radius: 16px; padding: 12px 16px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
@@ -345,9 +315,7 @@ body {
 .day-btn.active { background: var(--surface); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 .day-btn.active .day-name, .day-btn.active .day-num { color: var(--accent); }
 
-/* ==========================================================================
-   Badges & Clean Header Spacing
-   ========================================================================== */
+/* Card Top Badges */
 .card-top {
   display: flex;
   align-items: flex-start;
@@ -377,35 +345,6 @@ body {
 }
 
 .has-attendance-check { box-shadow: inset -3.5px 0 0 #ea580c !important; }
-
-.badge-cancelled {
-  background: rgba(239, 68, 68, 0.15) !important;
-  color: #dc2626 !important;
-  border: 1px solid #fca5a5 !important;
-  font-size: 8.5px !important;
-  font-weight: 800 !important;
-  padding: 2px 6px !important;
-  border-radius: 4px !important;
-  white-space: nowrap !important;
-}
-
-.is-cancelled-card {
-  background: var(--cancelled-bg) !important;
-  border: 1px solid var(--cancelled-border) !important;
-  border-left: 4.5px solid #ef4444 !important;
-}
-
-.is-cancelled-card .card-title {
-  text-decoration: line-through !important;
-  opacity: 0.75 !important;
-}
-
-.solid-soft-glow-card {
-  background: var(--solid-glow-bg) !important;
-  border: 1.5px solid var(--solid-glow-border) !important;
-  border-left: 4.5px solid #10b981 !important;
-  box-shadow: var(--solid-glow-shadow) !important;
-}
 
 .is-dynamics-card {
   border: 1.5px solid #8b5cf6 !important;
@@ -555,8 +494,116 @@ body {
 .mark-done-btn { background: linear-gradient(135deg, #0284c7 0%, #8b5cf6 100%); color: #fff; border: none; border-radius: 14px; padding: 14px; font-size: 13.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-top: 16px; }
 
 /* ==========================================================================
-   Legend Filter & Floating Bottom Nav
+   Clean Minimalist Guide Card (Exact Match to Reference Photo)
    ========================================================================== */
+.guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.guide-hero { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.guide-hero-top { display: flex; justify-content: space-between; align-items: center; }
+.guide-title { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.week-tabs-scroll { display: flex; gap: 6px; overflow-x: auto; }
+.week-tab-btn { background: var(--surface-alt); border: 1px solid var(--border); color: var(--text-muted); padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.week-tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4.5px solid var(--c);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+}
+
+.guide-box-item {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.guide-box-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.guide-box-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.guide-box-text {
+  font-size: 12px;
+  color: var(--text-main);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.guide-box-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.guide-action-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.guide-action-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.guide-summary-btn-box {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-main);
+  margin-top: 2px;
+  transition: all 0.2s ease;
+}
+
+.guide-summary-btn-box:hover {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+/* Legend & Floating Bottom Nav */
 .legend {
   margin-top: 20px;
   margin-bottom: 40px;
@@ -667,11 +714,11 @@ body {
 .roadmap-sub-row { display: flex; gap: 8px; font-size: 10.5px; color: var(--text-muted); flex-wrap: wrap; margin-top: 4px; }
 .roadmap-sub-badge { border: 1px solid var(--border); padding: 1px 4px; border-radius: 4px; font-size: 9px; font-weight: 800; }
 
-/* Vault & Guide Pages */
-.vault-container, .guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.vault-hero, .guide-hero { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-.vault-hero-top, .guide-hero-top { display: flex; justify-content: space-between; align-items: center; }
-.vault-title, .guide-title { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+/* Vault Screen */
+.vault-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.vault-hero { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.vault-hero-top { display: flex; justify-content: space-between; align-items: center; }
+.vault-title { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
 .vault-search-box { background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
 .vault-search-box input { background: transparent; border: none; outline: none; font-family: inherit; font-size: 12px; color: var(--text-main); width: 100%; }
 .vault-main-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -686,102 +733,6 @@ body {
 .capsule-links-open-btn { color: #8b5cf6; }
 .capsule-roadmap-open-btn { color: #6366f1; }
 .capsule-mat-roadmap-open-btn { color: #f59e0b; }
-
-.week-tabs-scroll { display: flex; gap: 6px; overflow-x: auto; }
-.week-tab-btn { background: var(--surface-alt); border: 1px solid var(--border); color: var(--text-muted); padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-.week-tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-/* ==========================================================================
-   Exact Guide Card Boxes (Matching Screenshot)
-   ========================================================================== */
-.guide-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4.5px solid var(--c);
-  border-radius: 18px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-}
-
-.guide-box-item {
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 11px 13px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.guide-box-label {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  min-width: 85px;
-  flex-shrink: 0;
-}
-
-.guide-box-content {
-  flex: 1;
-  font-size: 12px;
-  color: var(--text-main);
-  line-height: 1.5;
-}
-
-.guide-links-subrow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.guide-sub-link {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  padding: 4px 9px;
-  border-radius: 7px;
-  font-size: 10.5px;
-  font-weight: 700;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-
-.guide-sub-link:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.guide-summary-btn-box {
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 12px;
-  font-weight: 800;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  color: var(--text-main);
-  transition: all 0.2s ease;
-}
-
-.guide-summary-btn-box:hover {
-  border-color: #f59e0b;
-  color: #f59e0b;
-}
 
 /* View Back Navigation */
 .view-back-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
