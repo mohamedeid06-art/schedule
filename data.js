@@ -60,6 +60,42 @@ const COURSES = {
   }
 };
 
+// تكليفات المواد الثابتة (أساينمنت اللينير سؤالين الشيت لكل سكشن)
+const COURSE_STATIC_ASSIGNMENTS = [
+  {
+    id: "mth-assign-1",
+    code: "MTH G102",
+    title: "Assignment 1 — Linear Algebra (سؤالين الشيت)",
+    type: "Assignment",
+    start: "2026-09-24T08:00:00",
+    deadlinesByGroup: {
+      "ME1-01": "2026-10-01T09:00:00", // الخميس سكشن 1 (قاعة 14301)
+      "ME1-02": "2026-09-28T10:00:00", // الاثنين سكشن 2 (مدرج 14100)
+      "ME1-03": "2026-09-28T13:00:00", // الاثنين سكشن 3 (مدرج 17302)
+      "ME1-04": "2026-10-01T11:00:00"  // الخميس سكشن 4 (قاعة 14301)
+    },
+    folderUrl: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl",
+    desc: "حل السؤالين المحددين في آخر الشيت تحت عنوان Assignment بخط واضح.",
+    note: "التسليم ورقي للمعيد في ميعاد السكشن لكل سكشن."
+  }
+];
+
+// دليل الأسبوع الدراسي الافتراضي (يتضمن بيانات الأسبوع الأول للكهربية)
+const DEFAULT_WEEKLY_GUIDES = [
+  {
+    week: "Week 1",
+    code: "EPE G113",
+    lectures: "Introduction & Basic Electrical Concepts",
+    sheet: "Sheet 1 (DC Circuits & Basics)",
+    practice: "Practice assigned problems from Sheet 1",
+    summary_title: "Summary of Lecture 1",
+    summary_url: "https://drive.google.com/file/d/15OSsv6GFMQtj6et4yHNZ_EUM__P4fA_R/view?usp=drivesdk",
+    slides_url: "https://drive.google.com/file/d/1eYqdE-2HMOQRyHotKQBGmBegnZMcyoZW/view?usp=drivesdk",
+    sheet_url: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk"
+  }
+];
+
 // مواعيد امتحانات الـ Take-Home الأسبوعية بالدقيقة لمادة الديناميكا
 const DYNAMICS_THE_EXAMS = [
   { 
@@ -208,7 +244,7 @@ const COURSE_CUSTOM_LINKS = {
   }
 };
 
-// كبسولات النجاة ونصائح الـ A+ لجميع المواد
+// كبسولات النجاة ونصائح الـ A+ لجميع المواد (مع تحديث مصادر EPE G113)
 const COURSE_CAPSULES = {
   "GEN G119": {
     code: "GEN G119", name: "Marketing & Entrepreneurship", hours: "2 Credit Hours",
@@ -226,6 +262,7 @@ const COURSE_CAPSULES = {
     tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، وامتحانات د. أحمد عبد النبي بتكون ممتازة جداً.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان تثبت طريقة الحل.\n3. ⚠️ تنبيه غياب هام: دكتورة لوسي الحضور عندها مهم للغاية وبتنادي بالاسم من الكشف.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
+      { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" },
       { title: "💻 تحميل برنامج د. أحمد عبد النبي للكمبيوتر / ويندوز (LectraHub)", url: "https://www.lectrahub-edu.com/" },
       { title: "📱 تطبيق د. أحمد عبد النبي للأندرويد (Google Play)", url: "https://play.google.com/store/apps/details?id=com.lectrahub.app" }
     ],
@@ -264,10 +301,17 @@ const COURSE_CAPSULES = {
     code: "EPE G113", name: "Electrical & Electronics Engineering (EPE I)", hours: "3 Credit Hours",
     grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة Classwork (أعمال سنة)",
     tips: "1. الأساسيات مهمة: Circuits & Electronics Fundamentals.\n2. الميدتيرم والفاينال أسئلتهم واضحة ومباشرة من شيتات التمارين وسلايدات الدكاترة.",
-    links: [{ title: "📁 فولدر درايف مادة الكهربية من دفعة 29", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }],
+    links: [
+      { title: "📑 سلايدات المحاضرة الأولى (Lecture 1 Slides)", url: "https://drive.google.com/file/d/1eYqdE-2HMOQRyHotKQBGmBegnZMcyoZW/view?usp=drivesdk" },
+      { title: "💡 ملخص المحاضرة الأولى (Lecture 1 Summary)", url: "https://drive.google.com/file/d/15OSsv6GFMQtj6et4yHNZ_EUM__P4fA_R/view?usp=drivesdk" },
+      { title: "📝 شيت 1 (Sheet 1 Problems)", url: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk" },
+      { title: "🎯 إجابات وحل شيت 1 (Solutions of Sheet 1)", url: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk" },
+      { title: "📁 فولدر درايف مادة الكهربية من دفعة 29", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
+    ],
     playlists: [
-      { title: "🎬 شرح سيركتس وإلكترونكس — م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" },
-      { title: "🎬 شرح السيركتس والأساسيات — م. محمد ماهر", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" }
+      { title: "🎬 شرح م. عمار ياسر (الفيديو الأول)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
+      { title: "🎬 شرح م. محمد ماهر (الفيديو 2 حتى د 18:38)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "🎬 شرح سيركتس وإلكترونكس — م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" }
     ]
   },
   "EMC G101": {
@@ -281,11 +325,11 @@ const COURSE_CAPSULES = {
 
 // روابط الفولدرات والسلايدات والشيتات المباشرة لكل مادة
 const DRIVE_DATA = {
-  "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: MAIN_SEMESTER_DRIVE, sheets: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", exams: MAIN_SEMESTER_DRIVE },
   "EMC G101": { folder: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G111": { folder: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G121": { folder: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", lectures: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", sheets: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", exams: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" },
-  "EPE G113": { folder: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
+  "EPE G113": { folder: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link", lectures: "https://drive.google.com/file/d/1eYqdE-2HMOQRyHotKQBGmBegnZMcyoZW/view?usp=drivesdk", sheets: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk", exams: MAIN_SEMESTER_DRIVE },
   "GEN G119": { folder: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
