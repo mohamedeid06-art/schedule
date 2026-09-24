@@ -633,7 +633,7 @@ function getAllEventsForCalendar() {
 function getAllCombinedTasks() {
   const list = [];
   
-  // 1. أساينمنت اللينير والتكليفات المباشرة (حسب السكشن)
+  // 1. أساينمنت اللينير والتكليفات المباشرة
   if (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') {
     COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
       const deadline = asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"];
@@ -1711,7 +1711,7 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
-// عرض شاشة الجايد الأسبوعي (تم ربط روابط EPE G113 مباشرة)
+// عرض شاشة الجايد الأسبوعي بتصميم البوكسات المطابق للصورة 100%
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1736,68 +1736,102 @@ function renderGuideScreen() {
           <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent)">BATCH 30</span>
         </div>
         <div class="week-tabs-scroll">
-          ${(availableWeeks.length > 0 ? availableWeeks : ["Week 1", "Week 2"]).map(w => `
+          ${(availableWeeks.length > 0 ? availableWeeks : ["Week 1"]).map(w => `
             <button class="week-tab-btn ${w === selectedGuideWeek ? 'active' : ''}" onclick="selectGuideWeek('${w}')">${w}</button>
           `).join("")}
         </div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:12px">
+
+      <div style="display:flex;flex-direction:column;gap:14px">
         ${weekItems.length === 0 ? `
           <div style="text-align:center;padding:36px;color:var(--text-muted);background:var(--surface);border-radius:16px;border:1px dashed var(--border)">
             No guides uploaded yet for ${selectedGuideWeek}.
           </div>
         ` : weekItems.map((item, idx) => {
           const course = COURSES[item.code] || { name: item.code, color: "var(--accent)" };
-          const isDynamics = (item.code === "EMC G101");
-          const isMaterials = (item.code === "MDP G121");
-          const hasCustomLinks = !!COURSE_CUSTOM_LINKS[item.code];
 
           return `
             <div class="guide-card cascade-item" style="--c: ${course.color}; animation-delay:${idx * 0.05}s">
-              <div class="guide-card-head">
-                <div>
-                  <div class="guide-code">${item.code}</div>
-                  <div class="guide-name">${course.name}</div>
-                </div>
-                <div style="display:flex;gap:6px;align-items:center;">
-                  ${isDynamics ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#6366f1;border-color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
-                  ${isMaterials ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#f59e0b;border-color:#f59e0b;" onclick="openMaterialsRoadmapModal()">🗺️ Roadmap</button>` : ''}
-                  ${hasCustomLinks ? `<button class="action-btn" style="height:28px;font-size:10.5px;color:#8b5cf6;border-color:#8b5cf6;" onclick="openCourseLinksModal('${item.code}')">🔗 Links</button>` : ''}
-                  <button class="action-btn" style="height:28px;font-size:10.5px;" onclick="openCourseCapsule('${item.code}')">💡 Guide</button>
-                </div>
+              <div>
+                <div style="font-family:'JetBrains Mono';font-size:14px;font-weight:800;color:${course.color};">${item.code}</div>
+                <div style="font-size:12px;color:var(--text-muted);font-weight:700;margin-top:2px;">${course.name}</div>
               </div>
 
-              ${item.slides_url ? `
-                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.slides_url}')" style="border-left: 3.5px solid #38bdf8;">
-                  <div style="display:flex;align-items:center;gap:6px"><span>📑</span><span>Lecture Slides (المحاضرة)</span></div>
-                  <span>↗</span>
+              <!-- بوكس المحاضرات والـ Slides -->
+              ${item.lectures ? `
+                <div class="guide-box-item">
+                  <span class="guide-box-label">📑 Lectures:</span>
+                  <div class="guide-box-content">
+                    <div>${item.lectures}</div>
+                    ${item.slides_url ? `
+                      <div class="guide-links-subrow">
+                        <a href="${item.slides_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link">
+                          <span>📥 سلايدات المحاضرة (Slides)</span><span>↗</span>
+                        </a>
+                      </div>
+                    ` : ''}
+                  </div>
                 </div>
               ` : ''}
 
-              ${item.sheet_url ? `
-                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.sheet_url}')" style="border-left: 3.5px solid #10b981;">
-                  <div style="display:flex;align-items:center;gap:6px"><span>📝</span><span>Sheet 1 Problems (الشيت)</span></div>
-                  <span>↗</span>
+              <!-- بوكس السكاشن والشيتات والحلول -->
+              ${item.sheet ? `
+                <div class="guide-box-item">
+                  <span class="guide-box-label">📝 Tutorials:</span>
+                  <div class="guide-box-content">
+                    <div>${item.sheet}</div>
+                    ${(item.sheet_url || item.solution_url || item.folder_url) ? `
+                      <div class="guide-links-subrow">
+                        ${item.sheet_url ? `
+                          <a href="${item.sheet_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link">
+                            <span>📄 ملف الشيت (Sheet)</span><span>↗</span>
+                          </a>
+                        ` : ''}
+                        ${item.solution_url ? `
+                          <a href="${item.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link" style="color:#10b981;border-color:rgba(16,185,129,0.3);">
+                            <span>✓ إجابات وحل الشيت</span><span>↗</span>
+                          </a>
+                        ` : ''}
+                        ${item.folder_url ? `
+                          <a href="${item.folder_url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link">
+                            <span>📁 فولدر أساينمنت الشيت</span><span>↗</span>
+                          </a>
+                        ` : ''}
+                      </div>
+                    ` : ''}
+                  </div>
                 </div>
               ` : ''}
 
-              ${item.solution_url ? `
-                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.solution_url}')" style="border-left: 3.5px solid #f59e0b;">
-                  <div style="display:flex;align-items:center;gap:6px"><span>🎯</span><span>Sheet 1 Solutions (إجابات وحل الشيت)</span></div>
-                  <span>↗</span>
+              <!-- بوكس التمارين والفيديوهات -->
+              ${(item.practice || (item.playlists && item.playlists.length > 0)) ? `
+                <div class="guide-box-item">
+                  <span class="guide-box-label">🎯 Practice:</span>
+                  <div class="guide-box-content">
+                    <div>${item.practice || 'فيديوهات الشرح والتمارين الموصى بها:'}</div>
+                    ${item.playlists && item.playlists.length > 0 ? `
+                      <div class="guide-links-subrow">
+                        ${item.playlists.map(pl => `
+                          <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="guide-sub-link" style="color:#f43f5e;border-color:rgba(244,63,94,0.3);">
+                            <span>🎬 ${pl.title}</span><span>▶</span>
+                          </a>
+                        `).join("")}
+                      </div>
+                    ` : ''}
+                  </div>
                 </div>
               ` : ''}
 
+              <!-- زرار الملخص السفلي العريض طبق الأصل من الصورة -->
               ${item.summary_url ? `
-                <div class="guide-summary-btn" onclick="openSafeDriveLink('${item.summary_url}')" style="border-left: 3.5px solid #8b5cf6;">
-                  <div style="display:flex;align-items:center;gap:6px"><span>💡</span><span>${item.summary_title || 'Summary of Lecture 1'}</span></div>
-                  <span>↗</span>
+                <div class="guide-summary-btn-box" onclick="openSafeDriveLink('${item.summary_url}')">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-size:15px;">💡</span>
+                    <span>${item.summary_title || 'ملخص أول أسبوع'}</span>
+                  </div>
+                  <span style="font-size:13px;color:var(--accent);">↗</span>
                 </div>
               ` : ''}
-
-              ${item.lectures && !item.slides_url ? `<div class="guide-row"><span class="guide-label">📑 Lectures:</span><span class="guide-val">${item.lectures}</span></div>` : ''}
-              ${item.sheet && !item.sheet_url ? `<div class="guide-row"><span class="guide-label">📝 Tutorials:</span><span class="guide-val">${item.sheet}</span></div>` : ''}
-              ${item.practice ? `<div class="guide-row"><span class="guide-label">🎯 Practice:</span><span class="guide-val">${item.practice}</span></div>` : ''}
             </div>`;
         }).join("")}
       </div>
