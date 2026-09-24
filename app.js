@@ -845,18 +845,20 @@ function renderTasksScreen() {
   `;
 }
 
+// دالة رسم كروت المهام بشريط المدى الزمني المتصل والسهم الرابط
 function renderCompactTaskCardHtml(task) {
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", hex: "#0284c7" };
   
-  // تنسيق تاريخ ووقت النهاية (الديدلاين)
-  const dObj = new Date(task.deadline);
-  const formattedEndDate = !isNaN(dObj.getTime()) ? dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : task.deadline;
-  const formattedEndTime = !isNaN(dObj.getTime()) ? dObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
-
-  // تنسيق تاريخ ووقت البداية
+  // تنسيق تواريخ البداية والنهاية بنظام المدى الزمني المتصل
   const sObj = new Date(task.start);
-  const formattedStartDate = !isNaN(sObj.getTime()) ? sObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
-  const formattedStartTime = !isNaN(sObj.getTime()) ? sObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+  const formattedStart = !isNaN(sObj.getTime()) 
+    ? `${sObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • ${sObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
+    : '';
+
+  const dObj = new Date(task.deadline);
+  const formattedEnd = !isNaN(dObj.getTime()) 
+    ? `${dObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} • ${dObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
+    : task.deadline;
 
   return `
     <div class="compact-task-card" style="--c: ${course.color};" onclick="openTaskDetails('${task.id}')">
@@ -869,26 +871,23 @@ function renderCompactTaskCardHtml(task) {
 
       <div class="compact-task-title">${task.title}</div>
 
-      <!-- سطر المواعيد: البداية + الديدلاين + العداد -->
-      <div class="compact-task-meta" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11.5px;margin-top:2px;">
-        ${formattedStartDate ? `
-          <span style="color:#10b981;font-weight:700;">
-            🟢 يبدأ: ${formattedStartDate} • ${formattedStartTime}
-          </span>
-          <span style="color:var(--text-subtle);">|</span>
-        ` : ''}
-        
-        <span style="color:var(--text-muted);font-weight:700;">
-          🔴 ينتهي: ${formattedEndDate} • ${formattedEndTime}
-        </span>
+      <!-- المدى الزمني المتصل: كبسولة تجمع من والى بسهم أنيق والعداد جنبه -->
+      <div class="compact-task-meta" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono', monospace;font-size:11px;background:var(--surface-alt);padding:4px 8px;border-radius:8px;border:1px solid var(--border);">
+          ${formattedStart ? `
+            <span style="color:#10b981;font-weight:700;">${formattedStart}</span>
+            <span style="color:var(--text-subtle);font-weight:800;">→</span>
+          ` : ''}
+          <span style="color:var(--text-main);font-weight:700;">${formattedEnd}</span>
+        </div>
 
-        <span style="color:${task.countdown.isUrgent ? '#ef4444' : 'var(--accent)'};font-weight:800;margin-right:auto;">
+        <span style="font-family:'JetBrains Mono', monospace;font-size:11px;font-weight:800;color:${task.countdown.isUrgent ? '#ef4444' : 'var(--accent)'};">
           ⏳ ${task.countdown.text}
         </span>
       </div>
 
       ${task.note ? `
-        <div class="compact-task-note" style="margin-top:4px;">
+        <div class="compact-task-note" style="margin-top:2px;">
           <span class="txt">📝 ${task.note}</span>
           <span style="font-size:10px;color:var(--accent);font-weight:800;flex-shrink:0;">تفاصيل ↗</span>
         </div>
