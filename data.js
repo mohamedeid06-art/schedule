@@ -80,19 +80,34 @@ const COURSE_STATIC_ASSIGNMENTS = [
   }
 ];
 
-// دليل الأسبوع الدراسي الافتراضي (يتضمن بيانات الأسبوع الأول للكهربية)
+// دليل الأسبوع الدراسي الافتراضي بالتفاصيل والروابط المباشرة لكل مادة
 const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 1",
     code: "EPE G113",
-    lectures: "Introduction & Basic Electrical Concepts",
-    sheet: "Sheet 1 (DC Circuits & Basics)",
-    practice: "Practice assigned problems from Sheet 1",
-    summary_title: "Summary of Lecture 1",
-    summary_url: "https://drive.google.com/file/d/15OSsv6GFMQtj6et4yHNZ_EUM__P4fA_R/view?usp=drivesdk",
+    lectures: "Lec 1: Basic Electrical Concepts, Charge, Current, Voltage & Power",
     slides_url: "https://drive.google.com/file/d/1eYqdE-2HMOQRyHotKQBGmBegnZMcyoZW/view?usp=drivesdk",
+    sheet: "Sheet 1: DC Circuits & Basic Electrical Quantities",
     sheet_url: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk",
-    solution_url: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk"
+    solution_url: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk",
+    practice: "حل مسائل شيت 1 ومتابعة فيديوهات الشرح المعتمدة",
+    playlists: [
+      { title: "م. عمار ياسر (فيديو 1)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
+      { title: "م. محمد ماهر (فيديو 2 حتى د 18:38)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" }
+    ],
+    summary_title: "ملخص المحاضرة الأولى (Electrical Summary)",
+    summary_url: "https://drive.google.com/file/d/15OSsv6GFMQtj6et4yHNZ_EUM__P4fA_R/view?usp=drivesdk"
+  },
+  {
+    week: "Week 1",
+    code: "MTH G102",
+    lectures: "Lec 1: Matrices Operations, Types, and Determinants",
+    sheet: "Sheet 1: Problems 1 to 14 (Odd numbers assigned)",
+    practice: "Midterm 2024 (Problem 1) + Recommended Textbook Ex. 1.2",
+    folder_url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl",
+    summary_title: "ملخص أول أسبوع جبر (Linear Algebra)",
+    summary_url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl"
   }
 ];
 
