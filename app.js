@@ -847,9 +847,16 @@ function renderTasksScreen() {
 
 function renderCompactTaskCardHtml(task) {
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", hex: "#0284c7" };
+  
+  // تنسيق تاريخ ووقت النهاية (الديدلاين)
   const dObj = new Date(task.deadline);
-  const formattedDate = !isNaN(dObj.getTime()) ? dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : task.deadline;
-  const formattedTime = !isNaN(dObj.getTime()) ? dObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+  const formattedEndDate = !isNaN(dObj.getTime()) ? dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : task.deadline;
+  const formattedEndTime = !isNaN(dObj.getTime()) ? dObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+
+  // تنسيق تاريخ ووقت البداية
+  const sObj = new Date(task.start);
+  const formattedStartDate = !isNaN(sObj.getTime()) ? sObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
+  const formattedStartTime = !isNaN(sObj.getTime()) ? sObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
 
   return `
     <div class="compact-task-card" style="--c: ${course.color};" onclick="openTaskDetails('${task.id}')">
@@ -862,15 +869,26 @@ function renderCompactTaskCardHtml(task) {
 
       <div class="compact-task-title">${task.title}</div>
 
-      <div class="compact-task-meta">
-        <span>📅 ${formattedDate} ${formattedTime ? `• ${formattedTime}` : ''}</span>
-        <span style="color:${task.countdown.isUrgent ? '#ef4444' : 'var(--accent)'};font-weight:800;">
+      <!-- سطر المواعيد: البداية + الديدلاين + العداد -->
+      <div class="compact-task-meta" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11.5px;margin-top:2px;">
+        ${formattedStartDate ? `
+          <span style="color:#10b981;font-weight:700;">
+            🟢 يبدأ: ${formattedStartDate} • ${formattedStartTime}
+          </span>
+          <span style="color:var(--text-subtle);">|</span>
+        ` : ''}
+        
+        <span style="color:var(--text-muted);font-weight:700;">
+          🔴 ينتهي: ${formattedEndDate} • ${formattedEndTime}
+        </span>
+
+        <span style="color:${task.countdown.isUrgent ? '#ef4444' : 'var(--accent)'};font-weight:800;margin-right:auto;">
           ⏳ ${task.countdown.text}
         </span>
       </div>
 
       ${task.note ? `
-        <div class="compact-task-note">
+        <div class="compact-task-note" style="margin-top:4px;">
           <span class="txt">📝 ${task.note}</span>
           <span style="font-size:10px;color:var(--accent);font-weight:800;flex-shrink:0;">تفاصيل ↗</span>
         </div>
@@ -898,6 +916,10 @@ function openTaskDetails(taskId) {
   const formattedDate = !isNaN(dObj.getTime()) ? dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : task.deadline;
   const formattedTime = !isNaN(dObj.getTime()) ? dObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
 
+  const sObj = new Date(task.start);
+  const formattedStartDate = !isNaN(sObj.getTime()) ? sObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : '';
+  const formattedStartTime = !isNaN(sObj.getTime()) ? sObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+
   content.innerHTML = `
     <div class="details-card-hero" style="--c: ${course.color};">
       <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -910,12 +932,18 @@ function openTaskDetails(taskId) {
       <div style="font-size:17px;font-weight:800;color:var(--text-main);line-height:1.35;">${task.title}</div>
       <div style="font-size:12px;color:var(--text-muted);font-weight:600;">${course.name}</div>
 
-      <div class="details-time-strip">
-        <div style="display:flex;flex-direction:column;gap:2px;">
-          <span style="font-size:10px;font-weight:700;color:var(--text-muted);">DEADLINE:</span>
-          <b style="font-size:12.5px;color:var(--text-main);">${formattedDate} • ${formattedTime}</b>
+      <div class="details-time-strip" style="flex-direction:column;gap:6px;align-items:flex-start;">
+        ${formattedStartDate ? `
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:10.5px;font-weight:700;color:#10b981;">🟢 وقت النزول والبدء:</span>
+            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} •${formattedStartTime}</b>
+          </div>
+        ` : ''}
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-size:10.5px;font-weight:700;color:#ef4444;">🔴 الديدلاين النهائي:</span>
+          <b style="font-size:11.5px;color:var(--text-main);">${formattedDate} • ${formattedTime}</b>
         </div>
-        <span style="font-size:12.5px;font-weight:800;color:#ef4444;">⏳ ${task.countdown.text}</span>
+        <div style="font-size:12px;font-weight:800;color:#ef4444;margin-top:2px;">⏳ ${task.countdown.text}</div>
       </div>
 
       <div class="details-blocks-grid">
@@ -1402,7 +1430,6 @@ function renderDailyAgenda() {
         <div class="rail"><div class="rail-dot" style="--c: ${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
         <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.isSolidMain ? 'solid-soft-glow-card' : ''} ${s.cancelled ? 'is-cancelled-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${s.cancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCurrentActive ? '#ef4444' : (s.cancelled ? '#ef4444' : course.color)}">
           
-          <!-- الهيدر الجديد المنظم الذي يمنع تداخل النصوص والبادجات -->
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${s.cancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
@@ -1851,11 +1878,11 @@ function render() {
 
     if (activeView === "week") {
       document.getElementById("navWeekBtn").classList.add("active");
-      if (daysBar) daysBar.style.display = "none"; // إخفاء شريط الأيام من الجدول الأسبوعي
+      if (daysBar) daysBar.style.display = "none";
       renderWeekMatrix();
     } else {
       document.getElementById("navDayBtn").classList.add("active");
-      if (daysBar) daysBar.style.display = "grid"; // إظهاره في العرض اليومي فقط
+      if (daysBar) daysBar.style.display = "grid";
       renderDaysBar();
       renderDailyAgenda();
     }
