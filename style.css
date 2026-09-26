@@ -233,12 +233,11 @@ body {
 .action-btn:hover { color: var(--text-main); border-color: var(--accent); }
 .action-btn.active-mode { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
 
-/* زرار التثبيت يظهر بشكل سليم وأنيق */
-.action-btn.install-btn { 
-  background: var(--accent); 
-  color: #ffffff; 
-  border-color: var(--accent); 
-  display: inline-flex !important; 
+.action-btn.install-btn {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  display: none;
 }
 .action-btn.install-btn:hover {
   background: var(--accent-light);
