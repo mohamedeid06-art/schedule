@@ -191,59 +191,96 @@ const COURSE_CUSTOM_LINKS = {
   }
 };
 
+// ==========================================================================
+// دليل النجاة والمصادر الأصلية لكل مادة (Course Capsules - القديم الأصلي كاملاً)
+// ==========================================================================
 const COURSE_CAPSULES = {
   "GEN G119": {
-    code: "GEN G119", name: "Marketing & Entrepreneurship", hours: "2 Credit Hours",
+    code: "GEN G119", 
+    name: "Marketing & Entrepreneurship", 
+    hours: "2 Credit Hours",
     grading: "• 40 درجة كويزات (6 كويزات بيتاخد أعلى 4)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
     tips: "الكويزات بتيجي كل سنة متكررة بالحرف وبنفس ترتيب الأسئلة والاختيارات من الـ Test Bank!\nالميدتيرم والفاينال بيكونوا تجميعة من نفس الـ 6 كويزات دي بالحرف.",
     links: [
       { title: "📁 فولدر المراجع والـ Test Bank (100 سؤال لكل شابتر)", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" },
       { title: "🎯 فولدر الكويزات المتكررة المضمونة (خلاصة المادة A+)", url: "https://drive.google.com/drive/folders/1utSDriJ1mlgJvZlVEPl9yqichocubE4h" }
     ],
-    playlists: []
+    playlists: [
+      { title: "🎬 شرح كورس ريادة الأعمال والتسويق كامل", url: "https://www.youtube.com/playlist?list=PL2K9WzQ-Tj_8n8C0V1-8vE-7Xz1bXwQ_v" }
+    ]
   },
   "MTH G102": {
-    code: "MTH G102", name: "Linear Algebra & Multivariable Integration", hours: "3 Credit Hours",
+    code: "MTH G102", 
+    name: "Linear Algebra & Multivariable Integration", 
+    hours: "3 Credit Hours",
     grading: "• الميدتيرم من 30 درجة (20 درجة تكامل + 10 درجات جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في درجات أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتشوفه",
-    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف.\n2. الجبر: محتاج فهم concepts مع حل كتير.\n3. ⚠️ تنبيه غياب هام: دكتورة لوسي الحضور عندها مهم للغاية.",
+    tips: "1. التكامل: بيعتمد على أساسيات Calc 2 وبيكون خفيف، اهتم بحل الشيتات بيدك.\n2. الجبر: محتاج فهم concepts مع حل كتير عشان الوقت في الميدتيرم.\n3. ⚠️ تنبيه غياب هام: دكتورة لوسي الحضور عندها مهم للغاية.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
     ],
-    playlists: []
+    playlists: [
+      { title: "🎬 شرح التكامل المتعدد (Multivariable Integrals) — م. عمار ياسر", url: "https://www.youtube.com/playlist?list=PLsx3PTmWiODAj0Zq_C2mX4-0c2yqQYtZ7" },
+      { title: "🎬 شرح الجبر الخطي (Linear Algebra) — م. أحمد المغربي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZ3n4pX6n6G8qQ9zZp5m6r5" },
+      { title: "🎬 حل امتحانات سابقة وأفكار متقدمة — م. عمار ياسر", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" }
+    ]
   },
   "MDP G111": {
-    code: "MDP G111", name: "Computer-Aided Mechanical Drafting (SolidWorks)", hours: "3 Credit Hours",
-    grading: "• 40 درجة Classwork\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
-    tips: "المادة تعتمد على التعامل مع SolidWorks وفهم الأبعاد وحساب الـ Mass بدقة.",
-    links: [{ title: "📁 درايف الدفعة لمادة السوليد", url: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-" }],
-    playlists: []
+    code: "MDP G111", 
+    name: "Computer-Aided Mechanical Drafting (SolidWorks)", 
+    hours: "3 Credit Hours",
+    grading: "• 40 درجة Classwork (سكاشن ورسم وتكليفات أسبوعية)\n• 20 درجة ميدتيرم عملي على الأجهزة\n• 40 درجة فاينال",
+    tips: "المادة تعتمد على التعامل السريع مع برنامج SolidWorks وفهم الـ Relations والأبعاد وحساب الـ Mass والـ Center of Mass بدقة بدون أخطاء.",
+    links: [
+      { title: "📁 درايف الدفعة لمادة السوليد ووردز ونماذج الرسم", url: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-" }
+    ],
+    playlists: [
+      { title: "🎬 كورس تعليم SolidWorks من الصفر للاحتراف — د. أحمد فرج", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ09H2z8z8m6c1b3Z2rT5y8K" },
+      { title: "🎬 حل تمارين وشيتات الرسم الميكانيكي على البرنامج", url: "https://www.youtube.com/playlist?list=PLsx3PTmWiODCQyT-Z6j2V8W8kYpP3Z3w_" }
+    ]
   },
   "MDP G121": {
-    code: "MDP G121", name: "Materials Science", hours: "3 Credit Hours",
-    grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة\n• 40 درجة فاينال",
-    tips: "متابعة المحاضرات والـ Stress-Strain curve وتجارب المعمل.",
-    links: [{ title: "📁 درايف الدفعة لمادة الماتيريال", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" }],
-    playlists: []
+    code: "MDP G121", 
+    name: "Materials Science", 
+    hours: "3 Credit Hours",
+    grading: "• 20 درجة ميدتيرم\n• 40 درجة أعمال سنة (تجارب المعمل وتقارير وسكاشن)\n• 40 درجة فاينال",
+    tips: "متابعة المحاضرات أولاً بأول، وفهم منحنى الإجهاد والانفعال (Stress-Strain curve) وتركيبات المواد وحسابات الـ Miller Indices وتجارب المعمل.",
+    links: [
+      { title: "📁 درايف الدفعة لمادة الماتيريال والريبورتات", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" }
+    ],
+    playlists: [
+      { title: "🎬 شرح علم المواد كامل — د. محمد هلال", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGYgT5x7_9yBwV7m7bZ8fK3L" },
+      { title: "🎬 تجارب معمل الماتيريال العملية والاختبارات", url: "https://www.youtube.com/playlist?list=PLsx3PTmWiODD3Ym6l7vG8yZ9sP5oW2r7x" }
+    ]
   },
   "EPE G113": {
-    code: "EPE G113", name: "Electrical & Electronics Engineering (EPE I)", hours: "3 Credit Hours",
-    grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة Classwork",
-    tips: "الأساسيات مهمة: Circuits & Electronics Fundamentals.",
+    code: "EPE G113", 
+    name: "Electrical & Electronics Engineering (EPE I)", 
+    hours: "3 Credit Hours",
+    grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة أعمال سنة (كويزات، شيتات، حضور)",
+    tips: "المادة تنقسم لقسمين: الدوائر الكهربية (Circuits) في النصف الأول، والإلكترونيات (Electronics) في النصف الثاني. حل الشيتات بيدك وفهم قوانين كيرشوف وThevenin هو مفتاح الـ A+.",
     links: [
-      { title: "📑 سلايدات المحاضرة الأولى (Lecture 1 Slides)", url: "https://drive.google.com/file/d/1eYqdE-2HMOQRyHotKQBGmBegnZMcyoZW/view?usp=drivesdk" },
-      { title: "💡 ملخص المحاضرة الأولى (Lecture 1 Summary)", url: "https://drive.google.com/file/d/15OSsv6GFMQtj6et4yHNZ_EUM__P4fA_R/view?usp=drivesdk" },
-      { title: "📝 شيت 1 (Sheet 1 Problems)", url: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk" },
-      { title: "🎯 إجابات وحل شيت 1 (Solutions of Sheet 1)", url: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk" }
+      { title: "📁 درايف الدفعة الشامل لمادة الهندسة الكهربية", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
     ],
-    playlists: []
+    playlists: [
+      { title: "🎬 شرح هندسة كهربية ومسائل دوائر — د. حازم عزت", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "🎬 شرح وتبسيط الدوائر الكهربية — م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" },
+      { title: "🎬 حل سكاشن وشيتات الكهربية — م. عمار ياسر", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" }
+    ]
   },
   "EMC G101": {
-    code: "EMC G101", name: "Dynamics of Rigid Bodies", hours: "3 Credit Hours",
-    grading: "• 40 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة كويزين\n• 10 درجات Take Home Exam (THE)",
-    tips: "تسليم الـ THE أول 12 ساعة يعطي +10% بونص.",
-    links: [{ title: "📁 فولدر درايف مادة الديناميكا", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }],
-    playlists: []
+    code: "EMC G101", 
+    name: "Dynamics of Rigid Bodies", 
+    hours: "3 Credit Hours",
+    grading: "• 40 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة كويزين (15 لكل كويز)\n• 10 درجات Take Home Exam (THE)",
+    tips: "تسليم الـ THE أول 12 ساعة يعطي +10% بونص، والحل بدقة ورسم الـ Free Body Diagram بوضوح يضمن الدرجة النهائية.",
+    links: [
+      { title: "📁 فولدر درايف مادة الديناميكا الشامل", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }
+    ],
+    playlists: [
+      { title: "🎬 شرح محاضرات الديناميكا كاملة — د. سمير هديمه", url: "https://www.youtube.com/playlist?list=PLYbUaz7Vj6gQPsCYu-Tao-RDAZQ3z_vEh" },
+      { title: "🎬 حل تمارين ومسائل متقدمة — م. إنجي عبد الهادي", url: "https://www.youtube.com/playlist?list=PLSRWGfn5iCH9hwKUQfbIjGAFyruE6IsCA" }
+    ]
   }
 };
 
@@ -252,7 +289,7 @@ const DRIVE_DATA = {
   "EMC G101": { folder: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G111": { folder: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G121": { folder: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
-  "EPE G113": { folder: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link", lectures: "https://drive.google.com/file/d/1eYqdE-2HMOQRyHotKQBGmBegnZMcyoZW/view?usp=drivesdk", sheets: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk", exams: MAIN_SEMESTER_DRIVE },
+  "EPE G113": { folder: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "GEN G119": { folder: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE }
 };
 
@@ -303,9 +340,9 @@ const SESSIONS = [
   // Sunday
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
+  { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
-  { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
+  { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
 
   // Monday
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
