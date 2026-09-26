@@ -2022,7 +2022,7 @@ if (bannerTrack) {
   }, 5500);
 }
 
-// --- محرك التثبيت الذكي (PWA + iOS Safari Support) ---
+// --- محرك التثبيت التلقائي المباشر (Native PWA Install) ---
 let deferredInstallPrompt = null;
 const installBtn = document.getElementById("pwaTopInstallBtn");
 
@@ -2035,10 +2035,12 @@ function isRunningStandalone() {
   return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone === true);
 }
 
-if (isRunningStandalone() && installBtn) {
-  installBtn.style.display = "none";
+// تشغيل تسجيل الـ Service Worker عشان كروم يفعّل التثبيت التلقائي فوراً
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 
+// لما المتصفح يجهز التحميل التلقائي يظهر الزرار
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
@@ -2046,6 +2048,11 @@ window.addEventListener("beforeinstallprompt", (e) => {
     installBtn.style.display = "inline-flex";
   }
 });
+
+// إظهار الزرار لمستخدمي الآيفون فقط
+if (isIosDevice() && installBtn && !isRunningStandalone()) {
+  installBtn.style.display = "inline-flex";
+}
 
 function openIosInstallModal() {
   const modal = document.getElementById("iosInstallModal");
@@ -2068,13 +2075,13 @@ if (installBtn) {
   installBtn.addEventListener("click", async () => {
     triggerHaptic("heavy");
 
-    // حالة 1: أجهزة الآيفون والآيباد
+    // للآيفون: يفتح الإرشادات
     if (isIosDevice()) {
       openIosInstallModal();
       return;
     }
 
-    // حالة 2: الأندرويد والكمبيوتر
+    // للأندرويد والكمبيوتر: يفتح نافذة التثبيت التلقائية بتاعة المتصفح فوراً
     if (deferredInstallPrompt) {
       deferredInstallPrompt.prompt();
       const { outcome } = await deferredInstallPrompt.userChoice;
@@ -2082,8 +2089,6 @@ if (installBtn) {
         installBtn.style.display = "none";
       }
       deferredInstallPrompt = null;
-    } else {
-      alert("لتثبيت التطبيق:\n• من الكمبيوتر: اضغط على أيقونة التثبيت (🖥️) في أعلى شريط العنوان في كروم/إيدج.\n• من الأندرويد: اضغط على القائمة (⋮) ثم 'تثبيت التطبيق' أو 'Add to Home screen'.");
     }
   });
 }
@@ -2091,7 +2096,6 @@ if (installBtn) {
 window.addEventListener("appinstalled", () => {
   if (installBtn) installBtn.style.display = "none";
 });
-
 // Initial Boot Sequence
 initDeviceMode();
 initTheme();
