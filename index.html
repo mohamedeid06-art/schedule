@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=45">
+  <link rel="stylesheet" href="style.css?v=46">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
@@ -52,7 +52,7 @@
       </div>
     </header>
 
-    <!-- Carousel Banners (البانرات الثلاثة الجديدة بالكامل) -->
+    <!-- Carousel Banners -->
     <div class="banner-carousel-container" id="firstWeekBanner">
       <div class="banner-carousel-track" id="bannerTrack">
         <!-- بانر 1: معمل السوليد -->
@@ -108,7 +108,7 @@
       </div>
     </div>
 
-    <!-- Control Bar (الجدول الكامل الرسمي مباشرة بدون زرار الأسبوع الملغي) -->
+    <!-- Control Bar -->
     <div class="control-bar" id="scheduleControlBar">
       <div class="group-controls">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -269,6 +269,38 @@
     </div>
   </div>
 
+  <!-- iOS Safari Install Instructions Modal (نافذة تثبيت الآيفون) -->
+  <div class="modal-overlay" id="iosInstallModal">
+    <div class="modal-card" style="max-width: 420px; direction: rtl; text-align: right;">
+      <div class="modal-head">
+        <span class="modal-title">📲 تثبيت الجدول على الآيفون</span>
+        <button class="modal-close" onclick="closeIosInstallModal()">×</button>
+      </div>
+      <div class="modal-body" style="gap: 14px; font-size: 13px; line-height: 1.6;">
+        <div style="background: var(--surface-alt); padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+          لتثبيت الجدول كتطبيق مستقل وتفعيله على الشاشة الرئيسية:
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 18px; font-weight: 800; background: var(--accent-glow); padding: 4px 10px; border-radius: 10px; color: var(--accent);">1</span>
+            <span>اضغط على زرار <strong>المشاركة (Share ⎋)</strong> أسفل متصفح Safari.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 18px; font-weight: 800; background: var(--accent-glow); padding: 4px 10px; border-radius: 10px; color: var(--accent);">2</span>
+            <span>انزل في القائمة واختار <strong>"إضافة إلى الشاشة الرئيسية" (Add to Home Screen ⊞)</strong>.</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 18px; font-weight: 800; background: var(--accent-glow); padding: 4px 10px; border-radius: 10px; color: var(--accent);">3</span>
+            <span>اضغط على <strong>"إضافة" (Add)</strong> في أعلى اليمين.</span>
+          </div>
+        </div>
+        <button class="mark-done-btn" style="margin-top: 6px;" onclick="closeIosInstallModal()">
+          فهمت تمام 👍
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Toast -->
   <div class="floating-toast" id="toastBox">
     <div class="toast-top-row">
@@ -280,8 +312,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=45"></script>
-  <script src="app.js?v=45"></script>
+  <script src="data.js?v=46"></script>
+  <script src="app.js?v=46"></script>
 </body>
 </html>
 
