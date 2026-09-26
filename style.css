@@ -233,16 +233,23 @@ body {
 .action-btn:hover { color: var(--text-main); border-color: var(--accent); }
 .action-btn.active-mode { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
 
-/* زرار التثبيت ظاهر دائماً بتنسيق ثابت ومتناسق */
+/* زرار التثبيت: يرجع للأصل مخفي ويظهر تلقائياً عبر JS عند دعم التثبيت */
 .action-btn.install-btn { 
   background: var(--accent); 
   color: #ffffff; 
   border-color: var(--accent); 
-  display: inline-flex !important; 
+  display: none; 
 }
 .action-btn.install-btn:hover {
   background: var(--accent-light);
   color: #ffffff;
+}
+
+/* لو المستخدم مثبت التطبيق وفاتحه كـ App يختفي الزرار نهائياً */
+@media all and (display-mode: standalone) {
+  #pwaTopInstallBtn {
+    display: none !important;
+  }
 }
 
 .action-btn svg { width: 16px; height: 16px; fill: currentColor; }
