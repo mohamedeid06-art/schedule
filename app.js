@@ -23,7 +23,7 @@ let completedTasks = JSON.parse(localStorage.getItem("cufe_completed_tasks") || 
 let currentDetailedTask = null;
 let calViewDate = new Date(2026, 8, 1);
 
-// دليل الأسبوع (كهربية + ماث تكامل)
+// دليل الأسبوع (الكهربية + ماث تكامل)
 let WEEKLY_GUIDE_DATA = typeof DEFAULT_WEEKLY_GUIDES !== 'undefined' ? [...DEFAULT_WEEKLY_GUIDES] : [];
 let selectedGuideWeek = "Week 1";
 let ASSESSMENTS = [];
@@ -357,18 +357,6 @@ function openCourseCapsule(code) {
             <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn">
               <span>${l.title}</span>
               <span>↗</span>
-            </a>
-          `).join("")}
-        </div>
-      ` : ''}
-
-      ${cap.playlists && cap.playlists.length > 0 ? `
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-          <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
-          ${cap.playlists.map(p => `
-            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #f43f5e;">
-              <span style="color:var(--text-main);">${p.title}</span>
-              <span style="color:#f43f5e;">▶</span>
             </a>
           `).join("")}
         </div>
@@ -917,7 +905,7 @@ function openTaskDetails(taskId) {
         ${formattedStartDate ? `
           <div style="display:flex;align-items:center;gap:6px;">
             <span style="font-size:10.5px;font-weight:700;color:#10b981;">🟢 وقت النزول والبدء:</span>
-            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} •${formattedStartTime}</b>
+            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} • ${formattedStartTime}</b>
           </div>
         ` : ''}
         <div style="display:flex;align-items:center;gap:6px;">
@@ -1868,7 +1856,7 @@ function render() {
     if (mainHeader) mainHeader.style.display = "none";
     if (daysBar) daysBar.style.display = "none";
     if (dynBanner) dynBanner.style.display = "none";
-    if (fwBanner) fwBanner.style.display = "none"; // إخفاء البانرات تماماً خارج الجدول
+    if (fwBanner) fwBanner.style.display = "none"; // إخفاء البانرات خارج الجدول
     if (legend) legend.style.display = "none";
     if (progressBox) progressBox.style.display = "none";
 
@@ -1886,7 +1874,7 @@ function render() {
     if (controlBar) controlBar.style.display = "flex";
     if (liveBox) liveBox.style.display = "flex";
     if (mainHeader) mainHeader.style.display = "flex";
-    if (fwBanner) fwBanner.style.display = "block"; // يظهر فقط في الجدول اليومي والأسبوعي
+    if (fwBanner) fwBanner.style.display = "block"; // إظهار البانرات فقط في الجدول
     if (legend) legend.style.display = "flex";
     if (progressBox) progressBox.style.display = "flex";
 
@@ -2033,6 +2021,76 @@ if (bannerTrack) {
     }
   }, 5500);
 }
+
+// --- محرك التثبيت الذكي (PWA + iOS Safari Support) ---
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById("pwaTopInstallBtn");
+
+function isIosDevice() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function isRunningStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone === true);
+}
+
+if (isRunningStandalone() && installBtn) {
+  installBtn.style.display = "none";
+}
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  if (installBtn && !isRunningStandalone()) {
+    installBtn.style.display = "inline-flex";
+  }
+});
+
+function openIosInstallModal() {
+  const modal = document.getElementById("iosInstallModal");
+  if (modal) modal.classList.add("open");
+}
+
+function closeIosInstallModal() {
+  const modal = document.getElementById("iosInstallModal");
+  if (modal) modal.classList.remove("open");
+}
+
+const iosModal = document.getElementById("iosInstallModal");
+if (iosModal) {
+  iosModal.addEventListener("click", (e) => {
+    if (e.target.id === "iosInstallModal") closeIosInstallModal();
+  });
+}
+
+if (installBtn) {
+  installBtn.addEventListener("click", async () => {
+    triggerHaptic("heavy");
+
+    // حالة 1: أجهزة الآيفون والآيباد
+    if (isIosDevice()) {
+      openIosInstallModal();
+      return;
+    }
+
+    // حالة 2: الأندرويد والكمبيوتر
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      if (outcome === "accepted") {
+        installBtn.style.display = "none";
+      }
+      deferredInstallPrompt = null;
+    } else {
+      alert("لتثبيت التطبيق:\n• من الكمبيوتر: اضغط على أيقونة التثبيت (🖥️) في أعلى شريط العنوان في كروم/إيدج.\n• من الأندرويد: اضغط على القائمة (⋮) ثم 'تثبيت التطبيق' أو 'Add to Home screen'.");
+    }
+  });
+}
+
+window.addEventListener("appinstalled", () => {
+  if (installBtn) installBtn.style.display = "none";
+});
 
 // Initial Boot Sequence
 initDeviceMode();
