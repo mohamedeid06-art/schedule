@@ -574,13 +574,13 @@ body {
   font-weight: 600;
 }
 
-/* سطر اللينكات النظيف جداً داخل كل بوكس */
+/* سطر اللينكات النظيف داخل كل بوكس */
 .guide-links-shelf {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  padding-left: 97px; /* محاذاة اللينك تحت الكلام مش تحت العنوان */
+  padding-left: 97px;
 }
 
 @media (max-width: 480px) {
@@ -621,7 +621,7 @@ body {
   border-color: rgba(244, 63, 94, 0.35);
 }
 
-/* زرار الملخص الأصفر العريض المتطابق مع الصورة الأصلية */
+/* زرار الملخص الأصفر العريض المتطابق مع الصورة */
 .guide-summary-full-btn {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
