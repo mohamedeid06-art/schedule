@@ -23,7 +23,7 @@ let completedTasks = JSON.parse(localStorage.getItem("cufe_completed_tasks") || 
 let currentDetailedTask = null;
 let calViewDate = new Date(2026, 8, 1);
 
-// استخدام جايد مادة الكهربية فقط
+// دليل الأسبوع (كهربية + ماث تكامل)
 let WEEKLY_GUIDE_DATA = typeof DEFAULT_WEEKLY_GUIDES !== 'undefined' ? [...DEFAULT_WEEKLY_GUIDES] : [];
 let selectedGuideWeek = "Week 1";
 let ASSESSMENTS = [];
@@ -1647,7 +1647,7 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
-// عرض شاشة الجايد المتطابقة مع الصورة الأصلية (لمادة الكهربية فقط)
+// عرض شاشة الجايد المتطابقة مع الصورة الأصلية (الكهربية + الماث بجميع روابطهم)
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1710,7 +1710,7 @@ function renderGuideScreen() {
                 </div>
               ` : ''}
 
-              <!-- بوكس 2: السكاشن والشيت والحل -->
+              <!-- بوكس 2: السكاشن والشيت والحلول -->
               ${item.sheet ? `
                 <div class="guide-clean-row">
                   <div class="guide-row-top">
@@ -1725,19 +1725,19 @@ function renderGuideScreen() {
                     ` : ''}
                     ${item.solution_url ? `
                       <a href="${item.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link sol-chip">
-                        <span>✓ إجابات وحل الشيت</span> ↗
+                        <span>✓ المسائل المحلولة / الحلول</span> ↗
                       </a>
                     ` : ''}
                   </div>
                 </div>
               ` : ''}
 
-              <!-- بوكس 3: التمارين وفيديوهات الشرح -->
+              <!-- بوكس 3: التمارين وقوائم الشرح -->
               ${(item.practice || (item.playlists && item.playlists.length > 0)) ? `
                 <div class="guide-clean-row">
                   <div class="guide-row-top">
                     <span class="guide-row-pill">🎯 Practice:</span>
-                    <span class="guide-row-text">${item.practice || 'حل مسائل شيت 1 ومتابعة الفيديوهات'}</span>
+                    <span class="guide-row-text">${item.practice}</span>
                   </div>
                   ${item.playlists && item.playlists.length > 0 ? `
                     <div class="guide-links-shelf">
@@ -1751,12 +1751,12 @@ function renderGuideScreen() {
                 </div>
               ` : ''}
 
-              <!-- زرار الملخص الأصفر العريض المتطابق مع الصورة -->
+              <!-- زرار الملخص أو النوتس السفلي العريض بالسهم ↗ -->
               ${item.summary_url ? `
                 <a href="${item.summary_url}" target="_blank" rel="noopener noreferrer" class="guide-summary-full-btn">
                   <div style="display:flex;align-items:center;gap:10px;">
                     <span style="font-size:16px;">💡</span>
-                    <span style="font-weight:700;">${item.summary_title || 'ملخص المحاضرة الأولى (Electrical Summary)'}</span>
+                    <span style="font-weight:700;">${item.summary_title}</span>
                   </div>
                   <span style="font-size:14px;color:var(--accent);">↗</span>
                 </a>
@@ -1854,6 +1854,7 @@ function render() {
   const dynBanner = document.getElementById("dynamicsSwitcherBanner");
   const legend = document.getElementById("legend");
   const progressBox = document.getElementById("dayProgressContainer");
+  const fwBanner = document.getElementById("firstWeekBanner");
 
   document.getElementById("navWeekBtn").classList.remove("active");
   document.getElementById("navDayBtn").classList.remove("active");
@@ -1867,6 +1868,7 @@ function render() {
     if (mainHeader) mainHeader.style.display = "none";
     if (daysBar) daysBar.style.display = "none";
     if (dynBanner) dynBanner.style.display = "none";
+    if (fwBanner) fwBanner.style.display = "none"; // إخفاء البانرات تماماً خارج الجدول
     if (legend) legend.style.display = "none";
     if (progressBox) progressBox.style.display = "none";
 
@@ -1884,6 +1886,7 @@ function render() {
     if (controlBar) controlBar.style.display = "flex";
     if (liveBox) liveBox.style.display = "flex";
     if (mainHeader) mainHeader.style.display = "flex";
+    if (fwBanner) fwBanner.style.display = "block"; // يظهر فقط في الجدول اليومي والأسبوعي
     if (legend) legend.style.display = "flex";
     if (progressBox) progressBox.style.display = "flex";
 
@@ -2023,8 +2026,11 @@ if (bannerTrack) {
   }, { passive: true });
 
   setInterval(() => {
-    currentBannerIdx = (currentBannerIdx + 1) % totalCarouselBanners;
-    goToBanner(currentBannerIdx);
+    const bannerContainer = document.getElementById("firstWeekBanner");
+    if (bannerContainer && bannerContainer.style.display !== "none") {
+      currentBannerIdx = (currentBannerIdx + 1) % totalCarouselBanners;
+      goToBanner(currentBannerIdx);
+    }
   }, 5500);
 }
 
@@ -2034,3 +2040,5 @@ initTheme();
 render();
 syncFromGoogleSheets();
 setInterval(updateLiveTracker, 60000);
+
+
