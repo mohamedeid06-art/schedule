@@ -60,7 +60,7 @@ const COURSES = {
   }
 };
 
-// تكليفات المواد الثابتة (أساينمنت اللينير فقط)
+// تكليفات المواد الثابتة (أساينمنت اللينير سؤالين الشيت لكل سكشن)
 const COURSE_STATIC_ASSIGNMENTS = [
   {
     id: "mth-assign-1",
@@ -80,7 +80,7 @@ const COURSE_STATIC_ASSIGNMENTS = [
   }
 ];
 
-// دليل الأسبوع الدراسي الأول (الكهربية + التكامل والماث)
+// دليل الأسبوع الدراسي الأول بجميع الروابط المباشرة (الكهربية + التكامل)
 const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 1",
@@ -93,7 +93,7 @@ const DEFAULT_WEEKLY_GUIDES = [
     practice: "حل مسائل شيت 1 ومتابعة فيديوهات الشرح المعتمدة",
     playlists: [
       { title: "م. عمار ياسر (فيديو 1)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
-      { title: "م. محمد ماهر (فيديو 2 حتى د 18:38)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "م. محمد ماهر (حتى د 18:38)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
       { title: "م. طارق البغدادي", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" }
     ],
     summary_title: "ملخص المحاضرة الأولى (Electrical Summary)",
@@ -107,18 +107,18 @@ const DEFAULT_WEEKLY_GUIDES = [
     sheet: "Sheet 1 & Assignment 1 (Double Integrals)",
     sheet_url: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0",
     solution_url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
-    practice: "حل مسائل الشيت وشرح م. عمار ياسر وم. أحمد المغربي",
+    practice: "حل مسائل الشيت ومتابعة فيديوهات الشرح",
     playlists: [
       { title: "م. عمار ياسر (كامل)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
-      { title: "م. أحمد المغربي (فيديو 1 كامل)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
-      { title: "م. أحمد المغربي (فيديو 2 حتى د 30:45)", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" }
+      { title: "م. أحمد المغربي (فيديو 1)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
+      { title: "م. أحمد المغربي (فيديو 2 د 30:45)", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" }
     ],
-    summary_title: "نوتس وملاحظات المحاضرة الأولى (Notes)",
+    summary_title: "ملاحظات ونوتس المحاضرة (Notes)",
     summary_url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx"
   }
 ];
 
-// مواعيد امتحانات الـ Take-Home لمادة الديناميكا
+// مواعيد امتحانات الـ Take-Home الأسبوعية بالدقيقة لمادة الديناميكا
 const DYNAMICS_THE_EXAMS = [
   { no: 1, name: "P200", start: "2026-09-25T19:00:00", deadline: "2026-10-09T19:00:00", examSheet: "https://drive.google.com/file/d/1G7wTSWQLSn8PGk4c76svzkVSXQMhf2Mk/view", desc: "Solve the assigned problems for Model (P200). Show all steps and free body diagrams clearly.", note: "Submit as PDF on Google Form before deadline." },
   { no: 2, name: "P135", start: "2026-10-09T19:00:00", deadline: "2026-10-16T19:00:00", examSheet: "https://drive.google.com/file/d/1oKKepdc3UJwztVRZI78XUFI7ozdit_S6/view", desc: "Curvilinear Motion analysis for particles in Cartesian and Polar Coordinates.", note: "Early submission within 12h gets +10% bonus." },
@@ -298,21 +298,18 @@ const SLOTS = ["8:00 - 8:50","9:00 - 9:50","10:00 - 10:50","11:00 - 11:50","12:0
 const TIME_STARTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
 const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:50", "15:50", "16:50"];
 
-// الجدول الكامل الرسمي - كل السكاشن والمحاضرات شغالة 100% بدون أي إلغاء
+// جدول الحصص المعتمد (اتنقلت سكاشن الكهربية للخميس بدون حضور مع مسحها من الأحد والاثنين)
 const SESSIONS = [
   // Sunday
   { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14201-50", attendance: true },
-  { day: "Sunday", start: 2, span: 3, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "17400-56" },
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "15401-300", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14301-50", attendance: true },
 
   // Monday
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: true },
-  { day: "Monday", start: 5, span: 3, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "17202-148" },
-  { day: "Monday", start: 5, span: 3, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "17301-56" },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: true },
 
   // Tuesday
@@ -330,7 +327,14 @@ const SESSIONS = [
   // Thursday
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: true },
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: true },
-  { day: "Thursday", start: 5, span: 3, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301-50" }
+  
+  // سكاشن الكهربية الجديدة يوم الخميس (بدون حضور)
+  // سكشن 1 وسكشن 2: من 12:00 إلى 1:50
+  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
+  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
+  // سكشن 3 وسكشن 4: من 1:50 إلى 3:50
+  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false }
 ];
 
 const MONDAY_DYNAMICS_SLOTS = {
