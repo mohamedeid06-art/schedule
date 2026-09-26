@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=25">
+  <link rel="stylesheet" href="style.css?v=45">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
@@ -26,7 +26,7 @@
           <span class="batch-tag">BATCH 30</span>
         </div>
         <div class="date-academic-strip">
-          <span id="fullDateDisplay">Thursday, September 24, 2026</span>
+          <span id="fullDateDisplay">Saturday, September 26, 2026</span>
           <span>•</span>
           <span class="academic-week-badge" id="academicWeekBadge">Academic Week 1</span>
         </div>
@@ -52,30 +52,35 @@
       </div>
     </header>
 
-    <!-- Carousel Banners (تمت إزالة بانر السوليد الملغي مع بقاء باقي البانرات) -->
+    <!-- Carousel Banners (البانرات الثلاثة الجديدة بالكامل) -->
     <div class="banner-carousel-container" id="firstWeekBanner">
       <div class="banner-carousel-track" id="bannerTrack">
-        <div class="banner-card banner-festive">
-          <span class="festive-icon">🚀</span>
+        <!-- بانر 1: معمل السوليد -->
+        <div class="banner-card banner-festive" style="border-color:#10b981; background:linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, var(--surface) 100%);">
+          <span class="festive-icon">💻</span>
           <div class="festive-msg">
-            مرحباً بكم في <strong>الجدول الدراسي الكامل لقسم ميكانيكا (دفعة 30)</strong>! جميع المحاضرات والسكاشن وقاعات الكلية محدثة بالكامل.
+            <strong>تنبيه معمل السوليد (MDP G111):</strong> أي حد مش معاه Laptop هيحضر سكشن السوليد في <strong>معمل الكمبيوتر في مبنى 10 الدور التاني</strong> من الساعة 10:00 إلى 1:00.
           </div>
         </div>
-        <div class="banner-card banner-task">
-          <span class="festive-icon">📋</span>
-          <div class="festive-msg">
-            تم إطلاق <strong>Tasks & Deadlines Hub</strong> الجديد! تابع امتحانات الـ Take-Home والواجبات بعداد تنازلي وروابط التحميل المباشرة.
-            <div><button class="banner-action-link" onclick="setView('tasks')">فتح صفحة التاسكات ↗</button></div>
-          </div>
-        </div>
-        <div class="banner-card banner-dynamics">
+
+        <!-- بانر 2: مواعيد سكاشن الكهربية الجديدة -->
+        <div class="banner-card banner-dynamics" style="border-color:#f43f5e; background:linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, var(--surface) 100%);">
           <span class="festive-icon">⚡</span>
           <div class="festive-msg">
-            تنويه هام لمادة <strong>الديناميكا المستوية (EMC G101)</strong>: امتحانات الـ Take-Home الأسبوعية التسليم المبكر فيها بيعطيك حتى +10% بونص.
-            <div><button class="banner-action-link dyn-link" onclick="openDynamicsRoadmapModal()">خريطة الديناميكا ↗</button></div>
+            <strong>تعديل مواعيد سكاشن الكهربية (EPE G113):</strong> تم نقل السكاشن كلها ليوم <strong>الخميس</strong> (سكشن 1 و 2 من 12:00 إلى 1:30) و (سكشن 3 و 4 من 1:30 إلى 3:00) وبدون حضور.
+          </div>
+        </div>
+
+        <!-- بانر 3: تذكير صفحة التاسكات -->
+        <div class="banner-card banner-task" style="border-color:#f59e0b; background:linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, var(--surface) 100%);">
+          <span class="festive-icon">📋</span>
+          <div class="festive-msg">
+            <strong>تذكير بالتكليفات:</strong> محدش ينسى يبص على التاسكات والتسليمات اللي علينا من صفحة <strong>Tasks</strong> لمتابعة مواعيد الديدلاين والملفات المطلوبة!
+            <div><button class="banner-action-link" onclick="setView('tasks')" style="background:#f59e0b;">فتح صفحة التاسكات ↗</button></div>
           </div>
         </div>
       </div>
+
       <div class="carousel-dots" id="carouselDots">
         <span class="dot active" onclick="goToBanner(0)"></span>
         <span class="dot" onclick="goToBanner(1)"></span>
@@ -103,7 +108,7 @@
       </div>
     </div>
 
-    <!-- Control Bar (تم إلغاء زرار تبديل الأسبوع الملغي وأصبح الجدول كاملاً) -->
+    <!-- Control Bar (الجدول الكامل الرسمي مباشرة بدون زرار الأسبوع الملغي) -->
     <div class="control-bar" id="scheduleControlBar">
       <div class="group-controls">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -204,7 +209,7 @@
           <span class="modal-title" id="calCurrentMonthName">Calendar</span>
           <button class="action-btn icon-only" onclick="changeCalendarMonth(1)">▶</button>
         </div>
-        <button class="modal-close" onclick="closeMonthCalendarModal()">&times;</button>
+        <button class="modal-close" onclick="closeMonthCalendarModal()">×</button>
       </div>
       <div class="modal-body">
         <div class="calendar-grid" id="fullCalendarGrid"></div>
@@ -218,7 +223,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title">🔔 تنبيهات وإعلانات الدفعة</span>
-        <button class="modal-close" onclick="closeNotifModal()">&times;</button>
+        <button class="modal-close" onclick="closeNotifModal()">×</button>
       </div>
       <div class="modal-body" id="notifList"></div>
     </div>
@@ -228,7 +233,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title" id="capsuleModalTitle">Course Capsule</span>
-        <button class="modal-close" onclick="closeCapsuleModal()">&times;</button>
+        <button class="modal-close" onclick="closeCapsuleModal()">×</button>
       </div>
       <div class="modal-body" id="capsuleModalBody"></div>
     </div>
@@ -238,7 +243,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title" id="linksModalTitle">Course Hub</span>
-        <button class="modal-close" onclick="closeLinksModal()">&times;</button>
+        <button class="modal-close" onclick="closeLinksModal()">×</button>
       </div>
       <div class="modal-body" id="linksModalBody"></div>
     </div>
@@ -248,7 +253,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title">🗺️ خريطة منهج الديناميكا المستوية (EMC G101)</span>
-        <button class="modal-close" onclick="closeRoadmapModal()">&times;</button>
+        <button class="modal-close" onclick="closeRoadmapModal()">×</button>
       </div>
       <div class="modal-body" id="roadmapModalBody"></div>
     </div>
@@ -258,7 +263,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title">🗺️ خريطة منهج علم المواد (MDP G121)</span>
-        <button class="modal-close" onclick="closeMaterialsRoadmapModal()">&times;</button>
+        <button class="modal-close" onclick="closeMaterialsRoadmapModal()">×</button>
       </div>
       <div class="modal-body" id="materialsRoadmapModalBody"></div>
     </div>
@@ -275,8 +280,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=31"></script>
-<script src="app.js?v=31"></script>
-
+  <script src="data.js?v=45"></script>
+  <script src="app.js?v=45"></script>
 </body>
 </html>
+
+
