@@ -232,7 +232,19 @@ body {
 .action-btn.icon-only { width: 38px; padding: 0; justify-content: center; }
 .action-btn:hover { color: var(--text-main); border-color: var(--accent); }
 .action-btn.active-mode { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
-.action-btn.install-btn { background: var(--accent); color: #ffffff; border-color: var(--accent); display: none; }
+
+/* زرار التثبيت يظهر بشكل سليم وأنيق */
+.action-btn.install-btn { 
+  background: var(--accent); 
+  color: #ffffff; 
+  border-color: var(--accent); 
+  display: inline-flex !important; 
+}
+.action-btn.install-btn:hover {
+  background: var(--accent-light);
+  color: #ffffff;
+}
+
 .action-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* Carousel Banners */
@@ -492,7 +504,7 @@ body {
 .mark-done-btn { background: linear-gradient(135deg, #0284c7 0%, #8b5cf6 100%); color: #fff; border: none; border-radius: 14px; padding: 14px; font-size: 13.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; margin-top: 16px; }
 
 /* ==========================================================================
-   Clean Minimalist Guide Card (Exact Match to Reference Photo)
+   Clean Minimalist Guide Card (Exact Match to Reference Design)
    ========================================================================== */
 .guide-container { display: flex; flex-direction: column; gap: 14px; animation: cardCascade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .guide-hero { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
@@ -536,7 +548,7 @@ body {
   color: var(--text-muted);
 }
 
-/* البوكسات الثلاثة الأساسية مثل الصورة بالمللي */
+/* البوكسات الأساسية النظيفة للجايد */
 .guide-clean-row {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
@@ -621,7 +633,7 @@ body {
   border-color: rgba(244, 63, 94, 0.35);
 }
 
-/* زرار الملخص الأصفر العريض المتطابق مع الصورة */
+/* زرار الملخص الأصفر العريض بالسهم ↗ */
 .guide-summary-full-btn {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border);
