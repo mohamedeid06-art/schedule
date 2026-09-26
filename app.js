@@ -310,6 +310,7 @@ function openCourseLinksModal(code) {
 function closeLinksModal() { document.getElementById("linksModal").classList.remove("open"); }
 document.getElementById("linksModal").addEventListener("click", e => { if (e.target.id === "linksModal") closeLinksModal(); });
 
+// عرض دليل المادة الأصلي القديم (Course Capsule)
 function openCourseCapsule(code) {
   triggerHaptic("heavy");
   const modal = document.getElementById("capsuleModal");
@@ -646,7 +647,7 @@ function getAllCombinedTasks() {
     const isDone = completedTasks.includes(id);
 
     let priority = "scheduled";
-    if (isDone) priority = "done";
+    if (isDone) priority = "due-soon";
     else if (cd.isUrgent) priority = "due-soon";
     else if (cd.diff <= 7 * 24 * 3600 * 1000) priority = "upcoming";
 
@@ -917,7 +918,7 @@ function openTaskDetails(taskId) {
         ${formattedStartDate ? `
           <div style="display:flex;align-items:center;gap:6px;">
             <span style="font-size:10.5px;font-weight:700;color:#10b981;">🟢 وقت النزول والبدء:</span>
-            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} •${formattedStartTime}</b>
+            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} • ${formattedStartTime}</b>
           </div>
         ` : ''}
         <div style="display:flex;align-items:center;gap:6px;">
@@ -2033,7 +2034,9 @@ if (bannerTrack) {
   }, 5500);
 }
 
-// --- محرك التثبيت التلقائي المباشر بدون Alert ---
+// ==========================================================================
+// محرك التثبيت الأصلي النظيف (Original PWA Engine)
+// ==========================================================================
 let deferredInstallPrompt = null;
 const installBtn = document.getElementById("pwaTopInstallBtn");
 
@@ -2042,10 +2045,30 @@ function isIosDevice() {
          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 
+function isRunningStandalone() {
+  return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone === true);
+}
+
+// تسجيل الـ Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+
+// لما المتصفح يجهز الـ prompt يظهر الزرار
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
+  if (installBtn && !isRunningStandalone()) {
+    installBtn.style.display = "inline-flex";
+  }
 });
+
+// إظهار الزرار للآيفون فقط
+if (isIosDevice() && installBtn && !isRunningStandalone()) {
+  installBtn.style.display = "inline-flex";
+}
 
 function openIosInstallModal() {
   const modal = document.getElementById("iosInstallModal");
@@ -2064,17 +2087,16 @@ if (iosModal) {
   });
 }
 
+// عند الضغط على الزرار
 if (installBtn) {
   installBtn.addEventListener("click", async () => {
     triggerHaptic("heavy");
 
-    // للآيفون: فتح النافذة التوضيحية
     if (isIosDevice()) {
       openIosInstallModal();
       return;
     }
 
-    // للأندرويد / الكمبيوتر: طلب التثبيت التلقائي المباشر
     if (deferredInstallPrompt) {
       deferredInstallPrompt.prompt();
       const { outcome } = await deferredInstallPrompt.userChoice;
@@ -2096,3 +2118,5 @@ initTheme();
 render();
 syncFromGoogleSheets();
 setInterval(updateLiveTracker, 60000);
+
+
