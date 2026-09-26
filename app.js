@@ -361,6 +361,18 @@ function openCourseCapsule(code) {
           `).join("")}
         </div>
       ` : ''}
+
+      ${cap.playlists && cap.playlists.length > 0 ? `
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);">قوائم يوتيوب المعتمدة للشرح:</span>
+          ${cap.playlists.map(p => `
+            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="capsule-link-btn" style="border-left:3px solid #f43f5e;">
+              <span style="color:var(--text-main);">${p.title}</span>
+              <span style="color:#f43f5e;">▶</span>
+            </a>
+          `).join("")}
+        </div>
+      ` : ''}
     `;
   }
 
@@ -905,7 +917,7 @@ function openTaskDetails(taskId) {
         ${formattedStartDate ? `
           <div style="display:flex;align-items:center;gap:6px;">
             <span style="font-size:10.5px;font-weight:700;color:#10b981;">🟢 وقت النزول والبدء:</span>
-            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} • ${formattedStartTime}</b>
+            <b style="font-size:11.5px;color:var(--text-main);">${formattedStartDate} •${formattedStartTime}</b>
           </div>
         ` : ''}
         <div style="display:flex;align-items:center;gap:6px;">
@@ -1635,7 +1647,6 @@ function toggleHighlight(code) {
   else if (activeView === "day") renderDailyAgenda();
 }
 
-// عرض شاشة الجايد المتطابقة مع الصورة الأصلية (الكهربية + الماث بجميع روابطهم)
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 1"))];
@@ -1856,7 +1867,7 @@ function render() {
     if (mainHeader) mainHeader.style.display = "none";
     if (daysBar) daysBar.style.display = "none";
     if (dynBanner) dynBanner.style.display = "none";
-    if (fwBanner) fwBanner.style.display = "none"; // إخفاء البانرات خارج الجدول
+    if (fwBanner) fwBanner.style.display = "none";
     if (legend) legend.style.display = "none";
     if (progressBox) progressBox.style.display = "none";
 
@@ -1874,7 +1885,7 @@ function render() {
     if (controlBar) controlBar.style.display = "flex";
     if (liveBox) liveBox.style.display = "flex";
     if (mainHeader) mainHeader.style.display = "flex";
-    if (fwBanner) fwBanner.style.display = "block"; // إظهار البانرات فقط في الجدول
+    if (fwBanner) fwBanner.style.display = "block";
     if (legend) legend.style.display = "flex";
     if (progressBox) progressBox.style.display = "flex";
 
@@ -2022,7 +2033,7 @@ if (bannerTrack) {
   }, 5500);
 }
 
-// --- محرك التثبيت التلقائي المباشر (Native PWA Install) ---
+// --- محرك التثبيت التلقائي المباشر بدون Alert ---
 let deferredInstallPrompt = null;
 const installBtn = document.getElementById("pwaTopInstallBtn");
 
@@ -2031,28 +2042,10 @@ function isIosDevice() {
          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 
-function isRunningStandalone() {
-  return (window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone === true);
-}
-
-// تشغيل تسجيل الـ Service Worker عشان كروم يفعّل التثبيت التلقائي فوراً
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
-
-// لما المتصفح يجهز التحميل التلقائي يظهر الزرار
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
-  if (installBtn && !isRunningStandalone()) {
-    installBtn.style.display = "inline-flex";
-  }
 });
-
-// إظهار الزرار لمستخدمي الآيفون فقط
-if (isIosDevice() && installBtn && !isRunningStandalone()) {
-  installBtn.style.display = "inline-flex";
-}
 
 function openIosInstallModal() {
   const modal = document.getElementById("iosInstallModal");
@@ -2075,13 +2068,13 @@ if (installBtn) {
   installBtn.addEventListener("click", async () => {
     triggerHaptic("heavy");
 
-    // للآيفون: يفتح الإرشادات
+    // للآيفون: فتح النافذة التوضيحية
     if (isIosDevice()) {
       openIosInstallModal();
       return;
     }
 
-    // للأندرويد والكمبيوتر: يفتح نافذة التثبيت التلقائية بتاعة المتصفح فوراً
+    // للأندرويد / الكمبيوتر: طلب التثبيت التلقائي المباشر
     if (deferredInstallPrompt) {
       deferredInstallPrompt.prompt();
       const { outcome } = await deferredInstallPrompt.userChoice;
@@ -2096,11 +2089,10 @@ if (installBtn) {
 window.addEventListener("appinstalled", () => {
   if (installBtn) installBtn.style.display = "none";
 });
+
 // Initial Boot Sequence
 initDeviceMode();
 initTheme();
 render();
 syncFromGoogleSheets();
 setInterval(updateLiveTracker, 60000);
-
-
