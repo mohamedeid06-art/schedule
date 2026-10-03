@@ -261,6 +261,88 @@ body {
 .banner-festive { background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%); border: 1.5px solid var(--accent); }
 .banner-task { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(2, 132, 199, 0.12) 100%); border: 1.5px solid #10b981; }
 .banner-dynamics { background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(2, 132, 199, 0.12) 100%); border: 1.5px solid #8b5cf6; }
+.banner-alert {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(239, 68, 68, 0.14) 100%);
+  border: 1.5px solid #f59e0b;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.18);
+  position: relative;
+}
+.banner-alert .festive-icon {
+  animation: alert-pulse-soft 2.5s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes alert-pulse-soft {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.45)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.85)); }
+}
+.banner-alert .banner-alert-title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #fbbf24 !important;
+  margin-bottom: 7px;
+  line-height: 1.45;
+}
+.banner-alert-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.banner-alert-list li {
+  position: relative;
+  padding-right: 14px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-main);
+  font-weight: 500;
+}
+.banner-alert-list li::before {
+  content: "•";
+  position: absolute;
+  right: 0;
+  top: -1px;
+  color: #f59e0b;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+}
+.banner-alert .festive-msg strong {
+  color: #fbbf24;
+  font-weight: 700;
+}
+.banner-alert-footer {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(245, 158, 11, 0.3);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fde68a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+[data-theme="light"] .banner-alert {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(239, 68, 68, 0.08) 100%);
+  border-color: #ea580c;
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.12);
+}
+[data-theme="light"] .banner-alert .banner-alert-title {
+  color: #c2410c !important;
+}
+[data-theme="light"] .banner-alert-list li::before {
+  color: #ea580c;
+}
+[data-theme="light"] .banner-alert .festive-msg strong {
+  color: #c2410c;
+}
+[data-theme="light"] .banner-alert-footer {
+  border-top-color: rgba(194, 65, 12, 0.22);
+  color: #c2410c;
+}
 .banner-card .festive-icon { font-size: 24px; flex-shrink: 0; }
 .banner-card .festive-msg { font-size: 12.5px; line-height: 1.55; color: var(--text-main); font-weight: 600; flex: 1; }
 .banner-card .festive-msg strong { color: var(--accent); font-weight: 800; }

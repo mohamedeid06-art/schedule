@@ -2410,7 +2410,7 @@ if (clnBtn) clnBtn.addEventListener("click", exportToCalendar);
 // Carousel Loop
 let currentBannerIdx = 0;
 const bannerTrack = document.getElementById('bannerTrack');
-const totalCarouselBanners = 3;
+const totalCarouselBanners = 4;
 
 function goToBanner(index) {
   if (!bannerTrack) return;
