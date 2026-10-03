@@ -1520,20 +1520,22 @@ body {
 /* Exam Simulator Modal Container */
 .exam-modal-card {
   max-width: 680px;
-  max-height: 90vh;
+  max-height: 92vh;
   border: 1.5px solid rgba(34, 211, 238, 0.35);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(6, 182, 212, 0.2);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .exam-modal-head {
-  padding: 14px 20px;
+  padding: 14px 18px;
   border-bottom: 1px solid rgba(34, 211, 238, 0.2);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.95);
+  flex-shrink: 0;
 }
 
 .exam-head-left {
@@ -1566,7 +1568,7 @@ body {
 .exam-head-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .exam-head-timer {
@@ -1597,44 +1599,44 @@ body {
 }
 
 .exam-modal-body {
-  padding: 18px 20px;
+  padding: 16px 18px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 /* Mode Selection View */
 .exam-hero-banner {
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
-  border: 1px solid rgba(34, 211, 238, 0.3);
+  border: 1px solid rgba(34, 211, 238, 0.35);
   border-radius: 16px;
-  padding: 16px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   position: relative;
-  overflow: hidden;
-}
-
-.exam-hero-banner::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%);
-  pointer-events: none;
+  overflow: visible;
+  flex-shrink: 0;
+  direction: rtl;
+  text-align: right;
+  box-sizing: border-box;
 }
 
 .exam-hero-title {
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 800;
   color: var(--text-main);
   display: flex;
   align-items: center;
   gap: 8px;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.45;
 }
 
 .exam-hero-sub {
@@ -1648,41 +1650,48 @@ body {
 .exam-stats-pills {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   margin-top: 4px;
+  direction: rtl;
 }
 
 .exam-stat-pill {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
-  padding: 3px 9px;
+  padding: 3px 8px;
   border-radius: 6px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(34, 211, 238, 0.25);
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(34, 211, 238, 0.3);
   color: #22d3ee;
+  white-space: nowrap;
 }
 
 .exam-mode-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 14px;
-  margin-top: 4px;
+  margin-top: 2px;
+  flex-shrink: 0;
 }
 
 .exam-mode-card {
   background: var(--surface-alt);
   border: 1.5px solid var(--border);
   border-radius: 16px;
-  padding: 18px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  flex-shrink: 0;
+  direction: rtl;
+  text-align: right;
+  box-sizing: border-box;
 }
 
 .exam-mode-card:hover {
@@ -1703,6 +1712,7 @@ body {
   background: rgba(34, 211, 238, 0.12);
   border: 1px solid rgba(34, 211, 238, 0.3);
   box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+  flex-shrink: 0;
 }
 
 .exam-mode-title {
@@ -2241,14 +2251,102 @@ body {
 }
 
 @media (max-width: 600px) {
+  .modal-overlay {
+    padding: 8px 6px;
+  }
+  .exam-modal-card {
+    max-height: 94vh;
+    width: 100%;
+    border-radius: 16px;
+  }
+  .exam-modal-head {
+    padding: 10px 14px;
+  }
+  .exam-head-title {
+    font-size: 12.5px;
+  }
+  .exam-head-badge {
+    font-size: 9.5px;
+    padding: 2px 6px;
+  }
+  .exam-head-timer {
+    font-size: 11.5px;
+    padding: 3px 7px;
+  }
+  .exam-modal-body {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+  .exam-hero-banner {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+  .exam-hero-title {
+    font-size: 13px;
+  }
+  .exam-hero-sub {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .exam-stats-pills {
+    gap: 5px;
+  }
+  .exam-stat-pill {
+    font-size: 9.5px;
+    padding: 2px 6px;
+  }
   .exam-mode-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .exam-mode-card {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+  .exam-mode-title {
+    font-size: 13.5px;
+  }
+  .exam-mode-desc {
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .exam-primary-btn, .exam-secondary-btn {
+    padding: 10px 14px;
+    font-size: 12.5px;
+  }
+  .exam-question-card {
+    padding: 12px;
+    gap: 10px;
+  }
+  .exam-q-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .exam-opt-btn {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .exam-opt-letter {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+  .exam-opt-label {
+    font-size: 12.5px;
+  }
+  .exam-score-ring {
+    width: 120px;
+    height: 120px;
+  }
+  .exam-score-percent {
+    font-size: 28px;
   }
   .exam-score-stats-grid {
     grid-template-columns: 1fr 1fr;
   }
   .exam-actions-row {
     flex-direction: column;
+    gap: 8px;
   }
 }
 

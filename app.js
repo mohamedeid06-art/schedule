@@ -2688,11 +2688,11 @@ let examSession = {
   userAnswers: {},        // { [qIndex]: "A" | "B" | ... }
   flagged: {},            // { [qIndex]: true }
   timerInterval: null,
-  secondsLeft: 1200,      // 20 minutes default
-  totalSeconds: 1200,
+  secondsLeft: 300,       // 5 minutes default (300 seconds)
+  totalSeconds: 300,
   isFinished: false,
   studyFilter: 'all',     // 'all' | 'mcq' | 'tf'
-  examDurationMinutes: 20
+  examDurationMinutes: 5
 };
 
 function clearExamTimer() {
@@ -2709,7 +2709,7 @@ function openExamSimulatorModal(initialMode = null) {
   modal.classList.add("open");
 
   if (initialMode === 'exam') {
-    startExamSession('exam', { durationMinutes: 20 });
+    startExamSession('exam', { durationMinutes: 5 });
   } else if (initialMode === 'study') {
     startExamSession('study', { filter: 'all' });
   } else {
@@ -2760,73 +2760,72 @@ function renderExamModeSelect() {
   const tfCount = typeof QUIZ_BANK_GEN_G119 !== 'undefined' ? QUIZ_BANK_GEN_G119.tfCount : 38;
 
   content.innerHTML = `
-    <div class="exam-hero-banner">
-      <div class="exam-hero-title">
-        <span>⚡</span>
-        <span>محاكي الاختبارات التفاعلي لمقرر التسويق (GEN G119)</span>
-      </div>
-      <div class="exam-hero-sub">
-        بنك الأسئلة المعتمد الشامل لشابتر 1 (Marketing: Creating and Capturing Customer Value). تدرب على أسئلة الـ MCQ والصح والخطأ بنفس أسلوب الامتحانات الرسمية.
-      </div>
-      <div class="exam-stats-pills">
-        <span class="exam-stat-pill">📚 إجمالي الأسئلة: ${totalBank}</span>
-        <span class="exam-stat-pill">🎯 اختيار من متعدد: ${mcqCount}</span>
-        <span class="exam-stat-pill">⚖️ صح وخطأ: ${tfCount}</span>
-        <span class="exam-stat-pill" style="color:#fbbf24;border-color:rgba(245,158,11,0.3);">⏱️ التايمر الافتراضي: 20 دقيقة</span>
-      </div>
-    </div>
-
-    <div class="exam-mode-grid">
-      <!-- Mode 1: Timed Exam Simulator -->
-      <div class="exam-mode-card" onclick="startExamSession('exam', { durationMinutes: 20 })">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div class="exam-mode-icon-circle" style="color:#22d3ee;">⏱️</div>
-          <span class="exam-stat-pill" style="color:#22d3ee;background:rgba(34,211,238,0.1);">الأكثر طلباً ⭐</span>
+    <div class="exam-mode-select-wrap" style="display:flex;flex-direction:column;gap:12px;direction:rtl;text-align:right;">
+      <div class="exam-hero-banner">
+        <div class="exam-hero-title">
+          <span>⚡</span>
+          <span>محاكي اختبارات التسويق (GEN G119 — Chapter 1)</span>
         </div>
-        <div>
-          <div class="exam-mode-title">
-            <span>⚡ امتحان تجريبي سريع</span>
-            <span style="font-size:12px;color:var(--text-muted);">(20 سؤال عشوائي)</span>
-          </div>
-          <div class="exam-mode-desc" style="margin-top:6px;">
-            محاكاة كاملة لجو الامتحان الحقيقي: 20 سؤال عشوائي، تايمر تنازلي 20 دقيقة، وتصحيح نهائي وشامل مع بطاقة أداء ومراجعة الأخطاء عند الضغط على "تسليم الامتحان".
-          </div>
+        <div class="exam-hero-sub">
+          بنك الأسئلة المعتمد الشامل لشابتر 1 (Customer Value). تدرب على أسئلة الـ MCQ والصح والخطأ بنفس أسلوب الامتحانات الرسمية.
         </div>
-        <div class="exam-mode-badge-row">
-          <span class="exam-mode-pill">20 سؤال عشوائي</span>
-          <span class="exam-mode-pill">تايمر تنازلي 20 د</span>
-          <span class="exam-mode-pill">تصحيح نهائي</span>
+        <div class="exam-stats-pills">
+          <span class="exam-stat-pill">📚 ${totalBank} سؤال بالبنك</span>
+          <span class="exam-stat-pill">🎯 ${mcqCount} MCQ</span>
+          <span class="exam-stat-pill">⚖️ ${tfCount} صح وخطأ</span>
+          <span class="exam-stat-pill" style="color:#fbbf24;border-color:rgba(245,158,11,0.35);">⏱️ تايمر: 5 دقائق (20 سؤال)</span>
         </div>
-        <button class="exam-primary-btn" style="margin-top:4px;" onclick="event.stopPropagation(); startExamSession('exam', { durationMinutes: 20 });">
-          <span>🚀 ابدأ الامتحان التجريبي</span>
-        </button>
       </div>
 
-      <!-- Mode 2: Full Bank Study with Instant Feedback -->
-      <div class="exam-mode-card" onclick="startExamSession('study', { filter: 'all' })">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div class="exam-mode-icon-circle" style="color:#10b981;background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);">💡</div>
-          <span class="exam-stat-pill" style="color:#34d399;background:rgba(16,185,129,0.1);">مذاكرة فورية 📖</span>
-        </div>
-        <div>
-          <div class="exam-mode-title">
-            <span>📚 مذاكرة التيست بانك كامل</span>
-            <span style="font-size:12px;color:var(--text-muted);">(Instant Feedback)</span>
+      <div class="exam-mode-grid">
+        <!-- Mode 1: Timed Exam Simulator -->
+        <div class="exam-mode-card" onclick="startExamSession('exam', { durationMinutes: 5 })">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="exam-mode-icon-circle" style="color:#22d3ee;">⏱️</div>
+            <span class="exam-stat-pill" style="color:#22d3ee;background:rgba(34,211,238,0.1);">الأكثر طلباً ⭐</span>
           </div>
-          <div class="exam-mode-desc" style="margin-top:6px;">
-            تصفح بنك الأسئلة بالكامل بالترتيب مع ميزة التغذية الفورية: تظهر الإجابة الصحيحة فوراً بالأخضر والخاطئة بالأحمر مع تصحيح وملاحظات الدكتور بمجرد اختيار الخيار.
+          <div>
+            <div class="exam-mode-title">
+              <span>⚡ امتحان تجريبي سريع (20 سؤال)</span>
+            </div>
+            <div class="exam-mode-desc" style="margin-top:6px;">
+              محاكاة حقيقية لجو الامتحان: 20 سؤال عشوائي، تايمر تنازلي 5 دقائق، وتصحيح نهائي وشامل مع بطاقة أداء ومراجعة الأخطاء عند الضغط على "تسليم الامتحان".
+            </div>
           </div>
+          <div class="exam-mode-badge-row">
+            <span class="exam-mode-pill">20 سؤال عشوائي</span>
+            <span class="exam-mode-pill">تايمر 5 دقائق</span>
+            <span class="exam-mode-pill">تصحيح نهائي</span>
+          </div>
+          <button class="exam-primary-btn" style="margin-top:4px;" onclick="event.stopPropagation(); startExamSession('exam', { durationMinutes: 5 });">
+            <span>🚀 ابدأ الامتحان التجريبي</span>
+          </button>
         </div>
-        <div class="exam-mode-badge-row">
-          <span class="exam-mode-pill">كل الأسئلة (${totalBank})</span>
-          <span class="exam-mode-pill">تصحيح فوري لحظي</span>
-          <span class="exam-mode-pill">بدون وقت محدد</span>
+
+        <!-- Mode 2: Full Bank Study with Instant Feedback -->
+        <div class="exam-mode-card" onclick="startExamSession('study', { filter: 'all' })">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div class="exam-mode-icon-circle" style="color:#10b981;background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);">💡</div>
+            <span class="exam-stat-pill" style="color:#34d399;background:rgba(16,185,129,0.1);">مذاكرة فورية 📖</span>
+          </div>
+          <div>
+            <div class="exam-mode-title">
+              <span>📚 مذاكرة التيست بانك كامل (Instant Feedback)</span>
+            </div>
+            <div class="exam-mode-desc" style="margin-top:6px;">
+              تصفح بنك الأسئلة بالكامل بالترتيب مع ميزة التغذية الفورية: تظهر الإجابة الصحيحة فوراً بالأخضر والخاطئة بالأحمر مع تصحيح وملاحظات الدكتور بمجرد اختيار الخيار.
+            </div>
+          </div>
+          <div class="exam-mode-badge-row">
+            <span class="exam-mode-pill">كل الأسئلة (${totalBank})</span>
+            <span class="exam-mode-pill">تصحيح فوري لحظي</span>
+            <span class="exam-mode-pill">بدون وقت محدد</span>
+          </div>
+          <button class="exam-secondary-btn" style="margin-top:4px;border-color:rgba(16,185,129,0.4);color:#34d399;" onclick="event.stopPropagation(); startExamSession('study', { filter: 'all' });">
+            <span>🔍 ابدأ التصفح والمذاكرة</span>
+          </button>
         </div>
-        <button class="exam-secondary-btn" style="margin-top:4px;border-color:rgba(16,185,129,0.4);color:#34d399;" onclick="event.stopPropagation(); startExamSession('study', { filter: 'all' });">
-          <span>🔍 ابدأ التصفح والمذاكرة</span>
-        </button>
       </div>
-    </div>
   `;
 }
 
@@ -2853,7 +2852,7 @@ function startExamSession(mode, config = {}) {
     // Pick 20 random questions using Fisher-Yates shuffle
     const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
     examSession.questions = shuffled.slice(0, 20);
-    examSession.examDurationMinutes = config.durationMinutes || 20;
+    examSession.examDurationMinutes = config.durationMinutes || 5;
     examSession.totalSeconds = examSession.examDurationMinutes * 60;
     examSession.secondsLeft = examSession.totalSeconds;
 
@@ -2903,7 +2902,7 @@ function updateExamTimerUI() {
   display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
   if (timerBox) {
-    if (examSession.secondsLeft <= 120) {
+    if (examSession.secondsLeft <= 60) {
       timerBox.classList.add("timer-warning");
     } else {
       timerBox.classList.remove("timer-warning");
@@ -3263,7 +3262,7 @@ function renderExamScorecard() {
           <span>📋 مراجعة كل الأسئلة (${total})</span>
         </button>
 
-        <button class="exam-primary-btn" onclick="startExamSession('exam', { durationMinutes: 20 })">
+        <button class="exam-primary-btn" onclick="startExamSession('exam', { durationMinutes: 5 })">
           <span>🔄 إعادة المحاولة بأسئلة جديدة (Try Again)</span>
         </button>
 
@@ -3302,7 +3301,7 @@ function renderExamReview(mistakesOnly = false) {
         <button class="exam-secondary-btn" onclick="renderExamScorecard()">
           <span>◀ الرجوع للنتيجة</span>
         </button>
-        <button class="exam-primary-btn" onclick="startExamSession('exam', { durationMinutes: 20 })">
+        <button class="exam-primary-btn" onclick="startExamSession('exam', { durationMinutes: 5 })">
           <span>🔄 امتحان جديد</span>
         </button>
       </div>
