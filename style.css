@@ -1231,4 +1231,267 @@ body {
   .legend-item { padding: 1px 4px !important; font-size: 9px !important; }
 }
 
+/* ==========================================================================
+   Weekly Guide — Neon Dashboard Card
+   ========================================================================== */
+.wg-card {
+  --wg-bg: #0b111e;
+  --wg-panel: #111a2c;
+  --wg-line: rgba(148, 163, 184, 0.14);
+  --wg-text: #f1f5f9;
+  --wg-muted: #94a3b8;
+  --wg-cyan: #38bdf8;
+  --wg-amber: #f59e0b;
+  --wg-pink: #f43f5e;
+  --wg-purple: #a78bfa;
+  --wg-green: #22c55e;
+  position: relative;
+  background: radial-gradient(120% 60% at 0% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 60%), var(--wg-bg);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 20px;
+  padding: 18px 16px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--wg-text);
+  box-shadow: 0 10px 40px rgba(2, 8, 23, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+.wg-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 14px; bottom: 14px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--wg-cyan), #0ea5e9 60%, rgba(14, 165, 233, 0.2));
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+}
+
+/* Header */
+.wg-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.wg-head-info { min-width: 0; }
+.wg-code { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; color: #ffffff; line-height: 1.15; }
+.wg-name { margin-top: 4px; font-size: 13.5px; font-weight: 600; color: var(--wg-cyan); line-height: 1.4; }
+.wg-head-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+.wg-week-select-wrap { position: relative; display: inline-flex; align-items: center; }
+.wg-week-select {
+  appearance: none; -webkit-appearance: none;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: var(--wg-cyan);
+  font-family: inherit; font-size: 12px; font-weight: 700;
+  padding: 7px 32px 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.wg-week-select:hover, .wg-week-select:focus-visible { outline: none; border-color: var(--wg-cyan); box-shadow: 0 0 18px rgba(56, 189, 248, 0.35); }
+.wg-week-select option { background: var(--wg-panel); color: var(--wg-text); }
+.wg-week-select-wrap svg { position: absolute; right: 11px; width: 13px; height: 13px; color: var(--wg-cyan); pointer-events: none; }
+.wg-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Progress strip */
+.wg-progress {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--wg-panel);
+  border: 1px solid var(--wg-line);
+  border-radius: 14px;
+  padding: 11px 14px;
+}
+.wg-progress-main { flex: 1; min-width: 0; }
+.wg-progress-label { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--wg-muted); margin-bottom: 8px; }
+.wg-progress-label svg { width: 13px; height: 13px; color: var(--wg-cyan); }
+.wg-progress-row { display: flex; align-items: center; gap: 10px; }
+.wg-bar { flex: 1; height: 7px; border-radius: 99px; background: rgba(148, 163, 184, 0.15); overflow: hidden; }
+.wg-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #22d3ee, var(--wg-cyan)); box-shadow: 0 0 10px rgba(34, 211, 238, 0.7); transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.wg-pct { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 800; color: var(--wg-cyan); min-width: 34px; text-align: right; }
+.wg-steps { display: flex; gap: 4px; padding-left: 12px; border-left: 1px solid var(--wg-line); }
+.wg-step {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; font-size: 10px; font-weight: 600; color: var(--wg-muted);
+  padding: 2px 4px; border-radius: 8px;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+.wg-step:hover { color: var(--wg-text); transform: translateY(-1px); }
+.wg-step-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2px solid rgba(148, 163, 184, 0.4);
+  color: transparent;
+  transition: all 0.25s ease;
+}
+.wg-step-dot svg { width: 12px; height: 12px; }
+.wg-step.done .wg-step-dot { background: var(--wg-green); border-color: var(--wg-green); color: #04120a; box-shadow: 0 0 10px rgba(34, 197, 94, 0.55); }
+.wg-step.done { color: #cbd5e1; }
+.wg-step.current .wg-step-dot { border-color: var(--wg-cyan); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15), 0 0 10px rgba(56, 189, 248, 0.5); }
+.wg-step.current { color: var(--wg-cyan); }
+
+/* Section cards */
+.wg-sec {
+  --tone: var(--wg-cyan);
+  --tone-rgb: 56, 189, 248;
+  position: relative;
+  background: linear-gradient(135deg, rgba(var(--tone-rgb), 0.07) 0%, var(--wg-panel) 55%);
+  border: 1px solid rgba(var(--tone-rgb), 0.28);
+  border-radius: 16px;
+  padding: 13px 14px 14px 18px;
+  box-shadow: 0 0 22px rgba(var(--tone-rgb), 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.wg-sec::before {
+  content: "";
+  position: absolute; left: 0; top: 12px; bottom: 12px;
+  width: 3px; border-radius: 0 3px 3px 0;
+  background: var(--tone);
+  box-shadow: 0 0 10px rgba(var(--tone-rgb), 0.8);
+}
+.wg-sec:hover { border-color: rgba(var(--tone-rgb), 0.5); box-shadow: 0 0 26px rgba(var(--tone-rgb), 0.12); }
+.wg-lecture  { --tone: var(--wg-cyan);   --tone-rgb: 56, 189, 248; }
+.wg-sheet    { --tone: var(--wg-amber);  --tone-rgb: 245, 158, 11; }
+.wg-practice { --tone: var(--wg-pink);   --tone-rgb: 244, 63, 94; }
+.wg-notes    { --tone: var(--wg-purple); --tone-rgb: 167, 139, 250; }
+
+.wg-sec-head { display: flex; align-items: center; gap: 10px; }
+.wg-sec-icon {
+  width: 34px; height: 34px; flex-shrink: 0;
+  display: grid; place-items: center;
+  font-size: 17px;
+  border-radius: 10px;
+  background: rgba(var(--tone-rgb), 0.14);
+  border: 1px solid rgba(var(--tone-rgb), 0.4);
+  box-shadow: 0 0 12px rgba(var(--tone-rgb), 0.25);
+}
+.wg-sec-label { font-size: 15px; font-weight: 800; color: var(--tone); flex: 1; min-width: 0; }
+.wg-sec-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.wg-chevron {
+  width: 26px; height: 26px; display: grid; place-items: center;
+  background: none; border: none; border-radius: 8px;
+  color: var(--wg-muted); cursor: pointer;
+  transition: transform 0.25s ease, color 0.2s ease, background 0.2s ease;
+}
+.wg-chevron svg { width: 16px; height: 16px; }
+.wg-chevron:hover { color: var(--wg-text); background: rgba(148, 163, 184, 0.1); }
+.wg-sec.collapsed .wg-chevron { transform: rotate(180deg); }
+.wg-sec-body { padding-top: 10px; display: flex; flex-direction: column; gap: 10px; }
+.wg-sec.collapsed .wg-sec-body { display: none; }
+.wg-sec-title { font-size: 15px; font-weight: 700; color: #ffffff; line-height: 1.5; unicode-bidi: plaintext; }
+.wg-sec-sub { font-size: 12.5px; font-weight: 500; color: var(--wg-muted); line-height: 1.55; unicode-bidi: plaintext; }
+
+/* Status badges */
+.wg-status {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: inherit; font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 99px;
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: var(--wg-muted);
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.wg-status svg { width: 11px; height: 11px; }
+.wg-status:hover { color: var(--wg-text); border-color: rgba(148, 163, 184, 0.55); }
+.wg-status.done { background: rgba(34, 197, 94, 0.12); border-color: rgba(34, 197, 94, 0.5); color: #4ade80; box-shadow: 0 0 10px rgba(34, 197, 94, 0.18); }
+.wg-status-tone { background: rgba(var(--tone-rgb), 0.12); border-color: rgba(var(--tone-rgb), 0.45); color: var(--wg-text); }
+.wg-practice .wg-status-tone { background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.4); }
+.wg-static { cursor: default; }
+.wg-ring {
+  width: 13px; height: 13px; border-radius: 50%;
+  background: conic-gradient(var(--wg-cyan) calc(var(--p) * 1%), rgba(148, 163, 184, 0.3) 0);
+  -webkit-mask: radial-gradient(circle, transparent 3.5px, #000 4px);
+          mask: radial-gradient(circle, transparent 3.5px, #000 4px);
+}
+.wg-status.done .wg-ring { background: var(--wg-green); }
+
+/* Link pills */
+.wg-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.wg-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 11px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  color: var(--wg-text) !important;
+  text-decoration: none;
+  font-size: 12px; font-weight: 700;
+  max-width: 100%;
+  transition: all 0.2s ease;
+}
+.wg-pill:hover { border-color: rgba(var(--tone-rgb), 0.65); background: rgba(var(--tone-rgb), 0.1); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(var(--tone-rgb), 0.18); }
+.wg-pill-ico { font-size: 14px; line-height: 1; flex-shrink: 0; }
+.wg-pill-text { unicode-bidi: plaintext; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wg-ext { width: 12px; height: 12px; flex-shrink: 0; color: var(--wg-muted); }
+.wg-pill:hover .wg-ext { color: var(--tone); }
+.wg-pill-solution { border-color: rgba(34, 197, 94, 0.3); }
+
+/* Practice video rows */
+.wg-videos { display: flex; flex-direction: column; gap: 6px; }
+.wg-video-row {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 11px;
+  padding: 4px 6px 4px 4px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.wg-video-row:hover { border-color: rgba(244, 63, 94, 0.45); background: rgba(244, 63, 94, 0.06); }
+.wg-video-link { flex: 1; min-width: 0; display: flex; align-items: center; gap: 9px; padding: 6px; color: var(--wg-text) !important; text-decoration: none; }
+.wg-clap { font-size: 15px; flex-shrink: 0; }
+.wg-video-title { font-size: 12.5px; font-weight: 600; line-height: 1.45; unicode-bidi: plaintext; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wg-video-row.watched .wg-video-title { color: #cbd5e1; }
+.wg-watch {
+  width: 22px; height: 22px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 2px solid rgba(148, 163, 184, 0.45);
+  background: none; color: transparent; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.wg-watch svg { width: 11px; height: 11px; }
+.wg-watch:hover { border-color: var(--wg-green); }
+.wg-watch.done { background: var(--wg-green); border-color: var(--wg-green); color: #04120a; box-shadow: 0 0 8px rgba(34, 197, 94, 0.5); }
+.wg-video-go { width: 24px; height: 24px; display: grid; place-items: center; color: var(--wg-muted); flex-shrink: 0; border-radius: 6px; }
+.wg-video-go svg { width: 14px; height: 14px; }
+.wg-video-row:hover .wg-video-go { color: var(--wg-pink); }
+
+/* Quick notes link */
+.wg-note-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; text-decoration: none; padding: 2px 0; }
+.wg-note-link .wg-sec-title { font-size: 13.5px; font-weight: 600; color: #e2e8f0; }
+.wg-note-link:hover .wg-sec-title { color: #ffffff; }
+.wg-note-link:hover .wg-ext { color: var(--wg-purple); }
+
+/* Light theme */
+[data-theme="light"] .wg-card {
+  --wg-bg: #ffffff;
+  --wg-panel: #f8fafc;
+  --wg-line: #e2e8f0;
+  --wg-text: #0f172a;
+  --wg-muted: #64748b;
+  --wg-cyan: #0284c7;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+[data-theme="light"] .wg-code,
+[data-theme="light"] .wg-sec-title { color: #0f172a; }
+[data-theme="light"] .wg-note-link .wg-sec-title { color: #1e293b; }
+[data-theme="light"] .wg-pill,
+[data-theme="light"] .wg-video-row { background: #ffffff; border-color: #e2e8f0; }
+[data-theme="light"] .wg-video-row.watched .wg-video-title,
+[data-theme="light"] .wg-step.done { color: #334155; }
+
+/* Small screens */
+@media (max-width: 520px) {
+  .wg-card { padding: 16px 12px 14px 16px; border-radius: 18px; }
+  .wg-code { font-size: 19px; }
+  .wg-progress { gap: 10px; padding: 10px 11px; }
+  .wg-steps { gap: 0; padding-left: 8px; }
+  .wg-step { padding: 2px 3px; font-size: 9.5px; }
+  .wg-sec-label { font-size: 14px; }
+  .wg-status { font-size: 10.5px; padding: 4px 8px; }
+}
+@media (max-width: 360px) {
+  .wg-progress { flex-direction: column; align-items: stretch; }
+  .wg-steps { justify-content: space-between; padding-left: 0; padding-top: 10px; border-left: none; border-top: 1px solid var(--wg-line); }
+}
+
 

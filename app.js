@@ -1763,6 +1763,233 @@ function openGuideWeek(week = "Week 2") {
   setView('guide', week);
 }
 
+// Weekly Guide progress (persisted per "week|course")
+let guideProgress = JSON.parse(localStorage.getItem("cufe_guide_progress") || "{}");
+let guideCollapsed = {};
+
+function getActiveGuideItem() {
+  return WEEKLY_GUIDE_DATA.find(d => d.week === selectedGuideWeek && d.code === selectedGuideCourse);
+}
+
+function getGuideState() {
+  const key = `${selectedGuideWeek}|${selectedGuideCourse}`;
+  if (!guideProgress[key]) guideProgress[key] = { lecture: false, sheet: false, practice: false, review: false, videos: [] };
+  if (!Array.isArray(guideProgress[key].videos)) guideProgress[key].videos = [];
+  return guideProgress[key];
+}
+
+function saveGuideProgress() {
+  localStorage.setItem("cufe_guide_progress", JSON.stringify(guideProgress));
+}
+
+function isGuidePracticeDone(item, st) {
+  const n = item && item.playlists ? item.playlists.length : 0;
+  if (n > 0) return st.videos.filter(i => i < n).length >= n;
+  return !!st.practice;
+}
+
+function toggleGuideStep(step) {
+  triggerHaptic("light");
+  const st = getGuideState();
+  if (step === "practice") {
+    const item = getActiveGuideItem();
+    const n = item && item.playlists ? item.playlists.length : 0;
+    if (n > 0) st.videos = isGuidePracticeDone(item, st) ? [] : [...Array(n).keys()];
+    else st.practice = !st.practice;
+  } else {
+    st[step] = !st[step];
+  }
+  saveGuideProgress();
+  renderGuideScreen();
+}
+
+function toggleGuideVideo(index, ev) {
+  if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+  triggerHaptic("light");
+  const st = getGuideState();
+  st.videos = st.videos.includes(index) ? st.videos.filter(i => i !== index) : [...st.videos, index];
+  saveGuideProgress();
+  renderGuideScreen();
+}
+
+function markGuideVideoWatched(index) {
+  const st = getGuideState();
+  if (!st.videos.includes(index)) {
+    st.videos.push(index);
+    saveGuideProgress();
+    setTimeout(renderGuideScreen, 250);
+  }
+}
+
+function toggleGuideSection(id) {
+  triggerHaptic("light");
+  guideCollapsed[id] = !guideCollapsed[id];
+  renderGuideScreen();
+}
+
+function formatGuideWeekLabel(w) {
+  return String(w).replace(/week\s*(\d+)/i, (_, n) => `Week ${n.padStart(2, "0")}`);
+}
+
+const WG_ICON = {
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`,
+  ext: `<svg class="wg-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`,
+  up: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>`,
+  right: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>`,
+  down: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`,
+  bars: `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="8" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg>`
+};
+
+function renderGuideSection(id, type, icon, label, badge, body) {
+  const collapsed = !!guideCollapsed[id];
+  return `
+    <section class="wg-sec wg-${type} ${collapsed ? 'collapsed' : ''}">
+      <div class="wg-sec-head">
+        <span class="wg-sec-icon">${icon}</span>
+        <span class="wg-sec-label">${label}</span>
+        <div class="wg-sec-actions">
+          ${badge}
+          <button class="wg-chevron" onclick="toggleGuideSection('${id}')" aria-label="${collapsed ? 'Expand' : 'Collapse'} ${label}" aria-expanded="${!collapsed}">${WG_ICON.up}</button>
+        </div>
+      </div>
+      <div class="wg-sec-body">${body}</div>
+    </section>
+  `;
+}
+
+function renderGuideCard(activeItem, course, availableWeeks) {
+  const st = getGuideState();
+  const playlists = activeItem.playlists || [];
+  const hasPractice = !!(activeItem.practice || playlists.length > 0);
+  const watchedCount = st.videos.filter(i => i < playlists.length).length;
+
+  const steps = [
+    activeItem.lectures && { id: "lecture", label: "Lecture", done: !!st.lecture },
+    activeItem.sheet && { id: "sheet", label: "Sheet", done: !!st.sheet },
+    hasPractice && { id: "practice", label: "Practice", done: isGuidePracticeDone(activeItem, st) },
+    { id: "review", label: "Review", done: !!st.review }
+  ].filter(Boolean);
+  const doneCount = steps.filter(s => s.done).length;
+  const pct = Math.round((doneCount / steps.length) * 100);
+  const currentStep = steps.find(s => !s.done);
+
+  const statusBtn = (step, done) => `
+    <button class="wg-status ${done ? 'done' : ''}" onclick="toggleGuideStep('${step}')" aria-pressed="${done}">
+      ${done ? WG_ICON.check + '<span>Completed</span>' : '<span>Mark done</span>'}
+    </button>`;
+
+  const lectureBody = `
+    <div class="wg-sec-title" dir="auto">${activeItem.lectures}</div>
+    ${(activeItem.slides_url || activeItem.summary_url) ? `
+      <div class="wg-pills">
+        ${activeItem.slides_url ? `
+          <a href="${activeItem.slides_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+            <span class="wg-pill-ico">📥</span><span class="wg-pill-text" dir="auto">السلايدات (Slides)</span>${WG_ICON.ext}
+          </a>` : ''}
+        ${activeItem.summary_url ? `
+          <a href="${activeItem.summary_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+            <span class="wg-pill-ico">📕</span><span class="wg-pill-text">Notes</span>${WG_ICON.ext}
+          </a>` : ''}
+      </div>` : ''}
+  `;
+
+  const sheetBody = `
+    <div class="wg-sec-title" dir="auto">${activeItem.sheet}</div>
+    ${(activeItem.sheet_url || activeItem.solution_url) ? `
+      <div class="wg-pills">
+        ${activeItem.sheet_url ? `
+          <a href="${activeItem.sheet_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+            <span class="wg-pill-ico">📄</span><span class="wg-pill-text" dir="auto">ملف الشيت (Sheet)</span>${WG_ICON.ext}
+          </a>` : ''}
+        ${activeItem.solution_url ? `
+          <a href="${activeItem.solution_url}" target="_blank" rel="noopener noreferrer" class="wg-pill wg-pill-solution">
+            <span class="wg-pill-ico">✅</span><span class="wg-pill-text" dir="auto">الحلول والمسائل المحلولة</span>${WG_ICON.ext}
+          </a>` : ''}
+      </div>` : ''}
+  `;
+
+  const practiceBadge = playlists.length > 0 ? `
+    <button class="wg-status wg-status-tone ${watchedCount === playlists.length ? 'done' : ''}" onclick="toggleGuideStep('practice')" title="Toggle all">
+      <span class="wg-ring" style="--p:${Math.round((watchedCount / playlists.length) * 100)}"></span>
+      <span>${watchedCount} / ${playlists.length} Completed</span>
+    </button>` : statusBtn("practice", !!st.practice);
+
+  const practiceBody = `
+    ${activeItem.practice ? `<div class="wg-sec-sub" dir="auto">${activeItem.practice}</div>` : ''}
+    ${playlists.length > 0 ? `
+      <div class="wg-videos">
+        ${playlists.map((pl, i) => {
+          const watched = st.videos.includes(i);
+          return `
+            <div class="wg-video-row ${watched ? 'watched' : ''}">
+              <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="wg-video-link" onclick="markGuideVideoWatched(${i})">
+                <span class="wg-clap">🎬</span>
+                <span class="wg-video-title" dir="auto">${pl.title}</span>
+              </a>
+              <button class="wg-watch ${watched ? 'done' : ''}" onclick="toggleGuideVideo(${i}, event)" aria-pressed="${watched}" aria-label="${watched ? 'Mark as not watched' : 'Mark as watched'}">${WG_ICON.check}</button>
+              <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="wg-video-go" onclick="markGuideVideoWatched(${i})" aria-label="Open video">${WG_ICON.right}</a>
+            </div>`;
+        }).join("")}
+      </div>` : ''}
+  `;
+
+  const notesBody = `
+    <a href="${activeItem.summary_url}" target="_blank" rel="noopener noreferrer" class="wg-note-link">
+      <span class="wg-sec-title" dir="auto">${activeItem.summary_title || 'ملخص ونوتس المحاضرة'}</span>
+      ${WG_ICON.ext}
+    </a>
+  `;
+
+  return `
+    <div class="wg-card cascade-item" style="--c: ${course.color};">
+      <div class="wg-head">
+        <div class="wg-head-info">
+          <div class="wg-code">${activeItem.code}</div>
+          <div class="wg-name" dir="auto">${course.name}</div>
+        </div>
+        <div class="wg-head-right">
+          <label class="wg-week-select-wrap">
+            <span class="wg-sr">Select week</span>
+            <select class="wg-week-select" id="guideWeekSelect" onchange="selectGuideWeek(this.value)">
+              ${(availableWeeks.length > 0 ? availableWeeks : [selectedGuideWeek]).map(w => `
+                <option value="${w}" ${w === selectedGuideWeek ? 'selected' : ''}>${formatGuideWeekLabel(w)}</option>
+              `).join("")}
+            </select>
+            ${WG_ICON.down}
+          </label>
+          ${activeItem.code === 'MDP G111' ? `
+            <button class="capsule-pill-btn cad-hub-pill" style="font-size:11px !important;" onclick="setView('cad')">⚡ SolidWorks Hub Pro</button>
+          ` : ''}
+        </div>
+      </div>
+
+      <div class="wg-progress">
+        <div class="wg-progress-main">
+          <div class="wg-progress-label">${WG_ICON.bars}<span>Week Progress</span></div>
+          <div class="wg-progress-row">
+            <div class="wg-bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><div class="wg-bar-fill" style="width:${pct}%"></div></div>
+            <span class="wg-pct">${pct}%</span>
+          </div>
+        </div>
+        <div class="wg-steps">
+          ${steps.map(s => `
+            <button class="wg-step ${s.done ? 'done' : ''} ${currentStep && currentStep.id === s.id ? 'current' : ''}" onclick="toggleGuideStep('${s.id}')" aria-pressed="${s.done}">
+              <span class="wg-step-dot">${WG_ICON.check}</span>
+              <span>${s.label}</span>
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      ${activeItem.lectures ? renderGuideSection("lecture", "lecture", "📄", "Lecture", statusBtn("lecture", !!st.lecture), lectureBody) : ''}
+      ${activeItem.sheet ? renderGuideSection("sheet", "sheet", "📝", "Sheet", statusBtn("sheet", !!st.sheet), sheetBody) : ''}
+      ${hasPractice ? renderGuideSection("practice", "practice", "🎯", "Practice", practiceBadge, practiceBody) : ''}
+      ${activeItem.summary_url ? renderGuideSection("notes", "notes", "💡", "Quick Notes", `
+        <span class="wg-status wg-status-tone wg-static">📎 <span>1 file</span></span>`, notesBody) : ''}
+    </div>
+  `;
+}
+
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
   const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 2"))];
@@ -1795,12 +2022,6 @@ function renderGuideScreen() {
           <span style="font-size:11px;font-family:'JetBrains Mono';color:var(--accent)">BATCH 30</span>
         </div>
 
-        <div class="week-tabs-scroll">
-          ${(availableWeeks.length > 0 ? availableWeeks : ["Week 2"]).map(w => `
-            <button class="week-tab-btn ${w === selectedGuideWeek ? 'active' : ''}" onclick="selectGuideWeek('${w}')">${w}</button>
-          `).join("")}
-        </div>
-
         <div class="guide-course-pills-bar">
           ${availableCoursesInWeek.map(code => {
             const cInfo = COURSES[code] || { color: 'var(--accent)' };
@@ -1820,85 +2041,7 @@ function renderGuideScreen() {
         <div style="text-align:center;padding:36px;color:var(--text-muted);background:var(--surface);border-radius:18px;border:1px dashed var(--border)">
           لا توجد بيانات متاحة لهذا المقرر في ${selectedGuideWeek}.
         </div>
-      ` : `
-        <div class="guide-clean-card cascade-item" style="--c: ${course.color};">
-          <div class="guide-clean-head">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <div class="guide-clean-code">${activeItem.code}</div>${activeItem.code === 'MDP G111' ? `
-                <button class="capsule-pill-btn cad-hub-pill" style="font-size:11px !important;" onclick="setView('cad')">
-                  ⚡ SolidWorks Hub Pro
-                </button>
-              ` : ''}
-            </div>
-            <div class="guide-clean-name">${course.name}</div>
-          </div>
-
-          ${activeItem.lectures ? `
-            <div class="guide-clean-row">
-              <div class="guide-row-top">
-                <span class="guide-row-pill">📑 Lecture:</span>
-                <span class="guide-row-text">${activeItem.lectures}</span>
-              </div>
-              ${activeItem.slides_url ? `
-                <div class="guide-links-shelf">
-                  <a href="${activeItem.slides_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link">
-                    <span>📥 السلايدات (Slides)</span> ↗
-                  </a>
-                </div>
-              ` : ''}
-            </div>
-          ` : ''}
-
-          ${activeItem.sheet ? `
-            <div class="guide-clean-row">
-              <div class="guide-row-top">
-                <span class="guide-row-pill">📝 Sheet:</span>
-                <span class="guide-row-text">${activeItem.sheet}</span>
-              </div>
-              <div class="guide-links-shelf">
-                ${activeItem.sheet_url ? `
-                  <a href="${activeItem.sheet_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link">
-                    <span>📄 ملف الشيت (Sheet)</span> ↗
-                  </a>
-                ` : ''}
-                ${activeItem.solution_url ? `
-                  <a href="${activeItem.solution_url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link sol-chip">
-                    <span>✓ الحلول والمسائل المحلولة</span> ↗
-                  </a>
-                ` : ''}
-              </div>
-            </div>
-          ` : ''}
-
-          ${(activeItem.practice || (activeItem.playlists && activeItem.playlists.length > 0)) ? `
-            <div class="guide-clean-row">
-              <div class="guide-row-top">
-                <span class="guide-row-pill">🎯 Practice:</span>
-                <span class="guide-row-text">${activeItem.practice}</span>
-              </div>
-              ${activeItem.playlists && activeItem.playlists.length > 0 ? `
-                <div class="guide-links-shelf">
-                  ${activeItem.playlists.map(pl => `
-                    <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="guide-chip-link yt-chip">
-                      <span>🎬 ${pl.title}</span> ▶
-                    </a>
-                  `).join("")}
-                </div>
-              ` : ''}
-            </div>
-          ` : ''}
-
-          ${activeItem.summary_url ? `
-            <a href="${activeItem.summary_url}" target="_blank" rel="noopener noreferrer" class="guide-summary-full-btn">
-              <div style="display:flex;align-items:center;gap:10px;">
-                <span style="font-size:16px;">💡</span>
-                <span style="font-weight:700;">${activeItem.summary_title || 'ملخص ونوتس المحاضرة'}</span>
-              </div>
-              <span style="font-size:14px;color:var(--accent);">↗</span>
-            </a>
-          ` : ''}
-        </div>
-      `}
+      ` : renderGuideCard(activeItem, course, availableWeeks)}
     </div>
   `;
 }
