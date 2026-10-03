@@ -354,6 +354,16 @@ function openCourseCapsule(code) {
         <span style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--accent-glow);color:var(--accent);border:1px solid var(--accent);">${cap.hours}</span>
       </div>
 
+      ${code === 'GEN G119' ? `
+        <div style="background:linear-gradient(135deg, rgba(6,182,212,0.18), rgba(37,99,235,0.12));border:1.5px solid rgba(34,211,238,0.45);border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 4px 15px rgba(6,182,212,0.15);">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#22d3ee;">⚡ اختبار تفاعلي / كويز تجريبي (Chapter 1)</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">بنك 127 سؤال شامل الـ MCQ والصح والخطأ مع تصحيح فوري</div>
+          </div>
+          <button class="action-btn" onclick="closeCapsuleModal(); openExamSimulatorModal();" style="background:linear-gradient(135deg,#06b6d4,#2563eb);color:#fff;border:none;font-weight:800;white-space:nowrap;padding:8px 14px;border-radius:8px;box-shadow:0 2px 10px rgba(6,182,212,0.3);">ابدأ الآن ↗</button>
+        </div>
+      ` : ''}
+
       <div class="capsule-box" style="border-left: 4px solid var(--accent);">
         <div class="capsule-box-head" style="color:var(--accent);">
           <span>📊</span><span>تقسيمة الدرجات والميدتيرم</span>
@@ -1435,6 +1445,7 @@ function renderDailyAgenda() {
     const isDynamics = (s.code === "EMC G101");
     const isMaterials = (s.code === "MDP G121");
     const isSolidWorks = (s.code === "MDP G111");
+    const isMarketing = (s.code === "GEN G119");
     const hasCustomLinks = !!COURSE_CUSTOM_LINKS[s.code];
 
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
@@ -1490,6 +1501,7 @@ function renderDailyAgenda() {
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px;">
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              ${isMarketing ? `<button class="capsule-pill-btn quiz-pill" onclick="openExamSimulatorModal()" style="background:rgba(6,182,212,0.18);color:#22d3ee;border-color:rgba(6,182,212,0.45);font-weight:800;">⚡ كويز تفاعلي</button>` : ''}
               ${isSolidWorks ? `<button class="capsule-pill-btn cad-hub-pill" onclick="setView('cad')">⚡ CAD Hub</button>` : ''}
               ${isDynamics ? `<button class="capsule-pill-btn roadmap-pill" onclick="openDynamicsRoadmapModal()">🗺️ Roadmap</button>` : ''}
               ${isMaterials ? `<button class="capsule-pill-btn mat-roadmap-pill" onclick="openMaterialsRoadmapModal()">🗺️ Roadmap</button>` : ''}
@@ -1586,6 +1598,7 @@ function renderWeekMatrix() {
       const isDynamics = (sess.code === "EMC G101");
       const isMaterials = (sess.code === "MDP G121");
       const isSolidWorks = (sess.code === "MDP G111");
+      const isMarketing = (sess.code === "GEN G119");
       const hasCustomLinks = !!COURSE_CUSTOM_LINKS[sess.code];
 
       const hasConflict = daySessions.some(other => 
@@ -1634,6 +1647,7 @@ function renderWeekMatrix() {
           <div class="title">${course.name}</div>
           <div class="footer">
             <div style="display:flex;gap:4px;align-items:center;">
+              ${isMarketing ? `<span class="matrix-links-btn" style="color:#22d3ee;border-color:rgba(34,211,238,0.4);" onclick="openExamSimulatorModal()">⚡ Quiz</span>` : ''}
               ${isSolidWorks ? `<span class="matrix-links-btn" style="color:#10b981;" onclick="setView('cad')">⚡ CAD</span>` : ''}
               ${isDynamics ? `<span class="matrix-roadmap-btn" style="color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Map</span>` : ''}
               ${isMaterials ? `<span class="matrix-roadmap-btn" style="color:#f59e0b;" onclick="openMaterialsRoadmapModal()">🗺️ Map</span>` : ''}
@@ -2080,6 +2094,7 @@ function renderDriveScreen() {
           const isDynamics = (code === "EMC G101");
           const isMaterials = (code === "MDP G121");
           const isSolidWorks = (code === "MDP G111");
+          const isMarketing = (code === "GEN G119");
           const hasCustomLinks = !!COURSE_CUSTOM_LINKS[code];
 
           return `
@@ -2093,6 +2108,11 @@ function renderDriveScreen() {
                 <div class="cat-icon-btn" onclick="openSafeDriveLink('${d.folder || MAIN_SEMESTER_DRIVE}')"><span>📂</span><span>Folder</span></div>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px;margin-top:auto;">
+                ${isMarketing ? `
+                  <div class="capsule-open-btn" style="color:#22d3ee;border-color:rgba(34,211,238,0.45);background:linear-gradient(135deg, rgba(6,182,212,0.14) 0%, rgba(37,99,235,0.08) 100%);box-shadow:0 0 15px rgba(6,182,212,0.15);" onclick="openExamSimulatorModal()">
+                    <span style="font-weight:800;">⚡ اختبار تفاعلي / كويز تجريبي (Exam Simulator)</span><span>↗</span>
+                  </div>
+                ` : ''}
                 ${isSolidWorks ? `
                   <div class="capsule-open-btn" style="color:#10b981;border-color:rgba(16,185,129,0.3);" onclick="setView('cad')">
                     <span>⚡ SolidWorks Hub Pro</span><span>↗</span>
@@ -2657,9 +2677,693 @@ if (installBtn) {
   });
 }
 
-window.addEventListener("appinstalled", () => {
-  if (installBtn) installBtn.style.display = "none";
-});
+// ==========================================================================
+// Interactive Exam Simulator Engine (GEN G119 Marketing - Chapter 1)
+// ==========================================================================
+
+let examSession = {
+  mode: 'exam',           // 'exam' (20 questions timed) | 'study' (full bank instant feedback)
+  questions: [],          // array of questions for this session
+  currentIndex: 0,
+  userAnswers: {},        // { [qIndex]: "A" | "B" | ... }
+  flagged: {},            // { [qIndex]: true }
+  timerInterval: null,
+  secondsLeft: 1200,      // 20 minutes default
+  totalSeconds: 1200,
+  isFinished: false,
+  studyFilter: 'all',     // 'all' | 'mcq' | 'tf'
+  examDurationMinutes: 20
+};
+
+function clearExamTimer() {
+  if (examSession.timerInterval) {
+    clearInterval(examSession.timerInterval);
+    examSession.timerInterval = null;
+  }
+}
+
+function openExamSimulatorModal(initialMode = null) {
+  triggerHaptic("heavy");
+  const modal = document.getElementById("examSimulatorModal");
+  if (!modal) return;
+  modal.classList.add("open");
+
+  if (initialMode === 'exam') {
+    startExamSession('exam', { durationMinutes: 20 });
+  } else if (initialMode === 'study') {
+    startExamSession('study', { filter: 'all' });
+  } else {
+    if (!examSession.questions.length || examSession.isFinished) {
+      renderExamModeSelect();
+    } else {
+      renderExamQuestion(examSession.currentIndex);
+    }
+  }
+}
+
+function closeExamSimulatorModal() {
+  if (examSession.questions.length > 0 && !examSession.isFinished) {
+    if (!confirm("هل أنت متأكد من الخروج من الامتحان؟ سيتم إلغاء الجلسة الحالية.")) {
+      return;
+    }
+  }
+  clearExamTimer();
+  examSession.questions = [];
+  examSession.isFinished = false;
+
+  const modal = document.getElementById("examSimulatorModal");
+  if (modal) modal.classList.remove("open");
+  const timerBadge = document.getElementById("examHeadTimer");
+  if (timerBadge) timerBadge.style.display = "none";
+}
+
+const examModalBackdrop = document.getElementById("examSimulatorModal");
+if (examModalBackdrop) {
+  examModalBackdrop.addEventListener("click", (e) => {
+    if (e.target.id === "examSimulatorModal") closeExamSimulatorModal();
+  });
+}
+
+function renderExamModeSelect() {
+  clearExamTimer();
+  examSession.questions = [];
+  examSession.isFinished = false;
+
+  const timerBadge = document.getElementById("examHeadTimer");
+  if (timerBadge) timerBadge.style.display = "none";
+
+  const content = document.getElementById("examSimulatorContent");
+  if (!content) return;
+
+  const totalBank = typeof QUIZ_BANK_GEN_G119 !== 'undefined' ? QUIZ_BANK_GEN_G119.totalQuestions : 127;
+  const mcqCount = typeof QUIZ_BANK_GEN_G119 !== 'undefined' ? QUIZ_BANK_GEN_G119.mcqCount : 89;
+  const tfCount = typeof QUIZ_BANK_GEN_G119 !== 'undefined' ? QUIZ_BANK_GEN_G119.tfCount : 38;
+
+  content.innerHTML = `
+    <div class="exam-hero-banner">
+      <div class="exam-hero-title">
+        <span>⚡</span>
+        <span>محاكي الاختبارات التفاعلي لمقرر التسويق (GEN G119)</span>
+      </div>
+      <div class="exam-hero-sub">
+        بنك الأسئلة المعتمد الشامل لشابتر 1 (Marketing: Creating and Capturing Customer Value). تدرب على أسئلة الـ MCQ والصح والخطأ بنفس أسلوب الامتحانات الرسمية.
+      </div>
+      <div class="exam-stats-pills">
+        <span class="exam-stat-pill">📚 إجمالي الأسئلة: ${totalBank}</span>
+        <span class="exam-stat-pill">🎯 اختيار من متعدد: ${mcqCount}</span>
+        <span class="exam-stat-pill">⚖️ صح وخطأ: ${tfCount}</span>
+        <span class="exam-stat-pill" style="color:#fbbf24;border-color:rgba(245,158,11,0.3);">⏱️ التايمر الافتراضي: 20 دقيقة</span>
+      </div>
+    </div>
+
+    <div class="exam-mode-grid">
+      <!-- Mode 1: Timed Exam Simulator -->
+      <div class="exam-mode-card" onclick="startExamSession('exam', { durationMinutes: 20 })">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="exam-mode-icon-circle" style="color:#22d3ee;">⏱️</div>
+          <span class="exam-stat-pill" style="color:#22d3ee;background:rgba(34,211,238,0.1);">الأكثر طلباً ⭐</span>
+        </div>
+        <div>
+          <div class="exam-mode-title">
+            <span>⚡ امتحان تجريبي سريع</span>
+            <span style="font-size:12px;color:var(--text-muted);">(20 سؤال عشوائي)</span>
+          </div>
+          <div class="exam-mode-desc" style="margin-top:6px;">
+            محاكاة كاملة لجو الامتحان الحقيقي: 20 سؤال عشوائي، تايمر تنازلي 20 دقيقة، وتصحيح نهائي وشامل مع بطاقة أداء ومراجعة الأخطاء عند الضغط على "تسليم الامتحان".
+          </div>
+        </div>
+        <div class="exam-mode-badge-row">
+          <span class="exam-mode-pill">20 سؤال عشوائي</span>
+          <span class="exam-mode-pill">تايمر تنازلي 20 د</span>
+          <span class="exam-mode-pill">تصحيح نهائي</span>
+        </div>
+        <button class="exam-primary-btn" style="margin-top:4px;" onclick="event.stopPropagation(); startExamSession('exam', { durationMinutes: 20 });">
+          <span>🚀 ابدأ الامتحان التجريبي</span>
+        </button>
+      </div>
+
+      <!-- Mode 2: Full Bank Study with Instant Feedback -->
+      <div class="exam-mode-card" onclick="startExamSession('study', { filter: 'all' })">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div class="exam-mode-icon-circle" style="color:#10b981;background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);">💡</div>
+          <span class="exam-stat-pill" style="color:#34d399;background:rgba(16,185,129,0.1);">مذاكرة فورية 📖</span>
+        </div>
+        <div>
+          <div class="exam-mode-title">
+            <span>📚 مذاكرة التيست بانك كامل</span>
+            <span style="font-size:12px;color:var(--text-muted);">(Instant Feedback)</span>
+          </div>
+          <div class="exam-mode-desc" style="margin-top:6px;">
+            تصفح بنك الأسئلة بالكامل بالترتيب مع ميزة التغذية الفورية: تظهر الإجابة الصحيحة فوراً بالأخضر والخاطئة بالأحمر مع تصحيح وملاحظات الدكتور بمجرد اختيار الخيار.
+          </div>
+        </div>
+        <div class="exam-mode-badge-row">
+          <span class="exam-mode-pill">كل الأسئلة (${totalBank})</span>
+          <span class="exam-mode-pill">تصحيح فوري لحظي</span>
+          <span class="exam-mode-pill">بدون وقت محدد</span>
+        </div>
+        <button class="exam-secondary-btn" style="margin-top:4px;border-color:rgba(16,185,129,0.4);color:#34d399;" onclick="event.stopPropagation(); startExamSession('study', { filter: 'all' });">
+          <span>🔍 ابدأ التصفح والمذاكرة</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function startExamSession(mode, config = {}) {
+  triggerHaptic("heavy");
+  clearExamTimer();
+
+  const allQuestions = (typeof QUIZ_BANK_GEN_G119 !== 'undefined' && QUIZ_BANK_GEN_G119.questions) 
+    ? QUIZ_BANK_GEN_G119.questions 
+    : [];
+
+  if (!allQuestions.length) {
+    alert("لم يتم العثور على بنك الأسئلة! يرجى التأكد من تحميل ملف quiz-data.js.");
+    return;
+  }
+
+  examSession.mode = mode;
+  examSession.userAnswers = {};
+  examSession.flagged = {};
+  examSession.currentIndex = 0;
+  examSession.isFinished = false;
+
+  if (mode === 'exam') {
+    // Pick 20 random questions using Fisher-Yates shuffle
+    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+    examSession.questions = shuffled.slice(0, 20);
+    examSession.examDurationMinutes = config.durationMinutes || 20;
+    examSession.totalSeconds = examSession.examDurationMinutes * 60;
+    examSession.secondsLeft = examSession.totalSeconds;
+
+    const timerBox = document.getElementById("examHeadTimer");
+    if (timerBox) {
+      timerBox.style.display = "flex";
+      timerBox.classList.remove("timer-warning");
+    }
+    updateExamTimerUI();
+
+    examSession.timerInterval = setInterval(() => {
+      examSession.secondsLeft--;
+      updateExamTimerUI();
+      if (examSession.secondsLeft <= 0) {
+        clearExamTimer();
+        alert("⏱️ انتهى وقت الامتحان المحدد! سيتم تسليم إجاباتك الآن لحساب النتيجة.");
+        finishExamSession();
+      }
+    }, 1000);
+  } else {
+    // Study mode: filter if requested
+    examSession.studyFilter = config.filter || 'all';
+    let pool = allQuestions;
+    if (examSession.studyFilter === 'mcq') {
+      pool = allQuestions.filter(q => q.type === 'mcq');
+    } else if (examSession.studyFilter === 'tf') {
+      pool = allQuestions.filter(q => q.type === 'tf');
+    }
+    examSession.questions = [...pool];
+    examSession.totalSeconds = 0;
+    examSession.secondsLeft = 0;
+
+    const timerBox = document.getElementById("examHeadTimer");
+    if (timerBox) timerBox.style.display = "none";
+  }
+
+  renderExamQuestion(0);
+}
+
+function updateExamTimerUI() {
+  const display = document.getElementById("examTimerDisplay");
+  const timerBox = document.getElementById("examHeadTimer");
+  if (!display) return;
+
+  const mins = Math.floor(Math.max(0, examSession.secondsLeft) / 60);
+  const secs = Math.max(0, examSession.secondsLeft) % 60;
+  display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  if (timerBox) {
+    if (examSession.secondsLeft <= 120) {
+      timerBox.classList.add("timer-warning");
+    } else {
+      timerBox.classList.remove("timer-warning");
+    }
+  }
+}
+
+function renderExamQuestion(index) {
+  if (index < 0 || index >= examSession.questions.length) return;
+  examSession.currentIndex = index;
+
+  const content = document.getElementById("examSimulatorContent");
+  if (!content) return;
+
+  const q = examSession.questions[index];
+  const total = examSession.questions.length;
+  const progressPercent = Math.round(((index + 1) / total) * 100);
+  const isFlagged = !!examSession.flagged[index];
+  const currentAnswer = examSession.userAnswers[index];
+  const isAnswered = (currentAnswer !== undefined);
+  const isStudyMode = (examSession.mode === 'study');
+
+  let studyCorrectCount = 0;
+  let studyWrongCount = 0;
+  if (isStudyMode) {
+    Object.keys(examSession.userAnswers).forEach(idxStr => {
+      const i = parseInt(idxStr, 10);
+      const questionItem = examSession.questions[i];
+      if (questionItem) {
+        if (examSession.userAnswers[i] === questionItem.answer) studyCorrectCount++;
+        else studyWrongCount++;
+      }
+    });
+  }
+
+  let html = `
+    <!-- Top Progress Bar & Meta -->
+    <div class="exam-bar-container">
+      <div class="exam-meta-row">
+        <span>السؤال <b>${index + 1}</b> من أصل <b>${total}</b></span>
+        ${isStudyMode ? `
+          <div style="display:flex;align-items:center;gap:8px;">
+            <!-- Filter Selector in Study Mode -->
+            <select onchange="startExamSession('study', { filter: this.value })" style="background:var(--surface);border:1px solid var(--border);color:var(--text-main);font-size:11px;padding:2px 6px;border-radius:6px;cursor:pointer;">
+              <option value="all" ${examSession.studyFilter === 'all' ? 'selected' : ''}>كل الأسئلة (${QUIZ_BANK_GEN_G119.totalQuestions})</option>
+              <option value="mcq" ${examSession.studyFilter === 'mcq' ? 'selected' : ''}>MCQ فقط (${QUIZ_BANK_GEN_G119.mcqCount})</option>
+              <option value="tf" ${examSession.studyFilter === 'tf' ? 'selected' : ''}>صح وخطأ فقط (${QUIZ_BANK_GEN_G119.tfCount})</option>
+            </select>
+            <span style="font-family:'JetBrains Mono';font-size:12px;">
+              <span style="color:#10b981;">✅ ${studyCorrectCount}</span>
+              <span style="margin:0 4px;color:var(--border);">•</span>
+              <span style="color:#ef4444;">❌ ${studyWrongCount}</span>
+            </span>
+          </div>
+        ` : `
+          <span style="font-family:'JetBrains Mono';font-size:11.5px;color:var(--text-muted);">${progressPercent}% مكتمل</span>
+        `}
+      </div>
+      <div class="exam-progress-track">
+        <div class="exam-progress-fill" style="width: ${progressPercent}%;"></div>
+      </div>
+    </div>
+
+    <!-- Question Card -->
+    <div class="exam-question-card">
+      <div class="exam-q-header">
+        <div class="exam-q-tags">
+          <span class="exam-tag-cat">${q.category || (q.type === 'tf' ? 'True or False' : 'Multiple Choice')}</span>
+          <span style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono';">#Q${q.originalNum || q.id}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button class="exam-flag-btn ${isFlagged ? 'flagged' : ''}" onclick="toggleExamFlag(${index})">
+            <span>${isFlagged ? '🚩 مُعلّم للمراجعة' : '🏳️ تعليم للمراجعة'}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="exam-q-text">
+        ${q.question}
+      </div>
+
+      <!-- Options List -->
+      <div class="exam-options-list">
+  `;
+
+  const optKeys = Object.keys(q.options || {});
+  optKeys.forEach(key => {
+    const optText = q.options[key];
+    const isSelected = (currentAnswer === key);
+    let optClasses = "exam-opt-btn";
+    let extraFeedbackIcon = "";
+
+    if (isStudyMode && isAnswered) {
+      optClasses += " disabled";
+      if (key === q.answer) {
+        optClasses += " is-correct";
+        extraFeedbackIcon = `<span style="margin-left:auto;color:#10b981;font-weight:800;font-size:12px;">✓ صح</span>`;
+      } else if (isSelected && key !== q.answer) {
+        optClasses += " is-wrong";
+        extraFeedbackIcon = `<span style="margin-left:auto;color:#ef4444;font-weight:800;font-size:12px;">✗ خطأ</span>`;
+      }
+    } else {
+      if (isSelected) optClasses += " selected";
+    }
+
+    const clickAction = (isStudyMode && isAnswered) 
+      ? "" 
+      : `onclick="selectExamOption('${key}')"`;
+
+    html += `
+      <div class="${optClasses}" ${clickAction}>
+        <div class="exam-opt-letter">${key}</div>
+        <div class="exam-opt-label">${optText}</div>
+        ${extraFeedbackIcon}
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  // Explanation in study mode
+  if (isStudyMode && isAnswered) {
+    const isCorrect = (currentAnswer === q.answer);
+    html += `
+      <div class="exam-feedback-banner ${isCorrect ? 'success' : 'error'}">
+        <div style="display:flex;align-items:center;gap:6px;font-weight:800;">
+          <span>${isCorrect ? '🎉 إجابة صحيحة وممتازة!' : '❌ إجابة غير صحيحة!'}</span>
+          <span>(الإجابة الصحيحة هي: ${q.answer})</span>
+        </div>
+        ${q.explanation ? `<div class="exam-feedback-note">💡 ${q.explanation}</div>` : ''}
+      </div>
+    `;
+  }
+
+  html += `</div>`;
+
+  // Action Buttons
+  html += `
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div style="display:flex;gap:8px;">
+        <button class="exam-secondary-btn" onclick="prevExamQuestion()" ${index === 0 ? 'disabled style="opacity:0.4;pointer-events:none;"' : ''}>
+          <span>◀ السابق</span>
+        </button>
+        <button class="exam-secondary-btn" onclick="nextExamQuestion()" ${index === total - 1 ? 'disabled style="opacity:0.4;pointer-events:none;"' : ''}>
+          <span>التالي ▶</span>
+        </button>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;">
+        ${!isStudyMode ? `
+          <button class="exam-primary-btn" onclick="confirmSubmitExam()" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%);box-shadow:0 4px 15px rgba(16,185,129,0.3);">
+            <span>✅ تسليم الامتحان وإنهاء الكويز</span>
+          </button>
+        ` : `
+          <button class="exam-secondary-btn" onclick="renderExamModeSelect()">
+            <span>🏠 العودة للرئيسية</span>
+          </button>
+        `}
+      </div>
+    </div>
+
+    <!-- Quick Question Navigator Grid -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+      <span style="font-size:11px;font-weight:700;color:var(--text-muted);">خريطة الانتقال المباشر بين الأسئلة:</span>
+      <span style="font-size:10.5px;color:var(--text-muted);font-family:'JetBrains Mono';">
+        ${Object.keys(examSession.userAnswers).length}/${total} تم حلها
+      </span>
+    </div>
+    <div class="exam-q-grid">
+  `;
+
+  for (let i = 0; i < total; i++) {
+    const ans = examSession.userAnswers[i];
+    const isAct = (i === index);
+    const isFl = !!examSession.flagged[i];
+    let dotClass = "exam-q-dot";
+    if (isAct) dotClass += " active";
+    if (isFl) dotClass += " flagged";
+
+    if (ans !== undefined) {
+      if (isStudyMode) {
+        if (ans === examSession.questions[i].answer) dotClass += " correct";
+        else dotClass += " wrong";
+      } else {
+        dotClass += " answered";
+      }
+    }
+
+    html += `<div class="${dotClass}" onclick="renderExamQuestion(${i})">${i + 1}</div>`;
+  }
+
+  html += `</div>`;
+
+  content.innerHTML = html;
+}
+
+function selectExamOption(optKey) {
+  const idx = examSession.currentIndex;
+  examSession.userAnswers[idx] = optKey;
+
+  const q = examSession.questions[idx];
+  if (examSession.mode === 'study') {
+    if (optKey === q.answer) triggerHaptic("light");
+    else triggerHaptic("heavy");
+  } else {
+    triggerHaptic("light");
+  }
+
+  renderExamQuestion(idx);
+}
+
+function toggleExamFlag(index) {
+  triggerHaptic("light");
+  examSession.flagged[index] = !examSession.flagged[index];
+  renderExamQuestion(index);
+}
+
+function prevExamQuestion() {
+  if (examSession.currentIndex > 0) {
+    triggerHaptic("light");
+    renderExamQuestion(examSession.currentIndex - 1);
+  }
+}
+
+function nextExamQuestion() {
+  if (examSession.currentIndex < examSession.questions.length - 1) {
+    triggerHaptic("light");
+    renderExamQuestion(examSession.currentIndex + 1);
+  }
+}
+
+function confirmSubmitExam() {
+  triggerHaptic("heavy");
+  const total = examSession.questions.length;
+  const answeredCount = Object.keys(examSession.userAnswers).length;
+  const unansweredCount = total - answeredCount;
+
+  if (unansweredCount > 0) {
+    if (!confirm(`⚠️ تنبيه: لديك ${unansweredCount} أسئلة لم تقم بالإجابة عليها بعد!\n\nهل أنت متأكد من رغبتك في تسليم الامتحان الآن؟`)) {
+      return;
+    }
+  } else {
+    if (!confirm("هل أنت متأكد من تسليم الامتحان والاطلاع على النتيجة النهائية؟")) {
+      return;
+    }
+  }
+
+  finishExamSession();
+}
+
+function finishExamSession() {
+  clearExamTimer();
+  examSession.isFinished = true;
+
+  const timerBox = document.getElementById("examHeadTimer");
+  if (timerBox) timerBox.style.display = "none";
+
+  renderExamScorecard();
+}
+
+function renderExamScorecard() {
+  const content = document.getElementById("examSimulatorContent");
+  if (!content) return;
+
+  const total = examSession.questions.length;
+  let correctCount = 0;
+  let wrongCount = 0;
+  let unansweredCount = 0;
+
+  examSession.questions.forEach((q, idx) => {
+    const userAns = examSession.userAnswers[idx];
+    if (userAns === undefined) {
+      unansweredCount++;
+    } else if (userAns === q.answer) {
+      correctCount++;
+    } else {
+      wrongCount++;
+    }
+  });
+
+  const percentage = Math.round((correctCount / total) * 100);
+  const timeSpentSecs = Math.max(0, examSession.totalSeconds - examSession.secondsLeft);
+  const spentMins = Math.floor(timeSpentSecs / 60);
+  const spentSecs = timeSpentSecs % 60;
+  const timeFormatted = `${spentMins} دقيقة و ${spentSecs} ثانية`;
+
+  // Trigger confetti if scored 80% or higher
+  if (percentage >= 80 && typeof confetti === 'function') {
+    try {
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    } catch (e) {
+      console.warn("Confetti error:", e);
+    }
+  }
+
+  let tierTitle = "🏆 أداء أسطوري ممتاز!";
+  let tierMsg = "ما شاء الله، إتقان كامل لمفاهيم شابتر 1 ومصطلحات التسويق. أنت جاهز لتقفيل الكويز!";
+  let ringColor = "#10b981";
+
+  if (percentage < 50) {
+    tierTitle = "💪 محاولة جيدة للبداية!";
+    tierMsg = "تحتاج إلى مراجعة إضافية لأسئلة التيست بانك والمفاهيم الرئيسية في الشابتر. أعد المحاولة وسوف تتحسن بالتأكيد!";
+    ringColor = "#ef4444";
+  } else if (percentage < 75) {
+    tierTitle = "⚡ مستوى جيد، ركّز على الأخطاء!";
+    tierMsg = "مستواك مبشر جداً، راجع الأسئلة التي أخطأت بها وتكرار المحاولة سيوصلك للعلامة الكاملة.";
+    ringColor = "#fbbf24";
+  } else if (percentage < 90) {
+    tierTitle = "🎯 جيد جداً ومتميز!";
+    tierMsg = "أداء قوي جداً! بقيت تفاصيل صغيرة فقط تفصلك عن الدرجة النهائية. راجع أخطائك البسيطة لتثبيت المعلومة.";
+    ringColor = "#22d3ee";
+  }
+
+  content.innerHTML = `
+    <div class="exam-scorecard-wrap">
+      <div class="exam-score-ring" style="border-color:${ringColor};box-shadow:0 0 35px ${ringColor}44;">
+        <span class="exam-score-percent">${percentage}%</span>
+        <span class="exam-score-fraction">${correctCount} / ${total}</span>
+      </div>
+
+      <div>
+        <div class="exam-score-title" style="color:${ringColor};">${tierTitle}</div>
+        <div class="exam-score-msg" style="margin-top:6px;">${tierMsg}</div>
+      </div>
+
+      <div class="exam-score-stats-grid">
+        <div class="exam-score-stat-box">
+          <span class="exam-score-stat-val" style="color:#10b981;">${correctCount}</span>
+          <span class="exam-score-stat-lbl">إجابات صحيحة ✅</span>
+        </div>
+        <div class="exam-score-stat-box">
+          <span class="exam-score-stat-val" style="color:#ef4444;">${wrongCount}</span>
+          <span class="exam-score-stat-lbl">إجابات خاطئة ❌</span>
+        </div>
+        <div class="exam-score-stat-box">
+          <span class="exam-score-stat-val" style="color:#fbbf24;">${unansweredCount}</span>
+          <span class="exam-score-stat-lbl">أسئلة متروكة ⏳</span>
+        </div>
+      </div>
+
+      <div style="font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono';">
+        ⏱️ الوقت المستغرق: ${timeFormatted}
+      </div>
+
+      <div class="exam-actions-row">
+        ${wrongCount > 0 || unansweredCount > 0 ? `
+          <button class="exam-secondary-btn" onclick="renderExamReview(true)" style="border-color:rgba(239,68,68,0.4);color:#f87171;font-weight:800;">
+            <span>🔍 مراجعة الأسئلة اللي غلطت فيها (${wrongCount + unansweredCount})</span>
+          </button>
+        ` : ''}
+
+        <button class="exam-secondary-btn" onclick="renderExamReview(false)">
+          <span>📋 مراجعة كل الأسئلة (${total})</span>
+        </button>
+
+        <button class="exam-primary-btn" onclick="startExamSession('exam', { durationMinutes: 20 })">
+          <span>🔄 إعادة المحاولة بأسئلة جديدة (Try Again)</span>
+        </button>
+
+        <button class="exam-secondary-btn" onclick="renderExamModeSelect()">
+          <span>🏠 العودة لاختيار المود</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function renderExamReview(mistakesOnly = false) {
+  const content = document.getElementById("examSimulatorContent");
+  if (!content) return;
+
+  let questionsToShow = [];
+  examSession.questions.forEach((q, idx) => {
+    const userAns = examSession.userAnswers[idx];
+    const isPass = (userAns === q.answer);
+    if (!mistakesOnly || !isPass) {
+      questionsToShow.push({ q, idx, userAns, isPass });
+    }
+  });
+
+  let html = `
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-bottom:10px;border-bottom:1px solid var(--border);">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:var(--text-main);">
+          ${mistakesOnly ? '🔍 مراجعة الأسئلة الخاطئة والمتروكة' : '📋 مراجعة كافة الأسئلة وإجاباتها'}
+        </div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px;">
+          عدد الأسئلة: ${questionsToShow.length} من أصل ${examSession.questions.length}
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="exam-secondary-btn" onclick="renderExamScorecard()">
+          <span>◀ الرجوع للنتيجة</span>
+        </button>
+        <button class="exam-primary-btn" onclick="startExamSession('exam', { durationMinutes: 20 })">
+          <span>🔄 امتحان جديد</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="exam-review-list">
+  `;
+
+  if (!questionsToShow.length) {
+    html += `
+      <div style="text-align:center;padding:30px;color:#10b981;font-weight:800;">
+        🎉 ما شاء الله! لا توجد أي أخطاء لمراجعتها، قمت بحل جميع الأسئلة بشكل صحيح!
+      </div>
+    `;
+  } else {
+    questionsToShow.forEach(item => {
+      const { q, idx, userAns, isPass } = item;
+      const correctOptText = q.options[q.answer] || q.answer;
+      const chosenOptText = userAns ? (q.options[userAns] || userAns) : "لم يتم اختيار إجابة (سؤال متروك)";
+
+      html += `
+        <div class="exam-review-card">
+          <div class="exam-review-head">
+            <span style="font-family:'JetBrains Mono';color:var(--text-muted);">سؤال #${idx + 1} (${q.category || q.type})</span>
+            <span class="exam-review-status-pill ${isPass ? 'is-pass' : 'is-fail'}">
+              ${isPass ? '✅ إجابة صحيحة' : '❌ إجابة خاطئة'}
+            </span>
+          </div>
+
+          <div class="exam-review-q">
+            ${q.question}
+          </div>
+
+          <div class="exam-review-ans-row">
+            ${!isPass ? `
+              <div class="exam-review-ans-item chosen-wrong">
+                <span style="font-weight:800;">إجابتك:</span>
+                <span>(${userAns || '—'}) ${chosenOptText}</span>
+              </div>
+            ` : ''}
+
+            <div class="exam-review-ans-item correct-ans">
+              <span style="font-weight:800;">الإجابة الصحيحة:</span>
+              <span>(${q.answer}) ${correctOptText}</span>
+            </div>
+
+            ${q.explanation ? `
+              <div class="exam-feedback-note" style="margin-top:4px;">
+                💡 ${q.explanation}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  html += `</div>`;
+
+  content.innerHTML = html;
+}
 
 // Boot Sequence
 initDeviceMode();
