@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CUFE Mechanical 1 Schedule — CUFE ME1 — Batch 30 Timetable</title>
+  
+  <meta name="theme-color" content="#070b12" id="themeColorMeta">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" href="./icon-192.png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="./style.css?v=105">
+</head>
+<body>
+
+  <div class="container" id="mainContainer">
+
+    <!-- Header Masthead -->
+    <header class="masthead" id="mainHeader">
+      <div>
+        <div class="uni-title">Cairo University · Faculty of Engineering</div>
+        <div class="faculty-title">Mechanical Engineering Department</div>
+        <h1 class="dept-title">
+          <span>ME1 Schedule</span>
+          <span class="batch-tag">BATCH 30</span>
+        </h1>
+        <div class="date-academic-strip">
+          <span id="fullDateDisplay">Friday, October 2, 2026</span>
+          <span>•</span>
+          <span class="academic-week-badge" id="academicWeekBadge">Academic Week 2</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="action-btn" id="deviceModeBtn" title="تبديل وضع العرض">
+          <span id="deviceModeIcon">💻</span>
+          <span id="deviceModeText">PC View</span>
+        </button>
+
+        <button class="action-btn icon-only" id="calendarBtn" title="تصدير للتقويم (Google / Apple Calendar)">
+          📅
+        </button>
+
+        <button class="action-btn icon-only" id="printBtn" title="طباعة الجدول A4">
+          🖨️
+        </button>
+
+        <button class="action-btn icon-only" id="themeBtn" title="تبديل الوضع الليلي / الفاتح">
+          🌙
+        </button>
+
+        <button class="action-btn install-btn" id="pwaTopInstallBtn" title="تثبيت التطبيق على جهازك">
+          <span>📲 تثبيت التطبيق</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Carousel Banners -->
+    <div class="banner-carousel-container" id="firstWeekBanner">
+      <div class="banner-carousel-track" id="bannerTrack">
+        
+        <!-- بانر 1: إعلان دليل الأسبوع الثاني -->
+        <div class="banner-card banner-festive">
+          <span class="festive-icon">📖</span>
+          <div class="festive-msg">
+            <strong>دليل الأسبوع الثاني نزل رسميًا!</strong> تم تحديث سلايدات المحاضرات، وشيتات المسائل، والحلول، وروابط الشرح لكل مواد القسم.
+            <div><button class="banner-action-link" onclick="selectedGuideWeek = 'Week 2'; setView('guide');">تصفح دليل الأسبوع الثاني ↗</button></div>
+          </div>
+        </div>
+
+        <!-- بانر 2: كويز الماركتنج القادم -->
+        <div class="banner-card banner-task" style="border-color:#06b6d4; background:linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, var(--surface) 100%);">
+          <span class="festive-icon">⚡</span>
+          <div class="festive-msg">
+            <strong>كويز الماركتنج القادم (GEN G119):</strong> الأحد القادم في المحاضرة الساعة 8:00 صباحاً — <strong>20 سؤال في 5 دقائق</strong> على Chapter 1 (ممكن يبقى MCQ أو True & False).
+            <div><button class="banner-action-link" onclick="setView('tasks')" style="background:#06b6d4;">تفاصيل الكويز والتاسكات ↗</button></div>
+          </div>
+        </div>
+
+        <!-- بانر 3: كورس الديناميكا التبادلي -->
+        <div class="banner-card banner-dynamics">
+          <span class="festive-icon">⚙️</span>
+          <div class="festive-msg">
+            <strong>سكشن الديناميكا التبادلي (الاثنين):</strong> يمكنك اختيار وحساب موعد سكشنك التبادلي بين الفترات المتاحة لتخصيص جدولك.
+            <div><button class="banner-action-link dyn-link" onclick="openDynamicsRoadmapModal()">خريطة المنهج ↗</button></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="carousel-dots" id="carouselDots">
+        <span class="dot active" onclick="goToBanner(0)"></span>
+        <span class="dot" onclick="goToBanner(1)"></span>
+        <span class="dot" onclick="goToBanner(2)"></span>
+      </div>
+    </div>
+
+    <!-- Live Status Capsule -->
+    <div class="live-status-capsule" id="liveStatusBox">
+      <div class="live-left">
+        <span class="live-indicator idle" id="liveDot"></span>
+        <span class="live-text" id="liveText">Tracking academic timetable...</span>
+      </div>
+      <span class="live-time-now" id="liveClock">00:00</span>
+    </div>
+
+    <!-- Day Progress Bar -->
+    <div class="day-progress-container" id="dayProgressContainer">
+      <div class="day-progress-header">
+        <span id="dayProgressLabel">Day Progress: 0%</span>
+        <span id="dayProgressRemaining">Classes start at 8:00 AM ☀️</span>
+      </div>
+      <div class="day-progress-bar-bg">
+        <div class="day-progress-bar-fill" id="dayProgressBar"></div>
+      </div>
+    </div>
+
+    <!-- Schedule Control Bar -->
+    <div class="control-bar" id="scheduleControlBar">
+      <div class="group-controls">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="control-label">SECTION:</span>
+          <select class="section-select" id="sectionSelect">
+            <option value="ME1-01">Section 01</option>
+            <option value="ME1-02">Section 02</option>
+            <option value="ME1-03">Section 03</option>
+            <option value="ME1-04">Section 04</option>
+          </select>
+        </div>
+
+        <!-- زرار إظهار وإخفاء الأيام السابقة -->
+        <button class="past-days-toggle-btn" id="togglePastDaysBtn" onclick="togglePastDaysVisibility()" title="تبديل إظهار أو إخفاء أيام الأسبوع الماضية">
+          <span>👁️ الأيام السابقة</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dynamics Monday Slot Switcher Banner -->
+    <div class="dynamics-switcher-banner" id="dynamicsSwitcherBanner" style="display:none;">
+      <div class="dyn-banner-top">
+        <span>⚡ اختيار سكشن الديناميكا التبادلي (الاثنين):</span>
+        <span style="font-size:11px;color:var(--text-muted);">اختر موعدك المفضل</span>
+      </div>
+      <div class="dyn-pills-row">
+        <button class="dyn-pill-btn" id="dynSlot1Btn" onclick="toggleDynamicsSlot('1')">
+          <span class="time">8:00 – 10:50</span>
+          <span class="room-tag">Room 16211</span>
+        </button>
+        <button class="dyn-pill-btn" id="dynSlot2Btn" onclick="toggleDynamicsSlot('2')">
+          <span class="time">11:00 – 1:50</span>
+          <span class="room-tag">Room 9201</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Days Filter Bar (Daily View Only) -->
+    <div class="days-bar" id="daysBar" style="display:none;"></div>
+
+    <!-- Main Dynamic Content Container -->
+    <main id="viewContainer"></main>
+
+    <!-- Subjects Legend -->
+    <div class="legend" id="legend"></div>
+
+  </div>
+
+  <!-- Floating Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" id="navDayBtn" onclick="setView('day')">
+      <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+      <span>Daily</span>
+    </button>
+
+    <button class="nav-item" id="navWeekBtn" onclick="setView('week')">
+      <svg viewBox="0 0 24 24"><path d="M3 3v18h18V3H3zm8 16H5v-6h6v6zm0-8H5V5h6v6zm8 8h-6v-6h6v6zm0-8h-6V5h6v6z"/></svg>
+      <span>Schedule</span>
+    </button>
+
+    <button class="nav-item" id="navGuideBtn" onclick="setView('guide')">
+      <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+      <span>Guide</span>
+    </button>
+
+    <button class="nav-item" id="navDriveBtn" onclick="setView('drive')">
+      <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>
+      <span>Drive</span>
+    </button>
+
+    <button class="nav-item" id="navTaskBtn" onclick="setView('tasks')" style="position:relative;">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+      <span>Tasks</span>
+      <span class="nav-task-badge" id="navTaskBadge" style="display:none;">0</span>
+    </button>
+
+    <button class="nav-item" id="navAlertBtn" onclick="openNotifModal()" style="position:relative;">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
+      <span>Alerts</span>
+      <span style="position:absolute;top:4px;right:10px;width:7px;height:7px;border-radius:50%;background:#ef4444;display:none;" id="navNotifDot"></span>
+    </button>
+  </nav>
+
+  <!-- Modals & Slide-overs -->
+  <div class="details-page-overlay" id="taskDetailsOverlay">
+    <div class="details-header">
+      <button class="details-back-btn" onclick="closeTaskDetails()">
+        <span>◀</span><span>الرجوع للمهام</span>
+      </button>
+      <span style="font-size:12px;font-weight:800;color:var(--text-muted);">TASK DETAILS</span>
+    </div>
+    <div id="taskDetailsContent"></div>
+  </div>
+
+  <!-- Interactive Monthly Calendar Modal -->
+  <div class="modal-overlay" id="fullMonthCalendarModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="modal-title" style="display:flex;align-items:center;gap:6px;">
+          <span>📅</span><span>تقويم مواعيد الدفعة والامتحانات</span>
+        </span>
+        <button class="modal-close" onclick="closeMonthCalendarModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;">
+          <button class="action-btn" onclick="changeCalendarMonth(-1)">◀ السابق</button>
+          <span id="calCurrentMonthName" style="font-family:'JetBrains Mono';font-size:13.5px;font-weight:800;color:var(--text-main);">October 2026</span>
+          <button class="action-btn" onclick="changeCalendarMonth(1)">التالي ▶</button>
+        </div>
+        <div class="calendar-grid" id="fullCalendarGrid"></div>
+        <div id="calDayEventDetails" style="margin-top:10px;background:var(--surface-alt);padding:10px 14px;border-radius:12px;border:1px solid var(--border);display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course Capsule Modal -->
+  <div class="modal-overlay" id="capsuleModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="modal-title" id="capsuleModalTitle">Course Survival Capsule</span>
+        <button class="modal-close" onclick="closeCapsuleModal()">×</button>
+      </div>
+      <div class="modal-body" id="capsuleModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Course Links Modal -->
+  <div class="modal-overlay" id="linksModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="modal-title" id="linksModalTitle">Course Hub & Links</span>
+        <button class="modal-close" onclick="closeLinksModal()">×</button>
+      </div>
+      <div class="modal-body" id="linksModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Dynamics Roadmap Modal -->
+  <div class="modal-overlay" id="roadmapModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="modal-title" style="display:flex;align-items:center;gap:6px;color:#8b5cf6;">
+          <span>🗺️</span><span>Dynamics Syllabus Roadmap</span>
+        </span>
+        <button class="modal-close" onclick="closeRoadmapModal()">×</button>
+      </div>
+      <div class="modal-body" id="roadmapModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Materials Science Roadmap Modal -->
+  <div class="modal-overlay" id="materialsRoadmapModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="modal-title" style="display:flex;align-items:center;gap:6px;color:#f59e0b;">
+          <span>🗺️</span><span>Materials Science Syllabus Roadmap</span>
+        </span>
+        <button class="modal-close" onclick="closeMaterialsRoadmapModal()">×</button>
+      </div>
+      <div class="modal-body" id="materialsRoadmapModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Notifications Modal -->
+  <div class="modal-overlay" id="notifModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="modal-title">Batch 30 Notices & Alerts</span>
+        <button class="modal-close" onclick="closeNotifModal()">×</button>
+      </div>
+      <div class="modal-body" id="notifList"></div>
+    </div>
+  </div>
+
+  <!-- iOS PWA Install Instruction Modal -->
+  <div class="modal-overlay" id="iosInstallModal">
+    <div class="modal-card" style="max-width:440px;">
+      <div class="modal-head">
+        <span class="modal-title">تثبيت التطبيق على الآيفون (iOS)</span>
+        <button class="modal-close" onclick="closeIosInstallModal()">×</button>
+      </div>
+      <div class="modal-body" style="line-height:1.6;font-size:12.5px;color:var(--text-main);">
+        <p>لتثبيت الجدول كتطبيق مستقل وسريع على جهاز الآيفون الخاص بك:</p>
+        <ol style="margin-right:20px;margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+          <li>اضغط على زر المشاركة <b>Share (⎋)</b> في شريط متصفح سفاري بالأسفل.</li>
+          <li>اسحب للأعلى واختر <b>Add to Home Screen (إضافة إلى الشاشة الرئيسية)</b>.</li>
+          <li>اضغط على <b>Add (إضافة)</b> أعلى اليمين.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Room Details Toast -->
+  <div class="floating-toast" id="toastBox">
+    <div class="toast-top-row">
+      <span class="toast-room-tag">
+        <span>📍</span>
+        <span id="toastRoomTitle">ROOM</span>
+      </span>
+      <span class="toast-floor-pill" id="toastFloorPill">FLOOR</span>
+    </div>
+    <div id="toastRoomBody" style="font-size:11.5px;color:var(--text-muted);font-weight:700;">Faculty of Engineering Building</div>
+    <div style="display:flex;justify-content:flex-end;margin-top:2px;">
+      <a href="#" target="_blank" rel="noopener noreferrer" class="toast-maps-btn" id="toastMapsLink">
+        فتح الموقع على Google Maps ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script src="./data.js?v=105"></script>
+  <script src="./app.js?v=105"></script>
+</body>
+</html>
+
+
