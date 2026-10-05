@@ -1,6 +1,7 @@
 importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js');
 // في ملف sw.js غير اسم الكاش لـ v2 أو v3
-const CACHE_NAME = 'cufe-me1-v5';const ASSETS = [
+const CACHE_NAME = 'cufe-me1-v15';
+const ASSETS = [
   './',
   './index.html',
   './manifest.json',

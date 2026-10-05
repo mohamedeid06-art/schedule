@@ -18,7 +18,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=112">
+  <link rel="stylesheet" href="style.css?v=115">
 </head>
 <body>
 
@@ -68,7 +68,22 @@
     <div class="banner-carousel-container" id="firstWeekBanner">
       <div class="banner-carousel-track" id="bannerTrack">
         
-        <!-- بانر 1: إعلان دليل الأسبوع الثاني -->
+        <!-- بانر 1 (عاجل): إلغاء محاضرة الكهربية غداً وتنبيه السكاشن -->
+        <div class="banner-card banner-task" style="border-color:#ef4444; background:linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, var(--surface) 100%);">
+          <span class="festive-icon">🥳</span>
+          <div class="festive-msg">
+            <strong style="color:#f87171;font-size:14.5px;">تنبيه عاجل (EPE G113):</strong> مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية).
+            <div style="font-size:11.5px;margin-top:4px;color:var(--text-muted);line-height:1.4;">
+              📌 <strong>سكشن الأسبوع الرابع وتسليم الأسينمنت:</strong> المعيد وضح إن الميعاد فقط يوم الخميس فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30) — علماً بأن يوم الخميس إجازة رسمية وجارٍ التنسيق مع المعيد.
+            </div>
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="banner-action-link" onclick="openNotifModal()" style="background:#ef4444;">🔔 فتح التنبيهات الرسمية ↗</button>
+              <button class="banner-action-link" onclick="selectDay('Tuesday')" style="background:rgba(255,255,255,0.12);color:#fff;">📅 معاينة جدول الثلاثاء</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- بانر 2: إعلان دليل الأسبوع الثاني -->
         <div class="banner-card banner-festive">
           <span class="festive-icon">📖</span>
           <div class="festive-msg">
@@ -77,7 +92,7 @@
           </div>
         </div>
 
-        <!-- بانر 2: كويز الماركتنج القادم -->
+        <!-- بانر 3: كويز الماركتنج القادم -->
         <div class="banner-card banner-task" style="border-color:#06b6d4; background:linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, var(--surface) 100%);">
           <span class="festive-icon">⚡</span>
           <div class="festive-msg">
@@ -86,7 +101,7 @@
           </div>
         </div>
 
-        <!-- بانر 3: كورس الديناميكا التبادلي -->
+        <!-- بانر 4: كورس الديناميكا التبادلي -->
         <div class="banner-card banner-dynamics">
           <span class="festive-icon">⚙️</span>
           <div class="festive-msg">
@@ -101,6 +116,7 @@
         <span class="dot active" onclick="goToBanner(0)"></span>
         <span class="dot" onclick="goToBanner(1)"></span>
         <span class="dot" onclick="goToBanner(2)"></span>
+        <span class="dot" onclick="goToBanner(3)"></span>
       </div>
     </div>
 
@@ -361,8 +377,8 @@
   </div>
 
   <!-- Application Logic Scripts -->
-  <script src="./data.js?v=112"></script>
-  <script src="./app.js?v=112"></script>
+  <script src="./data.js?v=115"></script>
+  <script src="./app.js?v=115"></script>
 </body>
 </html>
 
