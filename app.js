@@ -769,56 +769,162 @@ function getSheetProgressId(code, week) {
   return `sheet-${code.replace(/\s+/g, '')}-${String(week).replace(/\s+/g, '')}`;
 }
 
-/* ---------- Quiz Guide checklist model ---------- */
+/* ---------- Quiz Preparation Guide & Checklist Engine ---------- */
 
 function getQuizStateKey(task) {
-  return `${task.code}::${task.id}`;
+  return task.id || `${task.code}::${task.title}`;
 }
 
 function buildQuizChecklist(task) {
   const groups = [
-    { key: 'lectures', icon: '📚', label: 'المحاضرات والسلايدات', color: '#38bdf8', items: [] },
-    { key: 'sheets',   icon: '📝', label: 'الشيتات والحلول',       color: '#f59e0b', items: [] },
-    { key: 'videos',   icon: '🎬', label: 'فيديوهات الشرح',        color: '#f43f5e', items: [] },
-    { key: 'notes',    icon: '💡', label: 'أهم النوتس والملاحظات', color: '#a78bfa', items: [] }
+    { key: 'lectures', icon: '📖', label: 'المحاضرات المقررة (Lectures & Slides)', color: '#38bdf8', items: [] },
+    { key: 'sheets',   icon: '📝', label: 'الشيتات والمسائل (Sheets & Solutions)',  color: '#f59e0b', items: [] },
+    { key: 'practice', icon: '🎬', label: 'فيديوهات وتطبيقات الحل (Practice)',      color: '#f43f5e', items: [] },
+    { key: 'notes',    icon: '💡', label: 'أهم القوانين والملاحظات (Notes & Tips)', color: '#a78bfa', items: [] }
   ];
   const [L, S, V, N] = groups;
   const pushUnique = (grp, item) => {
-    if (item.url && grp.items.some(i => i.url === item.url && i.title === item.title)) return;
+    if (grp.items.some(i => i.id === item.id)) return;
     grp.items.push(item);
   };
 
-  getSubjectGuides(task.code).forEach(g => {
-    const wk = String(g.week).replace(/\s+/g, '');
-    if (g.lectures) pushUnique(L, { id: `lec-${wk}`, title: g.lectures, meta: g.week, url: g.slides_url });
-    if (g.sheet) pushUnique(S, { id: `sht-${wk}`, title: g.sheet, meta: `${g.week} • حل الشيت`, url: g.sheet_url });
-    if (g.solution_url && g.solution_url !== g.sheet_url) pushUnique(S, { id: `sol-${wk}`, title: 'مراجعة الحلول النموذجية', meta: g.week, url: g.solution_url });
-    (g.playlists || []).forEach((p, i) => pushUnique(V, { id: `vid-${wk}-${i}`, title: p.title, meta: g.week, url: p.url }));
-    if (g.summary_url) pushUnique(N, { id: `sum-${wk}`, title: g.summary_title || 'ملخص المحاضرة', meta: g.week, url: g.summary_url });
-    if (g.practice) N.items.push({ id: `tip-${wk}`, title: g.practice, meta: `${g.week} • ملاحظة مهمة` });
+  const guides = getSubjectGuides(task.code);
+  const descLower = (task.desc || '').toLowerCase();
+  const titleLower = (task.title || '').toLowerCase();
+
+  // Try to find if this quiz is specific to certain weeks
+  const matchedGuides = guides.filter(g => {
+    const wkLower = (g.week || '').toLowerCase();
+    const wkNum = String(weekNum(g.week));
+    return descLower.includes(wkLower) || descLower.includes(`week ${wkNum}`) || descLower.includes(`w${wkNum}`) ||
+           titleLower.includes(wkLower) || titleLower.includes(`week ${wkNum}`) || titleLower.includes(`w${wkNum}`);
   });
 
-  (task.files || []).forEach((f, i) => {
-    if (f.url && !S.items.some(it => it.url === f.url)) S.items.push({ id: `file-${i}`, title: f.name, meta: f.size, url: f.url });
+  const targetGuides = matchedGuides.length > 0 ? matchedGuides : guides;
+
+  targetGuides.forEach(g => {
+    const wk = String(g.week || '').replace(/\s+/g, '');
+    
+    // 1. Lecture
+    if (g.lectures) {
+      const links = [];
+      if (g.slides_url) links.push({ label: 'سلايدات المحاضرة', icon: '📄', url: g.slides_url });
+      pushUnique(L, {
+        id: `lec-${wk}`,
+        title: g.lectures,
+        subtitle: `${g.week} • المحاضرات وسلايداتها المقررة`,
+        links: links
+      });
+    }
+
+    // 2. Sheet
+    if (g.sheet) {
+      const links = [];
+      if (g.sheet_url) links.push({ label: 'ملف الشيت', icon: '📄', url: g.sheet_url });
+      if (g.solution_url && g.solution_url !== g.sheet_url) links.push({ label: 'الحلول النموذجية', icon: '✅', url: g.solution_url });
+      pushUnique(S, {
+        id: `sht-${wk}`,
+        title: g.sheet,
+        subtitle: `${g.week} • حل وتدريب على مسائل الشيت`,
+        links: links
+      });
+    }
+
+    // 3. Practice & Videos
+    if (g.playlists && g.playlists.length > 0) {
+      g.playlists.forEach((p, i) => {
+        pushUnique(V, {
+          id: `vid-${wk}-${i}`,
+          title: p.title,
+          subtitle: `${g.week} • شرح وتطبيقات وحل مسائل`,
+          links: p.url ? [{ label: 'مشاهدة الفيديو', icon: '🎬', url: p.url }] : []
+        });
+      });
+    } else if (g.practice) {
+      pushUnique(V, {
+        id: `prac-${wk}`,
+        title: g.practice,
+        subtitle: `${g.week} • تمارين ومسائل عملية`,
+        links: []
+      });
+    }
+
+    // 4. Quick Notes / Formulas
+    if (g.summary_url || g.summary_title) {
+      pushUnique(N, {
+        id: `sum-${wk}`,
+        title: g.summary_title || 'ملخص القوانين والنوتس السريعة',
+        subtitle: `${g.week} • مراجعة القوانين والملاحظات الهامة`,
+        links: g.summary_url ? [{ label: 'فتح الملخص', icon: '💡', url: g.summary_url }] : []
+      });
+    }
   });
 
-  if (!L.items.length) L.items.push({ id: 'lec-generic', title: 'مراجعة كل المحاضرات المقررة على الكويز', meta: 'General' });
-  if (!S.items.length) S.items.push({ id: 'sht-generic', title: 'حل مسائل الشيتات المرتبطة بالجزء المقرر', meta: 'General' });
-  if (!V.items.length) V.items.push({ id: 'vid-generic', title: 'مشاهدة شرح الأجزاء الصعبة', meta: 'General' });
-  N.items.push({ id: 'final-review', title: 'مراجعة سريعة نهائية قبل الكويز بساعة', meta: 'Final Check ✅' });
+  // Fallbacks if some groups are empty
+  const drive = (typeof DRIVE_DATA !== 'undefined' && DRIVE_DATA[task.code]) || {};
+  if (!L.items.length) {
+    L.items.push({
+      id: `lec-default-${task.id}`,
+      title: 'مراجعة كافة المحاضرات والسلايدات الداخلة في الكويز',
+      subtitle: `${task.code} • مراجعة المحتوى النظري`,
+      links: drive.lectures ? [{ label: 'فولدر المحاضرات', icon: '📚', url: drive.lectures }] : []
+    });
+  }
+
+  if (!S.items.length) {
+    S.items.push({
+      id: `sht-default-${task.id}`,
+      title: 'حل المسائل والشيتات المرتبطة بجزء الامتحان',
+      subtitle: `${task.code} • التمارين والحلول النموذجية`,
+      links: drive.sheets ? [{ label: 'فولدر الشيتات', icon: '📝', url: drive.sheets }] : []
+    });
+  }
+
+  if (!V.items.length) {
+    V.items.push({
+      id: `vid-default-${task.id}`,
+      title: 'مشاهدة فيديوهات الشرح وحل المسائل الصعبة',
+      subtitle: `${task.code} • تدريب عملي ومسائل سابقة`,
+      links: []
+    });
+  }
+
+  // Add Course Capsules or Roadmaps if applicable
+  const customLinks = [];
+  if (task.code === 'EMC G101') customLinks.push({ label: '🗺️ خارطة الديناميكا', icon: '🗺️', url: 'javascript:openDynamicsRoadmapModal()' });
+  if (task.code === 'MDP G121') customLinks.push({ label: '🗺️ خارطة الماتريال', icon: '🗺️', url: 'javascript:openMaterialsRoadmapModal()' });
+  if (drive.folder) customLinks.push({ label: '📁 درايف المادة الكامل', icon: '📁', url: drive.folder });
+
+  pushUnique(N, {
+    id: `formula-default-${task.id}`,
+    title: 'مراجعة شيت القوانين والكبسولة السريعة قبل الكويز',
+    subtitle: `${task.code} • مراجعة نهائية مركزة`,
+    links: customLinks
+  });
 
   return groups;
 }
 
-function getQuizProgress(task) {
-  const groups = buildQuizChecklist(task);
-  const st = quizChecklistState[getQuizStateKey(task)] || {};
-  const all = groups.flatMap(g => g.items);
-  const done = all.filter(i => st[i.id]).length;
-  return { groups, st, done, total: all.length, pct: all.length ? Math.round((done / all.length) * 100) : 0 };
+function getQuizProgressById(taskId) {
+  const allTasks = getAllCombinedTasks();
+  const task = allTasks.find(t => t.id === taskId);
+  if (!task) return { done: 0, total: 0, pct: 0, categories: [], state: {} };
+  const categories = buildQuizChecklist(task);
+  const st = quizChecklistState[task.id] || {};
+  const allItems = categories.flatMap(c => c.items);
+  const doneCount = allItems.filter(i => !!st[i.id]).length;
+  const totalCount = allItems.length;
+  const pct = totalCount ? Math.round((doneCount / totalCount) * 100) : 0;
+  return {
+    done: doneCount,
+    total: totalCount,
+    pct: pct,
+    categories: categories,
+    state: st
+  };
 }
 
-function getReadinessLabel(pct) {
+function getQuizReadiness(pct) {
   if (pct >= 100) return { txt: 'جاهز تماماً 💯', color: '#22c55e' };
   if (pct >= 67) return { txt: 'قربت جداً 🔥', color: '#f59e0b' };
   if (pct >= 34) return { txt: 'في الطريق 🚀', color: '#38bdf8' };
@@ -826,23 +932,55 @@ function getReadinessLabel(pct) {
   return { txt: 'لسه مبدأتش 😴', color: '#94a3b8' };
 }
 
-function renderProgressRing(pct, color, size = 64, stroke = 6) {
-  const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  const off = c * (1 - Math.min(100, Math.max(0, pct)) / 100);
-  return `
-    <div class="qg-ring-wrap" style="--ring-size:${size}px;width:${size}px;height:${size}px;color:${color};" role="img" aria-label="Readiness ${pct}%">
-      <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-        <circle class="qg-ring-bg" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-width="${stroke}"></circle>
-        <circle class="qg-ring-fg" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-width="${stroke}" stroke="currentColor"
-          stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}" transform="rotate(-90 ${size / 2} ${size / 2})"></circle>
-      </svg>
-      <span class="qg-ring-txt">${pct}%</span>
-    </div>
-  `;
+function toggleQuizChecklistItem(taskId, itemId) {
+  triggerHaptic("light");
+  if (!quizChecklistState[taskId]) {
+    quizChecklistState[taskId] = {};
+  }
+  const beforePct = getQuizProgressById(taskId).pct;
+  if (quizChecklistState[taskId][itemId]) {
+    delete quizChecklistState[taskId][itemId];
+  } else {
+    quizChecklistState[taskId][itemId] = Date.now();
+  }
+  localStorage.setItem("cufe_quiz_checklists", JSON.stringify(quizChecklistState));
+
+  const afterPct = getQuizProgressById(taskId).pct;
+  if (afterPct === 100 && beforePct < 100 && typeof confetti === 'function') {
+    confetti({ particleCount: 90, spread: 80, origin: { y: 0.55 }, zIndex: 10050 });
+  }
+
+  // Update in-place if task details overlay is currently open with this task
+  if (currentDetailedTask && currentDetailedTask.id === taskId) {
+    const overlay = document.getElementById("taskDetailsOverlay");
+    if (overlay && overlay.classList.contains("open")) {
+      const scrollPos = overlay.scrollTop;
+      renderQuizPreparationGuideInOverlay(currentDetailedTask);
+      overlay.scrollTop = scrollPos;
+    }
+  }
+
+  // Refresh tasks hub progress bars
+  if (activeView === 'tasks') {
+    renderTasksHubContent();
+  }
 }
 
-/* ---------- Shell + subject chips ---------- */
+function resetQuizChecklist(taskId) {
+  if (!confirm("هل أنت متأكد من تصفير بنود التحضير لهذا الكويز؟")) return;
+  triggerHaptic("medium");
+  delete quizChecklistState[taskId];
+  localStorage.setItem("cufe_quiz_checklists", JSON.stringify(quizChecklistState));
+
+  if (currentDetailedTask && currentDetailedTask.id === taskId) {
+    renderQuizPreparationGuideInOverlay(currentDetailedTask);
+  }
+  if (activeView === 'tasks') {
+    renderTasksHubContent();
+  }
+}
+
+/* ---------- Simplified Tasks Screen Renderer ---------- */
 
 function renderTasksScreen() {
   const container = document.getElementById("viewContainer");
@@ -854,15 +992,15 @@ function renderTasksScreen() {
         <button class="view-back-btn" onclick="setView('week')">
           <span>◀</span><span>الرجوع للجدول</span>
         </button>
-        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">SUBJECT HUB</span>
+        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">TASKS & EXAMS HUB</span>
       </div>
 
       <div class="tasks-main-header">
         <div class="tasks-header-left">
           <div class="tasks-icon-box">📋</div>
           <div>
-            <div class="tasks-header-title">Tasks & Study Hub</div>
-            <div class="tasks-header-subtitle">ذاكر مادة مادة، وخلّي كل كويز تحت السيطرة 🎯</div>
+            <div class="tasks-header-title">Tasks & Exams Hub</div>
+            <div class="tasks-header-subtitle">الكويزات والأسينمنتس منظمة مادة مادة 🎯</div>
           </div>
         </div>
         <button class="focus-mode-btn ${isFocusModeActive ? 'active' : ''}" id="focusModeBtn" onclick="toggleFocusMode()">
@@ -871,10 +1009,12 @@ function renderTasksScreen() {
         </button>
       </div>
 
+      <!-- Subject Filter Pills (Dark Glassmorphism) -->
       <nav class="subject-hub-bar" id="subjectHubBar" role="tablist" aria-label="فلترة حسب المادة">
         ${renderSubjectChipsHtml(allTasks)}
       </nav>
 
+      <!-- Search Row -->
       <div class="tasks-search-row">
         <div class="tasks-search-input-box">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
@@ -885,6 +1025,7 @@ function renderTasksScreen() {
         </button>
       </div>
 
+      <!-- Main Clean Content Stream -->
       <div class="subject-hub-content" id="tasksHubContent"></div>
     </div>
   `;
@@ -942,7 +1083,7 @@ function setSubjectFilter(code) {
   localStorage.setItem("cufe_tasks_subject", code);
 
   const content = document.getElementById("tasksHubContent");
-  if (!content || activeView !== 'tasks') return; // state saved; will render when the tasks view opens
+  if (!content || activeView !== 'tasks') return;
   if (!changed) return;
   triggerHaptic("light");
 
@@ -958,16 +1099,122 @@ function setSubjectFilter(code) {
   window._hubFadeTimer = setTimeout(() => {
     renderTasksHubContent();
     requestAnimationFrame(() => content.classList.remove('is-fading'));
-  }, 180);
+  }, 160);
 }
 
 function renderTasksHubContent(allTasksArg) {
   const el = document.getElementById("tasksHubContent");
   if (!el) return;
   const allTasks = allTasksArg || getAllCombinedTasks();
-  el.innerHTML = activeSubjectFilter === 'all'
-    ? renderAllTasksViewHtml(allTasks)
-    : renderSubjectHubViewHtml(activeSubjectFilter, allTasks);
+
+  // 1. Filter by subject
+  let list = activeSubjectFilter === 'all'
+    ? allTasks
+    : allTasks.filter(t => t.code === activeSubjectFilter);
+
+  // 2. Search
+  list = applyTasksSearch(list);
+
+  // Summary counts
+  const totalCount = list.length;
+  const dueSoonCount = list.filter(t => !t.isDone && t.priority === 'due-soon').length;
+  const thisWeekCount = list.filter(t => !t.isDone && (t.priority === 'due-soon' || t.priority === 'upcoming')).length;
+
+  // 3. Status Tab filter
+  let filtered = list;
+  if (activeTaskFilter === 'due-soon') {
+    filtered = filtered.filter(t => !t.isDone && t.priority === 'due-soon');
+  } else if (activeTaskFilter === 'this-week') {
+    filtered = filtered.filter(t => !t.isDone && (t.priority === 'due-soon' || t.priority === 'upcoming'));
+  } else if (activeTaskFilter === 'completed') {
+    filtered = filtered.filter(t => t.isDone);
+  }
+
+  // 4. Focus Mode
+  if (isFocusModeActive) {
+    filtered = filtered.filter(t => !t.isDone).sort(sortByDeadline).slice(0, 3);
+  }
+
+  // 5. Clean separation: Quizzes vs Assignments
+  const quizzes = filtered.filter(isQuizTask).sort(sortByDeadline);
+  const assignments = filtered.filter(t => !isQuizTask(t)).sort(sortByDeadline);
+
+  el.innerHTML = `
+    <!-- Summary Chips Bar -->
+    <div class="tasks-summary-bar">
+      <div class="summary-stat-chip">
+        <span class="summary-stat-icon">📑</span>
+        <div class="summary-stat-info">
+          <span class="summary-stat-num">${totalCount}</span>
+          <span class="summary-stat-txt">${activeSubjectFilter === 'all' ? 'Total Tasks' : activeSubjectFilter}</span>
+        </div>
+      </div>
+
+      <div class="summary-stat-chip">
+        <span class="summary-stat-icon">📅</span>
+        <div class="summary-stat-info">
+          <span class="summary-stat-num" style="color:#f59e0b;">${thisWeekCount}</span>
+          <span class="summary-stat-txt">Due This Week</span>
+        </div>
+      </div>
+
+      <div class="summary-stat-chip">
+        <span class="summary-stat-icon">⏳</span>
+        <div class="summary-stat-info">
+          <span class="summary-stat-num" style="color:#ef4444;">${dueSoonCount}</span>
+          <span class="summary-stat-txt">Due Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Tabs -->
+    <div class="subject-pill-filters">
+      <button class="sub-filter-pill ${activeTaskFilter === 'all' ? 'active' : ''}" onclick="setTaskFilterTab('all')">الكل All</button>
+      <button class="sub-filter-pill ${activeTaskFilter === 'due-soon' ? 'active' : ''}" onclick="setTaskFilterTab('due-soon')">🔴 Due Soon</button>
+      <button class="sub-filter-pill ${activeTaskFilter === 'this-week' ? 'active' : ''}" onclick="setTaskFilterTab('this-week')">📅 This Week</button>
+      <button class="sub-filter-pill ${activeTaskFilter === 'completed' ? 'active' : ''}" onclick="setTaskFilterTab('completed')">🟢 Completed</button>
+    </div>
+
+    <!-- Clean Task & Quiz Stream -->
+    <div class="tasks-stream">
+      ${quizzes.length > 0 ? `
+        <div>
+          <div class="task-section-head">
+            <div class="task-section-title-wrap" style="color:var(--quiz-color, #f97316);">
+              <span>🎯</span><span>الكويزات والامتحانات (Quizzes & Exams)</span>
+            </div>
+            <span class="task-section-count">${quizzes.length} exams</span>
+          </div>
+          <div class="hub-quiz-grid">
+            ${quizzes.map(renderQuizCardHtml).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      ${assignments.length > 0 ? `
+        <div>
+          <div class="task-section-head">
+            <div class="task-section-title-wrap" style="color:#38bdf8;">
+              <span>📝</span><span>المهام والتسليمات (Assignments & Deliverables)</span>
+            </div>
+            <span class="task-section-count">${assignments.length} tasks</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            ${assignments.map(renderCompactTaskCardHtml).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      ${filtered.length === 0 ? `
+        <div class="hub-empty">
+          <div style="font-size:24px;margin-bottom:6px;">✨</div>
+          <div>لا توجد كويزات أو مهام مطابقة للبحث أو الفلتر حالياً</div>
+          <div style="font-size:11px;color:var(--text-subtle);margin-top:4px;">جرّب اختيار مادة تانية أو تغيير فلتر الحالة</div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+
   updateSubjectChipCounts(allTasks);
 }
 
@@ -978,442 +1225,47 @@ function refreshTasksHub() {
   else renderTasksScreen();
 }
 
-/* ---------- Shared section renderers ---------- */
-
-function renderHubSectionHead(icon, label, count, color, unit = 'items') {
-  return `
-    <div class="task-section-head">
-      <div class="task-section-title-wrap" style="color:${color};">
-        <span>${icon}</span><span>${label}</span>
-      </div>
-      <span class="task-section-count">${count} ${unit}</span>
-    </div>
-  `;
-}
+/* ---------- Card Renderers ---------- */
 
 function renderQuizCardHtml(task) {
   const course = getCourseMeta(task.code);
-  const p = getQuizProgress(task);
-  const ready = getReadinessLabel(p.pct);
+  const p = getQuizProgressById(task.id);
+  const ready = getQuizReadiness(p.pct);
   const d = new Date(task.deadline);
   const dateTxt = !isNaN(d.getTime())
     ? `${d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} • ${d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
     : escHtml(task.deadline);
 
   return `
-    <article class="quiz-hub-card ${task.isDone ? 'is-done' : ''} ${task.countdown.isPassed ? 'is-passed' : ''}" style="--c:${course.hex};">
+    <article class="quiz-hub-card ${task.isDone ? 'is-done' : ''} ${task.countdown.isPassed ? 'is-passed' : ''}" style="--c:${course.hex};" onclick="openTaskDetails('${task.id}')">
       <div class="quiz-hub-top">
         <span class="quiz-hub-code">${task.code}</span>
-        <span class="quiz-hub-type">${task.isDone ? '✓ Done' : escHtml(task.type)}</span>
+        <span class="quiz-hub-type">${task.isDone ? '✓ Completed' : escHtml(task.type)}</span>
       </div>
+
       <div class="quiz-hub-body">
-        ${renderProgressRing(p.pct, course.hex, 54, 5)}
         <div class="quiz-hub-info">
           <h3 class="quiz-hub-title" dir="auto">${escHtml(task.title)}</h3>
           <div class="quiz-hub-meta">📅 ${dateTxt}</div>
           <div class="quiz-hub-countdown ${task.countdown.isUrgent ? 'urgent' : ''}">⏳ ${task.countdown.text}</div>
         </div>
       </div>
+
       <div class="quiz-hub-ready">
-        <span style="color:${ready.color};">${ready.txt}</span>
-        <span class="quiz-hub-ready-count">${p.done}/${p.total}</span>
+        <span style="color:${ready.color};font-weight:800;">${ready.txt}</span>
+        <span class="quiz-hub-ready-count">${p.done}/${p.total} بنود مذاكرة (${p.pct}%)</span>
       </div>
-      <div class="quiz-hub-bar"><span style="width:${p.pct}%;"></span></div>
-      <div class="quiz-hub-actions">
-        <button class="quiz-guide-btn" id="quizGuideBtn-${task.id}" onclick="openQuizGuide('${task.id}')">🎯 Quiz Guide</button>
-        <button class="quiz-details-btn" onclick="openTaskDetails('${task.id}')" title="تفاصيل الكويز">التفاصيل ↗</button>
+      <div class="quiz-hub-bar"><span style="width:${p.pct}%;background:${ready.color};"></span></div>
+
+      <div class="quiz-hub-actions" onclick="event.stopPropagation()">
+        <button class="quiz-guide-btn" onclick="openTaskDetails('${task.id}')">
+          <span>🎯</span>
+          <span>خطة التحضير والتفاصيل ↗</span>
+        </button>
       </div>
     </article>
   `;
 }
-
-function renderSheetCardHtml(g, code) {
-  const course = getCourseMeta(code);
-  const id = getSheetProgressId(code, g.week);
-  const done = completedTasks.includes(id);
-  return `
-    <div class="hub-sheet-card ${done ? 'done' : ''}" style="--c:${course.hex};">
-      <button class="hub-check ${done ? 'on' : ''}" onclick="toggleSheetDone('${id}')" role="checkbox" aria-checked="${done}" aria-label="تم حل ${escHtml(g.sheet)}">✓</button>
-      <div class="hub-sheet-info">
-        <span class="hub-sheet-week">${escHtml(g.week)} • ${done ? 'تم الحل ✅' : 'لم يُحل بعد'}</span>
-        <div class="hub-sheet-title" dir="auto">${escHtml(g.sheet)}</div>
-      </div>
-      <div class="hub-sheet-links">
-        ${g.sheet_url ? `<button class="hub-mini-link" onclick="openSafeDriveLink('${escHtml(g.sheet_url)}')" title="فتح الشيت">📄</button>` : ''}
-        ${g.solution_url ? `<button class="hub-mini-link" onclick="openSafeDriveLink('${escHtml(g.solution_url)}')" title="الحلول">✅</button>` : ''}
-      </div>
-    </div>
-  `;
-}
-
-function getSubjectQuickLinks(code) {
-  const guides = getSubjectGuides(code);
-  const latest = guides[guides.length - 1] || {};
-  const drive = (typeof DRIVE_DATA !== 'undefined' && DRIVE_DATA[code]) || {};
-  const links = [
-    { icon: '📁', label: 'Drive', color: '#38bdf8', url: drive.folder || MAIN_SEMESTER_DRIVE },
-    { icon: '📚', label: 'Lectures', color: '#0ea5e9', url: latest.slides_url || drive.lectures },
-    { icon: '📝', label: 'Sheets', color: '#f59e0b', url: latest.sheet_url || drive.sheets },
-    { icon: '✅', label: 'Solutions', color: '#22c55e', url: latest.solution_url },
-    { icon: '🎬', label: 'Videos', color: '#f43f5e', url: latest.playlists && latest.playlists[0] && latest.playlists[0].url },
-    { icon: '💡', label: 'Notes', color: '#a78bfa', url: latest.summary_url }
-  ].filter(l => l.url).map(l => ({ ...l, action: `openSafeDriveLink('${escHtml(l.url)}')` }));
-
-  links.push({ icon: '🧭', label: 'Guide', color: '#06b6d4', action: `openSubjectGuide('${code}')` });
-  links.push({ icon: '💊', label: 'Capsule', color: '#fb923c', action: `openCourseCapsule('${code}')` });
-  if (code === 'EMC G101') links.push({ icon: '🗺️', label: 'Roadmap', color: '#8b5cf6', action: 'openDynamicsRoadmapModal()' });
-  if (code === 'MDP G121') links.push({ icon: '🗺️', label: 'Roadmap', color: '#f59e0b', action: 'openMaterialsRoadmapModal()' });
-  if (typeof COURSE_CUSTOM_LINKS !== 'undefined' && COURSE_CUSTOM_LINKS[code]) links.push({ icon: '🔗', label: 'Links', color: '#6366f1', action: `openCourseLinksModal('${code}')` });
-  return links;
-}
-
-function openSubjectGuide(code) {
-  const guides = getSubjectGuides(code);
-  selectedGuideCourse = code;
-  if (guides.length && !guides.some(g => g.week === selectedGuideWeek)) selectedGuideWeek = guides[guides.length - 1].week;
-  setView('guide');
-}
-
-/* ---------- "All" view ---------- */
-
-function renderAllTasksViewHtml(allTasks) {
-  const totalTasks = allTasks.length;
-  const dueSoonTasks = allTasks.filter(t => !t.isDone && t.priority === 'due-soon').length;
-  const thisWeekTasks = allTasks.filter(t => !t.isDone && (t.priority === 'due-soon' || t.priority === 'upcoming')).length;
-
-  let filtered = applyTasksSearch(allTasks);
-
-  const quizRadar = filtered.filter(t => isQuizTask(t) && !t.isDone && !t.countdown.isPassed).sort(sortByDeadline);
-
-  if (activeTaskFilter === 'due-soon') {
-    filtered = filtered.filter(t => !t.isDone && t.priority === 'due-soon');
-  } else if (activeTaskFilter === 'this-week') {
-    filtered = filtered.filter(t => !t.isDone && (t.priority === 'due-soon' || t.priority === 'upcoming'));
-  } else if (activeTaskFilter === 'completed') {
-    filtered = filtered.filter(t => t.isDone);
-  }
-
-  if (isFocusModeActive) {
-    filtered = filtered.filter(t => !t.isDone).sort((a, b) => {
-      const da = new Date(a.deadline).getTime() || 0;
-      const db = new Date(b.deadline).getTime() || 0;
-      return da - db;
-    }).slice(0, 3);
-  }
-
-  const dueSoonList = filtered.filter(t => !t.isDone && t.priority === 'due-soon');
-  const upcomingList = filtered.filter(t => !t.isDone && (t.priority === 'upcoming' || t.priority === 'scheduled'));
-  const completedList = filtered.filter(t => t.isDone);
-
-  return `
-      <div class="tasks-summary-bar">
-        <div class="summary-stat-chip">
-          <span class="summary-stat-icon">📑</span>
-          <div class="summary-stat-info">
-            <span class="summary-stat-num">${totalTasks}</span>
-            <span class="summary-stat-txt">Total Tasks</span>
-          </div>
-        </div>
-
-        <div class="summary-stat-chip">
-          <span class="summary-stat-icon">📅</span>
-          <div class="summary-stat-info">
-            <span class="summary-stat-num" style="color:#f59e0b;">${thisWeekTasks}</span>
-            <span class="summary-stat-txt">Due This Week</span>
-          </div>
-        </div>
-
-        <div class="summary-stat-chip">
-          <span class="summary-stat-icon">⏳</span>
-          <div class="summary-stat-info">
-            <span class="summary-stat-num" style="color:#ef4444;">${dueSoonTasks}</span>
-            <span class="summary-stat-txt">Due Soon</span>
-          </div>
-        </div>
-      </div>
-
-      ${quizRadar.length > 0 ? `
-        <section>
-          ${renderHubSectionHead('🎯', 'Quiz Radar — الكويزات الجاية', quizRadar.length, 'var(--quiz-color)', 'quizzes')}
-          <div class="hub-quiz-grid">${quizRadar.map(renderQuizCardHtml).join('')}</div>
-        </section>
-      ` : ''}
-
-      <div class="subject-pill-filters">
-        <button class="sub-filter-pill ${activeTaskFilter === 'all' ? 'active' : ''}" onclick="setTaskFilterTab('all')">All</button>
-        <button class="sub-filter-pill ${activeTaskFilter === 'due-soon' ? 'active' : ''}" onclick="setTaskFilterTab('due-soon')">🔴 Due Soon</button>
-        <button class="sub-filter-pill ${activeTaskFilter === 'this-week' ? 'active' : ''}" onclick="setTaskFilterTab('this-week')">📅 This Week</button>
-        <button class="sub-filter-pill ${activeTaskFilter === 'completed' ? 'active' : ''}" onclick="setTaskFilterTab('completed')">🟢 Completed</button>
-      </div>
-
-      <div class="tasks-stream">
-        ${dueSoonList.length > 0 ? `
-          <div>
-            <div class="task-section-head">
-              <div class="task-section-title-wrap" style="color:#ef4444;">
-                <span>🔴</span><span>Due Soon</span>
-              </div>
-              <span class="task-section-count">${dueSoonList.length} tasks</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              ${dueSoonList.map(task => renderCompactTaskCardHtml(task)).join("")}
-            </div>
-          </div>
-        ` : ''}
-
-        ${upcomingList.length > 0 ? `
-          <div>
-            <div class="task-section-head">
-              <div class="task-section-title-wrap" style="color:#f97316;">
-                <span>🟠</span><span>Upcoming</span>
-              </div>
-              <span class="task-section-count">${upcomingList.length} tasks</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              ${upcomingList.map(task => renderCompactTaskCardHtml(task)).join("")}
-            </div>
-          </div>
-        ` : ''}
-
-        ${completedList.length > 0 ? `
-          <div>
-            <div class="task-section-head">
-              <div class="task-section-title-wrap" style="color:#10b981;">
-                <span>🟢</span><span>Completed</span>
-              </div>
-              <span class="task-section-count">${completedList.length} tasks</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:10px;opacity:0.8;">
-              ${completedList.map(task => renderCompactTaskCardHtml(task)).join("")}
-            </div>
-          </div>
-        ` : ''}
-
-        ${filtered.length === 0 ? `
-          <div class="hub-empty">✨ لا توجد مهام مطابقة للبحث أو الفلتر حالياً</div>
-        ` : ''}
-      </div>
-  `;
-}
-
-/* ---------- Single-subject Hub view ---------- */
-
-function renderSubjectHubViewHtml(code, allTasks) {
-  const course = getCourseMeta(code);
-  const subjectTasks = allTasks.filter(t => t.code === code);
-  const tasks = applyTasksSearch(subjectTasks);
-  const q = tasksSearchQuery.trim().toLowerCase();
-
-  const quizzes = tasks.filter(isQuizTask).sort(sortByDeadline);
-  let submissions = tasks.filter(t => !isQuizTask(t)).sort(sortByDeadline);
-  if (isFocusModeActive) submissions = submissions.filter(t => !t.isDone);
-
-  const allSheets = getSubjectGuides(code).filter(g => g.sheet);
-  let sheets = q ? allSheets.filter(g => g.sheet.toLowerCase().includes(q) || g.week.toLowerCase().includes(q)) : allSheets;
-  if (isFocusModeActive) sheets = sheets.filter(g => !completedTasks.includes(getSheetProgressId(code, g.week)));
-
-  const sheetsDone = allSheets.filter(g => completedTasks.includes(getSheetProgressId(code, g.week))).length;
-  const tasksDone = subjectTasks.filter(t => t.isDone).length;
-  const totalUnits = subjectTasks.length + allSheets.length;
-  const overallPct = totalUnits ? Math.round(((tasksDone + sheetsDone) / totalUnits) * 100) : 0;
-  const nextQuiz = subjectTasks.filter(t => isQuizTask(t) && !t.isDone && !t.countdown.isPassed).sort(sortByDeadline)[0];
-  const pendingSubs = subjectTasks.filter(t => !isQuizTask(t) && !t.isDone).length;
-
-  return `
-    <section class="subject-hero" style="--c:${course.hex};">
-      <div class="subject-hero-main">
-        <div class="subject-hero-text">
-          <span class="subject-hero-code">${code}</span>
-          <h2 class="subject-hero-name">${escHtml(course.name)}</h2>
-          <div class="subject-hero-inst">👨‍🏫 ${escHtml(course.instructor || 'Staff')}</div>
-        </div>
-        ${renderProgressRing(overallPct, course.hex, 74, 7)}
-      </div>
-      ${nextQuiz ? `
-        <button class="subject-hero-next" onclick="openQuizGuide('${nextQuiz.id}')">
-          <span>⚡ الكويز الجاي: <b dir="auto">${escHtml(nextQuiz.title)}</b></span>
-          <span class="subject-hero-next-cd">${nextQuiz.countdown.text}</span>
-        </button>
-      ` : ''}
-      <div class="subject-hero-stats">
-        <div class="hub-stat"><span class="hub-stat-num">${subjectTasks.filter(isQuizTask).length}</span><span class="hub-stat-lbl">🎯 Quizzes</span></div>
-        <div class="hub-stat"><span class="hub-stat-num">${sheetsDone}/${allSheets.length}</span><span class="hub-stat-lbl">📝 Sheets</span></div>
-        <div class="hub-stat"><span class="hub-stat-num" style="color:${pendingSubs ? '#f97316' : '#22c55e'};">${pendingSubs}</span><span class="hub-stat-lbl">📤 Pending</span></div>
-      </div>
-    </section>
-
-    <section>
-      ${renderHubSectionHead('⚡', 'وصول سريع للماتريال', '', course.hex, '')}
-      <div class="hub-quick-grid">
-        ${getSubjectQuickLinks(code).map((l, i) => `
-          <button class="hub-quick-btn" id="hubQuick-${code.replace(/\s+/g, '')}-${i}" style="--q:${l.color};" onclick="${l.action}">
-            <span class="ico">${l.icon}</span>
-            <span>${l.label}</span>
-          </button>
-        `).join('')}
-      </div>
-    </section>
-
-    <section>
-      ${renderHubSectionHead('🎯', 'الكويزات والامتحانات', quizzes.length, 'var(--quiz-color)', 'quizzes')}
-      ${quizzes.length
-        ? `<div class="hub-quiz-grid">${quizzes.map(renderQuizCardHtml).join('')}</div>`
-        : `<div class="hub-empty">🎉 مفيش كويزات مسجلة للمادة دي حالياً</div>`}
-    </section>
-
-    <section>
-      ${renderHubSectionHead('📝', 'الشيتات والتسليمات', sheets.length + submissions.length, '#f59e0b', 'items')}
-      <div class="hub-list">
-        ${submissions.map(renderCompactTaskCardHtml).join('')}
-        ${sheets.map(g => renderSheetCardHtml(g, code)).join('')}
-        ${(sheets.length + submissions.length) === 0 ? `<div class="hub-empty">✨ لا توجد شيتات أو تسليمات مطابقة</div>` : ''}
-      </div>
-    </section>
-  `;
-}
-
-function toggleSheetDone(id) {
-  triggerHaptic("heavy");
-  if (completedTasks.includes(id)) {
-    completedTasks = completedTasks.filter(x => x !== id);
-  } else {
-    completedTasks.push(id);
-    if (typeof confetti === 'function') confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
-  }
-  localStorage.setItem("cufe_completed_tasks", JSON.stringify(completedTasks));
-  refreshTasksHub();
-}
-
-/* ---------- Quiz Guide modal ---------- */
-
-function findTaskById(taskId) {
-  return getAllCombinedTasks().find(t => t.id === taskId);
-}
-
-function openQuizGuide(taskId) {
-  const task = findTaskById(taskId);
-  if (!task) return;
-  triggerHaptic("heavy");
-  activeQuizGuideId = taskId;
-  renderQuizGuideModal(true);
-  document.getElementById("quizGuideModal").classList.add("open");
-}
-
-function closeQuizGuide() {
-  const modal = document.getElementById("quizGuideModal");
-  if (!modal || !modal.classList.contains("open")) return;
-  triggerHaptic("light");
-  modal.classList.remove("open");
-  activeQuizGuideId = null;
-}
-
-function renderQuizGuideModal(resetScroll = false) {
-  const task = activeQuizGuideId && findTaskById(activeQuizGuideId);
-  if (!task) return;
-  const card = document.getElementById("quizGuideCard");
-  const head = document.getElementById("quizGuideHeadInfo");
-  const body = document.getElementById("quizGuideBody");
-  const course = getCourseMeta(task.code);
-  const p = getQuizProgress(task);
-  const ready = getReadinessLabel(p.pct);
-  const scrollTop = resetScroll ? 0 : body.scrollTop;
-
-  card.style.setProperty('--c', course.hex);
-
-  head.innerHTML = `
-    <span class="qg-kicker">🎯 Quiz Guide • ${task.code}</span>
-    <h2 class="qg-title" id="quizGuideTitle" dir="auto">${escHtml(task.title)}</h2>
-    <span class="qg-sub">${escHtml(course.name)} — ${escHtml(task.type)}</span>
-  `;
-
-  body.innerHTML = `
-    <div class="qg-ready">
-      ${renderProgressRing(p.pct, ready.color === '#94a3b8' ? course.hex : ready.color, 92, 8)}
-      <div class="qg-ready-info">
-        <span class="qg-ready-label" style="color:${ready.color};">${ready.txt}</span>
-        <span class="qg-ready-sub">نسبة الجاهزية: ${p.done} من ${p.total} خطوة مكتملة</span>
-        <div class="qg-ready-bar"><span style="width:${p.pct}%;"></span></div>
-        <span class="qg-ready-cd ${task.countdown.isUrgent ? 'urgent' : ''}">⏳ ${task.countdown.text}</span>
-      </div>
-    </div>
-
-    ${p.groups.map(g => {
-      const gDone = g.items.filter(i => p.st[i.id]).length;
-      const gPct = g.items.length ? Math.round((gDone / g.items.length) * 100) : 0;
-      return `
-        <div class="qg-group" style="--g:${g.color};">
-          <div class="qg-group-head">
-            <div class="qg-group-title"><span class="qg-group-ico">${g.icon}</span><span>${g.label}</span></div>
-            <span class="qg-group-count">${gDone}/${g.items.length}</span>
-          </div>
-          <div class="qg-group-bar"><span style="width:${gPct}%;"></span></div>
-          ${g.items.map(it => {
-            const done = !!p.st[it.id];
-            return `
-              <div class="qg-item ${done ? 'done' : ''}" role="checkbox" aria-checked="${done}" tabindex="0"
-                onclick="toggleQuizChecklistItem('${it.id}')"
-                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuizChecklistItem('${it.id}');}">
-                <span class="qg-check">✓</span>
-                <div class="qg-item-text">
-                  <div class="qg-item-title" dir="auto">${escHtml(it.title)}</div>
-                  ${it.meta ? `<div class="qg-item-meta">${escHtml(it.meta)}</div>` : ''}
-                </div>
-                ${it.url ? `<button class="qg-item-link" title="فتح الرابط" onclick="event.stopPropagation();openSafeDriveLink('${escHtml(it.url)}')">↗</button>` : ''}
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }).join('')}
-
-    <div class="qg-actions">
-      <button class="qg-btn ghost" onclick="resetQuizChecklist()">↺ تصفير الشيك لست</button>
-      <button class="qg-btn primary ${task.isDone ? 'is-done' : ''}" onclick="toggleTaskCompleted('${task.id}')">
-        ${task.isDone ? '↩ إلغاء إكمال الكويز' : '✓ خلصت الكويز'}
-      </button>
-    </div>
-  `;
-
-  body.scrollTop = scrollTop;
-}
-
-function toggleQuizChecklistItem(itemId) {
-  const task = activeQuizGuideId && findTaskById(activeQuizGuideId);
-  if (!task) return;
-  const key = getQuizStateKey(task);
-  const st = quizChecklistState[key] || {};
-  const before = getQuizProgress(task).pct;
-
-  if (st[itemId]) delete st[itemId];
-  else st[itemId] = Date.now();
-  quizChecklistState[key] = st;
-  localStorage.setItem("cufe_quiz_checklists", JSON.stringify(quizChecklistState));
-  triggerHaptic("light");
-
-  const after = getQuizProgress(task).pct;
-  if (after === 100 && before < 100 && typeof confetti === 'function') {
-    confetti({ particleCount: 90, spread: 80, origin: { y: 0.55 }, zIndex: 10050 });
-  }
-  renderQuizGuideModal();
-  if (activeView === 'tasks') renderTasksHubContent();
-}
-
-function resetQuizChecklist() {
-  const task = activeQuizGuideId && findTaskById(activeQuizGuideId);
-  if (!task) return;
-  if (!confirm("متأكد إنك عايز تصفّر الشيك لست بتاعة الكويز ده؟")) return;
-  delete quizChecklistState[getQuizStateKey(task)];
-  localStorage.setItem("cufe_quiz_checklists", JSON.stringify(quizChecklistState));
-  renderQuizGuideModal();
-  if (activeView === 'tasks') renderTasksHubContent();
-}
-
-(function initQuizGuideModal() {
-  const modal = document.getElementById("quizGuideModal");
-  if (!modal) return;
-  modal.addEventListener("click", e => { if (e.target.id === "quizGuideModal") closeQuizGuide(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeQuizGuide(); });
-})();
 
 function renderCompactTaskCardHtml(task) {
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", hex: "#0284c7" };
@@ -1437,10 +1289,10 @@ function renderCompactTaskCardHtml(task) {
         </span>
       </div>
 
-      <div class="compact-task-title">${task.title}</div>
+      <div class="compact-task-title">${escHtml(task.title)}</div>
 
-      <div class="compact-task-meta" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px;">
-        <div style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono', monospace;font-size:11px;background:var(--surface-alt);padding:4px 8px;border-radius:8px;border:1px solid var(--border);">
+      <div class="compact-task-meta">
+        <div style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono', monospace;font-size:11px;background:rgba(255,255,255,0.04);padding:4px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);">
           ${formattedStart ? `
             <span style="color:#10b981;font-weight:700;">${formattedStart}</span>
             <span style="color:var(--text-subtle);font-weight:800;">→</span>
@@ -1454,16 +1306,15 @@ function renderCompactTaskCardHtml(task) {
       </div>
 
       ${task.note ? `
-        <div class="compact-task-note" style="margin-top:2px;">
-          <span class="txt">📝 ${task.note}</span>
-          <span style="font-size:10px;color:var(--accent);font-weight:800;flex-shrink:0;">تفاصيل ↗</span>
+        <div class="compact-task-note">
+          <span class="txt">📝 ${escHtml(task.note)}</span>
+          <span style="font-size:10.5px;color:var(--accent);font-weight:800;flex-shrink:0;">تفاصيل ↗</span>
         </div>
       ` : ''}
     </div>
   `;
 }
 
-// Only the hub content re-renders, so the search input keeps focus while typing.
 function handleTasksSearch(val) { tasksSearchQuery = val; renderTasksHubContent(); }
 function setTaskFilterTab(tab) { triggerHaptic("light"); activeTaskFilter = tab; renderTasksHubContent(); }
 function toggleFocusMode() {
@@ -1474,6 +1325,12 @@ function toggleFocusMode() {
   renderTasksHubContent();
 }
 
+/* ---------- Dedicated Task Details & Quiz Preparation Guide View ---------- */
+
+function openQuizGuide(taskId) {
+  openTaskDetails(taskId);
+}
+
 function openTaskDetails(taskId) {
   triggerHaptic("heavy");
   const allTasks = getAllCombinedTasks();
@@ -1482,7 +1339,201 @@ function openTaskDetails(taskId) {
 
   currentDetailedTask = task;
   const overlay = document.getElementById("taskDetailsOverlay");
+  const headerTag = overlay ? overlay.querySelector(".details-header span:last-child") : null;
+
+  if (isQuizTask(task)) {
+    if (headerTag) headerTag.textContent = "QUIZ PREPARATION GUIDE";
+    renderQuizPreparationGuideInOverlay(task);
+  } else {
+    if (headerTag) headerTag.textContent = "TASK DETAILS";
+    renderAssignmentDetailsInOverlay(task);
+  }
+
+  if (overlay) {
+    overlay.classList.add("open");
+    overlay.scrollTop = 0;
+  }
+}
+
+function closeTaskDetails() {
+  triggerHaptic("light");
+  const overlay = document.getElementById("taskDetailsOverlay");
+  if (overlay) overlay.classList.remove("open");
+  currentDetailedTask = null;
+  refreshTasksHub();
+}
+
+/* 1. Quiz Preparation Guide (Weekly Guide Inspired) */
+function renderQuizPreparationGuideInOverlay(task) {
   const content = document.getElementById("taskDetailsContent");
+  if (!content) return;
+  const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", instructor: "CUFE Faculty" };
+  const p = getQuizProgressById(task.id);
+  const ready = getQuizReadiness(p.pct);
+
+  const dObj = new Date(task.deadline);
+  const formattedDate = !isNaN(dObj.getTime()) ? dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : task.deadline;
+  const formattedTime = !isNaN(dObj.getTime()) ? dObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+
+  const sObj = new Date(task.start);
+  const formattedStartDate = !isNaN(sObj.getTime()) ? sObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : '';
+  const formattedStartTime = !isNaN(sObj.getTime()) ? sObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
+
+  const descLines = (task.desc || '')
+    .split('\n')
+    .map(l => l.trim())
+    .filter(Boolean)
+    .map(l => `<div class="task-desc-line">${escHtml(l)}</div>`)
+    .join('');
+
+  content.innerHTML = `
+    <div class="quiz-prep-hero" style="--c: ${course.color};">
+      <div class="quiz-prep-hero-top">
+        <span class="quiz-prep-course-pill">${task.code} • ${escHtml(course.name)}</span>
+        <span class="quiz-prep-type-badge ${task.isDone ? 'done' : ''}">
+          ${task.isDone ? '✓ Completed' : (task.countdown.isUrgent ? '🔴 Urgent' : '🎯 Exam / Quiz')}
+        </span>
+      </div>
+
+      <h1 class="quiz-prep-hero-title" dir="auto">${escHtml(task.title)}</h1>
+      <div class="quiz-prep-hero-inst">👨‍🏫 المحاضر: ${escHtml(course.instructor || 'Staff')}</div>
+
+      <div class="details-time-strip" style="margin-top: 10px;">
+        ${formattedStartDate ? `
+          <div class="details-time-row">
+            <span style="color:#10b981;font-weight:800;">🟢 وقت البدء:</span>
+            <span class="details-time-val">${formattedStartDate} • ${formattedStartTime}</span>
+          </div>
+        ` : ''}
+        <div class="details-time-row">
+          <span style="color:#ef4444;font-weight:800;">🔴 موعد الكويز والديدلاين:</span>
+          <span class="details-time-val">${formattedDate} • ${formattedTime}</span>
+        </div>
+        <div style="font-size:12px;font-weight:800;color:${task.countdown.isUrgent ? '#ef4444' : '#38bdf8'};margin-top:2px;direction:ltr;text-align:center;">
+          ⏳ ${task.countdown.text}
+        </div>
+      </div>
+
+      <!-- Preparation Readiness Progress Bar -->
+      <div class="quiz-prep-readiness-box">
+        <div class="quiz-prep-readiness-head">
+          <div class="quiz-prep-readiness-label" style="color:${ready.color};">
+            <span>🎯 معدل الجاهزية: <b>${ready.txt}</b></span>
+          </div>
+          <div class="quiz-prep-readiness-pct" style="color:${ready.color};">${p.pct}%</div>
+        </div>
+        <div class="quiz-prep-bar">
+          <div class="quiz-prep-bar-fill" style="width:${p.pct}%;background:${ready.color};"></div>
+        </div>
+        <div class="quiz-prep-readiness-foot">
+          <span>تم إنجاز ${p.done} من ${p.total} خطوة تحضيرية</span>
+          <span>${p.pct === 100 ? '🎉 مستعد تماماً للكويز!' : 'علّم على اللي خلصته لمتابعة التقدم'}</span>
+        </div>
+      </div>
+    </div>
+
+    ${descLines ? `
+      <div class="details-section-box">
+        <div class="details-section-title"><span>📋</span><span>تعليمات ومقرر الكويز</span></div>
+        <div class="task-desc-container">${descLines}</div>
+        ${task.note ? `<div style="background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;border-left:3.5px solid var(--accent);margin-top:6px;direction:rtl;text-align:right;"><b>ملاحظة:</b> ${escHtml(task.note)}</div>` : ''}
+      </div>
+    ` : ''}
+
+    ${task.files && task.files.length > 0 ? `
+      <div class="details-section-box">
+        <div class="details-section-title"><span>📎</span><span>ملفات ومرفقات الكويز (${task.files.length})</span></div>
+        <div class="details-files-list">
+          ${task.files.map(f => `
+            <a href="${f.url}" target="_blank" rel="noopener noreferrer" class="details-file-item">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">📄</span>
+                <div>
+                  <div>${escHtml(f.name)}</div>
+                  <span style="font-size:9.5px;color:var(--text-muted);">${f.size || 'PDF'}</span>
+                </div>
+              </div>
+              <span style="color:var(--accent);font-size:12px;">فتح ↗</span>
+            </a>
+          `).join("")}
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- Preparation Checklist Cards (Weekly Guide Style) -->
+    <div class="quiz-prep-section">
+      <div class="quiz-prep-section-head">
+        <div class="quiz-prep-section-title">
+          <span>📚</span>
+          <span>خطة المذاكرة والتحضير (Preparation Guide)</span>
+        </div>
+        <span class="quiz-prep-section-count">${p.done}/${p.total} منجز</span>
+      </div>
+
+      <div class="quiz-prep-cards-list">
+        ${p.categories.map(cat => `
+          <div class="quiz-prep-group">
+            <div class="quiz-prep-group-header" style="--grp-c: ${cat.color};">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span>${cat.icon}</span>
+                <span style="font-weight:800;font-size:13px;color:var(--text-main);">${cat.label}</span>
+              </div>
+              <span class="quiz-prep-group-badge">${cat.items.filter(i => p.state[i.id]).length}/${cat.items.length}</span>
+            </div>
+
+            <div class="quiz-prep-items-stack">
+              ${cat.items.map(item => {
+                const isChecked = !!p.state[item.id];
+                return `
+                  <div class="quiz-prep-card ${isChecked ? 'is-completed' : ''}" id="quizPrepCard-${item.id}">
+                    <div class="quiz-prep-card-top">
+                      <button class="quiz-prep-check ${isChecked ? 'checked' : ''}"
+                        onclick="toggleQuizChecklistItem('${task.id}', '${item.id}')"
+                        role="checkbox" aria-checked="${isChecked}" title="${isChecked ? 'إلغاء الإكمال' : 'تعليم كمكتمل'}">
+                        ${isChecked ? '✓' : ''}
+                      </button>
+
+                      <div class="quiz-prep-card-body" onclick="toggleQuizChecklistItem('${task.id}', '${item.id}')" style="cursor:pointer;">
+                        <div class="quiz-prep-item-title" dir="auto">${escHtml(item.title)}</div>
+                        ${item.subtitle ? `<div class="quiz-prep-item-sub">${escHtml(item.subtitle)}</div>` : ''}
+                      </div>
+                    </div>
+
+                    ${item.links && item.links.length > 0 ? `
+                      <div class="quiz-prep-links-row">
+                        ${item.links.map(l => `
+                          <button class="quiz-prep-link-btn" onclick="openSafeDriveLink('${escHtml(l.url)}')">
+                            <span>${l.icon || '↗'}</span>
+                            <span>${escHtml(l.label)}</span>
+                          </button>
+                        `).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Actions Footer -->
+    <div class="quiz-prep-actions">
+      <button class="quiz-prep-action-btn primary ${task.isDone ? 'is-done' : ''}" onclick="toggleTaskCompleted('${task.id}')">
+        ${task.isDone ? '↩ تم إلغاء إنهاء الكويز' : '✓ خلصت الكويز بالكامل'}
+      </button>
+      <button class="quiz-prep-action-btn secondary" onclick="resetQuizChecklist('${task.id}')">
+        <span>↺</span><span>تصفير تقدم المذاكرة</span>
+      </button>
+    </div>
+  `;
+}
+
+/* 2. Assignment / Regular Task Details */
+function renderAssignmentDetailsInOverlay(task) {
+  const content = document.getElementById("taskDetailsContent");
+  if (!content) return;
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", instructor: "CUFE Faculty" };
 
   const dObj = new Date(task.deadline);
@@ -1493,11 +1544,11 @@ function openTaskDetails(taskId) {
   const formattedStartDate = !isNaN(sObj.getTime()) ? sObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : '';
   const formattedStartTime = !isNaN(sObj.getTime()) ? sObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : '';
 
-  const formattedDescLines = task.desc
+  const formattedDescLines = (task.desc || '')
     .split('\n')
     .map(l => l.trim())
     .filter(Boolean)
-    .map(line => `<div class="task-desc-line">${line}</div>`)
+    .map(line => `<div class="task-desc-line">${escHtml(line)}</div>`)
     .join('');
 
   content.innerHTML = `
@@ -1509,14 +1560,14 @@ function openTaskDetails(taskId) {
         </span>
       </div>
 
-      <div style="font-size:17px;font-weight:800;color:var(--text-main);line-height:1.35;">${task.title}</div>
-      <div style="font-size:12px;color:var(--text-muted);font-weight:600;">${course.name}</div>
+      <div style="font-size:17px;font-weight:800;color:var(--text-main);line-height:1.35;margin-top:2px;">${escHtml(task.title)}</div>
+      <div style="font-size:12px;color:var(--text-muted);font-weight:600;">${escHtml(course.name)}</div>
 
       <div class="details-time-strip">
         ${formattedStartDate ? `
           <div class="details-time-row">
             <span style="color:#10b981;font-weight:800;">🟢 وقت البدء:</span>
-            <span class="details-time-val">${formattedStartDate} •${formattedStartTime}</span>
+            <span class="details-time-val">${formattedStartDate} • ${formattedStartTime}</span>
           </div>
         ` : ''}
         <div class="details-time-row">
@@ -1535,37 +1586,39 @@ function openTaskDetails(taskId) {
         </div>
         <div class="details-meta-block">
           <span style="color:var(--text-muted);font-weight:700;">Instructor</span>
-          <b style="color:var(--text-main);">${course.instructor || 'Staff'}</b>
+          <b style="color:var(--text-main);">${escHtml(course.instructor || 'Staff')}</b>
         </div>
         <div class="details-meta-block">
           <span style="color:var(--text-muted);font-weight:700;">Type</span>
-          <b style="color:var(--accent);">${task.type}</b>
+          <b style="color:var(--accent);">${escHtml(task.type)}</b>
         </div>
       </div>
     </div>
 
     <div class="details-section-box">
-      <div class="details-section-title"><span>📋</span><span>Task Instructions & Notes</span></div>
+      <div class="details-section-title"><span>📋</span><span>تفاصيل وملاحظات المهمة</span></div>
       <div class="task-desc-container">${formattedDescLines}</div>
-      ${task.note ? `<div style="background:var(--surface-alt);padding:8px 12px;border-radius:10px;border-left:3.5px solid var(--accent);margin-top:6px;direction:rtl;text-align:right;"><b>Note:</b> ${task.note}</div>` : ''}
+      ${task.note ? `<div style="background:var(--surface-alt);padding:8px 12px;border-radius:10px;border-left:3.5px solid var(--accent);margin-top:6px;direction:rtl;text-align:right;"><b>ملاحظة:</b> ${escHtml(task.note)}</div>` : ''}
     </div>
 
-    <div class="details-section-box" style="border-left:4px solid #10b981;">
-      <div class="details-section-title" style="color:#10b981;"><span>💡</span><span>Bonus & Submission Policy</span></div>
-      <div style="line-height:1.5;color:var(--text-main);white-space:pre-line;direction:rtl;text-align:right;">${task.bonusPolicy}</div>
-    </div>
+    ${task.bonusPolicy ? `
+      <div class="details-section-box" style="border-left:4px solid #10b981;">
+        <div class="details-section-title" style="color:#10b981;"><span>💡</span><span>تعليمات التسليم والـ Bonus</span></div>
+        <div style="line-height:1.5;color:var(--text-main);white-space:pre-line;direction:rtl;text-align:right;">${escHtml(task.bonusPolicy)}</div>
+      </div>
+    ` : ''}
 
     ${task.files && task.files.length > 0 ? `
       <div class="details-section-box">
-        <div class="details-section-title"><span>📎</span><span>Files & Resources (${task.files.length})</span></div>
+        <div class="details-section-title"><span>📎</span><span>الملفات والمرفقات (${task.files.length})</span></div>
         <div class="details-files-list">
           ${task.files.map(f => `
             <a href="${f.url}" target="_blank" rel="noopener noreferrer" class="details-file-item">
               <div style="display:flex;align-items:center;gap:8px;">
                 <span style="font-size:16px;">📄</span>
                 <div>
-                  <div>${f.name}</div>
-                  <span style="font-size:9.5px;color:var(--text-muted);">${f.size}</span>
+                  <div>${escHtml(f.name)}</div>
+                  <span style="font-size:9.5px;color:var(--text-muted);">${f.size || 'PDF'}</span>
                 </div>
               </div>
               <span style="color:var(--accent);font-size:12px;">تحميل ↗</span>
@@ -1575,39 +1628,43 @@ function openTaskDetails(taskId) {
       </div>
     ` : ''}
 
-    <div class="details-section-box">
-      <div class="details-section-title"><span>🔗</span><span>Submission Portal</span></div>
-      <a href="${task.submissionUrl}" target="_blank" rel="noopener noreferrer" class="action-btn" style="width:100%;justify-content:center;height:38px;color:#8b5cf6;border-color:#8b5cf6;background:var(--surface-alt);">
-        <span>فتح رابط تسليم النموذج (Google Form / Blackboard)</span>
-        <span>↗</span>
-      </a>
-    </div>
+    ${task.submissionUrl ? `
+      <div class="details-section-box">
+        <div class="details-section-title"><span>🔗</span><span>رابط التسليم (Submission Portal)</span></div>
+        <a href="${task.submissionUrl}" target="_blank" rel="noopener noreferrer" class="action-btn" style="width:100%;justify-content:center;height:38px;color:#8b5cf6;border-color:#8b5cf6;background:var(--surface-alt);">
+          <span>فتح رابط التسليم (Google Form / Blackboard)</span>
+          <span>↗</span>
+        </a>
+      </div>
+    ` : ''}
 
     <button class="mark-done-btn" onclick="toggleTaskCompleted('${task.id}')">
       <span>${task.isDone ? '↩ إلغاء الإكمال والتفعيل' : '✓ Mark as Done (تم إكمال المهمة)'}</span>
     </button>
   `;
-
-  overlay.classList.add("open");
-}
-
-function closeTaskDetails() {
-  triggerHaptic("light");
-  document.getElementById("taskDetailsOverlay").classList.remove("open");
 }
 
 function toggleTaskCompleted(taskId) {
   triggerHaptic("heavy");
-  if (completedTasks.includes(taskId)) {
+  const wasDone = completedTasks.includes(taskId);
+  if (wasDone) {
     completedTasks = completedTasks.filter(id => id !== taskId);
   } else {
     completedTasks.push(taskId);
-    confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+    if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 75, origin: { y: 0.6 } });
   }
   localStorage.setItem("cufe_completed_tasks", JSON.stringify(completedTasks));
-  closeTaskDetails();
+  
+  if (currentDetailedTask && currentDetailedTask.id === taskId) {
+    currentDetailedTask.isDone = !wasDone;
+    if (isQuizTask(currentDetailedTask)) {
+      renderQuizPreparationGuideInOverlay(currentDetailedTask);
+    } else {
+      renderAssignmentDetailsInOverlay(currentDetailedTask);
+    }
+  }
+
   refreshTasksHub();
-  if (activeQuizGuideId === taskId) renderQuizGuideModal();
 }
 
 function openMonthCalendarModal() {
