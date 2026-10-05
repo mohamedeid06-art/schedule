@@ -20,6 +20,12 @@ let isFocusModeActive = false;
 let tasksSearchQuery = '';
 let completedTasks = JSON.parse(localStorage.getItem("cufe_completed_tasks") || "[]");
 let currentDetailedTask = null;
+
+// Subject-based Hub State (persisted)
+let activeSubjectFilter = localStorage.getItem("cufe_tasks_subject") || "all";
+if (activeSubjectFilter !== "all" && !(typeof COURSES !== 'undefined' && COURSES[activeSubjectFilter])) activeSubjectFilter = "all";
+let quizChecklistState = JSON.parse(localStorage.getItem("cufe_quiz_checklists") || "{}");
+let activeQuizGuideId = null;
 let calViewDate = new Date(2026, 9, 1); // October 2026
 
 // Weekly Guide State
@@ -717,25 +723,367 @@ function getAllCombinedTasks() {
   return list;
 }
 
+/* ==========================================================================
+   Subject-based Study Hub (Tasks screen)
+   ========================================================================== */
+
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getCourseMeta(code) {
+  return COURSES[code] || { name: code, color: "var(--accent)", hex: "#0284c7", instructor: "CUFE Staff" };
+}
+
+function isQuizTask(task) {
+  return /quiz|exam|midterm/i.test(task.type || '');
+}
+
+function weekNum(w) {
+  return parseInt(String(w || '').replace(/\D/g, ''), 10) || 0;
+}
+
+function getSubjectGuides(code) {
+  return WEEKLY_GUIDE_DATA.filter(g => g.code === code).sort((a, b) => weekNum(a.week) - weekNum(b.week));
+}
+
+function applyTasksSearch(tasks) {
+  const q = tasksSearchQuery.trim().toLowerCase();
+  if (!q) return tasks;
+  return tasks.filter(t =>
+    (t.code || '').toLowerCase().includes(q) ||
+    (t.title || '').toLowerCase().includes(q) ||
+    (t.desc || '').toLowerCase().includes(q) ||
+    (t.note || '').toLowerCase().includes(q)
+  );
+}
+
+function sortByDeadline(a, b) {
+  const pa = a.countdown.isPassed ? 1 : 0;
+  const pb = b.countdown.isPassed ? 1 : 0;
+  if (pa !== pb) return pa - pb;
+  return (new Date(a.deadline).getTime() || 0) - (new Date(b.deadline).getTime() || 0);
+}
+
+function getSheetProgressId(code, week) {
+  return `sheet-${code.replace(/\s+/g, '')}-${String(week).replace(/\s+/g, '')}`;
+}
+
+/* ---------- Quiz Guide checklist model ---------- */
+
+function getQuizStateKey(task) {
+  return `${task.code}::${task.id}`;
+}
+
+function buildQuizChecklist(task) {
+  const groups = [
+    { key: 'lectures', icon: '📚', label: 'المحاضرات والسلايدات', color: '#38bdf8', items: [] },
+    { key: 'sheets',   icon: '📝', label: 'الشيتات والحلول',       color: '#f59e0b', items: [] },
+    { key: 'videos',   icon: '🎬', label: 'فيديوهات الشرح',        color: '#f43f5e', items: [] },
+    { key: 'notes',    icon: '💡', label: 'أهم النوتس والملاحظات', color: '#a78bfa', items: [] }
+  ];
+  const [L, S, V, N] = groups;
+  const pushUnique = (grp, item) => {
+    if (item.url && grp.items.some(i => i.url === item.url && i.title === item.title)) return;
+    grp.items.push(item);
+  };
+
+  getSubjectGuides(task.code).forEach(g => {
+    const wk = String(g.week).replace(/\s+/g, '');
+    if (g.lectures) pushUnique(L, { id: `lec-${wk}`, title: g.lectures, meta: g.week, url: g.slides_url });
+    if (g.sheet) pushUnique(S, { id: `sht-${wk}`, title: g.sheet, meta: `${g.week} • حل الشيت`, url: g.sheet_url });
+    if (g.solution_url && g.solution_url !== g.sheet_url) pushUnique(S, { id: `sol-${wk}`, title: 'مراجعة الحلول النموذجية', meta: g.week, url: g.solution_url });
+    (g.playlists || []).forEach((p, i) => pushUnique(V, { id: `vid-${wk}-${i}`, title: p.title, meta: g.week, url: p.url }));
+    if (g.summary_url) pushUnique(N, { id: `sum-${wk}`, title: g.summary_title || 'ملخص المحاضرة', meta: g.week, url: g.summary_url });
+    if (g.practice) N.items.push({ id: `tip-${wk}`, title: g.practice, meta: `${g.week} • ملاحظة مهمة` });
+  });
+
+  (task.files || []).forEach((f, i) => {
+    if (f.url && !S.items.some(it => it.url === f.url)) S.items.push({ id: `file-${i}`, title: f.name, meta: f.size, url: f.url });
+  });
+
+  if (!L.items.length) L.items.push({ id: 'lec-generic', title: 'مراجعة كل المحاضرات المقررة على الكويز', meta: 'General' });
+  if (!S.items.length) S.items.push({ id: 'sht-generic', title: 'حل مسائل الشيتات المرتبطة بالجزء المقرر', meta: 'General' });
+  if (!V.items.length) V.items.push({ id: 'vid-generic', title: 'مشاهدة شرح الأجزاء الصعبة', meta: 'General' });
+  N.items.push({ id: 'final-review', title: 'مراجعة سريعة نهائية قبل الكويز بساعة', meta: 'Final Check ✅' });
+
+  return groups;
+}
+
+function getQuizProgress(task) {
+  const groups = buildQuizChecklist(task);
+  const st = quizChecklistState[getQuizStateKey(task)] || {};
+  const all = groups.flatMap(g => g.items);
+  const done = all.filter(i => st[i.id]).length;
+  return { groups, st, done, total: all.length, pct: all.length ? Math.round((done / all.length) * 100) : 0 };
+}
+
+function getReadinessLabel(pct) {
+  if (pct >= 100) return { txt: 'جاهز تماماً 💯', color: '#22c55e' };
+  if (pct >= 67) return { txt: 'قربت جداً 🔥', color: '#f59e0b' };
+  if (pct >= 34) return { txt: 'في الطريق 🚀', color: '#38bdf8' };
+  if (pct > 0) return { txt: 'بداية كويسة ✨', color: '#a78bfa' };
+  return { txt: 'لسه مبدأتش 😴', color: '#94a3b8' };
+}
+
+function renderProgressRing(pct, color, size = 64, stroke = 6) {
+  const r = (size - stroke) / 2;
+  const c = 2 * Math.PI * r;
+  const off = c * (1 - Math.min(100, Math.max(0, pct)) / 100);
+  return `
+    <div class="qg-ring-wrap" style="--ring-size:${size}px;width:${size}px;height:${size}px;color:${color};" role="img" aria-label="Readiness ${pct}%">
+      <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <circle class="qg-ring-bg" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-width="${stroke}"></circle>
+        <circle class="qg-ring-fg" cx="${size / 2}" cy="${size / 2}" r="${r}" stroke-width="${stroke}" stroke="currentColor"
+          stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}" transform="rotate(-90 ${size / 2} ${size / 2})"></circle>
+      </svg>
+      <span class="qg-ring-txt">${pct}%</span>
+    </div>
+  `;
+}
+
+/* ---------- Shell + subject chips ---------- */
+
 function renderTasksScreen() {
   const container = document.getElementById("viewContainer");
   const allTasks = getAllCombinedTasks();
 
+  container.innerHTML = `
+    <div class="tasks-hub-container">
+      <div class="view-back-bar">
+        <button class="view-back-btn" onclick="setView('week')">
+          <span>◀</span><span>الرجوع للجدول</span>
+        </button>
+        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">SUBJECT HUB</span>
+      </div>
+
+      <div class="tasks-main-header">
+        <div class="tasks-header-left">
+          <div class="tasks-icon-box">📋</div>
+          <div>
+            <div class="tasks-header-title">Tasks & Study Hub</div>
+            <div class="tasks-header-subtitle">ذاكر مادة مادة، وخلّي كل كويز تحت السيطرة 🎯</div>
+          </div>
+        </div>
+        <button class="focus-mode-btn ${isFocusModeActive ? 'active' : ''}" id="focusModeBtn" onclick="toggleFocusMode()">
+          <span>⚡</span>
+          <span>Focus Mode</span>
+        </button>
+      </div>
+
+      <nav class="subject-hub-bar" id="subjectHubBar" role="tablist" aria-label="فلترة حسب المادة">
+        ${renderSubjectChipsHtml(allTasks)}
+      </nav>
+
+      <div class="tasks-search-row">
+        <div class="tasks-search-input-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="tasksSearchInput" placeholder="ابحث عن التاسك أو الكويز..." value="${escHtml(tasksSearchQuery)}" oninput="handleTasksSearch(this.value)">
+        </div>
+        <button class="tasks-cal-trigger-btn" onclick="openMonthCalendarModal()" title="Open Interactive Calendar">
+          📅
+        </button>
+      </div>
+
+      <div class="subject-hub-content" id="tasksHubContent"></div>
+    </div>
+  `;
+
+  renderTasksHubContent(allTasks);
+
+  const activeChip = document.querySelector('#subjectHubBar .subject-chip.active');
+  if (activeChip) activeChip.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+
+function renderSubjectChipsHtml(allTasks) {
+  const pendingAll = allTasks.filter(t => !t.isDone).length;
+  const chips = [`
+    <button class="subject-chip subject-chip-all ${activeSubjectFilter === 'all' ? 'active' : ''}" id="subjectChip-all"
+      data-code="all" role="tab" aria-selected="${activeSubjectFilter === 'all'}" onclick="setSubjectFilter('all')">
+      <span class="subject-chip-dot"></span>
+      <span class="subject-chip-code">الكل</span>
+      <span class="subject-chip-name">All</span>
+      <span class="subject-chip-count" data-count-for="all">${pendingAll}</span>
+    </button>
+  `];
+
+  Object.keys(COURSES).forEach(code => {
+    const c = COURSES[code];
+    const pending = allTasks.filter(t => t.code === code && !t.isDone).length;
+    const shortName = c.name.split(/[(&]/)[0].trim();
+    const safeId = code.replace(/\s+/g, '-');
+    chips.push(`
+      <button class="subject-chip ${activeSubjectFilter === code ? 'active' : ''}" id="subjectChip-${safeId}"
+        data-code="${code}" role="tab" aria-selected="${activeSubjectFilter === code}" style="--chip-c:${c.hex};"
+        title="${escHtml(c.name)}" onclick="setSubjectFilter('${code}')">
+        <span class="subject-chip-dot"></span>
+        <span class="subject-chip-code">${code}</span>
+        <span class="subject-chip-name">${escHtml(shortName)}</span>
+        <span class="subject-chip-count ${pending ? '' : 'zero'}" data-count-for="${code}">${pending}</span>
+      </button>
+    `);
+  });
+  return chips.join('');
+}
+
+function updateSubjectChipCounts(allTasks) {
+  document.querySelectorAll('#subjectHubBar .subject-chip-count').forEach(el => {
+    const code = el.dataset.countFor;
+    const n = allTasks.filter(t => !t.isDone && (code === 'all' || t.code === code)).length;
+    el.textContent = n;
+    el.classList.toggle('zero', n === 0 && code !== 'all');
+  });
+}
+
+function setSubjectFilter(code) {
+  if (code !== 'all' && !COURSES[code]) code = 'all';
+  const changed = code !== activeSubjectFilter;
+  activeSubjectFilter = code;
+  localStorage.setItem("cufe_tasks_subject", code);
+
+  const content = document.getElementById("tasksHubContent");
+  if (!content || activeView !== 'tasks') return; // state saved; will render when the tasks view opens
+  if (!changed) return;
+  triggerHaptic("light");
+
+  document.querySelectorAll('#subjectHubBar .subject-chip').forEach(ch => {
+    const on = ch.dataset.code === code;
+    ch.classList.toggle('active', on);
+    ch.setAttribute('aria-selected', String(on));
+    if (on) ch.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+
+  content.classList.add('is-fading');
+  clearTimeout(window._hubFadeTimer);
+  window._hubFadeTimer = setTimeout(() => {
+    renderTasksHubContent();
+    requestAnimationFrame(() => content.classList.remove('is-fading'));
+  }, 180);
+}
+
+function renderTasksHubContent(allTasksArg) {
+  const el = document.getElementById("tasksHubContent");
+  if (!el) return;
+  const allTasks = allTasksArg || getAllCombinedTasks();
+  el.innerHTML = activeSubjectFilter === 'all'
+    ? renderAllTasksViewHtml(allTasks)
+    : renderSubjectHubViewHtml(activeSubjectFilter, allTasks);
+  updateSubjectChipCounts(allTasks);
+}
+
+function refreshTasksHub() {
+  updateTaskBadge();
+  if (activeView !== 'tasks') return;
+  if (document.getElementById("tasksHubContent")) renderTasksHubContent();
+  else renderTasksScreen();
+}
+
+/* ---------- Shared section renderers ---------- */
+
+function renderHubSectionHead(icon, label, count, color, unit = 'items') {
+  return `
+    <div class="task-section-head">
+      <div class="task-section-title-wrap" style="color:${color};">
+        <span>${icon}</span><span>${label}</span>
+      </div>
+      <span class="task-section-count">${count} ${unit}</span>
+    </div>
+  `;
+}
+
+function renderQuizCardHtml(task) {
+  const course = getCourseMeta(task.code);
+  const p = getQuizProgress(task);
+  const ready = getReadinessLabel(p.pct);
+  const d = new Date(task.deadline);
+  const dateTxt = !isNaN(d.getTime())
+    ? `${d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} • ${d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`
+    : escHtml(task.deadline);
+
+  return `
+    <article class="quiz-hub-card ${task.isDone ? 'is-done' : ''} ${task.countdown.isPassed ? 'is-passed' : ''}" style="--c:${course.hex};">
+      <div class="quiz-hub-top">
+        <span class="quiz-hub-code">${task.code}</span>
+        <span class="quiz-hub-type">${task.isDone ? '✓ Done' : escHtml(task.type)}</span>
+      </div>
+      <div class="quiz-hub-body">
+        ${renderProgressRing(p.pct, course.hex, 54, 5)}
+        <div class="quiz-hub-info">
+          <h3 class="quiz-hub-title" dir="auto">${escHtml(task.title)}</h3>
+          <div class="quiz-hub-meta">📅 ${dateTxt}</div>
+          <div class="quiz-hub-countdown ${task.countdown.isUrgent ? 'urgent' : ''}">⏳ ${task.countdown.text}</div>
+        </div>
+      </div>
+      <div class="quiz-hub-ready">
+        <span style="color:${ready.color};">${ready.txt}</span>
+        <span class="quiz-hub-ready-count">${p.done}/${p.total}</span>
+      </div>
+      <div class="quiz-hub-bar"><span style="width:${p.pct}%;"></span></div>
+      <div class="quiz-hub-actions">
+        <button class="quiz-guide-btn" id="quizGuideBtn-${task.id}" onclick="openQuizGuide('${task.id}')">🎯 Quiz Guide</button>
+        <button class="quiz-details-btn" onclick="openTaskDetails('${task.id}')" title="تفاصيل الكويز">التفاصيل ↗</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderSheetCardHtml(g, code) {
+  const course = getCourseMeta(code);
+  const id = getSheetProgressId(code, g.week);
+  const done = completedTasks.includes(id);
+  return `
+    <div class="hub-sheet-card ${done ? 'done' : ''}" style="--c:${course.hex};">
+      <button class="hub-check ${done ? 'on' : ''}" onclick="toggleSheetDone('${id}')" role="checkbox" aria-checked="${done}" aria-label="تم حل ${escHtml(g.sheet)}">✓</button>
+      <div class="hub-sheet-info">
+        <span class="hub-sheet-week">${escHtml(g.week)} • ${done ? 'تم الحل ✅' : 'لم يُحل بعد'}</span>
+        <div class="hub-sheet-title" dir="auto">${escHtml(g.sheet)}</div>
+      </div>
+      <div class="hub-sheet-links">
+        ${g.sheet_url ? `<button class="hub-mini-link" onclick="openSafeDriveLink('${escHtml(g.sheet_url)}')" title="فتح الشيت">📄</button>` : ''}
+        ${g.solution_url ? `<button class="hub-mini-link" onclick="openSafeDriveLink('${escHtml(g.solution_url)}')" title="الحلول">✅</button>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function getSubjectQuickLinks(code) {
+  const guides = getSubjectGuides(code);
+  const latest = guides[guides.length - 1] || {};
+  const drive = (typeof DRIVE_DATA !== 'undefined' && DRIVE_DATA[code]) || {};
+  const links = [
+    { icon: '📁', label: 'Drive', color: '#38bdf8', url: drive.folder || MAIN_SEMESTER_DRIVE },
+    { icon: '📚', label: 'Lectures', color: '#0ea5e9', url: latest.slides_url || drive.lectures },
+    { icon: '📝', label: 'Sheets', color: '#f59e0b', url: latest.sheet_url || drive.sheets },
+    { icon: '✅', label: 'Solutions', color: '#22c55e', url: latest.solution_url },
+    { icon: '🎬', label: 'Videos', color: '#f43f5e', url: latest.playlists && latest.playlists[0] && latest.playlists[0].url },
+    { icon: '💡', label: 'Notes', color: '#a78bfa', url: latest.summary_url }
+  ].filter(l => l.url).map(l => ({ ...l, action: `openSafeDriveLink('${escHtml(l.url)}')` }));
+
+  links.push({ icon: '🧭', label: 'Guide', color: '#06b6d4', action: `openSubjectGuide('${code}')` });
+  links.push({ icon: '💊', label: 'Capsule', color: '#fb923c', action: `openCourseCapsule('${code}')` });
+  if (code === 'EMC G101') links.push({ icon: '🗺️', label: 'Roadmap', color: '#8b5cf6', action: 'openDynamicsRoadmapModal()' });
+  if (code === 'MDP G121') links.push({ icon: '🗺️', label: 'Roadmap', color: '#f59e0b', action: 'openMaterialsRoadmapModal()' });
+  if (typeof COURSE_CUSTOM_LINKS !== 'undefined' && COURSE_CUSTOM_LINKS[code]) links.push({ icon: '🔗', label: 'Links', color: '#6366f1', action: `openCourseLinksModal('${code}')` });
+  return links;
+}
+
+function openSubjectGuide(code) {
+  const guides = getSubjectGuides(code);
+  selectedGuideCourse = code;
+  if (guides.length && !guides.some(g => g.week === selectedGuideWeek)) selectedGuideWeek = guides[guides.length - 1].week;
+  setView('guide');
+}
+
+/* ---------- "All" view ---------- */
+
+function renderAllTasksViewHtml(allTasks) {
   const totalTasks = allTasks.length;
   const dueSoonTasks = allTasks.filter(t => !t.isDone && t.priority === 'due-soon').length;
   const thisWeekTasks = allTasks.filter(t => !t.isDone && (t.priority === 'due-soon' || t.priority === 'upcoming')).length;
 
-  let filtered = allTasks;
+  let filtered = applyTasksSearch(allTasks);
 
-  if (tasksSearchQuery.trim()) {
-    const q = tasksSearchQuery.toLowerCase();
-    filtered = filtered.filter(t => 
-      t.code.toLowerCase().includes(q) || 
-      t.title.toLowerCase().includes(q) || 
-      t.desc.toLowerCase().includes(q) ||
-      t.note.toLowerCase().includes(q)
-    );
-  }
+  const quizRadar = filtered.filter(t => isQuizTask(t) && !t.isDone && !t.countdown.isPassed).sort(sortByDeadline);
 
   if (activeTaskFilter === 'due-soon') {
     filtered = filtered.filter(t => !t.isDone && t.priority === 'due-soon');
@@ -757,29 +1105,7 @@ function renderTasksScreen() {
   const upcomingList = filtered.filter(t => !t.isDone && (t.priority === 'upcoming' || t.priority === 'scheduled'));
   const completedList = filtered.filter(t => t.isDone);
 
-  container.innerHTML = `
-    <div class="tasks-hub-container">
-      <div class="view-back-bar">
-        <button class="view-back-btn" onclick="setView('week')">
-          <span>◀</span><span>الرجوع للجدول</span>
-        </button>
-        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">TASKS & DEADLINES</span>
-      </div>
-
-      <div class="tasks-main-header">
-        <div class="tasks-header-left">
-          <div class="tasks-icon-box">📋</div>
-          <div>
-            <div class="tasks-header-title">Tasks & Deadlines</div>
-            <div class="tasks-header-subtitle">Stay on track, build your future 🎯</div>
-          </div>
-        </div>
-        <button class="focus-mode-btn ${isFocusModeActive ? 'active' : ''}" onclick="toggleFocusMode()">
-          <span>⚡</span>
-          <span>Focus Mode</span>
-        </button>
-      </div>
-
+  return `
       <div class="tasks-summary-bar">
         <div class="summary-stat-chip">
           <span class="summary-stat-icon">📑</span>
@@ -806,15 +1132,12 @@ function renderTasksScreen() {
         </div>
       </div>
 
-      <div class="tasks-search-row">
-        <div class="tasks-search-input-box">
-          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-          <input type="text" placeholder="ابحث عن التاسك أو المادة..." value="${tasksSearchQuery}" oninput="handleTasksSearch(this.value)">
-        </div>
-        <button class="tasks-cal-trigger-btn" onclick="openMonthCalendarModal()" title="Open Interactive Calendar">
-          📅
-        </button>
-      </div>
+      ${quizRadar.length > 0 ? `
+        <section>
+          ${renderHubSectionHead('🎯', 'Quiz Radar — الكويزات الجاية', quizRadar.length, 'var(--quiz-color)', 'quizzes')}
+          <div class="hub-quiz-grid">${quizRadar.map(renderQuizCardHtml).join('')}</div>
+        </section>
+      ` : ''}
 
       <div class="subject-pill-filters">
         <button class="sub-filter-pill ${activeTaskFilter === 'all' ? 'active' : ''}" onclick="setTaskFilterTab('all')">All</button>
@@ -867,14 +1190,230 @@ function renderTasksScreen() {
         ` : ''}
 
         ${filtered.length === 0 ? `
-          <div style="text-align:center;padding:40px 16px;background:var(--surface);border-radius:18px;border:1px dashed var(--border);color:var(--text-muted);font-size:12.5px;">
-            ✨ لا توجد مهام مطابقة للبحث أو الفلتر حالياً
-          </div>
+          <div class="hub-empty">✨ لا توجد مهام مطابقة للبحث أو الفلتر حالياً</div>
         ` : ''}
       </div>
-    </div>
   `;
 }
+
+/* ---------- Single-subject Hub view ---------- */
+
+function renderSubjectHubViewHtml(code, allTasks) {
+  const course = getCourseMeta(code);
+  const subjectTasks = allTasks.filter(t => t.code === code);
+  const tasks = applyTasksSearch(subjectTasks);
+  const q = tasksSearchQuery.trim().toLowerCase();
+
+  const quizzes = tasks.filter(isQuizTask).sort(sortByDeadline);
+  let submissions = tasks.filter(t => !isQuizTask(t)).sort(sortByDeadline);
+  if (isFocusModeActive) submissions = submissions.filter(t => !t.isDone);
+
+  const allSheets = getSubjectGuides(code).filter(g => g.sheet);
+  let sheets = q ? allSheets.filter(g => g.sheet.toLowerCase().includes(q) || g.week.toLowerCase().includes(q)) : allSheets;
+  if (isFocusModeActive) sheets = sheets.filter(g => !completedTasks.includes(getSheetProgressId(code, g.week)));
+
+  const sheetsDone = allSheets.filter(g => completedTasks.includes(getSheetProgressId(code, g.week))).length;
+  const tasksDone = subjectTasks.filter(t => t.isDone).length;
+  const totalUnits = subjectTasks.length + allSheets.length;
+  const overallPct = totalUnits ? Math.round(((tasksDone + sheetsDone) / totalUnits) * 100) : 0;
+  const nextQuiz = subjectTasks.filter(t => isQuizTask(t) && !t.isDone && !t.countdown.isPassed).sort(sortByDeadline)[0];
+  const pendingSubs = subjectTasks.filter(t => !isQuizTask(t) && !t.isDone).length;
+
+  return `
+    <section class="subject-hero" style="--c:${course.hex};">
+      <div class="subject-hero-main">
+        <div class="subject-hero-text">
+          <span class="subject-hero-code">${code}</span>
+          <h2 class="subject-hero-name">${escHtml(course.name)}</h2>
+          <div class="subject-hero-inst">👨‍🏫 ${escHtml(course.instructor || 'Staff')}</div>
+        </div>
+        ${renderProgressRing(overallPct, course.hex, 74, 7)}
+      </div>
+      ${nextQuiz ? `
+        <button class="subject-hero-next" onclick="openQuizGuide('${nextQuiz.id}')">
+          <span>⚡ الكويز الجاي: <b dir="auto">${escHtml(nextQuiz.title)}</b></span>
+          <span class="subject-hero-next-cd">${nextQuiz.countdown.text}</span>
+        </button>
+      ` : ''}
+      <div class="subject-hero-stats">
+        <div class="hub-stat"><span class="hub-stat-num">${subjectTasks.filter(isQuizTask).length}</span><span class="hub-stat-lbl">🎯 Quizzes</span></div>
+        <div class="hub-stat"><span class="hub-stat-num">${sheetsDone}/${allSheets.length}</span><span class="hub-stat-lbl">📝 Sheets</span></div>
+        <div class="hub-stat"><span class="hub-stat-num" style="color:${pendingSubs ? '#f97316' : '#22c55e'};">${pendingSubs}</span><span class="hub-stat-lbl">📤 Pending</span></div>
+      </div>
+    </section>
+
+    <section>
+      ${renderHubSectionHead('⚡', 'وصول سريع للماتريال', '', course.hex, '')}
+      <div class="hub-quick-grid">
+        ${getSubjectQuickLinks(code).map((l, i) => `
+          <button class="hub-quick-btn" id="hubQuick-${code.replace(/\s+/g, '')}-${i}" style="--q:${l.color};" onclick="${l.action}">
+            <span class="ico">${l.icon}</span>
+            <span>${l.label}</span>
+          </button>
+        `).join('')}
+      </div>
+    </section>
+
+    <section>
+      ${renderHubSectionHead('🎯', 'الكويزات والامتحانات', quizzes.length, 'var(--quiz-color)', 'quizzes')}
+      ${quizzes.length
+        ? `<div class="hub-quiz-grid">${quizzes.map(renderQuizCardHtml).join('')}</div>`
+        : `<div class="hub-empty">🎉 مفيش كويزات مسجلة للمادة دي حالياً</div>`}
+    </section>
+
+    <section>
+      ${renderHubSectionHead('📝', 'الشيتات والتسليمات', sheets.length + submissions.length, '#f59e0b', 'items')}
+      <div class="hub-list">
+        ${submissions.map(renderCompactTaskCardHtml).join('')}
+        ${sheets.map(g => renderSheetCardHtml(g, code)).join('')}
+        ${(sheets.length + submissions.length) === 0 ? `<div class="hub-empty">✨ لا توجد شيتات أو تسليمات مطابقة</div>` : ''}
+      </div>
+    </section>
+  `;
+}
+
+function toggleSheetDone(id) {
+  triggerHaptic("heavy");
+  if (completedTasks.includes(id)) {
+    completedTasks = completedTasks.filter(x => x !== id);
+  } else {
+    completedTasks.push(id);
+    if (typeof confetti === 'function') confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 } });
+  }
+  localStorage.setItem("cufe_completed_tasks", JSON.stringify(completedTasks));
+  refreshTasksHub();
+}
+
+/* ---------- Quiz Guide modal ---------- */
+
+function findTaskById(taskId) {
+  return getAllCombinedTasks().find(t => t.id === taskId);
+}
+
+function openQuizGuide(taskId) {
+  const task = findTaskById(taskId);
+  if (!task) return;
+  triggerHaptic("heavy");
+  activeQuizGuideId = taskId;
+  renderQuizGuideModal(true);
+  document.getElementById("quizGuideModal").classList.add("open");
+}
+
+function closeQuizGuide() {
+  const modal = document.getElementById("quizGuideModal");
+  if (!modal || !modal.classList.contains("open")) return;
+  triggerHaptic("light");
+  modal.classList.remove("open");
+  activeQuizGuideId = null;
+}
+
+function renderQuizGuideModal(resetScroll = false) {
+  const task = activeQuizGuideId && findTaskById(activeQuizGuideId);
+  if (!task) return;
+  const card = document.getElementById("quizGuideCard");
+  const head = document.getElementById("quizGuideHeadInfo");
+  const body = document.getElementById("quizGuideBody");
+  const course = getCourseMeta(task.code);
+  const p = getQuizProgress(task);
+  const ready = getReadinessLabel(p.pct);
+  const scrollTop = resetScroll ? 0 : body.scrollTop;
+
+  card.style.setProperty('--c', course.hex);
+
+  head.innerHTML = `
+    <span class="qg-kicker">🎯 Quiz Guide • ${task.code}</span>
+    <h2 class="qg-title" id="quizGuideTitle" dir="auto">${escHtml(task.title)}</h2>
+    <span class="qg-sub">${escHtml(course.name)} — ${escHtml(task.type)}</span>
+  `;
+
+  body.innerHTML = `
+    <div class="qg-ready">
+      ${renderProgressRing(p.pct, ready.color === '#94a3b8' ? course.hex : ready.color, 92, 8)}
+      <div class="qg-ready-info">
+        <span class="qg-ready-label" style="color:${ready.color};">${ready.txt}</span>
+        <span class="qg-ready-sub">نسبة الجاهزية: ${p.done} من ${p.total} خطوة مكتملة</span>
+        <div class="qg-ready-bar"><span style="width:${p.pct}%;"></span></div>
+        <span class="qg-ready-cd ${task.countdown.isUrgent ? 'urgent' : ''}">⏳ ${task.countdown.text}</span>
+      </div>
+    </div>
+
+    ${p.groups.map(g => {
+      const gDone = g.items.filter(i => p.st[i.id]).length;
+      const gPct = g.items.length ? Math.round((gDone / g.items.length) * 100) : 0;
+      return `
+        <div class="qg-group" style="--g:${g.color};">
+          <div class="qg-group-head">
+            <div class="qg-group-title"><span class="qg-group-ico">${g.icon}</span><span>${g.label}</span></div>
+            <span class="qg-group-count">${gDone}/${g.items.length}</span>
+          </div>
+          <div class="qg-group-bar"><span style="width:${gPct}%;"></span></div>
+          ${g.items.map(it => {
+            const done = !!p.st[it.id];
+            return `
+              <div class="qg-item ${done ? 'done' : ''}" role="checkbox" aria-checked="${done}" tabindex="0"
+                onclick="toggleQuizChecklistItem('${it.id}')"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuizChecklistItem('${it.id}');}">
+                <span class="qg-check">✓</span>
+                <div class="qg-item-text">
+                  <div class="qg-item-title" dir="auto">${escHtml(it.title)}</div>
+                  ${it.meta ? `<div class="qg-item-meta">${escHtml(it.meta)}</div>` : ''}
+                </div>
+                ${it.url ? `<button class="qg-item-link" title="فتح الرابط" onclick="event.stopPropagation();openSafeDriveLink('${escHtml(it.url)}')">↗</button>` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }).join('')}
+
+    <div class="qg-actions">
+      <button class="qg-btn ghost" onclick="resetQuizChecklist()">↺ تصفير الشيك لست</button>
+      <button class="qg-btn primary ${task.isDone ? 'is-done' : ''}" onclick="toggleTaskCompleted('${task.id}')">
+        ${task.isDone ? '↩ إلغاء إكمال الكويز' : '✓ خلصت الكويز'}
+      </button>
+    </div>
+  `;
+
+  body.scrollTop = scrollTop;
+}
+
+function toggleQuizChecklistItem(itemId) {
+  const task = activeQuizGuideId && findTaskById(activeQuizGuideId);
+  if (!task) return;
+  const key = getQuizStateKey(task);
+  const st = quizChecklistState[key] || {};
+  const before = getQuizProgress(task).pct;
+
+  if (st[itemId]) delete st[itemId];
+  else st[itemId] = Date.now();
+  quizChecklistState[key] = st;
+  localStorage.setItem("cufe_quiz_checklists", JSON.stringify(quizChecklistState));
+  triggerHaptic("light");
+
+  const after = getQuizProgress(task).pct;
+  if (after === 100 && before < 100 && typeof confetti === 'function') {
+    confetti({ particleCount: 90, spread: 80, origin: { y: 0.55 }, zIndex: 10050 });
+  }
+  renderQuizGuideModal();
+  if (activeView === 'tasks') renderTasksHubContent();
+}
+
+function resetQuizChecklist() {
+  const task = activeQuizGuideId && findTaskById(activeQuizGuideId);
+  if (!task) return;
+  if (!confirm("متأكد إنك عايز تصفّر الشيك لست بتاعة الكويز ده؟")) return;
+  delete quizChecklistState[getQuizStateKey(task)];
+  localStorage.setItem("cufe_quiz_checklists", JSON.stringify(quizChecklistState));
+  renderQuizGuideModal();
+  if (activeView === 'tasks') renderTasksHubContent();
+}
+
+(function initQuizGuideModal() {
+  const modal = document.getElementById("quizGuideModal");
+  if (!modal) return;
+  modal.addEventListener("click", e => { if (e.target.id === "quizGuideModal") closeQuizGuide(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeQuizGuide(); });
+})();
 
 function renderCompactTaskCardHtml(task) {
   const course = COURSES[task.code] || { name: task.code, color: "var(--accent)", hex: "#0284c7" };
@@ -924,9 +1463,16 @@ function renderCompactTaskCardHtml(task) {
   `;
 }
 
-function handleTasksSearch(val) { tasksSearchQuery = val; renderTasksScreen(); }
-function setTaskFilterTab(tab) { triggerHaptic("light"); activeTaskFilter = tab; renderTasksScreen(); }
-function toggleFocusMode() { triggerHaptic("heavy"); isFocusModeActive = !isFocusModeActive; renderTasksScreen(); }
+// Only the hub content re-renders, so the search input keeps focus while typing.
+function handleTasksSearch(val) { tasksSearchQuery = val; renderTasksHubContent(); }
+function setTaskFilterTab(tab) { triggerHaptic("light"); activeTaskFilter = tab; renderTasksHubContent(); }
+function toggleFocusMode() {
+  triggerHaptic("heavy");
+  isFocusModeActive = !isFocusModeActive;
+  const btn = document.getElementById("focusModeBtn");
+  if (btn) btn.classList.toggle("active", isFocusModeActive);
+  renderTasksHubContent();
+}
 
 function openTaskDetails(taskId) {
   triggerHaptic("heavy");
@@ -1060,7 +1606,8 @@ function toggleTaskCompleted(taskId) {
   }
   localStorage.setItem("cufe_completed_tasks", JSON.stringify(completedTasks));
   closeTaskDetails();
-  renderTasksScreen();
+  refreshTasksHub();
+  if (activeQuizGuideId === taskId) renderQuizGuideModal();
 }
 
 function openMonthCalendarModal() {
