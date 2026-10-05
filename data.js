@@ -65,24 +65,65 @@ const COURSES = {
 // ==========================================================================
 const MASTER_QUIZZES = [
   {
+    id: "mth-quiz-1",
+    code: "MTH G102",
+    title: "Calculus Quiz 1 — Week 4 (كويز مجمع)",
+    type: "In-Class Quiz",
+    instructor: "Dr. Ahmed Abdelnaby & Staff",
+    dateDisplay: "الإثنين 12 أكتوبر 2026 (10:00 ص)",
+    countdownBadge: "6d 13h 45m",
+    start: "2026-10-12T10:00:00",
+    deadline: "2026-10-12T10:35:00",
+    accent: "#38bdf8",
+    accentName: "cyan",
+    submissionUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
+    instructions: [
+      "نوع الأسئلة: MCQ (اختيار من متعدد) — 5 درجات.",
+      "المدة: من 30 إلى 35 دقيقة.",
+      "الامتحان مجمع للـ 4 سكاشن في نفس التوقيت (الساعة 10:00 ص)، والقاعة جاري حجزها وهتتحدد قريب.",
+      "ترتيب المذاكرة الموصى به من الدكتورة: ذاكر السلايدات كويس جداً الأول ⬅️ بعدها حل مسائل الشيت ⬅️ ولو حابب تطبق بزيادة حل الـ Solved Problems.",
+      "⚠️ تريكة مهمة جداً: الدكتورة أكدت إن الأسئلة مش بتخرج عن الـ Graphs اللي بتشرحها في المحاضرات، ركزوا عليها جداً!"
+    ],
+    lectures: [
+      { id: "mth-lec-1", title: "Lecture 1 - Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth-lec-2", title: "Lecture 2 - Linear Algebra Foundations", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth-lec-3", title: "Lecture 3 - Advanced Calculus & Integration in Graphs", slides: "https://drive.google.com/file/d/1CXEbe_pEoySDVZjLDSeSPBXLdojGcAbX/view?usp=drivesdk" }
+    ],
+    sheets: [
+      { id: "mth-sht-1", title: "Sheet 1 (Double Integrals)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-sht-2", title: "Sheet 2 (Linear Systems)", pdf: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-sht-3", title: "Sheet 3 (Calculus & Functions)", pdf: "https://drive.google.com/file/d/1isNqXzgd4wmiNPw9QZWW3TRTZ3Zc14WQ/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1J3rK-m2whbMgO9aR9fqhGpPVve0rglaZ/view?usp=drivesdk" }
+    ],
+    practice: [
+      { id: "mth-sol-1", title: "Solved Problems 1 (تطبيقات ومسائل محلولة 1)", url: "https://drive.google.com/file/d/1VJExOvXAQNt0MLho6VWnKdew424RrvZs/view?usp=drivesdk" },
+      { id: "mth-sol-2", title: "Solved Problems 2 (تطبيقات ومسائل محلولة 2)", url: "https://drive.google.com/file/d/1KduLphX0Pg2V_9NF11umHHqe-NCm7EDR/view?usp=drivesdk" },
+      { id: "mth-sol-3", title: "Solved Problems 3 (تطبيقات ومسائل محلولة 3)", url: "https://drive.google.com/file/d/1vJW0JuLRoWmj-8FwsHl5e-upI8Yn_QP-/view?usp=drivesdk" },
+      { id: "mth-vid-ammar", title: "بلايليست شرح وسكاشن م. عمار ياسر وم. أحمد المغربي", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" }
+    ],
+    formula: [
+      { id: "mth-sum-gauss", title: "ملخص: Gauss and Gauss-Jordan Elimination Methods in Graphs", url: "https://drive.google.com/file/d/1q9nkkK39o7pqUFNEvNYGt_Cj-svQlRb1/view?usp=drivesdk" },
+      { id: "mth-sum-graphs", title: "قواعد ورسومات الـ Graphs وتكاملات المحاضرة المهمة" }
+    ]
+  },
+  {
     id: "the-1",
     code: "EMC G101",
     title: "Take-Home Exam 1 — Model (P200)",
     type: "Take-Home Exam",
     instructor: "Dr. Samir Hedeyma",
-    dateDisplay: "Oct 9, 2026 (7:00 PM)",
-    countdownBadge: "3d 23h 45m",
+    dateDisplay: "الجمعة 9 أكتوبر 2026 (7:00 م)",
+    countdownBadge: "3d 22h 50m",
     start: "2026-09-25T19:00:00",
     deadline: "2026-10-09T19:00:00",
     accent: "#8b5cf6",
     accentName: "purple",
     submissionUrl: "https://sites.google.com/eng.cu.edu.eg/planedynamics100",
     instructions: [
-      "Model P200 assignment questions.",
-      "Select (No / None) if result deviates by more than 1.5%.",
-      "Wrong answers receive -25% penalty.",
-      "Submissions within the first 12 hours receive +10% bonus.",
-      "Official website: sites.google.com/eng.cu.edu.eg/planedynamics100"
+      "أسئلة امتحان Model P200 المعتمد.",
+      "اختار (No / None) لو الناتج طلع فرق أكتر من 1.5%.",
+      "الإجابة الغلط عليها خصم -25% من الدرجة.",
+      "التسليم في أول 12 ساعة بياخد بونص +10% إضافي.",
+      "الموقع الرسمي للتسليم: sites.google.com/eng.cu.edu.eg/planedynamics100"
     ],
     lectures: [
       { id: "emc-lec-1", title: "Lecture 1 - Rectilinear Kinematics of Particles", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
@@ -97,8 +138,43 @@ const MASTER_QUIZZES = [
       { id: "emc-vid-2", title: "Video 2 - Sheet Problems (Eng. Ahmed Fawzy)", url: "https://youtu.be/mrLEzczCxpc" }
     ],
     formula: [
-      { id: "emc-form-1", title: "Equations of Rectilinear & Curvilinear Motion" },
-      { id: "emc-form-2", title: "Instantaneous Center of Zero Velocity (IC) Rules" }
+      { id: "emc-form-1", title: "قوانين الحركة في خط مستقيم والمنحنيات" },
+      { id: "emc-form-2", title: "قواعد مركز الدوران اللحظي للسرعة (IC)" }
+    ]
+  },
+  {
+    id: "gen-quiz-1",
+    code: "GEN G119",
+    title: "Quiz 1 — Marketing (20 Questions / 5 Mins)",
+    type: "In-Class Quiz",
+    instructor: "Dr. Tamer El-Hariry",
+    dateDisplay: "الأحد القادم 11 أكتوبر 2026 (8:00 ص)",
+    countdownBadge: "5d 11h 50m",
+    start: "2026-10-11T08:00:00",
+    deadline: "2026-10-11T08:05:00",
+    accent: "#06b6d4",
+    accentName: "cyan",
+    submissionUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
+    instructions: [
+      "كويز 1 أول المحاضرة على Chapter 1 (Introduction to Marketing).",
+      "عدد الأسئلة: 20 سؤال في 5 دقائق.",
+      "النظام: مكس بين أسئلة MCQ و True or False.",
+      "الأسئلة بتيجي مباشرة ومطابقة لأسئلة الـ Test Bank بالحرف وبنفس ترتيب الاختيارات.",
+      "المكان: مدرج 3103 مبنى 3 — يرجى الحضور قبل الساعة 8:00 صباحاً."
+    ],
+    lectures: [
+      { id: "gen-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" },
+      { id: "gen-lec-2", title: "Lecture 2 - Introduction to Marketing (Chapter 1)", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" }
+    ],
+    sheets: [
+      { id: "gen-sht-1", title: "Test Bank CH1 (بنك الأسئلة المباشر)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
+    ],
+    practice: [
+      { id: "gen-vid-1", title: "حل ومراجعة أسئلة بنك الأسئلة المتكررة في الامتحان", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
+    ],
+    formula: [
+      { id: "gen-form-1", title: "4Ps of Marketing (Product, Price, Place, Promotion)" },
+      { id: "gen-form-2", title: "تركات الـ Test Bank وأهم الفروق النظرية", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
     ]
   },
   {
@@ -107,8 +183,8 @@ const MASTER_QUIZZES = [
     title: "Assignment 1 — Linear Algebra (سؤالين الشيت)",
     type: "Assignment",
     instructor: "Dr. Ahmed Abdelnaby & Dr. Lucy",
-    dateDisplay: "Oct 29, 2026 (Week 6/7)",
-    countdownBadge: "23d 16h 15m",
+    dateDisplay: "29 أكتوبر 2026 (Week 6/7)",
+    countdownBadge: "23d 14h 50m",
     start: "2026-09-24T08:00:00",
     deadline: "2026-10-29T11:00:00",
     accent: "#38bdf8",
@@ -134,39 +210,6 @@ const MASTER_QUIZZES = [
     formula: [
       { id: "mth-form-1", title: "Double Integrals Standard Rules & Polar Transformations" },
       { id: "mth-form-2", title: "Linear Systems & Matrix Row Operations Guide" }
-    ]
-  },
-  {
-    id: "gen-quiz-1",
-    code: "GEN G119",
-    title: "Quiz 1 — Marketing (Chapter 1)",
-    type: "In-Class Quiz",
-    instructor: "Dr. Tamer El-Hariry",
-    dateDisplay: "Oct 4, 2026 (انتهى أمس ✅)",
-    countdownBadge: "منتهي ✅",
-    start: "2026-10-04T08:00:00",
-    deadline: "2026-10-04T08:05:00",
-    isDone: true,
-    accent: "#06b6d4",
-    accentName: "cyan",
-    submissionUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
-    instructions: [
-      "كويز 1 تم عقده أمس الأحد 4 أكتوبر 2026 في بداية المحاضرة.",
-      "كان على Chapter 1 (Introduction to Marketing) - 20 سؤال في 5 دقائق من Test Bank."
-    ],
-    lectures: [
-      { id: "gen-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" },
-      { id: "gen-lec-2", title: "Lecture 2 - Introduction to Marketing (Chapter 1)", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" }
-    ],
-    sheets: [
-      { id: "gen-sht-1", title: "Test Bank CH1 (بنك الأسئلة المباشر)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
-    ],
-    practice: [
-      { id: "gen-vid-1", title: "حل ومراجعة أسئلة بنك الأسئلة المتكررة في الامتحان", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
-    ],
-    formula: [
-      { id: "gen-form-1", title: "4Ps of Marketing (Product, Price, Place, Promotion)" },
-      { id: "gen-form-2", title: "تركات الـ Test Bank وأهم الفروق النظرية", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
     ]
   }
 ];
@@ -467,7 +510,7 @@ const COURSE_CAPSULES = {
     name: "Linear Algebra & Multivariable Integration",
     hours: "3 Credit Hours",
     grading: "• الميد من 30 درجة (20 تكامل + 10 جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتبص عليه",
-    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\nملخص المذاكرة:\n- التكامل أسهل بكتير سواء في الامتحانات أو الحضور.\n- أساينمنت التكامل بيتحسب من أعمال السنة، وأساينمنت الجبر بتبص عليه الدكتورة.",
+    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): 🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث.\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 10:00 ص (30-35 دقيقة MCQ — 5 درجات). ركزوا على الـ Graphs كويس جداً!",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
@@ -518,7 +561,7 @@ const COURSE_CAPSULES = {
     name: "Electrical & Electronics Engineering (EPE I)",
     hours: "3 Credit Hours",
     grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة أعمال سنة (Classwork)",
-    tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية).\n• مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت: المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30). علماً بأن يوم الخميس إجازة رسمية — سيتم التأكيد والتنسيق مع المعيد في حال أي ترحيل للموعد، وأي تغيير هيتبلغوا بيه فوراً.",
+    tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): 🥳 ملغية — مفيش محاضرة بكرة يا حبايبي.\n• مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت: المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30). علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً بالتوفيق.",
     links: [
       { title: "📁 درايف الدفعة لمادة الهندسة الكهربية (EPE I)", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
     ],
@@ -609,10 +652,34 @@ const SESSIONS = [
   // Monday
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false },
+  { 
+    day: "Monday", 
+    start: 2, 
+    span: 2, 
+    group: "ALL", 
+    code: "MTH G102", 
+    type: "Quiz 1 (12 Oct)", 
+    room: "القاعة هتتحدد قريب", 
+    isQuiz: true,
+    quizBadge: "⚡ كويز مجمع 1 — 5 درجات MCQ",
+    note: "📢 كويز مجمع للـ 4 سكاشن الإثنين 12 أكتوبر الساعة 10:00 ص — 5 درجات MCQ (30-35 دقيقة)"
+  },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
   // Tuesday
-  { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
+  { 
+    day: "Tuesday", 
+    start: 0, 
+    span: 2, 
+    group: "ALL", 
+    code: "MTH G102", 
+    type: "Lecture", 
+    room: "7104-360", 
+    attendance: false,
+    cancelled: true,
+    cancelNotice: "🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث",
+    note: "🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث"
+  },
   { 
     day: "Tuesday", 
     start: 2, 
@@ -622,8 +689,8 @@ const SESSIONS = [
     type: "Lecture", 
     room: "7104-360",
     cancelled: true,
-    cancelNotice: "مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية)",
-    note: "مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية)"
+    cancelNotice: "🥳 ملغية — مفيش محاضرة بكرة يا حبايبي",
+    note: "🥳 ملغية — مفيش محاضرة بكرة يا حبايبي"
   },
   // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
@@ -641,10 +708,10 @@ const SESSIONS = [
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
   // سكاشن الكهربية (الخميس)
-  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" },
-  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" }
+  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" },
+  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -656,25 +723,46 @@ const MONDAY_DYNAMICS_SLOTS = {
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
   {
+    id: "notif-mth-quiz-1",
+    date: "5 Oct 2026",
+    tag: "MTH G102 • كويز رسمي",
+    title: "Calculus Quiz 1 — كويز مجمع للـ 4 سكاشن",
+    body: "📢 صحصح لكويز الماث: كويز مجمع للـ 4 سكاشن الإثنين الجاي 12 أكتوبر الساعة 10:00 ص (30-35 دقيقة MCQ). ذاكر السلايدات وركز على الـ Graphs كويس.. افتح دليل المذاكرة وابدأ جهز نفسك يا هندسة 🎯"
+  },
+  {
+    id: "notif-mth-cancel-oct6",
+    date: "5 Oct 2026",
+    tag: "MTH G102 • إلغاء محاضرة",
+    title: "إلغاء محاضرة الماث غداً الثلاثاء",
+    body: "🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث."
+  },
+  {
     id: "notif-epe-cancel-oct6",
     date: "5 Oct 2026",
     tag: "EPE G113 • إلغاء محاضرة",
     title: "إلغاء محاضرة الكهربية غداً الثلاثاء",
-    body: "مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية)."
+    body: "🥳 ملغية — مفيش محاضرة بكرة يا حبايبي."
   },
   {
     id: "notif-epe-sec-thu",
     date: "5 Oct 2026",
     tag: "EPE G113 • السكاشن والتسليم",
     title: "مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت",
-    body: "المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين: (فترة 12:30 إلى 2:00، وفترة 2:00 إلى 3:30). ⚠️ علماً بأن يوم الخميس إجازة رسمية — سيتم التأكيد والتنسيق مع المعيد في حال أي ترحيل للموعد، وأي تغيير هيتبلغوا بيه فوراً بالتوفيق."
+    body: "المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين: (فترة 12:30 إلى 2:00، وفترة 2:00 إلى 3:30). ⚠️ علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً بالتوفيق."
+  },
+  {
+    id: "ann-the-1",
+    date: "5 Oct 2026",
+    tag: "EMC G101",
+    title: "Take-Home Exam 1 — Model P200",
+    body: "امتحان الـ Take-Home الأول في الديناميكا متاح الآن، موعد التسليم الجمعة 9 أكتوبر الساعة 7:00 مساءً مع بونص 10% للتسليم المبكر."
   },
   { 
     id: "ann-gen-q1", 
-    date: "4 Oct 2026", 
+    date: "5 Oct 2026", 
     tag: "GEN G119", 
-    title: "كويز 1 ماركتنج (تم عقده أمس الأحد)", 
-    body: "تم عقد كويز 1 أمس الأحد 4 أكتوبر 2026 بمدرج 3103 على Chapter 1 بالتوفيق لجميع الطلاب." 
+    title: "كويز 1 ماركتنج الأحد القادم (مبنى 3 مدرج 3103)", 
+    body: "كويز أول المحاضرة 20 سؤال في 5 دقائق على شابتر 1 مطابق لأسئلة الـ Test Bank بالحرف. الحضور قبل 8:00 صباحاً." 
   },
   { 
     id: "ann-01", 

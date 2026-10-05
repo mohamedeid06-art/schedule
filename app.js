@@ -662,7 +662,7 @@ function escHtml(str) {
 
 activeSubjectFilter = activeSubjectFilter || "all";
 let activeSortOption = "due-date"; // "due-date" | "course" | "readiness"
-if (!activeQuizGuideId) activeQuizGuideId = "the-1";
+if (!activeQuizGuideId) activeQuizGuideId = "mth-quiz-1";
 currentDetailedTask = null;
 
 function getAllCombinedTasks() {
@@ -796,11 +796,14 @@ function buildQuizChecklist(task) {
         icon: '🎯',
         label: 'Practice & Videos',
         color: '#f43f5e',
-        items: (task.practice || []).map(p => ({
-          id: p.id,
-          title: p.title,
-          links: p.url ? [{ label: 'Watch', icon: '🎬', url: p.url }] : []
-        }))
+        items: (task.practice || []).map(p => {
+          const isPdf = p.url && (p.url.includes("drive.google.com") || p.title.includes("مسائل") || p.title.includes("تطبيقات") || p.title.includes("PDF") || p.title.includes("Solved"));
+          return {
+            id: p.id,
+            title: p.title,
+            links: p.url ? [{ label: isPdf ? 'Open PDF' : 'Watch', icon: isPdf ? '📄' : '🎬', url: p.url }] : []
+          };
+        })
       },
       {
         key: 'formula',
@@ -879,10 +882,14 @@ function buildQuizChecklist(task) {
   return groups;
 }
 
-// Initial mockup defaults for official tasks (GEN Marketing, THE 1, MTH Assignment 1)
+// Initial mockup defaults for official tasks (MTH Quiz 1, GEN Marketing, THE 1, MTH Assignment 1)
 (function initDefaultQuizChecklist() {
   if (!localStorage.getItem("cufe_quiz_checklists")) {
     const defaultState = {
+      "mth-quiz-1": {
+        "mth-lec-1": 1,
+        "mth-sht-1": 1
+      },
       "gen-quiz-1": {
         "gen-lec-1": 1,
         "gen-sht-1": 1
@@ -1158,8 +1165,13 @@ function openQuizPreparationGuide(taskId) {
 }
 
 function openQuizGuide(taskId) {
-  openQuizPreparationGuide(taskId);
+  openQuizPreparationGuide(taskId || 'mth-quiz-1');
 }
+
+function openQuizPrepGuide(taskId) {
+  openQuizPreparationGuide(taskId || 'mth-quiz-1');
+}
+window.openQuizPrepGuide = openQuizPrepGuide;
 
 function backToTasksView() {
   triggerHaptic("light");
@@ -1957,6 +1969,7 @@ function renderDailyAgenda() {
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
+              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="اضغط لفتح دليل كويز الماث">${escHtml(s.quizBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance && !isCancelled ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
@@ -2121,6 +2134,7 @@ function renderWeekMatrix() {
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : (isLiveNow ? 'color:#ef4444;' : '')}">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 5px;border-radius:4px;">🚫 ملغية</span>' : ''}
+              ${sess.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="font-size:8.5px;padding:2px 6px;cursor:pointer;" title="اضغط لفتح دليل كويز الماث">${escHtml(sess.quizBadge)}</span>` : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance">⚠ ATTENDANCE</span>' : ''}
@@ -3055,7 +3069,10 @@ if (clnBtn) clnBtn.addEventListener("click", exportToCalendar);
 // Carousel Loop
 let currentBannerIdx = 0;
 const bannerTrack = document.getElementById('bannerTrack');
-const totalCarouselBanners = 3;
+
+function getCarouselCount() {
+  return document.querySelectorAll('#bannerTrack .banner-card').length || 1;
+}
 
 function goToBanner(index) {
   if (!bannerTrack) return;
@@ -3075,8 +3092,9 @@ function updateBannerDots(index) {
 if (bannerTrack) {
   bannerTrack.addEventListener('scroll', () => {
     const width = bannerTrack.clientWidth;
+    const total = getCarouselCount();
     const index = Math.round(bannerTrack.scrollLeft / width);
-    if (index !== currentBannerIdx && index >= 0 && index < totalCarouselBanners) {
+    if (index !== currentBannerIdx && index >= 0 && index < total) {
       currentBannerIdx = index;
       updateBannerDots(index);
     }
@@ -3084,8 +3102,9 @@ if (bannerTrack) {
 
   setInterval(() => {
     const bannerContainer = document.getElementById("firstWeekBanner");
-    if (bannerContainer && bannerContainer.style.display !== "none") {
-      currentBannerIdx = (currentBannerIdx + 1) % totalCarouselBanners;
+    const total = getCarouselCount();
+    if (bannerContainer && bannerContainer.style.display !== "none" && total > 0) {
+      currentBannerIdx = (currentBannerIdx + 1) % total;
       goToBanner(currentBannerIdx);
     }
   }, 5500);

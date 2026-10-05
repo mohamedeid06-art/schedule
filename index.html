@@ -18,7 +18,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=116">
+  <link rel="stylesheet" href="style.css?v=120">
 </head>
 <body>
 
@@ -68,13 +68,28 @@
     <div class="banner-carousel-container" id="firstWeekBanner">
       <div class="banner-carousel-track" id="bannerTrack">
         
-        <!-- بانر 1 (عاجل): إلغاء محاضرة الكهربية غداً وتنبيه السكاشن -->
+        <!-- بانر 1 (عاجل ومميز): كويز الماث الرسمي القادم والتحضير -->
+        <div class="banner-card banner-task" style="border-color:#38bdf8; background:linear-gradient(135deg, rgba(14, 165, 233, 0.22) 0%, var(--surface) 100%);">
+          <span class="festive-icon">🎯</span>
+          <div class="festive-msg">
+            <strong style="color:#38bdf8;font-size:14.5px;">📢 صحصح لكويز الماث (MTH G102):</strong> كويز مجمع للـ 4 سكاشن الإثنين الجاي 12 أكتوبر الساعة 10:00 ص (30-35 دقيقة MCQ).
+            <div style="font-size:11.8px;margin-top:4px;color:var(--text-muted);line-height:1.45;">
+              ذاكر السلايدات وركز على الـ Graphs كويس.. افتح دليل المذاكرة وابدأ جهز نفسك يا هندسة 🎯
+            </div>
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="banner-action-link" onclick="openQuizPrepGuide('mth-quiz-1')" style="background:#0284c7;font-weight:800;">🎯 افتح دليل كويز الماث ↗</button>
+              <button class="banner-action-link" onclick="openOfficialExamModal('mth-quiz-1')" style="background:rgba(255,255,255,0.12);color:#fff;">ℹ️ تفاصيل الكويز الرسمية</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- بانر 2 (تنبيه بالعامية): إلغاء محاضرات الثلاثاء (ماث + كهربية) وتنبيه السكاشن -->
         <div class="banner-card banner-task" style="border-color:#ef4444; background:linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, var(--surface) 100%);">
           <span class="festive-icon">🥳</span>
           <div class="festive-msg">
-            <strong style="color:#f87171;font-size:14.5px;">تنبيه عاجل (EPE G113):</strong> مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية).
-            <div style="font-size:11.5px;margin-top:4px;color:var(--text-muted);line-height:1.4;">
-              📌 <strong>سكشن الأسبوع الرابع وتسليم الأسينمنت:</strong> المعيد وضح إن الميعاد فقط يوم الخميس فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30) — علماً بأن يوم الخميس إجازة رسمية وجارٍ التنسيق مع المعيد.
+            <strong style="color:#f87171;font-size:14.5px;">محاضرات الثلاثاء ملغية 🥳:</strong> حبايب قلبي بكرة مفيش محاضرة ماث ومفيش محاضرة كهرباء (EPE)!
+            <div style="font-size:11.8px;margin-top:4px;color:var(--text-muted);line-height:1.45;">
+              📌 <strong>سكشن وأسينمنت الـ EPE:</strong> السكشن ميعاده يوم الخميس فقط على فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30). علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً.
             </div>
             <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
               <button class="banner-action-link" onclick="openNotifModal()" style="background:#ef4444;">🔔 فتح التنبيهات الرسمية ↗</button>
@@ -83,16 +98,7 @@
           </div>
         </div>
 
-        <!-- بانر 2: إعلان دليل الأسبوع الثاني -->
-        <div class="banner-card banner-festive">
-          <span class="festive-icon">📖</span>
-          <div class="festive-msg">
-            <strong>دليل الأسبوع الثاني نزل رسميًا!</strong> تم تحديث سلايدات المحاضرات، وشيتات المسائل، والحلول، وروابط الشرح لكل مواد القسم.
-            <div><button class="banner-action-link" onclick="selectedGuideWeek = 'Week 2'; setView('guide');">تصفح دليل الأسبوع الثاني ↗</button></div>
-          </div>
-        </div>
-
-        <!-- بانر 3: تيك هوم الديناميكا 1 القادم -->
+        <!-- بانر 3: تيك هوم الديناميكا 1 القادم (Model P200) -->
         <div class="banner-card banner-task" style="border-color:#8b5cf6; background:linear-gradient(135deg, rgba(139, 92, 246, 0.18) 0%, var(--surface) 100%);">
           <span class="festive-icon">⚡</span>
           <div class="festive-msg">
@@ -101,12 +107,21 @@
           </div>
         </div>
 
-        <!-- بانر 4: كورس الديناميكا التبادلي -->
-        <div class="banner-card banner-dynamics">
-          <span class="festive-icon">⚙️</span>
+        <!-- بانر 4: كويز الماركتنج 1 (GEN G119) -->
+        <div class="banner-card banner-task" style="border-color:#06b6d4; background:linear-gradient(135deg, rgba(6, 182, 212, 0.18) 0%, var(--surface) 100%);">
+          <span class="festive-icon">📝</span>
           <div class="festive-msg">
-            <strong>سكشن الديناميكا التبادلي (الاثنين):</strong> يمكنك اختيار وحساب موعد سكشنك التبادلي بين الفترات المتاحة لتخصيص جدولك.
-            <div><button class="banner-action-link dyn-link" onclick="openDynamicsRoadmapModal()">خريطة المنهج ↗</button></div>
+            <strong style="color:#67e8f9;">كويز الماركتنج 1 (GEN G119):</strong> الأحد القادم 8:00 صباحاً بمدرج 3103 مبنى 3 — 20 سؤال في 5 دقائق على الشابتر الأول من الـ Test Bank.
+            <div style="margin-top:6px;"><button class="banner-action-link" onclick="openQuizPrepGuide('gen-quiz-1')" style="background:#0891b2;">فتح دليل الماركتنج والـ Test Bank ↗</button></div>
+          </div>
+        </div>
+
+        <!-- بانر 5: إعلان دليل المذاكرة الأسبوعي -->
+        <div class="banner-card banner-festive">
+          <span class="festive-icon">📖</span>
+          <div class="festive-msg">
+            <strong>دليل الأسابيع والماتريال الرسمية!</strong> تم تحديث سلايدات المحاضرات، وشيتات المسائل، والحلول، وروابط الشرح لكل مواد القسم.
+            <div><button class="banner-action-link" onclick="selectedGuideWeek = 'Week 2'; setView('guide');">تصفح دليل الأسبوع ↗</button></div>
           </div>
         </div>
 
@@ -117,6 +132,7 @@
         <span class="dot" onclick="goToBanner(1)"></span>
         <span class="dot" onclick="goToBanner(2)"></span>
         <span class="dot" onclick="goToBanner(3)"></span>
+        <span class="dot" onclick="goToBanner(4)"></span>
       </div>
     </div>
 
@@ -377,8 +393,8 @@
   </div>
 
   <!-- Application Logic Scripts -->
-  <script src="./data.js?v=116"></script>
-  <script src="./app.js?v=116"></script>
+  <script src="./data.js?v=120"></script>
+  <script src="./app.js?v=120"></script>
 </body>
 </html>
 
