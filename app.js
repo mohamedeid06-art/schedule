@@ -630,6 +630,16 @@ function getAllEventsForCalendar() {
    Modern Neon Dashboard — Official Tasks, Details Modal & Quiz Guide Engine
    ========================================================================== */
 
+function escHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 activeSubjectFilter = activeSubjectFilter || "all";
 let activeSortOption = "due-date"; // "due-date" | "course" | "readiness"
 if (!activeQuizGuideId) activeQuizGuideId = "mth-quiz-1";
@@ -762,10 +772,12 @@ function getSubjectGuides(code) {
 }
 
 function sortByDeadline(a, b) {
-  const pa = a.countdown.isPassed ? 1 : 0;
-  const pb = b.countdown.isPassed ? 1 : 0;
+  const pa = a.countdown?.isPassed ? 1 : 0;
+  const pb = b.countdown?.isPassed ? 1 : 0;
   if (pa !== pb) return pa - pb;
-  return (new Date(a.deadline).getTime() || 0) - (new Date(b.deadline).getTime() || 0);
+  const da = a.deadline ? new Date(a.deadline).getTime() : 0;
+  const db = b.deadline ? new Date(b.deadline).getTime() : 0;
+  return (isNaN(da) ? 0 : da) - (isNaN(db) ? 0 : db);
 }
 
 /* ---------- Checklist & Readiness Engine ---------- */
@@ -976,9 +988,9 @@ function renderCircularGaugeSvg(pct, size, strokeWidth, color, label) {
 
 function getTimeBasedGreeting() {
   const hr = new Date().getHours();
-  if (hr < 12) return "Good morning, Mohamed 👋";
-  if (hr < 18) return "Good afternoon, Mohamed 👋";
-  return "Good evening, Mohamed 👋";
+  if (hr < 12) return "Good morning, Engineers 👋";
+  if (hr < 18) return "Welcome back, Engineers 👋";
+  return "Ready to crush your exams? 🚀";
 }
 
 /* ==========================================================================
@@ -1060,13 +1072,19 @@ function renderTasksGridOnly() {
   let list = allTasks;
 
   // Filter by subject
-  if (activeSubjectFilter !== "all") {
-    list = list.filter(t => t.code === activeSubjectFilter);
+  if (activeSubjectFilter && activeSubjectFilter !== "all") {
+    const f = activeSubjectFilter.trim().toUpperCase();
+    list = list.filter(t => {
+      if (!t.code) return false;
+      const c = t.code.trim().toUpperCase();
+      return c === f || c.replace(/\s+/g, '') === f.replace(/\s+/g, '') || c.startsWith(f.split(' ')[0]);
+    });
   }
 
   // Sort
+  if (typeof activeSortOption === 'undefined') activeSortOption = 'due-date';
   if (activeSortOption === "course") {
-    list.sort((a, b) => a.code.localeCompare(b.code));
+    list.sort((a, b) => (a.code || '').localeCompare(b.code || ''));
   } else if (activeSortOption === "readiness") {
     list.sort((a, b) => getQuizProgressById(b.id).pct - getQuizProgressById(a.id).pct);
   } else {
@@ -1075,9 +1093,10 @@ function renderTasksGridOnly() {
 
   if (!list.length) {
     grid.innerHTML = `
-      <div class="dash-empty-grid">
-        <div class="empty-icon">✨</div>
-        <div class="empty-txt">No tasks or quizzes found for this filter</div>
+      <div class="dash-empty-grid" style="grid-column: 1 / -1; text-align: center; padding: 48px 16px; background: rgba(18, 26, 43, 0.6); border: 1px dashed rgba(255,255,255,0.1); border-radius: 16px;">
+        <div class="empty-icon" style="font-size: 32px; margin-bottom: 8px;">✨</div>
+        <div class="empty-txt" style="color: var(--text-muted); font-size: 14px; font-weight: 600;">No tasks or quizzes found for this filter</div>
+        <button onclick="setSubjectFilterPill('all')" style="margin-top: 14px; background: var(--accent-glow); color: var(--accent-light); border: 1px solid var(--accent); padding: 6px 16px; border-radius: 9999px; font-weight: 700; cursor: pointer;">Show All Tasks</button>
       </div>
     `;
     return;
@@ -1087,28 +1106,30 @@ function renderTasksGridOnly() {
 }
 
 function renderBentoTaskCard(task) {
-  const initial = task.code.split(' ')[0] || task.code;
-  const accentColor = task.accent || COURSES[task.code]?.hex || '#38bdf8';
+  const initial = (task.code || '').split(' ')[0] || task.code || 'TASK';
+  const accentColor = task.accent || (typeof COURSES !== 'undefined' && COURSES[task.code]?.hex) || '#38bdf8';
   const accentName = task.accentName || 'cyan';
 
   const dObj = new Date(task.deadline);
   const formattedDate = task.dateDisplay || (!isNaN(dObj.getTime())
     ? dObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-    : task.deadline);
+    : (task.deadline || 'Scheduled'));
 
-  const instructorName = task.instructor || COURSES[task.code]?.instructor || "CUFE Staff";
+  const instructorName = task.instructor || (typeof COURSES !== 'undefined' && COURSES[task.code]?.instructor) || "CUFE Staff";
+  const cdText = task.countdownBadge || task.countdown?.text || "Scheduled";
+  const isUrgent = !!(task.countdown?.isUrgent);
 
   return `
     <article class="bento-task-card bento-${accentName} ${task.isDone ? 'is-completed' : ''}" style="--bento-c: ${accentColor};">
       <div class="bento-card-top">
         <div class="bento-subj-tag">
           <span class="bento-subj-initial">${initial}</span>
-          <span class="bento-subj-code">${task.code}</span>
+          <span class="bento-subj-code">${escHtml(task.code || '')}</span>
         </div>
-        <span class="bento-type-pill">${task.type || 'Quiz'}</span>
+        <span class="bento-type-pill">${escHtml(task.type || 'Quiz')}</span>
       </div>
 
-      <h3 class="bento-card-title">${escHtml(task.title)}</h3>
+      <h3 class="bento-card-title">${escHtml(task.title || '')}</h3>
 
       <div class="bento-card-inst">
         <span class="bento-inst-icon">👤</span>
@@ -1118,10 +1139,10 @@ function renderBentoTaskCard(task) {
       <div class="bento-card-meta-row">
         <div class="bento-card-date">
           <span class="cal-mini-icon">📅</span>
-          <span>${formattedDate}</span>
+          <span>${escHtml(formattedDate)}</span>
         </div>
-        <span class="bento-countdown-badge ${task.countdown.isUrgent ? 'urgent' : ''}">
-          ${task.countdown.text}
+        <span class="bento-countdown-badge ${isUrgent ? 'urgent' : ''}">
+          ${escHtml(cdText)}
         </span>
       </div>
 
@@ -1140,6 +1161,7 @@ function renderBentoTaskCard(task) {
 function setSubjectFilterPill(code) {
   triggerHaptic("light");
   activeSubjectFilter = code;
+  localStorage.setItem("cufe_tasks_subject", code);
   renderTasksGridOnly();
 
   document.querySelectorAll(".subj-pill-btn").forEach(btn => {
@@ -2878,7 +2900,7 @@ function render() {
   if (navGuide) navGuide.classList.remove("active");
   if (navTask) navTask.classList.remove("active");
 
-  if (activeView === "drive" || activeView === "guide" || activeView === "tasks" || activeView === "cad") {
+  if (activeView === "drive" || activeView === "guide" || activeView === "tasks" || activeView === "quiz-guide" || activeView === "cad") {
     if (controlBar) controlBar.style.display = "none";
     if (liveBox) liveBox.style.display = "none";
     if (mainHeader) mainHeader.style.display = "none";
