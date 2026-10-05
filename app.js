@@ -584,7 +584,7 @@ function getExactCountdown(deadlineStr) {
   const diff = target.getTime() - now.getTime();
 
   if (diff <= 0) {
-    return { text: "انتهى الديدلاين ❌", isUrgent: true, isPassed: true, diff };
+    return { text: "منتهي ✅", isUrgent: false, isPassed: true, diff };
   }
 
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -662,7 +662,7 @@ function escHtml(str) {
 
 activeSubjectFilter = activeSubjectFilter || "all";
 let activeSortOption = "due-date"; // "due-date" | "course" | "readiness"
-if (!activeQuizGuideId) activeQuizGuideId = "gen-quiz-1";
+if (!activeQuizGuideId) activeQuizGuideId = "the-1";
 currentDetailedTask = null;
 
 function getAllCombinedTasks() {
@@ -673,7 +673,7 @@ function getAllCombinedTasks() {
   if (typeof MASTER_QUIZZES !== 'undefined') {
     MASTER_QUIZZES.forEach(q => {
       const cd = getExactCountdown(q.deadline);
-      const isDone = completedTasks.includes(q.id);
+      const isDone = q.isDone || completedTasks.includes(q.id) || cd.isPassed;
       let priority = "scheduled";
       if (isDone) priority = "done";
       else if (cd.isUrgent) priority = "due-soon";

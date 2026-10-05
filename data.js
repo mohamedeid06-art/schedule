@@ -65,41 +65,6 @@ const COURSES = {
 // ==========================================================================
 const MASTER_QUIZZES = [
   {
-    id: "gen-quiz-1",
-    code: "GEN G119",
-    title: "Quiz 1 — Marketing (20 Questions / 5 Mins)",
-    type: "In-Class Quiz",
-    instructor: "Dr. Tamer El-Hariry",
-    dateDisplay: "Oct 11, 2026 (8:00 AM)",
-    countdownBadge: "5d 13h 15m",
-    start: "2026-10-11T08:00:00",
-    deadline: "2026-10-11T08:05:00",
-    accent: "#06b6d4",
-    accentName: "cyan",
-    submissionUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
-    instructions: [
-      "كويز 1 أول المحاضرة على Chapter 1 (Introduction to Marketing).",
-      "عدد الأسئلة: 20 سؤال في 5 دقائق.",
-      "النظام: مكس بين أسئلة MCQ و True or False.",
-      "الأسئلة بتيجي مباشرة ومطابقة لأسئلة الـ Test Bank بالحرف وبنفس ترتيب الاختيارات.",
-      "المكان: مدرج 3103 مبنى 3 — يرجى الحضور قبل الساعة 8:00 صباحاً."
-    ],
-    lectures: [
-      { id: "gen-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" },
-      { id: "gen-lec-2", title: "Lecture 2 - Introduction to Marketing (Chapter 1)", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" }
-    ],
-    sheets: [
-      { id: "gen-sht-1", title: "Test Bank CH1 (بنك الأسئلة المباشر)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
-    ],
-    practice: [
-      { id: "gen-vid-1", title: "حل ومراجعة أسئلة بنك الأسئلة المتكررة في الامتحان", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
-    ],
-    formula: [
-      { id: "gen-form-1", title: "4Ps of Marketing (Product, Price, Place, Promotion)" },
-      { id: "gen-form-2", title: "تركات الـ Test Bank وأهم الفروق النظرية", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
-    ]
-  },
-  {
     id: "the-1",
     code: "EMC G101",
     title: "Take-Home Exam 1 — Model (P200)",
@@ -169,6 +134,39 @@ const MASTER_QUIZZES = [
     formula: [
       { id: "mth-form-1", title: "Double Integrals Standard Rules & Polar Transformations" },
       { id: "mth-form-2", title: "Linear Systems & Matrix Row Operations Guide" }
+    ]
+  },
+  {
+    id: "gen-quiz-1",
+    code: "GEN G119",
+    title: "Quiz 1 — Marketing (Chapter 1)",
+    type: "In-Class Quiz",
+    instructor: "Dr. Tamer El-Hariry",
+    dateDisplay: "Oct 4, 2026 (انتهى أمس ✅)",
+    countdownBadge: "منتهي ✅",
+    start: "2026-10-04T08:00:00",
+    deadline: "2026-10-04T08:05:00",
+    isDone: true,
+    accent: "#06b6d4",
+    accentName: "cyan",
+    submissionUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
+    instructions: [
+      "كويز 1 تم عقده أمس الأحد 4 أكتوبر 2026 في بداية المحاضرة.",
+      "كان على Chapter 1 (Introduction to Marketing) - 20 سؤال في 5 دقائق من Test Bank."
+    ],
+    lectures: [
+      { id: "gen-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" },
+      { id: "gen-lec-2", title: "Lecture 2 - Introduction to Marketing (Chapter 1)", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" }
+    ],
+    sheets: [
+      { id: "gen-sht-1", title: "Test Bank CH1 (بنك الأسئلة المباشر)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
+    ],
+    practice: [
+      { id: "gen-vid-1", title: "حل ومراجعة أسئلة بنك الأسئلة المتكررة في الامتحان", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
+    ],
+    formula: [
+      { id: "gen-form-1", title: "4Ps of Marketing (Product, Price, Place, Promotion)" },
+      { id: "gen-form-2", title: "تركات الـ Test Bank وأهم الفروق النظرية", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
     ]
   }
 ];
@@ -675,8 +673,8 @@ const DEFAULT_NOTIFICATIONS = [
     id: "ann-gen-q1", 
     date: "4 Oct 2026", 
     tag: "GEN G119", 
-    title: "كويز 1 ماركتنج الأحد القادم (مبنى 3 مدرج 3103)", 
-    body: "كويز أول المحاضرة 20 سؤال في 5 دقائق على شابتر 1 مطابق لأسئلة الـ Test Bank بالحرف. الحضور قبل 8:00 صباحاً." 
+    title: "كويز 1 ماركتنج (تم عقده أمس الأحد)", 
+    body: "تم عقد كويز 1 أمس الأحد 4 أكتوبر 2026 بمدرج 3103 على Chapter 1 بالتوفيق لجميع الطلاب." 
   },
   { 
     id: "ann-01", 
