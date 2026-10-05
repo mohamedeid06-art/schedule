@@ -60,6 +60,164 @@ const COURSES = {
   }
 };
 
+// ==========================================================================
+// Modern Neon Dashboard — Official Quizzes & Exam System Master Data
+// ==========================================================================
+const MASTER_QUIZZES = [
+  {
+    id: "mth-quiz-1",
+    code: "MTH G102",
+    title: "Quiz 1 - Calculus (Limits & Continuity)",
+    type: "Quiz",
+    instructor: "Dr. Ahmed Hassan",
+    dateDisplay: "Oct 1, 2026",
+    start: "2026-10-01T09:00:00",
+    deadline: "2026-10-01T10:30:00",
+    accent: "#38bdf8",
+    accentName: "cyan",
+    submissionUrl: "https://forms.google.com/cufe-mth-q1",
+    instructions: [
+      "Make sure to read all instructions carefully.",
+      "The exam is online and time-limited.",
+      "Use only the official submission form.",
+      "Late submissions will not be accepted.",
+      "No calculators or external resources (unless stated)."
+    ],
+    lectures: [
+      { id: "mth1-lec-1", title: "Lecture 1 - Limits & Continuity", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth1-lec-2", title: "Lecture 2 - Derivatives", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth1-lec-3", title: "Lecture 3 - Applications", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth1-lec-4", title: "Lecture 4 - Review", slides: "" }
+    ],
+    sheets: [
+      { id: "mth1-sht-1", title: "Sheet 1 - Limits & Continuity", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth1-sht-2", title: "Sheet 2 - Derivatives", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth1-sht-3", title: "Sheet 3 - Mixed Problems", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" }
+    ],
+    practice: [
+      { id: "mth1-vid-1", title: "Video 1 - Introduction", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
+      { id: "mth1-vid-2", title: "Video 2 - Limit Examples", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
+      { id: "mth1-vid-3", title: "Video 3 - Derivatives", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" },
+      { id: "mth1-vid-4", title: "Video 4 - Full Revision", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" }
+    ],
+    formula: [
+      { id: "mth1-form-1", title: "Basic Limit Formulas" },
+      { id: "mth1-form-2", title: "Derivative Rules" },
+      { id: "mth1-form-3", title: "Common Mistakes (Exam Warnings)" },
+      { id: "mth1-form-4", title: "Quick Revision Sheet", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" }
+    ]
+  },
+  {
+    id: "emc-quiz-1",
+    code: "EMC G101",
+    title: "Quiz 1 - DC Circuits",
+    type: "Quiz",
+    instructor: "Dr. Mohamed El-Sayed",
+    dateDisplay: "Oct 3, 2026",
+    start: "2026-10-03T09:00:00",
+    deadline: "2026-10-03T10:30:00",
+    accent: "#f59e0b",
+    accentName: "amber",
+    submissionUrl: "https://sites.google.com/eng.cu.edu.eg/planedynamics100",
+    instructions: [
+      "Make sure to read all instructions carefully.",
+      "The exam is in-class and timed strictly to 45 minutes.",
+      "Select (No / None) if your answer deviates by more than 1.5%.",
+      "Calculators are permitted for numerical evaluations."
+    ],
+    lectures: [
+      { id: "emc1-lec-1", title: "Lecture 1 - Particle Kinematics", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
+      { id: "emc1-lec-2", title: "Lecture 2 - Velocity Relations", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
+      { id: "emc1-lec-3", title: "Lecture 3 - Curvilinear Coordinates", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" }
+    ],
+    sheets: [
+      { id: "emc1-sht-1", title: "Sheet 1 - Kinematics of Particles", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" },
+      { id: "emc1-sht-2", title: "Sheet 2 - Velocity Relations", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" },
+      { id: "emc1-sht-3", title: "Sheet 3 - Relative Motion", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" }
+    ],
+    practice: [
+      { id: "emc1-vid-1", title: "Video 1 - Velocity Analysis (Eng. Ingy)", url: "https://youtu.be/i-sy90j-dp0" },
+      { id: "emc1-vid-2", title: "Video 2 - Sheet Problems (Eng. Ahmed Fawzy)", url: "https://youtu.be/mrLEzczCxpc" }
+    ],
+    formula: [
+      { id: "emc1-form-1", title: "Relative Velocity Vector Formula" },
+      { id: "emc1-form-2", title: "Instantaneous Center of Zero Velocity (IC)" }
+    ]
+  },
+  {
+    id: "gen-midterm-1",
+    code: "GEN G119",
+    title: "Midterm Exam - Engineering Graphics",
+    type: "Exam",
+    instructor: "Dr. Sara Abdelrahman",
+    dateDisplay: "Oct 8, 2026",
+    start: "2026-10-08T09:00:00",
+    deadline: "2026-10-08T11:00:00",
+    accent: "#f43f5e",
+    accentName: "rose",
+    submissionUrl: "https://forms.google.com/cufe-gen-midterm",
+    instructions: [
+      "Make sure to read all instructions carefully.",
+      "The exam is online and time-limited.",
+      "Use only the official submission form.",
+      "Late submissions will not be accepted.",
+      "No calculators or external resources (unless stated)."
+    ],
+    lectures: [
+      { id: "gen1-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view" },
+      { id: "gen1-lec-2", title: "Lecture 2 - Market Research & Consumer Behavior", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view" },
+      { id: "gen1-lec-3", title: "Lecture 3 - Product Lifecycle & Strategy", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view" }
+    ],
+    sheets: [
+      { id: "gen1-sht-1", title: "Test Bank CH1 & CH2 (Direct Questions)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view" }
+    ],
+    practice: [
+      { id: "gen1-vid-1", title: "Video 1 - Case Studies & MCQ Solutions", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
+    ],
+    formula: [
+      { id: "gen1-form-1", title: "4Ps Marketing Mix Core Concepts" },
+      { id: "gen1-form-2", title: "Exam Warnings & Test Bank Tricks" }
+    ]
+  },
+  {
+    id: "mth-quiz-2",
+    code: "MTH G102",
+    title: "Quiz 2 - Differential Equations",
+    type: "Quiz",
+    instructor: "Dr. Ahmed Hassan",
+    dateDisplay: "Oct 12, 2026",
+    start: "2026-10-12T09:00:00",
+    deadline: "2026-10-12T10:30:00",
+    accent: "#a855f7",
+    accentName: "purple",
+    submissionUrl: "https://forms.google.com/cufe-mth-q2",
+    instructions: [
+      "Make sure to read all instructions carefully.",
+      "The exam is in-class and written.",
+      "Use only blue or black ink pens.",
+      "Write full solution steps for each question.",
+      "No calculators or external resources (unless stated)."
+    ],
+    lectures: [
+      { id: "mth2-lec-1", title: "Lecture 1 - First Order ODEs", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth2-lec-2", title: "Lecture 2 - Exact Equations & Integrating Factors", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth2-lec-3", title: "Lecture 3 - Higher Order ODEs", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" }
+    ],
+    sheets: [
+      { id: "mth2-sht-1", title: "Sheet 1 - Separable & Linear Equations", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth2-sht-2", title: "Sheet 2 - Exact & Homogeneous Equations", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" }
+    ],
+    practice: [
+      { id: "mth2-vid-1", title: "Video 1 - ODE Problem Solving (Eng. Bassem)", url: "https://youtu.be/ndfc1-8hWuI" },
+      { id: "mth2-vid-2", title: "Video 2 - Integrating Factors (Eng. Maghraby)", url: "https://youtu.be/8ANactIJ6Sk" }
+    ],
+    formula: [
+      { id: "mth2-form-1", title: "Standard Differential Forms & Formulas" },
+      { id: "mth2-form-2", title: "Integrating Factor Quick Rules" }
+    ]
+  }
+];
+
 // تكليفات المواد الثابتة
 const COURSE_STATIC_ASSIGNMENTS = [
   {
