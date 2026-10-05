@@ -461,12 +461,87 @@ body {
 .matrix-time { background: var(--surface-alt); border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted); }
 .matrix-cell-empty { border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-subtle); }
 .grid-card-positioned { padding: 3px; box-sizing: border-box; }
-.grid-card { height: 100%; width: 100%; border-radius: 10px; padding: 6px 9px; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--c); box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
-.grid-card .code { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 800; color: var(--text-main); }
-.grid-card .type { font-size: 8.5px; font-weight: 800; padding: 1px 5px; border-radius: 4px; background: var(--surface-alt); color: var(--text-muted); text-transform: uppercase; }
-.grid-card .title { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.25; font-weight: 600; }
-.grid-card .footer { margin-top: auto; padding-top: 4px; display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); border-top: 1px dashed var(--border); }
-.room-badge { background: var(--surface-alt); padding: 1px 5px; border-radius: 5px; color: var(--text-main); font-weight: 700; cursor: pointer; }
+.grid-card {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  padding: 6px 9px;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--c);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  box-sizing: border-box;
+  overflow: hidden;
+  justify-content: space-between;
+}
+.grid-card .code { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 800; color: var(--text-main); white-space: nowrap; }
+.grid-card .type { font-size: 8.5px; font-weight: 800; padding: 1px 5px; border-radius: 4px; background: var(--surface-alt); color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
+.grid-card .title {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.25;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.grid-card .footer {
+  margin-top: auto;
+  padding-top: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border);
+  gap: 4px;
+  min-height: 22px;
+}
+.room-badge {
+  background: var(--surface-alt);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: var(--text-main);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: middle;
+}
+.matrix-card-note {
+  margin-top: 3px;
+  padding: 2px 6px;
+  background: rgba(234, 179, 8, 0.12);
+  border: 1px solid rgba(234, 179, 8, 0.35);
+  border-radius: 6px;
+  color: #fde047;
+  font-size: 8.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  cursor: default;
+}
+.matrix-card-note .matrix-note-icon {
+  flex-shrink: 0;
+  font-size: 9.5px;
+}
+.matrix-card-note .matrix-note-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* Daily Timeline */
 .timeline-wrap { display: flex; flex-direction: column; gap: 14px; position: relative; }
@@ -3975,11 +4050,11 @@ body {
    ========================================================================== */
 @keyframes quizGlowPulse {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.65), 0 0 20px rgba(14, 165, 233, 0.35);
-    border-color: rgba(56, 189, 248, 0.9);
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.4), 0 0 10px rgba(14, 165, 233, 0.2);
+    border-color: rgba(56, 189, 248, 0.7);
   }
   50% {
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.95), 0 0 35px rgba(14, 165, 233, 0.6);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6), 0 0 16px rgba(14, 165, 233, 0.3);
     border-color: #38bdf8;
   }
 }
@@ -3987,22 +4062,366 @@ body {
 .badge-quiz-glow {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.28), rgba(56, 189, 248, 0.18));
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(56, 189, 248, 0.15));
   color: #38bdf8;
   font-weight: 800;
-  font-size: 11px;
-  padding: 3px 9px;
+  font-size: 10.5px;
+  padding: 2px 8px;
   border-radius: 999px;
-  border: 1.5px solid rgba(56, 189, 248, 0.85);
-  animation: quizGlowPulse 2.2s infinite ease-in-out;
+  border: 1px solid rgba(56, 189, 248, 0.8);
+  animation: quizGlowPulse 2.5s infinite ease-in-out;
   cursor: pointer;
   letter-spacing: 0.2px;
-  transition: transform 0.2s ease;
+  white-space: nowrap;
   user-select: none;
+  line-height: 1.2;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
 }
 
 .badge-quiz-glow:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+}
+
+.matrix-quiz-badge {
+  font-size: 8px !important;
+  padding: 1.5px 5.5px !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  line-height: 1.15 !important;
+}
+
+/* ==========================================================================
+   Tasks & Quizzes Modern Dashboard — Light Mode Design System
+   ========================================================================== */
+[data-theme="light"] .modern-tasks-dashboard {
+  --dash-card-bg: #ffffff;
+}
+
+[data-theme="light"] .dash-greeting-line {
+  color: #0284c7;
+}
+
+[data-theme="light"] .dash-sub-line {
+  color: #64748b;
+}
+
+[data-theme="light"] .dash-page-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .dash-page-subtitle {
+  color: #475569;
+}
+
+[data-theme="light"] .dash-week-badge-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .week-title {
+  color: #64748b;
+}
+
+[data-theme="light"] .week-range {
+  color: #0f172a;
+}
+
+[data-theme="light"] .circular-gauge-box .gauge-circle-bg {
+  stroke: #e2e8f0;
+}
+
+[data-theme="light"] .circular-gauge-box .gauge-circle-fill {
+  stroke: #0284c7;
+  filter: none;
+}
+
+[data-theme="light"] .gauge-pct-val {
+  color: #0f172a;
+}
+
+[data-theme="light"] .gauge-sub-lbl {
+  color: #64748b;
+}
+
+/* 2. Filter Pills in Light Mode */
+[data-theme="light"] .subj-pill-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  box-shadow: none;
+}
+
+[data-theme="light"] .subj-pill-btn:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+[data-theme="light"] .subj-pill-btn.active {
+  background: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.28) !important;
+}
+
+[data-theme="light"] .dash-sort-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .dash-sort-box .sort-lbl {
+  color: #64748b;
+}
+
+[data-theme="light"] .dash-sort-select {
+  color: #0f172a;
+}
+
+/* 1. Bento Cards in Light Mode */
+[data-theme="light"] .bento-task-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .bento-task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .bento-task-card.bento-cyan {
+  border-color: #bae6fd;
+}
+[data-theme="light"] .bento-task-card.bento-cyan:hover {
+  border-color: #7dd3fc;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.12);
+}
+
+[data-theme="light"] .bento-task-card.bento-amber {
+  border-color: #fde68a;
+}
+[data-theme="light"] .bento-task-card.bento-amber:hover {
+  border-color: #fcd34d;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.12);
+}
+
+[data-theme="light"] .bento-task-card.bento-rose {
+  border-color: #fecdd3;
+}
+[data-theme="light"] .bento-task-card.bento-rose:hover {
+  border-color: #fda4af;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.12);
+}
+
+[data-theme="light"] .bento-task-card.bento-purple {
+  border-color: #e9d5ff;
+}
+[data-theme="light"] .bento-task-card.bento-purple:hover {
+  border-color: #d8b4fe;
+  box-shadow: 0 8px 24px rgba(147, 51, 234, 0.12);
+}
+
+[data-theme="light"] .bento-task-card.is-completed {
+  background: #f8fafc;
+  opacity: 0.82;
+}
+
+[data-theme="light"] .bento-card-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .bento-card-inst,
+[data-theme="light"] .bento-card-date {
+  color: #475569;
+}
+
+/* Badges & Pills in Light Mode - Soft Pastels */
+[data-theme="light"] .bento-subj-tag {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="light"] .bento-subj-initial {
+  color: #ffffff;
+}
+
+[data-theme="light"] .bento-subj-code {
+  color: #0f172a;
+}
+
+[data-theme="light"] .bento-type-pill {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+[data-theme="light"] .bento-countdown-badge {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  box-shadow: none;
+}
+
+[data-theme="light"] .bento-countdown-badge.urgent {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #e11d48;
+}
+
+/* 3. Action Buttons in Light Mode */
+[data-theme="light"] .btn-official-details {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #1e293b;
+  box-shadow: none;
+}
+
+[data-theme="light"] .btn-official-details:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+[data-theme="light"] .btn-open-guide {
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 3px 12px rgba(2, 132, 199, 0.25);
+}
+
+[data-theme="light"] .btn-open-guide:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+}
+
+[data-theme="light"] .dash-empty-grid {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+/* Official Exam Modal in Light Mode */
+[data-theme="light"] .official-exam-modal-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] .official-exam-head {
+  border-bottom-color: #e2e8f0;
+}
+
+[data-theme="light"] .exam-modal-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .exam-meta-item,
+[data-theme="light"] .instructions-box {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .meta-value {
+  color: #0f172a;
+}
+
+[data-theme="light"] .instructions-header {
+  color: #0f172a;
+}
+
+[data-theme="light"] .instructions-list {
+  color: #475569;
+}
+
+[data-theme="light"] .official-exam-footer {
+  border-top-color: #e2e8f0;
+}
+
+/* Light Theme Quiz Glow & Matrix Enhancements */
+[data-theme="light"] .badge-quiz-glow {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #7dd3fc;
+  animation: none;
+  box-shadow: 0 1px 4px rgba(2, 132, 199, 0.15);
+}
+
+[data-theme="light"] .badge-quiz-glow:hover {
+  background: #bae6fd;
+  color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+}
+
+[data-theme="light"] .matrix-card-note {
+  background: #fefce8;
+  border-color: #fde047;
+  color: #a16207;
+}
+
+[data-theme="light"] .timeline-card.is-cancelled-card,
+[data-theme="light"] .grid-card.is-cancelled-card {
+  background: #fef2f2 !important;
+  border-color: #fecaca !important;
+}
+
+/* Study Guide Standalone/Modal in Light Mode */
+[data-theme="light"] .qg-top-bar,
+[data-theme="light"] .qg-hero-header,
+[data-theme="light"] .qg-bento-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .qg-hero-title,
+[data-theme="light"] .qg-card-label {
+  color: #0f172a;
+}
+
+[data-theme="light"] .qg-hero-meta,
+[data-theme="light"] .qg-card-counter {
+  color: #475569;
+}
+
+[data-theme="light"] .qg-checklist-row {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+[data-theme="light"] .qg-checklist-row:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .qg-item-title-txt {
+  color: #1e293b;
+}
+
+[data-theme="light"] .qg-checklist-row.is-completed .qg-item-title-txt {
+  color: #64748b;
+}
+
+[data-theme="light"] .qg-mini-pill-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+[data-theme="light"] .qg-mini-pill-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+[data-theme="light"] .qg-view-all-link {
+  color: #0284c7;
+}
+
+[data-theme="light"] .qg-view-all-link:hover {
+  color: #0369a1;
 }
 

@@ -101,6 +101,18 @@ function calculateActualAcademicWeek() {
 
 function getActiveEffectiveSessions() {
   let baseSessions = SESSIONS.filter(s => s.group === "ALL" || s.group === activeGroup);
+  // If there's an "ALL" quiz session at a specific day & start for a course,
+  // it supersedes any section-specific session of the same course at that same day & slot.
+  const quizSessions = baseSessions.filter(s => s.isQuiz);
+  if (quizSessions.length > 0) {
+    baseSessions = baseSessions.filter(s => {
+      if (s.isQuiz) return true;
+      const isOverriddenByQuiz = quizSessions.some(q => 
+        q.code === s.code && q.day === s.day && q.start === s.start
+      );
+      return !isOverriddenByQuiz;
+    });
+  }
   if (selectedDynamicsSlot && MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]) {
     baseSessions.push(MONDAY_DYNAMICS_SLOTS[selectedDynamicsSlot]);
   }
@@ -2098,7 +2110,8 @@ function renderWeekMatrix() {
       const hasConflict = daySessions.some(other => 
         other !== sess &&
         sess.start < (other.start + other.span) &&
-        (sess.start + sess.span) > other.start
+        (sess.start + sess.span) > other.start &&
+        (sess.isDynSec || other.isDynSec)
       );
 
       let widthStyle = "width: 100%;";
@@ -2130,11 +2143,11 @@ function renderWeekMatrix() {
       posWrap.innerHTML = `
         <div class="grid-card ${isLiveNow && !isCancelled ? 'is-live-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance && !isCancelled ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''} ${isCancelled ? 'is-cancelled-card' : ''}" 
              style="--c: ${isCancelled ? '#ef4444' : (isLiveNow ? '#ef4444' : course.color)}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
-          <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:4px;">
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : (isLiveNow ? 'color:#ef4444;' : '')}">${sess.code}</span>
-            <div style="display:flex;gap:3px;align-items:center;">
+            <div style="display:flex;gap:3px;align-items:center;flex-shrink:0;">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 5px;border-radius:4px;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="font-size:8.5px;padding:2px 6px;cursor:pointer;" title="اضغط لفتح دليل كويز الماث">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">⚡ كويز 1</span>` : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance">⚠ ATTENDANCE</span>' : ''}
@@ -2143,17 +2156,22 @@ function renderWeekMatrix() {
           </div>
           <div class="title" style="${isCancelled ? 'text-decoration:line-through;opacity:0.75;' : ''}">${course.name}</div>
           ${isCancelled && sess.cancelNotice ? `<div style="font-size:9.5px;color:#fca5a5;font-weight:700;line-height:1.2;margin-top:2px;">📢 ${escHtml(sess.cancelNotice)}</div>` : ''}
-          ${!isCancelled && sess.note ? `<div style="font-size:8.5px;color:#fde047;line-height:1.2;margin-top:2px;">⚠️ ${escHtml(sess.note)}</div>` : ''}
+          ${!isCancelled && sess.note ? `
+            <div class="matrix-card-note" title="${escHtml(sess.note)}">
+              <span class="matrix-note-icon">📢</span>
+              <span class="matrix-note-text">${escHtml(sess.note)}</span>
+            </div>
+          ` : ''}
           <div class="footer">
-            <div style="display:flex;gap:4px;align-items:center;">
+            <div style="display:flex;gap:4px;align-items:center;min-width:0;flex-shrink:1;">
               ${isSolidWorks ? `<span class="matrix-links-btn" style="color:#10b981;" onclick="setView('cad')">⚡ CAD</span>` : ''}
               ${isDynamics ? `<span class="matrix-roadmap-btn" style="color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Map</span>` : ''}
               ${isMaterials ? `<span class="matrix-roadmap-btn" style="color:#f59e0b;" onclick="openMaterialsRoadmapModal()">🗺️ Map</span>` : ''}
               ${hasCustomLinks ? `<span class="matrix-links-btn" onclick="openCourseLinksModal('${sess.code}')">🔗 Links</span>` : ''}
               <span class="matrix-guide-btn" onclick="openCourseCapsule('${sess.code}')">💡 Guide</span>
             </div>
-            <div style="display:flex;gap:4px;align-items:center;">
-              <span class="room-badge" onclick="showRoomDetails('${sess.room}')">${sess.room} ↗</span>
+            <div style="display:flex;gap:4px;align-items:center;flex-shrink:0;">
+              <span class="room-badge" title="${escHtml(sess.room)}" onclick="showRoomDetails('${sess.room}')">${escHtml(sess.room)} ↗</span>
             </div>
           </div>
         </div>
