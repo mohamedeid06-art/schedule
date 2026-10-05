@@ -3953,3 +3953,19 @@ body {
   .wg-progress { flex-direction: column; align-items: stretch; }
   .wg-steps { justify-content: space-between; padding-left: 0; padding-top: 10px; border-left: none; border-top: 1px solid var(--wg-line); }
 }
+
+/* ==========================================================================
+   Cancelled Sessions & Live Alerts Styling
+   ========================================================================== */
+.timeline-card.is-cancelled-card,
+.grid-card.is-cancelled-card {
+  border-left-color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+.timeline-card.is-cancelled-card:hover,
+.grid-card.is-cancelled-card:hover {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.18) !important;
+}

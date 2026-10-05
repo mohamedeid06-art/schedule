@@ -37,15 +37,17 @@ let selectedGuideCourse = "MTH G102";
 let showPastDays = JSON.parse(localStorage.getItem("cufe_show_past_days") || "false");
 
 let ASSESSMENTS = [];
-let NOTIFICATIONS = [
-  { 
-    id: "ann-01", 
-    date: "8 Sep 2026", 
-    tag: "Batch 30", 
-    title: "Welcome to Mechanical Engineering (Batch 30)", 
-    body: "Fall Semester timetable is active. Lectures commence Saturday, 19 September 2026." 
-  }
-];
+let NOTIFICATIONS = (typeof DEFAULT_NOTIFICATIONS !== 'undefined' && Array.isArray(DEFAULT_NOTIFICATIONS))
+  ? [...DEFAULT_NOTIFICATIONS]
+  : [
+      { 
+        id: "ann-01", 
+        date: "8 Sep 2026", 
+        tag: "Batch 30", 
+        title: "Welcome to Mechanical Engineering (Batch 30)", 
+        body: "Fall Semester timetable is active. Lectures commence Saturday, 19 September 2026." 
+      }
+    ];
 
 // حساب وتحديد اليوم الفعلي
 const jsDateNow = new Date();
@@ -443,7 +445,11 @@ async function syncFromGoogleSheets() {
     if (aRes && aRes.ok) {
       const aText = await aRes.text();
       const parsed = parseCSV(aText);
-      if (parsed.length > 0) NOTIFICATIONS = parsed;
+      if (parsed.length > 0) {
+        const defaultNotifs = (typeof DEFAULT_NOTIFICATIONS !== 'undefined') ? DEFAULT_NOTIFICATIONS : [];
+        const seenIds = new Set(defaultNotifs.map(n => n.id));
+        NOTIFICATIONS = [...defaultNotifs, ...parsed.filter(p => !seenIds.has(p.id))];
+      }
     }
     if (bRes && bRes.ok) {
       const bText = await bRes.text();
@@ -608,18 +614,32 @@ function updateTaskBadge() {
 
 function getAllEventsForCalendar() {
   const allEvents = [];
-  DYNAMICS_THE_EXAMS.forEach(ex => {
-    const d = getParsedDateObj(ex.deadline);
-    if (d) allEvents.push({ date: d, code: "EMC G101", title: `THE ${ex.no} Deadline (7:00 PM)`, type: "Exam Deadline", color: "#8b5cf6" });
-  });
-  if (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') {
-    COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
-      const deadline = asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"];
-      const d = getParsedDateObj(deadline);
-      if (d) allEvents.push({ date: d, code: asgn.code, title: asgn.title, type: asgn.type, color: COURSES[asgn.code]?.hex || '#0284c7' });
+  const addedIds = new Set();
+
+  if (typeof MASTER_QUIZZES !== 'undefined') {
+    MASTER_QUIZZES.forEach(q => {
+      const d = getParsedDateObj(q.deadline || q.start);
+      if (d) {
+        allEvents.push({ date: d, code: q.code, title: q.title, type: q.type || "Official Exam", color: q.accent || '#8b5cf6' });
+        addedIds.add(q.id);
+      }
     });
   }
+
+  if (typeof COURSE_STATIC_ASSIGNMENTS !== 'undefined') {
+    COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
+      if (addedIds.has(asgn.id)) return;
+      const deadline = (asgn.deadlinesByGroup && (asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"])) || asgn.deadline;
+      const d = getParsedDateObj(deadline);
+      if (d) {
+        allEvents.push({ date: d, code: asgn.code, title: asgn.title, type: asgn.type, color: COURSES[asgn.code]?.hex || '#0284c7' });
+        addedIds.add(asgn.id);
+      }
+    });
+  }
+
   ASSESSMENTS.filter(a => a.group === "ALL" || a.group === activeGroup).forEach(a => {
+    if (addedIds.has(a.id)) return;
     const d = getParsedDateObj(a.date);
     if (d) allEvents.push({ date: d, code: a.code, title: a.title, type: a.type || 'Task', color: COURSES[a.code]?.hex || '#ea580c' });
   });
@@ -642,7 +662,7 @@ function escHtml(str) {
 
 activeSubjectFilter = activeSubjectFilter || "all";
 let activeSortOption = "due-date"; // "due-date" | "course" | "readiness"
-if (!activeQuizGuideId) activeQuizGuideId = "mth-quiz-1";
+if (!activeQuizGuideId) activeQuizGuideId = "gen-quiz-1";
 currentDetailedTask = null;
 
 function getAllCombinedTasks() {
@@ -713,45 +733,7 @@ function getAllCombinedTasks() {
     });
   }
 
-  // 3. Take-Home Exams
-  if (typeof DYNAMICS_THE_EXAMS !== 'undefined') {
-    DYNAMICS_THE_EXAMS.forEach(ex => {
-      const id = "the-" + ex.no;
-      if (addedIds.has(id)) return;
-      const cd = getExactCountdown(ex.deadline);
-      const isDone = completedTasks.includes(id);
-      let priority = "scheduled";
-      if (isDone) priority = "done";
-      else if (cd.isUrgent) priority = "due-soon";
-      else if (cd.diff <= 7 * 24 * 3600 * 1000) priority = "upcoming";
-
-      list.push({
-        id: id,
-        code: "EMC G101",
-        title: `Take-Home Exam ${ex.no} — Model (${ex.name})`,
-        type: "Exam",
-        instructor: "Dr. Samir Hedeyma",
-        dateDisplay: new Date(ex.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-        deadline: ex.deadline,
-        start: ex.start,
-        countdown: cd,
-        priority: priority,
-        accent: "#8b5cf6",
-        accentName: "purple",
-        submissionUrl: "https://sites.google.com/eng.cu.edu.eg/planedynamics100",
-        instructions: [
-          `Model ${ex.name} assignment questions.`,
-          "Select (No / None) if result deviates by more than 1.5%.",
-          "Wrong answers receive -25% penalty.",
-          "Submissions within first 12 hours receive +10% bonus."
-        ],
-        isDone: isDone,
-        isQuiz: true
-      });
-      addedIds.add(id);
-    });
-  }
-
+  // Keep only official tasks: MASTER_QUIZZES (confirmed exams & quizzes) and COURSE_STATIC_ASSIGNMENTS
   return list;
 }
 
@@ -897,32 +879,21 @@ function buildQuizChecklist(task) {
   return groups;
 }
 
-// Initial mockup defaults for MTH Quiz 1 so it matches 70% out-of-the-box
+// Initial mockup defaults for official tasks (GEN Marketing, THE 1, MTH Assignment 1)
 (function initDefaultQuizChecklist() {
   if (!localStorage.getItem("cufe_quiz_checklists")) {
     const defaultState = {
-      "mth-quiz-1": {
-        "mth1-lec-1": 1,
-        "mth1-lec-2": 1,
-        "mth1-lec-3": 1,
-        "mth1-sht-1": 1,
-        "mth1-vid-1": 1,
-        "mth1-vid-2": 1,
-        "mth1-form-1": 1,
-        "mth1-form-2": 1,
-        "mth1-form-3": 1,
-        "mth1-form-4": 1
+      "gen-quiz-1": {
+        "gen-lec-1": 1,
+        "gen-sht-1": 1
       },
-      "emc-quiz-1": {
-        "emc1-lec-1": 1,
-        "emc1-sht-1": 1
+      "the-1": {
+        "emc-lec-1": 1,
+        "emc-sht-1": 1
       },
-      "gen-midterm-1": {
-        "gen1-lec-1": 1,
-        "gen1-sht-1": 1
-      },
-      "mth-quiz-2": {
-        "mth2-lec-1": 1
+      "mth-assign-1": {
+        "mth-lec-1": 1,
+        "mth-sht-1": 1
       }
     };
     quizChecklistState = defaultState;
@@ -1886,8 +1857,12 @@ function renderDailyAgenda() {
     }
   }
 
-  let targetHeroSession = liveSession || upcomingSession;
-  if (!targetHeroSession && daySessions.length > 0) {
+  // Filter out cancelled sessions for the active hero banner if possible
+  const validDaySessions = daySessions.filter(s => !s.cancelled);
+  let targetHeroSession = (liveSession && !liveSession.cancelled) ? liveSession : (upcomingSession && !upcomingSession.cancelled ? upcomingSession : null);
+  if (!targetHeroSession && validDaySessions.length > 0) {
+    targetHeroSession = validDaySessions[0];
+  } else if (!targetHeroSession && daySessions.length > 0) {
     targetHeroSession = daySessions[0];
   }
 
@@ -1937,6 +1912,7 @@ function renderDailyAgenda() {
     const isSolidWorks = (s.code === "MDP G111");
     const isMarketing = (s.code === "GEN G119");
     const hasCustomLinks = !!COURSE_CUSTOM_LINKS[s.code];
+    const isCancelled = !!s.cancelled;
 
     if (isSelectedDayToday && !laserRendered && currentMinutes < sStartMin) {
       const nowStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1974,20 +1950,36 @@ function renderDailyAgenda() {
           <div class="time-end">${TIME_ENDS[s.start + s.span - 1]}</div>
           <span class="time-dur">${s.span * 50}m</span>
         </div>
-        <div class="rail"><div class="rail-dot" style="--c: ${isCurrentActive ? '#ef4444' : course.color}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${isCurrentActive ? 'is-live-card' : ''} ${s.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" style="--c: ${course.color}; border-left: 4.5px solid ${isCurrentActive ? '#ef4444' : course.color}">
+        <div class="rail"><div class="rail-dot" style="--c: ${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
+        <div class="timeline-card ${isCurrentActive && !isCancelled ? 'is-live-card' : ''} ${s.attendance && !isCancelled ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''} ${isCancelled ? 'is-cancelled-card' : ''}" style="--c: ${isCancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">
           
           <div class="card-top">
-            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCurrentActive ? '#ef4444' : course.color}">${s.code}</span>
+            <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
-              ${isCurrentActive ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
+              ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
+              ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
-              ${s.attendance ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
+              ${s.attendance && !isCancelled ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
               <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC' : 'SEC')}</span>
             </div>
           </div>
 
-          <div class="card-title">${course.name}</div>
+          <div class="card-title" style="${isCancelled ? 'text-decoration:line-through;opacity:0.75;' : ''}">${course.name}</div>
+          
+          ${isCancelled && s.cancelNotice ? `
+            <div class="card-cancel-alert" style="margin-top:8px;padding:8px 12px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.35);border-radius:10px;color:#fca5a5;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:15px;">📢</span>
+              <span>${escHtml(s.cancelNotice)}</span>
+            </div>
+          ` : ''}
+
+          ${!isCancelled && s.note ? `
+            <div class="card-note-alert" style="margin-top:8px;padding:8px 12px;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.35);border-radius:10px;color:#fde047;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:14px;">⚠️</span>
+              <span>${escHtml(s.note)}</span>
+            </div>
+          ` : ''}
+
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:6px;">
             <div class="card-room-pill" onclick="showRoomDetails('${s.room}')">📍 ${s.room} ↗</div>
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
@@ -2113,6 +2105,7 @@ function renderWeekMatrix() {
       const isHighlighted = highlightedCourse === sess.code;
       const hasTask = dayTasks.some(t => t.code === sess.code);
 
+      const isCancelled = !!sess.cancelled;
       const posWrap = document.createElement("div");
       posWrap.className = `grid-card-positioned ${isPast && !showPastDays ? 'matrix-col-past' : ''}`;
       posWrap.style.gridColumn = `${col}`;
@@ -2122,18 +2115,21 @@ function renderWeekMatrix() {
       posWrap.style.zIndex = isLiveNow ? "10" : "5";
 
       posWrap.innerHTML = `
-        <div class="grid-card ${isLiveNow ? 'is-live-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''}" 
-             style="--c: ${isLiveNow ? '#ef4444' : course.color}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
+        <div class="grid-card ${isLiveNow && !isCancelled ? 'is-live-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance && !isCancelled ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''} ${isCancelled ? 'is-cancelled-card' : ''}" 
+             style="--c: ${isCancelled ? '#ef4444' : (isLiveNow ? '#ef4444' : course.color)}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <span class="code" style="${isLiveNow ? 'color:#ef4444' : ''}">${sess.code}</span>
+            <span class="code" style="${isCancelled ? 'color:#ef4444;' : (isLiveNow ? 'color:#ef4444;' : '')}">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;">
-              ${isLiveNow ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
+              ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 5px;border-radius:4px;">🚫 ملغية</span>' : ''}
+              ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
-              ${sess.attendance ? '<span class="badge-attendance">⚠ ATTENDANCE</span>' : ''}
+              ${sess.attendance && !isCancelled ? '<span class="badge-attendance">⚠ ATTENDANCE</span>' : ''}
               <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC' : 'SEC')}</span>
             </div>
           </div>
-          <div class="title">${course.name}</div>
+          <div class="title" style="${isCancelled ? 'text-decoration:line-through;opacity:0.75;' : ''}">${course.name}</div>
+          ${isCancelled && sess.cancelNotice ? `<div style="font-size:9.5px;color:#fca5a5;font-weight:700;line-height:1.2;margin-top:2px;">📢 ${escHtml(sess.cancelNotice)}</div>` : ''}
+          ${!isCancelled && sess.note ? `<div style="font-size:8.5px;color:#fde047;line-height:1.2;margin-top:2px;">⚠️ ${escHtml(sess.note)}</div>` : ''}
           <div class="footer">
             <div style="display:flex;gap:4px;align-items:center;">
               ${isSolidWorks ? `<span class="matrix-links-btn" style="color:#10b981;" onclick="setView('cad')">⚡ CAD</span>` : ''}

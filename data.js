@@ -65,159 +65,110 @@ const COURSES = {
 // ==========================================================================
 const MASTER_QUIZZES = [
   {
-    id: "mth-quiz-1",
-    code: "MTH G102",
-    title: "Quiz 1 - Calculus (Limits & Continuity)",
-    type: "Quiz",
-    instructor: "Dr. Ahmed Hassan",
-    dateDisplay: "Oct 1, 2026",
-    countdownBadge: "3d 12h 45m",
-    start: "2026-10-01T09:00:00",
-    deadline: "2026-10-01T10:30:00",
-    accent: "#38bdf8",
+    id: "gen-quiz-1",
+    code: "GEN G119",
+    title: "Quiz 1 — Marketing (20 Questions / 5 Mins)",
+    type: "In-Class Quiz",
+    instructor: "Dr. Tamer El-Hariry",
+    dateDisplay: "Oct 11, 2026 (8:00 AM)",
+    countdownBadge: "5d 13h 15m",
+    start: "2026-10-11T08:00:00",
+    deadline: "2026-10-11T08:05:00",
+    accent: "#06b6d4",
     accentName: "cyan",
-    submissionUrl: "https://forms.google.com/cufe-mth-q1",
+    submissionUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
     instructions: [
-      "Make sure to read all instructions carefully.",
-      "The exam is online and time-limited.",
-      "Use only the official submission form.",
-      "Late submissions will not be accepted.",
-      "No calculators or external resources (unless stated)."
+      "كويز 1 أول المحاضرة على Chapter 1 (Introduction to Marketing).",
+      "عدد الأسئلة: 20 سؤال في 5 دقائق.",
+      "النظام: مكس بين أسئلة MCQ و True or False.",
+      "الأسئلة بتيجي مباشرة ومطابقة لأسئلة الـ Test Bank بالحرف وبنفس ترتيب الاختيارات.",
+      "المكان: مدرج 3103 مبنى 3 — يرجى الحضور قبل الساعة 8:00 صباحاً."
     ],
     lectures: [
-      { id: "mth1-lec-1", title: "Lecture 1 - Limits & Continuity", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth1-lec-2", title: "Lecture 2 - Derivatives", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth1-lec-3", title: "Lecture 3 - Applications", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth1-lec-4", title: "Lecture 4 - Review", slides: "" }
+      { id: "gen-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" },
+      { id: "gen-lec-2", title: "Lecture 2 - Introduction to Marketing (Chapter 1)", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "mth1-sht-1", title: "Sheet 1 - Limits & Continuity", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth1-sht-2", title: "Sheet 2 - Derivatives", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth1-sht-3", title: "Sheet 3 - Mixed Problems", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" }
+      { id: "gen-sht-1", title: "Test Bank CH1 (بنك الأسئلة المباشر)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "mth1-vid-1", title: "Video 1 - Introduction", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
-      { id: "mth1-vid-2", title: "Video 2 - Limit Examples", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
-      { id: "mth1-vid-3", title: "Video 3 - Derivatives", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" },
-      { id: "mth1-vid-4", title: "Video 4 - Full Revision", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" }
+      { id: "gen-vid-1", title: "حل ومراجعة أسئلة بنك الأسئلة المتكررة في الامتحان", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
     ],
     formula: [
-      { id: "mth1-form-1", title: "Basic Limit Formulas" },
-      { id: "mth1-form-2", title: "Derivative Rules" },
-      { id: "mth1-form-3", title: "Common Mistakes (Exam Warnings)" },
-      { id: "mth1-form-4", title: "Quick Revision Sheet", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" }
+      { id: "gen-form-1", title: "4Ps of Marketing (Product, Price, Place, Promotion)" },
+      { id: "gen-form-2", title: "تركات الـ Test Bank وأهم الفروق النظرية", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
     ]
   },
   {
-    id: "emc-quiz-1",
+    id: "the-1",
     code: "EMC G101",
-    title: "Quiz 1 - DC Circuits",
-    type: "Quiz",
-    instructor: "Dr. Mohamed El-Sayed",
-    dateDisplay: "Oct 3, 2026",
-    countdownBadge: "5d 10h 20m",
-    start: "2026-10-03T09:00:00",
-    deadline: "2026-10-03T10:30:00",
-    accent: "#f59e0b",
-    accentName: "amber",
+    title: "Take-Home Exam 1 — Model (P200)",
+    type: "Take-Home Exam",
+    instructor: "Dr. Samir Hedeyma",
+    dateDisplay: "Oct 9, 2026 (7:00 PM)",
+    countdownBadge: "3d 23h 45m",
+    start: "2026-09-25T19:00:00",
+    deadline: "2026-10-09T19:00:00",
+    accent: "#8b5cf6",
+    accentName: "purple",
     submissionUrl: "https://sites.google.com/eng.cu.edu.eg/planedynamics100",
     instructions: [
-      "Make sure to read all instructions carefully.",
-      "The exam is in-class and timed strictly to 45 minutes.",
-      "Select (No / None) if your answer deviates by more than 1.5%.",
-      "Calculators are permitted for numerical evaluations."
+      "Model P200 assignment questions.",
+      "Select (No / None) if result deviates by more than 1.5%.",
+      "Wrong answers receive -25% penalty.",
+      "Submissions within the first 12 hours receive +10% bonus.",
+      "Official website: sites.google.com/eng.cu.edu.eg/planedynamics100"
     ],
     lectures: [
-      { id: "emc1-lec-1", title: "Lecture 1 - Particle Kinematics", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
-      { id: "emc1-lec-2", title: "Lecture 2 - Velocity Relations", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
-      { id: "emc1-lec-3", title: "Lecture 3 - Curvilinear Coordinates", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" }
+      { id: "emc-lec-1", title: "Lecture 1 - Rectilinear Kinematics of Particles", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
+      { id: "emc-lec-2", title: "Lecture 2 - Curvilinear Motion & Velocity Relations", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" }
     ],
     sheets: [
-      { id: "emc1-sht-1", title: "Sheet 1 - Kinematics of Particles", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" },
-      { id: "emc1-sht-2", title: "Sheet 2 - Velocity Relations", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" },
-      { id: "emc1-sht-3", title: "Sheet 3 - Relative Motion", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" }
+      { id: "emc-sht-1", title: "Take-Home Exam 1 (P200) Question Paper", pdf: "https://drive.google.com/file/d/1G7wTSWQLSn8PGk4c76svzkVSXQMhf2Mk", sol: "" },
+      { id: "emc-sht-2", title: "Sheet 1 - Kinematics of Particles", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" }
     ],
     practice: [
-      { id: "emc1-vid-1", title: "Video 1 - Velocity Analysis (Eng. Ingy)", url: "https://youtu.be/i-sy90j-dp0" },
-      { id: "emc1-vid-2", title: "Video 2 - Sheet Problems (Eng. Ahmed Fawzy)", url: "https://youtu.be/mrLEzczCxpc" }
+      { id: "emc-vid-1", title: "Video 1 - Velocity Analysis (Eng. Ingy)", url: "https://youtu.be/i-sy90j-dp0" },
+      { id: "emc-vid-2", title: "Video 2 - Sheet Problems (Eng. Ahmed Fawzy)", url: "https://youtu.be/mrLEzczCxpc" }
     ],
     formula: [
-      { id: "emc1-form-1", title: "Relative Velocity Vector Formula" },
-      { id: "emc1-form-2", title: "Instantaneous Center of Zero Velocity (IC)" }
+      { id: "emc-form-1", title: "Equations of Rectilinear & Curvilinear Motion" },
+      { id: "emc-form-2", title: "Instantaneous Center of Zero Velocity (IC) Rules" }
     ]
   },
   {
-    id: "gen-midterm-1",
-    code: "GEN G119",
-    title: "Midterm Exam - Engineering Graphics",
-    type: "Exam",
-    instructor: "Dr. Sara Abdelrahman",
-    dateDisplay: "Oct 8, 2026",
-    countdownBadge: "10d 14h 30m",
-    start: "2026-10-08T09:00:00",
-    deadline: "2026-10-08T11:00:00",
-    accent: "#f43f5e",
-    accentName: "rose",
-    submissionUrl: "https://forms.google.com/cufe-gen-midterm",
-    instructions: [
-      "Make sure to read all instructions carefully.",
-      "The exam is online and time-limited.",
-      "Use only the official submission form.",
-      "Late submissions will not be accepted.",
-      "No calculators or external resources (unless stated)."
-    ],
-    lectures: [
-      { id: "gen1-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view" },
-      { id: "gen1-lec-2", title: "Lecture 2 - Market Research & Consumer Behavior", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view" },
-      { id: "gen1-lec-3", title: "Lecture 3 - Product Lifecycle & Strategy", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view" }
-    ],
-    sheets: [
-      { id: "gen1-sht-1", title: "Test Bank CH1 & CH2 (Direct Questions)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view" }
-    ],
-    practice: [
-      { id: "gen1-vid-1", title: "Video 1 - Case Studies & MCQ Solutions", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
-    ],
-    formula: [
-      { id: "gen1-form-1", title: "4Ps Marketing Mix Core Concepts" },
-      { id: "gen1-form-2", title: "Exam Warnings & Test Bank Tricks" }
-    ]
-  },
-  {
-    id: "mth-quiz-2",
+    id: "mth-assign-1",
     code: "MTH G102",
-    title: "Quiz 2 - Differential Equations",
-    type: "Quiz",
-    instructor: "Dr. Ahmed Hassan",
-    dateDisplay: "Oct 12, 2026",
-    countdownBadge: "14d 09h 30m",
-    start: "2026-10-12T09:00:00",
-    deadline: "2026-10-12T10:30:00",
-    accent: "#a855f7",
-    accentName: "purple",
-    submissionUrl: "https://forms.google.com/cufe-mth-q2",
+    title: "Assignment 1 — Linear Algebra (سؤالين الشيت)",
+    type: "Assignment",
+    instructor: "Dr. Ahmed Abdelnaby & Dr. Lucy",
+    dateDisplay: "Oct 29, 2026 (Week 6/7)",
+    countdownBadge: "23d 16h 15m",
+    start: "2026-09-24T08:00:00",
+    deadline: "2026-10-29T11:00:00",
+    accent: "#38bdf8",
+    accentName: "cyan",
+    submissionUrl: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl",
     instructions: [
-      "Make sure to read all instructions carefully.",
-      "The exam is in-class and written.",
-      "Use only blue or black ink pens.",
-      "Write full solution steps for each question.",
-      "No calculators or external resources (unless stated)."
+      "حل السؤالين المحددين في آخر الشيت تحت عنوان Assignment بخط واضح.",
+      "تم تأجيل التسليم ليكون مجمعاً في الأسبوع السادس أو السابع.",
+      "لا يوجد غياب في السكشن والتسليم مجمع."
     ],
     lectures: [
-      { id: "mth2-lec-1", title: "Lecture 1 - First Order ODEs", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth2-lec-2", title: "Lecture 2 - Exact Equations & Integrating Factors", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth2-lec-3", title: "Lecture 3 - Higher Order ODEs", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" }
+      { id: "mth-lec-1", title: "Lecture 1 - Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth-lec-2", title: "Lecture 2 - Linear Algebra Foundations", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" }
     ],
     sheets: [
-      { id: "mth2-sht-1", title: "Sheet 1 - Separable & Linear Equations", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth2-sht-2", title: "Sheet 2 - Exact & Homogeneous Equations", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" }
+      { id: "mth-sht-1", title: "Sheet 1 & Assignment 1 (Double Integrals)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-sht-2", title: "Linear Algebra Sheet 1", pdf: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" }
     ],
     practice: [
-      { id: "mth2-vid-1", title: "Video 1 - ODE Problem Solving (Eng. Bassem)", url: "https://youtu.be/ndfc1-8hWuI" },
-      { id: "mth2-vid-2", title: "Video 2 - Integrating Factors (Eng. Maghraby)", url: "https://youtu.be/8ANactIJ6Sk" }
+      { id: "mth-vid-1", title: "م. عمار ياسر (شرح شامل)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
+      { id: "mth-vid-2", title: "م. أحمد المغربي (حل مسائل الشيت)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" }
     ],
     formula: [
-      { id: "mth2-form-1", title: "Standard Differential Forms & Formulas" },
-      { id: "mth2-form-2", title: "Integrating Factor Quick Rules" }
+      { id: "mth-form-1", title: "Double Integrals Standard Rules & Polar Transformations" },
+      { id: "mth-form-2", title: "Linear Systems & Matrix Row Operations Guide" }
     ]
   }
 ];
@@ -569,7 +520,7 @@ const COURSE_CAPSULES = {
     name: "Electrical & Electronics Engineering (EPE I)",
     hours: "3 Credit Hours",
     grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة أعمال سنة (Classwork)",
-    tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.",
+    tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية).\n• مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت: المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30). علماً بأن يوم الخميس إجازة رسمية — سيتم التأكيد والتنسيق مع المعيد في حال أي ترحيل للموعد، وأي تغيير هيتبلغوا بيه فوراً.",
     links: [
       { title: "📁 درايف الدفعة لمادة الهندسة الكهربية (EPE I)", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
     ],
@@ -664,7 +615,18 @@ const SESSIONS = [
 
   // Tuesday
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
-  { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
+  { 
+    day: "Tuesday", 
+    start: 2, 
+    span: 2, 
+    group: "ALL", 
+    code: "EPE G113", 
+    type: "Lecture", 
+    room: "7104-360",
+    cancelled: true,
+    cancelNotice: "مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية)",
+    note: "مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية)"
+  },
   // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "7104-360" },
@@ -681,10 +643,10 @@ const SESSIONS = [
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
   // سكاشن الكهربية (الخميس)
-  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
-  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false }
+  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" },
+  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (تنبيه: يوم الخميس إجازة رسمية وسيتم التنسيق في حال أي ترحيل)" }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -692,5 +654,37 @@ const MONDAY_DYNAMICS_SLOTS = {
   "1": { day: "Monday", start: 0, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 1)", room: "16211" },
   "2": { day: "Monday", start: 3, span: 3, group: "SEC", isDynSec: true, code: "EMC G101", type: "Tutorial (Slot 2)", room: "9201" }
 };
+
+// الإشعارات الرسمية والتنبيهات المعتمدة
+const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-epe-cancel-oct6",
+    date: "5 Oct 2026",
+    tag: "EPE G113 • إلغاء محاضرة",
+    title: "إلغاء محاضرة الكهربية غداً الثلاثاء",
+    body: "مفيش محاضرة بكرة يا حبايبي 🥳 (ملغية)."
+  },
+  {
+    id: "notif-epe-sec-thu",
+    date: "5 Oct 2026",
+    tag: "EPE G113 • السكاشن والتسليم",
+    title: "مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت",
+    body: "المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين: (فترة 12:30 إلى 2:00، وفترة 2:00 إلى 3:30). ⚠️ علماً بأن يوم الخميس إجازة رسمية — سيتم التأكيد والتنسيق مع المعيد في حال أي ترحيل للموعد، وأي تغيير هيتبلغوا بيه فوراً بالتوفيق."
+  },
+  { 
+    id: "ann-gen-q1", 
+    date: "4 Oct 2026", 
+    tag: "GEN G119", 
+    title: "كويز 1 ماركتنج الأحد القادم (مبنى 3 مدرج 3103)", 
+    body: "كويز أول المحاضرة 20 سؤال في 5 دقائق على شابتر 1 مطابق لأسئلة الـ Test Bank بالحرف. الحضور قبل 8:00 صباحاً." 
+  },
+  { 
+    id: "ann-01", 
+    date: "8 Sep 2026", 
+    tag: "Batch 30", 
+    title: "Welcome to Mechanical Engineering (Batch 30)", 
+    body: "Fall Semester timetable is active. Lectures commence Saturday, 19 September 2026." 
+  }
+];
 
 
