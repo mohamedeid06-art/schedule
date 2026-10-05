@@ -67,7 +67,7 @@ const MASTER_QUIZZES = [
   {
     id: "mth-quiz-1",
     code: "MTH G102",
-    title: "Calculus Quiz 1 — Week 4 (كويز مجمع)",
+    title: "Calculus Quiz 1 — Double Integrals (أول محاضرتين)",
     type: "In-Class Quiz",
     instructor: "Dr. Ahmed Abdelnaby & Staff",
     dateDisplay: "الإثنين 12 أكتوبر 2026 (10:00 ص)",
@@ -78,6 +78,7 @@ const MASTER_QUIZZES = [
     accentName: "cyan",
     submissionUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
     instructions: [
+      "⚠️ تنبيه الكويز: الامتحان على أول محاضرتين فقط (لحد الـ Double Integral) — المحاضرة الثالثة غير داخلة في الكويز!",
       "نوع الأسئلة: MCQ (اختيار من متعدد) — 5 درجات.",
       "المدة: من 30 إلى 35 دقيقة.",
       "الامتحان مجمع للـ 4 سكاشن في نفس التوقيت (الساعة 10:00 ص)، والقاعة جاري حجزها وهتتحدد قريب.",
@@ -85,19 +86,19 @@ const MASTER_QUIZZES = [
       "⚠️ تريكة مهمة جداً: الدكتورة أكدت إن الأسئلة مش بتخرج عن الـ Graphs اللي بتشرحها في المحاضرات، ركزوا عليها جداً!"
     ],
     lectures: [
-      { id: "mth-lec-1", title: "Lecture 1 - Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-lec-2", title: "Lecture 2 - Linear Algebra Foundations", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-lec-3", title: "Lecture 3 - Advanced Calculus & Integration in Graphs", slides: "https://drive.google.com/file/d/1CXEbe_pEoySDVZjLDSeSPBXLdojGcAbX/view?usp=drivesdk" }
+      { id: "mth-lec-1", title: "⭐ Lecture 1 - Double Integrals (المحتوى الأساسي المطلوب)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth-lec-2", title: "⭐ Lecture 2 - Linear Algebra & Integrals (المحتوى الأساسي المطلوب)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth-lec-3", title: "Lecture 3 - Advanced Integration (للاطلاع والمحاضرات القادمة - مش داخل في كويز 1)", slides: "https://drive.google.com/file/d/1CXEbe_pEoySDVZjLDSeSPBXLdojGcAbX/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "mth-sht-1", title: "Sheet 1 (Double Integrals)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-2", title: "Sheet 2 (Linear Systems)", pdf: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-3", title: "Sheet 3 (Calculus & Functions)", pdf: "https://drive.google.com/file/d/1isNqXzgd4wmiNPw9QZWW3TRTZ3Zc14WQ/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1J3rK-m2whbMgO9aR9fqhGpPVve0rglaZ/view?usp=drivesdk" }
+      { id: "mth-sht-1", title: "Sheet 1 (Double Integrals — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-sht-2", title: "Sheet 2 (Linear Systems & Polar — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-sht-3", title: "Sheet 3 & Solutions (للاطلاع والمحاضرات القادمة - مش داخلين في كويز 1)", pdf: "https://drive.google.com/file/d/1isNqXzgd4wmiNPw9QZWW3TRTZ3Zc14WQ/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1J3rK-m2whbMgO9aR9fqhGpPVve0rglaZ/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "mth-sol-1", title: "Solved Problems 1 (تطبيقات ومسائل محلولة 1)", url: "https://drive.google.com/file/d/1VJExOvXAQNt0MLho6VWnKdew424RrvZs/view?usp=drivesdk" },
+      { id: "mth-sol-1", title: "Solved Problems 1 (تطبيقات ومسائل محلولة 1 — Double Integrals)", url: "https://drive.google.com/file/d/1VJExOvXAQNt0MLho6VWnKdew424RrvZs/view?usp=drivesdk" },
       { id: "mth-sol-2", title: "Solved Problems 2 (تطبيقات ومسائل محلولة 2)", url: "https://drive.google.com/file/d/1KduLphX0Pg2V_9NF11umHHqe-NCm7EDR/view?usp=drivesdk" },
-      { id: "mth-sol-3", title: "Solved Problems 3 (تطبيقات ومسائل محلولة 3)", url: "https://drive.google.com/file/d/1vJW0JuLRoWmj-8FwsHl5e-upI8Yn_QP-/view?usp=drivesdk" },
+      { id: "mth-sol-3", title: "Solved Problems 3 (مسائل محلولة إضافية للاطلاع)", url: "https://drive.google.com/file/d/1vJW0JuLRoWmj-8FwsHl5e-upI8Yn_QP-/view?usp=drivesdk" },
       { id: "mth-vid-ammar", title: "بلايليست شرح وسكاشن م. عمار ياسر وم. أحمد المغربي", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" }
     ],
     formula: [
@@ -510,7 +511,7 @@ const COURSE_CAPSULES = {
     name: "Linear Algebra & Multivariable Integration",
     hours: "3 Credit Hours",
     grading: "• الميد من 30 درجة (20 تكامل + 10 جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتبص عليه",
-    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): 🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث.\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 10:00 ص (30-35 دقيقة MCQ — 5 درجات). ركزوا على الـ Graphs كويس جداً!",
+    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): 🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث.\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 10:00 ص (30-35 دقيقة MCQ — 5 درجات) على أول محاضرتين فقط لحد الـ Double Integral. ركزوا على الـ Graphs كويس جداً!",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
@@ -662,7 +663,7 @@ const SESSIONS = [
     room: "القاعة هتتحدد قريب", 
     isQuiz: true,
     quizBadge: "⚡ كويز مجمع 1 — 5 درجات MCQ",
-    note: "📢 كويز مجمع للـ 4 سكاشن الإثنين 12 أكتوبر الساعة 10:00 ص — 5 درجات MCQ (30-35 دقيقة)"
+    note: "📢 كويز مجمع للـ 4 سكاشن الإثنين 12 أكتوبر 10:00 ص — 5 درجات MCQ على أول محاضرتين فقط لحد الـ Double Integral"
   },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
@@ -726,8 +727,8 @@ const DEFAULT_NOTIFICATIONS = [
     id: "notif-mth-quiz-1",
     date: "5 Oct 2026",
     tag: "MTH G102 • كويز رسمي",
-    title: "Calculus Quiz 1 — كويز مجمع للـ 4 سكاشن",
-    body: "📢 صحصح لكويز الماث: كويز مجمع للـ 4 سكاشن الإثنين الجاي 12 أكتوبر الساعة 10:00 ص (30-35 دقيقة MCQ). ذاكر السلايدات وركز على الـ Graphs كويس.. افتح دليل المذاكرة وابدأ جهز نفسك يا هندسة 🎯"
+    title: "Calculus Quiz 1 — أول محاضرتين فقط (Double Integral)",
+    body: "📢 كويز الماث الإثنين الجاي 12 أكتوبر 10:00 ص: الكويز مجمع للـ 4 سكاشن (30-35 دقيقة MCQ) على أول محاضرتين فقط لحد الـ Double Integral.. افتح دليل المذاكرة وابدأ جهّز نفسك 🎯"
   },
   {
     id: "notif-mth-cancel-oct6",
