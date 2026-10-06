@@ -902,10 +902,6 @@ function buildQuizChecklist(task) {
         "mth-lec-1": 1,
         "mth-sht-1": 1
       },
-      "gen-quiz-1": {
-        "gen-lec-1": 1,
-        "gen-sht-1": 1
-      },
       "the-1": {
         "emc-lec-1": 1,
         "emc-sht-1": 1
