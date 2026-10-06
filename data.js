@@ -144,41 +144,6 @@ const MASTER_QUIZZES = [
     ]
   },
   {
-    id: "gen-quiz-1",
-    code: "GEN G119",
-    title: "Quiz 1 — Marketing (20 Questions / 5 Mins)",
-    type: "In-Class Quiz",
-    instructor: "Dr. Tamer El-Hariry",
-    dateDisplay: "الأحد القادم 11 أكتوبر 2026 (8:00 ص)",
-    countdownBadge: "5d 11h 50m",
-    start: "2026-10-11T08:00:00",
-    deadline: "2026-10-11T08:05:00",
-    accent: "#06b6d4",
-    accentName: "cyan",
-    submissionUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
-    instructions: [
-      "كويز 1 أول المحاضرة على Chapter 1 (Introduction to Marketing).",
-      "عدد الأسئلة: 20 سؤال في 5 دقائق.",
-      "النظام: مكس بين أسئلة MCQ و True or False.",
-      "الأسئلة بتيجي مباشرة ومطابقة لأسئلة الـ Test Bank بالحرف وبنفس ترتيب الاختيارات.",
-      "المكان: مدرج 3103 مبنى 3 — يرجى الحضور قبل الساعة 8:00 صباحاً."
-    ],
-    lectures: [
-      { id: "gen-lec-1", title: "Lecture 1 - Marketing Principles", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" },
-      { id: "gen-lec-2", title: "Lecture 2 - Introduction to Marketing (Chapter 1)", slides: "https://drive.google.com/file/d/1hpxjsk85GE0iYuF3zo-QdzqD4xPtL7VF/view?usp=drivesdk" }
-    ],
-    sheets: [
-      { id: "gen-sht-1", title: "Test Bank CH1 (بنك الأسئلة المباشر)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
-    ],
-    practice: [
-      { id: "gen-vid-1", title: "حل ومراجعة أسئلة بنك الأسئلة المتكررة في الامتحان", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
-    ],
-    formula: [
-      { id: "gen-form-1", title: "4Ps of Marketing (Product, Price, Place, Promotion)" },
-      { id: "gen-form-2", title: "تركات الـ Test Bank وأهم الفروق النظرية", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" }
-    ]
-  },
-  {
     id: "mth-assign-1",
     code: "MTH G102",
     title: "Assignment 1 — Linear Algebra (سؤالين الشيت)",
@@ -217,26 +182,6 @@ const MASTER_QUIZZES = [
 
 // تكليفات المواد الثابتة
 const COURSE_STATIC_ASSIGNMENTS = [
-  {
-    id: "gen-quiz-1",
-    code: "GEN G119",
-    title: "Quiz 1 — Marketing (20 Questions / 5 Mins)",
-    type: "In-Class Quiz",
-    day: "Sunday",
-    start: "2026-10-04T08:00:00",
-    deadlinesByGroup: {
-      "ME1-01": "2026-10-04T08:05:00",
-      "ME1-02": "2026-10-04T08:05:00",
-      "ME1-03": "2026-10-04T08:05:00",
-      "ME1-04": "2026-10-04T08:05:00"
-    },
-    folderUrl: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk",
-    desc: `كويز 1 أول المحاضرة على Chapter 1
-• عدد الأسئلة: 20 سؤال في 5 دقائق.
-• النظام: مكس بين MCQ و True or False.
-• الأسئلة بتيجي مباشرة ومطابقة لأسئلة الـ Test Bank.`,
-    note: "المكان: مدرج 3103 مبنى 3 — احضر قبل الساعة 8:00 صباحاً."
-  },
   {
     id: "mth-assign-1",
     code: "MTH G102",
