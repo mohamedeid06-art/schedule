@@ -177,6 +177,35 @@ const MASTER_QUIZZES = [
       { id: "mth-form-1", title: "Double Integrals Standard Rules & Polar Transformations" },
       { id: "mth-form-2", title: "Linear Systems & Matrix Row Operations Guide" }
     ]
+  },
+  {
+    id: "epe-assign-1",
+    code: "EPE G113",
+    title: "Assignment #1 — Electric Circuits",
+    type: "Assignment",
+    instructor: "Dr. Electrical Staff",
+    dateDisplay: "الخميس 15 أكتوبر 2026 (Week 4)",
+    countdownBadge: "Week 4",
+    start: "2026-10-15T12:30:00",
+    deadline: "2026-10-15T15:30:00",
+    accent: "#f43f5e",
+    accentName: "rose",
+    submissionUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+    instructions: [
+      "المطلوب: مسائل Sheet 1.",
+      "مسائل Chapter 1: 1.7, 1.9, 1.14, 1.17, 1.19, 1.24, 1.26, 1.28, and 1.30",
+      "مسائل إضافية: 1.34, 1.36",
+      "⚠️ تسليم الأسينمنت خلال السكشن في الأسبوع الرابع (السكشن ميعاده يوم الخميس فقط فترتين: من 12:30 إلى 2:00، ومن 2:00 إلى 3:30)."
+    ],
+    sheets: [
+      {
+        id: "epe-sht-1",
+        title: "Assignment #1 — Electric Circuits (Sheet 1)",
+        pdf: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+        sol: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk"
+      }
+    ]
   }
 ];
 
@@ -199,6 +228,26 @@ const COURSE_STATIC_ASSIGNMENTS = [
     desc: `حل السؤالين المحددين في آخر الشيت تحت عنوان Assignment بخط واضح.
 • تم تأجيل التسليم ليكون مجمعاً في الأسبوع السادس أو السابع.`,
     note: "التسليم مجمع في الأسبوع 6 أو 7 ولا يوجد غياب في السكشن."
+  },
+  {
+    id: "epe-assign-1",
+    code: "EPE G113",
+    title: "Assignment #1 — Electric Circuits",
+    type: "Assignment",
+    day: "Thursday",
+    start: "2026-10-15T12:30:00",
+    deadlinesByGroup: {
+      "ME1-01": "2026-10-15T14:00:00",
+      "ME1-02": "2026-10-15T14:00:00",
+      "ME1-03": "2026-10-15T15:30:00",
+      "ME1-04": "2026-10-15T15:30:00"
+    },
+    folderUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+    desc: `مسائل Sheet 1 المطلوبة:
+• Problems, Chapter 1: 1.7, 1.9, 1.14, 1.17, 1.19, 1.24, 1.26, 1.28, and 1.30
+• Problems: 1.34, 1.36`,
+    note: "تسليم الأسينمنت خلال السكشن في الأسبوع الرابع (السكشن ميعاده يوم الخميس فقط فترتين: من 12:30 إلى 2:00، ومن 2:00 إلى 3:30)"
   }
 ];
 
