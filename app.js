@@ -779,36 +779,41 @@ function sortByDeadline(a, b) {
 function buildQuizChecklist(task) {
   // If task has pre-structured categories (like from MASTER_QUIZZES), return them!
   if (task.lectures || task.sheets || task.practice || task.formula) {
-    return [
-      {
+    const categories = [];
+    if (task.lectures && task.lectures.length) {
+      categories.push({
         key: 'lectures',
         icon: '📘',
         label: 'Lectures',
         color: '#38bdf8',
-        items: (task.lectures || []).map(l => ({
+        items: task.lectures.map(l => ({
           id: l.id,
           title: l.title,
           links: l.slides ? [{ label: 'Slides', icon: '📄', url: l.slides }] : []
         }))
-      },
-      {
+      });
+    }
+    if (task.sheets && task.sheets.length) {
+      categories.push({
         key: 'sheets',
         icon: '📝',
-        label: 'Sheets & Problems',
+        label: task.type === 'Assignment' ? 'Assignment & Solution Files' : 'Sheets & Problems',
         color: '#f59e0b',
-        items: (task.sheets || []).map(s => {
+        items: task.sheets.map(s => {
           const links = [];
-          if (s.pdf) links.push({ label: 'PDF', icon: '📄', url: s.pdf });
-          if (s.sol) links.push({ label: 'Sol', icon: '📄', url: s.sol });
+          if (s.pdf) links.push({ label: task.type === 'Assignment' ? 'Assignment File' : 'PDF', icon: '📄', url: s.pdf });
+          if (s.sol) links.push({ label: task.type === 'Assignment' ? 'Solution File' : 'Sol', icon: '✅', url: s.sol });
           return { id: s.id, title: s.title, links: links };
         })
-      },
-      {
+      });
+    }
+    if (task.practice && task.practice.length) {
+      categories.push({
         key: 'practice',
         icon: '🎯',
         label: 'Practice & Videos',
         color: '#f43f5e',
-        items: (task.practice || []).map(p => {
+        items: task.practice.map(p => {
           const isPdf = p.url && (p.url.includes("drive.google.com") || p.title.includes("مسائل") || p.title.includes("تطبيقات") || p.title.includes("PDF") || p.title.includes("Solved"));
           return {
             id: p.id,
@@ -816,19 +821,22 @@ function buildQuizChecklist(task) {
             links: p.url ? [{ label: isPdf ? 'Open PDF' : 'Watch', icon: isPdf ? '📄' : '🎬', url: p.url }] : []
           };
         })
-      },
-      {
+      });
+    }
+    if (task.formula && task.formula.length) {
+      categories.push({
         key: 'formula',
         icon: '💡',
         label: 'Quick Formula & Tips',
         color: '#a855f7',
-        items: (task.formula || []).map(f => ({
+        items: task.formula.map(f => ({
           id: f.id,
           title: f.title,
           links: f.url ? [{ label: 'Guide', icon: '↗', url: f.url }] : []
         }))
-      }
-    ];
+      });
+    }
+    return categories;
   }
 
   // Fallback to weekly guide parser
@@ -1137,7 +1145,7 @@ function renderBentoTaskCard(task) {
           <span>Official Details & Files ℹ️</span>
         </button>
         <button class="btn-open-guide" onclick="openQuizPreparationGuide('${task.id}')">
-          <span>⚡ Open Quiz Study Guide ↗</span>
+          <span>${task.type === 'Assignment' ? '📁 Open Assignment & Solution ↗' : '⚡ Open Quiz Study Guide ↗'}</span>
         </button>
       </div>
     </article>
@@ -1273,7 +1281,12 @@ function renderQuizGuideBentoGridHtml(task, p) {
   const driveInfo = DRIVE_DATA[task.code] || {};
   const driveUrl = driveInfo.folder || MAIN_SEMESTER_DRIVE;
 
-  return p.categories.map(cat => {
+  const categoriesToRender = p.categories.filter(cat => cat.items && cat.items.length > 0);
+  if (!categoriesToRender.length) {
+    return `<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--text-muted);">No additional files.</div>`;
+  }
+
+  return categoriesToRender.map(cat => {
     const isCompletedCount = cat.items.filter(i => !!p.state[i.id]).length;
     const totalCount = cat.items.length;
 
@@ -1486,12 +1499,22 @@ function openOfficialExamModal(taskId) {
         </div>
 
         <div class="exam-meta-item submission-item">
-          <div class="meta-label"><span>🔗</span><span>Submission Form</span></div>
-          <a href="${task.submissionUrl || '#'}" target="_blank" rel="noopener noreferrer" class="exam-open-form-btn">
-            <span>Open Submission Form</span>
-            <span class="btn-arrow">↗</span>
-          </a>
-          <span class="meta-sub-hint">Fill the form before the exam starts</span>
+          <div class="meta-label"><span>📁</span><span>${task.type === 'Assignment' ? 'ملفات الأسينمنت والحل' : 'Submission Form'}</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+            ${(task.sheets && task.sheets[0]?.pdf) || task.submissionUrl ? `
+              <a href="${(task.sheets && task.sheets[0]?.pdf) || task.submissionUrl}" target="_blank" rel="noopener noreferrer" class="exam-open-form-btn">
+                <span>📄 ${task.type === 'Assignment' ? 'فتح ملف الأسينمنت (Assignment File)' : 'Open Submission Form'}</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            ` : ''}
+            ${(task.sheets && task.sheets[0]?.sol) || task.solutionUrl ? `
+              <a href="${task.solutionUrl || (task.sheets && task.sheets[0]?.sol)}" target="_blank" rel="noopener noreferrer" class="exam-open-form-btn" style="background:linear-gradient(135deg, #059669 0%, #10b981 100%);box-shadow:0 4px 14px rgba(16, 185, 129, 0.35);">
+                <span>✅ فتح ملف الحل (Solution File)</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            ` : ''}
+          </div>
+          <span class="meta-sub-hint">${task.type === 'Assignment' ? 'المسائل المطلوبة محددة في القائمة المجاورة' : 'Fill the form before the exam starts'}</span>
         </div>
       </div>
 
@@ -1500,7 +1523,7 @@ function openOfficialExamModal(taskId) {
         <div class="instructions-box">
           <div class="instructions-header">
             <span class="instructions-header-icon">📋</span>
-            <span>تعليمات وتنبيهات الامتحان (Instructions)</span>
+            <span>${task.type === 'Assignment' ? 'قائمة المسائل المطلوبة والتعليمات' : 'تعليمات وتنبيهات الامتحان (Instructions)'}</span>
           </div>
 
           <div class="instructions-list">
