@@ -1410,6 +1410,27 @@ function toggleQuizChecklistItem(taskId, itemId) {
    PAGE 3: Official Exam Details Modal
    ========================================================================== */
 
+function formatOfficialExamInstruction(rawText) {
+  let text = String(rawText || '').replace(/^[•\-\*]\s*/, '').trim();
+  const isAlert = /⚠️|تنبيه|تريكة|مهم/i.test(text);
+
+  let label = '';
+  let content = text;
+  const colonMatch = text.match(/^([^:]{2,35}:)\s*(.*)$/);
+  if (colonMatch) {
+    label = colonMatch[1];
+    content = colonMatch[2];
+  }
+
+  // Isolate English words/phrases, parentheses, signed percentages, URLs, and times
+  const enRegex = /(\([A-Za-z0-9_\-./\s%+:]+\)|(?:https?:\/\/|www\.)[^\s<]+|[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_\-./]+|[+\-]?\d+(?:\.\d+)?%|\b\d{1,2}:\d{2}\b|[A-Za-z][A-Za-z0-9_\-/%+:]*(?:\s+[A-Za-z0-9_\-/%+:]+)*)/g;
+  
+  let escapedLabel = escHtml(label);
+  let escapedContent = escHtml(content).replace(enRegex, match => `<span class="en-term" dir="ltr">${match}</span>`);
+
+  return { isAlert, label: escapedLabel, content: escapedContent };
+}
+
 function openOfficialExamModal(taskId) {
   triggerHaptic("heavy");
   const allTasks = getAllCombinedTasks();
@@ -1482,13 +1503,25 @@ function openOfficialExamModal(taskId) {
       <div class="exam-instructions-column">
         <div class="instructions-box">
           <div class="instructions-header">
-            <span>📋</span>
-            <span>Instructions</span>
+            <span class="instructions-header-icon">📋</span>
+            <span>تعليمات وتنبيهات الامتحان (Instructions)</span>
           </div>
 
-          <ol class="instructions-list">
-            ${instructionsList.map(inst => `<li>${escHtml(inst)}</li>`).join('')}
-          </ol>
+          <div class="instructions-list">
+            ${instructionsList.map((inst, idx) => {
+              const item = formatOfficialExamInstruction(inst);
+              return `
+                <div class="instruction-item ${item.isAlert ? 'is-alert' : ''}">
+                  <span class="instruction-badge ${item.isAlert ? 'badge-alert' : ''}">${idx + 1}</span>
+                  <div class="instruction-content">
+                    <div class="instruction-text">
+                      ${item.label ? `<strong class="instruction-label ${item.isAlert ? 'is-alert' : ''}">${item.label}</strong> ` : ''}${item.content}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
         </div>
       </div>
     </div>
