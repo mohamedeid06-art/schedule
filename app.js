@@ -2509,13 +2509,21 @@ function renderGuideCard(activeItem, course, availableWeeks) {
       <div class="wg-sec-sub" style="display:flex;align-items:center;gap:6px;color:#38bdf8;font-weight:600;margin-top:2px;" dir="auto">
         <span>📌</span><span>ملاحظة السلايدات: ${activeItem.slides_note}</span>
       </div>` : ''}
-    ${(activeItem.slides_url || activeItem.summary_url) ? `
+    ${(activeItem.slides_url || activeItem.recordings_url || activeItem.attendance_notes_url || activeItem.summary_url) ? `
       <div class="wg-pills">
         ${activeItem.slides_url ? `
           <a href="${activeItem.slides_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
             <span class="wg-pill-ico">📘</span><span class="wg-pill-text" dir="auto">السلايدات (Slides)</span>${WG_ICON.ext}
           </a>` : ''}
-        ${activeItem.summary_url ? `
+        ${activeItem.recordings_url ? `
+          <a href="${activeItem.recordings_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+            <span class="wg-pill-ico">🎙️</span><span class="wg-pill-text" dir="auto">تسجيلات المحاضرة</span>${WG_ICON.ext}
+          </a>` : ''}
+        ${activeItem.attendance_notes_url ? `
+          <a href="${activeItem.attendance_notes_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+            <span class="wg-pill-ico">✍️</span><span class="wg-pill-text" dir="auto">نوتس الحضور (Notes)</span>${WG_ICON.ext}
+          </a>` : ''}
+        ${(!activeItem.summaries && activeItem.summary_url) ? `
           <a href="${activeItem.summary_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
             <span class="wg-pill-ico">📕</span><span class="wg-pill-text">Notes</span>${WG_ICON.ext}
           </a>` : ''}
@@ -2608,11 +2616,23 @@ function renderGuideCard(activeItem, course, availableWeeks) {
           </div>
         `).join("")}
       </div>` : ''}
-    ${activeItem.summary_url ? `
+    ${(activeItem.summaries && activeItem.summaries.length > 0) ? `
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:2px;">
+        <div style="font-size:12px;font-weight:700;color:var(--wg-purple);margin-bottom:2px;display:flex;align-items:center;gap:6px;">
+          <span>📑</span><span>التلخيصات المعتمدة (Summaries):</span>
+        </div>
+        <div class="wg-pills">
+          ${activeItem.summaries.map(s => `
+            <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+              <span class="wg-pill-ico">📕</span><span class="wg-pill-text" dir="auto">${s.title}</span>${WG_ICON.ext}
+            </a>
+          `).join('')}
+        </div>
+      </div>` : (activeItem.summary_url ? `
       <a href="${activeItem.summary_url}" target="_blank" rel="noopener noreferrer" class="wg-note-link">
         <span class="wg-sec-title" dir="auto">${activeItem.summary_title || 'ملخص ونوتس المحاضرة'}</span>
         ${WG_ICON.ext}
-      </a>` : ''}
+      </a>` : '')}
   `;
 
   return `
@@ -2661,7 +2681,7 @@ function renderGuideCard(activeItem, course, availableWeeks) {
       ${activeItem.lectures ? renderGuideSection("lecture", "lecture", "📘", "Lecture", statusBtn("lecture", !!st.lecture), lectureBody) : ''}
       ${activeItem.sheet ? renderGuideSection("sheet", "sheet", "📝", "Sheet", statusBtn("sheet", !!st.sheet), sheetBody) : ''}
       ${hasPractice ? renderGuideSection("practice", "practice", "🎯", "Practice", practiceBadge, practiceBody) : ''}
-      ${(activeItem.important_notes || activeItem.summary_url) ? renderGuideSection("notes", "notes", "💡", activeItem.important_notes ? "الملاحظات والتنبيهات العامة (Important Notes)" : "Quick Notes", `
+      ${(activeItem.important_notes || activeItem.summary_url || activeItem.summaries) ? renderGuideSection("notes", "notes", "💡", (activeItem.summaries && activeItem.summaries.length > 0) ? "التلخيصات والملاحظات (Summaries & Notes)" : (activeItem.important_notes ? "الملاحظات والتنبيهات العامة (Important Notes)" : "Quick Notes"), `
         <span class="wg-status wg-status-tone wg-static">${activeItem.important_notes ? '📢 <span>Announcements</span>' : '📎 <span>1 file</span>'}</span>`, notesBody) : ''}
     </div>
   `;
