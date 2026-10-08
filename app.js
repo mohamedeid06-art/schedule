@@ -183,8 +183,8 @@ function openDynamicsRoadmapModal() {
 
     <div class="roadmap-timeline">
       ${DYNAMICS_ROADMAP_STEPS.map(step => {
-        const isPast = step.week < currentAcademicWk;
-        const isCurrent = step.week === currentAcademicWk;
+        const isPast = step.status === 'completed' || step.week < currentAcademicWk;
+        const isCurrent = step.status === 'active' || (step.week === currentAcademicWk && step.status !== 'completed');
         const stateClass = isPast ? 'is-done' : (isCurrent ? 'is-current' : '');
 
         return `
@@ -193,13 +193,25 @@ function openDynamicsRoadmapModal() {
               <div class="roadmap-step-circle">${isPast ? '✓' : step.week}</div>
               <div class="roadmap-step-line"></div>
             </div>
-            <div class="roadmap-step-card">
+            <div class="roadmap-step-card" style="${step.badge ? 'border-color:#ea580c;background:rgba(234,88,12,0.06);' : ''}">
               <div class="roadmap-step-head">
-                <span class="roadmap-week-tag">WEEK ${step.week} ${isCurrent ? '• 📍 أنت هنا' : ''}</span>
+                <span class="roadmap-week-tag" style="${step.badge ? 'color:#ea580c;' : ''}">WEEK ${step.week} ${isCurrent ? '• 📍 أنت هنا' : ''}</span>
                 <span class="roadmap-date-tag">${step.date}</span>
               </div>
-              <div class="roadmap-topic-title">${step.title}</div>
-              ${step.the !== '—' ? `<span class="roadmap-the-badge">⚡ ${step.the}</span>` : ''}
+              <div class="roadmap-topic-title" style="${step.badge ? 'color:#ea580c;font-weight:800;' : ''}">${step.title}</div>
+              ${step.topic ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px;line-height:1.4;">${step.topic}</div>` : ''}
+              ${(step.slides || step.badge || (step.the && step.the !== '—')) ? `
+                <div class="roadmap-sub-row" style="margin-top:6px;">
+                  ${step.slides && step.slides !== '-' ? `
+                    <div class="roadmap-sub-item">
+                      <span class="roadmap-sub-badge" style="color:#8b5cf6;border-color:rgba(139,92,246,0.3);">Slides</span>
+                      <span>${step.slides}</span>
+                    </div>
+                  ` : ''}
+                  ${step.badge ? `<span class="roadmap-the-badge" style="color:#ea580c;background:rgba(234,88,12,0.12);border:1px solid rgba(234,88,12,0.3);">🎯 ${step.badge}</span>` : ''}
+                  ${step.the && step.the !== '—' ? `<span class="roadmap-the-badge">⚡ ${step.the}</span>` : ''}
+                </div>
+              ` : ''}
             </div>
           </div>
         `;
@@ -473,19 +485,7 @@ async function syncFromGoogleSheets() {
         }
       });
     }
-    if (dynRes && dynRes.ok) {
-      const dynText = await dynRes.text();
-      const parsed = parseCSV(dynText);
-      if (parsed.length > 3) {
-        const liveSteps = parsed.filter(r => r.Week || r.week).map((r, i) => ({
-          week: parseInt(r.Week || r.week) || (i + 1),
-          title: r.Topic || r.topic || r.Title || r.title || `Lecture ${i+1}`,
-          date: r.Date || r.date || '',
-          the: r.THE || r.the || '—'
-        }));
-        if (liveSteps.length > 0) DYNAMICS_ROADMAP_STEPS = liveSteps;
-      }
-    }
+      // Preserving official Dr. Samir dynamicsRoadmap from data.js
   } catch (e) {
     console.warn("Using offline fallback data.", e);
   } finally {
