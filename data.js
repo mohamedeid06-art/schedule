@@ -127,12 +127,12 @@ const MASTER_QUIZZES = [
       "الموقع الرسمي للتسليم: sites.google.com/eng.cu.edu.eg/planedynamics100"
     ],
     lectures: [
-      { id: "emc-lec-1", title: "Lecture 1 - Rectilinear Kinematics of Particles", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
+      { id: "emc-lec-1", title: "Lecture 1 - Intro + Ch1: CG & MOI", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" },
       { id: "emc-lec-2", title: "Lecture 2 - Curvilinear Motion & Velocity Relations", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view" }
     ],
     sheets: [
       { id: "emc-sht-1", title: "Take-Home Exam 1 (P200) Question Paper", pdf: "https://drive.google.com/file/d/1G7wTSWQLSn8PGk4c76svzkVSXQMhf2Mk", sol: "" },
-      { id: "emc-sht-2", title: "Sheet 1 - Kinematics of Particles", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" }
+      { id: "emc-sht-2", title: "Sheet 1 - Intro + Ch1: CG & MOI", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg", sol: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" }
     ],
     practice: [
       { id: "emc-vid-1", title: "Video 1 - Velocity Analysis (Eng. Ingy)", url: "https://youtu.be/i-sy90j-dp0" },
@@ -427,22 +427,141 @@ const DYNAMICS_THE_EXAMS = [
   { no: 9, name: "P464", start: "2026-12-04T19:00:00", deadline: "2026-12-11T19:00:00", examSheet: "https://drive.google.com/file/d/1pIlU32osszyhQyhqZklv1Xal9PsvwEMd" }
 ];
 
-let DYNAMICS_ROADMAP_STEPS = [
-  { week: 1, title: "Course Introduction & Kinematics of Particles (Rectilinear Motion)", date: "Sep 20 - Sep 24", the: "—" },
-  { week: 2, title: "Curvilinear Motion (Cartesian & Polar Coordinates) & Velocity Relation", date: "Sep 27 - Oct 01", the: "THE 1 Active (THE 2 Oct 9)" },
-  { week: 3, title: "Normal and Tangential Coordinates & Relative Motion", date: "Oct 04 - Oct 08", the: "THE 2 Release (Submit THE 1)" },
-  { week: 4, title: "Kinetics of Particles: Newton's Second Law & Equations of Motion", date: "Oct 11 - Oct 15", the: "THE 3 Release (Submit THE 2)" },
-  { week: 5, title: "Work & Energy Principle for Particles", date: "Oct 18 - Oct 22", the: "THE 4 Release (Submit THE 3)" },
-  { week: 6, title: "Impulse & Linear/Angular Momentum & Impact", date: "Oct 25 - Oct 29", the: "THE 5 Release (Submit THE 4)" },
-  { week: 7, title: "Midterm Exam Week (Exam on Particles Dynamics)", date: "Nov 01 - Nov 05", the: "⚡ Midterm Exam Week" },
-  { week: 8, title: "Kinematics of Rigid Bodies (Translation & Fixed Axis Rotation)", date: "Nov 08 - Nov 12", the: "THE 6 Release (Submit THE 5)" },
-  { week: 9, title: "General Plane Motion: Velocity Analysis & Instantaneous Center (IC)", date: "Nov 15 - Nov 19", the: "THE 7 Release (Submit THE 6)" },
-  { week: 10, title: "General Plane Motion: Acceleration Analysis", date: "Nov 22 - Nov 26", the: "THE 8 Release (Submit THE 7)" },
-  { week: 11, title: "Planar Kinetics of a Rigid Body: Force and Acceleration", date: "Nov 29 - Dec 03", the: "THE 9 Release (Submit THE 8)" },
-  { week: 12, title: "Planar Kinetics: Work and Energy for Rigid Bodies", date: "Dec 06 - Dec 10", the: "Final THE Submission (THE 9)" },
-  { week: 13, title: "Planar Kinetics: Impulse and Momentum for Rigid Bodies", date: "Dec 13 - Dec 17", the: "Course Review & Bonus" },
-  { week: 14, title: "Comprehensive Revision & Final Exams Preparation", date: "Dec 20 - Dec 24", the: "🎯 Final Revision" }
+const dynamicsRoadmap = [
+  {
+    week: 1,
+    date: "Sep 20 - Sep 24",
+    title: "Intro + Ch1: CG & MOI",
+    topic: "مقدمة + مركز الثقل وعزم القصور الذاتي (Center of Gravity & Moment of Inertia)",
+    slides: "Slides 1 → End",
+    status: "completed"
+  },
+  {
+    week: 2,
+    date: "Sep 27 - Oct 01",
+    title: "Ch2: Kinematics of Rigid Bodies (Part 1)",
+    topic: "كينماتيكا الأجسام الجاسئة (Kinematics)",
+    slides: "Slides 1 → 33",
+    status: "completed"
+  },
+  {
+    week: 3,
+    date: "Oct 04 - Oct 08",
+    title: "Ch2: Types of R.B Motions & Instantaneous Center",
+    topic: "أنواع حركة الجسم الجاسئ + أمثلة (2Ex06, 2Ex15, 2Ex17, 2Ex20) + Rolling & IC",
+    slides: "Lecture Examples",
+    status: "active" // الأسبوع الحالي
+  },
+  {
+    week: 4,
+    date: "Oct 11 - Oct 15",
+    title: "Ch2: Kinematics of Rigid Bodies (Part 2)",
+    topic: "تكملة الكينماتيكا والمسائل المتقدمة",
+    slides: "Slides 34 → End",
+    status: "upcoming"
+  },
+  {
+    week: 5,
+    date: "Oct 18 - Oct 22",
+    title: "Ch3: Kinetics of Rigid Bodies - Equations of Motion (Part 1)",
+    topic: "كيناتيكا الأجسام الجاسئة: معادلات الحركة",
+    slides: "Slides 1 → 14",
+    status: "upcoming"
+  },
+  {
+    week: 6,
+    date: "Oct 25 - Oct 29",
+    title: "Ch3: Kinetics of Rigid Bodies (Part 2)",
+    topic: "تكملة معادلات الحركة وتطبيقاتها",
+    slides: "Slides 15 → End",
+    status: "upcoming"
+  },
+  {
+    week: 7,
+    date: "Nov 01 - Nov 05",
+    title: "Mid-Term Exam",
+    topic: "امتحان نصف الترم (Mid-Term)",
+    slides: "Ch1 + Ch2 + Ch3",
+    status: "upcoming",
+    badge: "Midterm"
+  },
+  {
+    week: 8,
+    date: "Nov 08 - Nov 12",
+    title: "Ch3: Kinetics (Continued)",
+    topic: "تكملة الكيناتيكا وحل التمارين",
+    slides: "Slides 15 → End",
+    status: "upcoming"
+  },
+  {
+    week: 9,
+    date: "Nov 15 - Nov 19",
+    title: "Ch4: Work & Energy (Part 1)",
+    topic: "مبدأ الشغل والطاقة للأجسام الجاسئة",
+    slides: "Slides 1 → 16",
+    status: "upcoming"
+  },
+  {
+    week: 10,
+    date: "Nov 22 - Nov 26",
+    title: "Ch4: Work & Energy (Part 2)",
+    topic: "تكملة الشغل والطاقة وحفظ الطاقة",
+    slides: "Slides 17 → End",
+    status: "upcoming"
+  },
+  {
+    week: 11,
+    date: "Nov 29 - Dec 03",
+    title: "Ch5: Vibrations & Oscillations (Part 1)",
+    topic: "الاهتزازات الميكانيكية",
+    slides: "Slides 1 → 9",
+    status: "upcoming"
+  },
+  {
+    week: 12,
+    date: "Dec 06 - Dec 10",
+    title: "Ch5: Vibrations & Oscillations (Part 2)",
+    topic: "تطبيقات وحل مسائل الاهتزازات",
+    slides: "Slides 1 → 9",
+    status: "upcoming"
+  },
+  {
+    week: 13,
+    date: "Dec 13 - Dec 17",
+    title: "General Revision",
+    topic: "مراجعة شاملة وحل امتحانات سابقة",
+    slides: "All Chapters",
+    status: "upcoming"
+  },
+  {
+    week: 14,
+    date: "Dec 20 - Dec 24",
+    title: "Final Revision",
+    topic: "مراجعة نهائية",
+    slides: "All Chapters",
+    status: "upcoming"
+  },
+  {
+    week: 15,
+    date: "Dec 27 - Dec 31",
+    title: "Final Exams Period",
+    topic: "الامتحانات النهائية",
+    slides: "-",
+    status: "upcoming",
+    badge: "Finals"
+  },
+  {
+    week: 16,
+    date: "Jan 03 - Jan 07",
+    title: "Final Exams Period",
+    topic: "الامتحانات النهائية",
+    slides: "-",
+    status: "upcoming",
+    badge: "Finals"
+  }
 ];
+
+let DYNAMICS_ROADMAP_STEPS = dynamicsRoadmap;
 
 const MATERIALS_ROADMAP_STEPS = [
   { week: 1, date: "Sep 21", lecture: "Introduction", tut: "Tutorial", lab: null },
