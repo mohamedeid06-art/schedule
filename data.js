@@ -395,7 +395,42 @@ const DEFAULT_WEEKLY_GUIDES = [
     summary_url: "https://drive.google.com/file/d/1ToJ6RyZkci6O59E6ViwJKagDcCVkryQj/view?usp=drivesdk"
   },
 
-  // ===================== WEEK 3 (PREPARATION) =====================
+  // ===================== WEEK 3 =====================
+  {
+    week: "Week 3",
+    code: "EMC G101",
+    lectures: "Chapter 2: Kinematics of Rigid Bodies (VR & AR, Constraints & Motion Types)",
+    slides_url: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view?usp=drivesdk",
+    slides_note: "حتى سلايد 24 فقط",
+    lecture_videos: [
+      { title: "المحاضرة الرسمية — الجزء الأول", url: "https://youtu.be/271VDK8ocjM?feature=shared" },
+      { title: "المحاضرة الرسمية — الجزء الثاني (حتى الدقيقة 07:00 فقط)", url: "https://youtu.be/EC0HXPnV3uQ?si=NTSlVYzk6j9ji5kI" },
+      { title: "المحاضرة الرسمية — الجزء الثالث", url: "https://youtu.be/ZbQGqbTudbA?si=FHSYoL3iJPlY4Ttg" }
+    ],
+    sheet: "Dynamics Sheet 2: Kinematics of Rigid Bodies",
+    sheet_url: "https://drive.google.com/file/d/1J0UdPRuvF4PgX-rLrunlO9UbOhmtY7Fq/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk",
+    sheet_note: "حل أي مسائل خاصة بـ VR & AR فقط، والباقي لسه مأخدنهوش",
+    practice: "سكاشن وتطبيقات المعيدين (شرح Acceleration Relation وحل مسائل الشيت)",
+    playlists: [
+      { title: "م. أحمد فوزي (ملخص الشابتر كاملاً + حل الشيت)", url: "https://youtu.be/mrLEzczCxpc?si=MAmczw5ZQU4y3Qc8" },
+      { title: "م. إنجي (شرح Acceleration Relation)", url: "https://youtu.be/VqL2COYs3yc?si=hZ5VoeohJOYNhmgj" },
+      { title: "م. إنجي (تصوير السكشن - حتى الدقيقة 32:00 شرح AR)", url: "https://youtu.be/ySiDSb0gbAo?si=hBQYD6hF8kSEGq2J" },
+      { title: "مسائل محلولة Solved Problems على الـ AR من الشيت", url: "https://youtu.be/8vMHDoNCpLk?si=cR-bYSb4cF9vf7kv" }
+    ],
+    minutes: {
+      the: "تيك هوم 2 (THE 2): ينزل رسمياً يوم الجمعة 9 أكتوبر.",
+      covered: "Velocity & Acceleration Relation، و Types of Constraints، و Types of Motion.",
+      remaining: "الـ IC (Instantaneous Center) والـ Rolling."
+    },
+    important_notes: [
+      "🚫 مفيش كويز الأسبوع الجاي: الكويز غالباً هيكون في الأسبوع السادس.",
+      "🎯 الأسبوع القادم إن شاء الله هنخلص Chapter 2 كاملاً.",
+      "💡 متقلقوش من لخبطة الأسبوع ده، الدكتور لسه ما خلصش الشابتر، ومشاكلكم واقتراحاتكم محل اهتمام وشغالين عليها، متنسوش تملوا فورم المتابعة وبالتوفيق يا باشمهندسين ❤️🙏"
+    ],
+    summary_title: "الحل النموذجي لشيت 2 (Model Solution)",
+    summary_url: "https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk"
+  },
   {
     week: "Week 3",
     code: "MDP G121",
