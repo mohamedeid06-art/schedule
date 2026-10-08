@@ -447,9 +447,9 @@ let DYNAMICS_ROADMAP_STEPS = [
 const MATERIALS_ROADMAP_STEPS = [
   { week: 1, date: "Sep 21", lecture: "Introduction", tut: "Tutorial", lab: null },
   { week: 2, date: "Sep 28", lecture: "Atomic Structure & Interatomic Bonding", tut: "Interatomic Bonding (Tut)", lab: null },
-  { week: 3, date: "Oct 5", lecture: "Crystal Structures-1 (Quiz + Assign)", tut: "Crystal Structures-1 (Tut)", lab: null },
+  { week: 3, date: "Oct 5", lecture: "Crystal Structures-1", tut: "Crystal Structures-1 (Tut)", lab: null },
   { week: 4, date: "Oct 12", lecture: "Crystal Structures-2", tut: "Crystal Structures-2 (Tut)", lab: null },
-  { week: 5, date: "Oct 19", lecture: "Imperfections in Solids", tut: "Imperfections in Solids (Tut)", lab: null },
+  { week: 5, date: "Oct 19", lecture: "Imperfections in Solids (Quiz + Assign)", tut: "Imperfections in Solids (Tut)", lab: null },
   { week: 6, date: "Oct 26", lecture: "Mechanical Properties-1", tut: "Mechanical Properties-1 (Tut)", lab: "Tension test (Lab)" },
   { week: 7, date: "Nov 2", lecture: "Mechanical Properties-2", tut: "Mechanical Properties-2 (Tut)", lab: "Tension test (Lab)" },
   { week: 8, date: "Nov 9", lecture: "⚡ Midterm Exam", tut: "Midterm Exam Week", lab: null, isMidterm: true },

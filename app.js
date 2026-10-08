@@ -589,14 +589,19 @@ function getDayAssessments(dayName) {
   return getActiveSectionAssessments().filter(a => a.day === dayName && isAssessmentInCurrentWeek(a.date, dayName));
 }
 
-function getExactCountdown(deadlineStr) {
-  const target = new Date(deadlineStr);
+function getExactCountdown(deadlineInput) {
+  const dueStr = (typeof deadlineInput === 'object' && deadlineInput !== null)
+    ? (deadlineInput.dueDate || deadlineInput.deadline || deadlineInput.start)
+    : deadlineInput;
+
+  if (!dueStr) return { text: "محدد", isUrgent: false, isPassed: false, diff: 0 };
+  const target = new Date(dueStr);
   if (isNaN(target.getTime())) return { text: "محدد", isUrgent: false, isPassed: false, diff: 0 };
-  const now = new Date();
-  const diff = target.getTime() - now.getTime();
+
+  const diff = new Date(dueStr) - new Date();
 
   if (diff <= 0) {
-    return { text: "منتهي ✅", isUrgent: false, isPassed: true, diff };
+    return { text: "منتهي / Expired", isUrgent: false, isPassed: true, diff };
   }
 
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -605,11 +610,12 @@ function getExactCountdown(deadlineStr) {
 
   let text = "";
   if (days > 0) text += `${days}d `;
-  text += `${hours}h ${minutes}m remaining`;
+  text += `${hours}h ${minutes}m`;
 
   const isUrgent = days === 0 || diff <= 48 * 3600 * 1000;
   return { text, isUrgent, isPassed: false, diff };
 }
+
 
 function updateTaskBadge() {
   const badge = document.getElementById("navTaskBadge");
@@ -684,7 +690,8 @@ function getAllCombinedTasks() {
   // 1. Master Quizzes (Highest priority, full rich data)
   if (typeof MASTER_QUIZZES !== 'undefined') {
     MASTER_QUIZZES.forEach(q => {
-      const cd = getExactCountdown(q.deadline);
+      const dueDate = q.deadline || q.start;
+      const cd = getExactCountdown(dueDate);
       const isDone = q.isDone || completedTasks.includes(q.id) || cd.isPassed;
       let priority = "scheduled";
       if (isDone) priority = "done";
@@ -693,6 +700,8 @@ function getAllCombinedTasks() {
 
       list.push({
         ...q,
+        dueDate: dueDate,
+        countdownBadge: cd.text,
         isQuiz: true,
         countdown: cd,
         priority: priority,
@@ -709,7 +718,8 @@ function getAllCombinedTasks() {
     COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
       if (addedIds.has(asgn.id)) return;
       const deadline = (asgn.deadlinesByGroup && (asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"])) || asgn.deadline || "2026-10-15T09:00:00";
-      const cd = getExactCountdown(deadline);
+      const dueDate = deadline;
+      const cd = getExactCountdown(dueDate);
       const isDone = completedTasks.includes(asgn.id);
       let priority = "scheduled";
       if (isDone) priority = "done";
@@ -725,7 +735,9 @@ function getAllCombinedTasks() {
         instructor: COURSES[asgn.code]?.instructor || "CUFE Staff",
         dateDisplay: new Date(deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         deadline: deadline,
+        dueDate: dueDate,
         start: asgn.start,
+        countdownBadge: cd.text,
         countdown: cd,
         priority: priority,
         accent: COURSES[asgn.code]?.hex || '#38bdf8',
@@ -1097,6 +1109,7 @@ function renderTasksGridOnly() {
   }
 
   grid.innerHTML = list.map(t => renderBentoTaskCard(t)).join('');
+  updateCountdowns();
 }
 
 function renderBentoTaskCard(task) {
@@ -1104,17 +1117,21 @@ function renderBentoTaskCard(task) {
   const accentColor = task.accent || (typeof COURSES !== 'undefined' && COURSES[task.code]?.hex) || '#38bdf8';
   const accentName = task.accentName || 'cyan';
 
-  const dObj = new Date(task.deadline);
+  const dueDate = task.dueDate || task.deadline;
+  const dObj = new Date(dueDate);
   const formattedDate = task.dateDisplay || (!isNaN(dObj.getTime())
     ? dObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-    : (task.deadline || 'Scheduled'));
+    : (dueDate || 'Scheduled'));
 
   const instructorName = task.instructor || (typeof COURSES !== 'undefined' && COURSES[task.code]?.instructor) || "CUFE Staff";
-  const cdText = task.countdownBadge || task.countdown?.text || "Scheduled";
-  const isUrgent = !!(task.countdown?.isUrgent);
+  const cd = getExactCountdown(task);
+  const cdText = cd.text;
+  const isUrgent = cd.isUrgent;
+  const isExpired = cd.isPassed;
+  const dueDateStr = dueDate || '';
 
   return `
-    <article class="bento-task-card bento-${accentName} ${task.isDone ? 'is-completed' : ''}" style="--bento-c: ${accentColor};">
+    <article class="bento-task-card bento-${accentName} ${task.isDone ? 'is-completed' : ''}" style="--bento-c: ${accentColor};" data-task-id="${task.id}" data-due="${escHtml(dueDateStr)}">
       <div class="bento-card-top">
         <div class="bento-subj-tag">
           <span class="bento-subj-initial">${initial}</span>
@@ -1135,7 +1152,7 @@ function renderBentoTaskCard(task) {
           <span class="cal-mini-icon">📅</span>
           <span>${escHtml(formattedDate)}</span>
         </div>
-        <span class="bento-countdown-badge ${isUrgent ? 'urgent' : ''}">
+        <span class="bento-countdown-badge ${isExpired ? 'expired' : (isUrgent ? 'urgent' : '')}" data-due="${escHtml(dueDateStr)}" style="${isExpired ? 'border-color:#ef4444;color:#f87171;background:rgba(239,68,68,0.12);box-shadow:0 0 10px rgba(239,68,68,0.2);' : ''}">
           ${escHtml(cdText)}
         </span>
       </div>
@@ -1151,6 +1168,30 @@ function renderBentoTaskCard(task) {
     </article>
   `;
 }
+
+function updateCountdowns() {
+  const badges = document.querySelectorAll(".bento-countdown-badge");
+  badges.forEach(badge => {
+    const dueStr = badge.getAttribute("data-due") || badge.closest("[data-due]")?.getAttribute("data-due");
+    if (!dueStr) return;
+    const cd = getExactCountdown(dueStr);
+    badge.textContent = cd.text;
+    badge.classList.toggle("expired", cd.isPassed);
+    badge.classList.toggle("urgent", cd.isUrgent && !cd.isPassed);
+    if (cd.isPassed) {
+      badge.style.borderColor = "#ef4444";
+      badge.style.color = "#f87171";
+      badge.style.background = "rgba(239, 68, 68, 0.12)";
+      badge.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.2)";
+    } else {
+      badge.style.borderColor = "";
+      badge.style.color = "";
+      badge.style.background = "";
+      badge.style.boxShadow = "";
+    }
+  });
+}
+window.updateCountdowns = updateCountdowns;
 
 function setSubjectFilterPill(code) {
   triggerHaptic("light");
@@ -3027,6 +3068,7 @@ function render() {
 
   updateLiveTracker();
   updateAcademicCalendarInfo();
+  updateCountdowns();
 }
 
 function setView(mode, week) { 
@@ -3036,6 +3078,7 @@ function setView(mode, week) {
   }
   activeView = mode; 
   render(); 
+  updateCountdowns();
 }
 
 function selectDay(day) { 
@@ -3260,3 +3303,6 @@ initTheme();
 render();
 syncFromGoogleSheets();
 setInterval(updateLiveTracker, 60000);
+if (window._countdownInterval) clearInterval(window._countdownInterval);
+window._countdownInterval = setInterval(updateCountdowns, 60000);
+updateCountdowns();
