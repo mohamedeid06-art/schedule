@@ -434,18 +434,28 @@ const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 3",
     code: "MDP G121",
-    lectures: "⚡ Preparation: Lecture 3 | Crystal Structure",
+    lectures: "Lecture 3: Crystal Structure",
     slides_url: "https://drive.google.com/file/d/1MiCum9ETO6BT9InyOzEu1xqT4mmjHl-3/view?usp=drivesdk",
-    sheet: "Crystal Structure Tutorial & Recordings",
-    sheet_url: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
-    solution_url: "https://drive.google.com/drive/folders/1JJXsMCKmnz0ysbthqYHOMoRPzVLgQdN_",
-    practice: "⚠ تنبيه مهم جداً: جزء الـ Crystal Structure هيكون عليه كويز وأساينمنت قريباً، حضّره من التسجيلات قبل المحاضرة.",
+    recordings_url: "https://drive.google.com/drive/folders/1JJXsMCKmnz0ysbthqYHOMoRPzVLgQdN_",
+    attendance_notes_url: "https://drive.google.com/file/d/1ZrcZEmi24DKJyH7NvTrgJ11UP-Rh7hK-/view?usp=drivesdk",
+    sheet: "Sheet: Crystal Structure",
+    sheet_url: "https://drive.google.com/file/d/1mXr5-izCJgscySTAENhL1C3NiZRxp81v/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1yE3S4yvIePQnkyjYJVP12yQcQRYzXVz5/view?usp=drivesdk",
+    practice: "سكاشن وتطبيقات م. هدى (سلايد السكشن + فيديوهات الشرح)",
     playlists: [
+      { title: "سلايد السكشن (Tutorial Slides)", url: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" },
       { title: "سكشن م. هدى — جزء 1", url: "https://youtu.be/jtAnYnw8cyI?si=3Kbjrc_zFtLJIXIy" },
       { title: "سكشن م. هدى — جزء 2", url: "https://youtu.be/MmA4d50-h6E?si=XWDYIO78es-sygIC" }
     ],
-    summary_title: "تسجيلات المحاضرة المباشرة (Recordings Folder)",
-    summary_url: "https://drive.google.com/drive/folders/1JJXsMCKmnz0ysbthqYHOMoRPzVLgQdN_"
+    summaries: [
+      { title: "ملخص ديجيتال (Digital Summary)", url: "https://drive.google.com/file/d/1Mcap0HK9q-2pebDIXGQchmnIO8IhuAOt/view?usp=drivesdk" },
+      { title: "ملخص بخط اليد (Handwritten Summary)", url: "https://drive.google.com/file/d/1sn-VDItU0oWDFHDKZ6vi3yKAIXjPh2Fn/view?usp=drivesdk" }
+    ],
+    important_notes: [
+      "💡 تطمين مهم من المعيد: الامتحانات في الغالب بتيجي مسائل وتطبيقات مش اثباتات (proofs) أو نظري.. لكن ده ميعمنعش إننا بنذاكر كله ونعمل اللي علينا، وبالتوفيق يا شباب ❤️"
+    ],
+    summary_title: "ملخص ديجيتال + ملخص بخط اليد (Crystal Structure)",
+    summary_url: "https://drive.google.com/file/d/1Mcap0HK9q-2pebDIXGQchmnIO8IhuAOt/view?usp=drivesdk"
   }
 ];
 
