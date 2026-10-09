@@ -669,7 +669,7 @@ const COURSE_CAPSULES = {
     name: "Linear Algebra & Multivariable Integration",
     hours: "3 Credit Hours",
     grading: "• الميد من 30 درجة (20 تكامل + 10 جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتبص عليه",
-    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): 🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث.\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 10:00 ص (30-35 دقيقة MCQ — 5 درجات) على أول محاضرتين فقط لحد الـ Double Integral. ركزوا على الـ Graphs كويس جداً!",
+    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 10:00 ص (30-35 دقيقة MCQ — 5 درجات) على أول محاضرتين فقط لحد الـ Double Integral. ركزوا على الـ Graphs كويس جداً!",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
@@ -720,7 +720,7 @@ const COURSE_CAPSULES = {
     name: "Electrical & Electronics Engineering (EPE I)",
     hours: "3 Credit Hours",
     grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة أعمال سنة (Classwork)",
-    tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.\n\n📢 تنبيهات هامة:\n• إلغاء محاضرة الثلاثاء (6 أكتوبر): 🥳 ملغية — مفيش محاضرة بكرة يا حبايبي.\n• مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت: المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين (12:30 إلى 2:00، و 2:00 إلى 3:30). علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً بالتوفيق.",
+    tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.",
     links: [
       { title: "📁 درايف الدفعة لمادة الهندسة الكهربية (EPE I)", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
     ],
@@ -820,37 +820,13 @@ const SESSIONS = [
     type: "Quiz 1 (12 Oct)", 
     room: "القاعة هتتحدد قريب", 
     isQuiz: true,
-    quizBadge: "⚡ كويز مجمع 1 — 5 درجات MCQ",
-    note: "📢 كويز مجمع للـ 4 سكاشن الإثنين 12 أكتوبر 10:00 ص — 5 درجات MCQ على أول محاضرتين فقط لحد الـ Double Integral"
+    quizBadge: "⚡ كويز 1"
   },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
   // Tuesday
-  { 
-    day: "Tuesday", 
-    start: 0, 
-    span: 2, 
-    group: "ALL", 
-    code: "MTH G102", 
-    type: "Lecture", 
-    room: "7104-360", 
-    attendance: false,
-    cancelled: true,
-    cancelNotice: "🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث",
-    note: "🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث"
-  },
-  { 
-    day: "Tuesday", 
-    start: 2, 
-    span: 2, 
-    group: "ALL", 
-    code: "EPE G113", 
-    type: "Lecture", 
-    room: "7104-360",
-    cancelled: true,
-    cancelNotice: "🥳 ملغية — مفيش محاضرة بكرة يا حبايبي",
-    note: "🥳 ملغية — مفيش محاضرة بكرة يا حبايبي"
-  },
+  { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
+  { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
   // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "7104-360" },
@@ -867,10 +843,10 @@ const SESSIONS = [
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
   // سكاشن الكهربية (الخميس)
-  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" },
-  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial (12:30 - 2:00)", room: "Faculty Hall", attendance: false, note: "فترة أولى: 12:30 إلى 2:00 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial (2:00 - 3:30)", room: "Faculty Hall", attendance: false, note: "فترة ثانية: 2:00 إلى 3:30 — (علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً)" }
+  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
+  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -888,20 +864,7 @@ const DEFAULT_NOTIFICATIONS = [
     title: "Calculus Quiz 1 — أول محاضرتين فقط (Double Integral)",
     body: "📢 كويز الماث الإثنين الجاي 12 أكتوبر 10:00 ص: الكويز مجمع للـ 4 سكاشن (30-35 دقيقة MCQ) على أول محاضرتين فقط لحد الـ Double Integral.. افتح دليل المذاكرة وابدأ جهّز نفسك 🎯"
   },
-  {
-    id: "notif-mth-cancel-oct6",
-    date: "5 Oct 2026",
-    tag: "MTH G102 • إلغاء محاضرة",
-    title: "إلغاء محاضرة الماث غداً الثلاثاء",
-    body: "🥳 ملغية — حبايب قلبي بكرة مفيش محاضرة ماث."
-  },
-  {
-    id: "notif-epe-cancel-oct6",
-    date: "5 Oct 2026",
-    tag: "EPE G113 • إلغاء محاضرة",
-    title: "إلغاء محاضرة الكهربية غداً الثلاثاء",
-    body: "🥳 ملغية — مفيش محاضرة بكرة يا حبايبي."
-  },
+
   {
     id: "notif-epe-sec-thu",
     date: "5 Oct 2026",

@@ -2074,7 +2074,7 @@ function renderDailyAgenda() {
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
-              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="اضغط لفتح دليل كويز الماث">${escHtml(s.quizBadge)}</span>` : ''}
+              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance && !isCancelled ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
@@ -2240,7 +2240,7 @@ function renderWeekMatrix() {
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : (isLiveNow ? 'color:#ef4444;' : '')}">${sess.code}</span>
             <div style="display:flex;gap:3px;align-items:center;flex-shrink:0;">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 5px;border-radius:4px;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">⚡ كويز 1</span>` : ''}
+              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance">⚠ ATTENDANCE</span>' : ''}
