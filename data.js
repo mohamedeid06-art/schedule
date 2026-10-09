@@ -369,6 +369,7 @@ const DEFAULT_WEEKLY_GUIDES = [
     playlists: [
       { title: "تجميع شيت 1 (Part 1)", url: "https://drive.google.com/file/d/1mK6r0yRNkTf28udOOf-U_K71Jm5D6Yjb/view?usp=drive_link" },
       { title: "تجميع شيت 1 (Part 2)", url: "https://drive.google.com/file/d/1o-tgm2oNpf0Rj-VTp7IQcKE52v_4WSOt/view?usp=drive_link" },
+      { title: "سيكشن شيت 1 — Pulley Bracket (رسم وتجميع)", url: "https://youtu.be/4FEoVuc008I?si=52u5KRwbj4kuBA1j" },
       { title: "إعدادات واختصارات البرنامج", url: "https://drive.google.com/file/d/1h7lj8A75cTz23cUCWo1fv9c0YdwsRILn/view?usp=drive_link" },
       { title: "شرح الـ Assembly (عربي)", url: "https://youtu.be/yHaJ_zHIyeA?si=ajGUIoQpTawLVulI" },
       { title: "شرح الـ Assembly (إنجليزي لـ د 47:00)", url: "https://youtu.be/dH0DSG7izfI?si=URc0WC8PRQxDF5SS" },
@@ -659,6 +660,10 @@ const SOLIDWORKS_HUB_DATA = [
       {
         title: "شرح نمذجة البارت (Pulley Bracket Modeling)",
         url: "https://youtu.be/VLVvU0LWBZQ?si=gQ0OFEv1XpZl2R8c"
+      },
+      {
+        title: "سيكشن Pulley Bracket (رسم وتجميع البارت)",
+        url: "https://youtu.be/4FEoVuc008I?si=52u5KRwbj4kuBA1j"
       }
     ]
   },
