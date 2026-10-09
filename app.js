@@ -2676,6 +2676,30 @@ function renderGuideCard(activeItem, course, availableWeeks) {
         </div>
       </div>
 
+      ${activeItem.tool ? `
+        <div class="wg-tool-neon-card" style="margin-bottom:14px;background:linear-gradient(135deg,rgba(54,70,201,0.2) 0%,rgba(210,56,45,0.12) 50%,rgba(15,23,42,0.92) 100%);border:1.5px solid rgba(147,163,255,0.5);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;box-shadow:0 0 25px rgba(54,70,201,0.25),inset 0 1px 0 rgba(255,255,255,0.15);">
+          <div style="position:absolute;top:-20px;left:-20px;width:110px;height:110px;background:radial-gradient(circle,rgba(210,56,45,0.3) 0%,transparent 70%);pointer-events:none;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(210,56,45,0.25),rgba(54,70,201,0.25));color:#ff8a80;border:1px solid rgba(255,112,100,0.55);border-radius:20px;padding:3px 12px;font-size:11.5px;font-weight:700;letter-spacing:0.4px;box-shadow:0 0 12px rgba(210,56,45,0.25);">
+              ${activeItem.tool.badge || 'Interactive Tool 🛠️'}
+            </span>
+            <span style="font-size:11px;color:#38bdf8;font-family:'JetBrains Mono',monospace;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);padding:2px 8px;border-radius:6px;font-weight:600;">SVG Live Simulation 📐</span>
+          </div>
+          <div style="font-size:16px;font-weight:800;color:#ffffff;line-height:1.45;margin-bottom:6px;text-shadow:0 0 12px rgba(147,163,255,0.4);" dir="auto">
+            ${activeItem.tool.title}
+          </div>
+          <div style="font-size:13px;line-height:1.65;color:#cbd5e1;margin-bottom:14px;" dir="auto">
+            ${activeItem.tool.desc || activeItem.tool.description}
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <a href="${activeItem.tool.url || activeItem.tool.link}" class="wg-tool-launch-btn" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3646c9 0%,#d2382d 100%);color:#ffffff;text-decoration:none;font-weight:700;font-size:13px;padding:9px 20px;border-radius:8px;box-shadow:0 4px 16px rgba(210,56,45,0.4),0 0 12px rgba(54,70,201,0.3);transition:all .2s ease;">
+              <span>فتح الأداة التفاعلية</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+      ` : ''}
+
       ${activeItem.minutes ? renderGuideSection("minutes", "lecture", "📋", "ملخص المحاضرة وتحديثات التيك هوم (Lecture Minutes)", `
         <span class="wg-status wg-status-tone wg-static">⚡ <span>Official</span></span>`, minutesBody) : ''}
       ${activeItem.lectures ? renderGuideSection("lecture", "lecture", "📘", "Lecture", statusBtn("lecture", !!st.lecture), lectureBody) : ''}
@@ -3375,7 +3399,17 @@ window.addEventListener("appinstalled", () => {
 // Boot Sequence
 initDeviceMode();
 initTheme();
+if (window.location.hash.startsWith("#guide")) {
+  selectedGuideWeek = "Week 3";
+  selectedGuideCourse = "MDP G121";
+  activeView = "guide";
+}
 render();
+window.addEventListener("hashchange", () => {
+  if (window.location.hash.startsWith("#guide")) {
+    setView("guide", selectedGuideWeek || "Week 3", selectedGuideCourse || "MDP G121");
+  }
+});
 syncFromGoogleSheets();
 setInterval(updateLiveTracker, 60000);
 if (window._countdownInterval) clearInterval(window._countdownInterval);
