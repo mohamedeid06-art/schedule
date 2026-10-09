@@ -434,6 +434,14 @@ const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 3",
     code: "MDP G121",
+    tool: {
+      title: "⚡ آلة حاسبة تفاعلية: رسم واستنتاج Miller Indices [uvw] & (hkl)",
+      desc: "أداة عملية لحساب ورسم الـ Unit cell والمتجهات والمستويات خطوة بخطوة مع تمثيل SVG حي لمسائل الشيت.",
+      description: "أداة عملية لحساب ورسم الـ Unit cell والمتجهات والمستويات خطوة بخطوة مع تمثيل SVG حي لمسائل الشيت.",
+      url: "crystal-tool.html",
+      link: "crystal-tool.html",
+      badge: "Interactive Tool 🛠️"
+    },
     lectures: "Lecture 3: Crystal Structure",
     slides_url: "https://drive.google.com/file/d/1MiCum9ETO6BT9InyOzEu1xqT4mmjHl-3/view?usp=drivesdk",
     recordings_url: "https://drive.google.com/drive/folders/1JJXsMCKmnz0ysbthqYHOMoRPzVLgQdN_",
@@ -707,6 +715,7 @@ const COURSE_CAPSULES = {
     grading: "• 10 درجات أساينمنت (2 assignments كل واحد 5 درجات)\n• 15 درجة كويزات (4 كويزات بيتاخد أعلى 3، كل كويز 5 درجات مع دروب لأقل واحد)\n• 15 درجة لابات (تقريرين كل لاب 7.5 درجة، واللاب الثالث في الآخر معليهوش درجات)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
     tips: "توزيعة درجات الماتيريال المعتمدة (دفعة 30):\nالمعيد أكد: 10 درجات أساينمنت + 15 درجة كويزات (اتفقنا على 4 كويزات يسيب أعلى 3 ويسقط الأقل) + 15 درجة ريبورتات لابات + 20 ميد + 40 فاينال.\nبيدخل اتنين دكاترة:\n1. د. إيهاب: احضروا شرحه كويس، بيتكلم عن Atomic structure و الـ stress strain curve (بيجي عليه سؤال في الميد)، والشيت كافي جداً.\n2. د. ممدوح: الـ Phase diagrams والـ Eutectic system.\n⚠️ تنبيه هام: جزء الـ Crystal Structure في المحاضرة 3 مهم للغاية وعليه كويز وأساينمنت.",
     links: [
+      { title: "⚡ آلة حاسبة تفاعلية: رسم واستنتاج Miller Indices [uvw] & (hkl)", url: "crystal-tool.html", badge: "Interactive Tool 🛠️" },
       { title: "📁 درايف الدفعة لمادة الماتيريال والريبورتات", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" }
     ],
     playlists: [

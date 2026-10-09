@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sketching &amp; Derivation — Miller Indices [uvw] &amp; (hkl)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem("cufe_theme") || "dark";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    })();
+  </script>
+  <style>
+  :root{
+    color-scheme:light;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    --paper:#F3F4FB;
+    --card:#FFFFFF;
+    --ink:#3646C9;
+    --ink-deep:#141A52;
+    --pen:#D2382D;
+    --text:#1D2138;
+    --muted:#5A6082;
+    --grid:rgba(54,70,201,.075);
+    --rule:#CDD1EA;
+    --wash:rgba(54,70,201,.10);
+    --f-display:'Bricolage Grotesque','IBM Plex Sans Arabic',system-ui,sans-serif;
+    --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+    --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0B1030;--card:#121A47;--ink:#93A3FF;--ink-deep:#E7EAFF;--pen:#FF7064;
+      --text:#E8EAFB;--muted:#A0A8D6;--grid:rgba(147,163,255,.09);--rule:#2B3675;--wash:rgba(147,163,255,.14);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0B1030;--card:#121A47;--ink:#93A3FF;--ink-deep:#E7EAFF;--pen:#FF7064;
+    --text:#E8EAFB;--muted:#A0A8D6;--grid:rgba(147,163,255,.09);--rule:#2B3675;--wash:rgba(147,163,255,.14);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  body{
+    margin:0;
+    padding:0;
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:26px 26px;
+    color:var(--text);
+    font-family:var(--f-body);
+    font-size:16px;
+    line-height:1.75;
+  }
+  img{max-width:100%}
+  [hidden]:not([hidden=until-found i]){display:none!important}
+  .wrap{max-width:1040px;margin-inline:auto;padding-inline:16px;padding-block:24px 56px;display:grid;gap:44px}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+  b.ltr,.k{font-family:var(--f-mono);font-weight:600;font-size:.92em}
+  h1,h2{font-family:var(--f-display);text-wrap:balance;margin:0;direction:ltr;text-align:start}
+  :focus-visible{outline:2px solid var(--pen);outline-offset:2px}
+
+  /* top bar */
+  .top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+  .back-btn{
+    display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;
+    padding:6px 14px;border-radius:6px;border:1.5px solid var(--ink);color:var(--ink);
+    background:var(--card);box-shadow:3px 3px 0 var(--rule);transition:all .15s ease;
+  }
+  .back-btn:hover{background:var(--wash);transform:translateY(-1px);}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:center}
+  .hero-copy{direction:ltr;text-align:left;display:grid;gap:16px;min-width:0}
+  .kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+  h1{font-size:clamp(46px,9vw,92px);line-height:.92;font-weight:800;letter-spacing:-.035em;color:var(--ink)}
+  h1 span{display:block;font-size:.5em;letter-spacing:-.02em;color:var(--ink-deep);margin-top:.18em;
+    background:linear-gradient(transparent 62%,color-mix(in srgb,var(--pen) 38%,transparent) 62% 88%,transparent 88%);width:max-content;max-width:100%}
+  .hero-ar{direction:rtl;text-align:right;margin:0;color:var(--text);max-width:34em}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;direction:ltr;margin:0;padding:0;list-style:none}
+  .legend li{display:flex;align-items:center;gap:10px;border:1.5px solid var(--rule);background:var(--card);padding:6px 12px 6px 8px;border-radius:4px;font-size:13px;line-height:1.3}
+  .legend .sym{font-family:var(--f-mono);font-weight:600;font-size:17px;color:var(--ink);min-width:2.4em;text-align:center}
+  .hero-fig{margin:0;background:var(--card);border:1.5px solid var(--rule);border-radius:6px;padding:10px;box-shadow:5px 5px 0 var(--rule);min-width:0}
+  .hero-fig figcaption{direction:ltr;font-family:var(--f-mono);font-size:12px;color:var(--muted);padding:2px 6px 4px}
+
+  /* section header */
+  .sec{display:grid;gap:22px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;direction:ltr;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .sec-head .tag{font-family:var(--f-mono);font-weight:600;font-size:clamp(24px,4vw,34px);color:var(--pen)}
+  .sec-head h2{font-size:clamp(26px,4.4vw,40px);font-weight:800;letter-spacing:-.02em;color:var(--ink-deep)}
+  .sec-head .ar{margin-inline-start:auto;font-size:15px;color:var(--muted);direction:rtl}
+  .sec-body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:28px;align-items:start}
+
+  /* steps */
+  .steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start}
+  .steps li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:15px;width:34px;height:34px;border:2px solid var(--ink);color:var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--card)}
+  .steps small{display:block;color:var(--muted);font-size:14px;line-height:1.6}
+  .pitfall{margin-top:6px;border:2px solid var(--pen);border-radius:4px;padding:14px 14px 12px;position:relative;background:var(--card);transform:rotate(-.7deg)}
+  .pitfall::before{content:"انتبه";position:absolute;top:-13px;inset-inline-start:12px;background:var(--pen);color:var(--card);font-weight:600;font-size:13px;padding:0 10px;line-height:24px;border-radius:3px}
+  .pitfall p{margin:0}
+  .pitfall p+p{margin-top:6px}
+
+  /* lab */
+  .lab{background:var(--card);border:1.5px solid var(--rule);border-radius:6px;box-shadow:5px 5px 0 var(--rule);padding:16px;display:grid;gap:16px;min-width:0}
+  .lab-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .lab-top strong{font-weight:600;font-size:14px;color:var(--muted)}
+  .reset{font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:4px;padding:3px 12px;cursor:pointer}
+  .reset:hover{background:var(--wash)}
+  .fields{display:grid;gap:12px}
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  legend{font-size:13px;font-weight:600;color:var(--muted);padding:0;margin-bottom:2px}
+  .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;direction:ltr}
+  .f{display:flex;align-items:flex-end;gap:6px;min-width:0}
+  .f span{font-family:var(--f-mono);font-size:13px;color:var(--pen);font-weight:600;padding-bottom:5px}
+  .f input{flex:1;min-width:0;width:100%;font-family:var(--f-mono);font-size:16px;color:var(--text);background:transparent;border:0;border-bottom:2px solid var(--ink);padding:3px 2px;border-radius:0;direction:ltr;text-align:left}
+  .f input:focus{outline:none;background:var(--wash);border-bottom-color:var(--pen)}
+  .f button{font-family:var(--f-mono);font-size:14px;line-height:1;color:var(--ink);background:transparent;border:1.5px solid var(--rule);border-radius:4px;padding:5px 7px;cursor:pointer;margin-bottom:2px}
+  .f button:hover{border-color:var(--ink)}
+  .cell-fig{margin:0;border:1.5px dashed var(--rule);border-radius:4px;background:var(--paper);padding:4px}
+  .cell-fig svg{display:block;width:100%;height:auto}
+  .out{display:grid;gap:8px;border-top:2px solid var(--ink);padding-top:14px}
+  .line{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;direction:ltr;font-family:var(--f-mono);font-size:14px}
+  .line .lb{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:5.4em}
+  .line .ex{overflow-wrap:anywhere}
+  .answer{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;direction:ltr}
+  .answer .res{font-family:var(--f-mono);font-weight:600;font-size:clamp(30px,6vw,42px);line-height:1.1;color:var(--ink-deep);background:var(--wash);border:2px solid var(--ink);border-radius:4px;padding:2px 16px}
+  .answer .note{font-size:14px;color:var(--muted);direction:rtl}
+  .idx{display:inline-flex;gap:.45em;align-items:baseline}
+  .idx i{font-style:normal}
+  .bar{text-decoration:overline;text-decoration-thickness:2px;text-decoration-skip-ink:none}
+  .err{border:2px solid var(--pen);border-radius:4px;padding:10px 14px;color:var(--pen);font-weight:500;background:var(--card)}
+  .cap{font-size:14px;color:var(--muted);margin:0}
+
+  /* svg classes */
+  .e{stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round}
+  .e.h{stroke-dasharray:5 5;opacity:.65}
+  .ax{stroke:var(--pen);stroke-width:2;fill:none}
+  .al{fill:var(--pen);font-family:var(--f-mono);font-weight:600;font-size:17px}
+  .pl{fill:var(--ink);fill-opacity:.24;stroke:var(--ink-deep);stroke-width:2.4;stroke-linejoin:round}
+  .dr{stroke:var(--ink-deep);stroke-width:3.2;fill:none;stroke-linecap:round}
+  .dot{fill:var(--ink-deep)}
+  .mk-p{fill:var(--pen)}
+  .mk-i{fill:var(--ink-deep)}
+  .cr{fill:var(--card);stroke:var(--pen);stroke-width:2}
+  .ct{fill:var(--pen);font-family:var(--f-mono);font-weight:600;font-size:14px}
+  .ot{fill:var(--muted);font-family:var(--f-mono);font-size:12px}
+
+  footer{direction:ltr;text-align:center;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr}
+    .sec-body{grid-template-columns:1fr}
+    .sec-head .ar{margin-inline-start:0;flex-basis:100%}
+  }
+  @media (max-width:420px){
+    .wrap{gap:44px}
+    .lab{padding:12px}
+    .row3{gap:8px}
+    .f button{padding:5px 5px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+
+<main class="wrap" dir="rtl" lang="ar">
+
+  <div class="top-nav">
+    <a href="index.html#guide" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;padding:6px 14px;border-radius:6px;border:1.5px solid var(--ink);color:var(--ink);margin-bottom:12px;" class="back-btn">← العودة لجايد المادة</a>
+  </div>
+
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="kicker">Crystal structure · Miller indices</p>
+      <h1>Sketching<span>&amp; Derivation</span></h1>
+      <p class="hero-ar">إزاي تطلّع الـ Miller indices للـ direction والـ plane من رسمة الـ unit cell، خطوة بخطوة. وتحت كل شرح آلة حاسبة بترسم الـ cell وتحسب معاك.</p>
+      <ul class="legend">
+        <li><span class="sym">[ u v w ]</span> Direction</li>
+        <li><span class="sym">( h k l )</span> Plane</li>
+        <li><span class="sym bar">1</span> قيمة سالبة</li>
+      </ul>
+    </div>
+    <figure class="hero-fig">
+      <svg id="svgHero" viewBox="0 0 440 290" role="img" aria-label="Unit cell with the direction [0 1 2] drawn from the origin"></svg>
+      <figcaption>direction [0 1 2] · cell 0.4 × 0.5 × 0.3 nm</figcaption>
+    </figure>
+  </header>
+
+  <section class="sec" id="direction">
+    <div class="sec-head">
+      <span class="tag">[uvw]</span>
+      <h2>Direction Vector</h2>
+      <span class="ar">الاستنتاج</span>
+    </div>
+    <div class="sec-body">
+      <div>
+        <ol class="steps">
+          <li><div>جيب إحداثيات أول نقطة وآخر نقطة.</div></li>
+          <li><div>اطرح النقطة الأخيرة − الأولى <b class="ltr">(2 − 1)</b>.</div></li>
+          <li><div>اقسم كل مركّبة على طول الضلع كامل.<small>x على طول x، و y على طول y، و z على طول z.</small></div></li>
+          <li><div>اضرب في <b class="ltr">factor</b> عشان تشيل المقامات.</div></li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-top"><strong>المثال من الشيت</strong><button type="button" class="reset" id="rstDir">ارجع للمثال</button></div>
+        <div class="fields">
+          <fieldset><legend>أبعاد الـ cell (nm)</legend>
+            <div class="row3">
+              <label class="f"><span>x</span><input id="dx" value="0.4" autocomplete="off"></label>
+              <label class="f"><span>y</span><input id="dy" value="0.5" autocomplete="off"></label>
+              <label class="f"><span>z</span><input id="dz" value="0.3" autocomplete="off"></label>
+            </div>
+          </fieldset>
+          <fieldset><legend>نقطة البداية 1</legend>
+            <div class="row3">
+              <label class="f"><span>x</span><input id="ax" value="0" autocomplete="off"></label>
+              <label class="f"><span>y</span><input id="ay" value="0" autocomplete="off"></label>
+              <label class="f"><span>z</span><input id="az" value="0" autocomplete="off"></label>
+            </div>
+          </fieldset>
+          <fieldset><legend>نقطة النهاية 2</legend>
+            <div class="row3">
+              <label class="f"><span>x</span><input id="bx" value="0" autocomplete="off"></label>
+              <label class="f"><span>y</span><input id="by" value="0.25" autocomplete="off"></label>
+              <label class="f"><span>z</span><input id="bz" value="0.3" autocomplete="off"></label>
+            </div>
+          </fieldset>
+        </div>
+        <figure class="cell-fig"><svg id="svgDir" viewBox="0 0 440 290" role="img" aria-label="Unit cell with the entered direction"></svg></figure>
+        <div class="out" id="outDir" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="plane">
+    <div class="sec-head">
+      <span class="tag">(hkl)</span>
+      <h2>Plane</h2>
+      <span class="ar">الاستنتاج</span>
+    </div>
+    <div class="sec-body">
+      <div>
+        <ol class="steps">
+          <li><div>هات نقطة التقاء الـ plane مع كل محور <b class="ltr">x, y, z</b> واقسمها على طول الضلع كامل.<small>لو الـ plane موازي للمحور ومش بيقطعه، النتيجة <b class="ltr">∞</b>.</small></div></li>
+          <li><div>خد الـ <b class="ltr">reciprocal</b> للنقط: <b class="ltr">1/x, 1/y, 1/z</b>.<small>لو طلعت <b class="ltr">∞</b> بيبقى reciprocal بتاعها <b class="ltr">0</b>.</small></div></li>
+          <li><div>اضرب في <b class="ltr">factor</b> عشان تشيل الكسور.</div></li>
+        </ol>
+        <div class="pitfall">
+          <p>لو الـ plane لمست الـ <b class="ltr">origin</b>، لازم تحرك الـ origin لـ <b class="ltr">corner</b> تاني.</p>
+        </div>
+      </div>
+
+      <div class="lab">
+        <div class="lab-top"><strong>المثال من الشيت (بعد تحريك الـ origin)</strong><button type="button" class="reset" id="rstPl">ارجع للمثال</button></div>
+        <div class="fields">
+          <fieldset><legend>أبعاد الـ cell (nm)</legend>
+            <div class="row3">
+              <label class="f"><span>x</span><input id="px" value="0.4" autocomplete="off"></label>
+              <label class="f"><span>y</span><input id="py" value="0.5" autocomplete="off"></label>
+              <label class="f"><span>z</span><input id="pz" value="0.3" autocomplete="off"></label>
+            </div>
+          </fieldset>
+          <fieldset><legend>نقط التقاء الـ plane مع المحاور (nm)</legend>
+            <div class="row3">
+              <label class="f"><span>x</span><input id="ix" value="∞" autocomplete="off"><button type="button" data-inf="ix" aria-label="x = ∞">∞</button></label>
+              <label class="f"><span>y</span><input id="iy" value="-0.5" autocomplete="off"><button type="button" data-inf="iy" aria-label="y = ∞">∞</button></label>
+              <label class="f"><span>z</span><input id="iz" value="0.15" autocomplete="off"><button type="button" data-inf="iz" aria-label="z = ∞">∞</button></label>
+            </div>
+          </fieldset>
+        </div>
+        <figure class="cell-fig"><svg id="svgPl" viewBox="0 0 440 290" role="img" aria-label="Unit cell with the entered plane"></svg></figure>
+        <div class="out" id="outPl" aria-live="polite"></div>
+        <p class="cap">في المثال مفيش factor، فالإجابة بتطلع مباشرة بعد الـ reciprocal.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>x ↙ · y → · z ↑ &nbsp;|&nbsp; Miller indices</footer>
+</main>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var MINUS='−';
+
+  function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t}return a}
+  function lcm(a,b){return a/gcd(a,b)*b}
+  function rat(v){
+    for(var d=1;d<=24;d++){var n=Math.round(v*d);if(Math.abs(v*d-n)<1e-6){return n===0?[0,1]:[n,d]}}
+    return null;
+  }
+  function neg(s){return String(s).replace('-',MINUS)}
+  function num(v){return isFinite(v)?neg(+v.toFixed(6)):'∞'}
+  function rs(r){return neg(r[1]===1?String(r[0]):r[0]+'/'+r[1])}
+  function trip(arr){return '('+arr.join(', ')+')'}
+  function idx(arr,o,c){
+    return '<span class="idx ltr">'+o+arr.map(function(n){return '<i>'+(n<0?'<span class="bar">'+(-n)+'</span>':n)+'</i>'}).join('')+c+'</span>';
+  }
+  function parse(s,allowInf){
+    s=(s||'').trim().replace(/[٠-٩]/g,function(d){return d.charCodeAt(0)-1632}).replace(/[٫٬,،]/g,'.').replace(/[−–]/g,'-');
+    if(allowInf&&(s===''||/^(inf|infinity|∞|i)$/i.test(s)))return Infinity;
+    if(s==='')return NaN;
+    var v=Number(s);return isNaN(v)?NaN:v;
+  }
+  function val(id,inf){return parse($('#'+id).value,inf)}
+
+  /* ---------- cell drawing ---------- */
+  var O=[160,172],VX=[-85,68],VY=[180,0],VZ=[0,-120];
+  function P(f){return [O[0]+f[0]*VX[0]+f[1]*VY[0]+f[2]*VZ[0],O[1]+f[0]*VX[1]+f[1]*VY[1]+f[2]*VZ[1]]}
+  function pt(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}
+  function vert(a){return [a&1,(a>>1)&1,(a>>2)&1]}
+
+  function drawCell(svg,cfg){
+    var id=svg.id, s='';
+    s+='<defs>'+
+      '<marker id="'+id+'-mp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk-p" d="M0 0L10 5L0 10z"/></marker>'+
+      '<marker id="'+id+'-mi" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="mk-i" d="M0 0L10 5L0 10z"/></marker>'+
+      '</defs>';
+    var edges=[];
+    for(var a=0;a<8;a++){for(var bit=0;bit<3;bit++){if(!(a&(1<<bit))){edges.push([a,a|(1<<bit)])}}}
+    edges.forEach(function(e){
+      var p=P(vert(e[0])),q=P(vert(e[1]));
+      s+='<line class="e'+(e[0]===0?' h':'')+'" x1="'+p[0]+'" y1="'+p[1]+'" x2="'+q[0]+'" y2="'+q[1]+'"/>';
+    });
+    if(cfg.h){
+      var h=cfg.h,pts=[],seen={};
+      function add(v){var k=v.map(function(t){return t.toFixed(4)}).join('|');if(!seen[k]){seen[k]=1;pts.push(v)}}
+      function f(v){return h[0]*v[0]+h[1]*v[1]+h[2]*v[2]-1}
+      edges.forEach(function(e){
+        var va=vert(e[0]),vb=vert(e[1]),fa=f(va),fb=f(vb);
+        if(Math.abs(fa)<1e-9)add(va);
+        if(fa*fb<-1e-12){var t=fa/(fa-fb);add([va[0]+t*(vb[0]-va[0]),va[1]+t*(vb[1]-va[1]),va[2]+t*(vb[2]-va[2])])}
+      });
+      if(pts.length>=3){
+        var sp=pts.map(P),cx=0,cy=0;
+        sp.forEach(function(p){cx+=p[0];cy+=p[1]});cx/=sp.length;cy/=sp.length;
+        sp.sort(function(a,b){return Math.atan2(a[1]-cy,a[0]-cx)-Math.atan2(b[1]-cy,b[0]-cx)});
+        s+='<polygon class="pl" points="'+sp.map(pt).join(' ')+'"/>';
+      }
+    }
+    var axes=[['x',[1.3,0,0],[1.18,0,0]],['y',[0,1.3,0],[0,1.16,0]],['z',[0,0,1.3],[0,0,1.2]]];
+    axes.forEach(function(ax){
+      var e=P(ax[2]),l=P(ax[1]);
+      s+='<line class="ax" x1="'+O[0]+'" y1="'+O[1]+'" x2="'+e[0]+'" y2="'+e[1]+'" marker-end="url(#'+id+'-mp)"/>';
+      s+='<text class="al" x="'+(l[0]+(ax[0]==='y'?6:ax[0]==='x'?-12:-5))+'" y="'+(l[1]+(ax[0]==='z'?-4:ax[0]==='x'?12:5))+'">'+ax[0]+'</text>';
+    });
+    if(cfg.p&&cfg.q){
+      var a1=P(cfg.p),b1=P(cfg.q);
+      var dx=b1[0]-a1[0],dy=b1[1]-a1[1],len=Math.sqrt(dx*dx+dy*dy)||1;
+      s+='<line class="dr" x1="'+a1[0]+'" y1="'+a1[1]+'" x2="'+(b1[0]-dx/len*3)+'" y2="'+(b1[1]-dy/len*3)+'" marker-end="url(#'+id+'-mi)"/>';
+      s+='<circle class="dot" cx="'+a1[0]+'" cy="'+a1[1]+'" r="4.5"/>';
+      [[a1,'1',-18,-14],[b1,'2',18,-14]].forEach(function(c){
+        s+='<circle class="cr" cx="'+(c[0][0]+c[2])+'" cy="'+(c[0][1]+c[3])+'" r="11"/><text class="ct" text-anchor="middle" x="'+(c[0][0]+c[2])+'" y="'+(c[0][1]+c[3]+5)+'">'+c[1]+'</text>';
+      });
+    }
+    s+='<circle class="dot" cx="'+O[0]+'" cy="'+O[1]+'" r="3"/><text class="ot" x="'+(O[0]-16)+'" y="'+(O[1]+16)+'">O</text>';
+    svg.innerHTML=s;
+  }
+
+  /* ---------- direction ---------- */
+  function dirCalc(){
+    var dims=['dx','dy','dz'].map(function(i){return val(i)});
+    var a=['ax','ay','az'].map(function(i){return val(i)});
+    var b=['bx','by','bz'].map(function(i){return val(i)});
+    if(dims.concat(a,b).some(isNaN)||dims.some(function(v){return v<=0}))return {err:'في خانة فاضية أو قيمة مش رقم، والأبعاد لازم تبقى أكبر من صفر.'};
+    var d=b.map(function(v,i){return v-a[i]});
+    var fr=d.map(function(v,i){return v/dims[i]});
+    var rats=fr.map(rat);
+    if(rats.some(function(r){return !r}))return {err:'القسمة مطلعتش كسور بسيطة. راجع الأرقام.'};
+    var L=1;rats.forEach(function(r){L=lcm(L,r[1])});
+    var i1=rats.map(function(r){return Math.round(r[0]*L/r[1])});
+    var g=i1.reduce(function(m,v){return gcd(m,v)},0);
+    if(g===0)return {err:'النقطتين نفس المكان، مفيش direction.'};
+    var ints=i1.map(function(v){return v/g});
+    var k=gcd(L,g),fac=[L/k,g/k];
+    return {a:a,b:b,d:d,dims:dims,rats:rats,fac:fac,ints:ints};
+  }
+  function dirRender(){
+    var r=dirCalc(),out=$('#outDir');
+    if(r.err){out.innerHTML='<div class="err">'+r.err+'</div>';drawCell($('#svgDir'),{});return}
+    out.innerHTML=
+      '<div class="line"><span class="lb">1 · points</span><span class="ex">'+trip(r.a.map(num))+' → '+trip(r.b.map(num))+'</span></div>'+
+      '<div class="line"><span class="lb">2 · 2 − 1</span><span class="ex">'+trip(r.d.map(num))+'</span></div>'+
+      '<div class="line"><span class="lb">3 · ÷ cell</span><span class="ex">'+trip(r.d.map(num))+' ÷ '+trip(r.dims.map(num))+' = '+trip(r.rats.map(rs))+'</span></div>'+
+      '<div class="line"><span class="lb">4 · factor</span><span class="ex">× '+rs(r.fac)+'</span></div>'+
+      '<div class="answer"><span class="res">'+idx(r.ints,'[',']')+'</span></div>';
+    drawCell($('#svgDir'),{p:r.a.map(function(v,i){return v/r.dims[i]}),q:r.b.map(function(v,i){return v/r.dims[i]})});
+  }
+
+  /* ---------- plane ---------- */
+  function plCalc(){
+    var dims=['px','py','pz'].map(function(i){return val(i)});
+    var it=['ix','iy','iz'].map(function(i){return val(i,true)});
+    if(dims.concat(it).some(isNaN)||dims.some(function(v){return v<=0}))return {err:'في خانة فاضية أو قيمة مش رقم، والأبعاد لازم تبقى أكبر من صفر.'};
+    if(it.every(function(v){return v===Infinity}))return {err:'كل المحاور ∞، يعني مفيش plane. لازم plane تقطع محور واحد على الأقل.'};
+    var fr=[],rats=[],rec=[],raw=[];
+    for(var i=0;i<3;i++){
+      if(it[i]===Infinity){fr.push(Infinity);rats.push(null);rec.push([0,1]);raw.push(0);continue}
+      var f=it[i]/dims[i];
+      if(Math.abs(f)<1e-9)return {err:'الـ plane بتلمس الـ origin على المحور ده. حرّك الـ origin لـ corner تاني وجيب القيم من جديد.'};
+      var r=rat(f);
+      if(!r)return {err:'القسمة مطلعتش كسور بسيطة. راجع الأرقام.'};
+      fr.push(f);rats.push(r);
+      rec.push(r[0]<0?[-r[1],-r[0]]:[r[1],r[0]]);
+      raw.push(1/f);
+    }
+    var L=1;rec.forEach(function(r){L=lcm(L,r[1])});
+    var ints=rec.map(function(r){return Math.round(r[0]*L/r[1])});
+    return {it:it,dims:dims,rats:rats,rec:rec,L:L,ints:ints,raw:raw};
+  }
+  function plRender(){
+    var r=plCalc(),out=$('#outPl');
+    if(r.err){out.innerHTML='<div class="err">'+r.err+'</div>';drawCell($('#svgPl'),{});return}
+    var frs=r.rats.map(function(x){return x?rs(x):'∞'});
+    out.innerHTML=
+      '<div class="line"><span class="lb">1 · intercepts</span><span class="ex">'+trip(r.it.map(num))+' ÷ '+trip(r.dims.map(num))+' = '+trip(frs)+'</span></div>'+
+      '<div class="line"><span class="lb">2 · 1/x</span><span class="ex">'+trip(r.rec.map(rs))+'</span></div>'+
+      '<div class="line"><span class="lb">3 · factor</span><span class="ex">'+(r.L===1?'× 1 (مفيش factor)':'× '+r.L)+'</span></div>'+
+      '<div class="answer"><span class="res">'+idx(r.ints,'(',')')+'</span></div>';
+    drawCell($('#svgPl'),{h:r.raw});
+  }
+
+  /* ---------- wiring ---------- */
+  var DIR={dx:'0.4',dy:'0.5',dz:'0.3',ax:'0',ay:'0',az:'0',bx:'0',by:'0.25',bz:'0.3'};
+  var PL={px:'0.4',py:'0.5',pz:'0.3',ix:'∞',iy:'-0.5',iz:'0.15'};
+  function setAll(m){for(var k in m){$('#'+k).value=m[k]}}
+  Object.keys(DIR).forEach(function(k){$('#'+k).addEventListener('input',dirRender)});
+  Object.keys(PL).forEach(function(k){$('#'+k).addEventListener('input',plRender)});
+  document.querySelectorAll('[data-inf]').forEach(function(b){
+    b.addEventListener('click',function(){$('#'+b.getAttribute('data-inf')).value='∞';plRender()});
+  });
+  $('#rstDir').addEventListener('click',function(){setAll(DIR);dirRender()});
+  $('#rstPl').addEventListener('click',function(){setAll(PL);plRender()});
+
+  drawCell($('#svgHero'),{p:[0,0,0],q:[0,0.5,1]});
+  dirRender();plRender();
+})();
+</script>
+
+</body>
+</html>
