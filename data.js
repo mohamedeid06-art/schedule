@@ -634,6 +634,114 @@ const MATERIALS_ROADMAP_STEPS = [
   { week: 15, date: "Dec 28", lecture: "Revision", tut: "Revision", lab: null }
 ];
 
+// ==========================================================================
+// SolidWorks Studio & CAD Hub Data (MDP G111)
+// ==========================================================================
+const SOLIDWORKS_HUB_DATA = [
+  {
+    id: "sheet-1",
+    sheetNum: "Sheet 1",
+    title: "Pulley Bracket",
+    tagline: "نمذجة البارت وتجهيز الرسم الهندسي",
+    badge: "Part Modeling",
+    color: "#10b981",
+    pdfs: [
+      {
+        title: "رسمة الشيت 1",
+        url: "https://drive.google.com/file/d/1pjyI0ESPcPPmE-Bl9PrXxAl1HUjSTjnF/view?usp=drivesdk"
+      },
+      {
+        title: "رسمة الشيت 2",
+        url: "https://drive.google.com/file/d/1_TqAKRwWpLTeoBjRP3U_DHiYB8kYwi2i/view?usp=drivesdk"
+      }
+    ],
+    videos: [
+      {
+        title: "شرح نمذجة البارت (Pulley Bracket Modeling)",
+        url: "https://youtu.be/VLVvU0LWBZQ?si=gQ0OFEv1XpZl2R8c"
+      }
+    ]
+  },
+  {
+    id: "sheet-2",
+    sheetNum: "Sheet 2",
+    title: "Clamping Device",
+    tagline: "رسم البارتات وتجميعة الأجزاء واللوحات",
+    badge: "Assembly & Drawing",
+    color: "#06b6d4",
+    pdfs: [
+      {
+        title: "شيت وتجميعة Clamping Device",
+        url: "https://drive.google.com/file/d/1ZHvG1S5z1ZU7AKcmi1Wz6jeaeXCVmU5W/view?usp=drivesdk"
+      }
+    ],
+    videos: [
+      {
+        title: "الشرح الكامل (Parts + Assembly + Drawing)",
+        url: "https://youtu.be/Q3Eh8XHYCrY?si=QX_ioIozTn9tT8zY"
+      }
+    ]
+  },
+  {
+    id: "sheet-3",
+    sheetNum: "Sheet 3",
+    title: "Drafting & Exercises",
+    tagline: "تمارين الرسم والمساقط والقطاعات الإضافية",
+    badge: "Drafting & Practice",
+    color: "#8b5cf6",
+    pdfs: [
+      {
+        title: "ملف التمارين 1",
+        url: "https://drive.google.com/file/d/182v4K8ZNm70O6eacghqa1ryqRNjtXGIc/view?usp=drivesdk"
+      },
+      {
+        title: "ملف التمارين 2",
+        url: "https://drive.google.com/file/d/14TfKKytRWbhTqUn5o1B9DZoYT2H_HBTK/view?usp=drivesdk"
+      },
+      {
+        title: "ملف التمارين 3",
+        url: "https://drive.google.com/file/d/1_9D8ZUG1poOHTjLGq6LiiqtkZ8QBqXo3/view?usp=drivesdk"
+      }
+    ],
+    videos: []
+  },
+  {
+    id: "sheet-4",
+    sheetNum: "Sheet 4",
+    title: "Screw Jack Support & Midterm Prep",
+    tagline: "مشروع الـ Screw Jack ومراجعة الميدتيرم الشاملة",
+    badge: "Exam & Project 🎯",
+    color: "#f59e0b",
+    isFeatured: true,
+    pdfs: [
+      {
+        title: "شيت Screw Jack Support",
+        url: "https://drive.google.com/file/d/18GJoC6KglfJuLENv1HIFfa0ZdhowgfXd/view?usp=drivesdk"
+      }
+    ],
+    videos: [
+      {
+        title: "Part 1: Parts Modeling",
+        url: "https://youtu.be/bzLBQT-f8Yw?si=Ta1sEorvzghMDnxg"
+      },
+      {
+        title: "Part 2: Assembly",
+        url: "https://youtu.be/tbj3Tm2vBL4?si=xKgtG9-Ftl2tgl6D"
+      },
+      {
+        title: "Part 3: Drawing & Sections",
+        url: "https://youtu.be/we7FtlOofTU?si=4xEVRel3c8fm7PWf"
+      },
+      {
+        title: "⭐ نصائح وطريقة امتحان الميدتيرم",
+        url: "https://youtu.be/fa5p6_O0EE4?si=dWPvqLzO9pB95F1h",
+        isSpecial: true
+      }
+    ]
+  }
+];
+const CAD_HUB_DATA = SOLIDWORKS_HUB_DATA;
+
 const COURSE_CUSTOM_LINKS = {
   "EMC G101": {
     title: "⚡ روابط ومصادر د. سمير هديمة المعتمدة",

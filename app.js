@@ -2868,103 +2868,231 @@ const SW_STREAM_DATA = [
 let cadActiveSearchQuery = '';
 let activeInspectedCmd = SW_STREAM_DATA[0];
 let screenWakeLock = null;
+let cadActiveFilter = 'all';
+
+function setCadFilter(filter) {
+  triggerHaptic('light');
+  cadActiveFilter = filter;
+  renderCadHubScreen();
+}
+
+function toggleCadShortcutsDrawer() {
+  triggerHaptic('light');
+  const content = document.getElementById("cadDrawerContent");
+  const btn = document.getElementById("cadDrawerToggleBtn");
+  if (!content) return;
+  const isHidden = content.style.display === "none";
+  content.style.display = isHidden ? "block" : "none";
+  if (btn) {
+    btn.setAttribute("aria-expanded", isHidden ? "true" : "false");
+    btn.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
+  }
+}
 
 function renderCadHubScreen() {
   const container = document.getElementById("viewContainer");
+  if (!container) return;
+
+  const dataList = typeof SOLIDWORKS_HUB_DATA !== 'undefined' ? SOLIDWORKS_HUB_DATA : [];
+  const filteredList = (cadActiveFilter === 'all') 
+    ? dataList 
+    : dataList.filter(item => item.id === cadActiveFilter || item.sheetNum.toLowerCase().replace(/\s+/g, '-') === cadActiveFilter);
+
+  const filterTabs = [
+    { id: 'all', label: 'الكل' },
+    { id: 'sheet-1', label: 'Sheet 1' },
+    { id: 'sheet-2', label: 'Sheet 2' },
+    { id: 'sheet-3', label: 'Sheet 3' },
+    { id: 'sheet-4', label: 'Sheet 4' }
+  ];
+
   container.innerHTML = `
     <div class="cad-page-container">
-      <div class="view-back-bar">
-        <button class="view-back-btn" onclick="setView('week')">
-          <span>◀</span><span>الرجوع للجدول</span>
+      <!-- Top Bar: Back & Tools -->
+      <div class="cad-top-bar">
+        <button class="cad-back-btn" onclick="setView('week')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>الرجوع للجدول</span>
         </button>
-        <span style="font-size:12px;font-weight:800;color:var(--text-muted);">CAD HUB PRO</span>
-      </div>
-
-      <!-- بانر المعمل الحالي: Sheet 1 & Assembly -->
-      <div style="background:linear-gradient(135deg, rgba(16,185,129,0.15) 0%, var(--surface) 100%);border:1.5px solid var(--c-mdp1);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-size:13.5px;font-weight:800;color:var(--c-mdp1);display:flex;align-items:center;gap:6px;">
-            <span>🎯</span><span>معمل الأسبوع ده: Sheet 1 & Assembly</span>
-          </div>
+        <div class="cad-top-actions">
           <button class="cad-wake-lock-btn ${screenWakeLock ? 'active' : ''}" id="cadWakeLockBtn" onclick="toggleScreenWakeLock()" title="تثبيت إضاءة الشاشة في المعمل">
             <span>💡</span><span>${screenWakeLock ? 'Screen ON' : 'Lab Mode'}</span>
           </button>
         </div>
-
-        <div style="font-size:11.5px;color:var(--text-main);line-height:1.5;direction:rtl;text-align:right;">
-          المفروض المرة دي هنعمل <b>Assembly</b> للـ Parts؛ لازم ندخل السكشن فاهمين الخطوات:
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-          <a href="https://drive.google.com/file/d/1mK6r0yRNkTf28udOOf-U_K71Jm5D6Yjb/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-btn" style="justify-content:center;background:var(--surface);font-size:11px;color:var(--c-mdp1);border-color:var(--c-mdp1);">
-            <span>🎬 تجميع شيت 1 (Part 1)</span> ↗
-          </a>
-          <a href="https://drive.google.com/file/d/1o-tgm2oNpf0Rj-VTp7IQcKE52v_4WSOt/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-btn" style="justify-content:center;background:var(--surface);font-size:11px;color:var(--c-mdp1);border-color:var(--c-mdp1);">
-            <span>🎬 تجميع شيت 1 (Part 2)</span> ↗
-          </a>
-          <a href="https://drive.google.com/file/d/1h7lj8A75cTz23cUCWo1fv9c0YdwsRILn/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="action-btn" style="justify-content:center;background:var(--surface);font-size:11px;">
-            <span>⚙️ إعدادات البرنامج</span> ↗
-          </a>
-          <a href="https://drive.google.com/drive/folders/1dOrqTikw_D613Q41u_HDWvRGAYDLYHpV?usp=sharing" target="_blank" rel="noopener noreferrer" class="action-btn" style="justify-content:center;background:var(--surface);font-size:11px;color:#f59e0b;border-color:rgba(245,158,11,0.4);">
-            <span>📦 Practice Parts</span> ↗
-          </a>
-        </div>
       </div>
 
-      <!-- شريط إسعافات سريعة في ثانية -->
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <span style="font-size:12px;font-weight:800;color:var(--text-muted);display:flex;align-items:center;gap:6px;">
-          <span>🚑</span><span>إسعافات سريعة في المعمل (دوس على الموقف)</span>
-        </span>
-        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:6px;">
-          <button class="action-btn" style="height:auto;padding:8px 6px;flex-direction:column;gap:3px;background:var(--surface);" onclick="inspectKey('F')">
-            <b style="color:#ef4444;font-size:12px;">الموديل تاه؟</b>
-            <span style="font-size:9.5px;color:var(--text-muted);">دوس F</span>
-          </button>
-          <button class="action-btn" style="height:auto;padding:8px 6px;flex-direction:column;gap:3px;background:var(--surface);" onclick="inspectKey('A')">
-            <b style="color:var(--c-mdp1);font-size:12px;">قوس مماس؟</b>
-            <span style="font-size:9.5px;color:var(--text-muted);">دوس A وأنت بترسم</span>
-          </button>
-          <button class="action-btn" style="height:auto;padding:8px 6px;flex-direction:column;gap:3px;background:var(--surface);" onclick="inspectKey('Ctrl+8')">
-            <b style="color:var(--accent);font-size:12px;">في وشك؟</b>
-            <span style="font-size:9.5px;color:var(--text-muted);">Ctrl + 8</span>
-          </button>
+      <!-- Studio Header -->
+      <header class="cad-header-box">
+        <div class="cad-kicker">
+          <span class="cad-pulse-dot"></span>
+          <span>MDP G111 • SOLIDWORKS STUDIO</span>
         </div>
-      </div>
+        <h1 class="cad-title">SolidWorks Studio & CAD Hub ⚙️</h1>
+        <p class="cad-subtitle">كل شيتات الكاد، رسومات البارتات، التجميعة، ولوحات الرسم من مكان واحد.</p>
 
-      <!-- شريط البحث بالعامية -->
-      <div class="cad-search-box">
-        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        <input type="text" id="cadCommandSearchInput" placeholder="اكتب بالعامية: قوس، عمودي، أبعاد، تجميع، نسخ..." value="${cadActiveSearchQuery}" oninput="handleCadSearch(this.value)">
-      </div>
-
-      <!-- شبكة الاختصارات السريعة -->
-      <div class="cad-stream-grid" id="cadStreamGrid"></div>
-
-      <!-- كارت تفاصيل الأمر -->
-      <div class="cad-key-card" id="cadKeyCard">
-        <div class="key-card-header">
-          <span class="key-badge" id="keyCardBadge">${activeInspectedCmd.key}</span>
-          <span class="key-name" id="keyCardName">${activeInspectedCmd.name}</span>
-          <button class="cad-copy-cmd-btn" id="keyCardCopyBtn" onclick="copyActiveCommandCode()">
-            <span>نسخ الاختصار</span>
-          </button>
+        <!-- Fast Filter Tabs -->
+        <div class="cad-filter-pills" role="tablist" aria-label="Sheet Filter">
+          ${filterTabs.map(tab => `
+            <button class="cad-filter-pill ${cadActiveFilter === tab.id ? 'active' : ''}" 
+                    onclick="setCadFilter('${tab.id}')"
+                    role="tab"
+                    aria-selected="${cadActiveFilter === tab.id}">
+              ${tab.id === 'sheet-4' ? '🎯 ' : ''}${tab.label}
+            </button>
+          `).join('')}
         </div>
-        <div class="key-card-desc" id="keyCardDesc">${activeInspectedCmd.desc}</div>
+      </header>
+
+      <!-- Bento Grid -->
+      <div class="cad-bento-grid">
+        ${filteredList.map(sheet => {
+          const isFeatured = !!sheet.isFeatured;
+          const specialVideo = (sheet.videos || []).find(v => v.isSpecial);
+          const regularVideos = (sheet.videos || []).filter(v => !v.isSpecial);
+
+          return `
+            <div class="cad-bento-card ${isFeatured ? 'is-featured' : ''}" id="cad-${sheet.id}">
+              <!-- Card Header -->
+              <div class="cad-card-header">
+                <div class="cad-card-header-left">
+                  <div class="cad-badges-row">
+                    <span class="cad-sheet-badge" style="--c-accent: ${sheet.color || '#10b981'};">${sheet.sheetNum}</span>
+                    <span class="cad-type-badge">${sheet.badge}</span>
+                    ${isFeatured ? '<span class="cad-exam-badge">⭐ Exam Project</span>' : ''}
+                  </div>
+                  <h2 class="cad-piece-name" dir="auto">${sheet.title}</h2>
+                  ${sheet.tagline ? `<div class="cad-piece-sub" dir="auto">${sheet.tagline}</div>` : ''}
+                </div>
+              </div>
+
+              <!-- PDF Drawings Section -->
+              <div class="cad-section-box">
+                <div class="cad-sec-heading">
+                  <span class="cad-sec-icon">📐</span>
+                  <span>ملفات الرسم والشيتات (PDF Drawings)</span>
+                  <span class="cad-count-tag">${(sheet.pdfs || []).length} ملف</span>
+                </div>
+                <div class="cad-pdfs-list">
+                  ${(sheet.pdfs || []).map(pdf => `
+                    <a href="${pdf.url}" target="_blank" rel="noopener noreferrer" class="cad-pdf-btn">
+                      <div class="cad-pdf-info">
+                        <svg class="cad-pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                          <polyline points="14 2 14 8 20 8"></polyline>
+                          <line x1="16" y1="13" x2="8" y2="13"></line>
+                          <line x1="16" y1="17" x2="8" y2="17"></line>
+                          <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span class="cad-pdf-title" dir="auto">${pdf.title}</span>
+                      </div>
+                      <span class="cad-pdf-action">
+                        <span>عرض / تحميل</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                      </span>
+                    </a>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Special Midterm Video Card (Featured on Sheet 4) -->
+              ${specialVideo ? `
+                <div class="cad-special-midterm-wrap">
+                  <div class="cad-special-header">
+                    <span class="cad-fire-icon">🔥</span>
+                    <span>فيديو مراجعة الميدتيرم وطريقة الامتحان 🎯</span>
+                  </div>
+                  <a href="${specialVideo.url}" target="_blank" rel="noopener noreferrer" class="cad-special-video-box">
+                    <div class="cad-special-content">
+                      <div class="cad-special-title" dir="auto">${specialVideo.title}</div>
+                      <div class="cad-special-note">نصائح حاسمة لتوزيع الوقت وتجنب أخطاء الوزن والماتريال في الامتحان</div>
+                    </div>
+                    <div class="cad-special-cta">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                      <span>مشاهدة الآن</span>
+                    </div>
+                  </a>
+                </div>
+              ` : ''}
+
+              <!-- Video Tutorials Section -->
+              <div class="cad-section-box">
+                <div class="cad-sec-heading">
+                  <span class="cad-sec-icon">🎬</span>
+                  <span>فيديوهات الشرح والتطبيق (Video Tutorials)</span>
+                  ${regularVideos.length > 0 ? `<span class="cad-count-tag">${regularVideos.length} فيديو</span>` : ''}
+                </div>
+                ${regularVideos.length > 0 ? `
+                  <div class="cad-videos-list">
+                    ${regularVideos.map(vid => `
+                      <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="cad-video-item">
+                        <div class="cad-video-info">
+                          <span class="cad-yt-badge">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                          </span>
+                          <span class="cad-video-title" dir="auto">${vid.title}</span>
+                        </div>
+                        <span class="cad-video-go">
+                          <span>تشغيل</span>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </span>
+                      </a>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <div class="cad-empty-practice-box" dir="auto">
+                    <span>📐</span>
+                    <div>ملفات التمارين والمساقط أعلاه كافية ومصممة للتدريب الذاتي في السكشن والمعمل.</div>
+                  </div>
+                `}
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
 
-      <!-- ملف الـ PDF المعتمد -->
-      <div style="margin-top:4px;">
-        <a href="https://drive.google.com/file/d/1L3sQoOHH1M2o57PDNMIqmAp0c1gEEOrD/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="cad-download-pdf-btn">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:16px;">📥</span>
+      <!-- Quick Shortcuts Drawer / Cheatsheet Box -->
+      <div class="cad-shortcuts-drawer">
+        <div class="cad-drawer-head" onclick="toggleCadShortcutsDrawer()">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:18px;">⚡</span>
             <div>
-              <div style="font-weight:800;">ملخص الاختصارات المعتمد (PDF)</div>
-              <div style="font-size:9.5px;color:var(--text-muted);">تحميل مباشر من درايف الدفعة</div>
+              <div style="font-weight:800;font-size:13.5px;color:#f8fafc;">إسعافات واختصارات سريعة في المعمل (Shortcuts Cheat Sheet)</div>
+              <div style="font-size:11px;color:#94a3b8;">أهم الأوامر المنقذة: قوس مماس (A)، في وشك (Ctrl+8)، الموديل تاه (F)...</div>
             </div>
           </div>
-          <span style="font-size:13px;color:var(--c-mdp1);font-weight:800;">تحميل ↗</span>
-        </a>
+          <button class="cad-drawer-toggle-btn" id="cadDrawerToggleBtn" aria-expanded="false" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <div class="cad-drawer-content" id="cadDrawerContent" style="display:none;">
+          <div class="cad-search-box">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="cadCommandSearchInput" placeholder="ابحث بالعامية: قوس، عمودي، أبعاد، تجميع..." value="${cadActiveSearchQuery}" oninput="handleCadSearch(this.value)">
+          </div>
+          <div class="cad-stream-grid" id="cadStreamGrid"></div>
+          <div class="cad-key-card" id="cadKeyCard">
+            <div class="key-card-header">
+              <span class="key-badge" id="keyCardBadge">${activeInspectedCmd.key}</span>
+              <span class="key-name" id="keyCardName">${activeInspectedCmd.name}</span>
+              <button class="cad-copy-cmd-btn" id="keyCardCopyBtn" onclick="copyActiveCommandCode()">
+                <span>نسخ الاختصار</span>
+              </button>
+            </div>
+            <div class="key-card-desc" id="keyCardDesc">${activeInspectedCmd.desc}</div>
+          </div>
+          <div style="margin-top:12px;">
+            <a href="https://drive.google.com/file/d/1L3sQoOHH1M2o57PDNMIqmAp0c1gEEOrD/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="cad-download-pdf-btn">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:16px;">📥</span>
+                <div>
+                  <div style="font-weight:800;">ملخص الاختصارات المعتمد (PDF)</div>
+                  <div style="font-size:9.5px;color:var(--text-muted);">تحميل مباشر من درايف الدفعة</div>
+                </div>
+              </div>
+              <span style="font-size:13px;color:var(--c-mdp1);font-weight:800;">تحميل ↗</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   `;
@@ -3174,6 +3302,13 @@ function setView(mode, week, course) {
   if (mode === "guide") {
     if (week) selectedGuideWeek = week;
     if (course) selectedGuideCourse = course;
+    if (window.location.hash !== "#guide") window.location.hash = "#guide";
+  } else if (mode === "cad") {
+    if (window.location.hash !== "#cad") window.location.hash = "#cad";
+  } else {
+    if (window.location.hash === "#cad" || window.location.hash === "#guide") {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
   }
   activeView = mode; 
   render(); 
@@ -3403,11 +3538,15 @@ if (window.location.hash.startsWith("#guide")) {
   selectedGuideWeek = "Week 3";
   selectedGuideCourse = "MDP G121";
   activeView = "guide";
+} else if (window.location.hash.startsWith("#cad")) {
+  activeView = "cad";
 }
 render();
 window.addEventListener("hashchange", () => {
   if (window.location.hash.startsWith("#guide")) {
     setView("guide", selectedGuideWeek || "Week 3", selectedGuideCourse || "MDP G121");
+  } else if (window.location.hash.startsWith("#cad")) {
+    setView("cad");
   }
 });
 syncFromGoogleSheets();
