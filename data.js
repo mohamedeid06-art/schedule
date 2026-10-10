@@ -92,7 +92,7 @@ const MASTER_QUIZZES = [
     ],
     sheets: [
       { id: "mth-sht-1", title: "Sheet 1 (Double Integrals — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-2", title: "Sheet 2 (Linear Systems & Polar — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-sht-2", title: "Sheet 2 (Linear Systems & Polar — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
       { id: "mth-sht-3", title: "Sheet 3 & Solutions (للاطلاع والمحاضرات القادمة - مش داخلين في كويز 1)", pdf: "https://drive.google.com/file/d/1isNqXzgd4wmiNPw9QZWW3TRTZ3Zc14WQ/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1J3rK-m2whbMgO9aR9fqhGpPVve0rglaZ/view?usp=drivesdk" }
     ],
     practice: [
