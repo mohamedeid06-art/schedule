@@ -70,18 +70,21 @@ const MASTER_QUIZZES = [
     title: "Calculus Quiz 1 — Double Integrals (أول محاضرتين)",
     type: "In-Class Quiz",
     instructor: "Dr. Ahmed Abdelnaby & Staff",
-    dateDisplay: "الإثنين 12 أكتوبر 2026 (10:00 ص)",
+    dateDisplay: "الإثنين 12 أكتوبر 2026 (11:00 ظهراً — الحضور 11 إلا ربع)",
     countdownBadge: "6d 13h 45m",
-    start: "2026-10-12T10:00:00",
-    deadline: "2026-10-12T10:35:00",
+    start: "2026-10-12T11:00:00",
+    deadline: "2026-10-12T11:35:00",
+    room: "مدرج 3002",
     accent: "#38bdf8",
     accentName: "cyan",
     submissionUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
     instructions: [
       "⚠️ تنبيه الكويز: الامتحان على أول محاضرتين فقط (لحد الـ Double Integral) — المحاضرة الثالثة غير داخلة في الكويز!",
-      "نوع الأسئلة: MCQ (اختيار من متعدد) — 5 درجات.",
+      "الموعد والمكان: الساعة 11:00 ظهراً (الحضور 11 إلا ربع) في مدرج 3002 مجمع للـ 4 سكاشن.",
+      "الدرجة ونوع الأسئلة: 10 درجات (MCQ - 5 أسئلة).",
       "المدة: من 30 إلى 35 دقيقة.",
-      "الامتحان مجمع للـ 4 سكاشن في نفس التوقيت (الساعة 10:00 ص)، والقاعة جاري حجزها وهتتحدد قريب.",
+      "تعليمات المدرج: التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب.",
+      "تنبيه التظليل: الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل.",
       "ترتيب المذاكرة الموصى به من الدكتورة: ذاكر السلايدات كويس جداً الأول ⬅️ بعدها حل مسائل الشيت ⬅️ ولو حابب تطبق بزيادة حل الـ Solved Problems.",
       "⚠️ تريكة مهمة جداً: الدكتورة أكدت إن الأسئلة مش بتخرج عن الـ Graphs اللي بتشرحها في المحاضرات، ركزوا عليها جداً!"
     ],
@@ -790,7 +793,7 @@ const COURSE_CAPSULES = {
     name: "Linear Algebra & Multivariable Integration",
     hours: "3 Credit Hours",
     grading: "• الميد من 30 درجة (20 تكامل + 10 جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتبص عليه",
-    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 10:00 ص (30-35 دقيقة MCQ — 5 درجات) على أول محاضرتين فقط لحد الـ Double Integral. ركزوا على الـ Graphs كويس جداً!",
+    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 11:00 ظهراً (الحضور 11 إلا ربع) في مدرج 3002 (30-35 دقيقة MCQ - 5 أسئلة — 10 درجات). التصحيح على التظليل فقط وممنوع الموبايل والجلوس بمقعد فاضي بين كل طالب، والكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل. الامتحان على أول محاضرتين فقط لحد الـ Double Integral، وركزوا على الـ Graphs كويس جداً!",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
@@ -889,6 +892,8 @@ let BUILDING_MAP_URLS = {
 };
 
 const ROOM_INFO = {
+  "3002": { bldg: 3, floor: "Ground Floor", hall: "مدرج 3002", name: "Building 3 (Architecture & Computer Eng.)" },
+  "مدرج 3002": { bldg: 3, floor: "Ground Floor", hall: "مدرج 3002", name: "Building 3 (Architecture & Computer Eng.)" },
   "3103-414": { bldg: 3, floor: "1st Floor", hall: "Hall 3 (Capacity: 414)", name: "Building 3 (Architecture & Computer Eng.)" },
   "3101-306": { bldg: 3, floor: "1st Floor", hall: "Hall 1 (Capacity: 306)", name: "Building 3 (Architecture & Computer Eng.)" },
   "3102-306": { bldg: 3, floor: "1st Floor", hall: "Hall 2", name: "Building 3 (Architecture & Computer Eng.)" },
@@ -935,14 +940,15 @@ const SESSIONS = [
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false },
   { 
     day: "Monday", 
-    start: 2, 
-    span: 2, 
+    start: 3, 
+    span: 1, 
     group: "ALL", 
     code: "MTH G102", 
     type: "Quiz 1 (12 Oct)", 
-    room: "القاعة هتتحدد قريب", 
+    room: "مدرج 3002", 
     isQuiz: true,
-    quizBadge: "⚡ كويز 1"
+    quizBadge: "⚡ كويز 1",
+    note: "11:00 ظهراً (الحضور 11 إلا ربع) بمدرج 3002 • 10 درجات (MCQ - 5 أسئلة) • التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب • الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل"
   },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
@@ -983,8 +989,8 @@ const DEFAULT_NOTIFICATIONS = [
     id: "notif-mth-quiz-1",
     date: "5 Oct 2026",
     tag: "MTH G102 • كويز رسمي",
-    title: "Calculus Quiz 1 — أول محاضرتين فقط (Double Integral)",
-    body: "📢 كويز الماث الإثنين الجاي 12 أكتوبر 10:00 ص: الكويز مجمع للـ 4 سكاشن (30-35 دقيقة MCQ) على أول محاضرتين فقط لحد الـ Double Integral.. افتح دليل المذاكرة وابدأ جهّز نفسك 🎯"
+    title: "Calculus Quiz 1 — تفاصيل وموعد كويز الماث الرسمي (10 درجات)",
+    body: "📢 كويز الماث الإثنين 12 أكتوبر الساعة 11:00 ظهراً (الحضور 11 إلا ربع) في مدرج 3002 مجمع للـ 4 سكاشن: الامتحان 10 درجات (MCQ - 5 أسئلة) في 30-35 دقيقة على أول محاضرتين فقط. التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب، والكود 7 أرقام يوضع قبله صفر على الشمال في التظليل 🎯"
   },
 
   {
