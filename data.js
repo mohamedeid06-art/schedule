@@ -91,12 +91,12 @@ const MASTER_QUIZZES = [
     lectures: [
       { id: "mth-lec-1", title: "⭐ Lecture 1 - Double Integrals (المحتوى الأساسي المطلوب)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
       { id: "mth-lec-2", title: "⭐ Lecture 2 - Linear Algebra & Integrals (المحتوى الأساسي المطلوب)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-lec-3", title: "Lecture 3 - Advanced Integration (للاطلاع والمحاضرات القادمة - مش داخل في كويز 1)", slides: "https://drive.google.com/file/d/1CXEbe_pEoySDVZjLDSeSPBXLdojGcAbX/view?usp=drivesdk" }
+      { id: "mth-lec-3", title: "Lecture 3 - Triple Integrals (سلايدات المحاضرة الرسمية)", slides: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk" }
     ],
     sheets: [
       { id: "mth-sht-1", title: "Sheet 1 (Double Integrals — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
       { id: "mth-sht-2", title: "Sheet 2 (Linear Systems & Polar — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-3", title: "Sheet 3 & Solutions (للاطلاع والمحاضرات القادمة - مش داخلين في كويز 1)", pdf: "https://drive.google.com/file/d/1isNqXzgd4wmiNPw9QZWW3TRTZ3Zc14WQ/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1J3rK-m2whbMgO9aR9fqhGpPVve0rglaZ/view?usp=drivesdk" }
+      { id: "mth-sht-3", title: "Sheet 3 & Assignment 3 (Triple Integrals)", pdf: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI", sol: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
     ],
     practice: [
       { id: "mth-sol-1", title: "Solved Problems 1 (تطبيقات ومسائل محلولة 1 — Double Integrals)", url: "https://drive.google.com/file/d/1VJExOvXAQNt0MLho6VWnKdew424RrvZs/view?usp=drivesdk" },
@@ -184,13 +184,14 @@ const MASTER_QUIZZES = [
   {
     id: "epe-assign-1",
     code: "EPE G113",
-    title: "Assignment #1 — Electric Circuits",
+    title: "Assignment 1 (EPE G113)",
     type: "Assignment",
     instructor: "Dr. Electrical Staff",
-    dateDisplay: "الخميس 15 أكتوبر 2026 (Week 4)",
-    countdownBadge: "Week 4",
+    dateDisplay: "الخميس في السكشن (قاعة 14301)",
+    countdownBadge: "الخميس في السكشن",
     start: "2026-10-15T12:30:00",
     deadline: "2026-10-15T15:30:00",
+    room: "14301 (Faculty Hall)",
     accent: "#f43f5e",
     accentName: "rose",
     submissionUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
@@ -199,12 +200,16 @@ const MASTER_QUIZZES = [
       "المطلوب: مسائل Sheet 1.",
       "مسائل Chapter 1: 1.7, 1.9, 1.14, 1.17, 1.19, 1.24, 1.26, 1.28, and 1.30",
       "مسائل إضافية: 1.34, 1.36",
-      "⚠️ تسليم الأسينمنت خلال السكشن في الأسبوع الرابع (السكشن ميعاده يوم الخميس فقط فترتين: من 12:30 إلى 2:00، ومن 2:00 إلى 3:30)."
+      "📍 موعد ومكان التسليم: الخميس في السكشن (قاعة 14301 - Faculty Hall).",
+      "📄 تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      "👥 مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.",
+      "⏰ الفترات المتاحة للحضور: الفترة الأولى (12:30 ظهراً - 2:00 ظهراً) أو الفترة الثانية (2:00 ظهراً - 3:30 عصراً).",
+      "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب."
     ],
     sheets: [
       {
         id: "epe-sht-1",
-        title: "Assignment #1 — Electric Circuits (Sheet 1)",
+        title: "Assignment 1 — Electric Circuits (ملف الأسينمنت)",
         pdf: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
         sol: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk"
       }
@@ -235,7 +240,7 @@ const COURSE_STATIC_ASSIGNMENTS = [
   {
     id: "epe-assign-1",
     code: "EPE G113",
-    title: "Assignment #1 — Electric Circuits",
+    title: "Assignment 1 (EPE G113)",
     type: "Assignment",
     day: "Thursday",
     start: "2026-10-15T12:30:00",
@@ -249,8 +254,10 @@ const COURSE_STATIC_ASSIGNMENTS = [
     solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
     desc: `مسائل Sheet 1 المطلوبة:
 • Problems, Chapter 1: 1.7, 1.9, 1.14, 1.17, 1.19, 1.24, 1.26, 1.28, and 1.30
-• Problems: 1.34, 1.36`,
-    note: "تسليم الأسينمنت خلال السكشن في الأسبوع الرابع (السكشن ميعاده يوم الخميس فقط فترتين: من 12:30 إلى 2:00، ومن 2:00 إلى 3:30)"
+• Problems: 1.34, 1.36
+• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
+• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.`,
+    note: "موعد ومكان التسليم: الخميس في السكشن (قاعة 14301 - Faculty Hall) فترتين: (12:30 - 2:00) و (2:00 - 3:30). السكشن هيتصور فيديو وهينزل على يوتيوب."
   }
 ];
 
@@ -402,9 +409,49 @@ const DEFAULT_WEEKLY_GUIDES = [
   // ===================== WEEK 3 =====================
   {
     week: "Week 3",
+    code: "MTH G102",
+    lectures: "Lecture 3: Triple Integrals & Applications (Volume, Mass & Coordinates)",
+    slides_url: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk",
+    sheet: "Sheet 3 & Assignment 3 (Triple Integrals)",
+    sheet_url: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI",
+    solution_url: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk",
+    solution_label: "مسائل محلولة لدكتور أحمد (Solved Problems)",
+    practice: "حل مسائل الشيت ومتابعة فيديوهات الشرح (م. عمار ياسر وم. أحمد المغربي)",
+    playlists: [
+      { 
+        title: "م. عمار ياسر — تحويلات الـ Coordinates", 
+        url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" 
+      },
+      { 
+        title: "م. عمار ياسر — شرح الـ Triple Integrals", 
+        url: "https://youtu.be/GZdX5oC2-ao?si=Hc0YaCaPAz1J8Ck-" 
+      },
+      { 
+        title: "م. عمار ياسر — تطبيقات الـ Triple Integrals (Applications)", 
+        url: "https://youtu.be/WKqhfOQqlsc?si=vEq1ZXLXlzCFrEfX" 
+      },
+      { 
+        title: "م. أحمد المغربي — شرح وتطبيقات Triple Integrals", 
+        url: "https://youtu.be/PCabbIgzCFc?si=oBs-Nsh75EyEnB-f",
+        note: "⚠️ تنبيه: جزئية الـ Moment of Inertia الموجودة في تطبيقات الفيديو ده مش مقررة علينا ومش معانا."
+      }
+    ],
+    summaries: [
+      { title: "ملخصات ونوتس الشرح (Notes Folder)", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" },
+      { title: "مسائل محلولة لدكتور أحمد (Solved Problems)", url: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
+    ],
+    important_notes: [
+      "⚠️ تنبيه فيديو م. أحمد المغربي: جزئية الـ Moment of Inertia الموجودة في تطبيقات الفيديو مش مقررة علينا ومش معانا.",
+      "💡 ترتيب المذاكرة الموصى به: السلايدات أولاً ⬅️ بعدها حل مسائل شيت 3 ⬅️ والاستعانة بالمسائل المحلولة لدكتور أحمد ونوتس الشرح."
+    ],
+    summary_title: "ملخصات ونوتس الشرح + مسائل محلولة لدكتور أحمد",
+    summary_url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx"
+  },
+  {
+    week: "Week 3",
     code: "EMC G101",
     lectures: "Chapter 2: Kinematics of Rigid Bodies (VR & AR, Constraints & Motion Types)",
-    slides_url: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view?usp=drivesdk",
+    slides_url: "https://drive.google.com/file/d/1raAP-bxC_Z8xD0bTM2kAL0LCd9p2CzvB/view?usp=drivesdk",
     slides_note: "حتى سلايد 24 فقط",
     lecture_videos: [
       { title: "المحاضرة الرسمية — الجزء الأول", url: "https://youtu.be/271VDK8ocjM?feature=shared" },
@@ -468,6 +515,95 @@ const DEFAULT_WEEKLY_GUIDES = [
     ],
     summary_title: "ملخص ديجيتال + ملخص بخط اليد (Crystal Structure)",
     summary_url: "https://drive.google.com/file/d/1Mcap0HK9q-2pebDIXGQchmnIO8IhuAOt/view?usp=drivesdk"
+  },
+  {
+    week: "Week 3",
+    code: "EPE G113",
+    lectures: "Lecture 3: Circuit Analysis Techniques & Methods",
+    slides_url: "https://drive.google.com/file/d/1HJUZR3zjcdc59Re0-F4Ksg6it7MZ2JNS/view?usp=drivesdk",
+    sheet: "Sheet: Electric Circuits & Reference Problems (6 to 9)",
+    sheet_url: "https://drive.google.com/file/d/1Kf1F3m-ndFnupprhlhmgabnnSw-rLXHx/view?usp=drivesdk",
+    reference_url: "https://drive.google.com/file/d/1jLDeeyKMwlKTqR9qK-z9fSm9zbTymtGh/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
+    sheet_note: "حل أسئلة الريفرنس المحلولة (من 6 لـ 9) وشيت المادة",
+    practice: "حل أسئلة الريفرنس ومتابعة شروحات م. عمار ياسر، م. محمد ماهر، وم. طارق البغدادي",
+    playlists: [
+      { title: "م. عمار ياسر (فيديوهات من 7 لـ 10 - حل أسئلة الريفرنس بالتفصيل)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
+      { title: "م. محمد ماهر (فيديوهات من 7 لـ 9)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "م. طارق البغدادي (فيديوهات من 5 لـ 10)", url: "https://youtube.com/playlist?list=PLJHkuo98VFGbtc9feafUsl1zEtxOh9YE7&si=S0U210d0GHyLVxjF" }
+    ],
+    summaries: [
+      { title: "المرجع المعتمد (Reference Book)", url: "https://drive.google.com/file/d/1jLDeeyKMwlKTqR9qK-z9fSm9zbTymtGh/view?usp=drivesdk" },
+      { title: "أسئلة المرجع المحلولة (Reference Questions 6-9)", url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_" }
+    ],
+    important_notes: [
+      "📍 مكان التسليم: الخميس في السكشن (قاعة 14301 - Faculty Hall).",
+      "⏰ الفترات المتاحة للاختيار/الحضور: الفترة الأولى (12:30 ظهراً - 2:00 ظهراً) أو الفترة الثانية (2:00 ظهراً - 3:30 عصراً).",
+      "📝 تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      "👥 مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.",
+      "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب."
+    ],
+    summary_title: "المرجع المعتمد + أسئلة المرجع المحلولة (من 6 لـ 9)",
+    summary_url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_"
+  },
+
+  // ===================== WEEK 4 =====================
+  {
+    week: "Week 4",
+    code: "EMC G101",
+    lectures: "Chapter 2: Kinematics of Rigid Bodies (Complete) — Rolling & Instantaneous Center (IC)",
+    slides_url: "https://drive.google.com/file/d/1raAP-bxC_Z8xD0bTM2kAL0LCd9p2CzvB/view?usp=drivesdk",
+    slides_note: "من أول سلايد 25",
+    lecture_videos: [
+      { title: "المحاضرة الرسمية — جزء 1", url: "https://youtu.be/giQo5Y4eiI0?feature=shared" },
+      { title: "المحاضرة الرسمية — جزء 2", url: "https://youtu.be/sp7gcWN7xlQ?feature=shared" },
+      { title: "المحاضرة الرسمية — جزء 3", url: "https://youtu.be/RlgPz8shjlk?feature=shared" },
+      { title: "المحاضرة الرسمية — جزء 4", url: "https://youtu.be/RIAgLNMOKFA?feature=shared" },
+      { title: "المحاضرة الرسمية — جزء 5 (من أول الدقيقة 07:00)", url: "https://youtu.be/EC0HXPnV3uQ?si=NTSlVYzk6j9ji5kI" }
+    ],
+    sheet: "Dynamics Sheet 2: Kinematics of Rigid Bodies (Full Sheet & Solutions)",
+    sheet_url: "https://drive.google.com/file/d/1J0UdPRuvF4PgX-rLrunlO9UbOhmtY7Fq/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk",
+    sheet_note: "تم إنهاء جميع موضوعات وتطبيقات الشابتر بالكامل",
+    practice: "سكاشن وتطبيقات المعيدين (شرح الـ Rolling و IC وتصوير السكشن وحل الشيت)",
+    playlists: [
+      { title: "م. أحمد فوزي (ملخص الشابتر كامل + حل الشيت)", url: "https://youtu.be/mrLEzczCxpc?si=MAmczw5ZQU4y3Qc8" },
+      { title: "م. إنجي (تصوير السكشن - من الدقيقة 32:00)", url: "https://youtu.be/ySiDSb0gbAo?si=hBQYD6hF8kSEGq2J" },
+      { title: "شرح الـ Rolling (م. إنجي)", url: "https://youtu.be/7XZuHoI1fmg?si=if-1aQxsVYGTmCX5" },
+      { title: "حل ومسائل على الـ Rolling", url: "https://youtu.be/6LOrpFrexE0?si=-_MRSFBx3G67O0Qu" },
+      { title: "شرح الـ Instantaneous Center - IC (م. إنجي)", url: "https://youtu.be/PJJ5JOMR8yY?si=VGRgmuaUWuvBKlvQ" }
+    ],
+    minutes: {
+      covered: "تم إنهاء Chapter 2 بالكامل."
+    },
+    important_notes: [
+      "🎯 كويز الديناميكا بنسبة كبيرة هيكون في الأسبوع السادس إن شاء الله وهيشمل Chapter 1 & 2.",
+      "💡 متنسوش تملوا فورم المتابعة عشان نقدر نساعدكم ونشوف المشاكل اللي بتواجهكم.. وبالتوفيق يا باشمهندسين ❤️🙏"
+    ],
+    summary_title: "الحل النموذجي لشيت 2 (Model Solution)",
+    summary_url: "https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk"
+  },
+  {
+    week: "Week 4",
+    code: "MDP G121",
+    status_badge: "⏳ جاري التحديث",
+    status_note: "جاري التحديث: حل الشيت والملخصات هينزلوا تباعاً بعد المحاضرة إن شاء الله 🙏❤️",
+    lectures: "Lecture 4: Crystal Defects (Imperfections in Solids)",
+    slides_url: "https://drive.google.com/file/d/1tEW3eBlGIv5WB_f8Eq4AbLHhYqtzG3KL/view?usp=drivesdk",
+    recordings_url: "https://drive.google.com/drive/folders/1anhqoJvjUJDHc12odOCViNQIpcif7r-H",
+    sheet: "Sheet: Crystal Structure & Defects (Full Sheet)",
+    sheet_url: "https://drive.google.com/file/d/1mXr5-izCJgscySTAENhL1C3NiZRxp81v/view?usp=drivesdk",
+    sheet_note: "⏳ جاري التحديث: حل الشيت والملخصات هينزلوا تباعاً بعد المحاضرة إن شاء الله 🙏❤️",
+    practice: "سكاشن وتطبيقات م. هدى (سلايد السكشن + فيديو شرح Crystal Defects)",
+    playlists: [
+      { title: "سلايد السكشن (Tutorial Slides)", url: "https://drive.google.com/file/d/1OzufpD58SXoC0X4iEtB2aePV-6fa6a6o/view?usp=drivesdk" },
+      { title: "سكشن م. هدى — شرح Crystal Defects", url: "https://youtu.be/w23wUdV8MGU?si=2y7HiExW8SfUj4jR" }
+    ],
+    important_notes: [
+      "⏳ جاري التحديث: حل الشيت والملخصات هينزلوا تباعاً بعد المحاضرة إن شاء الله 🙏❤️"
+    ],
+    summary_title: "ملف الشيت الكامل (Full Sheet)",
+    summary_url: "https://drive.google.com/file/d/1mXr5-izCJgscySTAENhL1C3NiZRxp81v/view?usp=drivesdk"
   }
 ];
 
@@ -506,16 +642,16 @@ const dynamicsRoadmap = [
     date: "Oct 04 - Oct 08",
     title: "Ch2: Types of R.B Motions & Instantaneous Center",
     topic: "أنواع حركة الجسم الجاسئ + أمثلة (2Ex06, 2Ex15, 2Ex17, 2Ex20) + Rolling & IC",
-    slides: "Lecture Examples",
-    status: "active" // الأسبوع الحالي
+    slides: "Slides 1 → 24",
+    status: "completed"
   },
   {
     week: 4,
     date: "Oct 11 - Oct 15",
-    title: "Ch2: Kinematics of Rigid Bodies (Part 2)",
-    topic: "تكملة الكينماتيكا والمسائل المتقدمة",
-    slides: "Slides 34 → End",
-    status: "upcoming"
+    title: "Ch2: Kinematics of Rigid Bodies (Part 2 — Complete)",
+    topic: "إنهاء Chapter 2 بالكامل (Rolling & Instantaneous Center - IC وتطبيقاتها)",
+    slides: "Slides 25 → End",
+    status: "active"
   },
   {
     week: 5,
@@ -903,6 +1039,9 @@ const ROOM_INFO = {
   "14100-(104)": { bldg: 14, floor: "1st Floor", hall: "Hall 100", name: "Building 14 (New Mechanical Design)" },
   "14201-50": { bldg: 14, floor: "2nd Floor", hall: "Room 1", name: "Building 14 (New Mechanical Design)" },
   "14301-50": { bldg: 14, floor: "3rd Floor", hall: "Room 1", name: "Building 14 (New Mechanical Design)" },
+  "14301 (Faculty Hall)": { bldg: 14, floor: "3rd Floor", hall: "Hall 14301 (Faculty Hall)", name: "Building 14 (New Mechanical Design)" },
+  "14301":    { bldg: 14, floor: "3rd Floor", hall: "Hall 14301 (Faculty Hall)", name: "Building 14 (New Mechanical Design)" },
+  "Faculty Hall": { bldg: 14, floor: "3rd Floor", hall: "Hall 14301 (Faculty Hall)", name: "Building 14 (New Mechanical Design)" },
   "14302-50": { bldg: 14, floor: "3rd Floor", hall: "Room 2", name: "Building 14 (New Mechanical Design)" },
   "16211":    { bldg: 16, floor: "2nd Floor", hall: "Room 211", name: "Building 16 (Dynamics)" },
   "9201":     { bldg: 9,  floor: "2nd Floor", hall: "Room 201", name: "Building 9 (Dynamics)" },
@@ -970,11 +1109,75 @@ const SESSIONS = [
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
-  // سكاشن الكهربية (الخميس)
-  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
-  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "Faculty Hall", attendance: false }
+  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall)
+  { 
+    day: "Thursday", 
+    start: 4, 
+    span: 2, 
+    group: "ME1-01", 
+    code: "EPE G113", 
+    type: "Tutorial (12:30 - 2:00 أو 2:00 - 3:30)", 
+    room: "14301 (Faculty Hall)", 
+    attendance: false,
+    note: `⏰ الفترات المتاحة للاختيار/الحضور:
+• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
+• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
+📝 تنبيه التسليم:
+• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
+• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
+🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+  },
+  { 
+    day: "Thursday", 
+    start: 4, 
+    span: 2, 
+    group: "ME1-02", 
+    code: "EPE G113", 
+    type: "Tutorial (12:30 - 2:00 أو 2:00 - 3:30)", 
+    room: "14301 (Faculty Hall)", 
+    attendance: false,
+    note: `⏰ الفترات المتاحة للاختيار/الحضور:
+• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
+• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
+📝 تنبيه التسليم:
+• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
+• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
+🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+  },
+  { 
+    day: "Thursday", 
+    start: 6, 
+    span: 2, 
+    group: "ME1-03", 
+    code: "EPE G113", 
+    type: "Tutorial (2:00 - 3:30 أو 12:30 - 2:00)", 
+    room: "14301 (Faculty Hall)", 
+    attendance: false,
+    note: `⏰ الفترات المتاحة للاختيار/الحضور:
+• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
+• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
+📝 تنبيه التسليم:
+• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
+• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
+🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+  },
+  { 
+    day: "Thursday", 
+    start: 6, 
+    span: 2, 
+    group: "ME1-04", 
+    code: "EPE G113", 
+    type: "Tutorial (2:00 - 3:30 أو 12:30 - 2:00)", 
+    room: "14301 (Faculty Hall)", 
+    attendance: false,
+    note: `⏰ الفترات المتاحة للاختيار/الحضور:
+• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
+• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
+📝 تنبيه التسليم:
+• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
+• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
+🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+  }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -995,10 +1198,10 @@ const DEFAULT_NOTIFICATIONS = [
 
   {
     id: "notif-epe-sec-thu",
-    date: "5 Oct 2026",
-    tag: "EPE G113 • السكاشن والتسليم",
-    title: "مواعيد سكشن الأسبوع الرابع وتسليم الأسينمنت",
-    body: "المعيد وضح إن ميعاد السكشن فقط يوم الخميس فترتين: (فترة 12:30 إلى 2:00، وفترة 2:00 إلى 3:30). ⚠️ علماً بأن يوم الخميس إجازة رسمية — وأي تنسيق أو ترحيل للموعد مع المعيد هيتبلغوا بيه فوراً بالتوفيق."
+    date: "12 Oct 2026",
+    tag: "EPE G113 • سكشن وتسليم Assignment 1",
+    title: "تفاصيل سكشن الكهربية وتسليم Assignment 1 (قاعة 14301)",
+    body: "السكشن يوم الخميس في قاعة 14301 (Faculty Hall) على فترتين: الأولى (12:30 - 2:00 ظهراً) والثانية (2:00 - 3:30 عصراً). تسليم Assignment 1 على ورق A4 (الاسم، الكود، السكشن، القسم)، ومسموح للطالب تسليم أسينمنت لنفسه ولزميل واحد فقط كحد أقصى. السكشن هيتصور فيديو وهينزل يوتيوب."
   },
   {
     id: "ann-the-1",

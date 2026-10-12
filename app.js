@@ -30,8 +30,8 @@ let calViewDate = new Date(2026, 9, 1); // October 2026
 
 // Weekly Guide State
 let WEEKLY_GUIDE_DATA = typeof DEFAULT_WEEKLY_GUIDES !== 'undefined' ? [...DEFAULT_WEEKLY_GUIDES] : [];
-let selectedGuideWeek = "Week 2";
-let selectedGuideCourse = "MTH G102";
+let selectedGuideWeek = "Week 4";
+let selectedGuideCourse = "EMC G101";
 
 // خيار إظهار الأيام السابقة
 let showPastDays = JSON.parse(localStorage.getItem("cufe_show_past_days") || "false");
@@ -2092,8 +2092,8 @@ function renderDailyAgenda() {
           ` : ''}
 
           ${!isCancelled && s.note ? `
-            <div class="card-note-alert" style="margin-top:8px;padding:8px 12px;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.35);border-radius:10px;color:#fde047;font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:6px;">
-              <span style="font-size:14px;">⚠️</span>
+            <div class="card-note-alert" style="margin-top:8px;padding:8px 12px;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.35);border-radius:10px;color:#fde047;font-size:11.5px;font-weight:600;display:flex;align-items:flex-start;gap:6px;line-height:1.55;white-space:pre-line;" dir="auto">
+              <span style="font-size:14px;flex-shrink:0;">📢</span>
               <span>${escHtml(s.note)}</span>
             </div>
           ` : ''}
@@ -2380,7 +2380,7 @@ function selectGuideWeek(week) {
   renderGuideScreen();
 }
 
-function openGuideWeek(week = "Week 2", course = null) {
+function openGuideWeek(week = "Week 4", course = null) {
   triggerHaptic("light");
   selectedGuideWeek = week;
   if (course) selectedGuideCourse = course;
@@ -2552,15 +2552,19 @@ function renderGuideCard(activeItem, course, availableWeeks) {
       <div class="wg-sec-sub" style="color:#fbbf24;font-weight:600;display:flex;align-items:flex-start;gap:6px;margin-bottom:2px;" dir="auto">
         <span>⚠️</span><span>${activeItem.sheet_note}</span>
       </div>` : ''}
-    ${(activeItem.sheet_url || activeItem.solution_url) ? `
+    ${(activeItem.sheet_url || activeItem.solution_url || activeItem.reference_url) ? `
       <div class="wg-pills">
         ${activeItem.sheet_url ? `
           <a href="${activeItem.sheet_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
             <span class="wg-pill-ico">📝</span><span class="wg-pill-text" dir="auto">ملف الشيت (Sheet)</span>${WG_ICON.ext}
           </a>` : ''}
+        ${activeItem.reference_url ? `
+          <a href="${activeItem.reference_url}" target="_blank" rel="noopener noreferrer" class="wg-pill">
+            <span class="wg-pill-ico">📖</span><span class="wg-pill-text" dir="auto">المرجع المعتمد (Reference)</span>${WG_ICON.ext}
+          </a>` : ''}
         ${activeItem.solution_url ? `
           <a href="${activeItem.solution_url}" target="_blank" rel="noopener noreferrer" class="wg-pill wg-pill-solution">
-            <span class="wg-pill-ico">✅</span><span class="wg-pill-text" dir="auto">الحلول والمسائل المحلولة</span>${WG_ICON.ext}
+            <span class="wg-pill-ico">✅</span><span class="wg-pill-text" dir="auto">${activeItem.solution_label || 'الحلول والمسائل المحلولة'}</span>${WG_ICON.ext}
           </a>` : ''}
       </div>` : ''}
   `;
@@ -2579,10 +2583,16 @@ function renderGuideCard(activeItem, course, availableWeeks) {
           const watched = st.videos.includes(i);
           return `
             <div class="wg-video-row ${watched ? 'watched' : ''}">
-              <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="wg-video-link" onclick="markGuideVideoWatched(${i})">
-                <span class="wg-clap">🎬</span>
-                <span class="wg-video-title" dir="auto">${pl.title}</span>
-              </a>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
+                <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="wg-video-link" onclick="markGuideVideoWatched(${i})">
+                  <span class="wg-clap">🎬</span>
+                  <span class="wg-video-title" dir="auto">${pl.title}</span>
+                </a>
+                ${pl.note ? `
+                  <div class="wg-video-note-badge" style="font-size:11.5px;color:#fde047;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.3);border-radius:6px;padding:3px 8px;margin-right:24px;font-weight:600;line-height:1.45;display:inline-flex;align-items:center;gap:4px;" dir="auto">
+                    <span>${pl.note}</span>
+                  </div>` : ''}
+              </div>
               <button class="wg-watch ${watched ? 'done' : ''}" onclick="toggleGuideVideo(${i}, event)" aria-pressed="${watched}" aria-label="${watched ? 'Mark as not watched' : 'Mark as watched'}">${WG_ICON.check}</button>
               <a href="${pl.url}" target="_blank" rel="noopener noreferrer" class="wg-video-go" onclick="markGuideVideoWatched(${i})" aria-label="Open video">${WG_ICON.right}</a>
             </div>`;
@@ -2641,6 +2651,12 @@ function renderGuideCard(activeItem, course, availableWeeks) {
         <div class="wg-head-info">
           <div class="wg-code">${activeItem.code}</div>
           <div class="wg-name" dir="auto">${course.name}</div>
+          ${activeItem.status_badge ? `
+            <div style="margin-top:5px;">
+              <span style="font-size:11px;font-weight:700;color:#f59e0b;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);padding:2px 9px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">
+                ${activeItem.status_badge}
+              </span>
+            </div>` : ''}
         </div>
         <div class="wg-head-right">
           <label class="wg-week-select-wrap">
@@ -2700,7 +2716,14 @@ function renderGuideCard(activeItem, course, availableWeeks) {
         </div>
       ` : ''}
 
-      ${activeItem.minutes ? renderGuideSection("minutes", "lecture", "📋", "ملخص المحاضرة وتحديثات التيك هوم (Lecture Minutes)", `
+      ${activeItem.status_note ? `
+        <div class="wg-status-banner" style="margin-bottom:14px;background:linear-gradient(135deg,rgba(245,158,11,0.14) 0%,rgba(15,23,42,0.85) 100%);border:1.5px solid rgba(245,158,11,0.4);border-radius:12px;padding:12px 16px;color:#fef3c7;font-size:13px;line-height:1.6;font-weight:700;display:flex;align-items:center;gap:10px;box-shadow:0 0 16px rgba(245,158,11,0.15);" dir="auto">
+          <span style="font-size:19px;flex-shrink:0;">⏳</span>
+          <span>${activeItem.status_note}</span>
+        </div>
+      ` : ''}
+
+      ${activeItem.minutes ? renderGuideSection("minutes", "lecture", "📋", activeItem.minutes.the ? "ملخص المحاضرة وتحديثات التيك هوم (Lecture Minutes)" : "ملخص المحاضرة (Lecture Minutes)", `
         <span class="wg-status wg-status-tone wg-static">⚡ <span>Official</span></span>`, minutesBody) : ''}
       ${activeItem.lectures ? renderGuideSection("lecture", "lecture", "📘", "Lecture", statusBtn("lecture", !!st.lecture), lectureBody) : ''}
       ${activeItem.sheet ? renderGuideSection("sheet", "sheet", "📝", "Sheet", statusBtn("sheet", !!st.sheet), sheetBody) : ''}
@@ -3535,8 +3558,8 @@ window.addEventListener("appinstalled", () => {
 initDeviceMode();
 initTheme();
 if (window.location.hash.startsWith("#guide")) {
-  selectedGuideWeek = "Week 3";
-  selectedGuideCourse = "MDP G121";
+  selectedGuideWeek = "Week 4";
+  selectedGuideCourse = "EMC G101";
   activeView = "guide";
 } else if (window.location.hash.startsWith("#cad")) {
   activeView = "cad";
@@ -3544,7 +3567,7 @@ if (window.location.hash.startsWith("#guide")) {
 render();
 window.addEventListener("hashchange", () => {
   if (window.location.hash.startsWith("#guide")) {
-    setView("guide", selectedGuideWeek || "Week 3", selectedGuideCourse || "MDP G121");
+    setView("guide", selectedGuideWeek || "Week 4", selectedGuideCourse || "EMC G101");
   } else if (window.location.hash.startsWith("#cad")) {
     setView("cad");
   }
