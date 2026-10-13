@@ -322,9 +322,9 @@
     </div>
   </div>
 
-  <!-- Glassmorphic Session Notice & Submission Modal -->
-  <div class="modal-overlay" id="sessionNoticeModal" onclick="if(event.target===this) closeSessionNoticeModal()">
-    <div class="modal-card glass-notice-modal-card" id="sessionNoticeModalCard">
+  <!-- Glassmorphic Session Notice & Submission Modal (Mobile Centered Viewport Portal) -->
+  <div class="modal-overlay bell-note-modal-overlay" id="bell-note-modal" onclick="if(event.target===this) closeSessionNoticeModal()">
+    <div class="modal-card glass-notice-modal-card bell-note-card" id="sessionNoticeModalCard">
       <div class="glass-notice-head" id="sessionNoticeModalHead">
         <div style="display:flex;align-items:center;gap:12px;">
           <div class="glass-notice-icon-box">🔔</div>
@@ -333,7 +333,7 @@
             <p class="glass-notice-subtitle" id="sessionNoticeModalSubtitle">مواعيد الحضور وشروط التسليم الرسمية</p>
           </div>
         </div>
-        <button class="modal-close" onclick="closeSessionNoticeModal()">✕</button>
+        <button class="modal-close" onclick="closeSessionNoticeModal()" aria-label="Close">✕</button>
       </div>
       <div class="glass-notice-body" id="sessionNoticeModalBody"></div>
     </div>

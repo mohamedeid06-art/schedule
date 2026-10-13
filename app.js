@@ -2131,7 +2131,9 @@ function renderDailyAgenda() {
       openSessionNoticeModal(day, start, code);
     });
     bellEl.addEventListener("mouseenter", (e) => {
-      showSessionNoticeTooltip(e, day, start, code);
+      if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        showSessionNoticeTooltip(e, day, start, code);
+      }
     });
     bellEl.addEventListener("mouseleave", () => {
       hideSessionNoticeTooltip();
@@ -2180,6 +2182,11 @@ function getSessionNoticeData(dayIdxOrName, slotStart, code) {
 }
 
 function showSessionNoticeTooltip(event, dayIdxOrName, slotStart, code) {
+  // Mobile / touch devices check: never show floating coordinate tooltip on touch devices
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    return;
+  }
+
   const session = getSessionNoticeData(dayIdxOrName, slotStart, code);
   if (!session) return;
 
@@ -2244,11 +2251,29 @@ function hideSessionNoticeTooltip() {
 function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
   triggerHaptic("light");
   hideSessionNoticeTooltip();
-  const modal = document.getElementById("sessionNoticeModal");
+  
+  let modal = document.getElementById("bell-note-modal") || document.getElementById("sessionNoticeModal");
+  if (!modal) return;
+
+  // 1. DOM Portal to document.body (prevents parent overflow/filter/clip on mobile)
+  if (modal.parentElement !== document.body) {
+    document.body.appendChild(modal);
+  }
+
+  // Bind backdrop click to safely close modal
+  if (!modal._backdropBound) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeSessionNoticeModal();
+      }
+    });
+    modal._backdropBound = true;
+  }
+
   const titleEl = document.getElementById("sessionNoticeModalTitle");
   const subEl = document.getElementById("sessionNoticeModalSubtitle");
   const bodyEl = document.getElementById("sessionNoticeModalBody");
-  if (!modal || !bodyEl) return;
+  if (!bodyEl) return;
 
   const session = getSessionNoticeData(dayIdxOrName, slotStart, code);
   const course = COURSES[session.code] || { name: session.code, hex: "#fb923c" };
@@ -2449,15 +2474,40 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
     `;
   }
 
+  // 2. Make modal visible
+  modal.classList.add("open");
   modal.classList.add("active");
-  document.body.style.overflow = "hidden";
+
+  // 3. Safe scroll lock: only lock body when modal is confirmed active & visible
+  requestAnimationFrame(() => {
+    if (modal.classList.contains("open") || modal.classList.contains("active")) {
+      document.body.classList.add("modal-open");
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    }
+  });
 }
 
 function closeSessionNoticeModal() {
-  const modal = document.getElementById("sessionNoticeModal");
-  if (modal) modal.classList.remove("active");
-  document.body.style.overflow = "";
+  const modal = document.getElementById("bell-note-modal") || document.getElementById("sessionNoticeModal");
+  if (modal) {
+    modal.classList.remove("open");
+    modal.classList.remove("active");
+  }
+  document.body.style.overflow = '';
+  document.documentElement.style.overflow = '';
+  document.body.classList.remove('modal-open');
 }
+
+// Global safety listeners for keyboard Escape and mobile browser back button
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeSessionNoticeModal();
+  }
+});
+window.addEventListener("popstate", () => {
+  closeSessionNoticeModal();
+});
 
 window.getSessionNoticeData = getSessionNoticeData;
 window.showSessionNoticeTooltip = showSessionNoticeTooltip;
@@ -2752,7 +2802,7 @@ function renderWeekMatrix() {
         </div>
       `;
 
-      // Direct Event Listener on bell icon with stopPropagation & tooltip hover
+      // Direct Event Listener on bell icon with stopPropagation & touch support
       const bellEl = posWrap.querySelector(".badge-notice-bell");
       if (bellEl) {
         bellEl.addEventListener("click", (e) => {
@@ -2761,7 +2811,9 @@ function renderWeekMatrix() {
           openSessionNoticeModal(dIdx, sess.start, sess.code);
         });
         bellEl.addEventListener("mouseenter", (e) => {
-          showSessionNoticeTooltip(e, dIdx, sess.start, sess.code);
+          if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            showSessionNoticeTooltip(e, dIdx, sess.start, sess.code);
+          }
         });
         bellEl.addEventListener("mouseleave", () => {
           hideSessionNoticeTooltip();
