@@ -2082,7 +2082,8 @@ function renderDailyAgenda() {
               ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
-              ${s.attendance && !isCancelled ? '<span class="badge-attendance">⚠️ ATTENDANCE</span>' : ''}
+              ${s.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
+              ${(s.hasNotice || s.note) && !isCancelled ? `<span class="badge-notice-bell" data-day="${s.day}" data-start="${s.start}" data-code="${s.code}" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم">🔔</span>` : ''}
               <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--surface-alt);color:var(--text-muted)">${s.isDynSec ? 'SEC' : (isShared ? 'LEC' : 'SEC')}</span>
             </div>
           </div>
@@ -2097,7 +2098,7 @@ function renderDailyAgenda() {
           ` : ''}
 
           ${!isCancelled && s.note ? `
-            <div class="card-note-alert" style="margin-top:8px;padding:8px 12px;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.35);border-radius:10px;color:#fde047;font-size:11.5px;font-weight:600;display:flex;align-items:flex-start;gap:6px;line-height:1.55;white-space:pre-line;" dir="auto">
+            <div class="card-note-alert" style="margin-top:8px;padding:8px 12px;background:rgba(234,179,8,0.12);border:1px solid rgba(234,179,8,0.35);border-radius:10px;color:#fde047;font-size:11.5px;font-weight:600;display:flex;align-items:flex-start;gap:6px;line-height:1.55;white-space:pre-line;cursor:pointer;" dir="auto" onclick="openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')" title="اضغط لعرض كامل التفاصيل والروابط">
               <span style="font-size:14px;flex-shrink:0;">📢</span>
               <span>${escHtml(s.note)}</span>
             </div>
@@ -2118,6 +2119,25 @@ function renderDailyAgenda() {
   }
   html += `</div>`;
   container.innerHTML = html;
+
+  // Attach direct listeners to bell badges in daily agenda
+  container.querySelectorAll(".badge-notice-bell").forEach(bellEl => {
+    const day = bellEl.getAttribute("data-day");
+    const start = Number(bellEl.getAttribute("data-start"));
+    const code = bellEl.getAttribute("data-code");
+    bellEl.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      openSessionNoticeModal(day, start, code);
+    });
+    bellEl.addEventListener("mouseenter", (e) => {
+      showSessionNoticeTooltip(e, day, start, code);
+    });
+    bellEl.addEventListener("mouseleave", () => {
+      hideSessionNoticeTooltip();
+    });
+  });
+
   attachSwipeListeners();
 }
 
@@ -2125,26 +2145,116 @@ function renderDailyAgenda() {
 // Modern Proportional Dynamic Timeline Calendar Engine
 // ==========================================================================
 
+function getSessionNoticeData(dayIdxOrName, slotStart, code) {
+  const effectiveSessions = getActiveEffectiveSessions();
+  let dayName = typeof dayIdxOrName === 'number' && DAYS[dayIdxOrName] ? DAYS[dayIdxOrName].full : dayIdxOrName;
+  const numStart = Number(slotStart);
+
+  // 1. Exact match in effectiveSessions
+  let session = effectiveSessions.find(s => s.day === dayName && s.code === code && (Number(s.start) === numStart || (s.start <= numStart && (s.start + s.span) > numStart)));
+  
+  // 2. Exact match in SESSIONS (bypassing group filter)
+  if (!session) {
+    session = SESSIONS.find(s => s.day === dayName && s.code === code && (Number(s.start) === numStart || (s.start <= numStart && (s.start + s.span) > numStart)));
+  }
+
+  // 3. Search in effectiveSessions / SESSIONS by day + code with noticeData or note
+  if (!session || (!session.noticeData && !session.note)) {
+    const noticeSession = effectiveSessions.find(s => s.day === dayName && s.code === code && (s.noticeData || s.note))
+                       || SESSIONS.find(s => s.day === dayName && s.code === code && (s.noticeData || s.note));
+    if (noticeSession) session = noticeSession;
+  }
+
+  // 4. Search in effectiveSessions / SESSIONS by code with noticeData or note
+  if (!session || (!session.noticeData && !session.note)) {
+    const noticeSession = effectiveSessions.find(s => s.code === code && (s.noticeData || s.note))
+                       || SESSIONS.find(s => s.code === code && (s.noticeData || s.note));
+    if (noticeSession) session = noticeSession;
+  }
+
+  // 5. Fallback
+  if (!session) {
+    session = effectiveSessions.find(s => s.code === code) || SESSIONS.find(s => s.code === code) || { code: code || "EPE G113", room: "14301", note: "" };
+  }
+  return session;
+}
+
+function showSessionNoticeTooltip(event, dayIdxOrName, slotStart, code) {
+  const session = getSessionNoticeData(dayIdxOrName, slotStart, code);
+  if (!session) return;
+
+  let tooltipEl = document.getElementById("sessionNoticeTooltip");
+  if (!tooltipEl) {
+    tooltipEl = document.createElement("div");
+    tooltipEl.id = "sessionNoticeTooltip";
+    tooltipEl.className = "session-notice-tooltip";
+    document.body.appendChild(tooltipEl);
+  }
+
+  let title = session.noticeData?.title || `تنبيه مادة ${session.code}`;
+  let text = "";
+  if (session.code === "EPE G113") {
+    text = "⏰ فترتان للحضور: (12:30 و 2:00) بقاعة 14301\n📝 تسليم Assignment 1 على ورق A4 (لنفسك ولزميل واحد كحد أقصى)";
+  } else if (session.code === "MTH G102" && (session.isQuiz || session.day === "Monday")) {
+    text = "⏰ كويز 1 الإثنين: 11:00 ظهراً بمدرج 3002\n🎯 10 درجات MCQ على أول محاضرتين (التصحيح على التظليل فقط)";
+  } else {
+    text = session.note || "ملاحظات هامة مسجلة لهذه المحاضرة.";
+  }
+
+  tooltipEl.innerHTML = `
+    <div class="session-notice-tooltip-head">
+      <span>🔔</span>
+      <span>${session.code} • تنبيه وملاحظات</span>
+    </div>
+    <div class="session-notice-tooltip-body">${escHtml(text)}</div>
+    <div class="session-notice-tooltip-hint">
+      <span>👉 اضغط على الجرس لعرض الروابط والتفاصيل الكاملة</span>
+    </div>
+  `;
+
+  const target = event.currentTarget || event.target;
+  const rect = target.getBoundingClientRect();
+  const tooltipWidth = 310;
+  
+  let left = rect.left + rect.width / 2 - tooltipWidth / 2;
+  if (left < 10) left = 10;
+  if (left + tooltipWidth > window.innerWidth - 10) {
+    left = window.innerWidth - tooltipWidth - 10;
+  }
+
+  tooltipEl.style.left = `${left}px`;
+  if (rect.top < 130) {
+    tooltipEl.style.top = `${rect.bottom + 8}px`;
+    tooltipEl.style.transform = "translateY(0)";
+  } else {
+    tooltipEl.style.top = `${rect.top - 8}px`;
+    tooltipEl.style.transform = "translateY(-100%)";
+  }
+
+  tooltipEl.classList.add("active");
+}
+
+function hideSessionNoticeTooltip() {
+  const tooltipEl = document.getElementById("sessionNoticeTooltip");
+  if (tooltipEl) {
+    tooltipEl.classList.remove("active");
+  }
+}
+
 function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
   triggerHaptic("light");
+  hideSessionNoticeTooltip();
   const modal = document.getElementById("sessionNoticeModal");
   const titleEl = document.getElementById("sessionNoticeModalTitle");
   const subEl = document.getElementById("sessionNoticeModalSubtitle");
   const bodyEl = document.getElementById("sessionNoticeModalBody");
   if (!modal || !bodyEl) return;
 
-  const effectiveSessions = getActiveEffectiveSessions();
-  let dayName = typeof dayIdxOrName === 'number' && DAYS[dayIdxOrName] ? DAYS[dayIdxOrName].full : dayIdxOrName;
-  
-  const session = effectiveSessions.find(s => s.day === dayName && s.start === slotStart && s.code === code)
-               || effectiveSessions.find(s => s.code === code && s.hasNotice)
-               || effectiveSessions.find(s => s.code === code)
-               || { code: code || "EPE G113", room: "14301", note: "" };
-
+  const session = getSessionNoticeData(dayIdxOrName, slotStart, code);
   const course = COURSES[session.code] || { name: session.code, hex: "#fb923c" };
 
-  // Special Notice: EPE G113 Thursday Session Notice & Assignment 1 Submissions
-  if (session.code === "EPE G113" || (session.noticeData && session.noticeData.title)) {
+  // Special Notice 1: EPE G113 Thursday Session Notice & Assignment 1 Submissions
+  if (session.code === "EPE G113" || (session.noticeData && session.noticeData.assignmentUrl && session.code !== "MTH G102")) {
     const nd = session.noticeData || {
       title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
       slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
@@ -2218,13 +2328,102 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
         </a>
       </div>
     `;
-  } else {
-    // إشعار عام للمحاضرة أو السكشن
-    if (titleEl) titleEl.textContent = `📢 تنبيه مادة ${session.code}`;
+  }
+  // Special Notice 2: MTH G102 Monday Quiz 1 Notice & Prep Links
+  else if (session.code === "MTH G102" && (session.isQuiz || session.noticeData?.quizPrepId || session.day === "Monday")) {
+    const nd = session.noticeData || {
+      title: "📢 تفاصيل وموعد كويز 1 لمادة MTH G102",
+      slots: "الموعد والمكان: الإثنين 12 أكتوبر — 11:00 ظهراً (الحضور 11 إلا ربع) بمدرج 3002 مجمع للـ 4 سكاشن",
+      requirements: "الامتحان 10 درجات (MCQ - 5 أسئلة) في 30-35 دقيقة على أول محاضرتين فقط (Double Integrals) • التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب • الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل",
+      quizPrepId: "mth-quiz-1",
+      sheetUrl: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0",
+      solutionUrl: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
+      driveUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8"
+    };
+
+    if (titleEl) titleEl.textContent = nd.title || "📢 تفاصيل وموعد كويز 1 لمادة MTH G102";
+    if (subEl) subEl.textContent = `${session.code} • ${course.name}`;
+
+    bodyEl.innerHTML = `
+      <!-- موعد ومكان الكويز -->
+      <div class="notice-section-box">
+        <div class="notice-section-header">
+          <span>⏰</span>
+          <span>موعد ومكان الكويز الرسمي (مدرج 3002):</span>
+        </div>
+        <div class="notice-slot-pill">
+          <strong>الموعد:</strong>
+          <span>الإثنين 12 أكتوبر — 11:00 ظهراً (الحضور 11 إلا ربع)</span>
+        </div>
+        <div class="notice-slot-pill">
+          <strong>المكان والمدة:</strong>
+          <span>مدرج 3002 مجمع للأربع سكاشن • المدة 30-35 دقيقة</span>
+        </div>
+      </div>
+
+      <!-- تفاصيل وشروط الامتحان والتظليل -->
+      <div class="notice-section-box">
+        <div class="notice-section-header">
+          <span>📝</span>
+          <span>تفاصيل وتعليمات الكويز والتظليل:</span>
+        </div>
+        <div class="notice-req-list">
+          <div class="notice-req-item">
+            <span style="color:#fbbf24;font-weight:900;">•</span>
+            <span>الدرجة ونوع الأسئلة: <strong>10 درجات (MCQ - 5 أسئلة)</strong> في 30-35 دقيقة.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fbbf24;font-weight:900;">•</span>
+            <span>محتوى الامتحان: على <strong>أول محاضرتين فقط</strong> (Double Integrals) — المحاضرة الثالثة غير داخلة!</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fbbf24;font-weight:900;">•</span>
+            <span>تعليمات المدرج: <strong>التصحيح على التظليل فقط</strong>، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fbbf24;font-weight:900;">•</span>
+            <span>تنبيه التظليل: <strong>الكود المكون من 7 أرقام يوضع قبله صفر على الشمال</strong> في التظليل.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fbbf24;font-weight:900;">•</span>
+            <span>💡 <strong>تريكة مهمة جداً:</strong> الأسئلة مش بتخرج عن أشكال الـ Graphs اللي بتشرحها الدكتورة في المحاضرات.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- أزرار الروابط المباشرة -->
+      <div class="notice-actions-row">
+        <button onclick="closeSessionNoticeModal(); openQuizPrepGuide('mth-quiz-1');" 
+                class="notice-action-btn notice-action-primary" style="flex:1 1 100%;">
+          <span>🎯</span>
+          <span>افتح دليل واستعداد كويز الماث الشامل ↗</span>
+        </button>
+        <a href="${nd.sheetUrl || 'https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
+          <span>📄</span>
+          <span>تحميل شيت 1 (PDF) ↗</span>
+        </a>
+        <a href="${nd.solutionUrl || 'https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
+          <span>⭐</span>
+          <span>الحل النموذجي لشيت 1 ↗</span>
+        </a>
+        <a href="${nd.driveUrl || 'https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 100%;">
+          <span>📁</span>
+          <span>فولدر درايف الكويز الرسمي ↗</span>
+        </a>
+      </div>
+    `;
+  }
+  // Case 3: Other sessions with notice or note
+  else {
+    if (titleEl) titleEl.textContent = session.noticeData?.title || `📢 تنبيه مادة ${session.code}`;
     if (subEl) subEl.textContent = `${session.code} • ${course.name}`;
 
     const driveInfo = DRIVE_DATA[session.code] || {};
     const driveUrl = driveInfo.folder || MAIN_SEMESTER_DRIVE;
+    const noteText = session.noticeData?.requirements || session.note || "لا توجد ملاحظات استثنائية مسجلة لهذه المحاضرة.";
 
     bodyEl.innerHTML = `
       <div class="notice-section-box">
@@ -2233,7 +2432,7 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
           <span>تفاصيل التنبيه:</span>
         </div>
         <div style="font-size:13px;line-height:1.7;color:#f1f5f9;white-space:pre-line;">
-          ${escHtml(session.note || "لا توجد ملاحظات استثنائية مسجلة لهذه المحاضرة.")}
+          ${escHtml(noteText)}
         </div>
       </div>
 
@@ -2260,6 +2459,9 @@ function closeSessionNoticeModal() {
   document.body.style.overflow = "";
 }
 
+window.getSessionNoticeData = getSessionNoticeData;
+window.showSessionNoticeTooltip = showSessionNoticeTooltip;
+window.hideSessionNoticeTooltip = hideSessionNoticeTooltip;
 window.openSessionNoticeModal = openSessionNoticeModal;
 window.closeSessionNoticeModal = closeSessionNoticeModal;
 
@@ -2516,9 +2718,9 @@ function renderWeekMatrix() {
             <div class="card-badges">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
               ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
-              ${sess.attendance && !isCancelled ? '<span class="badge-attendance-icon" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️</span>' : ''}
+              ${sess.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
-              ${hasNoticeOrNote && !isCancelled ? `<span class="badge-notice-bell" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم" onclick="event.stopPropagation(); openSessionNoticeModal(${col - 2}, ${sess.start}, '${sess.code}')">🔔</span>` : ''}
+              ${hasNoticeOrNote && !isCancelled ? `<span class="badge-notice-bell" data-day="${dIdx}" data-start="${sess.start}" data-code="${sess.code}" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم">🔔</span>` : ''}
               ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="event.stopPropagation(); setView('tasks')">⚡ QUIZ</span>` : ''}
               <span class="type">${typeBadge}</span>
             </div>
@@ -2550,12 +2752,28 @@ function renderWeekMatrix() {
         </div>
       `;
 
+      // Direct Event Listener on bell icon with stopPropagation & tooltip hover
+      const bellEl = posWrap.querySelector(".badge-notice-bell");
+      if (bellEl) {
+        bellEl.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          openSessionNoticeModal(dIdx, sess.start, sess.code);
+        });
+        bellEl.addEventListener("mouseenter", (e) => {
+          showSessionNoticeTooltip(e, dIdx, sess.start, sess.code);
+        });
+        bellEl.addEventListener("mouseleave", () => {
+          hideSessionNoticeTooltip();
+        });
+      }
+
       // Interaction on card click
       const cardEl = posWrap.querySelector(".grid-card");
       if (cardEl) {
         cardEl.addEventListener("click", () => {
           if (hasNoticeOrNote) {
-            openSessionNoticeModal(col - 2, sess.start, sess.code);
+            openSessionNoticeModal(dIdx, sess.start, sess.code);
           } else {
             openCourseCapsule(sess.code);
           }

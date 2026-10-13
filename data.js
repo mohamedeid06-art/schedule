@@ -1088,6 +1088,16 @@ const SESSIONS = [
     room: "مدرج 3002", 
     isQuiz: true,
     quizBadge: "⚡ كويز 1",
+    hasNotice: true,
+    noticeData: {
+      title: "📢 تفاصيل وموعد كويز 1 مادة MTH G102 (الرياضيات 2)",
+      slots: "الموعد والمكان: الإثنين 12 أكتوبر — 11:00 ظهراً (الحضور 11 إلا ربع) بمدرج 3002 مجمع للـ 4 سكاشن",
+      requirements: "الامتحان 10 درجات (MCQ - 5 أسئلة) في 30-35 دقيقة على أول محاضرتين فقط (Double Integrals) — المحاضرة الثالثة غير داخلة! • التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب • الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل • ركزوا جداً على الـ Graphs المشروحة بالمحاضرات",
+      quizPrepId: "mth-quiz-1",
+      sheetUrl: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0",
+      solutionUrl: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
+      driveUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8"
+    },
     note: "11:00 ظهراً (الحضور 11 إلا ربع) بمدرج 3002 • 10 درجات (MCQ - 5 أسئلة) • التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب • الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل"
   },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
