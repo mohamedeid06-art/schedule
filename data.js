@@ -23,15 +23,15 @@ const ARCHIVE_BATCH29_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9B
 // قاعدة بيانات المواد الرسمية
 const COURSES = {
   "GEN G119": { 
-    name: "Entrepreneurship & Marketing", 
+    name: "Entrepreneurship and Marketing", 
     color: "var(--c-gen)", 
-    hex: "#06b6d4", 
+    hex: "#10b981", 
     instructor: "Dr. Tamer El-Hariry" 
   },
   "MTH G102": { 
-    name: "Linear Algebra & Multivariable Integrals", 
+    name: "Linear Algebra and Multivariable Integrals", 
     color: "var(--c-mth)", 
-    hex: "#0284c7", 
+    hex: "#38bdf8", 
     instructor: "Dr. Ahmed Abdelnaby & Dr. Lucy" 
   },
   "EMC G101": { 
@@ -41,7 +41,7 @@ const COURSES = {
     instructor: "Dr. Samir Hedeyma" 
   },
   "MDP G111": { 
-    name: "Computer-Aided Mechanical Drafting (SolidWorks)", 
+    name: "Computer-Aided Mechanical Drafting", 
     color: "var(--c-mdp1)", 
     hex: "#10b981", 
     instructor: "Dr. Design Staff" 
@@ -53,9 +53,9 @@ const COURSES = {
     instructor: "Dr. Ehab & Dr. Mamdouh" 
   },
   "EPE G113": { 
-    name: "Electrical & Electronics Engineering", 
+    name: "Electrical and Electronics Engineering", 
     color: "var(--c-epe)", 
-    hex: "#f43f5e", 
+    hex: "#fb923c", 
     instructor: "Dr. Electrical Staff" 
   }
 };
@@ -1054,14 +1054,15 @@ const ROOM_INFO = {
 };
 
 const DAYS = [
-  { full: "Sunday", short: "SUN", dayIdx: 0 },
-  { full: "Monday", short: "MON", dayIdx: 1 },
-  { full: "Tuesday", short: "TUE", dayIdx: 2 },
-  { full: "Wednesday", short: "WED", dayIdx: 3 },
-  { full: "Thursday", short: "THU", dayIdx: 4 }
+  { full: "Sunday", short: "Sun", dayIdx: 0 },
+  { full: "Monday", short: "Mon", dayIdx: 1 },
+  { full: "Tuesday", short: "Tue", dayIdx: 2 },
+  { full: "Wednesday", short: "Wed", dayIdx: 3 },
+  { full: "Thursday", short: "Thu", dayIdx: 4 }
 ];
 
 const SLOTS = ["8:00 - 8:50","9:00 - 9:50","10:00 - 10:50","11:00 - 11:50","12:00 - 12:50","1:00 - 1:50","2:00 - 2:50","3:00 - 3:50","4:00 - 4:50"];
+const TIMELINE_HOURS = ["8:00", "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00"];
 const TIME_STARTS = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
 const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:50", "15:50", "16:50"];
 
@@ -1109,23 +1110,26 @@ const SESSIONS = [
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
-  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall)
+  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall) مع التنبيه التفاعلي المطور
   { 
     day: "Thursday", 
     start: 4, 
     span: 2, 
     group: "ME1-01", 
     code: "EPE G113", 
-    type: "Tutorial (12:30 - 2:00 أو 2:00 - 3:30)", 
-    room: "14301 (Faculty Hall)", 
+    type: "Tutorial", 
+    room: "14301", 
     attendance: false,
-    note: `⏰ الفترات المتاحة للاختيار/الحضور:
-• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
-• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
-📝 تنبيه التسليم:
-• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
-• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
-🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+    hasNotice: true,
+    noticeData: {
+      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
+      slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
+      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
+      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
   },
   { 
     day: "Thursday", 
@@ -1133,16 +1137,19 @@ const SESSIONS = [
     span: 2, 
     group: "ME1-02", 
     code: "EPE G113", 
-    type: "Tutorial (12:30 - 2:00 أو 2:00 - 3:30)", 
-    room: "14301 (Faculty Hall)", 
+    type: "Tutorial", 
+    room: "14301", 
     attendance: false,
-    note: `⏰ الفترات المتاحة للاختيار/الحضور:
-• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
-• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
-📝 تنبيه التسليم:
-• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
-• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
-🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+    hasNotice: true,
+    noticeData: {
+      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
+      slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
+      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
+      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
   },
   { 
     day: "Thursday", 
@@ -1150,16 +1157,19 @@ const SESSIONS = [
     span: 2, 
     group: "ME1-03", 
     code: "EPE G113", 
-    type: "Tutorial (2:00 - 3:30 أو 12:30 - 2:00)", 
-    room: "14301 (Faculty Hall)", 
+    type: "Tutorial", 
+    room: "14301", 
     attendance: false,
-    note: `⏰ الفترات المتاحة للاختيار/الحضور:
-• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
-• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
-📝 تنبيه التسليم:
-• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
-• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
-🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+    hasNotice: true,
+    noticeData: {
+      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
+      slots: "فترتان للحضور: (2:00 - 3:30) أو (12:30 - 2:00) بقاعة 14301",
+      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
+      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
   },
   { 
     day: "Thursday", 
@@ -1167,16 +1177,19 @@ const SESSIONS = [
     span: 2, 
     group: "ME1-04", 
     code: "EPE G113", 
-    type: "Tutorial (2:00 - 3:30 أو 12:30 - 2:00)", 
-    room: "14301 (Faculty Hall)", 
+    type: "Tutorial", 
+    room: "14301", 
     attendance: false,
-    note: `⏰ الفترات المتاحة للاختيار/الحضور:
-• الفترة الأولى: 12:30 ظهراً - 2:00 ظهراً
-• الفترة الثانية: 2:00 ظهراً - 3:30 عصراً
-📝 تنبيه التسليم:
-• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
-• مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.
-🎥 السكشن هيتصور فيديو وهينزل على يوتيوب.`
+    hasNotice: true,
+    noticeData: {
+      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
+      slots: "فترتان للحضور: (2:00 - 3:30) أو (12:30 - 2:00) بقاعة 14301",
+      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
+      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
   }
 ];
 

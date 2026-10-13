@@ -1850,6 +1850,11 @@ function updateLiveTracker() {
   const clockEl = document.getElementById("liveClock");
   if (clockEl) clockEl.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+  // Update week matrix live indicator in real-time
+  if (typeof updateTimelineLiveIndicator === "function") {
+    updateTimelineLiveIndicator();
+  }
+
   const dot = document.getElementById("liveDot");
   const text = document.getElementById("liveText");
   if (!dot || !text) return;
@@ -2116,6 +2121,211 @@ function renderDailyAgenda() {
   attachSwipeListeners();
 }
 
+// ==========================================================================
+// Modern Proportional Dynamic Timeline Calendar Engine
+// ==========================================================================
+
+function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
+  triggerHaptic("light");
+  const modal = document.getElementById("sessionNoticeModal");
+  const titleEl = document.getElementById("sessionNoticeModalTitle");
+  const subEl = document.getElementById("sessionNoticeModalSubtitle");
+  const bodyEl = document.getElementById("sessionNoticeModalBody");
+  if (!modal || !bodyEl) return;
+
+  const effectiveSessions = getActiveEffectiveSessions();
+  let dayName = typeof dayIdxOrName === 'number' && DAYS[dayIdxOrName] ? DAYS[dayIdxOrName].full : dayIdxOrName;
+  
+  const session = effectiveSessions.find(s => s.day === dayName && s.start === slotStart && s.code === code)
+               || effectiveSessions.find(s => s.code === code && s.hasNotice)
+               || effectiveSessions.find(s => s.code === code)
+               || { code: code || "EPE G113", room: "14301", note: "" };
+
+  const course = COURSES[session.code] || { name: session.code, hex: "#fb923c" };
+
+  // Special Notice: EPE G113 Thursday Session Notice & Assignment 1 Submissions
+  if (session.code === "EPE G113" || (session.noticeData && session.noticeData.title)) {
+    const nd = session.noticeData || {
+      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
+      slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
+      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
+      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    };
+
+    if (titleEl) titleEl.textContent = nd.title || "📢 تنبيه تسليم ومواعيد سكشن EPE G113";
+    if (subEl) subEl.textContent = `${session.code} • ${course.name}`;
+
+    bodyEl.innerHTML = `
+      <!-- المواعيد المتاحة -->
+      <div class="notice-section-box">
+        <div class="notice-section-header">
+          <span>⏰</span>
+          <span>المواعيد المتاحة للاختيار والحضور (قاعة 14301):</span>
+        </div>
+        <div class="notice-slot-pill">
+          <strong>الفترة الأولى:</strong>
+          <span>12:30 ظهراً – 2:00 ظهراً</span>
+        </div>
+        <div class="notice-slot-pill">
+          <strong>الفترة الثانية:</strong>
+          <span>2:00 ظهراً – 3:30 عصراً</span>
+        </div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:6px;line-height:1.4;">
+          💡 يمكنك الحضور في أي من الفترتين المناسبتين لك حسب جدولك الدراسي.
+        </div>
+      </div>
+
+      <!-- متطلبات وشروط التسليم -->
+      <div class="notice-section-box">
+        <div class="notice-section-header">
+          <span>📝</span>
+          <span>شروط ومتطلبات التسليم الرسمية:</span>
+        </div>
+        <div class="notice-req-list">
+          <div class="notice-req-item">
+            <span style="color:#fb923c;font-weight:900;">•</span>
+            <span>تسليم <strong>Assignment 1</strong> في السكشن على ورق <strong>A4</strong> متضمناً (الاسم - الكود - السكشن - القسم).</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fb923c;font-weight:900;">•</span>
+            <span>مسموح للطالب تسليم الأسينمنت الخاص به وأسينمنت لزميل واحد فقط كحد أقصى.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fb923c;font-weight:900;">•</span>
+            <span>السكشن هيتصور فيديو بجودة عالية وهينزل على يوتيوب للشرح والمراجعة.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- روابط سريعة للأسينمنت وحله -->
+      <div class="notice-actions-row">
+        <a href="${nd.assignmentUrl || 'https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-primary">
+          <span>📄</span>
+          <span>تحميل الأسينمنت (PDF) ↗</span>
+        </a>
+        <a href="${nd.solutionUrl || 'https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
+          <span>⭐</span>
+          <span>الحل النموذجي ↗</span>
+        </a>
+        <a href="${nd.driveUrl || 'https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 100%;">
+          <span>📁</span>
+          <span>فولدر درايف المادة الشامل ↗</span>
+        </a>
+      </div>
+    `;
+  } else {
+    // إشعار عام للمحاضرة أو السكشن
+    if (titleEl) titleEl.textContent = `📢 تنبيه مادة ${session.code}`;
+    if (subEl) subEl.textContent = `${session.code} • ${course.name}`;
+
+    const driveInfo = DRIVE_DATA[session.code] || {};
+    const driveUrl = driveInfo.folder || MAIN_SEMESTER_DRIVE;
+
+    bodyEl.innerHTML = `
+      <div class="notice-section-box">
+        <div class="notice-section-header">
+          <span>📢</span>
+          <span>تفاصيل التنبيه:</span>
+        </div>
+        <div style="font-size:13px;line-height:1.7;color:#f1f5f9;white-space:pre-line;">
+          ${escHtml(session.note || "لا توجد ملاحظات استثنائية مسجلة لهذه المحاضرة.")}
+        </div>
+      </div>
+
+      <div class="notice-actions-row">
+        <a href="${driveUrl}" target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-primary">
+          <span>📁</span>
+          <span>فتح درايف المادة ↗</span>
+        </a>
+        <button onclick="closeSessionNoticeModal(); openCourseCapsule('${session.code}');" class="notice-action-btn notice-action-secondary">
+          <span>💡</span>
+          <span>دليل المادة وكبسولة المذاكرة</span>
+        </button>
+      </div>
+    `;
+  }
+
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSessionNoticeModal() {
+  const modal = document.getElementById("sessionNoticeModal");
+  if (modal) modal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+window.openSessionNoticeModal = openSessionNoticeModal;
+window.closeSessionNoticeModal = closeSessionNoticeModal;
+
+function updateTimelineLiveIndicator() {
+  if (activeView !== "week") return;
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const jsDayIdx = now.getDay();
+  const isWeekday = (jsDayIdx >= 0 && jsDayIdx <= 4);
+
+  const badge = document.getElementById("timelineLiveTimeBadge");
+  const lineWrap = document.getElementById("timelineLiveLineWrap");
+
+  if (isWeekday && currentMinutes >= 480 && currentMinutes <= 1020) {
+    const relTopPx = ((currentMinutes - 480) / 60) * 76;
+    const hours12 = now.getHours() > 12 ? (now.getHours() - 12) : (now.getHours() === 0 ? 12 : now.getHours());
+    const timeStr = `${hours12}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    if (badge) {
+      badge.style.top = `${relTopPx}px`;
+      badge.textContent = timeStr;
+    }
+    if (lineWrap) {
+      lineWrap.style.top = `${relTopPx}px`;
+    }
+  }
+
+  // Update LIVE card highlights
+  const effectiveSessions = getActiveEffectiveSessions();
+  const todayName = isWeekday ? DAYS[jsDayIdx].full : null;
+
+  document.querySelectorAll(".grid-card").forEach(card => {
+    const sessId = card.getAttribute("data-sess-id");
+    if (!sessId) return;
+    const parts = sessId.split("-");
+    const day = parts[0];
+    const sStart = Number(parts[1]);
+    const code = parts.slice(2).join("-");
+    const session = effectiveSessions.find(s => s.day === day && s.start === sStart && s.code === code);
+    if (!session) return;
+
+    const sStartMin = parseMinutes(TIME_STARTS[session.start]);
+    const sEndMin = parseMinutes(TIME_ENDS[session.start + session.span - 1]);
+    const isNowLive = (day === todayName) && (currentMinutes >= sStartMin && currentMinutes < sEndMin);
+
+    if (isNowLive) {
+      if (!card.classList.contains("is-live-card")) {
+        card.classList.add("is-live-card");
+        const badgesContainer = card.querySelector(".card-badges");
+        if (badgesContainer && !badgesContainer.querySelector(".badge-live-now")) {
+          const liveBadge = document.createElement("span");
+          liveBadge.className = "badge-live-now";
+          liveBadge.textContent = "🔴 LIVE";
+          badgesContainer.prepend(liveBadge);
+        }
+      }
+    } else {
+      if (card.classList.contains("is-live-card")) {
+        card.classList.remove("is-live-card");
+        const liveBadge = card.querySelector(".badge-live-now");
+        if (liveBadge) liveBadge.remove();
+      }
+    }
+  });
+}
+
 function renderWeekMatrix() {
   const container = document.getElementById("viewContainer");
   container.innerHTML = `
@@ -2127,6 +2337,7 @@ function renderWeekMatrix() {
 
   const grid = document.getElementById("matrixGrid");
   
+  // 1. Top-Left Corner Header
   const corner = document.createElement("div");
   corner.className = "matrix-head corner";
   corner.style.gridColumn = "1";
@@ -2136,6 +2347,7 @@ function renderWeekMatrix() {
 
   const activeAssessments = getActiveSectionAssessments();
 
+  // 2. Days Columns Header (Sun • Mon • Tue • Wed • Thu)
   DAYS.forEach((d, i) => {
     const isToday = (d.full === todayDayName);
     const isPast = isDayInPast(d.dayIdx);
@@ -2150,38 +2362,88 @@ function renderWeekMatrix() {
     head.style.gridColumn = `${i + 2}`;
     head.style.gridRow = "1";
     head.innerHTML = `
-      <span>${d.full}</span> 
-      <div style="display:flex;gap:3px">
+      <span style="${isToday ? 'color:#38bdf8;font-weight:800;' : 'color:#cbd5e1;font-weight:700;'}">${d.short}</span> 
+      <div style="display:flex;gap:5px;align-items:center;">
         ${hasQuiz ? `<span class="quiz-pill" onclick="setView('tasks')" style="cursor:pointer;" title="Click for Tasks Hub">⚡ QUIZ</span>` : ''}
-        ${isToday ? '<span class="today-pill">TODAY</span>' : ''}
+        ${isToday ? '<span class="today-pill">Today</span>' : ''}
       </div>
     `;
     grid.appendChild(head);
   });
 
-  SLOTS.forEach((slot, s) => {
+  // 3. Vertical Time Axis (8:00, 9:00, 10:00, 11:00, 12:00, 1:00, 2:00, 3:00, 4:00)
+  const hoursList = (typeof TIMELINE_HOURS !== 'undefined' && TIMELINE_HOURS.length)
+    ? TIMELINE_HOURS
+    : ["8:00", "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00"];
+
+  hoursList.forEach((hourLabel, s) => {
     const timeCell = document.createElement("div");
     timeCell.className = "matrix-time";
     timeCell.style.gridColumn = "1";
     timeCell.style.gridRow = `${s + 2}`;
-    timeCell.textContent = slot;
+    timeCell.textContent = hourLabel;
     grid.appendChild(timeCell);
   });
 
+  // 4. Subtle Calendar Grid Lines (No dashes)
   for (let c = 2; c <= 6; c++) {
+    const colDayIdx = c - 2;
+    const isColToday = (DAYS[colDayIdx] && DAYS[colDayIdx].full === todayDayName);
     for (let r = 2; r <= 10; r++) {
       const emptyBg = document.createElement("div");
-      emptyBg.className = "matrix-cell-empty";
+      emptyBg.className = "matrix-cell-empty" + (isColToday ? " is-today-col" : "");
       emptyBg.style.gridColumn = `${c}`;
       emptyBg.style.gridRow = `${r}`;
-      emptyBg.innerHTML = "—";
+      // Clean subtle calendar grid - completely empty without any dashes
       grid.appendChild(emptyBg);
     }
   }
 
-  const effectiveSessions = getActiveEffectiveSessions();
+  // 5. Real-Time Live Indicator (Line & Badge)
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const jsDayIdx = now.getDay();
+  const isWeekday = (jsDayIdx >= 0 && jsDayIdx <= 4);
+
+  if (isWeekday && currentMinutes >= 480 && currentMinutes <= 1020) {
+    const todayCol = jsDayIdx + 2;
+    const relTopPx = ((currentMinutes - 480) / 60) * 76;
+    const hours12 = now.getHours() > 12 ? (now.getHours() - 12) : (now.getHours() === 0 ? 12 : now.getHours());
+    const timeStr = `${hours12}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    // Floating Badge on Time Axis
+    const timeBadgeWrap = document.createElement("div");
+    timeBadgeWrap.style.gridColumn = "1";
+    timeBadgeWrap.style.gridRow = "2 / span 9";
+    timeBadgeWrap.style.position = "relative";
+    timeBadgeWrap.style.pointerEvents = "none";
+    timeBadgeWrap.style.zIndex = "35";
+    timeBadgeWrap.innerHTML = `
+      <div class="timeline-live-time-badge" id="timelineLiveTimeBadge" style="top: ${relTopPx}px;">
+        ${timeStr}
+      </div>
+    `;
+    grid.appendChild(timeBadgeWrap);
+
+    // Horizontal Line Spanning Today's Column
+    const lineWrap = document.createElement("div");
+    lineWrap.style.gridColumn = `${todayCol}`;
+    lineWrap.style.gridRow = "2 / span 9";
+    lineWrap.style.position = "relative";
+    lineWrap.style.pointerEvents = "none";
+    lineWrap.style.zIndex = "25";
+    lineWrap.innerHTML = `
+      <div class="timeline-live-line-wrap" id="timelineLiveLineWrap" style="top: ${relTopPx}px;">
+        <div class="timeline-live-line">
+          <span class="timeline-live-dot"></span>
+        </div>
+      </div>
+    `;
+    grid.appendChild(lineWrap);
+  }
+
+  // 6. Proportional Schedule Cards Generation
+  const effectiveSessions = getActiveEffectiveSessions();
 
   DAYS.forEach((d, dIdx) => {
     const col = dIdx + 2;
@@ -2197,7 +2459,6 @@ function renderWeekMatrix() {
       const isDynamics = (sess.code === "EMC G101");
       const isMaterials = (sess.code === "MDP G121");
       const isSolidWorks = (sess.code === "MDP G111");
-      const isMarketing = (sess.code === "GEN G119");
       const hasCustomLinks = !!COURSE_CUSTOM_LINKS[sess.code];
 
       const hasConflict = daySessions.some(other => 
@@ -2207,68 +2468,100 @@ function renderWeekMatrix() {
         (sess.isDynSec || other.isDynSec)
       );
 
-      let widthStyle = "width: 100%;";
-      let leftStyle = "left: 0;";
+      let widthStyle = "width: calc(100% - 6px);";
+      let leftStyle = "left: 3px;";
 
       if (hasConflict) {
-        widthStyle = "width: calc(50% - 3px);";
+        widthStyle = "width: calc(50% - 5px);";
         if (sess.isDynSec) {
-          leftStyle = "left: calc(50% + 3px);";
+          leftStyle = "left: calc(50% + 2px);";
         } else {
-          leftStyle = "left: 0;";
+          leftStyle = "left: 3px;";
         }
       }
 
-      const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)" };
+      const course = COURSES[sess.code] || { name: sess.code, color: "var(--c-mth)", hex: "#38bdf8" };
       const isDimmed = (highlightedCourse && highlightedCourse !== sess.code) || (isPast && !showPastDays);
       const isHighlighted = highlightedCourse === sess.code;
       const hasTask = dayTasks.some(t => t.code === sess.code);
-
       const isCancelled = !!sess.cancelled;
+
+      // Determine session type badge: LEC, SEC, LAB
+      let typeBadge = sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC' : 'SEC');
+      if (sess.type && sess.type.toLowerCase().includes('lab')) {
+        typeBadge = 'LAB';
+      }
+
+      // Clean Room display for pin badge
+      const cleanRoom = (sess.room || "").split(" ")[0] || sess.room;
+      const hasNoticeOrNote = !!(sess.hasNotice || sess.note);
+
       const posWrap = document.createElement("div");
       posWrap.className = `grid-card-positioned ${isPast && !showPastDays ? 'matrix-col-past' : ''}`;
       posWrap.style.gridColumn = `${col}`;
       posWrap.style.gridRow = `${sess.start + 2} / span ${sess.span}`;
       posWrap.style.position = "relative";
       posWrap.style.height = "100%";
-      posWrap.style.zIndex = isLiveNow ? "10" : "5";
+      posWrap.style.zIndex = isLiveNow ? "15" : "5";
 
       posWrap.innerHTML = `
         <div class="grid-card ${isLiveNow && !isCancelled ? 'is-live-card' : ''} ${sess.isDynSec ? 'is-dynamics-card' : ''} ${sess.attendance && !isCancelled ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''} ${isCancelled ? 'is-cancelled-card' : ''}" 
-             style="--c: ${isCancelled ? '#ef4444' : (isLiveNow ? '#ef4444' : course.color)}; position: absolute; top: 2px; bottom: 2px; ${leftStyle} ${widthStyle}">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:4px;">
-            <span class="code" style="${isCancelled ? 'color:#ef4444;' : (isLiveNow ? 'color:#ef4444;' : '')}">${sess.code}</span>
-            <div style="display:flex;gap:3px;align-items:center;flex-shrink:0;">
-              ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 5px;border-radius:4px;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+             data-course="${sess.code}"
+             data-sess-id="${sess.day}-${sess.start}-${sess.code}"
+             style="--c: ${isCancelled ? '#ef4444' : course.hex}; position: absolute; top: 3px; bottom: 3px; ${leftStyle} ${widthStyle}">
+          
+          <!-- Card Header: Course Code (Left) + Badges (Right) -->
+          <div class="card-head-row">
+            <span class="code" style="${isCancelled ? 'color:#ef4444;' : `color:${course.hex};`}">${sess.code}</span>
+            <div class="card-badges">
+              ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
+              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.attendance && !isCancelled ? '<span class="badge-attendance-icon" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
-              ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
-              ${sess.attendance && !isCancelled ? '<span class="badge-attendance">⚠ ATTENDANCE</span>' : ''}
-              <span class="type">${sess.isDynSec ? 'SEC' : (sess.group === "ALL" ? 'LEC' : 'SEC')}</span>
+              ${hasNoticeOrNote && !isCancelled ? `<span class="badge-notice-bell" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم" onclick="event.stopPropagation(); openSessionNoticeModal(${col - 2}, ${sess.start}, '${sess.code}')">🔔</span>` : ''}
+              ${hasTask ? `<span class="type" style="background:var(--quiz-color);color:#fff;cursor:pointer;font-weight:800;" onclick="event.stopPropagation(); setView('tasks')">⚡ QUIZ</span>` : ''}
+              <span class="type">${typeBadge}</span>
             </div>
           </div>
-          <div class="title" style="${isCancelled ? 'text-decoration:line-through;opacity:0.75;' : ''}">${course.name}</div>
+
+          <!-- Card Body: Full Course Title -->
+          <div class="title" style="${isCancelled ? 'text-decoration:line-through;opacity:0.75;' : ''}" title="${escHtml(course.name)}">
+            ${course.name}
+          </div>
+
           ${isCancelled && sess.cancelNotice ? `<div style="font-size:9.5px;color:#fca5a5;font-weight:700;line-height:1.2;margin-top:2px;">📢 ${escHtml(sess.cancelNotice)}</div>` : ''}
-          ${!isCancelled && sess.note ? `
-            <div class="matrix-card-note" title="${escHtml(sess.note)}">
-              <span class="matrix-note-icon">📢</span>
-              <span class="matrix-note-text">${escHtml(sess.note)}</span>
-            </div>
-          ` : ''}
+
+          <!-- Card Footer: Polished Location Pin -->
           <div class="footer">
-            <div style="display:flex;gap:4px;align-items:center;min-width:0;flex-shrink:1;">
-              ${isSolidWorks ? `<span class="matrix-links-btn" style="color:#10b981;" onclick="setView('cad')">⚡ CAD</span>` : ''}
-              ${isDynamics ? `<span class="matrix-roadmap-btn" style="color:#6366f1;" onclick="openDynamicsRoadmapModal()">🗺️ Map</span>` : ''}
-              ${isMaterials ? `<span class="matrix-roadmap-btn" style="color:#f59e0b;" onclick="openMaterialsRoadmapModal()">🗺️ Map</span>` : ''}
-              ${hasCustomLinks ? `<span class="matrix-links-btn" onclick="openCourseLinksModal('${sess.code}')">🔗 Links</span>` : ''}
-              <span class="matrix-guide-btn" onclick="openCourseCapsule('${sess.code}')">💡 Guide</span>
+            <div class="room-pin-badge" title="عرض تفاصيل وموقع القاعة: ${escHtml(sess.room)}" onclick="event.stopPropagation(); showRoomDetails('${sess.room}')">
+              <span class="pin-icon">📍</span>
+              <span>${escHtml(cleanRoom)}</span>
             </div>
-            <div style="display:flex;gap:4px;align-items:center;flex-shrink:0;">
-              <span class="room-badge" title="${escHtml(sess.room)}" onclick="showRoomDetails('${sess.room}')">${escHtml(sess.room)} ↗</span>
+
+            <div class="card-action-chips">
+              ${isSolidWorks ? `<span class="card-chip-btn" style="color:#10b981;" onclick="event.stopPropagation(); setView('cad')" title="CAD Studio">⚡ CAD</span>` : ''}
+              ${isDynamics ? `<span class="card-chip-btn" style="color:#a78bfa;" onclick="event.stopPropagation(); openDynamicsRoadmapModal()" title="خريطة المنهج">🗺️ Map</span>` : ''}
+              ${isMaterials ? `<span class="card-chip-btn" style="color:#f59e0b;" onclick="event.stopPropagation(); openMaterialsRoadmapModal()" title="خريطة المنهج">🗺️ Map</span>` : ''}
+              ${hasCustomLinks ? `<span class="card-chip-btn" onclick="event.stopPropagation(); openCourseLinksModal('${sess.code}')" title="روابط المادة">🔗 Links</span>` : ''}
+              <span class="card-chip-btn" onclick="event.stopPropagation(); openCourseCapsule('${sess.code}')" title="دليل المادة">💡 Guide</span>
             </div>
           </div>
+
         </div>
       `;
+
+      // Interaction on card click
+      const cardEl = posWrap.querySelector(".grid-card");
+      if (cardEl) {
+        cardEl.addEventListener("click", () => {
+          if (hasNoticeOrNote) {
+            openSessionNoticeModal(col - 2, sess.start, sess.code);
+          } else {
+            openCourseCapsule(sess.code);
+          }
+        });
+      }
+
       grid.appendChild(posWrap);
     });
   });

@@ -18,7 +18,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=120">
+  <link rel="stylesheet" href="style.css?v=125">
 </head>
 <body>
 
@@ -320,6 +320,24 @@
       </div>
       <div class="modal-body" id="notifList"></div>
     </div>
+  </div>
+
+  <!-- Glassmorphic Session Notice & Submission Modal -->
+  <div class="modal-overlay" id="sessionNoticeModal" onclick="if(event.target===this) closeSessionNoticeModal()">
+    <div class="modal-card glass-notice-modal-card" id="sessionNoticeModalCard">
+      <div class="glass-notice-head" id="sessionNoticeModalHead">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="glass-notice-icon-box">🔔</div>
+          <div>
+            <h3 class="glass-notice-title" id="sessionNoticeModalTitle">تنبيه المادة</h3>
+            <p class="glass-notice-subtitle" id="sessionNoticeModalSubtitle">مواعيد الحضور وشروط التسليم الرسمية</p>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeSessionNoticeModal()">✕</button>
+      </div>
+      <div class="glass-notice-body" id="sessionNoticeModalBody"></div>
+    </div>
+  </div>
   <!-- Interactive Quiz Guide Modal -->
   <div class="modal-overlay quiz-guide-modal" id="quizGuideModal">
     <div class="modal-card quiz-guide-card" id="quizGuideCard">
@@ -367,8 +385,8 @@
   </div>
 
   <!-- Application Logic Scripts -->
-  <script src="./data.js?v=121"></script>
-  <script src="./app.js?v=121"></script>
+  <script src="./data.js?v=125"></script>
+  <script src="./app.js?v=125"></script>
 </body>
 </html>
 
