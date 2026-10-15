@@ -442,6 +442,74 @@ body {
 
 /* Dimming & Highlighting */
 .grid-card, .timeline-card { transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+
+
+/* ==========================================================================
+   Distinct Materialized Palettes for Schedule Cards (Daily & Weekly Views)
+   ========================================================================== */
+
+/* 1. GEN G119: Entrepreneurship and Marketing (Sky Blue / Turquoise / Cyan) */
+.timeline-card[data-course="GEN G119"] {
+  --c: #06b6d4 !important;
+  background: rgba(6, 182, 212, 0.15) !important;
+  border: 1px solid rgba(6, 182, 212, 0.35) !important;
+  border-left: 4px solid #06b6d4 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22), 0 0 18px rgba(6, 182, 212, 0.16) !important;
+}
+.timeline-card[data-course="GEN G119"]:hover {
+  background: rgba(6, 182, 212, 0.22) !important;
+  border-color: rgba(34, 211, 238, 0.55) !important;
+  border-left: 4px solid #22d3ee !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 24px rgba(6, 182, 212, 0.28) !important;
+}
+.timeline-card[data-course="GEN G119"] .card-top span[style*="font-family:'JetBrains Mono'"],
+.timeline-card[data-course="GEN G119"] .code,
+.grid-card[data-course="GEN G119"] .code {
+  color: #22d3ee !important;
+}
+
+/* 2. MDP G111: Computer-Aided Mechanical Drafting (Emerald / Teal Green) */
+.timeline-card[data-course="MDP G111"] {
+  --c: #10b981 !important;
+  background: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.32) !important;
+  border-left: 4px solid #10b981 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22), 0 0 16px rgba(16, 185, 129, 0.12) !important;
+}
+.timeline-card[data-course="MDP G111"]:hover {
+  background: rgba(16, 185, 129, 0.16) !important;
+  border-color: rgba(52, 211, 153, 0.55) !important;
+  border-left: 4px solid #34d399 !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 22px rgba(16, 185, 129, 0.24) !important;
+}
+.timeline-card[data-course="MDP G111"] .card-top span[style*="font-family:'JetBrains Mono'"],
+.timeline-card[data-course="MDP G111"] .code,
+.grid-card[data-course="MDP G111"] .code {
+  color: #34d399 !important;
+}
+
+/* Light Mode Card Color Adjustments */
+[data-theme="light"] .timeline-card[data-course="GEN G119"] {
+  background: rgba(6, 182, 212, 0.1) !important;
+  border: 1px solid rgba(6, 182, 212, 0.35) !important;
+  border-left: 4px solid #06b6d4 !important;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.12) !important;
+}
+[data-theme="light"] .timeline-card[data-course="GEN G119"] .card-top span[style*="font-family:'JetBrains Mono'"],
+[data-theme="light"] .grid-card[data-course="GEN G119"] .code {
+  color: #0891b2 !important;
+}
+
+[data-theme="light"] .timeline-card[data-course="MDP G111"] {
+  background: rgba(16, 185, 129, 0.08) !important;
+  border: 1px solid rgba(16, 185, 129, 0.32) !important;
+  border-left: 4px solid #10b981 !important;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.1) !important;
+}
+[data-theme="light"] .timeline-card[data-course="MDP G111"] .card-top span[style*="font-family:'JetBrains Mono'"],
+[data-theme="light"] .grid-card[data-course="MDP G111"] .code {
+  color: #059669 !important;
+}
 .grid-card.dimmed, .timeline-card.dimmed { opacity: 0.15 !important; filter: grayscale(80%); }
 .grid-card.highlighted, .timeline-card.highlighted { opacity: 1 !important; box-shadow: 0 0 0 2.5px var(--c), 0 6px 18px rgba(0,0,0,0.12) !important; transform: scale(1.02); z-index: 5; }
 @keyframes cardCascade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -667,17 +735,27 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 16px rgba(56, 189, 248, 0.25);
 }
 
-.grid-card[data-course="MDP G111"],
-.grid-card[data-course="GEN G119"] {
+.grid-card[data-course="MDP G111"] {
   --c: #10b981;
   --c-rgb: 16, 185, 129;
-  background: rgba(20, 184, 166, 0.14);
-  border-color: rgba(45, 212, 191, 0.32);
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.35);
 }
-.grid-card[data-course="MDP G111"]:hover,
+.grid-card[data-course="MDP G111"]:hover {
+  border-color: rgba(16, 185, 129, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 18px rgba(16, 185, 129, 0.28);
+}
+
+.grid-card[data-course="GEN G119"] {
+  --c: #06b6d4;
+  --c-rgb: 6, 182, 212;
+  background: rgba(6, 182, 212, 0.15) !important;
+  border-color: rgba(6, 182, 212, 0.38) !important;
+}
 .grid-card[data-course="GEN G119"]:hover {
-  border-color: rgba(45, 212, 191, 0.6);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 16px rgba(45, 212, 191, 0.25);
+  background: rgba(6, 182, 212, 0.22) !important;
+  border-color: #22d3ee !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(6, 182, 212, 0.32) !important;
 }
 
 .grid-card[data-course="MDP G121"] {
