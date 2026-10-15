@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CUFE ME1 Batch 30 Hub — Cinematic Experience & Walkthrough</title>
+  
+  <meta name="theme-color" content="#070b12">
+  <link rel="icon" type="image/png" href="./icon-192.png">
+
+  <!-- Google Fonts: Cairo, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       Cinematic Promo Stage — CSS Design Tokens & Reset
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #060911;
+      --surface: rgba(15, 23, 42, 0.75);
+      --surface-card: rgba(22, 32, 53, 0.85);
+      --border: rgba(255, 255, 255, 0.1);
+      --border-glow: rgba(56, 189, 248, 0.4);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #0284c7;
+      --accent-light: #38bdf8;
+      --cyan: #06b6d4;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --orange: #fb923c;
+      --purple: #8b5cf6;
+      --rose: #f43f5e;
+      --font-ar: 'Cairo', system-ui, -apple-system, sans-serif;
+      --font-en: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ar);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+      -webkit-user-select: none;
+      position: relative;
+    }
+
+    /* Aurora Mesh Dynamic Background */
+    .aurora-bg {
+      position: absolute;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.65;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      mix-blend-mode: screen;
+      animation: auroraDrift 20s infinite alternate ease-in-out;
+    }
+
+    .blob-1 { width: 600px; height: 600px; background: rgba(6, 182, 212, 0.35); top: 20%; left: 15%; animation-duration: 22s; }
+    .blob-2 { width: 700px; height: 700px; background: rgba(139, 92, 246, 0.3); top: 30%; right: 15%; animation-duration: 26s; }
+    .blob-3 { width: 500px; height: 500px; background: rgba(16, 185, 129, 0.25); bottom: 15%; left: 35%; animation-duration: 18s; }
+    .blob-4 { width: 450px; height: 450px; background: rgba(245, 158, 11, 0.25); top: 10%; right: 35%; animation-duration: 24s; }
+
+    @keyframes auroraDrift {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(60px, -40px) scale(1.12) rotate(45deg); }
+      100% { transform: translate(-50px, 50px) scale(0.92) rotate(-30deg); }
+    }
+
+    /* Subtle Cyber Grid Overlay */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.7;
+    }
+
+    /* Vignette & Cinema Letterbox Frame */
+    .cinema-frame {
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85), inset 0 0 200px rgba(6, 9, 17, 0.9);
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* 60fps GPU Stage Viewport */
+    .stage-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      z-index: 10;
+      padding: 40px 20px 90px 20px;
+    }
+
+    /* Scenes Container */
+    .scene {
+      position: absolute;
+      width: 100%;
+      max-width: 1100px;
+      height: 80vh;
+      max-height: 640px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translate3d(0, 40px, -150px) scale(0.92);
+      pointer-events: none;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+
+    .scene.active {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      pointer-events: auto;
+    }
+
+    .scene.exit-left {
+      opacity: 0;
+      transform: translate3d(-100px, -20px, -250px) scale(0.85);
+    }
+
+    .scene.exit-right {
+      opacity: 0;
+      transform: translate3d(100px, 20px, -250px) scale(0.85);
+    }
+
+    /* Virtual Animated Cursor */
+    .virtual-cursor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 26px;
+      height: 26px;
+      pointer-events: none;
+      z-index: 500;
+      transition: transform 0.65s cubic-bezier(0.2, 0.9, 0.3, 1.15), opacity 0.3s ease;
+      will-change: transform;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+    }
+
+    .virtual-cursor svg {
+      width: 100%;
+      height: 100%;
+      fill: #ffffff;
+      stroke: #0284c7;
+      stroke-width: 1.5;
+    }
+
+    .cursor-ripple {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-light);
+      pointer-events: none;
+      z-index: 499;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .cursor-ripple.animate {
+      animation: rippleBurst 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes rippleBurst {
+      0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+    }
+
+    /* Top Scrubber & Segmented Timeline Bar */
+    .top-progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 300;
+    }
+
+    .top-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #06b6d4, #10b981, #f59e0b, #8b5cf6);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+      transition: width 0.1s linear;
+    }
+
+    .timeline-markers {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .timeline-marker {
+      width: 2px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Lower Dynamic Captions Bar */
+    .captions-bar {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 10px 24px;
+      border-radius: 9999px;
+      z-index: 250;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(2, 132, 199, 0.2);
+      max-width: 90vw;
+      transition: all 0.4s ease;
+    }
+
+    .caption-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .caption-text {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.4;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Director Control Bar (Auto-hiding luxury pill) */
+    .director-controls {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      z-index: 350;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .director-controls.hidden-mode {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px);
+      pointer-events: none;
+    }
+
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
+      font-family: var(--font-ar);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .ctrl-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .ctrl-btn.active {
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+    }
+
+    .scene-jump-btn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 8px;
+    }
+
+    .time-display {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--accent-light);
+      padding: 0 4px;
+    }
+
+    /* Floating Controls Trigger Chip (always accessible when controls auto-hide) */
+    .controls-peek-btn {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 360;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: all 0.2s;
+    }
+    .controls-peek-btn:hover {
+      opacity: 1;
+      color: #fff;
+      border-color: var(--accent-light);
+    }
+
+    /* Exit to Hub Button */
+    .exit-hub-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 360;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: #fdba74;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .exit-hub-btn:hover {
+      background: rgba(249, 115, 22, 0.3);
+      color: #fff;
+      box-shadow: 0 0 14px rgba(249, 115, 22, 0.4);
+    }
+
+    /* ==========================================================================
+       SCENE 1: Cinematic Intro Showcase
+       ========================================================================== */
+    .intro-box {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .intro-emblem {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      animation: floatBadge 4s infinite ease-in-out;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .intro-title {
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #ffffff 20%, #38bdf8 60%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(56, 189, 248, 0.3);
+    }
+
+    .intro-sub {
+      font-size: 21px;
+      font-weight: 700;
+      color: #e2e8f0;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+
+    .intro-cards-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .intro-feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #f1f5f9;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .intro-feature-pill:hover {
+      transform: translateY(-4px) scale(1.03);
+      border-color: var(--accent-light);
+    }
+
+    /* ==========================================================================
+       SCENE 2: Smart Proportional Schedule & Golden Bell Modal
+       ========================================================================== */
+    .schedule-mockup-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .schedule-window {
+      width: 95%;
+      max-width: 960px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(2, 132, 199, 0.18);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: rotateX(8deg) rotateY(-3deg);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sched-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(22, 32, 53, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sched-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sched-days-bar {
+      display: flex;
+      gap: 6px;
+      padding: 8px 18px;
+      background: rgba(11, 17, 33, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .day-pill {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+    }
+    .day-pill.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
+    }
+
+    .sched-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 18px;
+      background: rgba(6, 10, 18, 0.6);
+      min-height: 240px;
+    }
+
+    /* Live Red Indicator Line */
+    .live-time-indicator {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 38%;
+      width: 2.5px;
+      background: #ef4444;
+      box-shadow: 0 0 16px #ef4444, 0 0 28px rgba(239, 68, 68, 0.6);
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .live-time-beacon {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ef4444;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+      box-shadow: 0 0 12px #ef4444;
+      animation: pulseBeacon 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseBeacon {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.08); opacity: 0.85; }
+    }
+
+    .sched-card {
+      background: rgba(18, 26, 43, 0.85);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .sched-card.amber-glow {
+      border-left: 4px solid var(--amber);
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.12);
+    }
+    .sched-card.cyan-glow {
+      border-left: 4px solid var(--cyan);
+      box-shadow: 0 4px 18px rgba(6, 182, 212, 0.12);
+    }
+    .sched-card.purple-glow {
+      border-left: 4px solid var(--purple);
+      box-shadow: 0 4px 18px rgba(139, 92, 246, 0.12);
+    }
+    .sched-card.emerald-glow {
+      border-left: 4px solid var(--emerald);
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.12);
+    }
+
+    .sched-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .sched-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+
+    .sched-bell-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .sched-bell-btn.pulse-ring {
+      animation: bellPulse 1.2s infinite ease-in-out;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+    }
+
+    @keyframes bellPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
+    }
+
+    .sched-title-sub {
+      font-size: 13px;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .sched-meta {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge-alert-mini {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    /* Yellow Glass Notes Modal (Pops in Scene 2) */
+    .yellow-glass-modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.7);
+      width: 90%;
+      max-width: 440px;
+      background: rgba(30, 24, 10, 0.92);
+      border: 1.5px solid rgba(245, 158, 11, 0.5);
+      border-radius: 20px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(245, 158, 11, 0.3);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .yellow-glass-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-yellow-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fbbf24;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+      padding-bottom: 8px;
+    }
+
+    .modal-yellow-body {
+      font-size: 12.5px;
+      color: #fef08a;
+      line-height: 1.6;
+    }
+
+    .modal-yellow-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-yellow-action {
+      flex: 1;
+      background: rgba(245, 158, 11, 0.25);
+      border: 1px solid rgba(245, 158, 11, 0.6);
+      color: #ffffff;
+      font-family: var(--font-ar);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.2);
+    }
+
+    /* ==========================================================================
+       SCENE 3: Interactive Quiz Simulator V2
+       ========================================================================== */
+    .simulator-window {
+      width: 95%;
+      max-width: 720px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1.5px solid rgba(6, 182, 212, 0.4);
+      border-radius: 22px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(6, 182, 212, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .sim-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      background: rgba(22, 32, 53, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sim-timer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 800;
+      color: #fbbf24;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Lobby State */
+    .sim-lobby-view {
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .sim-lobby-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #38bdf8;
+    }
+
+    .sim-lobby-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .sim-mode-card {
+      background: rgba(22, 32, 53, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 20px 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .sim-mode-card.selected, .sim-mode-card:hover {
+      border-color: #06b6d4;
+      background: rgba(6, 182, 212, 0.12);
+      box-shadow: 0 8px 30px rgba(6, 182, 212, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .sim-mode-icon {
+      font-size: 28px;
+    }
+
+    .sim-mode-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .sim-mode-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Active Question View */
+    .sim-arena-view {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sim-progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .sim-progress-fill {
+      height: 100%;
+      width: 15%;
+      background: linear-gradient(90deg, #06b6d4, #10b981);
+      border-radius: 9999px;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+      transition: width 0.4s ease;
+    }
+
+    .sim-question-box {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.5;
+      background: rgba(22, 32, 53, 0.6);
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      direction: ltr;
+      text-align: left;
+    }
+
+    .sim-options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      direction: ltr;
+    }
+
+    .sim-option-btn {
+      background: rgba(22, 32, 53, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #e2e8f0;
+      font-family: var(--font-en);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .sim-option-btn.selected-correct {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
+      color: #ffffff;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
+      transform: scale(1.02);
+    }
+
+    .correct-indicator-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #10b981;
+      background: rgba(16, 185, 129, 0.2);
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ==========================================================================
+       SCENE 4: Weekly Study Guide & CAD Hub Showcase
+       ========================================================================== */
+    .guide-cad-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .cad-hub-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cad-hub-title {
+      font-size: 24px;
+      font-weight: 900;
+      color: #10b981;
+      text-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .cad-hub-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .cad-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .cad-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cad-card:hover, .cad-card.highlighted {
+      border-color: #10b981;
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(16, 185, 129, 0.25);
+    }
+
+    .cad-thumb-mock {
+      width: 100%;
+      height: 100px;
+      background: rgba(6, 10, 18, 0.8);
+      border: 1px dashed rgba(16, 185, 129, 0.3);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #34d399;
+      font-size: 26px;
+      position: relative;
+    }
+
+    .cad-sheet-tag {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 9px;
+      font-weight: 800;
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .cad-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.35;
+    }
+
+    .cad-card-btn-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .cad-btn-mini {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 6px 4px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cad-btn-mini.glow {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #a7f3d0;
+    }
+
+    /* ==========================================================================
+       SCENE 5: Tasks Radar & Dark/Light Mode Split Wipe
+       ========================================================================== */
+    .tasks-wipe-container {
+      width: 100%;
+      max-width: 980px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 24px;
+      padding: 10px;
+    }
+
+    .tasks-grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+      position: relative;
+      z-index: 5;
+    }
+
+    .task-card-mock {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .task-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task-subj {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--accent-light);
+    }
+
+    .task-badge-cd {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+
+    .task-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .task-details-pill {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .task-action-btn-mock {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 12px;
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* Split Wipe Laser & Light Mode Layer */
+    .split-wipe-blade {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px;
+      background: #ffffff;
+      box-shadow: 0 0 25px #ffffff, 0 0 45px #38bdf8;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .light-mode-layer {
+      position: absolute;
+      inset: 0;
+      background: #f8fafc;
+      border-radius: 24px;
+      clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      transition: clip-path 0.1s linear;
+    }
+
+    .light-mode-layer .task-card-mock {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    .light-mode-layer .task-title { color: #0f172a; }
+    .light-mode-layer .task-details-pill { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+    .light-mode-layer .task-action-btn-mock { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+
+    /* ==========================================================================
+       SCENE 6: Outro & Grand Call to Action
+       ========================================================================== */
+    .outro-box {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 780px;
+    }
+
+    .outro-logo {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 10%, #38bdf8 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
+    }
+
+    .outro-sub {
+      font-size: 18px;
+      font-weight: 700;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .outro-badges-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .outro-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .outro-actions-row {
+      display: flex;
+      gap: 14px;
+      width: 100%;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .btn-launch-hub {
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+      color: #ffffff;
+      font-family: var(--font-ar);
+      font-size: 15px;
+      font-weight: 900;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-launch-hub:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 14px 38px rgba(6, 182, 212, 0.55);
+    }
+
+    .btn-replay-tour {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-family: var(--font-ar);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 24px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-replay-tour:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 768px) {
+      .intro-title { font-size: 32px; }
+      .intro-sub { font-size: 16px; }
+      .sched-grid { grid-template-columns: 1fr 1fr; }
+      .cad-grid-4 { grid-template-columns: 1fr 1fr; }
+      .tasks-grid-4 { grid-template-columns: 1fr; }
+      .director-controls { font-size: 11px; padding: 4px 10px; }
+      .scene-jump-btn { display: none; }
+      .outro-badges-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Aurora Background & Cinema Overlay -->
+  <div class="aurora-bg">
+    <div class="aurora-blob blob-1"></div>
+    <div class="aurora-blob blob-2"></div>
+    <div class="aurora-blob blob-3"></div>
+    <div class="aurora-blob blob-4"></div>
+  </div>
+  <div class="grid-overlay"></div>
+  <div class="cinema-frame"></div>
+
+  <!-- Virtual Animated Cursor & Ripple -->
+  <div class="virtual-cursor" id="virtualCursor">
+    <svg viewBox="0 0 24 24">
+      <path d="M4.5 2.5L20.5 10.5L12.5 13.5L8.5 21.5L4.5 2.5Z"/>
+    </svg>
+  </div>
+  <div class="cursor-ripple" id="cursorRipple"></div>
+
+  <!-- Top Timeline Scrubber Bar -->
+  <div class="top-progress-bar">
+    <div class="top-progress-fill" id="topProgressFill"></div>
+    <div class="timeline-markers">
+      <div class="timeline-marker" style="left: 0%;"></div>
+      <div class="timeline-marker" style="left: 12%;"></div>
+      <div class="timeline-marker" style="left: 32%;"></div>
+      <div class="timeline-marker" style="left: 52%;"></div>
+      <div class="timeline-marker" style="left: 72%;"></div>
+      <div class="timeline-marker" style="left: 88%;"></div>
+    </div>
+  </div>
+
+  <!-- Director Controls Bar -->
+  <div class="director-controls" id="directorControls">
+    <button class="ctrl-btn" id="playPauseBtn" onclick="togglePlayPause()">
+      <span id="playPauseIcon">⏸️</span>
+      <span id="playPauseText">إيقاف</span>
+    </button>
+    <button class="ctrl-btn active" id="fullscreenRecordBtn" onclick="toggleFullscreenRecord()">
+      <span>📺</span>
+      <span>وضع التسجيل السينمائي</span>
+    </button>
+    
+    <div style="display:flex; gap:4px;">
+      <button class="ctrl-btn scene-jump-btn" onclick="jumpToScene(0)" title="المشهد 1: المقدمة">1</button>
+      <button class="ctrl-btn scene-jump-btn" onclick="jumpToScene(1)" title="المشهد 2: الجدول والجرس">2</button>
+      <button class="ctrl-btn scene-jump-btn" onclick="jumpToScene(2)" title="المشهد 3: محاكي الكويزات">3</button>
+      <button class="ctrl-btn scene-jump-btn" onclick="jumpToScene(3)" title="المشهد 4: الجايد والسوليد">4</button>
+      <button class="ctrl-btn scene-jump-btn" onclick="jumpToScene(4)" title="المشهد 5: رادار المهام">5</button>
+      <button class="ctrl-btn scene-jump-btn" onclick="jumpToScene(5)" title="المشهد 6: الختام">6</button>
+    </div>
+
+    <button class="ctrl-btn" id="soundToggleBtn" onclick="toggleSound()">
+      <span id="soundIcon">🔊</span>
+    </button>
+
+    <span class="time-display" id="timeDisplay">00:00 / 00:46</span>
+  </div>
+
+  <!-- Corner Buttons -->
+  <button class="controls-peek-btn" onclick="showControlsTemporarily()">⚙️ أزرار التحكم</button>
+  <a href="index.html" class="exit-hub-btn">
+    <span>🏠</span>
+    <span>الدخول للمنصة</span>
+  </a>
+
+  <!-- ==========================================================================
+       MAIN SCENE STAGE (6 AUTOMATED CINEMATIC SCENES)
+       ========================================================================== -->
+  <div class="stage-viewport" id="stageViewport">
+
+    <!-- SCENE 1: Cinematic Intro (0.0s - 5.5s) -->
+    <section class="scene active" id="scene-0">
+      <div class="intro-box">
+        <div class="intro-emblem">
+          <span>🏛️</span>
+          <span>كلية الهندسة جامعة القاهرة — قسم الهندسة الميكانيكية</span>
+        </div>
+        <h1 class="intro-title">CUFE ME1 — BATCH 30 HUB</h1>
+        <p class="intro-sub">كل ما يحتاجه طالب أولى ميكانيكا.. في منصة واحدة ذكية 🚀</p>
+        <div class="intro-cards-row">
+          <div class="intro-feature-pill">
+            <span>⚡</span>
+            <span>جدول ذكي دقيق ولحظي</span>
+          </div>
+          <div class="intro-feature-pill">
+            <span>🎮</span>
+            <span>محاكي كويزات تفاعلي</span>
+          </div>
+          <div class="intro-feature-pill">
+            <span>📐</span>
+            <span>بنك شيتات وسوليد وورك</span>
+          </div>
+          <div class="intro-feature-pill">
+            <span>🔔</span>
+            <span>تنبيهات وملاحظات السكاشن</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 2: Smart Proportional Schedule & Bell Modal (5.5s - 14.5s) -->
+    <section class="scene" id="scene-1">
+      <div class="schedule-mockup-wrapper">
+        <div class="schedule-window" id="schedWindowMock">
+          <div class="sched-head">
+            <div class="sched-title">
+              <span>📅</span>
+              <span>الأسبوع الدراسي الرابع · جدول المحاضرات والسكاشن المعتمد</span>
+            </div>
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted);">
+              ME1-01 · Fall Semester
+            </div>
+          </div>
+          <div class="sched-days-bar">
+            <div class="day-pill">الأحد</div>
+            <div class="day-pill active">الإثنين (اليوم)</div>
+            <div class="day-pill">الثلاثاء</div>
+            <div class="day-pill">الأربعاء</div>
+            <div class="day-pill">الخميس</div>
+          </div>
+          <div class="sched-grid">
+            <!-- Live Time Indicator Line -->
+            <div class="live-time-indicator">
+              <div class="live-time-beacon">🔴 الوقت الحالي (10:45 ص)</div>
+            </div>
+
+            <!-- Monday Slots -->
+            <div class="sched-card amber-glow" id="mdpSchedCard">
+              <div class="sched-card-top">
+                <span class="sched-code">MDP G121</span>
+                <button class="sched-bell-btn pulse-ring" id="bellIconBtn" title="ملاحظات السكشن">🔔</button>
+              </div>
+              <div class="sched-title-sub">Materials Science (علم المواد)</div>
+              <div class="sched-meta">
+                <span>📍 مدرج 7104</span>
+                <span class="badge-alert-mini">⚠️ ATTENDANCE</span>
+              </div>
+            </div>
+
+            <div class="sched-card cyan-glow">
+              <div class="sched-card-top">
+                <span class="sched-code" style="color:#06b6d4;">GEN G119</span>
+                <span style="font-size:12px;">📢</span>
+              </div>
+              <div class="sched-title-sub">Marketing & Strategy</div>
+              <div class="sched-meta">
+                <span>📍 مدرج 3103</span>
+                <span class="badge-alert-mini" style="color:#38bdf8; border-color:#38bdf8; background:rgba(56,189,248,0.15);">⚡ كويز 2</span>
+              </div>
+            </div>
+
+            <div class="sched-card purple-glow">
+              <div class="sched-card-top">
+                <span class="sched-code" style="color:#c084fc;">EMC G101</span>
+                <span style="font-size:12px;">🏎️</span>
+              </div>
+              <div class="sched-title-sub">Dynamics of Rigid Bodies</div>
+              <div class="sched-meta">
+                <span>📍 مدرج 7104</span>
+                <span>08:30 - 10:00</span>
+              </div>
+            </div>
+
+            <div class="sched-card emerald-glow">
+              <div class="sched-card-top">
+                <span class="sched-code" style="color:#34d399;">MDP G111</span>
+                <span style="font-size:12px;">📐</span>
+              </div>
+              <div class="sched-title-sub">SolidWorks CAD Drafting</div>
+              <div class="sched-meta">
+                <span>📍 معمل الحاسب</span>
+                <span>12:30 - 15:30</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Yellow Glass Bell Pop-up Modal -->
+        <div class="yellow-glass-modal" id="yellowGlassModal">
+          <div class="modal-yellow-head">
+            <span>🔔</span>
+            <span>ملاحظات سكشن الماتيريال — مدرج 7104</span>
+          </div>
+          <div class="modal-yellow-body">
+            📢 تنبيه هام من المعيد: تم تأكيد كويز 1 الثلاثاء 20 أكتوبر على <strong>Crystal Structure</strong>، والتسليم مجمع لأول أساينمنت.
+          </div>
+          <div class="modal-yellow-actions">
+            <button class="btn-yellow-action" id="modalLecBtn">📄 سلايدات المحاضرة</button>
+            <button class="btn-yellow-action" id="modalShtBtn">📝 الشيت وحل المسائل</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3: Interactive Quiz Simulator V2 (14.5s - 24.0s) -->
+    <section class="scene" id="scene-2">
+      <div class="simulator-window" id="simulatorWindow">
+        <div class="sim-head">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:16px;">🎮</span>
+            <span style="font-weight:800; font-size:13.5px; color:#38bdf8;">GEN G119 — Marketing Quiz 2 Arena</span>
+          </div>
+          <div class="sim-timer-badge" id="simTimerDisplay">
+            <span>⏱️</span>
+            <span id="simSeconds">04:58</span>
+          </div>
+        </div>
+
+        <!-- View A: Lobby Selection Screen -->
+        <div class="sim-lobby-view" id="simLobbyView">
+          <div class="sim-lobby-title">اختر نظام تشغيل المحاكي للبدء</div>
+          <div class="sim-lobby-grid">
+            <div class="sim-mode-card selected" id="simRealModeCard">
+              <div class="sim-mode-icon">⚡</div>
+              <div class="sim-mode-title">تحدي الـ 5 دقائق الواقعي</div>
+              <div class="sim-mode-desc">20 سؤال عشوائي سريع بمؤقت تنازلي حقيقي يحاكي امتحان المحاضرة.</div>
+            </div>
+            <div class="sim-mode-card" id="simBankModeCard">
+              <div class="sim-mode-icon">📚</div>
+              <div class="sim-mode-title">بنك الأسئلة الكامل (125 سؤال)</div>
+              <div class="sim-mode-desc">تدريب مفتوح بدون وقت مع إظهار الإجابات وشرح المفاهيم.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View B: Active Live Question Arena -->
+        <div class="sim-arena-view" id="simArenaView" style="display:none;">
+          <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; color:var(--text-muted);">
+            <span>السؤال 1 من 20</span>
+            <span style="color:#10b981; font-weight:800;">النتيجة الحالية: 100%</span>
+          </div>
+          <div class="sim-progress-track">
+            <div class="sim-progress-fill" id="simProgressFill"></div>
+          </div>
+
+          <div class="sim-question-box">
+            Which of the following involves adapting a firm to take advantage of opportunities in its constantly changing environment?
+          </div>
+
+          <div class="sim-options-grid">
+            <div class="sim-option-btn" id="optA">
+              <span>A) Long-range planning</span>
+            </div>
+            <div class="sim-option-btn" id="optB">
+              <span>B) Short-range planning</span>
+            </div>
+            <div class="sim-option-btn" id="optC">
+              <span>C) Media planning</span>
+            </div>
+            <div class="sim-option-btn" id="optD">
+              <span>D) Strategic planning</span>
+              <span class="correct-indicator-tag" id="correctTag" style="display:none;">✓ Correct! (+1 Point)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 4: Weekly Study Guide & CAD Hub (24.0s - 33.0s) -->
+    <section class="scene" id="scene-3">
+      <div class="guide-cad-container">
+        <div class="cad-hub-header">
+          <div class="cad-hub-title">📐 SolidWorks CAD Hub & Weekly Guide</div>
+          <div class="cad-hub-sub">دليل شامل لتجميعات الـ CAD وموديلات الـ 3D مع شروحات الفيديو خطوة بخطوة</div>
+        </div>
+
+        <div class="cad-grid-4">
+          <!-- Card 1 -->
+          <div class="cad-card" id="cadCard1">
+            <div class="cad-thumb-mock">
+              <span class="cad-sheet-tag">Sheet 1</span>
+              <span>⚙️</span>
+            </div>
+            <div class="cad-card-title">Pulley Bracket Assembly</div>
+            <div class="cad-card-btn-row">
+              <span class="cad-btn-mini">📐 الرسم PDF</span>
+              <span class="cad-btn-mini glow">🎬 الشرح</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="cad-card" id="cadCard2">
+            <div class="cad-thumb-mock">
+              <span class="cad-sheet-tag">Sheet 2</span>
+              <span>🔩</span>
+            </div>
+            <div class="cad-card-title">Clamping Device Mechanism</div>
+            <div class="cad-card-btn-row">
+              <span class="cad-btn-mini">📐 الرسم PDF</span>
+              <span class="cad-btn-mini glow">🎬 الشرح</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="cad-card" id="cadCard3">
+            <div class="cad-thumb-mock">
+              <span class="cad-sheet-tag">Sheet 3</span>
+              <span>🗜️</span>
+            </div>
+            <div class="cad-card-title">Shaft Support & Flanges</div>
+            <div class="cad-card-btn-row">
+              <span class="cad-btn-mini">📐 الرسم PDF</span>
+              <span class="cad-btn-mini glow">🎬 الشرح</span>
+            </div>
+          </div>
+
+          <!-- Card 4 (Target) -->
+          <div class="cad-card highlighted" id="cadCard4">
+            <div class="cad-thumb-mock" style="border-color:#10b981; background:rgba(16,185,129,0.1);">
+              <span class="cad-sheet-tag" style="background:#10b981; color:#fff;">Sheet 4</span>
+              <span>🏗️</span>
+            </div>
+            <div class="cad-card-title" style="color:#a7f3d0;">Screw Jack Assembly (الفورمة)</div>
+            <div class="cad-card-btn-row">
+              <span class="cad-btn-mini">📐 الرسم PDF</span>
+              <span class="cad-btn-mini glow" id="screwJackPlayBtn" style="background:#10b981; color:#fff;">🎬 الشرح بالفيديو ↗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 5: Tasks Radar & Dark/Light Mode Split Wipe (33.0s - 41.5s) -->
+    <section class="scene" id="scene-4">
+      <div class="tasks-wipe-container" id="tasksWipeContainer">
+        
+        <!-- Dark Mode Base Layer -->
+        <div class="tasks-grid-4">
+          <div class="task-card-mock" style="border-left: 4px solid #06b6d4;">
+            <div class="task-top">
+              <span class="task-subj" style="color:#06b6d4;">GEN G119</span>
+              <span class="task-badge-cd" style="color:#22d3ee; border-color:#06b6d4;">⏱️ 2d 6h 15m</span>
+            </div>
+            <div class="task-title">Quiz 2 — Marketing Strategy (Chapter 2)</div>
+            <div class="task-details-pill">
+              <span>📍 مدرج 3103-414</span>
+              <span>مدة الكويز 5 دقائق</span>
+            </div>
+            <div class="task-action-btn-mock">🎮 ابدأ محاكي كويز 2</div>
+          </div>
+
+          <div class="task-card-mock" style="border-left: 4px solid #f59e0b;">
+            <div class="task-top">
+              <span class="task-subj" style="color:#f59e0b;">MDP G121</span>
+              <span class="task-badge-cd">⏱️ 4d 6h 15m</span>
+            </div>
+            <div class="task-title">Quiz 1 — Crystal Structure (Materials)</div>
+            <div class="task-details-pill">
+              <span>📍 مدرج 7104</span>
+              <span>مقرر: Crystal Structure</span>
+            </div>
+            <div class="task-action-btn-mock" style="border-color:#f59e0b; background:rgba(245,158,11,0.15);">📚 فتح جايد المادة</div>
+          </div>
+
+          <div class="task-card-mock" style="border-left: 4px solid #fb923c;">
+            <div class="task-top">
+              <span class="task-subj" style="color:#fb923c;">EPE G113</span>
+              <span class="task-badge-cd" style="color:#fdba74; border-color:#fb923c;">⏱️ 11d 6h 15m</span>
+            </div>
+            <div class="task-title">Quiz 1 — Sheets 1, 2, 3, 4 (Electrical)</div>
+            <div class="task-details-pill">
+              <span>📍 مدرج 7104</span>
+              <span>مقرر: الشيتات 1 إلى 4</span>
+            </div>
+            <div class="task-action-btn-mock" style="border-color:#fb923c; background:rgba(251,146,60,0.15);">📚 فتح جايد المادة</div>
+          </div>
+
+          <div class="task-card-mock" style="border-left: 4px solid #8b5cf6;">
+            <div class="task-top">
+              <span class="task-subj" style="color:#8b5cf6;">EMC G101</span>
+              <span class="task-badge-cd" style="color:#c084fc; border-color:#8b5cf6;">⏱️ 12d 6h 15m</span>
+            </div>
+            <div class="task-title">Quiz 1 — MOI & Plane Kinematics</div>
+            <div class="task-details-pill">
+              <span>📍 مدرج 7104</span>
+              <span>ديناميكا الأجسام الجاسئة</span>
+            </div>
+            <div class="task-action-btn-mock" style="border-color:#8b5cf6; background:rgba(139,92,246,0.15);">📚 فتح جايد المادة</div>
+          </div>
+        </div>
+
+        <!-- Light Mode Reveal Layer (for Split Wipe Transition) -->
+        <div class="light-mode-layer" id="lightModeLayer">
+          <div class="tasks-grid-4">
+            <div class="task-card-mock" style="border-left: 4px solid #0284c7;">
+              <div class="task-top">
+                <span class="task-subj" style="color:#0284c7;">GEN G119</span>
+                <span class="task-badge-cd" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">⏱️ 2d 6h 15m</span>
+              </div>
+              <div class="task-title">Quiz 2 — Marketing Strategy (Chapter 2)</div>
+              <div class="task-details-pill">
+                <span>📍 مدرج 3103-414</span>
+                <span>مدة الكويز 5 دقائق</span>
+              </div>
+              <div class="task-action-btn-mock">🎮 ابدأ محاكي كويز 2</div>
+            </div>
+
+            <div class="task-card-mock" style="border-left: 4px solid #d97706;">
+              <div class="task-top">
+                <span class="task-subj" style="color:#d97706;">MDP G121</span>
+                <span class="task-badge-cd" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⏱️ 4d 6h 15m</span>
+              </div>
+              <div class="task-title">Quiz 1 — Crystal Structure (Materials)</div>
+              <div class="task-details-pill">
+                <span>📍 مدرج 7104</span>
+                <span>مقرر: Crystal Structure</span>
+              </div>
+              <div class="task-action-btn-mock" style="background:#d97706;">📚 فتح جايد المادة</div>
+            </div>
+
+            <div class="task-card-mock" style="border-left: 4px solid #ea580c;">
+              <div class="task-top">
+                <span class="task-subj" style="color:#ea580c;">EPE G113</span>
+                <span class="task-badge-cd" style="background:#ffedd5; color:#c2410c; border-color:#fed7aa;">⏱️ 11d 6h 15m</span>
+              </div>
+              <div class="task-title">Quiz 1 — Sheets 1, 2, 3, 4 (Electrical)</div>
+              <div class="task-details-pill">
+                <span>📍 مدرج 7104</span>
+                <span>مقرر: الشيتات 1 إلى 4</span>
+              </div>
+              <div class="task-action-btn-mock" style="background:#ea580c;">📚 فتح جايد المادة</div>
+            </div>
+
+            <div class="task-card-mock" style="border-left: 4px solid #7c3aed;">
+              <div class="task-top">
+                <span class="task-subj" style="color:#7c3aed;">EMC G101</span>
+                <span class="task-badge-cd" style="background:#f3e8ff; color:#6d28d9; border-color:#e9d5ff;">⏱️ 12d 6h 15m</span>
+              </div>
+              <div class="task-title">Quiz 1 — MOI & Plane Kinematics</div>
+              <div class="task-details-pill">
+                <span>📍 مدرج 7104</span>
+                <span>ديناميكا الأجسام الجاسئة</span>
+              </div>
+              <div class="task-action-btn-mock" style="background:#7c3aed;">📚 فتح جايد المادة</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Laser Blade Separator -->
+        <div class="split-wipe-blade" id="splitWipeBlade"></div>
+
+      </div>
+    </section>
+
+    <!-- SCENE 6: Outro & Grand Call to Action (41.5s - 48.0s) -->
+    <section class="scene" id="scene-5">
+      <div class="outro-box">
+        <div class="intro-emblem" style="background:rgba(56,189,248,0.1); border-color:#38bdf8; color:#38bdf8;">
+          <span>🚀</span>
+          <span>منصة الدفعة الرسمية لطلاب الفرقة الأولى</span>
+        </div>
+        <h2 class="outro-logo">CUFE ME1 — BATCH 30 HUB</h2>
+        <p class="outro-sub">
+          كل ما تحتاجه لتنظيم وقتك والتفوق في مواد التيرم الأول.. متاح مجاناً بين يديك.
+        </p>
+
+        <div class="outro-badges-grid">
+          <div class="outro-badge-item">
+            <span>⚡</span>
+            <span>تطبيق PWA سريع ويعمل بدون إنترنت</span>
+          </div>
+          <div class="outro-badge-item">
+            <span>📱</span>
+            <span>واجهة ذكية مخصصة للموبايل واللابتوب</span>
+          </div>
+          <div class="outro-badge-item">
+            <span>🎮</span>
+            <span>محاكي امتحانات تفاعلي وبنوك أسئلة</span>
+          </div>
+          <div class="outro-badge-item">
+            <span>🔄</span>
+            <span>تحديثات مستمرة متزامنة مع قرارات القسم</span>
+          </div>
+        </div>
+
+        <div class="outro-actions-row">
+          <a href="index.html" class="btn-launch-hub" id="launchHubBtn">
+            <span>🚀 الدخول للمنصة الرئيسية</span>
+            <span>↗</span>
+          </a>
+          <button class="btn-replay-tour" onclick="restartShow()">
+            <span>🔁 إعادة الجولة</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Lower Animated Captions Bar -->
+  <div class="captions-bar" id="captionsBar">
+    <div class="caption-badge" id="captionBadge">
+      <span id="captionBadgeIcon">🚀</span>
+      <span id="captionBadgeText">مقدمة المنصة</span>
+    </div>
+    <div class="caption-text" id="captionText">
+      مرحباً بكم في المنصة الشاملة لدفعة 30 هندسة ميكانيكية — هندسة القاهرة.
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CINEMATIC TIMELINE CONTROLLER & WEB AUDIO SYNTHESIZER SCRIPT
+       ========================================================================== -->
+  <script>
+    /* Audio Synthesizer Engine (Web Audio API) */
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playClick() {
+        if (this.muted || !this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(400, this.ctx.currentTime + 0.04);
+          gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.05);
+        } catch(e) {}
+      }
+
+      playBell() {
+        if (this.muted || !this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          [523.25, 1046.5].forEach((freq, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(idx === 0 ? 0.22 : 0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(now);
+            osc.stop(now + 1.2);
+          });
+        } catch(e) {}
+      }
+
+      playChime() {
+        if (this.muted || !this.ctx) return;
+        try {
+          const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+          freqs.forEach((f, i) => {
+            const start = this.ctx.currentTime + (i * 0.07);
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, start);
+            gain.gain.setValueAtTime(0.16, start);
+            gain.gain.exponentialRampToValueAtTime(0.001, start + 0.45);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(start);
+            osc.stop(start + 0.5);
+          });
+        } catch(e) {}
+      }
+
+      playWhoosh() {
+        if (this.muted || !this.ctx) return;
+        try {
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(90, now + 0.35);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        } catch(e) {}
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    /* Cinematic Timeline Script Definitions */
+    const TOTAL_DURATION = 46.0; // Seconds
+    let currentTime = 0;
+    let isPlaying = true;
+    let currentSceneIdx = -1;
+    let animationFrameId = null;
+    let lastTimestamp = null;
+    let playbackSpeed = 1.0;
+
+    const SCENES_CONFIG = [
+      {
+        id: "scene-0",
+        start: 0.0,
+        end: 5.5,
+        title: "مقدمة المنصة",
+        icon: "🚀",
+        caption: "مرحباً بكم في المنصة الشاملة لدفعة 30 هندسة ميكانيكية — هندسة القاهرة."
+      },
+      {
+        id: "scene-1",
+        start: 5.5,
+        end: 15.0,
+        title: "الجدول الذكي والتنبيهات",
+        icon: "📅",
+        caption: "جدول تفاعلي بنسب زمنية واقعية، خط توقيت حي، وملاحظات السكاشن بنقرة زر."
+      },
+      {
+        id: "scene-2",
+        start: 15.0,
+        end: 25.0,
+        title: "محاكي الكويزات الذكي",
+        icon: "🎮",
+        caption: "محاكي كويزات تفاعلي بتايمر حقيقي وتغذية راجعة فورية مبني على بنك الأسئلة المعتمد."
+      },
+      {
+        id: "scene-3",
+        start: 25.0,
+        end: 34.0,
+        title: "الجايد وسوليد وورك",
+        icon: "📐",
+        caption: "دليل دراسي أسبوعي منظم، ومكتبة متكاملة لشيتات الـ SolidWorks والحلول بالفيديو."
+      },
+      {
+        id: "scene-4",
+        start: 34.0,
+        end: 41.5,
+        title: "رادار المهام والوضع النهاري",
+        icon: "⚡",
+        caption: "رادار المهام والكويزات بالعداد التنازلي، مع دعم كامل للوضع الليلي والنهاري الباستيل."
+      },
+      {
+        id: "scene-5",
+        start: 41.5,
+        end: 46.0,
+        title: "انضم الآن",
+        icon: "✨",
+        caption: "كل ما تحتاجه للتميز الأكاديمي متاح مجاناً بين يديك.. ابدأ رحلتك الآن!"
+      }
+    ];
+
+    /* Virtual Cursor Controller */
+    const cursorEl = document.getElementById("virtualCursor");
+    const rippleEl = document.getElementById("cursorRipple");
+
+    function setCursorPosition(x, y, doClick = false, rippleColor = "#38bdf8") {
+      cursorEl.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (doClick) {
+        cursorEl.style.transform = `translate3d(${x}px, ${y}px, 0) scale(0.82)`;
+        setTimeout(() => {
+          cursorEl.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1)`;
+        }, 150);
+
+        rippleEl.style.left = `${x + 6}px`;
+        rippleEl.style.top = `${y + 6}px`;
+        rippleEl.style.borderColor = rippleColor;
+        rippleEl.classList.remove("animate");
+        void rippleEl.offsetWidth; // Force reflow
+        rippleEl.classList.add("animate");
+      }
+    }
+
+    function moveCursorToElement(targetEl, doClick = false, rippleColor = "#38bdf8") {
+      if (!targetEl) return;
+      const rect = targetEl.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      setCursorPosition(x, y, doClick, rippleColor);
+    }
+
+    /* Scene Transitions & Timeline Loop */
+    function updateTimeline(now) {
+      if (!lastTimestamp) lastTimestamp = now;
+      const delta = (now - lastTimestamp) / 1000;
+      lastTimestamp = now;
+
+      if (isPlaying) {
+        currentTime += delta * playbackSpeed;
+        if (currentTime >= TOTAL_DURATION) {
+          currentTime = TOTAL_DURATION;
+          isPlaying = false;
+          updatePlayPauseButton();
+        }
+      }
+
+      renderTimelineState(currentTime);
+
+      if (isPlaying || currentTime < TOTAL_DURATION) {
+        animationFrameId = requestAnimationFrame(updateTimeline);
+      }
+    }
+
+    function renderTimelineState(time) {
+      // 1. Update Progress Bar
+      const pct = (time / TOTAL_DURATION) * 100;
+      document.getElementById("topProgressFill").style.width = `${pct}%`;
+
+      // Format time
+      const curM = Math.floor(time / 60);
+      const curS = Math.floor(time % 60);
+      const totM = Math.floor(TOTAL_DURATION / 60);
+      const totS = Math.floor(TOTAL_DURATION % 60);
+      document.getElementById("timeDisplay").textContent = 
+        `${String(curM).padStart(2, '0')}:${String(curS).padStart(2, '0')} / ${String(totM).padStart(2, '0')}:${String(totS).padStart(2, '0')}`;
+
+      // 2. Identify Active Scene
+      let activeIdx = 0;
+      for (let i = 0; i < SCENES_CONFIG.length; i++) {
+        if (time >= SCENES_CONFIG[i].start && time <= SCENES_CONFIG[i].end) {
+          activeIdx = i;
+          break;
+        }
+        if (time > SCENES_CONFIG[SCENES_CONFIG.length - 1].end) {
+          activeIdx = SCENES_CONFIG.length - 1;
+        }
+      }
+
+      if (activeIdx !== currentSceneIdx) {
+        switchScene(activeIdx);
+      }
+
+      // 3. Scene-specific Micro Choreography based on sub-seconds
+      runSceneChoreography(activeIdx, time);
+    }
+
+    function switchScene(newIdx) {
+      const prevIdx = currentSceneIdx;
+      currentSceneIdx = newIdx;
+
+      sound.playWhoosh();
+
+      // Update scene elements
+      SCENES_CONFIG.forEach((sc, i) => {
+        const el = document.getElementById(sc.id);
+        if (!el) return;
+        el.classList.remove("active", "exit-left", "exit-right");
+        if (i === newIdx) {
+          el.classList.add("active");
+        } else if (i < newIdx) {
+          el.classList.add("exit-left");
+        } else {
+          el.classList.add("exit-right");
+        }
+      });
+
+      // Update Captions
+      const cfg = SCENES_CONFIG[newIdx];
+      document.getElementById("captionBadgeIcon").textContent = cfg.icon;
+      document.getElementById("captionBadgeText").textContent = cfg.title;
+      document.getElementById("captionText").textContent = cfg.caption;
+
+      // Update Director Scene Buttons
+      document.querySelectorAll(".scene-jump-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === newIdx);
+      });
+    }
+
+    /* Scene-Specific Micro Animations */
+    let bellClicked = false;
+    let quizModeSelected = false;
+    let quizAnswerChosen = false;
+    let cadCardClicked = false;
+
+    function runSceneChoreography(sceneIdx, time) {
+      const sceneTime = time - SCENES_CONFIG[sceneIdx].start;
+
+      // ----------------------------------------------------
+      // Scene 0: Intro (0 - 5.5s)
+      // ----------------------------------------------------
+      if (sceneIdx === 0) {
+        if (sceneTime < 1.0) {
+          setCursorPosition(window.innerWidth * 0.8, window.innerHeight * 0.7);
+        } else if (sceneTime < 3.5) {
+          setCursorPosition(window.innerWidth * 0.52, window.innerHeight * 0.58);
+        }
+      }
+
+      // ----------------------------------------------------
+      // Scene 1: Schedule & Bell (5.5 - 15.0s)
+      // ----------------------------------------------------
+      else if (sceneIdx === 1) {
+        const bellBtn = document.getElementById("bellIconBtn");
+        const yellowModal = document.getElementById("yellowGlassModal");
+
+        if (sceneTime < 1.5) {
+          yellowModal.classList.remove("open");
+          bellClicked = false;
+          moveCursorToElement(document.getElementById("mdpSchedCard"));
+        } else if (sceneTime >= 2.0 && sceneTime < 3.5 && !bellClicked) {
+          moveCursorToElement(bellBtn);
+        } else if (sceneTime >= 3.5 && !bellClicked) {
+          bellClicked = true;
+          moveCursorToElement(bellBtn, true, "#f59e0b");
+          sound.playClick();
+          sound.playBell();
+          yellowModal.classList.add("open");
+        } else if (sceneTime >= 5.0 && sceneTime < 8.0) {
+          moveCursorToElement(document.getElementById("modalShtBtn"));
+        }
+      }
+
+      // ----------------------------------------------------
+      // Scene 2: Quiz Simulator (15.0 - 25.0s)
+      // ----------------------------------------------------
+      else if (sceneIdx === 2) {
+        const lobbyView = document.getElementById("simLobbyView");
+        const arenaView = document.getElementById("simArenaView");
+        const realModeCard = document.getElementById("simRealModeCard");
+        const optD = document.getElementById("optD");
+        const correctTag = document.getElementById("correctTag");
+        const simSeconds = document.getElementById("simSeconds");
+
+        if (sceneTime < 2.5) {
+          lobbyView.style.display = "flex";
+          arenaView.style.display = "none";
+          quizModeSelected = false;
+          quizAnswerChosen = false;
+          correctTag.style.display = "none";
+          optD.classList.remove("selected-correct");
+          moveCursorToElement(realModeCard);
+        } else if (sceneTime >= 2.5 && sceneTime < 3.2 && !quizModeSelected) {
+          quizModeSelected = true;
+          moveCursorToElement(realModeCard, true, "#06b6d4");
+          sound.playClick();
+          setTimeout(() => {
+            lobbyView.style.display = "none";
+            arenaView.style.display = "flex";
+          }, 350);
+        } else if (sceneTime >= 3.5 && sceneTime < 5.5 && !quizAnswerChosen) {
+          moveCursorToElement(optD);
+          // Countdown simulation
+          const remSec = Math.max(0, 58 - Math.floor(sceneTime));
+          simSeconds.textContent = `04:${String(remSec).padStart(2, '0')}`;
+        } else if (sceneTime >= 5.5 && !quizAnswerChosen) {
+          quizAnswerChosen = true;
+          moveCursorToElement(optD, true, "#10b981");
+          sound.playClick();
+          sound.playChime();
+          optD.classList.add("selected-correct");
+          correctTag.style.display = "inline-flex";
+          document.getElementById("simProgressFill").style.width = "40%";
+        }
+      }
+
+      // ----------------------------------------------------
+      // Scene 3: CAD Hub & SolidWorks (25.0 - 34.0s)
+      // ----------------------------------------------------
+      else if (sceneIdx === 3) {
+        const cadCard4 = document.getElementById("cadCard4");
+        const playBtn = document.getElementById("screwJackPlayBtn");
+
+        if (sceneTime < 2.0) {
+          cadCardClicked = false;
+          moveCursorToElement(document.getElementById("cadCard2"));
+        } else if (sceneTime >= 2.0 && sceneTime < 4.5 && !cadCardClicked) {
+          moveCursorToElement(cadCard4);
+        } else if (sceneTime >= 4.5 && !cadCardClicked) {
+          cadCardClicked = true;
+          moveCursorToElement(playBtn, true, "#10b981");
+          sound.playClick();
+          sound.playChime();
+        }
+      }
+
+      // ----------------------------------------------------
+      // Scene 4: Tasks Radar & Split Wipe (34.0 - 41.5s)
+      // ----------------------------------------------------
+      else if (sceneIdx === 4) {
+        const lightLayer = document.getElementById("lightModeLayer");
+        const blade = document.getElementById("splitWipeBlade");
+
+        // Split Wipe Progress from sceneTime 1.5s to 5.5s
+        if (sceneTime < 1.0) {
+          lightLayer.style.clipPath = "polygon(0 0, 0 0, 0 100%, 0 100%)";
+          blade.style.opacity = "0";
+          setCursorPosition(window.innerWidth * 0.35, window.innerHeight * 0.45);
+        } else if (sceneTime >= 1.0 && sceneTime <= 5.5) {
+          const wipePct = ((sceneTime - 1.0) / 4.5) * 100;
+          lightLayer.style.clipPath = `polygon(0 0, ${wipePct}% 0, ${wipePct}% 100%, 0 100%)`;
+          blade.style.opacity = "1";
+          blade.style.left = `${wipePct}%`;
+          setCursorPosition((window.innerWidth * 0.95 * (wipePct / 100)), window.innerHeight * 0.5);
+        } else if (sceneTime > 5.5) {
+          blade.style.opacity = "0";
+        }
+      }
+
+      // ----------------------------------------------------
+      // Scene 5: Outro & Action (41.5 - 46.0s)
+      // ----------------------------------------------------
+      else if (sceneIdx === 5) {
+        const launchBtn = document.getElementById("launchHubBtn");
+        if (sceneTime >= 1.5) {
+          moveCursorToElement(launchBtn);
+        }
+      }
+    }
+
+    /* Playback Controls & Scrubber Handlers */
+    function togglePlayPause() {
+      sound.init();
+      isPlaying = !isPlaying;
+      updatePlayPauseButton();
+      if (isPlaying) {
+        lastTimestamp = performance.now();
+        requestAnimationFrame(updateTimeline);
+      }
+    }
+
+    function updatePlayPauseButton() {
+      const icon = document.getElementById("playPauseIcon");
+      const text = document.getElementById("playPauseText");
+      if (isPlaying) {
+        icon.textContent = "⏸️";
+        text.textContent = "إيقاف";
+      } else {
+        icon.textContent = "▶️";
+        text.textContent = "تشغيل";
+      }
+    }
+
+    function jumpToScene(idx) {
+      sound.init();
+      if (idx >= 0 && idx < SCENES_CONFIG.length) {
+        currentTime = SCENES_CONFIG[idx].start + 0.05;
+        renderTimelineState(currentTime);
+      }
+    }
+
+    function restartShow() {
+      sound.init();
+      currentTime = 0;
+      isPlaying = true;
+      bellClicked = false;
+      quizModeSelected = false;
+      quizAnswerChosen = false;
+      cadCardClicked = false;
+      updatePlayPauseButton();
+      lastTimestamp = performance.now();
+      requestAnimationFrame(updateTimeline);
+    }
+
+    function toggleSound() {
+      sound.init();
+      sound.muted = !sound.muted;
+      document.getElementById("soundIcon").textContent = sound.muted ? "🔇" : "🔊";
+    }
+
+    function toggleFullscreenRecord() {
+      sound.init();
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+        hideControlsBar();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        showControlsBar();
+      }
+    }
+
+    /* Auto-Hide Director Controls for Clean Record Mode */
+    const controlsBar = document.getElementById("directorControls");
+    let hideTimer = null;
+
+    function resetHideTimer() {
+      showControlsBar();
+      clearTimeout(hideTimer);
+      if (isPlaying) {
+        hideTimer = setTimeout(() => {
+          hideControlsBar();
+        }, 2600);
+      }
+    }
+
+    function hideControlsBar() {
+      controlsBar.classList.add("hidden-mode");
+    }
+
+    function showControlsBar() {
+      controlsBar.classList.remove("hidden-mode");
+    }
+
+    function showControlsTemporarily() {
+      showControlsBar();
+      resetHideTimer();
+    }
+
+    window.addEventListener("mousemove", resetHideTimer);
+    window.addEventListener("touchstart", resetHideTimer);
+
+    // Keyboard Shortcuts (Space, F, R, 1-6, M)
+    window.addEventListener("keydown", (e) => {
+      sound.init();
+      if (e.code === "Space") {
+        e.preventDefault();
+        togglePlayPause();
+      } else if (e.key === "f" || e.key === "F") {
+        toggleFullscreenRecord();
+      } else if (e.key === "r" || e.key === "R") {
+        restartShow();
+      } else if (e.key === "m" || e.key === "M") {
+        toggleSound();
+      } else if (e.key >= "1" && e.key <= "6") {
+        jumpToScene(parseInt(e.key, 10) - 1);
+      }
+    });
+
+    // Start Timeline on load
+    window.addEventListener("DOMContentLoaded", () => {
+      document.body.addEventListener("click", () => sound.init(), { once: true });
+      lastTimestamp = performance.now();
+      requestAnimationFrame(updateTimeline);
+      resetHideTimer();
+    });
+  </script>
+</body>
+</html>
