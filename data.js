@@ -100,7 +100,76 @@ const MASTER_QUIZZES = [
       { id: "gen-form-2", title: "Product/Market Expansion Grid (Ansoff Matrix) & 4Ps Mix" }
     ]
   },
-{
+  {
+    id: "mdp-quiz-1",
+    code: "MDP G121",
+    title: "Quiz 1 — Crystal Structure",
+    type: "Quiz",
+    instructor: "Dr. Ehab & Dr. Mamdouh",
+    dateDisplay: "Tuesday, October 20, 2026 (الثلاثاء 20 أكتوبر 2026)",
+    countdownBadge: "20 أكتوبر 2026",
+    date: "2026-10-20",
+    start: "2026-10-20T08:00:00",
+    deadline: "2026-10-20T10:00:00",
+    dueDate: "2026-10-20T08:00:00",
+    room: "مدرج 7104",
+    content: "Crystal Structure",
+    temporaryNote: "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    accent: "#f59e0b",
+    accentName: "amber",
+    instructions: [
+      "المكان: مدرج 7104.",
+      "المحتوى المقرر: Crystal Structure.",
+      "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً."
+    ]
+  },
+  {
+    id: "epe-quiz-1",
+    code: "EPE G113",
+    title: "Quiz 1 — Sheets 1, 2, 3, 4",
+    type: "Quiz",
+    instructor: "Dr. Electrical Staff",
+    dateDisplay: "Tuesday, October 27, 2026 (الثلاثاء 27 أكتوبر 2026)",
+    countdownBadge: "27 أكتوبر 2026",
+    date: "2026-10-27",
+    start: "2026-10-27T08:00:00",
+    deadline: "2026-10-27T10:00:00",
+    dueDate: "2026-10-27T08:00:00",
+    room: "مدرج 7104",
+    content: "Sheets 1, 2, 3, 4",
+    temporaryNote: "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    accent: "#fb923c",
+    accentName: "orange",
+    instructions: [
+      "المكان: مدرج 7104.",
+      "المحتوى المقرر: Sheets 1, 2, 3, 4.",
+      "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً."
+    ]
+  },
+  {
+    id: "emc-quiz-1",
+    code: "EMC G101",
+    title: "Quiz 1 — MOI & Plane Kinematics of Rigid Bodies",
+    type: "Quiz",
+    instructor: "Dr. Samir Hedeyma",
+    dateDisplay: "Wednesday, October 28, 2026 (الأربعاء 28 أكتوبر 2026)",
+    countdownBadge: "28 أكتوبر 2026",
+    date: "2026-10-28",
+    start: "2026-10-28T08:00:00",
+    deadline: "2026-10-28T10:00:00",
+    dueDate: "2026-10-28T08:00:00",
+    room: "مدرج 7104",
+    content: "MOI & Plane Kinematics of Rigid Bodies",
+    temporaryNote: "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    accent: "#8b5cf6",
+    accentName: "purple",
+    instructions: [
+      "المكان: مدرج 7104.",
+      "المحتوى المقرر: MOI & Plane Kinematics of Rigid Bodies.",
+      "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً."
+    ]
+  },
+  {
     id: "the-1",
     code: "EMC G101",
     title: "Take-Home Exam 1 — Model (P200)",
@@ -1123,6 +1192,36 @@ const MONDAY_DYNAMICS_SLOTS = {
 
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-mdp-quiz-1",
+    date: "20 Oct 2026",
+    tag: "MDP G121 • Quiz 1",
+    title: "Quiz 1 — Crystal Structure",
+    body: "📍 المكان: مدرج 7104 • الثلاثاء 20 أكتوبر 2026\nالمحتوى المقرر: Crystal Structure.\nسيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    actions: [
+      { label: "📚 فتح جايد المادة", action: "openCourseCapsule('MDP G121')" }
+    ]
+  },
+  {
+    id: "notif-epe-quiz-1",
+    date: "27 Oct 2026",
+    tag: "EPE G113 • Quiz 1",
+    title: "Quiz 1 — Sheets 1, 2, 3, 4",
+    body: "📍 المكان: مدرج 7104 • الثلاثاء 27 أكتوبر 2026\nالمحتوى المقرر: Sheets 1, 2, 3, 4.\nسيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    actions: [
+      { label: "📚 فتح جايد المادة", action: "openCourseCapsule('EPE G113')" }
+    ]
+  },
+  {
+    id: "notif-emc-quiz-1",
+    date: "28 Oct 2026",
+    tag: "EMC G101 • Quiz 1",
+    title: "Quiz 1 — MOI & Plane Kinematics of Rigid Bodies",
+    body: "📍 المكان: مدرج 7104 • الأربعاء 28 أكتوبر 2026\nالمحتوى المقرر: MOI & Plane Kinematics of Rigid Bodies.\nسيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    actions: [
+      { label: "📚 فتح جايد المادة", action: "openCourseCapsule('EMC G101')" }
+    ]
+  },
   {
     id: "notif-gen-quiz-2",
     date: "15 Oct 2026",

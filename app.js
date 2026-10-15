@@ -591,7 +591,7 @@ function getDayAssessments(dayName) {
 
 function getExactCountdown(deadlineInput) {
   const dueStr = (typeof deadlineInput === 'object' && deadlineInput !== null)
-    ? (deadlineInput.dueDate || deadlineInput.deadline || deadlineInput.start)
+    ? (deadlineInput.dueDate || deadlineInput.deadline || deadlineInput.date || deadlineInput.start)
     : deadlineInput;
 
   if (!dueStr) return { text: "محدد", isUrgent: false, isPassed: false, diff: 0 };
@@ -690,7 +690,7 @@ function getAllCombinedTasks() {
   // 1. Master Quizzes (Highest priority, full rich data)
   if (typeof MASTER_QUIZZES !== 'undefined') {
     MASTER_QUIZZES.forEach(q => {
-      const dueDate = q.deadline || q.start;
+      const dueDate = q.dueDate || q.deadline || q.date || q.start;
       const cd = getExactCountdown(dueDate);
       const isDone = q.isDone || completedTasks.includes(q.id) || cd.isPassed;
       let priority = "scheduled";
@@ -718,9 +718,9 @@ function getAllCombinedTasks() {
     COURSE_STATIC_ASSIGNMENTS.forEach(asgn => {
       if (addedIds.has(asgn.id)) return;
       const deadline = (asgn.deadlinesByGroup && (asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"])) || asgn.deadline || "2026-10-15T09:00:00";
-      const dueDate = deadline;
+      const dueDate = asgn.dueDate || deadline;
       const cd = getExactCountdown(dueDate);
-      const isDone = completedTasks.includes(asgn.id);
+      const isDone = asgn.isDone || completedTasks.includes(asgn.id) || cd.isPassed;
       let priority = "scheduled";
       if (isDone) priority = "done";
       else if (cd.isUrgent) priority = "due-soon";
@@ -781,8 +781,8 @@ function sortByDeadline(a, b) {
   const pa = a.countdown?.isPassed ? 1 : 0;
   const pb = b.countdown?.isPassed ? 1 : 0;
   if (pa !== pb) return pa - pb;
-  const da = a.deadline ? new Date(a.deadline).getTime() : 0;
-  const db = b.deadline ? new Date(b.deadline).getTime() : 0;
+  const da = (a.dueDate || a.deadline || a.date) ? new Date(a.dueDate || a.deadline || a.date).getTime() : 0;
+  const db = (b.dueDate || b.deadline || b.date) ? new Date(b.dueDate || b.deadline || b.date).getTime() : 0;
   return (isNaN(da) ? 0 : da) - (isNaN(db) ? 0 : db);
 }
 
@@ -1182,6 +1182,25 @@ function renderBentoTaskCard(task) {
             </a>
           </div>
         </div>
+      ` : (['mdp-quiz-1', 'epe-quiz-1', 'emc-quiz-1'].includes(task.id) || task.temporaryNote ? `
+        <div class="bento-card-details-box" style="margin-top: 8px; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid ${accentColor}33; border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+            <span style="font-weight: 700; color: ${accentColor}; font-size: 12px;">📍 المكان: ${escHtml(task.room || 'مدرج 7104')}</span>
+            <span style="font-size: 11px; color: var(--text-muted); background: rgba(255,255,255,0.06); padding: 2px 7px; border-radius: 6px; font-weight: 600;">المحتوى المقرر</span>
+          </div>
+          <div style="font-weight: 700; color: var(--text-main); font-size: 12.5px; margin-bottom: 6px;">
+            🎯 ${escHtml(task.content || task.topic || '')}
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 6px;">
+            <span>⏳</span>
+            <span>${escHtml(task.temporaryNote || 'سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.')}</span>
+          </div>
+        </div>
+        <div class="bento-card-actions" style="margin-top: 10px;">
+          <button class="btn-open-guide" onclick="openCourseCapsule('${task.code}')" style="width: 100%; justify-content: center; background: ${accentColor}18; border: 1px solid ${accentColor}55; color: var(--text-main); font-weight: 800; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;">
+            <span>📚 فتح جايد المادة</span>
+          </button>
+        </div>
       ` : `
         <div class="bento-card-actions">
           <button class="btn-official-details" onclick="openOfficialExamModal('${task.id}')">
@@ -1191,7 +1210,7 @@ function renderBentoTaskCard(task) {
             <span>${task.type === 'Assignment' ? '📁 Open Assignment & Solution ↗' : '⚡ Open Quiz Study Guide ↗'}</span>
           </button>
         </div>
-      `}
+      `)}
     </article>
   `;
 }
