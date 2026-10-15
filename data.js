@@ -22,10 +22,10 @@ const ARCHIVE_BATCH29_DRIVE = "https://drive.google.com/drive/folders/1n2rhGtD9B
 
 // قاعدة بيانات المواد الرسمية
 const COURSES = {
-  "GEN G119": { 
-    name: "Entrepreneurship and Marketing", 
-    color: "var(--c-gen)", 
-    hex: "#10b981", 
+  "GEN G119": {
+    name: "Entrepreneurship and Marketing",
+    color: "var(--c-gen)",
+    hex: "#06b6d4", 
     instructor: "Dr. Tamer El-Hariry" 
   },
   "MTH G102": { 
@@ -64,52 +64,43 @@ const COURSES = {
 // Modern Neon Dashboard — Official Quizzes & Exam System Master Data
 // ==========================================================================
 const MASTER_QUIZZES = [
-  {
-    id: "mth-quiz-1",
-    code: "MTH G102",
-    title: "Calculus Quiz 1 — Double Integrals (أول محاضرتين)",
-    type: "In-Class Quiz",
-    instructor: "Dr. Ahmed Abdelnaby & Staff",
-    dateDisplay: "الإثنين 12 أكتوبر 2026 (11:00 ظهراً — الحضور 11 إلا ربع)",
-    countdownBadge: "6d 13h 45m",
-    start: "2026-10-12T11:00:00",
-    deadline: "2026-10-12T11:35:00",
-    room: "مدرج 3002",
-    accent: "#38bdf8",
+    {
+    id: "gen-quiz-2",
+    code: "GEN G119",
+    title: "Quiz 2 — Marketing (Chapter 2)",
+    type: "Quiz (5 Mins)",
+    instructor: "Dr. Tamer El-Hariry",
+    dateDisplay: "الأحد القادم 18 أكتوبر 2026 - 8:00 AM",
+    countdownBadge: "الأحد 8:00 ص",
+    start: "2026-10-18T08:00:00",
+    deadline: "2026-10-18T08:05:00",
+    dueDate: "2026-10-18T08:00:00",
+    room: "مدرج 3103-414",
+    accent: "#06b6d4",
     accentName: "cyan",
-    submissionUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
+    submissionUrl: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0",
     instructions: [
-      "⚠️ تنبيه الكويز: الامتحان على أول محاضرتين فقط (لحد الـ Double Integral) — المحاضرة الثالثة غير داخلة في الكويز!",
-      "الموعد والمكان: الساعة 11:00 ظهراً (الحضور 11 إلا ربع) في مدرج 3002 مجمع للـ 4 سكاشن.",
-      "الدرجة ونوع الأسئلة: 10 درجات (MCQ - 5 أسئلة).",
-      "المدة: من 30 إلى 35 دقيقة.",
-      "تعليمات المدرج: التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب.",
-      "تنبيه التظليل: الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل.",
-      "ترتيب المذاكرة الموصى به من الدكتورة: ذاكر السلايدات كويس جداً الأول ⬅️ بعدها حل مسائل الشيت ⬅️ ولو حابب تطبق بزيادة حل الـ Solved Problems.",
-      "⚠️ تريكة مهمة جداً: الدكتورة أكدت إن الأسئلة مش بتخرج عن الـ Graphs اللي بتشرحها في المحاضرات، ركزوا عليها جداً!"
+      "الأحد 8:00 ص (مدرج 3103-414) • مدة الكويز 5 دقائق فقط (نفس نظام كويز 1).",
+      "المحتوى المقرر: المحاضرة الثانية (Chapter 2: Marketing Strategy) كاملة.",
+      "الامتحان 20 سؤال سريع (MCQ + صح وغلط) يحتاج سرعة فائقة في الحل والتظليل.",
+      "تم توفير بنك الأسئلة بالكامل (125 سؤال) مع محاكي تفاعلي ذكي للتدريب على سرعة الحل قبل المحاضرة."
     ],
     lectures: [
-      { id: "mth-lec-1", title: "⭐ Lecture 1 - Double Integrals (المحتوى الأساسي المطلوب)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-lec-2", title: "⭐ Lecture 2 - Linear Algebra & Integrals (المحتوى الأساسي المطلوب)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-lec-3", title: "Lecture 3 - Triple Integrals (سلايدات المحاضرة الرسمية)", slides: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk" }
+      { id: "gen-lec-2", title: "سلايدات المحاضرة الثانية (Chapter 2: Marketing Strategy)", slides: "https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "mth-sht-1", title: "Sheet 1 (Double Integrals — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-2", title: "Sheet 2 (Linear Systems & Polar — مطلوب أساسي)", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-3", title: "Sheet 3 & Assignment 3 (Triple Integrals)", pdf: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI", sol: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
+      { id: "gen-tb-2", title: "بنك أسئلة الشابتر الثاني (Test Bank CH 2 - 125 Questions)", pdf: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" },
+      { id: "gen-sum-2", title: "ملخص الشابتر الثاني الشامل (Marketing Summary CH 2)", pdf: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "mth-sol-1", title: "Solved Problems 1 (تطبيقات ومسائل محلولة 1 — Double Integrals)", url: "https://drive.google.com/file/d/1VJExOvXAQNt0MLho6VWnKdew424RrvZs/view?usp=drivesdk" },
-      { id: "mth-sol-2", title: "Solved Problems 2 (تطبيقات ومسائل محلولة 2)", url: "https://drive.google.com/file/d/1KduLphX0Pg2V_9NF11umHHqe-NCm7EDR/view?usp=drivesdk" },
-      { id: "mth-sol-3", title: "Solved Problems 3 (مسائل محلولة إضافية للاطلاع)", url: "https://drive.google.com/file/d/1vJW0JuLRoWmj-8FwsHl5e-upI8Yn_QP-/view?usp=drivesdk" },
-      { id: "mth-vid-ammar", title: "بلايليست شرح وسكاشن م. عمار ياسر وم. أحمد المغربي", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" }
+      { id: "gen-sim-2", title: "المحاكي التفاعلي الذكي لكويز 2 (Quiz 2 Arena Simulator)", url: "javascript:openMarketingQuiz2Modal()" }
     ],
     formula: [
-      { id: "mth-sum-gauss", title: "ملخص: Gauss and Gauss-Jordan Elimination Methods in Graphs", url: "https://drive.google.com/file/d/1q9nkkK39o7pqUFNEvNYGt_Cj-svQlRb1/view?usp=drivesdk" },
-      { id: "mth-sum-graphs", title: "قواعد ورسومات الـ Graphs وتكاملات المحاضرة المهمة" }
+      { id: "gen-form-1", title: "BCG Growth-Share Matrix & Strategic Business Units (SBUs)" },
+      { id: "gen-form-2", title: "Product/Market Expansion Grid (Ansoff Matrix) & 4Ps Mix" }
     ]
   },
-  {
+{
     id: "the-1",
     code: "EMC G101",
     title: "Take-Home Exam 1 — Model (P200)",
@@ -1077,7 +1068,6 @@ const SESSIONS = [
     code: "GEN G119", 
     type: "Lecture", 
     room: "3103-414",
-    attendance: true,
     quizBadge: "⚡ كويز 2",
     hasNotice: true,
     noticeData: {
@@ -1098,28 +1088,6 @@ const SESSIONS = [
   // Monday
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false },
-  { 
-    day: "Monday", 
-    start: 3, 
-    span: 1, 
-    group: "ALL", 
-    code: "MTH G102", 
-    type: "Quiz 1 (12 Oct)", 
-    room: "مدرج 3002", 
-    isQuiz: true,
-    quizBadge: "⚡ كويز 1",
-    hasNotice: true,
-    noticeData: {
-      title: "📢 تفاصيل وموعد كويز 1 مادة MTH G102 (الرياضيات 2)",
-      slots: "الموعد والمكان: الإثنين 12 أكتوبر — 11:00 ظهراً (الحضور 11 إلا ربع) بمدرج 3002 مجمع للـ 4 سكاشن",
-      requirements: "الامتحان 10 درجات (MCQ - 5 أسئلة) في 30-35 دقيقة على أول محاضرتين فقط (Double Integrals) — المحاضرة الثالثة غير داخلة! • التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب • الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل • ركزوا جداً على الـ Graphs المشروحة بالمحاضرات",
-      quizPrepId: "mth-quiz-1",
-      sheetUrl: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0",
-      solutionUrl: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
-      driveUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8"
-    },
-    note: "11:00 ظهراً (الحضور 11 إلا ربع) بمدرج 3002 • 10 درجات (MCQ - 5 أسئلة) • التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب • الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل"
-  },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
   // Tuesday
@@ -1141,86 +1109,10 @@ const SESSIONS = [
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
   // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall) مع التنبيه التفاعلي المطور
-  { 
-    day: "Thursday", 
-    start: 4, 
-    span: 2, 
-    group: "ME1-01", 
-    code: "EPE G113", 
-    type: "Tutorial", 
-    room: "14301", 
-    attendance: false,
-    hasNotice: true,
-    noticeData: {
-      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
-      slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
-      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
-      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
-  },
-  { 
-    day: "Thursday", 
-    start: 4, 
-    span: 2, 
-    group: "ME1-02", 
-    code: "EPE G113", 
-    type: "Tutorial", 
-    room: "14301", 
-    attendance: false,
-    hasNotice: true,
-    noticeData: {
-      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
-      slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
-      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
-      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
-  },
-  { 
-    day: "Thursday", 
-    start: 6, 
-    span: 2, 
-    group: "ME1-03", 
-    code: "EPE G113", 
-    type: "Tutorial", 
-    room: "14301", 
-    attendance: false,
-    hasNotice: true,
-    noticeData: {
-      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
-      slots: "فترتان للحضور: (2:00 - 3:30) أو (12:30 - 2:00) بقاعة 14301",
-      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
-      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
-  },
-  { 
-    day: "Thursday", 
-    start: 6, 
-    span: 2, 
-    group: "ME1-04", 
-    code: "EPE G113", 
-    type: "Tutorial", 
-    room: "14301", 
-    attendance: false,
-    hasNotice: true,
-    noticeData: {
-      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
-      slots: "فترتان للحضور: (2:00 - 3:30) أو (12:30 - 2:00) بقاعة 14301",
-      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
-      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "تنبيه تسليم Assignment 1 ومواعيد الفترتين بقاعة 14301"
-  }
+  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
+  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -1232,19 +1124,11 @@ const MONDAY_DYNAMICS_SLOTS = {
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
   {
-    id: "notif-mth-quiz-1",
-    date: "5 Oct 2026",
-    tag: "MTH G102 • كويز رسمي",
-    title: "Calculus Quiz 1 — تفاصيل وموعد كويز الماث الرسمي (10 درجات)",
-    body: "📢 كويز الماث الإثنين 12 أكتوبر الساعة 11:00 ظهراً (الحضور 11 إلا ربع) في مدرج 3002 مجمع للـ 4 سكاشن: الامتحان 10 درجات (MCQ - 5 أسئلة) في 30-35 دقيقة على أول محاضرتين فقط. التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب، والكود 7 أرقام يوضع قبله صفر على الشمال في التظليل 🎯"
-  },
-
-  {
-    id: "notif-epe-sec-thu",
-    date: "12 Oct 2026",
-    tag: "EPE G113 • سكشن وتسليم Assignment 1",
-    title: "تفاصيل سكشن الكهربية وتسليم Assignment 1 (قاعة 14301)",
-    body: "السكشن يوم الخميس في قاعة 14301 (Faculty Hall) على فترتين: الأولى (12:30 - 2:00 ظهراً) والثانية (2:00 - 3:30 عصراً). تسليم Assignment 1 على ورق A4 (الاسم، الكود، السكشن، القسم)، ومسموح للطالب تسليم أسينمنت لنفسه ولزميل واحد فقط كحد أقصى. السكشن هيتصور فيديو وهينزل يوتيوب."
+    id: "notif-gen-quiz-2",
+    date: "15 Oct 2026",
+    tag: "GEN G119 • كويز 2 رسمي",
+    title: "Marketing Quiz 2 — تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)",
+    body: "📢 كويز 2 ماركتنج الأحد القادم داخل المحاضرة الساعة 8:00 صباحاً (مدرج 3103-414): مدة الكويز 5 دقائق فقط (نفس نظام كويز 1). المحتوى المقرر Chapter 2 كامل. تم توفير بنك الأسئلة الـ 125 سؤال كامل ومحاكي تفاعلي ذكي للتدريب على سرعة الحل 🎯"
   },
   {
     id: "ann-the-1",
@@ -1252,13 +1136,6 @@ const DEFAULT_NOTIFICATIONS = [
     tag: "EMC G101",
     title: "Take-Home Exam 1 — Model P200",
     body: "امتحان الـ Take-Home الأول في الديناميكا متاح الآن، موعد التسليم الجمعة 9 أكتوبر الساعة 7:00 مساءً مع بونص 10% للتسليم المبكر."
-  },
-  { 
-    id: "ann-gen-q1", 
-    date: "5 Oct 2026", 
-    tag: "GEN G119", 
-    title: "كويز 1 ماركتنج الأحد القادم (مبنى 3 مدرج 3103)", 
-    body: "كويز أول المحاضرة 20 سؤال في 5 دقائق على شابتر 1 مطابق لأسئلة الـ Test Bank بالحرف. الحضور قبل 8:00 صباحاً." 
   },
   { 
     id: "ann-01", 
