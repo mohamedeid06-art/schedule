@@ -1157,14 +1157,41 @@ function renderBentoTaskCard(task) {
         </span>
       </div>
 
-      <div class="bento-card-actions">
-        <button class="btn-official-details" onclick="openOfficialExamModal('${task.id}')">
-          <span>Official Details & Files ℹ️</span>
-        </button>
-        <button class="btn-open-guide" onclick="openQuizPreparationGuide('${task.id}')">
-          <span>${task.type === 'Assignment' ? '📁 Open Assignment & Solution ↗' : '⚡ Open Quiz Study Guide ↗'}</span>
-        </button>
-      </div>
+      ${task.id === 'gen-quiz-2' ? `
+        <div class="bento-card-actions bento-actions-marketing">
+          <button class="btn-marketing-sim" onclick="openMarketingQuiz2Modal('exam')">
+            <span>🎮 ابدأ محاكي كويز 2 (5 دقائق)</span>
+          </button>
+          <div class="bento-marketing-links-row">
+            <a href="https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-marketing-link">
+              <span>📝 Test Bank CH 2 ↗</span>
+            </a>
+            <a href="https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-marketing-link">
+              <span>📄 ملخص CH 2 ↗</span>
+            </a>
+            <a href="https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-marketing-link">
+              <span>📘 سلايد المحاضرة 2 ↗</span>
+            </a>
+          </div>
+          <div style="display:flex;gap:6px;width:100%;margin-top:2px;">
+            <button class="btn-official-details" style="flex:1;" onclick="openOfficialExamModal('${task.id}')">
+              <span>Official Details ℹ️</span>
+            </button>
+            <button class="btn-open-guide" style="flex:1;" onclick="openQuizPreparationGuide('${task.id}')">
+              <span>⚡ Study Guide ↗</span>
+            </button>
+          </div>
+        </div>
+      ` : `
+        <div class="bento-card-actions">
+          <button class="btn-official-details" onclick="openOfficialExamModal('${task.id}')">
+            <span>Official Details & Files ℹ️</span>
+          </button>
+          <button class="btn-open-guide" onclick="openQuizPreparationGuide('${task.id}')">
+            <span>${task.type === 'Assignment' ? '📁 Open Assignment & Solution ↗' : '⚡ Open Quiz Study Guide ↗'}</span>
+          </button>
+        </div>
+      `}
     </article>
   `;
 }
@@ -1771,8 +1798,17 @@ function initNotifications() {
           <span style="font-size:9.5px;font-weight:800;color:var(--accent)">${n.tag || 'Notice'}</span>
           <span style="font-family:'JetBrains Mono';font-size:10px;color:var(--text-muted)">${n.date || ''}</span>
         </div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-main)">${n.title || ''}</div>
-        <div style="font-size:11.5px;color:var(--text-muted)">${n.body || ''}</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-main);margin-top:2px;">${n.title || ''}</div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px;line-height:1.5;">${n.body || ''}</div>
+        ${n.actions && n.actions.length ? `
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+            ${n.actions.map(a => a.action ? `
+              <button onclick="closeNotifModal(); ${a.action};" class="banner-action-link" style="background:#10b981;padding:4px 10px;font-size:11px;font-weight:800;cursor:pointer;color:#fff;">${a.label}</button>
+            ` : `
+              <a href="${a.url}" target="_blank" rel="noopener noreferrer" class="banner-action-link banner-official-btn" style="padding:4px 10px;font-size:11px;font-weight:600;">${a.label} ↗</a>
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
     `).join("");
   }
@@ -2073,13 +2109,13 @@ function renderDailyAgenda() {
           <span class="time-dur">${s.span * 50}m</span>
         </div>
         <div class="rail"><div class="rail-dot" style="--c: ${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}"></div><div class="rail-line"></div></div>
-        <div class="timeline-card ${isCurrentActive && !isCancelled ? 'is-live-card' : ''} ${s.attendance && !isCancelled ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''} ${isCancelled ? 'is-cancelled-card' : ''}" style="--c: ${isCancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">
+        <div class="timeline-card ${isCurrentActive && !isCancelled ? 'is-live-card' : ''} ${s.attendance && !isCancelled ? 'has-attendance-check' : ''} ${isDimmed ? 'dimmed' : ''} ${isHighlighted ? 'highlighted' : ''} ${isCancelled ? 'is-cancelled-card' : ''}" data-course="${s.code}" style="--c: ${isCancelled ? '#ef4444' : course.color}; border-left: 4.5px solid ${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">
           
           <div class="card-top">
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
-              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
+              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal('exam')" : "openQuizPrepGuide('mth-quiz-1')"}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
@@ -2204,6 +2240,8 @@ function showSessionNoticeTooltip(event, dayIdxOrName, slotStart, code) {
     text = "⏰ فترتان للحضور: (12:30 و 2:00) بقاعة 14301\n📝 تسليم Assignment 1 على ورق A4 (لنفسك ولزميل واحد كحد أقصى)";
   } else if (session.code === "MTH G102" && (session.isQuiz || session.day === "Monday")) {
     text = "⏰ كويز 1 الإثنين: 11:00 ظهراً بمدرج 3002\n🎯 10 درجات MCQ على أول محاضرتين (التصحيح على التظليل فقط)";
+  } else if (session.code === "GEN G119") {
+    text = "⏰ كويز 2 الأحد: 8:00 صباحاً بقاعة 3103-414\n🎯 5 دقائق فقط على Chapter 2 من بنك الأسئلة";
   } else {
     text = session.note || "ملاحظات هامة مسجلة لهذه المحاضرة.";
   }
@@ -2441,6 +2479,59 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
       </div>
     `;
   }
+  // Special Notice 3: GEN G119 Sunday Quiz 2 Marketing Details & Links
+  else if (session.code === "GEN G119") {
+    if (titleEl) titleEl.textContent = "🔔 تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)";
+    if (subEl) subEl.textContent = "GEN G119 • Entrepreneurship & Marketing";
+
+    bodyEl.innerHTML = `
+      <!-- موعد ومكان وتفاصيل الكويز -->
+      <div class="notice-section-box" style="border-left: 4px solid #10b981;">
+        <div class="notice-section-header" style="color:#10b981;">
+          <span>⏰</span>
+          <span>موعد وتفاصيل الكويز الرسمي (Chapter 2):</span>
+        </div>
+        <div class="notice-req-list">
+          <div class="notice-req-item">
+            <span style="color:#10b981;font-weight:900;">•</span>
+            <span>الموعد: <strong>الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414).</strong></span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#10b981;font-weight:900;">•</span>
+            <span>مدة الكويز: <strong>5 دقائق فقط</strong> (نفس نظام الكويز الأول).</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#10b981;font-weight:900;">•</span>
+            <span>المحتوى المقرر: <strong>المحاضرة الثانية (Chapter 2) كاملة</strong> من بنك الأسئلة.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- أزرار الروابط المباشرة والمحاكي -->
+      <div class="notice-actions-row">
+        <button onclick="closeSessionNoticeModal(); openMarketingQuiz2Modal('exam');" 
+                class="notice-action-btn notice-action-primary" style="flex:1 1 100%; background:#10b981; border-color:#059669; font-weight:800; color:#fff; box-shadow:0 0 12px rgba(16,185,129,0.3);">
+          <span>🎮</span>
+          <span>بدء محاكي كويز 2 (5 دقائق) 🎯</span>
+        </button>
+        <a href="https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
+          <span>📝</span>
+          <span>Test Bank CH 2 ↗</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
+          <span>📄</span>
+          <span>Chapter 2 Summary ↗</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 100%;">
+          <span>📘</span>
+          <span>Lecture Slides 2 (سلايدات المحاضرة) ↗</span>
+        </a>
+      </div>
+    `;
+  }
   // Case 3: Other sessions with notice or note
   else {
     if (titleEl) titleEl.textContent = session.noticeData?.title || `📢 تنبيه مادة ${session.code}`;
@@ -2614,7 +2705,7 @@ function renderWeekMatrix() {
     head.style.gridColumn = `${i + 2}`;
     head.style.gridRow = "1";
     head.innerHTML = `
-      <span style="${isToday ? 'color:#38bdf8;font-weight:800;' : 'color:#cbd5e1;font-weight:700;'}">${d.short}</span> 
+      <span class="matrix-day-name">${d.short}</span> 
       <div style="display:flex;gap:5px;align-items:center;">
         ${hasQuiz ? `<span class="quiz-pill" onclick="setView('tasks')" style="cursor:pointer;" title="Click for Tasks Hub">⚡ QUIZ</span>` : ''}
         ${isToday ? '<span class="today-pill">Today</span>' : ''}
@@ -2745,7 +2836,7 @@ function renderWeekMatrix() {
       }
 
       // Clean Room display for pin badge
-      const cleanRoom = (sess.room || "").split(" ")[0] || sess.room;
+      const cleanRoom = sess.room || "";
       const hasNoticeOrNote = !!(sess.hasNotice || sess.note);
 
       const posWrap = document.createElement("div");
@@ -2767,7 +2858,7 @@ function renderWeekMatrix() {
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : `color:${course.hex};`}">${sess.code}</span>
             <div class="card-badges">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); openQuizPrepGuide('mth-quiz-1')" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal('exam')" : "openQuizPrepGuide('mth-quiz-1')"}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasNoticeOrNote && !isCancelled ? `<span class="badge-notice-bell" data-day="${dIdx}" data-start="${sess.start}" data-code="${sess.code}" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم">🔔</span>` : ''}
@@ -3254,6 +3345,35 @@ function renderGuideCard(activeItem, course, availableWeeks) {
           `).join("")}
         </div>
       </div>
+
+      ${activeItem.code === 'GEN G119' ? `
+        <div class="wg-quiz-hub-box" style="margin-bottom:16px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(2,132,199,0.08) 100%);border:1.5px solid rgba(16,185,129,0.45);box-shadow:0 8px 24px rgba(0,0,0,0.15);">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:22px;">⚡</span>
+              <h3 style="margin:0;font-size:15px;font-weight:800;color:#10b981;">Guide for Quiz 2 | Marketing (Chapter 2)</h3>
+            </div>
+            <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(16,185,129,0.2);color:#10b981;border:1px solid rgba(16,185,129,0.4);">⏱️ المدة 5 دقائق فقط</span>
+          </div>
+          <p style="font-size:12.5px;color:var(--text-muted);margin:0 0 12px 0;line-height:1.5;">
+            الكويز الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414). الامتحان 20 سؤال مطابق لأسئلة الـ Test Bank بالحرف.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <button onclick="openMarketingQuiz2Modal('exam')" class="wg-pill" style="background:#10b981;color:#fff;font-weight:800;border:none;cursor:pointer;box-shadow:0 0 12px rgba(16,185,129,0.35);">
+              <span>🎮</span><span>محاكي كويز 2 التفاعلي (Quiz 2 Simulator)</span>
+            </button>
+            <a href="https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="wg-pill">
+              <span>📘</span><span>Lecture Slides 2 ↗</span>
+            </a>
+            <a href="https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="wg-pill">
+              <span>📝</span><span>Test Bank CH 2 ↗</span>
+            </a>
+            <a href="https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="wg-pill">
+              <span>📄</span><span>Chapter 2 Summary ↗</span>
+            </a>
+          </div>
+        </div>
+      ` : ''}
 
       ${activeItem.tool ? `
         <div class="wg-tool-neon-card" style="margin-bottom:14px;background:linear-gradient(135deg,rgba(54,70,201,0.2) 0%,rgba(210,56,45,0.12) 50%,rgba(15,23,42,0.92) 100%);border:1.5px solid rgba(147,163,255,0.5);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;box-shadow:0 0 25px rgba(54,70,201,0.25),inset 0 1px 0 rgba(255,255,255,0.15);">
@@ -4140,3 +4260,685 @@ setInterval(updateLiveTracker, 60000);
 if (window._countdownInterval) clearInterval(window._countdownInterval);
 window._countdownInterval = setInterval(updateCountdowns, 60000);
 updateCountdowns();
+
+
+/* ==========================================================================
+   Quiz 2 Simulator V2 — Marketing (GEN G119 — Chapter 2) Arena
+   ========================================================================== */
+
+let quiz2State = {
+  active: false,
+  mode: 'exam', // 'exam' (5-min real exam) | 'practice' (full test bank) | 'review'
+  filter: 'all', // 'all' | 'mcq' | 'tf'
+  questions: [],
+  currentIndex: 0,
+  userAnswers: {}, // qIndex -> optionIndex
+  flagged: {}, // qIndex -> boolean
+  startTime: null,
+  elapsedSeconds: 0,
+  timerSeconds: 300, // 5:00
+  timerInterval: null,
+  isSubmitted: false,
+  mistakeIndices: [],
+  keyListenerBound: false
+};
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function openMarketingQuiz2Modal(initialMode = 'exam') {
+  if (typeof triggerHaptic === 'function') triggerHaptic("heavy");
+
+  if (!window.marketingQuiz2Questions || !window.marketingQuiz2Questions.length) {
+    alert("بنك أسئلة كويز 2 غير محمل بعد!");
+    return;
+  }
+
+  // Remove existing modal if any
+  closeMarketingQuiz2Modal();
+
+  let modal = document.createElement("div");
+  modal.id = "marketingQuiz2Modal";
+  modal.className = "quiz2-arena-overlay";
+  modal.innerHTML = `
+    <div class="quiz2-arena-card" id="quiz2ArenaCard" role="dialog" aria-modal="true">
+      <div id="quiz2ArenaContent"></div>
+    </div>
+  `;
+
+  // Attach backdrop click listener
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeMarketingQuiz2Modal();
+    }
+  });
+
+  // Strict Safeguard: DOM Portal directly to document.body
+  document.body.appendChild(modal);
+
+  // Scroll lock
+  document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
+  document.body.classList.add("modal-open");
+
+  // Global key listener
+  bindQuiz2Keyboard();
+
+  // Start session
+  startQuiz2Session(initialMode);
+}
+
+function closeMarketingQuiz2Modal() {
+  if (quiz2State.timerInterval) {
+    clearInterval(quiz2State.timerInterval);
+    quiz2State.timerInterval = null;
+  }
+
+  quiz2State.active = false;
+  unbindQuiz2Keyboard();
+
+  const modal = document.getElementById("marketingQuiz2Modal");
+  if (modal) {
+    modal.remove();
+  }
+
+  // Strict Safeguard: Always restore scrolling
+  document.body.style.overflow = '';
+  document.documentElement.style.overflow = '';
+  document.body.classList.remove('modal-open');
+}
+
+function bindQuiz2Keyboard() {
+  if (quiz2State.keyListenerBound) return;
+  window.addEventListener("keydown", handleQuiz2Keydown);
+  quiz2State.keyListenerBound = true;
+}
+
+function unbindQuiz2Keyboard() {
+  window.removeEventListener("keydown", handleQuiz2Keydown);
+  quiz2State.keyListenerBound = false;
+}
+
+function handleQuiz2Keydown(e) {
+  if (!quiz2State.active) return;
+
+  if (e.key === "Escape") {
+    e.preventDefault();
+    closeMarketingQuiz2Modal();
+    return;
+  }
+
+  if (quiz2State.isSubmitted) return;
+
+  const q = quiz2State.questions[quiz2State.currentIndex];
+  if (!q) return;
+
+  // Options 1-5 or A-E
+  const keyUpper = e.key.toUpperCase();
+  let optIndex = -1;
+
+  if (["1", "2", "3", "4", "5"].includes(e.key)) {
+    optIndex = parseInt(e.key, 10) - 1;
+  } else if (["A", "B", "C", "D", "E"].includes(keyUpper)) {
+    optIndex = keyUpper.charCodeAt(0) - 65;
+  } else if (q.type === "tf") {
+    if (keyUpper === "T") optIndex = 0;
+    if (keyUpper === "F") optIndex = 1;
+  }
+
+  if (optIndex >= 0 && optIndex < q.options.length) {
+    e.preventDefault();
+    selectQuiz2Option(optIndex);
+    return;
+  }
+
+  // Navigation
+  if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    nextQuiz2Question();
+  } else if (e.key === "ArrowRight") {
+    e.preventDefault();
+    prevQuiz2Question();
+  } else if (keyUpper === "F" || keyUpper === "M") {
+    e.preventDefault();
+    toggleQuiz2Flag();
+  }
+}
+
+function startQuiz2Session(mode = 'exam', customQuestions = null) {
+  if (quiz2State.timerInterval) {
+    clearInterval(quiz2State.timerInterval);
+    quiz2State.timerInterval = null;
+  }
+
+  quiz2State.active = true;
+  quiz2State.mode = mode;
+  quiz2State.isSubmitted = false;
+  quiz2State.currentIndex = 0;
+  quiz2State.userAnswers = {};
+  quiz2State.flagged = {};
+  quiz2State.startTime = Date.now();
+  quiz2State.elapsedSeconds = 0;
+  quiz2State.mistakeIndices = [];
+
+  const masterPool = window.marketingQuiz2Questions || [];
+
+  if (customQuestions && customQuestions.length) {
+    quiz2State.questions = [...customQuestions];
+  } else if (mode === 'exam') {
+    // 5-minute real exam: pick 20 random questions
+    const shuffled = shuffleArray(masterPool);
+    quiz2State.questions = shuffled.slice(0, 20);
+    quiz2State.timerSeconds = 300; // 5:00
+  } else {
+    // Full test bank
+    quiz2State.questions = [...masterPool];
+    quiz2State.timerSeconds = 0;
+  }
+
+  renderQuiz2Arena();
+
+  if (mode === 'exam') {
+    startQuiz2Timer();
+  }
+}
+
+function startQuiz2Timer() {
+  if (quiz2State.timerInterval) clearInterval(quiz2State.timerInterval);
+
+  quiz2State.timerInterval = setInterval(() => {
+    quiz2State.timerSeconds--;
+    quiz2State.elapsedSeconds++;
+
+    updateQuiz2TimerDisplay();
+
+    if (quiz2State.timerSeconds <= 0) {
+      clearInterval(quiz2State.timerInterval);
+      quiz2State.timerInterval = null;
+      submitQuiz2(true);
+    }
+  }, 1000);
+}
+
+function updateQuiz2TimerDisplay() {
+  const timerEl = document.getElementById("quiz2TimerBox");
+  if (!timerEl) return;
+
+  const s = Math.max(0, quiz2State.timerSeconds);
+  const mins = Math.floor(s / 60);
+  const secs = s % 60;
+  const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  timerEl.innerHTML = `⏱️ ${timeStr}`;
+
+  timerEl.classList.remove("warning", "critical");
+  if (s <= 60) {
+    timerEl.classList.add("critical");
+  } else if (s <= 120) {
+    timerEl.classList.add("warning");
+  }
+}
+
+function renderQuiz2Arena() {
+  const content = document.getElementById("quiz2ArenaContent");
+  if (!content) return;
+
+  const total = quiz2State.questions.length;
+  const current = quiz2State.currentIndex + 1;
+  const answeredCount = Object.keys(quiz2State.userAnswers).length;
+  const progressPct = total > 0 ? Math.round((answeredCount / total) * 100) : 0;
+  const q = quiz2State.questions[quiz2State.currentIndex];
+
+  if (!q) {
+    renderQuiz2Results();
+    return;
+  }
+
+  const isExam = quiz2State.mode === 'exam';
+  const isFlagged = !!quiz2State.flagged[quiz2State.currentIndex];
+  const userSelected = quiz2State.userAnswers[quiz2State.currentIndex];
+  const hasAnswered = userSelected !== undefined;
+
+  content.innerHTML = `
+    <!-- Top Header Bar -->
+    <header class="quiz2-arena-head">
+      <div class="quiz2-head-left">
+        <span class="quiz2-tag-code">GEN G119</span>
+        <div class="quiz2-mode-pills">
+          <button class="quiz2-mode-pill ${isExam ? 'active' : ''}" onclick="switchQuiz2Mode('exam')">
+            ⚡ تحدي 5 دقائق
+          </button>
+          <button class="quiz2-mode-pill ${!isExam ? 'active' : ''}" onclick="switchQuiz2Mode('practice')">
+            📚 البنك الكامل (${(window.marketingQuiz2Questions || []).length})
+          </button>
+        </div>
+      </div>
+
+      <div class="quiz2-head-right">
+        ${isExam ? `
+          <div class="quiz2-timer-box" id="quiz2TimerBox">⏱️ 05:00</div>
+        ` : `
+          <div class="quiz2-practice-counter">سؤال ${current} من ${total}</div>
+        `}
+        <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close" title="إغلاق المحاكي (Esc)">✕</button>
+      </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="quiz2-progress-bar-wrap">
+      <div class="quiz2-progress-fill" style="width: ${progressPct}%;"></div>
+    </div>
+    <div class="quiz2-progress-meta">
+      <span>تم حل <strong>${answeredCount}</strong> من <strong>${total}</strong> سؤال (${progressPct}%)</span>
+      <span>${isExam ? '⏱️ سرعة المحاكاة الواقعية' : '💡 وضع التدريب بالتصحيح الفوري'}</span>
+    </div>
+
+    <!-- Question Map Carousel / Drawer -->
+    <div class="quiz2-qmap-container" id="quiz2QMap">
+      <div class="quiz2-qmap-track">
+        ${quiz2State.questions.map((item, idx) => {
+          const ans = quiz2State.userAnswers[idx];
+          const flg = quiz2State.flagged[idx];
+          const isCur = idx === quiz2State.currentIndex;
+          let cls = "quiz2-qmap-btn";
+          if (isCur) cls += " current";
+          if (flg) cls += " flagged";
+
+          if (ans !== undefined) {
+            if (isExam) {
+              cls += " answered";
+            } else {
+              cls += (ans === item.answer) ? " correct" : " wrong";
+            }
+          }
+
+          return `
+            <button class="${cls}" onclick="jumpToQuiz2Question(${idx})" title="سؤال ${idx + 1}">
+              ${flg ? '🚩' : (idx + 1)}
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Question Card Main -->
+    <main class="quiz2-question-card">
+      <div class="quiz2-q-badge-row">
+        <span class="quiz2-q-badge">سؤال رقم ${current} • ${q.type === 'tf' ? 'صح / خطأ' : 'اختيار من متعدد MCQ'}</span>
+        ${q.pageRef ? `<span class="quiz2-ref-badge">📖 Ref: P.${q.pageRef}</span>` : ''}
+      </div>
+
+      <div class="quiz2-question-text" dir="ltr">
+        ${escapeQuizHtml(q.question)}
+      </div>
+
+      <!-- Options Grid -->
+      <div class="quiz2-options-list" dir="ltr">
+        ${q.options.map((opt, optIdx) => {
+          const letter = q.type === 'tf' ? (optIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + optIdx);
+          const isSelected = userSelected === optIdx;
+          const isCorrect = optIdx === q.answer;
+          let optCls = "quiz2-option-card";
+
+          if (hasAnswered) {
+            if (isExam) {
+              if (isSelected) optCls += " selected";
+            } else {
+              // Practice mode: instant feedback!
+              if (isCorrect) {
+                optCls += " is-correct";
+              } else if (isSelected && !isCorrect) {
+                optCls += " is-wrong";
+              }
+            }
+          }
+
+          return `
+            <div class="${optCls}" onclick="selectQuiz2Option(${optIdx})" role="button" tabindex="0">
+              <span class="quiz2-opt-letter">${letter}</span>
+              <span class="quiz2-opt-text">${escapeQuizHtml(opt)}</span>
+              ${hasAnswered && !isExam ? `
+                <span class="quiz2-opt-icon">
+                  ${isCorrect ? '✓' : (isSelected ? '✗' : '')}
+                </span>
+              ` : ''}
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      ${!isExam && hasAnswered ? `
+        <div class="quiz2-instant-feedback ${userSelected === q.answer ? 'correct' : 'wrong'}">
+          ${userSelected === q.answer ? `
+            <span>🎉 <strong>إجابة صحيحة!</strong> أحسنت، الإجابة هي (${String.fromCharCode(65 + q.answer)}).</span>
+          ` : `
+            <span>❌ <strong>إجابة خاطئة!</strong> الإجابة الصحيحة هي: <strong>(${String.fromCharCode(65 + q.answer)}) ${escapeQuizHtml(q.options[q.answer])}</strong></span>
+          `}
+        </div>
+      ` : ''}
+    </main>
+
+    <!-- Bottom Actions Toolbar -->
+    <footer class="quiz2-arena-footer">
+      <div class="quiz2-foot-left">
+        <button class="quiz2-btn-flag ${isFlagged ? 'active' : ''}" onclick="toggleQuiz2Flag()">
+          <span>${isFlagged ? '🚩 تم التعليم للمراجعة' : '🏳️ علّم للمراجعة'}</span>
+        </button>
+      </div>
+
+      <div class="quiz2-foot-right">
+        <button class="quiz2-btn-nav" onclick="prevQuiz2Question()" ${quiz2State.currentIndex === 0 ? 'disabled' : ''}>
+          <span>◀ السابق</span>
+        </button>
+
+        ${current < total ? `
+          <button class="quiz2-btn-nav quiz2-btn-primary" onclick="nextQuiz2Question()">
+            <span>التالي ▶</span>
+          </button>
+        ` : `
+          <button class="quiz2-btn-nav quiz2-btn-finish" onclick="submitQuiz2()">
+            <span>🏁 إنهاء وتسليم</span>
+          </button>
+        `}
+      </div>
+    </footer>
+
+    <!-- Shortcuts hint bar -->
+    <div class="quiz2-shortcuts-hint">
+      <span>💡 اختصارات: [1-5 / A-D] للاختيار • [← / →] للتنقل • [F] للتعليم • [Esc] للإغلاق</span>
+    </div>
+  `;
+
+  if (isExam) {
+    updateQuiz2TimerDisplay();
+  }
+}
+
+function escapeQuizHtml(str) {
+  return String(str || '')
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function switchQuiz2Mode(newMode) {
+  if (quiz2State.mode === newMode) return;
+  if (confirm(newMode === 'exam' ? 'هل تريد بدء تحدي الـ 5 دقائق الآن؟' : 'هل تريد الانتقال لبنك الأسئلة الكامل للتمرين الحر؟')) {
+    startQuiz2Session(newMode);
+  }
+}
+
+function selectQuiz2Option(optIdx) {
+  if (quiz2State.isSubmitted) return;
+  const q = quiz2State.questions[quiz2State.currentIndex];
+  if (!q) return;
+
+  const prevAnswer = quiz2State.userAnswers[quiz2State.currentIndex];
+  quiz2State.userAnswers[quiz2State.currentIndex] = optIdx;
+
+  if (typeof triggerHaptic === 'function') {
+    if (quiz2State.mode !== 'exam') {
+      triggerHaptic(optIdx === q.answer ? 'light' : 'heavy');
+    } else {
+      triggerHaptic('light');
+    }
+  }
+
+  renderQuiz2Arena();
+}
+
+function toggleQuiz2Flag() {
+  const cur = quiz2State.currentIndex;
+  quiz2State.flagged[cur] = !quiz2State.flagged[cur];
+  if (typeof triggerHaptic === 'function') triggerHaptic('light');
+  renderQuiz2Arena();
+}
+
+function nextQuiz2Question() {
+  if (quiz2State.currentIndex < quiz2State.questions.length - 1) {
+    quiz2State.currentIndex++;
+    renderQuiz2Arena();
+  }
+}
+
+function prevQuiz2Question() {
+  if (quiz2State.currentIndex > 0) {
+    quiz2State.currentIndex--;
+    renderQuiz2Arena();
+  }
+}
+
+function jumpToQuiz2Question(idx) {
+  if (idx >= 0 && idx < quiz2State.questions.length) {
+    quiz2State.currentIndex = idx;
+    renderQuiz2Arena();
+  }
+}
+
+function submitQuiz2(isTimeout = false) {
+  if (quiz2State.timerInterval) {
+    clearInterval(quiz2State.timerInterval);
+    quiz2State.timerInterval = null;
+  }
+
+  quiz2State.isSubmitted = true;
+  if (typeof triggerHaptic === 'function') triggerHaptic("heavy");
+
+  const total = quiz2State.questions.length;
+  let correctCount = 0;
+  quiz2State.mistakeIndices = [];
+
+  quiz2State.questions.forEach((q, idx) => {
+    const userAns = quiz2State.userAnswers[idx];
+    if (userAns === q.answer) {
+      correctCount++;
+    } else {
+      quiz2State.mistakeIndices.push(idx);
+    }
+  });
+
+  const scorePct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+  if (scorePct >= 85 && typeof confetti === 'function') {
+    confetti({ particleCount: 110, spread: 90, origin: { y: 0.5 }, zIndex: 100050 });
+  }
+
+  renderQuiz2Results(isTimeout, correctCount, total, scorePct);
+}
+
+function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scorePct = 0) {
+  const content = document.getElementById("quiz2ArenaContent");
+  if (!content) return;
+
+  const mistakesCount = quiz2State.mistakeIndices.length;
+  const timeTakenSec = quiz2State.elapsedSeconds || (300 - quiz2State.timerSeconds);
+  const mins = Math.floor(timeTakenSec / 60);
+  const secs = timeTakenSec % 60;
+  const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  const avgSpeed = total > 0 ? (timeTakenSec / total).toFixed(1) : "0.0";
+
+  let feedbackBadge = "🎯 أداء جيد";
+  let feedbackCls = "good";
+  if (scorePct >= 95) {
+    feedbackBadge = "🏆 أداء أسطوري — A+ مضمونة!";
+    feedbackCls = "legendary";
+  } else if (scorePct >= 80) {
+    feedbackBadge = "🌟 ممتاز جداً — جاهز تماماً للكويز";
+    feedbackCls = "excellent";
+  } else if (scorePct >= 60) {
+    feedbackBadge = "⚡ جيد — اتدرب أكتر على السرعة";
+    feedbackCls = "pass";
+  } else {
+    feedbackBadge = "📚 محتاج مراجعة وحل أخطائك";
+    feedbackCls = "retry";
+  }
+
+  content.innerHTML = `
+    <header class="quiz2-arena-head">
+      <div class="quiz2-head-left">
+        <span class="quiz2-tag-code">GEN G119</span>
+        <span class="quiz2-mode-pill active">📊 النتيجة والتحليلات</span>
+      </div>
+      <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close">✕</button>
+    </header>
+
+    <div class="quiz2-results-body">
+      ${isTimeout ? `
+        <div class="quiz2-timeout-alert">
+          ⏰ <strong>انتهى الوقت المخصص (5 دقائق)!</strong> تم تسليم الإجابات تلقائياً لمحاكاة وقت الكويز الفعلي.
+        </div>
+      ` : ''}
+
+      <div class="quiz2-results-hero">
+        <div class="quiz2-score-gauge-box">
+          <svg class="quiz2-score-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" class="gauge-bg" />
+            <circle cx="50" cy="50" r="42" class="gauge-fill" style="stroke-dashoffset: ${264 - (264 * scorePct) / 100};" />
+          </svg>
+          <div class="quiz2-score-inner">
+            <span class="score-pct">${scorePct}%</span>
+            <span class="score-sub">${correctCount}/${total}</span>
+          </div>
+        </div>
+
+        <div class="quiz2-verdict-box">
+          <div class="quiz2-verdict-badge ${feedbackCls}">${feedbackBadge}</div>
+          <h2 class="quiz2-verdict-title">كويز 2 ماركتنج (Chapter 2)</h2>
+          <p class="quiz2-verdict-desc">
+            ${scorePct >= 85 
+              ? 'مستواك ممتاز جداً وسرعتك تؤهلك لقفل الكويز الفعلي داخل المحاضرة بسهولة! حافظ على هذا المستوى.' 
+              : 'الكويز مدته 5 دقائق فقط وسرعة التظليل بتفرق، راجع أخطاءك فوراً بالضغط على الزر الذهبي بالأسفل.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="quiz2-stats-grid">
+        <div class="quiz2-stat-card">
+          <span class="stat-icon">🎯</span>
+          <div class="stat-val" style="color:#10b981;">${correctCount}</div>
+          <div class="stat-lbl">إجابة صحيحة</div>
+        </div>
+        <div class="quiz2-stat-card">
+          <span class="stat-icon">❌</span>
+          <div class="stat-val" style="color:#ef4444;">${mistakesCount}</div>
+          <div class="stat-lbl">أخطاء للتدريب</div>
+        </div>
+        <div class="quiz2-stat-card">
+          <span class="stat-icon">⏱️</span>
+          <div class="stat-val" style="color:#38bdf8;">${timeStr}</div>
+          <div class="stat-lbl">الوقت المستغرق</div>
+        </div>
+        <div class="quiz2-stat-card">
+          <span class="stat-icon">⚡</span>
+          <div class="stat-val" style="color:#fbbf24;">${avgSpeed}s</div>
+          <div class="stat-lbl">متوسط سرعة الإجابة</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Grid -->
+      <div class="quiz2-results-actions">
+        ${mistakesCount > 0 ? `
+          <button class="quiz2-btn-golden" onclick="retryQuiz2Mistakes()">
+            <span>🔄 إعادة حل الأسئلة الخاطئة فقط (${mistakesCount} سؤال)</span>
+          </button>
+        ` : `
+          <div class="quiz2-perfect-box">
+            <span>🎉 ممتاز! لا توجد أي أخطاء لديك في هذه المحاولة (100%).</span>
+          </div>
+        `}
+
+        <button class="quiz2-action-btn primary" onclick="startQuiz2Session('exam')">
+          <span>⚡ بدء تحدي 5 دقائق جديد (أسئلة عشوائية)</span>
+        </button>
+
+        <button class="quiz2-action-btn secondary" onclick="renderFullQuiz2Review()">
+          <span>📚 مراجعة كافة الأسئلة وإجاباتها النموذجية</span>
+        </button>
+
+        <button class="quiz2-action-btn secondary" onclick="closeMarketingQuiz2Modal()">
+          <span>✕ إغلاق المحاكي</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function retryQuiz2Mistakes() {
+  if (!quiz2State.mistakeIndices.length) return;
+  const missedQuestions = quiz2State.mistakeIndices.map(idx => quiz2State.questions[idx]);
+  startQuiz2Session('practice', missedQuestions);
+}
+
+function renderFullQuiz2Review() {
+  const content = document.getElementById("quiz2ArenaContent");
+  if (!content) return;
+
+  content.innerHTML = `
+    <header class="quiz2-arena-head">
+      <div class="quiz2-head-left">
+        <span class="quiz2-tag-code">GEN G119</span>
+        <span class="quiz2-mode-pill active">📚 مراجعة الحل النموذجي</span>
+      </div>
+      <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close">✕</button>
+    </header>
+
+    <div class="quiz2-review-list">
+      ${quiz2State.questions.map((q, idx) => {
+        const userAns = quiz2State.userAnswers[idx];
+        const isCorrect = userAns === q.answer;
+        const correctLetter = q.type === 'tf' ? (q.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + q.answer);
+        const userLetter = userAns !== undefined ? (q.type === 'tf' ? (userAns === 0 ? 'True' : 'False') : String.fromCharCode(65 + userAns)) : 'لم تتم الإجابة';
+
+        return `
+          <div class="quiz2-review-item ${isCorrect ? 'correct' : 'wrong'}">
+            <div class="quiz2-review-item-head">
+              <span class="quiz2-review-num">سؤال ${idx + 1} (${q.type === 'tf' ? 'True/False' : 'MCQ'})</span>
+              <span class="quiz2-review-badge ${isCorrect ? 'correct' : 'wrong'}">
+                ${isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}
+              </span>
+            </div>
+            <div class="quiz2-review-qtext" dir="ltr">${escapeQuizHtml(q.question)}</div>
+            <div class="quiz2-review-opts" dir="ltr">
+              ${q.options.map((opt, oIdx) => {
+                const optLetter = q.type === 'tf' ? (oIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + oIdx);
+                const isThisCorrect = oIdx === q.answer;
+                const isThisChosen = oIdx === userAns;
+                let cName = "quiz2-review-opt";
+                if (isThisCorrect) cName += " is-correct-answer";
+                if (isThisChosen && !isThisCorrect) cName += " is-user-wrong";
+
+                return `
+                  <div class="${cName}">
+                    <strong>${optLetter})</strong> ${escapeQuizHtml(opt)}
+                    ${isThisCorrect ? ' <span class="tag-correct">✓ الإجابة الصحيحة</span>' : ''}
+                    ${isThisChosen && !isThisCorrect ? ' <span class="tag-wrong">✗ اختيارك</span>' : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('')}
+
+      <div style="display:flex;gap:10px;margin-top:20px;justify-content:center;">
+        <button class="quiz2-action-btn primary" onclick="startQuiz2Session('exam')">
+          <span>⚡ بدء تحدي 5 دقائق جديد</span>
+        </button>
+        <button class="quiz2-action-btn secondary" onclick="closeMarketingQuiz2Modal()">
+          <span>✕ إغلاق المحاكي</span>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+window.openMarketingQuiz2Modal = openMarketingQuiz2Modal;
+window.closeMarketingQuiz2Modal = closeMarketingQuiz2Modal;

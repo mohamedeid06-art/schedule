@@ -1069,7 +1069,27 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 // جدول الحصص المعتمد
 const SESSIONS = [
   // Sunday
-  { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
+  { 
+    day: "Sunday", 
+    start: 0, 
+    span: 2, 
+    group: "ALL", 
+    code: "GEN G119", 
+    type: "Lecture", 
+    room: "3103-414",
+    attendance: true,
+    quizBadge: "⚡ كويز 2",
+    hasNotice: true,
+    noticeData: {
+      title: "🔔 تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)",
+      slots: "الموعد: الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414)",
+      requirements: "• الموعد: الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414).\n• مدة الكويز: 5 دقائق فقط (نفس نظام الكويز الأول).\n• المحتوى المقرر: المحاضرة الثانية (Chapter 2) كاملة.",
+      testBankUrl: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk",
+      summaryUrl: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk",
+      slidesUrl: "https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk"
+    },
+    note: "🔔 كويز 2 ماركتنج (Chapter 2): الأحد القادم 8:00 صباحاً (قاعة 3103-414) — المدة 5 دقائق فقط."
+  },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
@@ -1250,3 +1270,1687 @@ const DEFAULT_NOTIFICATIONS = [
 ];
 
 
+
+
+// ==========================================================================
+// Marketing (GEN G119) — Chapter 2 Test Bank Master Data (Complete 125 Questions)
+// ==========================================================================
+const marketingQuiz2Questions = [
+  {
+    "id": 1,
+    "type": "mcq",
+    "question": "Which of the following involves adapting a firm to take advantage of opportunities in its constantly changing environment?",
+    "options": [
+      "long-range planning",
+      "short-range planning",
+      "media planning",
+      "strategic planning",
+      "annual planning"
+    ],
+    "answer": 3,
+    "pageRef": 38
+  },
+  {
+    "id": 2,
+    "type": "mcq",
+    "question": "When a firm develops and maintains a strategic fit between its goals and capabilities, it is performing ________.",
+    "options": [
+      "mission planning",
+      "values planning",
+      "strategic planning",
+      "business-portfolio planning",
+      "operations planning"
+    ],
+    "answer": 2,
+    "pageRef": 38
+  },
+  {
+    "id": 3,
+    "type": "mcq",
+    "question": "Which of the following is the first step in strategic planning?",
+    "options": [
+      "set objectives and goals",
+      "develop the business portfolio",
+      "define the company mission",
+      "plan marketing strategies",
+      "identify threats and weaknesses"
+    ],
+    "answer": 2,
+    "pageRef": 39
+  },
+  {
+    "id": 4,
+    "type": "mcq",
+    "question": "Which of the following is NOT a step in the strategic planning process?",
+    "options": [
+      "defining the company mission",
+      "setting company objectives and goals",
+      "designing the business portfolio",
+      "planning marketing and other functional strategies",
+      "evaluating all members of the value chain"
+    ],
+    "answer": 4,
+    "pageRef": 39
+  },
+  {
+    "id": 5,
+    "type": "mcq",
+    "question": "Which of the following provides an answer to these questions: What is our business? Who are our customers? What do our customers value? What should our business be?",
+    "options": [
+      "objectives and goals",
+      "a mission statement",
+      "a business portfolio",
+      "marketing and functional strategies",
+      "operational strategies"
+    ],
+    "answer": 1,
+    "pageRef": 39
+  },
+  {
+    "id": 6,
+    "type": "mcq",
+    "question": "________ should be market oriented and defined in terms of ________.",
+    "options": [
+      "Annual plans; product needs",
+      "Strategic plans; company needs",
+      "Long-range plans; company needs",
+      "Mission statements; customers' needs",
+      "Objectives; competitors' threats"
+    ],
+    "answer": 3,
+    "pageRef": 39
+  },
+  {
+    "id": 7,
+    "type": "mcq",
+    "question": "All of the following are accurate guidelines for a company's mission statement EXCEPT which one?",
+    "options": [
+      "A mission statement should be realistic.",
+      "A mission statement should be narrow.",
+      "A mission statement should emphasize the company's strengths in the marketplace.",
+      "A mission statement should be specific.",
+      "A mission statement should motivate employees."
+    ],
+    "answer": 1,
+    "pageRef": 39
+  },
+  {
+    "id": 8,
+    "type": "mcq",
+    "question": "A company's mission statement serves as a statement of ________.",
+    "options": [
+      "fact",
+      "values",
+      "purpose",
+      "financial goals",
+      "employee commitment"
+    ],
+    "answer": 2,
+    "pageRef": 39
+  },
+  {
+    "id": 9,
+    "type": "mcq",
+    "question": "Which of the following is NOT a market-oriented business definition?",
+    "options": [
+      "\"to make the Internet buying experience fast, easy, and enjoyable\"",
+      "\"to sell tools and home repair and improvement items\"",
+      "\"to deliver low prices every day\"",
+      "\"to be the guardian of our customers' financial dreams\"",
+      "\"to bring aspiration and innovation to every athlete in the world\""
+    ],
+    "answer": 1,
+    "pageRef": 40
+  },
+  {
+    "id": 10,
+    "type": "mcq",
+    "question": "All of the following are examples of product-oriented mission statements, EXCEPT which one?",
+    "options": [
+      "\"We provide online services.\"",
+      "\"We run theme parks.\"",
+      "\"We sell shoes.\"",
+      "\"We sell lifestyle and self-expression; success and status; memories, hopes, and dreams.\"",
+      "\"We rent hotel rooms.\""
+    ],
+    "answer": 3,
+    "pageRef": 40
+  },
+  {
+    "id": 11,
+    "type": "mcq",
+    "question": "Which of the following is the principle objective of a market-oriented mission statement?",
+    "options": [
+      "to satisfy basic customer needs",
+      "to satisfy basic supplier needs",
+      "to satisfy basic stockholder needs",
+      "to satisfy basic owner needs",
+      "to satisfy basic partnership needs"
+    ],
+    "answer": 0,
+    "pageRef": 39
+  },
+  {
+    "id": 12,
+    "type": "mcq",
+    "question": "Revlon has clearly defined its \"mission\" of selling lifestyle and self-expression. In order for the firm to launch its strategic plan, the mission needs to next be turned into detailed ________ that guide each level of the company.",
+    "options": [
+      "sets of strategies",
+      "sets of tactics",
+      "product mixes",
+      "supporting objectives",
+      "sets of promotional tools"
+    ],
+    "answer": 3,
+    "pageRef": 40
+  },
+  {
+    "id": 13,
+    "type": "mcq",
+    "question": "The collection of businesses and products that make up a company is called its ________.",
+    "options": [
+      "strategic business unit",
+      "mission statement",
+      "strategic plan",
+      "business portfolio",
+      "operational factor"
+    ],
+    "answer": 3,
+    "pageRef": 41
+  },
+  {
+    "id": 14,
+    "type": "mcq",
+    "question": "Which of the following can be a company division, a product line within a division, or sometimes a single product or brand?",
+    "options": [
+      "a market",
+      "the BCG",
+      "an SBU",
+      "a PLC",
+      "a value delivery network"
+    ],
+    "answer": 2,
+    "pageRef": 41
+  },
+  {
+    "id": 15,
+    "type": "mcq",
+    "question": "After management has identified the key businesses making up its company, what is the next step in portfolio analysis?",
+    "options": [
+      "identifying businesses in which to invest",
+      "assessing the attractiveness of its SBUs",
+      "deciding whether to harvest any businesses",
+      "completing short-range planning",
+      "identifying SBUs"
+    ],
+    "answer": 1,
+    "pageRef": 41
+  },
+  {
+    "id": 16,
+    "type": "mcq",
+    "question": "The best known product portfolio planning method was developed by ________.",
+    "options": [
+      "the Boston Consulting Group",
+      "Philip Kotler",
+      "Harvard University",
+      "the SRI Consulting Firm",
+      "James P. Hess"
+    ],
+    "answer": 0,
+    "pageRef": 41
+  },
+  {
+    "id": 17,
+    "type": "mcq",
+    "question": "Most portfolio analysis methods evaluate SBUs on two dimensions, namely ________ and ________.",
+    "options": [
+      "market share; strength of the SBU's position",
+      "market diversification; relative market share",
+      "market or industry attractiveness; strength of the SBU's position",
+      "market growth rates; profits",
+      "market penetration; market development"
+    ],
+    "answer": 2,
+    "pageRef": 41
+  },
+  {
+    "id": 18,
+    "type": "mcq",
+    "question": "In the Boston Consulting Group approach, ________ provides a measure of market attractiveness.",
+    "options": [
+      "relative market share",
+      "market development",
+      "market penetration",
+      "market growth rate",
+      "market segmentation"
+    ],
+    "answer": 3,
+    "pageRef": 41
+  },
+  {
+    "id": 19,
+    "type": "mcq",
+    "question": "In the Boston Consulting Group approach, ________ serves as a measure of company strength in the market.",
+    "options": [
+      "relative market share",
+      "market development",
+      "market diversification",
+      "market growth rate",
+      "market segmentation"
+    ],
+    "answer": 0,
+    "pageRef": 41
+  },
+  {
+    "id": 20,
+    "type": "mcq",
+    "question": "The BCG growth-share matrix classifies four types off SBUs. They are ________ , ________ , ________ , and ________.",
+    "options": [
+      "product; price; promotion; placement",
+      "sales; market share; price; promotion",
+      "stars; cash cows; question marks; dogs",
+      "planning; implementing; leading; controlling",
+      "market penetration; market development; product development; diversification"
+    ],
+    "answer": 2,
+    "pageRef": 42
+  },
+  {
+    "id": 21,
+    "type": "mcq",
+    "question": "In the BCG approach, ________ are high-share, high-growth businesses or products. They need heavy investment to finance rapid growth. When their growth slows down, they turn into ________.",
+    "options": [
+      "cash cows; stars",
+      "question marks; dogs",
+      "stars; question marks",
+      "stars; cash cows",
+      "dogs; cash cows"
+    ],
+    "answer": 3,
+    "pageRef": 41
+  },
+  {
+    "id": 22,
+    "type": "mcq",
+    "question": "________ are low-growth, high share businesses or products. They generate a lot of cash that the firm uses to pay its bills and support other SBUs that need investment.",
+    "options": [
+      "Stars",
+      "Cash cows",
+      "Question marks",
+      "Dogs",
+      "Cats"
+    ],
+    "answer": 1,
+    "pageRef": 42
+  },
+  {
+    "id": 23,
+    "type": "mcq",
+    "question": "In the BCG matrix, income from ________ can be used to help finance the company's question marks and stars.",
+    "options": [
+      "dogs",
+      "cash cows",
+      "SBU revenues",
+      "overseas operations",
+      "low-share businesses"
+    ],
+    "answer": 1,
+    "pageRef": 42
+  },
+  {
+    "id": 24,
+    "type": "mcq",
+    "question": "The four possible strategies that can be pursued for each SBU are building, holding, ________, and ________.",
+    "options": [
+      "harvesting; divesting",
+      "promoting; selling",
+      "downsizing; expanding",
+      "diversifying; penetrating",
+      "developing; growing"
+    ],
+    "answer": 0,
+    "pageRef": 42
+  },
+  {
+    "id": 25,
+    "type": "mcq",
+    "question": "Which of the following does NOT accurately reflect a problem with the BCG matrix approach?",
+    "options": [
+      "It focuses on planning for the future.",
+      "It can be costly to conduct.",
+      "It can be time consuming to implement.",
+      "It is difficult to define SBUs and measure market share and growth.",
+      "It focuses on classifying current businesses."
+    ],
+    "answer": 0,
+    "pageRef": 42
+  },
+  {
+    "id": 26,
+    "type": "mcq",
+    "question": "Unlike strategic-planning efforts of the past, which were conducted primarily by senior managers, today's strategic planning is ________.",
+    "options": [
+      "short-term oriented",
+      "decentralized",
+      "limitation-free",
+      "product oriented",
+      "centralized"
+    ],
+    "answer": 1,
+    "pageRef": "42-43"
+  },
+  {
+    "id": 27,
+    "type": "mcq",
+    "question": "To increase its U.S. market share, Starbucks has stepped up efforts in the areas of product availability and promotion. These are examples of broad ________.",
+    "options": [
+      "brand experiences",
+      "strategies for growth",
+      "diversification",
+      "product development",
+      "value chains"
+    ],
+    "answer": 1,
+    "pageRef": "44-45"
+  },
+  {
+    "id": 28,
+    "type": "mcq",
+    "question": "Which department in a company carries the primary responsibility for achieving profitable growth?",
+    "options": [
+      "accounting",
+      "product development",
+      "operations",
+      "human resources",
+      "marketing"
+    ],
+    "answer": 4,
+    "pageRef": 43
+  },
+  {
+    "id": 29,
+    "type": "mcq",
+    "question": "Which of the following is a useful tool for identifying growth opportunities?",
+    "options": [
+      "the BCG matrix",
+      "the business portfolio",
+      "the product/market expansion grid",
+      "the value chain",
+      "the value delivery network"
+    ],
+    "answer": 2,
+    "pageRef": 43
+  },
+  {
+    "id": 30,
+    "type": "mcq",
+    "question": "Making more sales to current customers without changing a firm's products is ________.",
+    "options": [
+      "market attractiveness",
+      "market penetration",
+      "market development",
+      "product development",
+      "diversification"
+    ],
+    "answer": 1,
+    "pageRef": 43
+  },
+  {
+    "id": 31,
+    "type": "mcq",
+    "question": "Starbucks has introduced a debit card that lets customers prepay for coffee and snacks. This effort by Starbucks management is an example of ________.",
+    "options": [
+      "market development",
+      "product development",
+      "diversification",
+      "market penetration",
+      "product adaptation"
+    ],
+    "answer": 3,
+    "pageRef": "43-45"
+  },
+  {
+    "id": 32,
+    "type": "mcq",
+    "question": "While a valuable planning tool, a problem with using the BCG matrix centers is that it focuses on ________",
+    "options": [
+      "the future instead of the present",
+      "the present instead of the future",
+      "financial issues instead of the customer",
+      "the customer instead of suppliers",
+      "the past instead of the present"
+    ],
+    "answer": 1,
+    "pageRef": 42
+  },
+  {
+    "id": 33,
+    "type": "mcq",
+    "question": "A common practice among marketers is to identify and develop new markets for their existing products. This practice is called ________.",
+    "options": [
+      "market development",
+      "product development",
+      "market penetration",
+      "market skimming",
+      "dual adaptation"
+    ],
+    "answer": 0,
+    "pageRef": 45
+  },
+  {
+    "id": 34,
+    "type": "mcq",
+    "question": "Starbucks Coffee has recently begun selling and playing compilation CDs and is supporting its own XM satellite radio station. This represents which strategy for growth?",
+    "options": [
+      "product development",
+      "market development",
+      "market penetration",
+      "diversification",
+      "partner development"
+    ],
+    "answer": 3,
+    "pageRef": 44
+  },
+  {
+    "id": 35,
+    "type": "mcq",
+    "question": "Which of the following entails reducing the business portfolio by eliminating products that no longer fit the company's overall strategy?",
+    "options": [
+      "market segmentation",
+      "the BCG approach",
+      "product line extension",
+      "downsizing",
+      "market redesign"
+    ],
+    "answer": 3,
+    "pageRef": 46
+  },
+  {
+    "id": 36,
+    "type": "mcq",
+    "question": "Which of the following is NOT a reason that a firm might want to abandon products or markets?",
+    "options": [
+      "The market has changed, making some of the products less profitable.",
+      "The firm has entered areas in which it does not have expertise.",
+      "The economic environment is showing signs of recovery.",
+      "The firm has grown too rapidly.",
+      "The firm has not properly researched foreign markets which it has entered."
+    ],
+    "answer": 2,
+    "pageRef": 46
+  },
+  {
+    "id": 37,
+    "type": "mcq",
+    "question": "Each department in a company that carries out value-creating activities can be thought of as a link in the company's ________.",
+    "options": [
+      "market development",
+      "product development",
+      "business portfolio",
+      "value chain",
+      "value delivery network"
+    ],
+    "answer": 3,
+    "pageRef": 46
+  },
+  {
+    "id": 38,
+    "type": "mcq",
+    "question": "Jack Welch, CEO at General Electric, said that \"Companies can't give job security, only ________ can.\"",
+    "options": [
+      "development",
+      "growth",
+      "good strategy",
+      "customers",
+      "efficiency"
+    ],
+    "answer": 3,
+    "pageRef": 47
+  },
+  {
+    "id": 39,
+    "type": "mcq",
+    "question": "Multinationals like Honda Motor Co. and Wal-Mart stores have designed programs to work closely with their suppliers to help them reduce their costs and improve quality. This illustrates the importance of an efficient ________.",
+    "options": [
+      "business portfolio",
+      "low-cost operator",
+      "product mix",
+      "value delivery network",
+      "value chain"
+    ],
+    "answer": 3,
+    "pageRef": 47
+  },
+  {
+    "id": 40,
+    "type": "mcq",
+    "question": "Which of the following is the marketing logic by which a company hopes to achieve profitable customer relationships?",
+    "options": [
+      "price",
+      "a consistent product mix",
+      "the value delivery network",
+      "marketing strategy",
+      "differentiation"
+    ],
+    "answer": 3,
+    "pageRef": 48
+  },
+  {
+    "id": 41,
+    "type": "mcq",
+    "question": "Lucy Ortiz is preparing a PowerPoint presentation of the marketing process to show at a sales meeting. ________ should appear in the center of her diagram depicting marketing strategies and the marketing mix.",
+    "options": [
+      "Sales goals",
+      "Customer value and relationships",
+      "Company objectives",
+      "Customer retention rates",
+      "Competitors"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 42,
+    "type": "mcq",
+    "question": "A sound marketing strategy begins with which of the following?",
+    "options": [
+      "customer analysis",
+      "positioning",
+      "differentiation",
+      "promotion",
+      "SWOT analysis"
+    ],
+    "answer": 0,
+    "pageRef": 49
+  },
+  {
+    "id": 43,
+    "type": "mcq",
+    "question": "Your firm is attempting to divide up the total market to determine the best segments it can serve. Which is the correct order of doing so?",
+    "options": [
+      "market segmentation, target marketing, market positioning",
+      "target marketing, market positioning, market segmentation",
+      "market positioning, market segmentation, target marketing",
+      "market segmentation, market positioning, target marketing",
+      "mass marketing, demographic segmentation, psychographic segmentation"
+    ],
+    "answer": 0,
+    "pageRef": 49
+  },
+  {
+    "id": 44,
+    "type": "mcq",
+    "question": "The process of customer-driven marketing involves which of the following?",
+    "options": [
+      "product; price; promotion; adaptation",
+      "market segmentation; target marketing; differentiation; positioning",
+      "marketing analysis; planning; implementation; feedback",
+      "analysis; targeting; implementation; control",
+      "problem identification; information search; decision; implementation"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 45,
+    "type": "mcq",
+    "question": "Which of the following is the process of dividing a market into distinct groups of buyers with different needs, characteristics, or behaviors?",
+    "options": [
+      "market targeting",
+      "market segmentation",
+      "positioning",
+      "marketing strategy",
+      "differentiation"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 46,
+    "type": "mcq",
+    "question": "Your new employer has asked you, as a new marketing graduate, to develop a group of potential customers who might respond in a similar way to a given set of marketing efforts. You have been asked to develop a(n) ________.",
+    "options": [
+      "target market",
+      "market segment",
+      "market",
+      "market strategy",
+      "undefined niche"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 47,
+    "type": "mcq",
+    "question": "Which of the following involves evaluating each market segment's attractiveness and selecting one or more segments to enter?",
+    "options": [
+      "market segmentation",
+      "differentiation",
+      "market targeting",
+      "the market mix",
+      "positioning"
+    ],
+    "answer": 2,
+    "pageRef": 49
+  },
+  {
+    "id": 48,
+    "type": "mcq",
+    "question": "Which of the following is the place a product occupies in the consumer's mind relative to competition?",
+    "options": [
+      "position",
+      "placement",
+      "market segmentation",
+      "market targeting",
+      "product promotion"
+    ],
+    "answer": 0,
+    "pageRef": 50
+  },
+  {
+    "id": 49,
+    "type": "mcq",
+    "question": "Effective positioning begins with ________ the company's marketing offer in order to give consumers more perceived value.",
+    "options": [
+      "pricing",
+      "aligning",
+      "differentiating",
+      "promoting",
+      "placing"
+    ],
+    "answer": 2,
+    "pageRef": 50
+  },
+  {
+    "id": 50,
+    "type": "mcq",
+    "question": "Which of the four Ps describes the goods-and-services combination the company offers to the target market?",
+    "options": [
+      "price",
+      "promotion",
+      "product",
+      "place",
+      "package"
+    ],
+    "answer": 2,
+    "pageRef": 51
+  },
+  {
+    "id": 51,
+    "type": "mcq",
+    "question": "In the four Ps of the marketing mix, design, packaging, services, and variety all fall under the category of ________.",
+    "options": [
+      "product",
+      "price",
+      "promotion",
+      "place",
+      "position"
+    ],
+    "answer": 0,
+    "pageRef": 51
+  },
+  {
+    "id": 52,
+    "type": "mcq",
+    "question": "Today the four Ps are compared to the four Cs. Product and place are called ________ and ________, respectively.",
+    "options": [
+      "convenience; customer solution",
+      "customer cost; convenience",
+      "communication; customer solution",
+      "customer solution; convenience",
+      "communication; convenience"
+    ],
+    "answer": 3,
+    "pageRef": 52
+  },
+  {
+    "id": 53,
+    "type": "mcq",
+    "question": "In the marketing management functions, an SWOT analysis should ________ a marketing plan.",
+    "options": [
+      "precede",
+      "coincide with",
+      "follow",
+      "evaluate",
+      "take priority over"
+    ],
+    "answer": 0,
+    "pageRef": 54
+  },
+  {
+    "id": 54,
+    "type": "mcq",
+    "question": "In a basic SWOT analysis the \"T\" stands for ________.",
+    "options": [
+      "timing",
+      "trust",
+      "threats",
+      "trade",
+      "tangible"
+    ],
+    "answer": 2,
+    "pageRef": 53
+  },
+  {
+    "id": 55,
+    "type": "mcq",
+    "question": "In a basic SWOT analysis, the \"S\" stands for ________.",
+    "options": [
+      "situation",
+      "solutions",
+      "satisfactions",
+      "strengths",
+      "strategy"
+    ],
+    "answer": 3,
+    "pageRef": 53
+  },
+  {
+    "id": 56,
+    "type": "mcq",
+    "question": "In SWOT analysis, which of the following would be considered a strength?",
+    "options": [
+      "internal limitations",
+      "trends in the market",
+      "favorable factors in the environment",
+      "factors that challenge the company's performance",
+      "internal resources"
+    ],
+    "answer": 4,
+    "pageRef": 53
+  },
+  {
+    "id": 57,
+    "type": "mcq",
+    "question": "In SWOT analysis, which of the following refers to factors in the external environment?",
+    "options": [
+      "strengths",
+      "strategies",
+      "weaknesses",
+      "opportunities",
+      "trends"
+    ],
+    "answer": 3,
+    "pageRef": 53
+  },
+  {
+    "id": 58,
+    "type": "mcq",
+    "question": "The main section of the marketing plan presents a detailed ________ analysis of the current marketing situation.",
+    "options": [
+      "who, when, where",
+      "when, where, how",
+      "SWOT",
+      "competitor",
+      "economic"
+    ],
+    "answer": 2,
+    "pageRef": 54
+  },
+  {
+    "id": 59,
+    "type": "mcq",
+    "question": "A marketing plan begins with an executive summary, which quickly overviews goals and ________.",
+    "options": [
+      "budgets",
+      "controls",
+      "promotions",
+      "recommendations",
+      "obstacles"
+    ],
+    "answer": 3,
+    "pageRef": 54
+  },
+  {
+    "id": 60,
+    "type": "mcq",
+    "question": "According to the textbook, your boss is most likely referring to ________ when she mentions \"doing things right.\"",
+    "options": [
+      "strategy",
+      "planning",
+      "objectives",
+      "implementation",
+      "efficiency"
+    ],
+    "answer": 3,
+    "pageRef": 55
+  },
+  {
+    "id": 61,
+    "type": "mcq",
+    "question": "IBM has its sales and marketing people assigned to markets in specific countries, regions, and districts. This is an example of which type of marketing organization?",
+    "options": [
+      "geographic",
+      "product",
+      "functional",
+      "divisional",
+      "psychographic"
+    ],
+    "answer": 0,
+    "pageRef": 56
+  },
+  {
+    "id": 62,
+    "type": "mcq",
+    "question": "Which of the following is the most common approach to marketing organization?",
+    "options": [
+      "geographic",
+      "product management",
+      "functional",
+      "divisional",
+      "combination"
+    ],
+    "answer": 2,
+    "pageRef": 56
+  },
+  {
+    "id": 63,
+    "type": "mcq",
+    "question": "Berman Electric, a chain of 18 appliance stores, has a marketing organization in which specialists head different marketing activities. What is this type of organization called?",
+    "options": [
+      "geographic",
+      "product",
+      "organic",
+      "functional",
+      "market"
+    ],
+    "answer": 3,
+    "pageRef": 56
+  },
+  {
+    "id": 64,
+    "type": "mcq",
+    "question": "Modern marketing departments are arranged in the following ways, EXCEPT which one?",
+    "options": [
+      "functional organization",
+      "geographic organization",
+      "product management organization",
+      "market management organization",
+      "strategic management organization"
+    ],
+    "answer": 4,
+    "pageRef": 56
+  },
+  {
+    "id": 65,
+    "type": "mcq",
+    "question": "The ________ organizational format was first used by Procter and Gamble in 1929.",
+    "options": [
+      "geographic management",
+      "functional",
+      "product management",
+      "customer management",
+      "market management"
+    ],
+    "answer": 2,
+    "pageRef": 56
+  },
+  {
+    "id": 66,
+    "type": "mcq",
+    "question": "The ________ organizational system's main advantage is that the company is organized around the needs of specific market segments.",
+    "options": [
+      "market management",
+      "geographic",
+      "product management",
+      "vertical",
+      "functional"
+    ],
+    "answer": 0,
+    "pageRef": 56
+  },
+  {
+    "id": 67,
+    "type": "mcq",
+    "question": "An increasingly large number of firms are changing their organizational focus from ________ to ________.",
+    "options": [
+      "product management; functional management",
+      "product management; geographic management",
+      "brand management; customer management",
+      "geographic management; functional management",
+      "global management; regional management"
+    ],
+    "answer": 2,
+    "pageRef": 57
+  },
+  {
+    "id": 68,
+    "type": "mcq",
+    "question": "Evaluating the results of marketing strategies and plans and taking corrective action to ensure that objectives are attained is called ________.",
+    "options": [
+      "marketing control",
+      "strategic control",
+      "operating control",
+      "developmental control",
+      "efficiency"
+    ],
+    "answer": 0,
+    "pageRef": 57
+  },
+  {
+    "id": 69,
+    "type": "mcq",
+    "question": "The marketing control process entails the following steps in order: setting goals, ________, evaluating performance, and ________.",
+    "options": [
+      "evaluating goals; measuring performance",
+      "achieving goals; measuring performance",
+      "taking corrective action; measuring performance",
+      "measuring performance; taking corrective action",
+      "taking corrective action; following up"
+    ],
+    "answer": 3,
+    "pageRef": 57
+  },
+  {
+    "id": 70,
+    "type": "mcq",
+    "question": "Which of the following is NOT a step in the marketing control process?",
+    "options": [
+      "setting goals",
+      "measuring performance",
+      "taking corrective action",
+      "defining the mission",
+      "evaluating the causes of gaps between expected and actual performance"
+    ],
+    "answer": 3,
+    "pageRef": 57
+  },
+  {
+    "id": 71,
+    "type": "mcq",
+    "question": "Ensuring that the company achieves the sales, profits, and other goals set out in its annual marketing plan is the purpose of ________.",
+    "options": [
+      "marketing control",
+      "operating control",
+      "strategic control",
+      "ROMI",
+      "a marketing audit"
+    ],
+    "answer": 1,
+    "pageRef": 57
+  },
+  {
+    "id": 72,
+    "type": "mcq",
+    "question": "Which of the following involves looking at whether a company's basic strategies are well matched to its opportunities?",
+    "options": [
+      "operating control",
+      "marketing control",
+      "strategic control",
+      "ROMI",
+      "portfolio analysis"
+    ],
+    "answer": 2,
+    "pageRef": 57
+  },
+  {
+    "id": 73,
+    "type": "mcq",
+    "question": "Which of the following is a comprehensive and systematic analysis of a company's environment, objectives, strategies, and activities that is conducted by an outside and objective party?",
+    "options": [
+      "a marketing plan",
+      "a marketing audit",
+      "a marketing mix analysis",
+      "a portfolio analysis",
+      "SWOT analysis"
+    ],
+    "answer": 1,
+    "pageRef": 57
+  },
+  {
+    "id": 74,
+    "type": "mcq",
+    "question": "Which of the following measures the profits generated by investments in marketing activities?",
+    "options": [
+      "SWOT analysis",
+      "a marketing audit",
+      "an executive summary",
+      "marketing ROI",
+      "a budget"
+    ],
+    "answer": 3,
+    "pageRef": 58
+  },
+  {
+    "id": 75,
+    "type": "mcq",
+    "question": "Which of the following would NOT be useful in determining marketing ROI?",
+    "options": [
+      "a marketing dashboard",
+      "brand awareness",
+      "market share",
+      "SWOT analysis",
+      "customer equity"
+    ],
+    "answer": 3,
+    "pageRef": 58
+  },
+  {
+    "id": 76,
+    "type": "tf",
+    "question": "Mission statements should be realistic and general in nature.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 39
+  },
+  {
+    "id": 77,
+    "type": "tf",
+    "question": "ABC Fortunes has just developed a formal statement of its purpose. This firm has put together a mission statement.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 39
+  },
+  {
+    "id": 78,
+    "type": "tf",
+    "question": "Mission statements should both emphasize the company's strengths in the marketplace and be motivating.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 39
+  },
+  {
+    "id": 79,
+    "type": "tf",
+    "question": "At America Online, \"we create customer connectivity, anytime, anywhere,\" is a product-oriented business definition.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 39
+  },
+  {
+    "id": 80,
+    "type": "tf",
+    "question": "\"At Nike, we sell shoes\" is a market-oriented business definition.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 40
+  },
+  {
+    "id": 81,
+    "type": "tf",
+    "question": "A firm's mission statement should be the basis for both its business and marketing objectives.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 40
+  },
+  {
+    "id": 82,
+    "type": "tf",
+    "question": "The major activity in strategic planning is strategic business unit planning, whereby management evaluates the products and businesses making up the company.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 41
+  },
+  {
+    "id": 83,
+    "type": "tf",
+    "question": "When designing business portfolios, most companies are well advised to add a broad range of products and businesses to their organization.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 41
+  },
+  {
+    "id": 84,
+    "type": "tf",
+    "question": "The purpose of strategic planning is to find ways in which your company can best use its strengths to take advantage of attractive opportunities in the environment.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 41
+  },
+  {
+    "id": 85,
+    "type": "tf",
+    "question": "In the BCG matrix, \"dogs\" are low-growth businesses and products that do not generate enough cash to maintain themselves.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 42
+  },
+  {
+    "id": 86,
+    "type": "tf",
+    "question": "The growth strategy of diversification involves offering modified or new products to current markets.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 46
+  },
+  {
+    "id": 87,
+    "type": "tf",
+    "question": "When an organization identifies and develops new markets for its current products and services, it is engaged in market development.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 45
+  },
+  {
+    "id": 88,
+    "type": "tf",
+    "question": "When a firm finds products or businesses that no longer fit its overall strategy, it must carefully milk, harvest, or better develop them.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 46
+  },
+  {
+    "id": 89,
+    "type": "tf",
+    "question": "In today's marketplace, competition increasingly takes place between entire value delivery networks rather than between individual competitors.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 48
+  },
+  {
+    "id": 90,
+    "type": "tf",
+    "question": "To improve its value delivery network, a company needs to examine the value chains of its suppliers and distributors.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 47
+  },
+  {
+    "id": 91,
+    "type": "tf",
+    "question": "Mandros International Foods evaluates each market segment's attractiveness and selects one or more segments to enter when considering adding new lines of imported foods. Mandros is engaged in selective marketing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 92,
+    "type": "tf",
+    "question": "The image of a product in the minds of consumers is called market segmentation.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 50
+  },
+  {
+    "id": 93,
+    "type": "tf",
+    "question": "A market segment consists of consumers who respond in different ways to a given set of marketing efforts.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 94,
+    "type": "tf",
+    "question": "Holiday Inn has divided the total customer market into smaller segments and selected the most promising segments. Deciding what position it wants to occupy in these segments is called targeting.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 50
+  },
+  {
+    "id": 95,
+    "type": "tf",
+    "question": "When a company positions its product, it should first identify possible customer value differences within a market segment that could be the basis of a competitive advantage for the product.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 50
+  },
+  {
+    "id": 96,
+    "type": "tf",
+    "question": "The marketing mix consists of product, price, place, positioning, and promotion.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 48
+  },
+  {
+    "id": 97,
+    "type": "tf",
+    "question": "Guided by marketing strategy, the company designs a marketing mix made up of factors under its control: product, price, place, and promotion.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 48
+  },
+  {
+    "id": 98,
+    "type": "tf",
+    "question": "One valid criticism of the four Ps concept is that services are not considered.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 52
+  },
+  {
+    "id": 99,
+    "type": "tf",
+    "question": "The four Ps concept takes the seller's view of the market.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 52
+  },
+  {
+    "id": 100,
+    "type": "tf",
+    "question": "The four marketing management functions are analysis, planning, implementation, and control.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 53
+  },
+  {
+    "id": 111,
+    "type": "mcq",
+    "question": "Starbucks has an annual plan in place to deal with the company's current SBUs and their operations. However, as a growth-oriented firm, Starbucks is interested in both domestic and international markets. This requires Starbucks to constantly monitor the environment and adapt to the opportunities with which it is presented. To best take advantage of its constantly changing environment, Starbucks should do which of the following?",
+    "options": [
+      "write a mission statement",
+      "follow supporting objectives",
+      "conduct strategic planning",
+      "conduct profit analysis",
+      "shorten its value delivery network"
+    ],
+    "answer": 2,
+    "pageRef": 38
+  },
+  {
+    "id": 112,
+    "type": "mcq",
+    "question": "Monsanto operates in many businesses, including pharmaceuticals and food products. The company defines its ________ as creating \"abundant food and a healthy environment.\"",
+    "options": [
+      "strategy",
+      "marketing development",
+      "business portfolio",
+      "value-delivery network",
+      "mission"
+    ],
+    "answer": 4,
+    "pageRef": 39
+  },
+  {
+    "id": 113,
+    "type": "mcq",
+    "question": "The current mission statement of the Girl Scouts of America reads \"where girls grow strong.\" The organization's former mission statement had read \"to prepare young girls for motherhood and wifely duties.\" This change reflects the guideline that mission statements should be ________.",
+    "options": [
+      "realistic",
+      "motivating",
+      "narrow",
+      "market-oriented",
+      "specific"
+    ],
+    "answer": 3,
+    "pageRef": 39
+  },
+  {
+    "id": 114,
+    "type": "mcq",
+    "question": "A vendor for Ford Motor Company received the following message from one of Ford's marketing managers: \"As we move forward during the 21st century, Ford is committed to building profitable customer relationships by creating environmentally better cars and getting them to market faster at lower costs.\" The marketing manager is referring to Ford's ________.",
+    "options": [
+      "marketing strategy",
+      "marketing mix",
+      "business portfolio",
+      "mission statement",
+      "business objectives"
+    ],
+    "answer": 3,
+    "pageRef": 39
+  },
+  {
+    "id": 115,
+    "type": "mcq",
+    "question": "When the makers of a ballpoint pen state they are in the communication equipment business, they are defining their mission too ________.",
+    "options": [
+      "narrowly",
+      "realistically",
+      "specifically",
+      "broadly",
+      "futuristically"
+    ],
+    "answer": 3,
+    "pageRef": 39
+  },
+  {
+    "id": 116,
+    "type": "mcq",
+    "question": "Kimball Gardens is a company that operates as two distinct businesses: one that sells lawn and garden products and one that markets booklets. Each business is called a ________.",
+    "options": [
+      "separate entity",
+      "strategic business unit (SBU)",
+      "cash cow",
+      "star",
+      "business portfolio"
+    ],
+    "answer": 1,
+    "pageRef": 41
+  },
+  {
+    "id": 117,
+    "type": "mcq",
+    "question": "The pharmaceuticals division of Omni Healthcare holds low market share in a high-growth market. In order to increase market share, managers would be most likely to decide which of the following?",
+    "options": [
+      "hold the pharmaceuticals division's share",
+      "implement a harvest strategy",
+      "use money from a cash cow to promote the pharmaceuticals division",
+      "divest the SBU",
+      "diversify the pharmaceutical division"
+    ],
+    "answer": 2,
+    "pageRef": 42
+  },
+  {
+    "id": 118,
+    "type": "mcq",
+    "question": "Wal-Mart, the world's largest retailer, has successfully launched its stores in Mexico, Canada, the U.K., and Germany, and other nations. This is an example of how Wal-Mart is pursuing ________ as a growth strategy.",
+    "options": [
+      "market penetration",
+      "product development",
+      "demographic market development",
+      "geographic market development",
+      "diversification"
+    ],
+    "answer": 3,
+    "pageRef": 45
+  },
+  {
+    "id": 119,
+    "type": "mcq",
+    "question": "Fence Patrol has developed an entirely new mounting system for chain link fences. Although they are a local company, through the acquisition of a distributor they now have the ability to market their products nationwide. Fence Patrol is most likely to be following a ________ strategy.",
+    "options": [
+      "market penetration",
+      "market development",
+      "diversification",
+      "divesting",
+      "product development"
+    ],
+    "answer": 2,
+    "pageRef": 46
+  },
+  {
+    "id": 120,
+    "type": "mcq",
+    "question": "The Bank of New York bought Pershing, an off-shore investment firm with operations in India, from Credit Suisse First Boston. The Bank of New York is pursuing a ________.",
+    "options": [
+      "product development strategy",
+      "product adaptation strategy",
+      "downsizing strategy",
+      "diversification strategy",
+      "market penetration strategy"
+    ],
+    "answer": 3,
+    "pageRef": 46
+  },
+  {
+    "id": 121,
+    "type": "mcq",
+    "question": "Acme, Inc., has slightly modified the production processes of its widgets and gadgets in order to tap into the Eastern European market. Acme is likely following a ________ strategy.",
+    "options": [
+      "market penetration",
+      "market development",
+      "diversification",
+      "harvesting",
+      "product development"
+    ],
+    "answer": 1,
+    "pageRef": 45
+  },
+  {
+    "id": 122,
+    "type": "mcq",
+    "question": "Disney is identifying and developing new markets for its theme parks. Disney is exploring possibilities for ________.",
+    "options": [
+      "market penetration",
+      "market development",
+      "diversification",
+      "harvesting",
+      "product development"
+    ],
+    "answer": 1,
+    "pageRef": 45
+  },
+  {
+    "id": 123,
+    "type": "mcq",
+    "question": "For Hyundai Corporation, customers who care about the price of a car and its operating economy make up one ________.",
+    "options": [
+      "market position",
+      "value network",
+      "market segment",
+      "customer extension",
+      "value chain"
+    ],
+    "answer": 2,
+    "pageRef": 49
+  },
+  {
+    "id": 124,
+    "type": "mcq",
+    "question": "Favorite Memories specializes in serving gift shoppers that major competitors overlook and ignore. Which of the following best describes Favorite Memories?",
+    "options": [
+      "market follower",
+      "market challenger",
+      "market seeker",
+      "market nicher",
+      "full market coverer"
+    ],
+    "answer": 3,
+    "pageRef": 49
+  },
+  {
+    "id": 125,
+    "type": "mcq",
+    "question": "Saturn is \"a different kind of company, different kind of a car\"; the Hummer is \"like nothing else.\" These statements reflect a firm's ________.",
+    "options": [
+      "product portfolio",
+      "target markets",
+      "market positioning",
+      "strategy",
+      "niche"
+    ],
+    "answer": 2,
+    "pageRef": 50
+  },
+  {
+    "id": 126,
+    "type": "mcq",
+    "question": "Harris, the marketing manager at a small sports retail chain, has conducted a marketing analysis. He has investigated the company's internal resources and situational factors, as well as factors and trends in the competitive sports retail chain market. Which of the following has Harris completed?",
+    "options": [
+      "a SWOT analysis",
+      "a business portfolio analysis",
+      "an executive summary",
+      "a marketing plan",
+      "a marketing mix"
+    ],
+    "answer": 0,
+    "pageRef": 53
+  },
+  {
+    "id": 127,
+    "type": "mcq",
+    "question": "Which of the following most accurately identifies a difference between a weakness and a threat in SWOT analysis?",
+    "options": [
+      "A company is more able to change a threat than a weakness.",
+      "A company is more able to change a weakness than a threat.",
+      "A company can be more negatively affected by a weakness than by a threat.",
+      "A company can be more negatively affected by a threat than by a weakness.",
+      "A company can more easily identify threats than weaknesses."
+    ],
+    "answer": 1,
+    "pageRef": 53
+  },
+  {
+    "id": 128,
+    "type": "mcq",
+    "question": "Emerson Studios, a chain of 25 portrait stores in five states, has organized its marketing organization into groups headed by a sales manager, an advertsing manager, and a customer-service manager. What type of organization is this?",
+    "options": [
+      "geographic",
+      "product",
+      "functional",
+      "customer",
+      "market"
+    ],
+    "answer": 2,
+    "pageRef": 56
+  },
+  {
+    "id": 129,
+    "type": "mcq",
+    "question": "Juanita Castro is looking at whether her company's strategies are well matched to its opportunities. Juanita is utilizing ________.",
+    "options": [
+      "marketing control",
+      "operating control",
+      "strategic control",
+      "SWOT analysis",
+      "a marketing audit"
+    ],
+    "answer": 2,
+    "pageRef": 57
+  },
+  {
+    "id": 130,
+    "type": "mcq",
+    "question": "As Starbucks continues to grow, it is faced with myriad challenges and surprises during the implementation of marketing plans. Hence, the marketing department must practice constant ________.",
+    "options": [
+      "customer management",
+      "corrective action",
+      "performance analysis",
+      "marketing control",
+      "environmental scanning"
+    ],
+    "answer": 3,
+    "pageRef": 57
+  },
+  {
+    "id": 131,
+    "type": "mcq",
+    "question": "Fun-Spot Fun Park began as a small amusement park in 1985 with a merry-go-round, slide, pony rides, and ice cream stand. Fun-Spot's philosophy is: 'We\\'re here to make you happy!'. Fun-Spot's mission is ________.",
+    "options": [
+      "product-oriented",
+      "technology-oriented",
+      "market-oriented",
+      "too specific",
+      "too focused on profits"
+    ],
+    "answer": 2,
+    "pageRef": 39
+  },
+  {
+    "id": 132,
+    "type": "mcq",
+    "question": "Into which quadrant of the BCG matrix does Fun-Spot fall? (High-growth, high-share family attraction)",
+    "options": [
+      "star",
+      "question mark",
+      "profit center",
+      "diversification",
+      "dog"
+    ],
+    "answer": 0,
+    "pageRef": 41
+  },
+  {
+    "id": 133,
+    "type": "mcq",
+    "question": "Ron and Gail plan to lower prices in an effort to encourage customers to stay longer, visit more often, and spend more money during each visit. What type of strategy are Ron and Gail planning?",
+    "options": [
+      "market penetration",
+      "market development",
+      "product development",
+      "customer development",
+      "diversification"
+    ],
+    "answer": 0,
+    "pageRef": 43
+  },
+  {
+    "id": 134,
+    "type": "mcq",
+    "question": "Gail and Ron strive to provide new offerings and entertainment options for their visitors. What type of strategy is this?",
+    "options": [
+      "market penetration",
+      "market development",
+      "product development",
+      "customer development",
+      "diversification"
+    ],
+    "answer": 2,
+    "pageRef": 45
+  },
+  {
+    "id": 135,
+    "type": "mcq",
+    "question": "Which of the following would be classified as an opportunity in a SWOT analysis of Fun Spot?",
+    "options": [
+      "A rival amusement park announces plans to open three new rides next season.",
+      "A new luxury hotel is being constructed in the area, with the aim of luring more high-spending families on vacation.",
+      "Gail and Ron have paid off the mortgage on Fun Spot, significantly reducing their monthly expenses.",
+      "Fun Spot employees tend to be enthusiastic and young, projecting an image of fun and vitality at Fun Spot.",
+      "Fun Spot plans to further diversify its offerings by beginning a two-week summer camp for elementary school students."
+    ],
+    "answer": 1,
+    "pageRef": 53
+  }
+];
+
+window.marketingQuiz2Questions = marketingQuiz2Questions;
