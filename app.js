@@ -1202,7 +1202,34 @@ function renderBentoTaskCard(task) {
             <span>✅ فتح الحل النموذجي ↗</span>
           </a>
         </div>
-      ` : (['mdp-quiz-1', 'epe-quiz-1', 'emc-quiz-1'].includes(task.id) || task.temporaryNote ? `
+      ` : (task.id === 'mdp-quiz-1' || (task.code === 'MDP G121' && isQuizTask(task))) ? `
+        <div class="bento-card-details-box" style="margin-top: 8px; padding: 11px 13px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 4px;">
+            <span style="font-weight: 800; color: #f59e0b; font-size: 12.5px;">📍 مدرج 7104 • الثلاثاء 20 أكتوبر 2026</span>
+            <span style="font-size: 11px; color: #fbbf24; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 6px; font-weight: 800;">5 درجات (5 Marks)</span>
+          </div>
+          <div style="font-weight: 700; color: #38bdf8; font-size: 12.5px; margin-bottom: 6px;">
+            🎯 موضوع الكويز: Crystal Structure
+          </div>
+          <div style="font-size: 11.5px; color: #e2e8f0; line-height: 1.55; background: rgba(0,0,0,0.25); padding: 8px 10px; border-radius: 8px; margin-bottom: 4px;">
+            <div style="margin-bottom: 4px;">🎯 <strong>مفيش أسئلة نظري إن شاء الله</strong> — الأسئلة مسائل وتطبيقات شبه اللي اتحلت في السكشن بالظبط.</div>
+            <div style="color: #fde047;">⚠️ <strong>الشيت فيه حاجات مش بتيجي في الامتحان</strong>، فالمذاكرة الأساسية تكون من سلايدات السكشن مع حل الأسئلة اللي فيها + كويز وأسينمنت السنة اللي فاتت.</div>
+          </div>
+        </div>
+        <div class="bento-card-actions" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+          <a href="https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-official-details" style="text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; color: #ffffff; font-weight: 800; padding: 9px 12px; border-radius: 9px; font-size: 12px; box-shadow: 0 4px 12px rgba(2,132,199,0.3);">
+            <span>📘 1. Tutorial Slides (أساسي) ↗</span>
+          </a>
+          <div style="display: flex; gap: 6px; width: 100%;">
+            <a href="https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" target="_blank" rel="noopener noreferrer" class="btn-open-guide" style="flex: 1; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 4px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; font-weight: 700; padding: 8px 6px; border-radius: 8px; font-size: 11px; text-align: center;">
+              <span>📝 2. Quiz 2025/2026 + الحلول ↗</span>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" target="_blank" rel="noopener noreferrer" class="btn-open-guide" style="flex: 1; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 4px; background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc; font-weight: 700; padding: 8px 6px; border-radius: 8px; font-size: 11px; text-align: center;">
+              <span>📂 3. Assignment 2025/2026 + الحلول ↗</span>
+            </a>
+          </div>
+        </div>
+      ` : (['epe-quiz-1', 'emc-quiz-1'].includes(task.id) || task.temporaryNote ? `
         <div class="bento-card-details-box" style="margin-top: 8px; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid ${accentColor}33; border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
             <span style="font-weight: 700; color: ${accentColor}; font-size: 12px;">📍 المكان: ${escHtml(task.room || 'مدرج 7104')}</span>
@@ -2154,7 +2181,7 @@ function renderDailyAgenda() {
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
-              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : "openQuizPrepGuide('gen-quiz-2')"}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
+              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (s.code === 'MDP G121' ? `openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
               ${s.assignmentBadge ? `<span class="badge-assignment-glow" onclick="event.stopPropagation(); openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')" style="cursor:pointer;" title="${escHtml(s.assignmentBadge)}">${escHtml(s.assignmentBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
@@ -2278,6 +2305,8 @@ function showSessionNoticeTooltip(event, dayIdxOrName, slotStart, code) {
   let text = "";
   if (session.code === "EPE G113") {
     text = "⏰ فترتان للحضور: (12:30 و 2:00) بقاعة 14301\n📝 تسليم Assignment 2 على ورق A4 (الخميس 22 أكتوبر — 21 مسألة)";
+  } else if (session.code === "MDP G121") {
+    text = "⚡ كويز 1 الثلاثاء 20 أكتوبر بمدرج 7104 (5 درجات)\n🎯 مفيش نظري — التركيز على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت";
   } else if (session.code === "MTH G102" && (session.isQuiz || session.day === "Monday")) {
     text = "⏰ كويز 1 الإثنين: 11:00 ظهراً بمدرج 3002\n🎯 10 درجات MCQ على أول محاضرتين (التصحيح على التظليل فقط)";
   } else if (session.code === "GEN G119") {
@@ -2577,6 +2606,88 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
            target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 100%;">
           <span>📘</span>
           <span>Lecture Slides 2 (سلايدات المحاضرة) ↗</span>
+        </a>
+      </div>
+    `;
+  }
+  // Special Notice 4: MDP G121 Materials Science Quiz 1 Notice & Prep Links
+  else if (session.code === "MDP G121" || session.noticeData?.isMaterialsQuiz) {
+    if (titleEl) titleEl.textContent = "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)";
+    if (subEl) subEl.textContent = "MDP G121 • Materials Science & Technology";
+
+    bodyEl.innerHTML = `
+      <!-- موعد ومكان الكويز والدرجة -->
+      <div class="notice-section-box" style="border-left: 4px solid #38bdf8;">
+        <div class="notice-section-header" style="color:#38bdf8;">
+          <span>⏰</span>
+          <span>الموعد والمكان والدرجة:</span>
+        </div>
+        <div class="notice-slot-pill">
+          <strong>الموعد والمكان:</strong>
+          <span>الثلاثاء 20 أكتوبر 2026 — مدرج 7104</span>
+        </div>
+        <div class="notice-slot-pill">
+          <strong>الدرجة والمحتوى:</strong>
+          <span>5 درجات (5 Marks) • موضوع Crystal Structure</span>
+        </div>
+      </div>
+
+      <!-- توجيهات المعيد الهامة ونظام الامتحان -->
+      <div class="notice-section-box" style="border-left: 4px solid #f59e0b;">
+        <div class="notice-section-header" style="color:#f59e0b;">
+          <span>🎯</span>
+          <span>توجيهات المعيد الهامة ونظام الامتحان:</span>
+        </div>
+        <div class="notice-req-list">
+          <div class="notice-req-item">
+            <span style="color:#10b981;font-weight:900;">✔</span>
+            <span><strong>مفيش أسئلة نظري إن شاء الله</strong> — الأسئلة مسائل وتطبيقات شبه اللي اتحلت في السكشن بالظبط.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#f87171;font-weight:900;">⚠️</span>
+            <span><strong>الشيت فيه حاجات مش بتيجي في الامتحان</strong>، فالمذاكرة الأساسية تكون من سلايدات السكشن مع حل الأسئلة اللي فيها + كويز وأسينمنت السنة اللي فاتت.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- خطة المذاكرة بالترتيب -->
+      <div class="notice-section-box" style="border-left: 4px solid #a855f7;">
+        <div class="notice-section-header" style="color:#c084fc;">
+          <span>📋</span>
+          <span>خطة المذاكرة بالترتيب (3 خطوات):</span>
+        </div>
+        <div class="notice-req-list">
+          <div class="notice-req-item">
+            <span style="color:#38bdf8;font-weight:900;">1.</span>
+            <span><strong>مذاكرة سلايدات السكشن</strong> وحل الأسئلة اللي جواها (هي الأساس).</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#38bdf8;font-weight:900;">2.</span>
+            <span><strong>حل كويز السنة اللي فاتت 2025/2026</strong> (محلول ديجيتال وخط إيد).</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#38bdf8;font-weight:900;">3.</span>
+            <span><strong>للتدريب الزيادة:</strong> حل أسينمنت السنة اللي فاتت (شبه الأسئلة اللي معانا جداً).</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- أزرار الروابط المباشرة -->
+      <div class="notice-actions-row">
+        <a href="https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-primary" style="flex:1 1 100%; background:linear-gradient(135deg, #0284c7, #0369a1); border-color:#38bdf8; color:#fff; font-weight:800; box-shadow:0 0 14px rgba(2,132,199,0.35);">
+          <span>📘</span>
+          <span>1. Tutorial Slides (سلايدات السكشن - أساسي) ↗</span>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 calc(50% - 6px);">
+          <span>📝</span>
+          <span>2. Quiz 2025/2026 + الحلول ↗</span>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 calc(50% - 6px);">
+          <span>📂</span>
+          <span>3. Assignment 2025/2026 + الحلول ↗</span>
         </a>
       </div>
     `;
@@ -2907,7 +3018,7 @@ function renderWeekMatrix() {
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : `color:${course.hex};`}">${sess.code}</span>
             <div class="card-badges">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : "openQuizPrepGuide('gen-quiz-2')"}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (sess.code === 'MDP G121' ? `openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
               ${sess.assignmentBadge ? `<span class="badge-assignment-glow matrix-assignment-badge" onclick="event.stopPropagation(); openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')" style="cursor:pointer;" title="${escHtml(sess.assignmentBadge)}">${escHtml(sess.assignmentBadge)}</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
@@ -3420,6 +3531,40 @@ function renderGuideCard(activeItem, course, availableWeeks) {
             </a>
             <a href="https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="wg-pill">
               <span>📄</span><span>Chapter 2 Summary ↗</span>
+            </a>
+          </div>
+        </div>
+      ` : ''}
+
+      ${activeItem.code === 'MDP G121' ? `
+        <div class="wg-quiz-hub-box" style="margin-bottom:16px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg, rgba(56,189,248,0.16) 0%, rgba(2,132,199,0.06) 100%);border:1.5px solid rgba(56,189,248,0.45);box-shadow:0 8px 24px rgba(0,0,0,0.15);">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:22px;">⚡</span>
+              <h3 style="margin:0;font-size:15px;font-weight:800;color:#38bdf8;">Quiz 1 Guide | Crystal Structure (5 Marks)</h3>
+            </div>
+            <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid rgba(56,189,248,0.4);">🎯 5 درجات • مدرج 7104</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-main);margin:0 0 10px 0;line-height:1.6;background:rgba(255,255,255,0.04);padding:10px 12px;border-radius:10px;border-left:3px solid #f59e0b;">
+            <div style="color:#fde047;font-weight:700;margin-bottom:4px;">🎯 ملاحظات المعيد ونظام الامتحان:</div>
+            <div>• مفيش أسئلة نظري إن شاء الله — الأسئلة مسائل وتطبيقات شبه اللي اتحلت في السكشن بالظبط.</div>
+            <div>• الشيت فيه حاجات مش بتيجي في الامتحان، فالمذاكرة الأساسية تكون من سلايدات السكشن مع حل الأسئلة اللي فيها + كويز وأسينمنت السنة اللي فاتت.</div>
+          </div>
+          <div style="font-size:12px;color:#cbd5e1;margin-bottom:12px;line-height:1.6;">
+            <strong style="color:#38bdf8;">📋 خطة المذاكرة بالترتيب (3 خطوات):</strong><br>
+            1. مذاكرة سلايدات السكشن وحل الأسئلة اللي جواها (الأساس).<br>
+            2. حل كويز السنة اللي فاتت 2025/2026 (محلول ديجيتال وخط إيد).<br>
+            3. للتدريب الزيادة: حل أسينمنت السنة اللي فاتت (شبه الأسئلة اللي معانا جداً).
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <a href="https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="wg-pill" style="background:#0284c7;color:#fff;font-weight:800;border:none;">
+              <span>📘</span><span>1. Tutorial Slides (سلايدات السكشن - أساسي) ↗</span>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" target="_blank" rel="noopener noreferrer" class="wg-pill">
+              <span>📝</span><span>2. Quiz 2025/2026 + الحلول ↗</span>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" target="_blank" rel="noopener noreferrer" class="wg-pill">
+              <span>📂</span><span>3. Assignment 2025/2026 + الحلول ↗</span>
             </a>
           </div>
         </div>

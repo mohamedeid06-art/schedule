@@ -103,25 +103,36 @@ const MASTER_QUIZZES = [
   {
     id: "mdp-quiz-1",
     code: "MDP G121",
-    title: "Quiz 1 — Crystal Structure",
-    type: "Quiz",
+    title: "Quiz 1 — Crystal Structure (5 درجات)",
+    type: "Quiz (5 Marks)",
     instructor: "Dr. Ehab & Dr. Mamdouh",
     dateDisplay: "Tuesday, October 20, 2026 (الثلاثاء 20 أكتوبر 2026)",
-    countdownBadge: "20 أكتوبر 2026",
+    countdownBadge: "الثلاثاء 20 أكتوبر",
     date: "2026-10-20",
     start: "2026-10-20T08:00:00",
     deadline: "2026-10-20T10:00:00",
     dueDate: "2026-10-20T08:00:00",
     room: "مدرج 7104",
-    content: "Crystal Structure",
-    temporaryNote: "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    content: "Crystal Structure — 5 درجات (5 Marks)",
     accent: "#f59e0b",
     accentName: "amber",
     instructions: [
-      "المكان: مدرج 7104.",
-      "المحتوى المقرر: Crystal Structure.",
-      "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً."
-    ]
+      "المكان والموعد: مدرج 7104 — الثلاثاء 20 أكتوبر 2026.",
+      "الدرجة: 5 درجات (5 Marks).",
+      "🎯 مفيش أسئلة نظري إن شاء الله — الأسئلة مسائل وتطبيقات شبه اللي اتحلت في السكشن بالظبط.",
+      "⚠️ الشيت فيه حاجات مش بتيجي في الامتحان، فالمذاكرة الأساسية تكون من سلايدات السكشن مع حل الأسئلة اللي فيها + كويز وأسينمنت السنة اللي فاتت.",
+      "خطة المذاكرة الموصى بها بالترتيب:",
+      "1. مذاكرة سلايدات السكشن وحل الأسئلة والمسائل اللي جواها (Tutorial Slides).",
+      "2. حل كويز السنة اللي فاتت 2025/2026 (محلول ديجيتال وخط إيد).",
+      "3. للتدريب الإضافي: حل أسينمنت السنة اللي فاتت 2025/2026 (شبه أسئلتنا جداً)."
+    ],
+    sheets: [
+      { id: "mdp-tut-slides", title: "1. Tutorial Slides (سلايدات السكشن - أساسي)", pdf: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" },
+      { id: "mdp-past-quiz", title: "2. كويز السنة اللي فاتت 2025/2026 + الحلول", pdf: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" },
+      { id: "mdp-past-assign", title: "3. أسينمنت السنة اللي فاتت 2025/2026 + الحلول", pdf: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" }
+    ],
+    submissionUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr"
   },
   {
     id: "epe-quiz-1",
@@ -568,11 +579,17 @@ const DEFAULT_WEEKLY_GUIDES = [
       { title: "سكشن م. هدى — جزء 2", url: "https://youtu.be/MmA4d50-h6E?si=XWDYIO78es-sygIC" }
     ],
     summaries: [
+      { title: "1. Tutorial Slides (سلايدات السكشن - أساسي)", url: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" },
+      { title: "2. كويز السنة اللي فاتت 2025/2026 + الحلول", url: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" },
+      { title: "3. أسينمنت السنة اللي فاتت 2025/2026 + الحلول", url: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" },
       { title: "ملخص ديجيتال (Digital Summary)", url: "https://drive.google.com/file/d/1Mcap0HK9q-2pebDIXGQchmnIO8IhuAOt/view?usp=drivesdk" },
       { title: "ملخص بخط اليد (Handwritten Summary)", url: "https://drive.google.com/file/d/1sn-VDItU0oWDFHDKZ6vi3yKAIXjPh2Fn/view?usp=drivesdk" }
     ],
     important_notes: [
-      "💡 تطمين مهم من المعيد: الامتحانات في الغالب بتيجي مسائل وتطبيقات مش اثباتات (proofs) أو نظري.. لكن ده ميعمنعش إننا بنذاكر كله ونعمل اللي علينا، وبالتوفيق يا شباب ❤️"
+      "⚡ كويز 1 رسمي (5 درجات): الثلاثاء 20 أكتوبر 2026 بمدرج 7104.",
+      "🎯 توجيه المعيد: مفيش أسئلة نظري إن شاء الله — الأسئلة مسائل وتطبيقات شبه اللي اتحلت في السكشن بالظبط.",
+      "⚠️ الشيت فيه حاجات مش بتيجي في الامتحان، فالمذاكرة الأساسية تكون من سلايدات السكشن وحل مسائلها + كويز وأسينمنت السنة اللي فاتت.",
+      "📋 خطة المذاكرة بالترتيب: 1. سلايدات السكشن (Tutorial Slides) • 2. كويز 2025/2026 • 3. أسينمنت 2025/2026."
     ],
     summary_title: "ملخص ديجيتال + ملخص بخط اليد (Crystal Structure)",
     summary_url: "https://drive.google.com/file/d/1Mcap0HK9q-2pebDIXGQchmnIO8IhuAOt/view?usp=drivesdk"
@@ -661,6 +678,7 @@ const DEFAULT_WEEKLY_GUIDES = [
       { title: "سكشن م. هدى — شرح Crystal Defects", url: "https://youtu.be/w23wUdV8MGU?si=2y7HiExW8SfUj4jR" }
     ],
     important_notes: [
+      "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 على جزء Crystal Structure (مفيش نظري، ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت).",
       "⏳ جاري التحديث: حل الشيت والملخصات هينزلوا تباعاً بعد المحاضرة إن شاء الله 🙏❤️"
     ],
     summary_title: "ملف الشيت الكامل (Full Sheet)",
@@ -1062,6 +1080,9 @@ const COURSE_CAPSULES = {
     grading: "• 10 درجات أساينمنت (2 assignments كل واحد 5 درجات)\n• 15 درجة كويزات (4 كويزات بيتاخد أعلى 3، كل كويز 5 درجات مع دروب لأقل واحد)\n• 15 درجة لابات (تقريرين كل لاب 7.5 درجة، واللاب الثالث في الآخر معليهوش درجات)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
     tips: "توزيعة درجات الماتيريال المعتمدة (دفعة 30):\nالمعيد أكد: 10 درجات أساينمنت + 15 درجة كويزات (اتفقنا على 4 كويزات يسيب أعلى 3 ويسقط الأقل) + 15 درجة ريبورتات لابات + 20 ميد + 40 فاينال.\nبيدخل اتنين دكاترة:\n1. د. إيهاب: احضروا شرحه كويس، بيتكلم عن Atomic structure و الـ stress strain curve (بيجي عليه سؤال في الميد)، والشيت كافي جداً.\n2. د. ممدوح: الـ Phase diagrams والـ Eutectic system.\n⚠️ تنبيه هام: جزء الـ Crystal Structure في المحاضرة 3 مهم للغاية وعليه كويز وأساينمنت.",
     links: [
+      { title: "⚡ مصادر وخطة كويز 1 الرسمي (Crystal Structure - 5 درجات)", url: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" },
+      { title: "📝 كويز ماتيريل السنة اللي فاتت 2025/2026 + الحلول", url: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" },
+      { title: "📂 أسينمنت ماتيريل السنة اللي فاتت 2025/2026 + الحلول", url: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" },
       { title: "⚡ آلة حاسبة تفاعلية: رسم واستنتاج Miller Indices [uvw] & (hkl)", url: "crystal-tool.html", badge: "Interactive Tool 🛠️" },
       { title: "📁 درايف الدفعة لمادة الماتيريال والريبورتات", url: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO" }
     ],
@@ -1192,22 +1213,117 @@ const SESSIONS = [
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
 
   // Monday
-  { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
+  {
+    day: "Monday",
+    start: 0,
+    span: 2,
+    group: "ALL",
+    code: "MDP G121",
+    type: "Lecture",
+    room: "3101-306",
+    quizBadge: "⚡ كويز 1 (5 درجات)",
+    hasNotice: true,
+    noticeData: {
+      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
+      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
+      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
+      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
+      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
+      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
+    },
+    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
+  },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
   // Tuesday
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
   { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
-  // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
-  { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "7104-360" },
+  // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104 مع تنبيه كويز 1
+  {
+    day: "Tuesday",
+    start: 4,
+    span: 3,
+    group: "ME1-01",
+    code: "MDP G121",
+    type: "Tutorial",
+    room: "7104-360",
+    quizBadge: "⚡ كويز 1 (5 درجات)",
+    hasNotice: true,
+    noticeData: {
+      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
+      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
+      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
+      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
+      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
+      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
+    },
+    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
+  },
+  {
+    day: "Tuesday",
+    start: 4,
+    span: 3,
+    group: "ME1-03",
+    code: "MDP G121",
+    type: "Tutorial",
+    room: "7104-360",
+    quizBadge: "⚡ كويز 1 (5 درجات)",
+    hasNotice: true,
+    noticeData: {
+      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
+      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
+      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
+      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
+      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
+      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
+    },
+    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
+  },
 
   // Wednesday
   { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
-  // سكشن الماتيريال: سكشن 2 و 4 مدمجين في 3102
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "3102-306" },
-  { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "3102-306" },
+  // سكشن الماتيريال: سكشن 2 و 4 مدمجين في 3102 مع تنبيه كويز 1
+  {
+    day: "Wednesday",
+    start: 2,
+    span: 3,
+    group: "ME1-02",
+    code: "MDP G121",
+    type: "Tutorial",
+    room: "3102-306",
+    quizBadge: "⚡ كويز 1 (5 درجات)",
+    hasNotice: true,
+    noticeData: {
+      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
+      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
+      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
+      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
+      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
+      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
+    },
+    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
+  },
+  {
+    day: "Wednesday",
+    start: 2,
+    span: 3,
+    group: "ME1-04",
+    code: "MDP G121",
+    type: "Tutorial",
+    room: "3102-306",
+    quizBadge: "⚡ كويز 1 (5 درجات)",
+    hasNotice: true,
+    noticeData: {
+      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
+      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
+      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
+      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
+      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
+      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
+    },
+    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
+  },
   { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
 
   // Thursday
@@ -1320,10 +1436,12 @@ const DEFAULT_NOTIFICATIONS = [
     id: "notif-mdp-quiz-1",
     date: "20 Oct 2026",
     tag: "MDP G121 • Quiz 1",
-    title: "Quiz 1 — Crystal Structure",
-    body: "📍 المكان: مدرج 7104 • الثلاثاء 20 أكتوبر 2026\nالمحتوى المقرر: Crystal Structure.\nسيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    title: "⚡ Quiz 1 — Crystal Structure (5 درجات)",
+    body: "📍 الموعد والمكان: الثلاثاء 20 أكتوبر 2026 بمدرج 7104 (5 درجات).\n🎯 تنبيه المعيد: مفيش أسئلة نظري إن شاء الله — الأسئلة مسائل وتطبيقات شبه مسائل السكشن بالظبط. المذاكرة الأساسية من سلايدات السكشن وحل كويز وأسينمنت السنة اللي فاتت.",
     actions: [
-      { label: "📚 فتح جايد المادة", action: "openCourseCapsule('MDP G121')" }
+      { label: "📘 Tutorial Slides", action: "window.open('https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk', '_blank')" },
+      { label: "📝 Quiz 25/26 + الحل", action: "window.open('https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr', '_blank')" },
+      { label: "📂 Assignment 25/26", action: "window.open('https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP', '_blank')" }
     ]
   },
   {
