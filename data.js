@@ -284,6 +284,63 @@ const MASTER_QUIZZES = [
         sol: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk"
       }
     ]
+  },
+  {
+    id: "mth-quiz-1",
+    code: "MTH G102",
+    title: "Quiz 1 — Double Integrals (10 درجات)",
+    type: "Quiz (10 Marks)",
+    instructor: "Dr. Ahmed Abdelnaby & Dr. Lucy",
+    dateDisplay: "Monday, October 12, 2026 (الإثنين 12 أكتوبر 2026)",
+    countdownBadge: "منتهي / Expired",
+    date: "2026-10-12",
+    start: "2026-10-12T11:00:00",
+    deadline: "2026-10-12T11:35:00",
+    dueDate: "2026-10-12T11:00:00",
+    room: "مدرج 3002",
+    accent: "#38bdf8",
+    accentName: "cyan",
+    instructions: [
+      "الموعد والمكان: الإثنين 12 أكتوبر 2026 — 11:00 ظهراً بمدرج 3002 مجمع للأربع سكاشن.",
+      "الدرجة ونوع الأسئلة: 10 درجات (MCQ - 5 أسئلة) في 30-35 دقيقة على أول محاضرتين فقط (Double Integrals).",
+      "التصحيح على التظليل فقط، ممنوع الموبايل، والجلوس بمقعد فاضي بين كل طالب.",
+      "الكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل.",
+      "💡 تريكة هامة: الأسئلة لا تخرج عن أشكال الـ Graphs المشروحة بالمحاضرة."
+    ],
+    sheets: [
+      { id: "mth-sht-1", title: "1. شيت 1 والأسينمنت (Double Integrals)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0" },
+      { id: "mth-sol-1", title: "2. الحل النموذجي لشيت 1 (Double Integrals Solution)", pdf: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-drv-1", title: "3. فولدر درايف الكويز الرسمي", pdf: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" }
+    ],
+    submissionUrl: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
+    solutionUrl: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N"
+  },
+  {
+    id: "epe-assign-1",
+    code: "EPE G113",
+    title: "Assignment 1 — DC Circuits & Basic Quantities",
+    type: "Assignment",
+    instructor: "Dr. Electrical Staff",
+    dateDisplay: "Thursday, October 15, 2026 (الخميس 15 أكتوبر 2026)",
+    countdownBadge: "منتهي / Expired",
+    date: "2026-10-15",
+    start: "2026-10-15T12:30:00",
+    deadline: "2026-10-15T15:30:00",
+    dueDate: "2026-10-15T12:30:00",
+    room: "14301",
+    accent: "#fb923c",
+    accentName: "orange",
+    instructions: [
+      "تسليم Assignment 1 في السكشن على ورق A4.",
+      "محتوى الشيت: DC Circuits & Basic Electrical Quantities.",
+      "انتهت فترة التسليم الرسمية للأسبوع المنتهي."
+    ],
+    sheets: [
+      { id: "epe-sht-1", title: "1. Sheet 1: DC Circuits & Basic Electrical Quantities", pdf: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk" },
+      { id: "epe-sol-1", title: "2. الحل النموذجي لـ Sheet 1", pdf: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk" }
+    ],
+    submissionUrl: "https://drive.google.com/file/d/1z48ZfG-2CW86dlEJATipW1t-4ZNmwDru/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/file/d/1MwqPfN9_M0FV-izQkb1BIa3Bxezcb6hM/view?usp=drivesdk"
   }
 ];
 

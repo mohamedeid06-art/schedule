@@ -2020,6 +2020,26 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .bento-task-card {
+    padding: 16px 14px;
+    gap: 10px;
+  }
+  .bento-card-title {
+    font-size: 15px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .bento-card-actions {
+    gap: 8px;
+  }
+  .btn-official-details, .btn-open-guide {
+    font-size: 11px;
+    padding: 8px 6px;
+    letter-spacing: -0.2px;
+  }
+}
+
 .bento-task-card {
   background: rgba(11, 17, 30, 0.88);
   backdrop-filter: blur(14px);
@@ -2140,6 +2160,11 @@ body {
   color: #ffffff;
   line-height: 1.4;
   margin: 0;
+  padding: 0 4px;
+  text-align: start;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .bento-card-inst {
@@ -2177,6 +2202,31 @@ body {
   border: 1px solid var(--bento-c, #38bdf8);
   color: var(--bento-c, #38bdf8);
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+  white-space: nowrap;
+}
+
+.bento-countdown-badge.expired {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid #ef4444 !important;
+  color: #f87171 !important;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.25) !important;
+}
+
+.bento-countdown-badge.urgent {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid #f43f5e;
+  color: #fb7185;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.25);
+}
+
+.bento-task-card.is-expired {
+  opacity: 0.85;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+.bento-task-card.is-expired:hover {
+  opacity: 1;
+  border-color: rgba(239, 68, 68, 0.6) !important;
 }
 
 .bento-card-actions {
@@ -5521,6 +5571,18 @@ body {
   background: #fff1f2;
   border-color: #fecdd3;
   color: #e11d48;
+}
+
+[data-theme="light"] .bento-countdown-badge.expired {
+  background: #fef2f2 !important;
+  border: 1px solid #ef4444 !important;
+  color: #dc2626 !important;
+  box-shadow: none !important;
+}
+
+[data-theme="light"] .bento-task-card.is-expired {
+  opacity: 0.88;
+  border-color: #fca5a5 !important;
 }
 
 /* 3. Action Buttons in Light Mode */

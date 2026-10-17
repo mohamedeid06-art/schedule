@@ -621,7 +621,7 @@ function updateTaskBadge() {
   const badge = document.getElementById("navTaskBadge");
   if (!badge) return;
   const allTasks = getAllCombinedTasks();
-  const count = allTasks.filter(t => !t.isDone).length;
+  const count = allTasks.filter(t => !t.isDone && !t.countdown?.isPassed).length;
   if (count > 0) {
     badge.textContent = count;
     badge.style.display = "block";
@@ -692,20 +692,22 @@ function getAllCombinedTasks() {
     MASTER_QUIZZES.forEach(q => {
       const dueDate = q.dueDate || q.deadline || q.date || q.start;
       const cd = getExactCountdown(dueDate);
-      const isDone = q.isDone || completedTasks.includes(q.id) || cd.isPassed;
+      const isPassed = cd.isPassed;
+      const isDone = q.isDone || completedTasks.includes(q.id);
       let priority = "scheduled";
-      if (isDone) priority = "done";
+      if (isDone || isPassed) priority = "done";
       else if (cd.isUrgent) priority = "due-soon";
       else if (cd.diff <= 7 * 24 * 3600 * 1000) priority = "upcoming";
 
       list.push({
         ...q,
         dueDate: dueDate,
-        countdownBadge: cd.text,
-        isQuiz: true,
+        countdownBadge: isPassed ? "منتهي / Expired" : cd.text,
+        isQuiz: q.isQuiz !== undefined ? q.isQuiz : !q.type?.toLowerCase().includes("assignment"),
         countdown: cd,
         priority: priority,
         isDone: isDone,
+        isPassed: isPassed,
         desc: q.instructions ? q.instructions.join('\n') : "Official Exam",
         note: ""
       });
@@ -720,9 +722,10 @@ function getAllCombinedTasks() {
       const deadline = (asgn.deadlinesByGroup && (asgn.deadlinesByGroup[activeGroup] || asgn.deadlinesByGroup["ME1-01"])) || asgn.deadline || "2026-10-15T09:00:00";
       const dueDate = asgn.dueDate || deadline;
       const cd = getExactCountdown(dueDate);
-      const isDone = asgn.isDone || completedTasks.includes(asgn.id) || cd.isPassed;
+      const isPassed = cd.isPassed;
+      const isDone = asgn.isDone || completedTasks.includes(asgn.id);
       let priority = "scheduled";
-      if (isDone) priority = "done";
+      if (isDone || isPassed) priority = "done";
       else if (cd.isUrgent) priority = "due-soon";
       else if (cd.diff <= 7 * 24 * 3600 * 1000) priority = "upcoming";
 
@@ -737,7 +740,7 @@ function getAllCombinedTasks() {
         deadline: deadline,
         dueDate: dueDate,
         start: asgn.start,
-        countdownBadge: cd.text,
+        countdownBadge: isPassed ? "منتهي / Expired" : cd.text,
         countdown: cd,
         priority: priority,
         accent: COURSES[asgn.code]?.hex || '#38bdf8',
@@ -751,6 +754,7 @@ function getAllCombinedTasks() {
           "Late submissions will not be accepted."
         ],
         isDone: isDone,
+        isPassed: isPassed,
         isQuiz: isQ
       });
       addedIds.add(asgn.id);
@@ -780,10 +784,48 @@ function getSubjectGuides(code) {
 function sortByDeadline(a, b) {
   const pa = a.countdown?.isPassed ? 1 : 0;
   const pb = b.countdown?.isPassed ? 1 : 0;
-  if (pa !== pb) return pa - pb;
+  if (pa !== pb) return pa - pb; // non-expired (0) at top, expired (1) at bottom
   const da = (a.dueDate || a.deadline || a.date) ? new Date(a.dueDate || a.deadline || a.date).getTime() : 0;
   const db = (b.dueDate || b.deadline || b.date) ? new Date(b.dueDate || b.deadline || b.date).getTime() : 0;
+  if (pa === 1) {
+    // For expired items, show most recently expired first
+    return (isNaN(db) ? 0 : db) - (isNaN(da) ? 0 : da);
+  }
   return (isNaN(da) ? 0 : da) - (isNaN(db) ? 0 : db);
+}
+
+function isSessionBadgeVisible(s, badgeType) {
+  if (!s) return false;
+  const badgeText = (badgeType === 'quiz' ? s.quizBadge : s.assignmentBadge) || '';
+  if (!badgeText) return false;
+
+  const allTasks = getAllCombinedTasks();
+  const courseTasks = allTasks.filter(t => t.code === s.code);
+  if (!courseTasks.length) return true;
+
+  const lowerBadge = badgeText.toLowerCase();
+  let matchedTask = null;
+  if (lowerBadge.includes('quiz 1') || lowerBadge.includes('كويز 1')) {
+    matchedTask = courseTasks.find(t => (t.id || '').includes('quiz-1') || (t.title || '').includes('Quiz 1'));
+  } else if (lowerBadge.includes('quiz 2') || lowerBadge.includes('كويز 2')) {
+    matchedTask = courseTasks.find(t => (t.id || '').includes('quiz-2') || (t.title || '').includes('Quiz 2'));
+  } else if (lowerBadge.includes('assignment 1') || lowerBadge.includes('assign 1') || lowerBadge.includes('أسينمنت 1')) {
+    matchedTask = courseTasks.find(t => (t.id || '').includes('assign-1') || (t.title || '').includes('Assignment 1'));
+  } else if (lowerBadge.includes('assignment 2') || lowerBadge.includes('assign 2') || lowerBadge.includes('أسينمنت 2')) {
+    matchedTask = courseTasks.find(t => (t.id || '').includes('assign-2') || (t.title || '').includes('Assignment 2'));
+  }
+
+  if (matchedTask) {
+    return !matchedTask.countdown?.isPassed;
+  }
+
+  if (badgeType === 'quiz') {
+    const quizzes = courseTasks.filter(t => t.isQuiz);
+    return quizzes.length ? quizzes.some(q => !q.countdown?.isPassed) : true;
+  } else {
+    const asgns = courseTasks.filter(t => !t.isQuiz);
+    return asgns.length ? asgns.some(a => !a.countdown?.isPassed) : true;
+  }
 }
 
 /* ---------- Checklist & Readiness Engine ---------- */
@@ -1114,7 +1156,8 @@ function renderTasksGridOnly() {
 
 function renderBentoTaskCard(task) {
   const initial = (task.code || '').split(' ')[0] || task.code || 'TASK';
-  const accentColor = task.accent || (typeof COURSES !== 'undefined' && COURSES[task.code]?.hex) || '#38bdf8';
+  const meta = getCourseMeta(task.code);
+  const accentColor = task.accent || meta.hex || '#38bdf8';
   const accentName = task.accentName || 'cyan';
 
   const dueDate = task.dueDate || task.deadline;
@@ -1124,14 +1167,31 @@ function renderBentoTaskCard(task) {
     : (dueDate || 'Scheduled'));
 
   const instructorName = task.instructor || (typeof COURSES !== 'undefined' && COURSES[task.code]?.instructor) || "CUFE Staff";
+  const locationOrInstructor = task.room 
+    ? (task.instructor ? `${task.instructor} • ${task.room}` : task.room)
+    : instructorName;
+  const locationIcon = task.room ? '📍' : '👤';
+
   const cd = getExactCountdown(task);
   const cdText = cd.text;
   const isUrgent = cd.isUrgent;
   const isExpired = cd.isPassed;
   const dueDateStr = dueDate || '';
 
+  // Right Button Label & Action logic
+  let rightBtnLabel = '⚡ Open Quiz Study Guide ↗';
+  let rightBtnAction = `openQuizPreparationGuide('${task.id}')`;
+
+  if (task.id === 'gen-quiz-2' || (task.code === 'GEN G119' && task.isQuiz)) {
+    rightBtnLabel = '🎮 Open Quiz Simulator ↗';
+    rightBtnAction = `openMarketingQuiz2Modal()`;
+  } else if (task.type === 'Assignment' || task.type?.toLowerCase().includes('assignment') || task.id.includes('assign')) {
+    rightBtnLabel = '📂 Open Assignment & Solution ↗';
+    rightBtnAction = `openQuizPreparationGuide('${task.id}')`;
+  }
+
   return `
-    <article class="bento-task-card bento-${accentName} ${task.isDone ? 'is-completed' : ''}" style="--bento-c: ${accentColor};" data-task-id="${task.id}" data-due="${escHtml(dueDateStr)}">
+    <article class="bento-task-card bento-${accentName} ${task.isDone ? 'is-completed' : ''} ${isExpired ? 'is-expired' : ''}" style="--bento-c: ${accentColor};" data-task-id="${task.id}" data-due="${escHtml(dueDateStr)}">
       <div class="bento-card-top">
         <div class="bento-subj-tag">
           <span class="bento-subj-initial">${initial}</span>
@@ -1143,8 +1203,8 @@ function renderBentoTaskCard(task) {
       <h3 class="bento-card-title">${escHtml(task.title || '')}</h3>
 
       <div class="bento-card-inst">
-        <span class="bento-inst-icon">👤</span>
-        <span>${escHtml(instructorName)}</span>
+        <span class="bento-inst-icon">${locationIcon}</span>
+        <span>${escHtml(locationOrInstructor)}</span>
       </div>
 
       <div class="bento-card-meta-row">
@@ -1152,137 +1212,57 @@ function renderBentoTaskCard(task) {
           <span class="cal-mini-icon">📅</span>
           <span>${escHtml(formattedDate)}</span>
         </div>
-        <span class="bento-countdown-badge ${isExpired ? 'expired' : (isUrgent ? 'urgent' : '')}" data-due="${escHtml(dueDateStr)}" style="${isExpired ? 'border-color:#ef4444;color:#f87171;background:rgba(239,68,68,0.12);box-shadow:0 0 10px rgba(239,68,68,0.2);' : ''}">
-          ${escHtml(cdText)}
+        <span class="bento-countdown-badge ${isExpired ? 'expired' : (isUrgent ? 'urgent' : '')}" data-due="${escHtml(dueDateStr)}" style="${isExpired ? 'border-color:#ef4444;color:#f87171;background:rgba(239,68,68,0.15);box-shadow:0 0 10px rgba(239,68,68,0.25);' : ''}">
+          ${escHtml(isExpired ? 'منتهي / Expired' : cdText)}
         </span>
       </div>
 
-      ${task.id === 'gen-quiz-2' ? `
-        <div class="bento-card-details-box" style="margin-top: 6px; padding: 9px 12px; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.28); border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.55; font-weight: 600;">
-          📍 الأحد 8:00 ص (مدرج 3103-414) • مدة الكويز 5 دقائق فقط (نفس نظام كويز 1)
-        </div>
-        <div class="bento-card-actions bento-actions-marketing" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: flex; gap: 8px; width: 100%;">
-            <button class="btn-marketing-sim" onclick="openMarketingQuiz2Modal()" style="flex: 1.2; background: linear-gradient(135deg, #06b6d4, #0284c7); font-weight: 800; color: #fff; padding: 10px 14px; border-radius: 10px; border: none; cursor: pointer; box-shadow: 0 4px 16px rgba(6, 182, 212, 0.35); font-size: 13px;">
-              <span>🎮 ابدأ محاكي كويز 2</span>
-            </button>
-            <button class="btn-open-guide" onclick="openQuizPreparationGuide('gen-quiz-2')" style="flex: 1; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.4); color: var(--text-main); font-weight: 700; padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 12.5px;">
-              <span>📂 ملفات الكويز والملخص</span>
-            </button>
-          </div>
-          <div class="bento-marketing-links-row" style="display: flex; gap: 6px; width: 100%;">
-            <a href="https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-marketing-link" style="flex: 1; text-align: center; font-size: 11px; padding: 6px 4px;">
-              <span>📝 Test Bank CH 2 ↗</span>
-            </a>
-            <a href="https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-marketing-link" style="flex: 1; text-align: center; font-size: 11px; padding: 6px 4px;">
-              <span>📄 ملخص CH 2 ↗</span>
-            </a>
-            <a href="https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-marketing-link" style="flex: 1; text-align: center; font-size: 11px; padding: 6px 4px;">
-              <span>📘 سلايدات CH 2 ↗</span>
-            </a>
-          </div>
-        </div>
-      ` : (task.id === 'epe-assign-2' || (task.code === 'EPE G113' && task.type === 'Assignment')) ? `
-        <div class="bento-card-details-box" style="margin-top: 8px; padding: 10px 12px; background: rgba(251, 146, 60, 0.08); border: 1px solid rgba(251, 146, 60, 0.28); border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
-          <div style="font-weight: 700; color: #fb923c; margin-bottom: 5px;">
-            📍 التسليم: الخميس 22 أكتوبر في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00)
-          </div>
-          <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 4px; line-height: 1.5;">
-            <strong style="color: #fde047;">Chapter 2 (Part 1):</strong> 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, 2.78
-          </div>
-          <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
-            <strong style="color: #fde047;">Chapter 2 (Part 2):</strong> 2.45, 2.53, 2.76
-          </div>
-        </div>
-        <div class="bento-card-actions" style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
-          <a href="https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-official-details" style="flex: 1; min-width: 140px; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px; background: rgba(251, 146, 60, 0.15); border: 1px solid rgba(251, 146, 60, 0.4); color: #fb923c; font-weight: 700; padding: 10px 12px; border-radius: 10px; font-size: 12.5px;">
-            <span>📄 فتح ملف الأسينمنت ↗</span>
-          </a>
-          <a href="https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-open-guide" style="flex: 1; min-width: 140px; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3)); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; font-weight: 700; padding: 10px 12px; border-radius: 10px; font-size: 12.5px;">
-            <span>✅ فتح الحل النموذجي ↗</span>
-          </a>
-        </div>
-      ` : (task.id === 'mdp-quiz-1' || (task.code === 'MDP G121' && isQuizTask(task))) ? `
-        <div class="bento-card-details-box" style="margin-top: 8px; padding: 11px 13px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-wrap: wrap; gap: 4px;">
-            <span style="font-weight: 800; color: #f59e0b; font-size: 12.5px;">📍 مدرج 7104 • الثلاثاء 20 أكتوبر 2026</span>
-            <span style="font-size: 11px; color: #fbbf24; background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 6px; font-weight: 800;">5 درجات (5 Marks)</span>
-          </div>
-          <div style="font-weight: 700; color: #38bdf8; font-size: 12.5px; margin-bottom: 6px;">
-            🎯 موضوع الكويز: Crystal Structure
-          </div>
-          <div style="font-size: 11.5px; color: #e2e8f0; line-height: 1.55; background: rgba(0,0,0,0.25); padding: 8px 10px; border-radius: 8px; margin-bottom: 4px;">
-            <div style="margin-bottom: 4px;">🎯 <strong>مفيش أسئلة نظري إن شاء الله</strong> — الأسئلة مسائل وتطبيقات شبه اللي اتحلت في السكشن بالظبط.</div>
-            <div style="color: #fde047;">⚠️ <strong>الشيت فيه حاجات مش بتيجي في الامتحان</strong>، فالمذاكرة الأساسية تكون من سلايدات السكشن مع حل الأسئلة اللي فيها + كويز وأسينمنت السنة اللي فاتت.</div>
-          </div>
-        </div>
-        <div class="bento-card-actions" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
-          <a href="https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-official-details" style="text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; color: #ffffff; font-weight: 800; padding: 9px 12px; border-radius: 9px; font-size: 12px; box-shadow: 0 4px 12px rgba(2,132,199,0.3);">
-            <span>📘 1. Tutorial Slides (أساسي) ↗</span>
-          </a>
-          <div style="display: flex; gap: 6px; width: 100%;">
-            <a href="https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr" target="_blank" rel="noopener noreferrer" class="btn-open-guide" style="flex: 1; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 4px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; font-weight: 700; padding: 8px 6px; border-radius: 8px; font-size: 11px; text-align: center;">
-              <span>📝 2. Quiz 2025/2026 + الحلول ↗</span>
-            </a>
-            <a href="https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP" target="_blank" rel="noopener noreferrer" class="btn-open-guide" style="flex: 1; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 4px; background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.35); color: #c084fc; font-weight: 700; padding: 8px 6px; border-radius: 8px; font-size: 11px; text-align: center;">
-              <span>📂 3. Assignment 2025/2026 + الحلول ↗</span>
-            </a>
-          </div>
-        </div>
-      ` : (['epe-quiz-1', 'emc-quiz-1'].includes(task.id) || task.temporaryNote ? `
-        <div class="bento-card-details-box" style="margin-top: 8px; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid ${accentColor}33; border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-            <span style="font-weight: 700; color: ${accentColor}; font-size: 12px;">📍 المكان: ${escHtml(task.room || 'مدرج 7104')}</span>
-            <span style="font-size: 11px; color: var(--text-muted); background: rgba(255,255,255,0.06); padding: 2px 7px; border-radius: 6px; font-weight: 600;">المحتوى المقرر</span>
-          </div>
-          <div style="font-weight: 700; color: var(--text-main); font-size: 12.5px; margin-bottom: 6px;">
-            🎯 ${escHtml(task.content || task.topic || '')}
-          </div>
-          <div style="font-size: 11.5px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 6px;">
-            <span>⏳</span>
-            <span>${escHtml(task.temporaryNote || 'سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.')}</span>
-          </div>
-        </div>
-        <div class="bento-card-actions" style="margin-top: 10px;">
-          <button class="btn-open-guide" onclick="openCourseCapsule('${task.code}')" style="width: 100%; justify-content: center; background: ${accentColor}18; border: 1px solid ${accentColor}55; color: var(--text-main); font-weight: 800; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;">
-            <span>📚 فتح جايد المادة</span>
-          </button>
-        </div>
-      ` : `
-        <div class="bento-card-actions">
-          <button class="btn-official-details" onclick="openOfficialExamModal('${task.id}')">
-            <span>Official Details & Files ℹ️</span>
-          </button>
-          <button class="btn-open-guide" onclick="openQuizPreparationGuide('${task.id}')">
-            <span>${task.type === 'Assignment' ? '📁 Open Assignment & Solution ↗' : '⚡ Open Quiz Study Guide ↗'}</span>
-          </button>
-        </div>
-      `)}
+      <div class="bento-card-actions">
+        <button class="btn-official-details" onclick="openOfficialExamModal('${task.id}')">
+          <span>Official Details & Files ℹ️</span>
+        </button>
+        <button class="btn-open-guide" onclick="${rightBtnAction}">
+          <span>${escHtml(rightBtnLabel)}</span>
+        </button>
+      </div>
     </article>
   `;
 }
 
 function updateCountdowns() {
   const badges = document.querySelectorAll(".bento-countdown-badge");
+  let anyPassedChanged = false;
   badges.forEach(badge => {
     const dueStr = badge.getAttribute("data-due") || badge.closest("[data-due]")?.getAttribute("data-due");
     if (!dueStr) return;
     const cd = getExactCountdown(dueStr);
-    badge.textContent = cd.text;
-    badge.classList.toggle("expired", cd.isPassed);
-    badge.classList.toggle("urgent", cd.isUrgent && !cd.isPassed);
+    const card = badge.closest(".bento-task-card");
     if (cd.isPassed) {
+      badge.textContent = "منتهي / Expired";
+      badge.classList.add("expired");
+      badge.classList.remove("urgent");
       badge.style.borderColor = "#ef4444";
       badge.style.color = "#f87171";
-      badge.style.background = "rgba(239, 68, 68, 0.12)";
-      badge.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.2)";
+      badge.style.background = "rgba(239, 68, 68, 0.15)";
+      badge.style.boxShadow = "0 0 10px rgba(239, 68, 68, 0.25)";
+      if (card && !card.classList.contains("is-expired")) {
+        card.classList.add("is-expired");
+        anyPassedChanged = true;
+      }
     } else {
+      badge.textContent = cd.text;
+      badge.classList.remove("expired");
+      badge.classList.toggle("urgent", cd.isUrgent);
       badge.style.borderColor = "";
       badge.style.color = "";
       badge.style.background = "";
       badge.style.boxShadow = "";
+      if (card) card.classList.remove("is-expired");
     }
   });
+  if (anyPassedChanged) {
+    updateTaskBadge();
+  }
 }
 window.updateCountdowns = updateCountdowns;
 
@@ -1584,43 +1564,119 @@ function openOfficialExamModal(taskId) {
   const body = document.getElementById("officialExamModalBody");
   if (!modal || !body) return;
 
+  const modalTitle = modal.querySelector(".exam-modal-title");
+  const modalSub = modal.querySelector(".exam-modal-subtitle");
+  if (modalTitle) modalTitle.textContent = task.title || "Official Details & Files";
+  if (modalSub) modalSub.textContent = `${task.code || ''} • ${task.type || 'Official Exam Details'}`;
+
   const sObj = new Date(task.start);
   const formattedStart = !isNaN(sObj.getTime())
     ? `${sObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} (${sObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })})`
-    : (task.start || task.dateDisplay || "Oct 8, 2026 (09:00 AM)");
+    : (task.start || task.dateDisplay || "Oct 2026");
 
-  const dObj = new Date(task.deadline);
+  const dObj = new Date(task.dueDate || task.deadline);
   const formattedEnd = !isNaN(dObj.getTime())
     ? `${dObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} (${dObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })})`
-    : (task.deadline || "Oct 8, 2026 (11:00 AM)");
+    : (task.deadline || task.dateDisplay || "Oct 2026");
 
-  const instructorName = task.instructor || COURSES[task.code]?.instructor || "CUFE Staff";
+  const instructorName = task.instructor || (typeof COURSES !== 'undefined' && COURSES[task.code]?.instructor) || "CUFE Staff";
   const instructionsList = task.instructions && task.instructions.length ? task.instructions : [
     "Make sure to read all instructions carefully.",
-    "The exam is online and time-limited.",
+    "The exam is time-limited.",
     "Use only the official submission form.",
-    "Late submissions will not be accepted.",
-    "No calculators or external resources (unless stated)."
+    "Late submissions will not be accepted."
   ];
+
+  // Build full list of official files & links
+  const filesList = [];
+  if (Array.isArray(task.sheets)) {
+    task.sheets.forEach(s => {
+      if (s.pdf) {
+        filesList.push({
+          title: s.title || s.name || 'ملف الأسئلة / الشيت',
+          url: s.pdf,
+          icon: '📄',
+          bg: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)',
+          shadow: '0 4px 14px rgba(56, 189, 248, 0.35)'
+        });
+      }
+      if (s.sol && s.sol !== s.pdf) {
+        filesList.push({
+          title: s.solTitle || `حل ${s.title || s.name || 'النموذجي'}`,
+          url: s.sol,
+          icon: '✅',
+          bg: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+          shadow: '0 4px 14px rgba(16, 185, 129, 0.35)'
+        });
+      }
+    });
+  }
+  if (Array.isArray(task.lectures)) {
+    task.lectures.forEach(l => {
+      if (l.slides && !filesList.some(f => f.url === l.slides)) {
+        filesList.push({
+          title: l.title || 'سلايدات المحاضرة (Slides)',
+          url: l.slides,
+          icon: '📊',
+          bg: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          shadow: '0 4px 14px rgba(99, 102, 241, 0.35)'
+        });
+      }
+    });
+  }
+  if (task.submissionUrl && !filesList.some(f => f.url === task.submissionUrl)) {
+    filesList.push({
+      title: task.type === 'Assignment' ? '📁 مجلد الأسينمنت والتسليم الرسمي' : '🚀 فورم / موقع التسليم الرسمي (Official Submission)',
+      url: task.submissionUrl,
+      icon: task.type === 'Assignment' ? '📁' : '🚀',
+      bg: 'linear-gradient(135deg, #0284c7 0%, #38bdf8 100%)',
+      shadow: '0 4px 14px rgba(56, 189, 248, 0.35)'
+    });
+  }
+  if (task.solutionUrl && !filesList.some(f => f.url === task.solutionUrl)) {
+    filesList.push({
+      title: '✅ فولدر / ملف الحلول النموذجية (Official Solution)',
+      url: task.solutionUrl,
+      icon: '✅',
+      bg: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+      shadow: '0 4px 14px rgba(16, 185, 129, 0.35)'
+    });
+  }
+
+  const isMarketing = task.id === 'gen-quiz-2' || (task.code === 'GEN G119' && task.isQuiz);
 
   body.innerHTML = `
     <div class="official-exam-grid">
       <!-- Left Column: Exam Details Meta -->
       <div class="exam-meta-column">
         <div class="exam-meta-item">
-          <div class="meta-label"><span>📄</span><span>Exam Title</span></div>
+          <div class="meta-label"><span>📄</span><span>Exam / Task Title</span></div>
           <div class="meta-value highlight">${escHtml(task.title)}</div>
         </div>
 
         <div class="exam-meta-item">
           <div class="meta-label"><span>🎓</span><span>Course</span></div>
-          <div class="meta-value">${task.code}</div>
+          <div class="meta-value">${escHtml(task.code)} — ${escHtml(COURSES[task.code]?.name || '')}</div>
         </div>
 
         <div class="exam-meta-item">
-          <div class="meta-label"><span>👨‍🏫</span><span>Instructor</span></div>
+          <div class="meta-label"><span>👨‍🏫</span><span>Instructor / Staff</span></div>
           <div class="meta-value">${escHtml(instructorName)}</div>
         </div>
+
+        ${task.room ? `
+          <div class="exam-meta-item">
+            <div class="meta-label"><span>📍</span><span>Location / المكان</span></div>
+            <div class="meta-value highlight" style="color: #38bdf8;">${escHtml(task.room)}</div>
+          </div>
+        ` : ''}
+
+        ${task.marks ? `
+          <div class="exam-meta-item">
+            <div class="meta-label"><span>🎯</span><span>Marks / الدرجة</span></div>
+            <div class="meta-value">${escHtml(task.marks)}</div>
+          </div>
+        ` : ''}
 
         <div class="exam-meta-item">
           <div class="meta-label"><span>📅</span><span>Start Date</span></div>
@@ -1628,36 +1684,50 @@ function openOfficialExamModal(taskId) {
         </div>
 
         <div class="exam-meta-item">
-          <div class="meta-label"><span>📅</span><span>End Date</span></div>
+          <div class="meta-label"><span>📅</span><span>Deadline / التسليم</span></div>
           <div class="meta-value">${formattedEnd}</div>
         </div>
 
-        <div class="exam-meta-item submission-item">
-          <div class="meta-label"><span>📁</span><span>${task.type === 'Assignment' ? 'ملفات الأسينمنت والحل' : 'Submission Form'}</span></div>
-          <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
-            ${(task.sheets && task.sheets[0]?.pdf) || task.submissionUrl ? `
-              <a href="${(task.sheets && task.sheets[0]?.pdf) || task.submissionUrl}" target="_blank" rel="noopener noreferrer" class="exam-open-form-btn">
-                <span>📄 ${task.type === 'Assignment' ? 'فتح ملف الأسينمنت (Assignment File)' : 'Open Submission Form'}</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            ` : ''}
-            ${(task.sheets && task.sheets[0]?.sol) || task.solutionUrl ? `
-              <a href="${task.solutionUrl || (task.sheets && task.sheets[0]?.sol)}" target="_blank" rel="noopener noreferrer" class="exam-open-form-btn" style="background:linear-gradient(135deg, #059669 0%, #10b981 100%);box-shadow:0 4px 14px rgba(16, 185, 129, 0.35);">
-                <span>✅ فتح ملف الحل (Solution File)</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            ` : ''}
+        <div class="exam-meta-item">
+          <div class="meta-label"><span>⏳</span><span>Status / الحالة</span></div>
+          <div class="meta-value" style="${task.isPassed ? 'color:#f87171;font-weight:800;' : 'color:#38bdf8;font-weight:800;'}">
+            ${task.isPassed ? 'منتهي / Expired' : 'قادم / Active Upcoming'}
           </div>
-          <span class="meta-sub-hint">${task.type === 'Assignment' ? 'المسائل المطلوبة محددة في القائمة المجاورة' : 'Fill the form before the exam starts'}</span>
+        </div>
+
+        <!-- Files & Links Section -->
+        <div class="exam-meta-item submission-item">
+          <div class="meta-label"><span>📁</span><span>المستندات والروابط الرسمية (Official Files & Links)</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+            ${filesList.map(f => `
+              <a href="${f.url}" target="_blank" rel="noopener noreferrer" class="exam-open-form-btn" style="background:${f.bg};box-shadow:${f.shadow};">
+                <span>${f.icon} ${escHtml(f.title)}</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            `).join('')}
+
+            ${isMarketing ? `
+              <button onclick="closeOfficialExamModal(); openMarketingQuiz2Modal();" class="exam-open-form-btn" style="background:linear-gradient(135deg, #ec4899 0%, #a855f7 100%);box-shadow:0 4px 14px rgba(236, 72, 153, 0.35);cursor:pointer;border:none;">
+                <span>🎮 فتح محاكي الكويز التفاعلي الذكي (Quiz Simulator)</span>
+                <span class="btn-arrow">↗</span>
+              </button>
+            ` : ''}
+
+            <button onclick="closeOfficialExamModal(); openQuizPreparationGuide('${task.id}');" class="exam-open-form-btn" style="background:linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);box-shadow:0 4px 14px rgba(6, 182, 212, 0.35);cursor:pointer;border:none;">
+              <span>⚡ فتح دليل المذاكرة الشامل (Open Study Guide)</span>
+              <span class="btn-arrow">↗</span>
+            </button>
+          </div>
+          <span class="meta-sub-hint">${task.type === 'Assignment' ? 'المسائل والتعليمات موضحة في القائمة المجاورة' : 'جميع الملفات والروابط معتمدة رسمياً'}</span>
         </div>
       </div>
 
-      <!-- Right Column: Instructions List (No Question Paper PDF as requested) -->
+      <!-- Right Column: Instructions List -->
       <div class="exam-instructions-column">
         <div class="instructions-box">
           <div class="instructions-header">
             <span class="instructions-header-icon">📋</span>
-            <span>${task.type === 'Assignment' ? 'قائمة المسائل المطلوبة والتعليمات' : 'تعليمات وتنبيهات الامتحان (Instructions)'}</span>
+            <span>${task.type === 'Assignment' ? 'قائمة المسائل المطلوبة والتعليمات' : 'تعليمات وتنبيهات الامتحان (Official Instructions)'}</span>
           </div>
 
           <div class="instructions-list">
@@ -2181,8 +2251,8 @@ function renderDailyAgenda() {
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
-              ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (s.code === 'MDP G121' ? `openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
-              ${s.assignmentBadge ? `<span class="badge-assignment-glow" onclick="event.stopPropagation(); openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')" style="cursor:pointer;" title="${escHtml(s.assignmentBadge)}">${escHtml(s.assignmentBadge)}</span>` : ''}
+              ${s.quizBadge && isSessionBadgeVisible(s, 'quiz') ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (s.code === 'MDP G121' ? `openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
+              ${s.assignmentBadge && isSessionBadgeVisible(s, 'assignment') ? `<span class="badge-assignment-glow" onclick="event.stopPropagation(); openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')" style="cursor:pointer;" title="${escHtml(s.assignmentBadge)}">${escHtml(s.assignmentBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
@@ -3018,8 +3088,8 @@ function renderWeekMatrix() {
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : `color:${course.hex};`}">${sess.code}</span>
             <div class="card-badges">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (sess.code === 'MDP G121' ? `openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
-              ${sess.assignmentBadge ? `<span class="badge-assignment-glow matrix-assignment-badge" onclick="event.stopPropagation(); openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')" style="cursor:pointer;" title="${escHtml(sess.assignmentBadge)}">${escHtml(sess.assignmentBadge)}</span>` : ''}
+              ${sess.quizBadge && isSessionBadgeVisible(sess, 'quiz') ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (sess.code === 'MDP G121' ? `openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.assignmentBadge && isSessionBadgeVisible(sess, 'assignment') ? `<span class="badge-assignment-glow matrix-assignment-badge" onclick="event.stopPropagation(); openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')" style="cursor:pointer;" title="${escHtml(sess.assignmentBadge)}">${escHtml(sess.assignmentBadge)}</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasNoticeOrNote && !isCancelled ? `<span class="badge-notice-bell" data-day="${dIdx}" data-start="${sess.start}" data-code="${sess.code}" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم">🔔</span>` : ''}
