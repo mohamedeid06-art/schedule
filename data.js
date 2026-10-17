@@ -242,36 +242,35 @@ const MASTER_QUIZZES = [
     ]
   },
   {
-    id: "epe-assign-1",
+    id: "epe-assign-2",
     code: "EPE G113",
-    title: "Assignment 1 (EPE G113)",
+    title: "Assignment 2 — Chapter 2 Problems (21 مسائل)",
     type: "Assignment",
     instructor: "Dr. Electrical Staff",
-    dateDisplay: "الخميس في السكشن (قاعة 14301)",
-    countdownBadge: "الخميس في السكشن",
-    start: "2026-10-15T12:30:00",
-    deadline: "2026-10-15T15:30:00",
+    dateDisplay: "Thursday, October 22, 2026 (12:30 PM — قاعة 14301)",
+    countdownBadge: "الخميس 12:30 ظهراً",
+    start: "2026-10-22T12:30:00",
+    deadline: "2026-10-22T15:30:00",
+    dueDate: "2026-10-22T12:30:00",
     room: "14301 (Faculty Hall)",
-    accent: "#f43f5e",
-    accentName: "rose",
-    submissionUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-    solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+    accent: "#fb923c",
+    accentName: "orange",
+    submissionUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
     instructions: [
-      "المطلوب: مسائل Sheet 1.",
-      "مسائل Chapter 1: 1.7, 1.9, 1.14, 1.17, 1.19, 1.24, 1.26, 1.28, and 1.30",
-      "مسائل إضافية: 1.34, 1.36",
-      "📍 موعد ومكان التسليم: الخميس في السكشن (قاعة 14301 - Faculty Hall).",
-      "📄 تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).",
-      "👥 مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.",
-      "⏰ الفترات المتاحة للحضور: الفترة الأولى (12:30 ظهراً - 2:00 ظهراً) أو الفترة الثانية (2:00 ظهراً - 3:30 عصراً).",
-      "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب."
+      "📍 موعد ومكان التسليم: الخميس 22 أكتوبر 2026 في السكشن (قاعة 14301 - فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      "أرقام المسائل المطلوبة من Chapter 2 (إجمالي 21 مسألة):",
+      "Chapter 2 (Part 1): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, 2.78",
+      "Chapter 2 (Part 2): 2.45, 2.53, 2.76",
+      "👥 مسموح للطالب تسليم الأسينمنت الخاص به وأسينمنت لزميل واحد فقط كحد أقصى.",
+      "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب للشرح والمراجعة."
     ],
     sheets: [
       {
-        id: "epe-sht-1",
-        title: "Assignment 1 — Electric Circuits (ملف الأسينمنت)",
-        pdf: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-        sol: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk"
+        id: "epe-sht-2",
+        title: "Assignment 2 — Chapter 2 Problems (ملف الأسينمنت)",
+        pdf: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+        sol: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk"
       }
     ]
   }
@@ -298,26 +297,28 @@ const COURSE_STATIC_ASSIGNMENTS = [
     note: "التسليم مجمع في الأسبوع 6 أو 7 ولا يوجد غياب في السكشن."
   },
   {
-    id: "epe-assign-1",
+    id: "epe-assign-2",
     code: "EPE G113",
-    title: "Assignment 1 (EPE G113)",
+    title: "Assignment 2 — Chapter 2 Problems (21 مسائل)",
     type: "Assignment",
     day: "Thursday",
-    start: "2026-10-15T12:30:00",
+    start: "2026-10-22T12:30:00",
+    deadline: "2026-10-22T15:30:00",
+    dueDate: "2026-10-22T12:30:00",
     deadlinesByGroup: {
-      "ME1-01": "2026-10-15T14:00:00",
-      "ME1-02": "2026-10-15T14:00:00",
-      "ME1-03": "2026-10-15T15:30:00",
-      "ME1-04": "2026-10-15T15:30:00"
+      "ME1-01": "2026-10-22T14:00:00",
+      "ME1-02": "2026-10-22T14:00:00",
+      "ME1-03": "2026-10-22T15:30:00",
+      "ME1-04": "2026-10-22T15:30:00"
     },
-    folderUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-    solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
-    desc: `مسائل Sheet 1 المطلوبة:
-• Problems, Chapter 1: 1.7, 1.9, 1.14, 1.17, 1.19, 1.24, 1.26, 1.28, and 1.30
-• Problems: 1.34, 1.36
-• تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
+    folderUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
+    desc: `مسائل Chapter 2 المطلوبة (إجمالي 21 مسألة):
+• Chapter 2 (Part 1): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, 2.78
+• Chapter 2 (Part 2): 2.45, 2.53, 2.76
+• تسليم Assignment 2 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).
 • مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.`,
-    note: "موعد ومكان التسليم: الخميس في السكشن (قاعة 14301 - Faculty Hall) فترتين: (12:30 - 2:00) و (2:00 - 3:30). السكشن هيتصور فيديو وهينزل على يوتيوب."
+    note: "موعد ومكان التسليم: الخميس 22 أكتوبر في السكشن (قاعة 14301 - Faculty Hall) فترتين: (12:30 - 2:00) و (2:00 - 3:30). السكشن هيتصور فيديو وهينزل على يوتيوب."
   }
 ];
 
@@ -599,7 +600,7 @@ const DEFAULT_WEEKLY_GUIDES = [
     important_notes: [
       "📍 مكان التسليم: الخميس في السكشن (قاعة 14301 - Faculty Hall).",
       "⏰ الفترات المتاحة للاختيار/الحضور: الفترة الأولى (12:30 ظهراً - 2:00 ظهراً) أو الفترة الثانية (2:00 ظهراً - 3:30 عصراً).",
-      "📝 تسليم Assignment 1 في السكشن على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      "📝 ملاحظة: تم انتهاء تسليم Assignment 1، والتسليم القادم هو Assignment 2 يوم الخميس 22 أكتوبر.",
       "👥 مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.",
       "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب."
     ],
@@ -664,6 +665,40 @@ const DEFAULT_WEEKLY_GUIDES = [
     ],
     summary_title: "ملف الشيت الكامل (Full Sheet)",
     summary_url: "https://drive.google.com/file/d/1mXr5-izCJgscySTAENhL1C3NiZRxp81v/view?usp=drivesdk"
+  },
+  {
+    week: "Week 4",
+    code: "EPE G113",
+    lectures: "Lecture 4: Circuit Analysis & Nodal / Mesh Methods (Chapter 2)",
+    slides_url: "https://drive.google.com/file/d/1HJUZR3zjcdc59Re0-F4Ksg6it7MZ2JNS/view?usp=drivesdk",
+    sheet: "Assignment 2 (Chapter 2) — 21 مسألة",
+    sheet_url: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
+    reference_url: "https://drive.google.com/file/d/1jLDeeyKMwlKTqR9qK-z9fSm9zbTymtGh/view?usp=drivesdk",
+    solution_label: "الحل النموذجي (Solution)",
+    sheet_note: "المسائل المطلوبة من Chapter 2: المجموعة الأولى (18 مسألة): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78 • المجموعة الثانية (3 مسائل): 2.45, 2.53, 2.76",
+    practice: "حل مسائل Assignment 2 ومتابعة شروحات م. عمار ياسر، م. محمد ماهر، وم. طارق البغدادي",
+    playlists: [
+      { title: "م. عمار ياسر (فيديوهات 7 لـ 10 - حل أسئلة الريفرنس بالتفصيل)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
+      { title: "م. محمد ماهر (شرح وسكاشن الكهربية)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "م. طارق البغدادي (شرح كورس الدوائر والكهربية)", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" }
+    ],
+    summaries: [
+      { title: "ملف Assignment 2 الرسمي (Google Drive)", url: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk" },
+      { title: "الحل النموذجي المعتمد لـ Assignment 2", url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk" },
+      { title: "المرجع المعتمد (Reference Book)", url: "https://drive.google.com/file/d/1jLDeeyKMwlKTqR9qK-z9fSm9zbTymtGh/view?usp=drivesdk" }
+    ],
+    important_notes: [
+      "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر.",
+      "📍 الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      "📝 أرقام المسائل المطلوبة من Chapter 2 (إجمالي 21 مسألة):",
+      "• المجموعة الأولى (18 مسألة): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78",
+      "• المجموعة الثانية (3 مسائل): 2.45, 2.53, 2.76",
+      "👥 مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.",
+      "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب للشرح والمراجعة."
+    ],
+    summary_title: "ملف الأسينمنت والحل النموذجي (Assignment 2 & Solution)",
+    summary_url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk"
   }
 ];
 
@@ -1043,7 +1078,9 @@ const COURSE_CAPSULES = {
     grading: "• 50 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة أعمال سنة (Classwork)",
     tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.",
     links: [
-      { title: "📁 درايف الدفعة لمادة الهندسة الكهربية (EPE I)", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" }
+      { title: "📁 درايف الدفعة لمادة الهندسة الكهربية (EPE I)", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" },
+      { title: "📝 ملف Assignment 2 — Chapter 2 (21 مسألة)", url: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk" },
+      { title: "✅ الحل النموذجي لـ Assignment 2", url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk" }
     ],
     playlists: [
       { title: "🎬 م. طارق البغدادي (شرح كورس الدوائر والكهربية)", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" },
@@ -1177,11 +1214,87 @@ const SESSIONS = [
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
-  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall) مع التنبيه التفاعلي المطور
-  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
-  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
-  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false }
+  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall) مع التنبيه التفاعلي المطور و Assignment 2
+  {
+    day: "Thursday",
+    start: 4,
+    span: 2,
+    group: "ME1-01",
+    code: "EPE G113",
+    type: "Tutorial",
+    room: "14301",
+    attendance: false,
+    assignmentBadge: "📝 Assignment 2",
+    hasNotice: true,
+    noticeData: {
+      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
+      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
+  },
+  {
+    day: "Thursday",
+    start: 4,
+    span: 2,
+    group: "ME1-02",
+    code: "EPE G113",
+    type: "Tutorial",
+    room: "14301",
+    attendance: false,
+    assignmentBadge: "📝 Assignment 2",
+    hasNotice: true,
+    noticeData: {
+      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
+      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
+  },
+  {
+    day: "Thursday",
+    start: 6,
+    span: 2,
+    group: "ME1-03",
+    code: "EPE G113",
+    type: "Tutorial",
+    room: "14301",
+    attendance: false,
+    assignmentBadge: "📝 Assignment 2",
+    hasNotice: true,
+    noticeData: {
+      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
+      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
+  },
+  {
+    day: "Thursday",
+    start: 6,
+    span: 2,
+    group: "ME1-04",
+    code: "EPE G113",
+    type: "Tutorial",
+    room: "14301",
+    attendance: false,
+    assignmentBadge: "📝 Assignment 2",
+    hasNotice: true,
+    noticeData: {
+      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
+      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
+      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
+    },
+    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
+  }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -1192,6 +1305,17 @@ const MONDAY_DYNAMICS_SLOTS = {
 
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-epe-assign-2",
+    date: "17 Oct 2026",
+    tag: "EPE G113 • Assignment 2",
+    title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
+    body: "📍 التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).\nأرقام المسائل المطلوبة من Chapter 2 (إجمالي 21 مسألة):\n• المجموعة الأولى (18 مسألة): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78\n• المجموعة الثانية (3 مسائل): 2.45, 2.53, 2.76",
+    actions: [
+      { label: "📄 فتح ملف الأسينمنت", action: "window.open('https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk', '_blank')" },
+      { label: "✅ فتح الحل النموذجي", action: "window.open('https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk', '_blank')" }
+    ]
+  },
   {
     id: "notif-mdp-quiz-1",
     date: "20 Oct 2026",

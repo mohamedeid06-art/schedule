@@ -1182,6 +1182,26 @@ function renderBentoTaskCard(task) {
             </a>
           </div>
         </div>
+      ` : (task.id === 'epe-assign-2' || (task.code === 'EPE G113' && task.type === 'Assignment')) ? `
+        <div class="bento-card-details-box" style="margin-top: 8px; padding: 10px 12px; background: rgba(251, 146, 60, 0.08); border: 1px solid rgba(251, 146, 60, 0.28); border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
+          <div style="font-weight: 700; color: #fb923c; margin-bottom: 5px;">
+            📍 التسليم: الخميس 22 أكتوبر في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00)
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 4px; line-height: 1.5;">
+            <strong style="color: #fde047;">Chapter 2 (Part 1):</strong> 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, 2.78
+          </div>
+          <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+            <strong style="color: #fde047;">Chapter 2 (Part 2):</strong> 2.45, 2.53, 2.76
+          </div>
+        </div>
+        <div class="bento-card-actions" style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-official-details" style="flex: 1; min-width: 140px; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px; background: rgba(251, 146, 60, 0.15); border: 1px solid rgba(251, 146, 60, 0.4); color: #fb923c; font-weight: 700; padding: 10px 12px; border-radius: 10px; font-size: 12.5px;">
+            <span>📄 فتح ملف الأسينمنت ↗</span>
+          </a>
+          <a href="https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-open-guide" style="flex: 1; min-width: 140px; text-decoration: none; justify-content: center; display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3)); border: 1px solid rgba(16, 185, 129, 0.45); color: #34d399; font-weight: 700; padding: 10px 12px; border-radius: 10px; font-size: 12.5px;">
+            <span>✅ فتح الحل النموذجي ↗</span>
+          </a>
+        </div>
       ` : (['mdp-quiz-1', 'epe-quiz-1', 'emc-quiz-1'].includes(task.id) || task.temporaryNote ? `
         <div class="bento-card-details-box" style="margin-top: 8px; padding: 10px 12px; background: rgba(255, 255, 255, 0.03); border: 1px solid ${accentColor}33; border-radius: 10px; color: var(--text-main); font-size: 12px; line-height: 1.6;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
@@ -2135,6 +2155,7 @@ function renderDailyAgenda() {
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
               ${s.quizBadge ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : "openQuizPrepGuide('gen-quiz-2')"}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
+              ${s.assignmentBadge ? `<span class="badge-assignment-glow" onclick="event.stopPropagation(); openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')" style="cursor:pointer;" title="${escHtml(s.assignmentBadge)}">${escHtml(s.assignmentBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
               ${s.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
@@ -2256,7 +2277,7 @@ function showSessionNoticeTooltip(event, dayIdxOrName, slotStart, code) {
   let title = session.noticeData?.title || `تنبيه مادة ${session.code}`;
   let text = "";
   if (session.code === "EPE G113") {
-    text = "⏰ فترتان للحضور: (12:30 و 2:00) بقاعة 14301\n📝 تسليم Assignment 1 على ورق A4 (لنفسك ولزميل واحد كحد أقصى)";
+    text = "⏰ فترتان للحضور: (12:30 و 2:00) بقاعة 14301\n📝 تسليم Assignment 2 على ورق A4 (الخميس 22 أكتوبر — 21 مسألة)";
   } else if (session.code === "MTH G102" && (session.isQuiz || session.day === "Monday")) {
     text = "⏰ كويز 1 الإثنين: 11:00 ظهراً بمدرج 3002\n🎯 10 درجات MCQ على أول محاضرتين (التصحيح على التظليل فقط)";
   } else if (session.code === "GEN G119") {
@@ -2335,73 +2356,82 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
   const session = getSessionNoticeData(dayIdxOrName, slotStart, code);
   const course = COURSES[session.code] || { name: session.code, hex: "#fb923c" };
 
-  // Special Notice 1: EPE G113 Thursday Session Notice & Assignment 1 Submissions
+  // Special Notice 1: EPE G113 Thursday Session Notice & Assignment 2 Submissions
   if (session.code === "EPE G113" || (session.noticeData && session.noticeData.assignmentUrl && session.code !== "MTH G102")) {
     const nd = session.noticeData || {
-      title: "📢 تنبيه تسليم ومواعيد سكشن EPE G113",
-      slots: "فترتان للحضور: (12:30 - 2:00) أو (2:00 - 3:30) بقاعة 14301",
-      requirements: "تسليم Assignment 1 على ورق A4 (الاسم - الكود - السكشن - القسم) - مسموح تسليم لنفسك ولزميل واحد فقط",
-      assignmentUrl: "https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk",
+      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
+      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
+      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
+      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
       driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
     };
 
-    if (titleEl) titleEl.textContent = nd.title || "📢 تنبيه تسليم ومواعيد سكشن EPE G113";
+    if (titleEl) titleEl.textContent = nd.title || "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر";
     if (subEl) subEl.textContent = `${session.code} • ${course.name}`;
 
     bodyEl.innerHTML = `
-      <!-- المواعيد المتاحة -->
+      <!-- الموعد والمكان والتسليم -->
       <div class="notice-section-box">
         <div class="notice-section-header">
           <span>⏰</span>
-          <span>المواعيد المتاحة للاختيار والحضور (قاعة 14301):</span>
+          <span>الموعد والمكان والتسليم:</span>
         </div>
         <div class="notice-slot-pill">
           <strong>الفترة الأولى:</strong>
-          <span>12:30 ظهراً – 2:00 ظهراً</span>
+          <span>12:30 ظهراً – 2:00 ظهراً (قاعة 14301)</span>
         </div>
         <div class="notice-slot-pill">
           <strong>الفترة الثانية:</strong>
-          <span>2:00 ظهراً – 3:30 عصراً</span>
+          <span>2:00 ظهراً – 3:30 عصراً (قاعة 14301)</span>
         </div>
-        <div style="font-size:11.5px;color:var(--text-muted);margin-top:6px;line-height:1.4;">
-          💡 يمكنك الحضور في أي من الفترتين المناسبتين لك حسب جدولك الدراسي.
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.5;">
+          📍 <strong>الموعد والمكان:</strong> التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).
         </div>
       </div>
 
-      <!-- متطلبات وشروط التسليم -->
+      <!-- أرقام المسائل المطلوبة من Chapter 2 -->
       <div class="notice-section-box">
         <div class="notice-section-header">
           <span>📝</span>
-          <span>شروط ومتطلبات التسليم الرسمية:</span>
+          <span>أرقام المسائل المطلوبة من Chapter 2 (إجمالي 21 مسألة):</span>
         </div>
         <div class="notice-req-list">
           <div class="notice-req-item">
             <span style="color:#fb923c;font-weight:900;">•</span>
-            <span>تسليم <strong>Assignment 1</strong> في السكشن على ورق <strong>A4</strong> متضمناً (الاسم - الكود - السكشن - القسم).</span>
+            <div>
+              <strong>المجموعة الأولى (18 مسألة):</strong><br>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#fde047;direction:ltr;display:inline-block;margin-top:3px;">2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78</span>
+            </div>
           </div>
           <div class="notice-req-item">
             <span style="color:#fb923c;font-weight:900;">•</span>
-            <span>مسموح للطالب تسليم الأسينمنت الخاص به وأسينمنت لزميل واحد فقط كحد أقصى.</span>
+            <div>
+              <strong>المجموعة الثانية (3 مسائل):</strong><br>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#fde047;direction:ltr;display:inline-block;margin-top:3px;">2.45, 2.53, 2.76</span>
+            </div>
           </div>
           <div class="notice-req-item">
             <span style="color:#fb923c;font-weight:900;">•</span>
-            <span>السكشن هيتصور فيديو بجودة عالية وهينزل على يوتيوب للشرح والمراجعة.</span>
+            <span>👥 مسموح للطالب تسليم الأسينمنت الخاص به وأسينمنت لزميل واحد فقط كحد أقصى.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#fb923c;font-weight:900;">•</span>
+            <span>🎥 السكشن هيتصور فيديو بجودة عالية وهينزل على يوتيوب للشرح والمراجعة.</span>
           </div>
         </div>
       </div>
 
-      <!-- روابط سريعة للأسينمنت وحله -->
+      <!-- أزرار الروابط المباشرة للأسينمنت وحله -->
       <div class="notice-actions-row">
-        <a href="${nd.assignmentUrl || 'https://drive.google.com/file/d/1wdMXfEZxaxknFyneFmon_wg_nKdFrMYq/view?usp=drivesdk'}" 
+        <a href="${nd.assignmentUrl || 'https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk'}" 
            target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-primary">
           <span>📄</span>
-          <span>تحميل الأسينمنت (PDF) ↗</span>
+          <span>ملف الأسينمنت (Assignment 2) ↗</span>
         </a>
-        <a href="${nd.solutionUrl || 'https://drive.google.com/file/d/13851Hr66Ww4z-MJB-s6ypH-Ew1l0z4YF/view?usp=drivesdk'}" 
-           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
-          <span>⭐</span>
-          <span>الحل النموذجي ↗</span>
+        <a href="${nd.solutionUrl || 'https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk'}" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="border-color:rgba(16,185,129,0.5);color:#34d399;">
+          <span>✅</span>
+          <span>الحل النموذجي (Solution) ↗</span>
         </a>
         <a href="${nd.driveUrl || 'https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link'}" 
            target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 100%;">
@@ -2878,6 +2908,7 @@ function renderWeekMatrix() {
             <div class="card-badges">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
               ${sess.quizBadge ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : "openQuizPrepGuide('gen-quiz-2')"}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.assignmentBadge ? `<span class="badge-assignment-glow matrix-assignment-badge" onclick="event.stopPropagation(); openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')" style="cursor:pointer;" title="${escHtml(sess.assignmentBadge)}">${escHtml(sess.assignmentBadge)}</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
               ${hasNoticeOrNote && !isCancelled ? `<span class="badge-notice-bell" data-day="${dIdx}" data-start="${sess.start}" data-code="${sess.code}" title="📢 اضغط لعرض تفاصيل ومواعيد التسليم">🔔</span>` : ''}
