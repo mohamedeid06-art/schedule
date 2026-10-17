@@ -5296,6 +5296,53 @@ body {
   line-height: 1.15 !important;
 }
 
+.badge-assignment-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.28), rgba(245, 158, 11, 0.18));
+  color: #fb923c;
+  font-weight: 800;
+  font-size: 10px;
+  padding: 2.5px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 146, 60, 0.8);
+  animation: assignmentGlowPulse 2.5s infinite ease-in-out;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1.2;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+.badge-assignment-glow:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 12px rgba(251, 146, 60, 0.55);
+}
+
+.matrix-assignment-badge {
+  font-size: 8px !important;
+  padding: 1.5px 5.5px !important;
+  font-weight: 800 !important;
+  border-radius: 999px !important;
+  line-height: 1.15 !important;
+}
+
+@keyframes assignmentGlowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(251, 146, 60, 0.5), 0 0 14px rgba(245, 158, 11, 0.25);
+    border-color: #fb923c;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0);
+  }
+}
+
 /* ==========================================================================
    Tasks & Quizzes Modern Dashboard — Light Mode Design System
    ========================================================================== */
@@ -5606,6 +5653,20 @@ body {
   background: #bae6fd;
   color: #0284c7;
   box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+}
+
+[data-theme="light"] .badge-assignment-glow {
+  background: #ffedd5;
+  color: #c2410c;
+  border-color: #fdba74;
+  animation: none;
+  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.15);
+}
+
+[data-theme="light"] .badge-assignment-glow:hover {
+  background: #fed7aa;
+  color: #9a3412;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
 }
 
 [data-theme="light"] .matrix-card-note {
