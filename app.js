@@ -4347,7 +4347,8 @@ function updateStatusBarColor(theme) {
 }
 
 function initTheme() {
-  const saved = localStorage.getItem("cufe_theme") || "dark";
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  const saved = localStorage.getItem("cufe_theme") || (prefersLight ? "light" : "dark");
   document.documentElement.setAttribute("data-theme", saved);
   updateStatusBarColor(saved);
 }

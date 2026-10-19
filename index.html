@@ -2,23 +2,26 @@
 <html lang="ar" dir="ltr" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="جدول ME1 الدفعة 30 — هندسة القاهرة ميكانيكا: الجدول اليومي والأسبوعي، الكويزات، المهام، ودليل المذاكرة.">
   <title>CUFE Mechanical 1 Schedule — CUFE ME1 — Batch 30 Timetable</title>
   
   <meta name="theme-color" content="#070b12" id="themeColorMeta">
   <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/png" href="./icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <!-- Core Stylesheet -->
   <link rel="stylesheet" href="style.css?v=125">
+  <!-- Design refresh layer: accessibility floor, tokens, touch targets (loads last) -->
+  <link rel="stylesheet" href="design-refresh.css?v=1">
 </head>
 <body>
 
@@ -42,7 +45,7 @@
 
       <div class="top-actions">
         <a href="promo.html" class="action-btn promo-link-btn" id="promoTourBtn" title="شاهد العرض السينمائي والجولة التعريفية للمنصة" style="text-decoration: none; background: linear-gradient(135deg, rgba(234, 88, 12, 0.22), rgba(139, 92, 246, 0.22)); border: 1px solid rgba(234, 88, 12, 0.5); color: #fed7aa; display: inline-flex; align-items: center; gap: 6px; font-weight: 800;">
-          <span>🎬</span>
+          <span aria-hidden="true">🎬</span>
           <span>جولة سريعة</span>
         </a>
 
@@ -51,16 +54,16 @@
           <span id="deviceModeText">PC View</span>
         </button>
 
-        <button class="action-btn icon-only" id="calendarBtn" title="تصدير للتقويم (Google / Apple Calendar)">
-          📅
+        <button class="action-btn icon-only" id="calendarBtn" title="تصدير للتقويم (Google / Apple Calendar)" aria-label="تصدير للتقويم">
+          <span aria-hidden="true">📅</span>
         </button>
 
-        <button class="action-btn icon-only" id="printBtn" title="طباعة الجدول A4">
-          🖨️
+        <button class="action-btn icon-only" id="printBtn" title="طباعة الجدول A4" aria-label="طباعة الجدول">
+          <span aria-hidden="true">🖨️</span>
         </button>
 
-        <button class="action-btn icon-only" id="themeBtn" title="تبديل الوضع الليلي / الفاتح">
-          🌙
+        <button class="action-btn icon-only" id="themeBtn" title="تبديل الوضع الليلي / الفاتح" aria-label="تبديل المظهر">
+          <span aria-hidden="true">🌙</span>
         </button>
 
         <button class="action-btn install-btn" id="pwaTopInstallBtn" title="تثبيت التطبيق على جهازك">
@@ -77,9 +80,9 @@
         <div class="banner-card banner-task banner-marketing-q2" style="border-color:#06b6d4; background:linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, var(--surface) 100%);">
           <span class="festive-icon">📢</span>
           <div class="festive-msg">
-            <strong style="color:#06b6d4;font-size:14.5px;">📢 كويز 2 ماركتنج (GEN G119 — Chapter 2):</strong> الموعد الأحد القادم في المحاضرة (المدة 5 دقائق فقط!).. ذاكر الملخص وبنك الأسئلة واتدرب على سرعة الحل من المحاكي التفاعلي الآن 🎯⚡
+            <strong style="color:#06b6d4;">كويز 2 ماركتنج (GEN G119 — Chapter 2):</strong> الموعد الأحد القادم في المحاضرة (المدة 5 دقائق فقط!).. ذاكر الملخص وبنك الأسئلة واتدرب على سرعة الحل من المحاكي التفاعلي الآن.
             <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-              <button class="banner-action-link" onclick="openMarketingQuiz2Modal()" style="background:#06b6d4;font-weight:800;color:#ffffff;box-shadow:0 0 14px rgba(6,182,212,0.4);">🎮 افتح محاكي كويز 2</button>
+              <button class="banner-action-link" onclick="openMarketingQuiz2Modal()" style="background:#0e7490;font-weight:800;color:#ffffff;">🎮 افتح محاكي كويز 2</button>
               <button class="banner-action-link banner-official-btn" onclick="openQuizPreparationGuide('gen-quiz-2')" style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.45);color:var(--text-main);font-weight:700;">📚 مصادر وملخص الكويز</button>
             </div>
           </div>
@@ -89,9 +92,9 @@
         <div class="banner-card banner-task banner-materials-q1" style="border-color:#0284c7; background:linear-gradient(135deg, rgba(2, 132, 199, 0.22) 0%, var(--surface) 100%);">
           <span class="festive-icon">🔬</span>
           <div class="festive-msg">
-            <strong style="color:#38bdf8;font-size:14.5px;">🔬 كويز 1 ماتيريل (MDP G121 — Crystal Structure):</strong> الثلاثاء 20 أكتوبر بمدرج 7104 (5 درجات): مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت 🎯
+            <strong style="color:#38bdf8;">كويز 1 ماتيريل (MDP G121 — Crystal Structure):</strong> الثلاثاء 20 أكتوبر بمدرج 7104 (5 درجات): مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت.
             <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-              <button class="banner-action-link" onclick="openSessionNoticeModal('Tuesday', 4, 'MDP G121')" style="background:#0284c7;font-weight:800;color:#ffffff;box-shadow:0 0 14px rgba(2,132,199,0.4);">📚 افتح مصادر كويز الماتيريل</button>
+              <button class="banner-action-link" onclick="openSessionNoticeModal('Tuesday', 4, 'MDP G121')" style="background:#0369a1;font-weight:800;color:#ffffff;">📚 افتح مصادر كويز الماتيريل</button>
             </div>
           </div>
         </div>
@@ -101,7 +104,7 @@
           <span class="festive-icon">⚡</span>
           <div class="festive-msg">
             <strong style="color:#c4b5fd;">تيك هوم الديناميكا 1 (EMC G101):</strong> موعد التسليم القادم الجمعة 9 أكتوبر (7:00 مساءً) — <strong>Model P200</strong> متاح الآن مع بونص 10% للتسليم المبكر.
-            <div style="margin-top:6px;"><button class="banner-action-link" onclick="openQuizPrepGuide('the-1')" style="background:#8b5cf6;">دليل المذاكرة وحل الـ THE ↗</button></div>
+            <div style="margin-top:6px;"><button class="banner-action-link" onclick="openQuizPrepGuide('the-1')" style="background:#6d28d9;">دليل المذاكرة وحل الـ THE ↗</button></div>
           </div>
         </div>
 
@@ -117,10 +120,10 @@
       </div>
 
       <div class="carousel-dots" id="carouselDots">
-        <span class="dot active" onclick="goToBanner(0)"></span>
-        <span class="dot" onclick="goToBanner(1)"></span>
-        <span class="dot" onclick="goToBanner(2)"></span>
-        <span class="dot" onclick="goToBanner(3)"></span>
+        <button type="button" class="dot active" onclick="goToBanner(0)" aria-label="الإعلان 1"></button>
+        <button type="button" class="dot" onclick="goToBanner(1)" aria-label="الإعلان 2"></button>
+        <button type="button" class="dot" onclick="goToBanner(2)" aria-label="الإعلان 3"></button>
+        <button type="button" class="dot" onclick="goToBanner(3)" aria-label="الإعلان 4"></button>
       </div>
     </div>
 
@@ -194,7 +197,7 @@
   </div>
 
   <!-- Floating Navigation Bar -->
-  <nav class="bottom-nav">
+  <nav class="bottom-nav" aria-label="التنقل الرئيسي">
     <button class="nav-item active" id="navDayBtn" onclick="setView('day')">
       <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
       <span>Daily</span>
@@ -250,7 +253,7 @@
             <p class="exam-modal-subtitle">Important information about your exam</p>
           </div>
         </div>
-        <button class="modal-close" onclick="closeOfficialExamModal()">✕</button>
+        <button class="modal-close" onclick="closeOfficialExamModal()" aria-label="إغلاق">✕</button>
       </div>
       <div class="modal-body official-exam-body" id="officialExamModalBody"></div>
     </div>
@@ -263,7 +266,7 @@
         <span class="modal-title" style="display:flex;align-items:center;gap:6px;">
           <span>📅</span><span>تقويم مواعيد الدفعة والامتحانات</span>
         </span>
-        <button class="modal-close" onclick="closeMonthCalendarModal()">×</button>
+        <button class="modal-close" onclick="closeMonthCalendarModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body">
         <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;">
@@ -282,7 +285,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title" id="capsuleModalTitle">Course Survival Capsule</span>
-        <button class="modal-close" onclick="closeCapsuleModal()">×</button>
+        <button class="modal-close" onclick="closeCapsuleModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body" id="capsuleModalBody"></div>
     </div>
@@ -293,7 +296,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title" id="linksModalTitle">Course Hub & Links</span>
-        <button class="modal-close" onclick="closeLinksModal()">×</button>
+        <button class="modal-close" onclick="closeLinksModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body" id="linksModalBody"></div>
     </div>
@@ -306,7 +309,7 @@
         <span class="modal-title" style="display:flex;align-items:center;gap:6px;color:#8b5cf6;">
           <span>🗺️</span><span>Dynamics Syllabus Roadmap</span>
         </span>
-        <button class="modal-close" onclick="closeRoadmapModal()">×</button>
+        <button class="modal-close" onclick="closeRoadmapModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body" id="roadmapModalBody"></div>
     </div>
@@ -319,7 +322,7 @@
         <span class="modal-title" style="display:flex;align-items:center;gap:6px;color:#f59e0b;">
           <span>🗺️</span><span>Materials Science Syllabus Roadmap</span>
         </span>
-        <button class="modal-close" onclick="closeMaterialsRoadmapModal()">×</button>
+        <button class="modal-close" onclick="closeMaterialsRoadmapModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body" id="materialsRoadmapModalBody"></div>
     </div>
@@ -330,7 +333,7 @@
     <div class="modal-card">
       <div class="modal-head">
         <span class="modal-title">Batch 30 Notices & Alerts</span>
-        <button class="modal-close" onclick="closeNotifModal()">×</button>
+        <button class="modal-close" onclick="closeNotifModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body" id="notifList"></div>
     </div>
@@ -357,7 +360,7 @@
     <div class="modal-card quiz-guide-card" id="quizGuideCard">
       <div class="modal-head quiz-guide-head">
         <div id="quizGuideHeadInfo"></div>
-        <button class="modal-close" onclick="closeQuizGuide()">×</button>
+        <button class="modal-close" onclick="closeQuizGuide()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body quiz-guide-body" id="quizGuideBody"></div>
     </div>
@@ -368,7 +371,7 @@
     <div class="modal-card" style="max-width:440px;">
       <div class="modal-head">
         <span class="modal-title">تثبيت التطبيق على الآيفون (iOS)</span>
-        <button class="modal-close" onclick="closeIosInstallModal()">×</button>
+        <button class="modal-close" onclick="closeIosInstallModal()" aria-label="إغلاق">×</button>
       </div>
       <div class="modal-body" style="line-height:1.6;font-size:12.5px;color:var(--text-main);">
         <p>لتثبيت الجدول كتطبيق مستقل وسريع على جهاز الآيفون الخاص بك:</p>

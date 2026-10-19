@@ -1,0 +1,358 @@
+/* ==========================================================================
+   CUFE ME1 — Design Refresh Layer
+   Loaded AFTER style.css. Overrides only; delete this file to roll back.
+
+   Principles:
+   1. Accessibility floor   — 4.5:1 text contrast, 11px minimum type,
+                              44px touch targets, visible keyboard focus,
+                              reduced motion / transparency / contrast.
+   2. Quiet chrome           — header, banners and nav step back.
+   3. One signature          — the live timeline (course rail + NOW line)
+                              is where the boldness is spent.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --font-ui: 'Plus Jakarta Sans', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-data: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Text tokens (contrast measured on --surface #0f172a) */
+  --text-subtle: #7d8ba1;   /* 5.2:1  (was #64748b → 3.8:1, failed) */
+  --accent-text: #38bdf8;   /* 8.3:1  — accent used as TEXT */
+  --accent-fill: #0369a1;   /* white on it = 5.9:1 — accent used as FILL */
+  --focus-ring: #7dd3fc;
+  --signal-live: #f87171;   /* 6.0:1 — "now / live" only */
+
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 18px;
+  --tap: 44px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+[data-theme="light"] {
+  /* Contrast measured on --surface #ffffff */
+  --text-subtle: #5b6b80;   /* 5.4:1 */
+  --accent-text: #0369a1;   /* 5.9:1  (was #0284c7 → 4.1:1, failed) */
+  --accent-fill: #0369a1;
+  --focus-ring: #0369a1;
+  --signal-live: #b91c1c;   /* 6.5:1 */
+}
+
+/* --------------------------------------------------------------------------
+   2. Typography — Arabic gets a real typeface; nothing below 11px
+   -------------------------------------------------------------------------- */
+body {
+  font-family: var(--font-ui);
+  padding-bottom: calc(128px + var(--safe-bottom));
+  text-rendering: optimizeLegibility;
+}
+
+button, select, input, textarea { font-family: inherit; }
+
+/* Arabic runs need more line-height than Latin */
+[dir="rtl"], .banner-card, .capsule-text, .glass-notice-body { line-height: 1.7; }
+
+.uni-title          { font-size: 11px; letter-spacing: 0.1em; color: var(--accent-text); }
+.faculty-title      { font-size: 12px; letter-spacing: 0.04em; }
+.dept-title         { font-size: 26px; letter-spacing: -0.025em; }
+.batch-tag          { font-size: 11px; }
+.academic-week-badge{ font-size: 11px; color: var(--accent-text); border-color: currentColor; }
+.date-academic-strip{ font-size: 13px; }
+
+.banner-card .festive-msg { font-size: 13.5px; line-height: 1.7; }
+.banner-action-link       { font-size: 12.5px; }
+
+.live-status-capsule { font-size: 13px; }
+.live-time-now       { font-size: 12px; color: var(--accent-text); }
+.day-progress-header { font-size: 12px; }
+
+.control-label  { font-size: 12px; letter-spacing: 0.04em; }
+.section-select { font-size: 14px; }
+.past-days-toggle-btn { font-size: 12.5px; }
+
+.dyn-banner-top { font-size: 13px; }
+.dyn-pill-btn   { font-size: 12px; }
+.dyn-pill-btn span.time     { font-size: 13px; }
+.dyn-pill-btn span.room-tag { font-size: 11px; }
+
+.day-btn .day-name { font-size: 11.5px; }
+.day-btn .day-num  { font-size: 15px; }
+.day-btn .today-tag,
+.day-btn.has-quiz .quiz-badge-dot { font-size: 10.5px; letter-spacing: 0.02em; }
+.day-btn .today-tag { color: var(--accent-text); }
+
+.up-next-badge      { font-size: 11px; }
+.up-next-time-range { font-size: 12px; }
+.up-next-title      { font-size: 18px; letter-spacing: -0.01em; }
+.up-next-type-tag   { font-size: 12px; }
+.up-next-room-pill  { font-size: 12px; color: var(--accent-text); }
+
+.time-start { font-size: 14px; }
+.time-end   { font-size: 11.5px; }
+.time-dur   { font-size: 11px; }
+.card-title { font-size: 15.5px; line-height: 1.4; }
+.card-room-pill { font-size: 12px; color: var(--accent-text); }
+.capsule-pill-btn { font-size: 12px !important; }
+.badges-group > span[style*="font-size:9px"] { font-size: 11px !important; }
+.realtime-laser-badge { font-size: 11px; }
+
+.legend-hint { font-size: 12px; color: var(--accent-text); }
+.legend-item { font-size: 12.5px; }
+.legend-item span[style*="font-size:11px"] { font-size: 12px !important; }
+.legend-item.active { color: var(--accent-text); }
+
+.modal-title   { font-size: 16px; color: var(--accent-text); }
+.capsule-text  { font-size: 13.5px; }
+.toast-room-tag  { color: var(--accent-text); }
+.toast-floor-pill{ font-size: 11px; color: var(--accent-text); }
+.toast-maps-btn  { font-size: 12.5px; background: var(--accent-fill); }
+#toastRoomBody   { font-size: 12.5px !important; }
+.cal-day-name    { font-size: 11px; }
+.nav-task-badge  { font-size: 11px; }
+
+/* Accent-as-text everywhere else */
+.up-next-badge.is-upcoming,
+.day-btn.active .day-name,
+.day-btn.active .day-num,
+.past-days-toggle-btn.active,
+.action-btn.active-mode,
+.capsule-link-btn,
+.banner-card .festive-msg strong:not([style]) { color: var(--accent-text); }
+.capsule-pill-btn.guide-pill { color: var(--accent-text) !important; }
+
+/* Accent-as-fill with white text */
+.action-btn.install-btn,
+.vault-btn-primary { background: var(--accent-fill); border-color: var(--accent-fill); }
+
+/* --------------------------------------------------------------------------
+   3. Touch targets — 44px default, 36px minimum inside dense cards
+   -------------------------------------------------------------------------- */
+.action-btn            { height: var(--tap); border-radius: var(--radius-m); font-size: 13px; }
+.action-btn.icon-only  { width: var(--tap); font-size: 17px; }
+.section-select        { min-height: var(--tap); }
+.past-days-toggle-btn  { min-height: var(--tap); padding: 0 14px; }
+.day-btn               { min-height: 60px; justify-content: center; }
+.dyn-pill-btn          { min-height: 52px; justify-content: center; }
+.banner-action-link    { min-height: 40px; padding: 8px 14px; border-radius: var(--radius-s); }
+.legend-item           { min-height: 36px; }
+.card-room-pill,
+.up-next-room-pill,
+.capsule-pill-btn      { min-height: 36px; display: inline-flex; align-items: center; }
+.view-back-btn,
+.details-back-btn      { min-height: var(--tap); }
+
+.modal-close {
+  width: var(--tap);
+  height: var(--tap);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.modal-close:hover { background: var(--surface-alt); color: var(--text-main); }
+
+/* Carousel dots: 7px visual, 28px hit area */
+.carousel-dots { gap: 0; margin-top: 4px; }
+.carousel-dots .dot,
+.carousel-dots .dot.active {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 1;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+}
+.carousel-dots .dot::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--text-subtle);
+  opacity: 0.5;
+  transition: width 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+}
+.carousel-dots .dot.active::before { width: 20px; background: var(--accent-text); opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   4. Keyboard focus — visible on every interactive element
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px;
+}
+.carousel-dots .dot:focus-visible { outline-offset: -4px; }
+.section-select:focus-visible { border-color: var(--focus-ring); }
+
+/* --------------------------------------------------------------------------
+   5. Quiet chrome — glass only on the floating layer, not on content
+   -------------------------------------------------------------------------- */
+.masthead {
+  background: var(--surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid var(--border);
+  box-shadow: none;
+  padding: 18px 20px;
+}
+.batch-tag {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-dark);
+  box-shadow: none;
+  font-family: var(--font-data);
+  letter-spacing: 0.04em;
+}
+.action-btn:hover { border-color: var(--border-dark); background: var(--surface); }
+
+.live-status-capsule,
+.up-next-hero {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.live-status-capsule { background: var(--surface); }
+
+.banner-card { border-width: 1px !important; padding: 14px 16px; border-radius: var(--radius-l); }
+.banner-card .festive-icon { font-size: 22px; line-height: 1.4; }
+.banner-action-link,
+.banner-action-link:hover { box-shadow: none; }
+
+.day-progress-container,
+.legend,
+.timeline-card { border-radius: var(--radius-l); }
+.day-progress-bar-fill { background: var(--accent-fill); }
+
+.day-btn.is-past-day { opacity: 0.6; }
+
+/* Floating tab bar: the one place glass belongs */
+.bottom-nav {
+  bottom: calc(12px + var(--safe-bottom)) !important;
+  border: 1px solid var(--border) !important;
+  padding: 6px !important;
+  box-shadow: 0 12px 32px rgba(2, 6, 23, 0.28) !important;
+}
+.nav-item {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  min-height: 52px !important;
+  padding: 6px 2px !important;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.nav-item span:not(.nav-task-badge) { font-size: 11px !important; font-weight: 700 !important; white-space: nowrap; }
+.nav-item svg { width: 22px !important; height: 22px !important; }
+.nav-item:hover { color: var(--text-main) !important; }
+.nav-item.active {
+  color: var(--accent-text) !important;
+  transform: none !important;
+}
+.nav-item.active span:not(.nav-task-badge) { font-weight: 800 !important; }
+
+.floating-toast { bottom: calc(96px + var(--safe-bottom)); border-width: 1px; border-color: var(--border-dark); }
+
+/* Modals: one clear surface, comfortable head */
+.modal-card { border-radius: 22px; box-shadow: 0 24px 64px rgba(2, 6, 23, 0.45); }
+.modal-head { padding: 10px 10px 10px 20px; min-height: 60px; }
+.modal-body { padding: 20px; }
+
+/* --------------------------------------------------------------------------
+   6. Signature — the live timeline
+   Red means exactly one thing in this layer: "now".
+   -------------------------------------------------------------------------- */
+.timeline-card { padding: 14px 16px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.timeline-card.is-live-card {
+  box-shadow: 0 0 0 1px var(--signal-live), 0 14px 32px -14px rgba(239, 68, 68, 0.55);
+}
+.rail-dot { width: 13px; height: 13px; border-width: 3px; }
+
+.realtime-laser-row { margin: 10px 0 14px; }
+.realtime-laser-badge {
+  color: var(--signal-live);
+  border-radius: 99px;
+  padding: 3px 10px;
+  font-family: var(--font-data);
+}
+.realtime-laser-badge::before { background: var(--signal-live); box-shadow: none; }
+.realtime-laser-line {
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--signal-live) 0%, transparent 100%);
+}
+.up-next-badge.is-live { color: var(--signal-live); border-color: var(--signal-live); }
+
+/* --------------------------------------------------------------------------
+   7. Light theme — fix inline colors that were tuned for dark only
+   -------------------------------------------------------------------------- */
+[data-theme="light"] .banner-card .festive-msg strong[style] { color: var(--text-main) !important; }
+[data-theme="light"] .card-note-alert {
+  color: #854d0e !important;          /* 6.5:1 on #fef9c3 */
+  background: #fef9c3 !important;
+  border-color: #facc15 !important;
+}
+[data-theme="light"] .card-cancel-alert {
+  color: #b91c1c !important;          /* 5.6:1 on #fee2e2 */
+  background: #fee2e2 !important;
+}
+[data-theme="light"] #promoTourBtn { color: #9a3412 !important; }
+[data-theme="light"] .bottom-nav { box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1) !important; }
+[data-theme="light"] .modal-overlay { background: rgba(15, 23, 42, 0.35); }
+
+/* --------------------------------------------------------------------------
+   8. System preferences
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bottom-nav,
+  .modal-overlay,
+  .masthead,
+  .live-status-capsule {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .bottom-nav { background: var(--surface) !important; }
+  .modal-overlay { background: rgba(2, 6, 23, 0.82) !important; }
+}
+
+@media (prefers-contrast: more) {
+  :root, [data-theme="dark"] {
+    --border: #475569;
+    --text-muted: #cbd5e1;
+    --text-subtle: #a3b1c4;
+  }
+  [data-theme="light"] {
+    --border: #64748b;
+    --text-muted: #1e293b;
+    --text-subtle: #334155;
+  }
+  .day-btn.is-past-day { opacity: 0.85; filter: none; }
+}
+
+/* --------------------------------------------------------------------------
+   9. Narrow phones (≤ 360px) — keep the 6-item tab bar from colliding
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+  .nav-item span:not(.nav-task-badge) { font-size: 10.5px !important; }
+  .nav-item svg { width: 20px !important; height: 20px !important; }
+  .dept-title { font-size: 22px; }
+}
+
+/* Print: never print the refresh chrome */
+@media print {
+  .bottom-nav, .carousel-dots { display: none !important; }
+}
