@@ -70,17 +70,18 @@ const MASTER_QUIZZES = [
     title: "Quiz 2 — Marketing (Chapter 2)",
     type: "Quiz (5 Mins)",
     instructor: "Dr. Tamer El-Hariry",
-    dateDisplay: "الأحد القادم 18 أكتوبر 2026 - 8:00 AM",
-    countdownBadge: "الأحد 8:00 ص",
-    start: "2026-10-18T08:00:00",
-    deadline: "2026-10-18T08:05:00",
-    dueDate: "2026-10-18T08:00:00",
+    dateDisplay: "Sunday, October 25, 2026 (الأحد 25 أكتوبر 2026 — 8:00 ص)",
+    countdownBadge: "الأحد 25 أكتوبر",
+    date: "2026-10-25",
+    start: "2026-10-25T08:00:00",
+    deadline: "2026-10-25T08:05:00",
+    dueDate: "2026-10-25T08:00:00",
     room: "مدرج 3103-414",
     accent: "#06b6d4",
     accentName: "cyan",
     submissionUrl: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0",
     instructions: [
-      "الأحد 8:00 ص (مدرج 3103-414) • مدة الكويز 5 دقائق فقط (نفس نظام كويز 1).",
+      "الأحد 25 أكتوبر 8:00 ص (مدرج 3103-414) • مدة الكويز 5 دقائق فقط (نفس نظام كويز 1).",
       "المحتوى المقرر: المحاضرة الثانية (Chapter 2: Marketing Strategy) كاملة.",
       "الامتحان 20 سؤال سريع (MCQ + صح وغلط) يحتاج سرعة فائقة في الحل والتظليل.",
       "تم توفير بنك الأسئلة بالكامل (125 سؤال) مع محاكي تفاعلي ذكي للتدريب على سرعة الحل قبل المحاضرة."
@@ -107,7 +108,7 @@ const MASTER_QUIZZES = [
     type: "Quiz (5 Marks)",
     instructor: "Dr. Ehab & Dr. Mamdouh",
     dateDisplay: "Tuesday, October 20, 2026 (الثلاثاء 20 أكتوبر 2026)",
-    countdownBadge: "الثلاثاء 20 أكتوبر",
+    countdownBadge: "منتهي / Expired",
     date: "2026-10-20",
     start: "2026-10-20T08:00:00",
     deadline: "2026-10-20T10:00:00",
@@ -137,24 +138,96 @@ const MASTER_QUIZZES = [
   {
     id: "epe-quiz-1",
     code: "EPE G113",
-    title: "Quiz 1 — Sheets 1, 2, 3, 4",
-    type: "Quiz",
+    title: "Quiz 1 — Circuit Analysis Methods (Nodal, Mesh, Thevenin...)",
+    type: "Quiz (30 Mins)",
     instructor: "Dr. Electrical Staff",
-    dateDisplay: "Tuesday, October 27, 2026 (الثلاثاء 27 أكتوبر 2026)",
-    countdownBadge: "27 أكتوبر 2026",
+    dateDisplay: "Tuesday, October 27, 2026 (الثلاثاء 27 أكتوبر 2026 — 10:00 ص)",
+    countdownBadge: "الثلاثاء 27 أكتوبر",
     date: "2026-10-27",
-    start: "2026-10-27T08:00:00",
-    deadline: "2026-10-27T10:00:00",
-    dueDate: "2026-10-27T08:00:00",
-    room: "مدرج 7104",
-    content: "Sheets 1, 2, 3, 4",
-    temporaryNote: "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    start: "2026-10-27T10:00:00",
+    deadline: "2026-10-27T10:30:00",
+    dueDate: "2026-10-27T10:00:00",
+    room: "مدرج 7104-360",
+    content: "Circuit Analysis (Nodal, Mesh, Superposition, Thevenin, Source Transformation)",
+    duration: "⏱️ نصف ساعة (30 دقيقة)",
+    marks: "Quiz 1",
     accent: "#fb923c",
     accentName: "orange",
+    submissionUrl: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii",
+    solutionUrl: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
     instructions: [
-      "المكان: مدرج 7104.",
-      "المحتوى المقرر: Sheets 1, 2, 3, 4.",
-      "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً."
+      "الموعد والمكان: الثلاثاء القادم 27 أكتوبر 2026 — في ميعاد المحاضرة (10:00 ص - مدرج 7104-360).",
+      "مدة الكويز: ⏱️ نصف ساعة (30 دقيقة).",
+      "شكل ومحتوى الامتحان: سؤال واحد عبارة عن دائرة كهربية (Circuit) يطلب حلها بأكثر من طريقة: (Nodal, Mesh, Superposition, Thevenin, Source Transformation...).",
+      "المقرر داخل حتى شيت الطرق (شيت 3 بترتيب الدرايف / شيت 4 بترتيب المعيد).",
+      "⚠️ تنبيه هام جداً: المصادر المعتمدة (Dependent Sources) ملغية في أسئلة Thevenin و Superposition!",
+      "خطة المذاكرة الموصى بها بالترتيب:",
+      "1. 🔥 الشيت الأهم (شيت 3 درايف / 4 معيد — Nodal & Mesh): أهم حاجة تتحل وتتذاكر كل فكرة وتفصيلة فيها.",
+      "2. ✨ ملخص أهم التركات والأفكار للشيت الأخير.",
+      "3. 📚 أسئلة المرجع: ركز على الأسئلة من 6 لـ 9 (الحل النموذجي مرفوع على الدرايف).",
+      "4. 📝 كويزات وميدات سابقة من قسم كهرباء (نفس المحتوى)."
+    ],
+    sheets: [
+      {
+        id: "epe-sheet-methods",
+        title: "🔥 1. الشيت الأهم (شيت 3 درايف / 4 معيد — Nodal & Mesh)",
+        pdf: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii",
+        sol: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii"
+      },
+      {
+        id: "epe-sheet-ref",
+        title: "📚 3. أسئلة المرجع (ركز على الأسئلة من 6 لـ 9)",
+        pdf: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
+        sol: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_"
+      }
+    ],
+    lectures: [
+      {
+        id: "epe-summary-tricks",
+        title: "✨ 2. ملخص أهم التركات والأفكار للشيت الأخير",
+        slides: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk"
+      }
+    ],
+    practice: [
+      {
+        id: "epe-past-exams",
+        title: "📝 4. كويزات وميدات سابقة من قسم كهرباء (نفس المحتوى)",
+        url: "https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_"
+      }
+    ],
+    formula: [
+      {
+        id: "epe-form-1",
+        title: "قواعد Nodal & Mesh Analysis و Supernode / Supermesh",
+        url: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk"
+      },
+      {
+        id: "epe-form-2",
+        title: "Thevenin, Norton & Superposition (بدون Dependent Sources)",
+        url: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii"
+      }
+    ],
+    officialLinks: [
+      {
+        title: "🔥 1. الشيت الأهم (شيت 3 درايف / 4 معيد — Nodal & Mesh)",
+        url: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii",
+        icon: "🔥"
+      },
+      {
+        title: "✨ 2. ملخص أهم التركات والأفكار للشيت الأخير",
+        url: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk",
+        icon: "✨"
+      },
+      {
+        title: "📚 3. أسئلة المرجع (ركز على الأسئلة من 6 لـ 9)",
+        url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
+        icon: "📚"
+      },
+      {
+        title: "📝 4. كويزات وميدات سابقة من قسم كهرباء (نفس المحتوى)",
+        url: "https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_",
+        icon: "📝"
+      }
     ]
   },
   {
@@ -259,7 +332,7 @@ const MASTER_QUIZZES = [
     type: "Assignment",
     instructor: "Dr. Electrical Staff",
     dateDisplay: "Thursday, October 22, 2026 (12:30 PM — قاعة 14301)",
-    countdownBadge: "الخميس 12:30 ظهراً",
+    countdownBadge: "منتهي / Expired",
     start: "2026-10-22T12:30:00",
     deadline: "2026-10-22T15:30:00",
     dueDate: "2026-10-22T12:30:00",
@@ -735,8 +808,8 @@ const DEFAULT_WEEKLY_GUIDES = [
       { title: "سكشن م. هدى — شرح Crystal Defects", url: "https://youtu.be/w23wUdV8MGU?si=2y7HiExW8SfUj4jR" }
     ],
     important_notes: [
-      "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 على جزء Crystal Structure (مفيش نظري، ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت).",
-      "⏳ جاري التحديث: حل الشيت والملخصات هينزلوا تباعاً بعد المحاضرة إن شاء الله 🙏❤️"
+      "⚡ كويز 1 ماتيريل: تم الانتهاء منه يوم الثلاثاء 20 أكتوبر بمدرج 7104 (5 درجات).",
+      "حل الشيت والملخصات مرفوعة ومتاحة للرجوع إليها في أي وقت 🙏❤️"
     ],
     summary_title: "ملف الشيت الكامل (Full Sheet)",
     summary_url: "https://drive.google.com/file/d/1mXr5-izCJgscySTAENhL1C3NiZRxp81v/view?usp=drivesdk"
@@ -751,7 +824,7 @@ const DEFAULT_WEEKLY_GUIDES = [
     solution_url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
     reference_url: "https://drive.google.com/file/d/1jLDeeyKMwlKTqR9qK-z9fSm9zbTymtGh/view?usp=drivesdk",
     solution_label: "الحل النموذجي (Solution)",
-    sheet_note: "المسائل المطلوبة من Chapter 2: المجموعة الأولى (18 مسألة): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78 • المجموعة الثانية (3 مسائل): 2.45, 2.53, 2.76",
+    sheet_note: "المسائل المطلوبة من Chapter 2: المجموعة الأولى (18 مسألة) والمجموعة الثانية (3 مسائل)",
     practice: "حل مسائل Assignment 2 ومتابعة شروحات م. عمار ياسر، م. محمد ماهر، وم. طارق البغدادي",
     playlists: [
       { title: "م. عمار ياسر (فيديوهات 7 لـ 10 - حل أسئلة الريفرنس بالتفصيل)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
@@ -764,16 +837,46 @@ const DEFAULT_WEEKLY_GUIDES = [
       { title: "المرجع المعتمد (Reference Book)", url: "https://drive.google.com/file/d/1jLDeeyKMwlKTqR9qK-z9fSm9zbTymtGh/view?usp=drivesdk" }
     ],
     important_notes: [
-      "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر.",
-      "📍 الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
-      "📝 أرقام المسائل المطلوبة من Chapter 2 (إجمالي 21 مسألة):",
-      "• المجموعة الأولى (18 مسألة): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78",
-      "• المجموعة الثانية (3 مسائل): 2.45, 2.53, 2.76",
-      "👥 مسموح للطالب تسليم الأسينمنت بتاعه وأسينمنت لزميل واحد فقط كحد أقصى.",
-      "🎥 السكشن هيتصور فيديو وهينزل على يوتيوب للشرح والمراجعة."
+      "🚨 تسليم Assignment 2 (EPE G113): انتهى التسليم الرسمي يوم الخميس 22 أكتوبر.",
+      "📝 أرقام المسائل المطلوبة من Chapter 2 كانت 21 مسألة وحلولها مرفوعة بالكامل."
     ],
     summary_title: "ملف الأسينمنت والحل النموذجي (Assignment 2 & Solution)",
     summary_url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk"
+  },
+  // ===================== WEEK 6 =====================
+  {
+    week: "Week 6",
+    code: "EPE G113",
+    status_badge: "⚡ كويز 1 الثلاثاء 27 أكتوبر",
+    lectures: "Lecture: Circuit Analysis Techniques (Nodal, Mesh, Superposition, Thevenin, Source Transformation)",
+    slides_url: "https://drive.google.com/file/d/1HJUZR3zjcdc59Re0-F4Ksg6it7MZ2JNS/view?usp=drivesdk",
+    sheet: "شيت الطرق (شيت 3 درايف / شيت 4 معيد — Nodal & Mesh)",
+    sheet_url: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii",
+    solution_url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
+    reference_url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
+    solution_label: "حلول أسئلة المرجع المحلولة (6 لـ 9)",
+    sheet_note: "🔥 الشيت الأهم: أهم حاجة تتحل وتتذاكر كل فكرة وتفصيلة فيها + ملخص التركات وأسئلة المرجع والكويزات السابقة",
+    practice: "حل مسائل شيت الطرق، أسئلة المرجع من 6 لـ 9، ومراجعة كويزات وميدات سابقة من قسم كهرباء",
+    playlists: [
+      { title: "م. عمار ياسر (حل أسئلة الريفرنس بالتفصيل)", url: "https://youtube.com/playlist?list=PLsx3PTmWiODC0g-tdKoz5DE4dOZhTvuzj&si=nlm30sMM1-z7Ynam" },
+      { title: "م. محمد ماهر (شرح وسكاشن الطرق)", url: "https://www.youtube.com/playlist?list=PLm877Wx3hfJ37R7tf8KaLhYXBrKtCLjzy" },
+      { title: "م. طارق البغدادي (شرح كورس الدوائر والكهربية)", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" }
+    ],
+    summaries: [
+      { title: "🔥 1. الشيت الأهم (شيت 3 درايف / 4 معيد — Nodal & Mesh)", url: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii" },
+      { title: "✨ 2. ملخص أهم التركات والأفكار للشيت الأخير", url: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk" },
+      { title: "📚 3. أسئلة المرجع (ركز على الأسئلة من 6 لـ 9)", url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_" },
+      { title: "📝 4. كويزات وميدات سابقة من قسم كهرباء (نفس المحتوى)", url: "https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_" }
+    ],
+    important_notes: [
+      "⚡ كويز 1 كهربية (EPE G113 — Circuit Analysis): الثلاثاء 27 أكتوبر 2026 في ميعاد المحاضرة (10:00 ص - مدرج 7104-360) • مدة الكويز: ⏱️ نصف ساعة (30 دقيقة).",
+      "📝 شكل ومحتوى الامتحان: سؤال واحد عبارة عن دائرة كهربية (Circuit) يطلب حلها بأكثر من طريقة: (Nodal, Mesh, Superposition, Thevenin, Source Transformation...).",
+      "📖 المقرر داخل حتى شيت الطرق (شيت 3 بترتيب الدرايف / شيت 4 بترتيب المعيد).",
+      "⚠️ تنبيه هام جداً: المصادر المعتمدة (Dependent Sources) ملغية في أسئلة Thevenin و Superposition!",
+      "خطة المذاكرة الرسمية بالترتيب:\n1. 🔥 الشيت الأهم (شيت 3 درايف / 4 معيد — Nodal & Mesh) — أهم حاجة تتحل وتتذاكر كل فكرة وتفصيلة فيها.\n2. ✨ ملخص أهم التركات والأفكار للشيت الأخير.\n3. 📚 أسئلة المرجع: ركز على الأسئلة من 6 لـ 9 (الحل النموذجي مرفوع على الدرايف).\n4. 📝 كويزات وميدات سابقة من قسم كهرباء (نفس المحتوى)."
+    ],
+    summary_title: "ملخص أهم التركات والأفكار للشيت الأخير",
+    summary_url: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk"
   }
 ];
 
@@ -1157,8 +1260,10 @@ const COURSE_CAPSULES = {
     tips: "المادة عبارة عن Circuits & Electronics Fundamentals، الدنيا فيها مش صعبة وأسهل عن المعروف عن الـ Circuits لأن التركيز فيها على الـ Basics.\n- الـ Classwork: كويز وأساينمنت ومسائل المرجع.\n- الميدتيرم: جه 4 أسئلة وكانوا كويسين مش صعبين.\n- الفاينال: جه 4 أسئلة كل سؤال نقطتين (a, b) يعني 8 أسئلة، نص الامتحان تقريباً Circuits والباقي Electronics.",
     links: [
       { title: "📁 درايف الدفعة لمادة الهندسة الكهربية (EPE I)", url: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link" },
-      { title: "📝 ملف Assignment 2 — Chapter 2 (21 مسألة)", url: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk" },
-      { title: "✅ الحل النموذجي لـ Assignment 2", url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk" }
+      { title: "🔥 1. الشيت الأهم (شيت 3 درايف / 4 معيد — Nodal & Mesh)", url: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii" },
+      { title: "✨ 2. ملخص أهم التركات والأفكار للشيت الأخير", url: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk" },
+      { title: "📚 3. أسئلة المرجع (ركز على الأسئلة من 6 لـ 9)", url: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_" },
+      { title: "📝 4. كويزات وميدات سابقة من قسم كهرباء (نفس المحتوى)", url: "https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_" }
     ],
     playlists: [
       { title: "🎬 م. طارق البغدادي (شرح كورس الدوائر والكهربية)", url: "https://www.youtube.com/playlist?list=PLJHkuo98VFGZPKHD2m1HccJgekI505sSE" },
@@ -1270,204 +1375,53 @@ const SESSIONS = [
   { day: "Sunday", start: 5, span: 3, group: "ME1-04", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
 
   // Monday
-  {
-    day: "Monday",
-    start: 0,
-    span: 2,
-    group: "ALL",
-    code: "MDP G121",
-    type: "Lecture",
-    room: "3101-306",
-    quizBadge: "⚡ كويز 1 (5 درجات)",
-    hasNotice: true,
-    noticeData: {
-      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
-      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
-      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
-      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
-      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
-      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
-    },
-    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
-  },
+  { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
   { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false },
   { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
 
   // Tuesday
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
-  { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
-  // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104 مع تنبيه كويز 1
   {
     day: "Tuesday",
-    start: 4,
-    span: 3,
-    group: "ME1-01",
-    code: "MDP G121",
-    type: "Tutorial",
+    start: 2,
+    span: 2,
+    group: "ALL",
+    code: "EPE G113",
+    type: "Lecture",
     room: "7104-360",
-    quizBadge: "⚡ كويز 1 (5 درجات)",
+    quizBadge: "⚡ كويز 1 (30 د)",
     hasNotice: true,
     noticeData: {
-      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
-      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
-      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
-      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
-      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
-      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
+      title: "⚡ كويز 1 كهربية (EPE G113 — Circuit Analysis)",
+      slots: "الثلاثاء القادم 27 أكتوبر 2026 — في ميعاد المحاضرة (10:00 ص - مدرج 7104-360) • المدة: 30 دقيقة",
+      requirements: "• سؤال واحد عبارة عن دائرة كهربية (Circuit) يطلب حلها بأكثر من طريقة: (Nodal, Mesh, Superposition, Thevenin, Source Transformation...).\n• المقرر داخل حتى شيت الطرق (شيت 3 بترتيب الدرايف / شيت 4 بترتيب المعيد).\n• ⚠️ تنبيه هام جداً: المصادر المعتمدة (Dependent Sources) ملغية في أسئلة Thevenin و Superposition!",
+      linkSheet: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii",
+      linkTricks: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk",
+      linkRef: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
+      linkPast: "https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_"
     },
-    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
+    note: "⚡ كويز 1 كهربية (30 دقيقة): الثلاثاء 27 أكتوبر بمدرج 7104 — سؤال واحد لدائرة كهربية يطلب حلها بأكثر من طريقة حتى شيت الطرق (Dependent Sources ملغية في Thevenin و Superposition)."
   },
-  {
-    day: "Tuesday",
-    start: 4,
-    span: 3,
-    group: "ME1-03",
-    code: "MDP G121",
-    type: "Tutorial",
-    room: "7104-360",
-    quizBadge: "⚡ كويز 1 (5 درجات)",
-    hasNotice: true,
-    noticeData: {
-      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
-      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
-      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
-      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
-      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
-      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
-    },
-    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
-  },
+  // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
+  { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
+  { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "7104-360" },
 
   // Wednesday
   { day: "Wednesday", start: 0, span: 2, group: "ALL", code: "MDP G111", type: "Lecture", room: "7104-360" },
-  // سكشن الماتيريال: سكشن 2 و 4 مدمجين في 3102 مع تنبيه كويز 1
-  {
-    day: "Wednesday",
-    start: 2,
-    span: 3,
-    group: "ME1-02",
-    code: "MDP G121",
-    type: "Tutorial",
-    room: "3102-306",
-    quizBadge: "⚡ كويز 1 (5 درجات)",
-    hasNotice: true,
-    noticeData: {
-      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
-      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
-      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
-      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
-      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
-      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
-    },
-    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
-  },
-  {
-    day: "Wednesday",
-    start: 2,
-    span: 3,
-    group: "ME1-04",
-    code: "MDP G121",
-    type: "Tutorial",
-    room: "3102-306",
-    quizBadge: "⚡ كويز 1 (5 درجات)",
-    hasNotice: true,
-    noticeData: {
-      title: "🔔 دليل وخلاصة كويز 1 ماتيريل (Crystal Structure — 5 درجات)",
-      slots: "الموعد والمكان: الثلاثاء 20 أكتوبر 2026 — مدرج 7104",
-      slidesUrl: "https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk",
-      quizUrl: "https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr",
-      assignUrl: "https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP",
-      driveUrl: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO"
-    },
-    note: "⚡ كويز 1 ماتيريل (5 درجات): الثلاثاء 20 أكتوبر بمدرج 7104 — مفيش نظري! ركزوا على سلايدات السكشن وكويز وأسينمنت السنة اللي فاتت."
-  },
+  // سكشن الماتيريال: سكشن 2 و 4 مدمجين في 3102
+  { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "3102-306" },
+  { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "3102-306" },
   { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
 
   // Thursday
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
   
-  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall) مع التنبيه التفاعلي المطور و Assignment 2
-  {
-    day: "Thursday",
-    start: 4,
-    span: 2,
-    group: "ME1-01",
-    code: "EPE G113",
-    type: "Tutorial",
-    room: "14301",
-    attendance: false,
-    assignmentBadge: "📝 Assignment 2",
-    hasNotice: true,
-    noticeData: {
-      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
-      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
-      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
-  },
-  {
-    day: "Thursday",
-    start: 4,
-    span: 2,
-    group: "ME1-02",
-    code: "EPE G113",
-    type: "Tutorial",
-    room: "14301",
-    attendance: false,
-    assignmentBadge: "📝 Assignment 2",
-    hasNotice: true,
-    noticeData: {
-      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
-      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
-      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
-  },
-  {
-    day: "Thursday",
-    start: 6,
-    span: 2,
-    group: "ME1-03",
-    code: "EPE G113",
-    type: "Tutorial",
-    room: "14301",
-    attendance: false,
-    assignmentBadge: "📝 Assignment 2",
-    hasNotice: true,
-    noticeData: {
-      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
-      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
-      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
-  },
-  {
-    day: "Thursday",
-    start: 6,
-    span: 2,
-    group: "ME1-04",
-    code: "EPE G113",
-    type: "Tutorial",
-    room: "14301",
-    attendance: false,
-    assignmentBadge: "📝 Assignment 2",
-    hasNotice: true,
-    noticeData: {
-      title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
-      slots: "الموعد والمكان: التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).",
-      assignmentUrl: "https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk",
-      solutionUrl: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk",
-      driveUrl: "https://drive.google.com/drive/folders/1pk7PS5s3qRAOu6YTNvZoOaBziQoBhtVz?usp=drive_link"
-    },
-    note: "🚨 تسليم Assignment 2 (EPE G113): الخميس 22 أكتوبر في السكشن (قاعة 14301) — 21 مسألة من Chapter 2."
-  }
+  // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall)
+  { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
+  { day: "Thursday", start: 4, span: 2, group: "ME1-02", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-03", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
+  { day: "Thursday", start: 6, span: 2, group: "ME1-04", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false }
 ];
 
 // سكشن الديناميكا التبادلي (الاثنين)
@@ -1480,10 +1434,10 @@ const MONDAY_DYNAMICS_SLOTS = {
 const DEFAULT_NOTIFICATIONS = [
   {
     id: "notif-epe-assign-2",
-    date: "17 Oct 2026",
-    tag: "EPE G113 • Assignment 2",
-    title: "🚨 تسليم Assignment 2 (EPE G113) — الخميس 22 أكتوبر",
-    body: "📍 التسليم يوم الخميس القادم في السكشن (قاعة 14301 — فترة 12:30 أو فترة 2:00) على ورق A4 (الاسم، الكود، السكشن، القسم).\nأرقام المسائل المطلوبة من Chapter 2 (إجمالي 21 مسألة):\n• المجموعة الأولى (18 مسألة): 2.12, 2.13, 2.18, 2.23, 2.24, 2.25, 2.31, 2.32, 2.35, 2.36, 2.34, 2.44, 2.47, 2.59, 2.70, 2.71, 2.72, and 2.78\n• المجموعة الثانية (3 مسائل): 2.45, 2.53, 2.76",
+    date: "22 Oct 2026",
+    tag: "EPE G113 • Assignment 2 (منتهي)",
+    title: "🚨 تسليم Assignment 2 (EPE G113) — [منتهي / Expired]",
+    body: "📍 انتهت فترة التسليم الرسمي لـ Assignment 2 بنهاية يوم الخميس 22 أكتوبر 2026.\nالملف والحل النموذجي متاحان على الدرايف للرجوع إليهما.",
     actions: [
       { label: "📄 فتح ملف الأسينمنت", action: "window.open('https://drive.google.com/file/d/1sk39paE42hm7TO-I1t6XfnKKt4Bw50gl/view?usp=drivesdk', '_blank')" },
       { label: "✅ فتح الحل النموذجي", action: "window.open('https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk', '_blank')" }
@@ -1492,9 +1446,9 @@ const DEFAULT_NOTIFICATIONS = [
   {
     id: "notif-mdp-quiz-1",
     date: "20 Oct 2026",
-    tag: "MDP G121 • Quiz 1",
-    title: "⚡ Quiz 1 — Crystal Structure (5 درجات)",
-    body: "📍 الموعد والمكان: الثلاثاء 20 أكتوبر 2026 بمدرج 7104 (5 درجات).\n🎯 تنبيه المعيد: مفيش أسئلة نظري إن شاء الله — الأسئلة مسائل وتطبيقات شبه مسائل السكشن بالظبط. المذاكرة الأساسية من سلايدات السكشن وحل كويز وأسينمنت السنة اللي فاتت.",
+    tag: "MDP G121 • Quiz 1 (منتهي)",
+    title: "⚡ Quiz 1 — Crystal Structure — [منتهي / Expired]",
+    body: "📍 تم الانتهاء من كويز 1 ماتيريل يوم الثلاثاء 20 أكتوبر 2026 بمدرج 7104. سلايدات السكشن وحلول امتحانات السنة السابقة متاحة للأرشيف.",
     actions: [
       { label: "📘 Tutorial Slides", action: "window.open('https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk', '_blank')" },
       { label: "📝 Quiz 25/26 + الحل", action: "window.open('https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr', '_blank')" },
@@ -1505,10 +1459,11 @@ const DEFAULT_NOTIFICATIONS = [
     id: "notif-epe-quiz-1",
     date: "27 Oct 2026",
     tag: "EPE G113 • Quiz 1",
-    title: "Quiz 1 — Sheets 1, 2, 3, 4",
-    body: "📍 المكان: مدرج 7104 • الثلاثاء 27 أكتوبر 2026\nالمحتوى المقرر: Sheets 1, 2, 3, 4.\nسيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    title: "⚡ كويز 1 كهربية (EPE G113 — Circuit Analysis)",
+    body: "📍 الموعد والمكان: الثلاثاء 27 أكتوبر 2026 في ميعاد المحاضرة (10:00 ص - مدرج 7104-360) • المدة 30 دقيقة.\nسؤال واحد لدائرة كهربية يطلب حلها بأكثر من طريقة (Nodal, Mesh, Superposition, Thevenin, Source Transformation...). المقرر داخل حتى شيت الطرق (شيت 3 درايف / 4 معيد). تنبيه هام: المصادر المعتمدة (Dependent Sources) ملغية في Thevenin و Superposition!",
     actions: [
-      { label: "📚 فتح جايد المادة", action: "openCourseCapsule('EPE G113')" }
+      { label: "⚡ فتح تفاصيل وروابط الكويز", action: "openSessionNoticeModal('Tuesday', 2, 'EPE G113')" },
+      { label: "📚 فتح دليل المذاكرة الشامل", action: "openQuizPrepGuide('epe-quiz-1')" }
     ]
   },
   {
@@ -1516,17 +1471,17 @@ const DEFAULT_NOTIFICATIONS = [
     date: "28 Oct 2026",
     tag: "EMC G101 • Quiz 1",
     title: "Quiz 1 — MOI & Plane Kinematics of Rigid Bodies",
-    body: "📍 المكان: مدرج 7104 • الأربعاء 28 أكتوبر 2026\nالمحتوى المقرر: MOI & Plane Kinematics of Rigid Bodies.\nسيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    body: "📍 المكان: مدرج 7104 • الأربعاء 28 أكتوبر 2026\nالمحتوى المقرر: MOI & Plane Kinematics of Rigid Bodies.",
     actions: [
       { label: "📚 فتح جايد المادة", action: "openCourseCapsule('EMC G101')" }
     ]
   },
   {
     id: "notif-gen-quiz-2",
-    date: "15 Oct 2026",
+    date: "25 Oct 2026",
     tag: "GEN G119 • كويز 2 رسمي",
     title: "Marketing Quiz 2 — تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)",
-    body: "📢 كويز 2 ماركتنج الأحد القادم داخل المحاضرة الساعة 8:00 صباحاً (مدرج 3103-414): مدة الكويز 5 دقائق فقط (نفس نظام كويز 1). المحتوى المقرر Chapter 2 كامل. تم توفير بنك الأسئلة الـ 125 سؤال كامل ومحاكي تفاعلي ذكي للتدريب على سرعة الحل 🎯"
+    body: "📢 كويز 2 ماركتنج الأحد القادم 25 أكتوبر داخل المحاضرة الساعة 8:00 صباحاً (مدرج 3103-414): مدة الكويز 5 دقائق فقط (نفس نظام كويز 1). المحتوى المقرر Chapter 2 كامل. تم توفير بنك الأسئلة الـ 125 سؤال كامل ومحاكي تفاعلي ذكي للتدريب على سرعة الحل 🎯"
   },
   {
     id: "ann-the-1",

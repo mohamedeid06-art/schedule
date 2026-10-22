@@ -1150,7 +1150,29 @@ function renderTasksGridOnly() {
     return;
   }
 
-  grid.innerHTML = list.map(t => renderBentoTaskCard(t)).join('');
+  const activeTasks = list.filter(t => !t.countdown?.isPassed);
+  const expiredTasks = list.filter(t => !!t.countdown?.isPassed);
+
+  let html = '';
+  if (activeTasks.length > 0) {
+    html += activeTasks.map(t => renderBentoTaskCard(t)).join('');
+  }
+
+  if (expiredTasks.length > 0) {
+    html += `
+      <div class="tasks-archive-divider" style="grid-column: 1 / -1; display:flex; align-items:center; gap:12px; margin: 24px 0 12px; padding: 12px 18px; background: rgba(18, 26, 43, 0.7); border: 1px dashed rgba(239,68,68,0.25); border-radius: 14px;">
+        <span style="font-size:20px;">📦</span>
+        <div style="flex:1;">
+          <strong style="color:var(--text-main);font-size:13.5px;display:block;">أرشيف المهام والكويزات السابقة والمنتهية (Expired & Archived Tasks)</strong>
+          <span style="color:var(--text-muted);font-size:11.5px;">المهام والكويزات التي انتهى موعدها الرسمي للأسبوع المنتهي</span>
+        </div>
+        <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:9999px;background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.35);">${expiredTasks.length} منتهي</span>
+      </div>
+    `;
+    html += expiredTasks.map(t => renderBentoTaskCard(t)).join('');
+  }
+
+  grid.innerHTML = html;
   updateCountdowns();
 }
 
