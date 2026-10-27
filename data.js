@@ -236,21 +236,41 @@ const MASTER_QUIZZES = [
     title: "Quiz 1 — MOI & Plane Kinematics of Rigid Bodies",
     type: "Quiz",
     instructor: "Dr. Samir Hedeyma",
-    dateDisplay: "Wednesday, October 28, 2026 (الأربعاء 28 أكتوبر 2026)",
+    dateDisplay: "Wednesday, October 28, 2026 (الأربعاء 28 أكتوبر 2026 — ميعاد المحاضرة 2:00 م)",
     countdownBadge: "28 أكتوبر 2026",
     date: "2026-10-28",
-    start: "2026-10-28T08:00:00",
-    deadline: "2026-10-28T10:00:00",
-    dueDate: "2026-10-28T08:00:00",
-    room: "مدرج 7104",
-    content: "MOI & Plane Kinematics of Rigid Bodies",
-    temporaryNote: "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً.",
+    start: "2026-10-28T14:00:00",
+    deadline: "2026-10-28T15:50:00",
+    dueDate: "2026-10-28T14:00:00",
+    room: "مدرج 7104-360",
+    content: "Chapter 1 (CG & MOI) + Chapter 2 (Plane Kinematics of Rigid Bodies)",
     accent: "#8b5cf6",
     accentName: "purple",
+    submissionUrl: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT",
     instructions: [
-      "المكان: مدرج 7104.",
-      "المحتوى المقرر: MOI & Plane Kinematics of Rigid Bodies.",
-      "سيتم إضافة تفاصيل الكويز ودليل المذاكرة قريباً."
+      "الموعد والمكان: الأربعاء 28 أكتوبر 2026 — مدرج 7104-360 (ميعاد المحاضرة 2:00 م).",
+      "المحتوى المقرر: Chapter 1 (CG & MOI) + Chapter 2 (Plane Kinematics of Rigid Bodies) كامل.",
+      "خطة المذاكرة الموصى بها بالترتيب:",
+      "1. سلايدات Chapter 1 (MOI) و Chapter 2 (Kinematics) كاملة.",
+      "2. حل شيت 1 (CG & MOI) وشيت 2 (Kinematics) ومراجعة الحل النموذجي.",
+      "3. فيديوهات المعيدين: Velocity & Acceleration Relation، Rolling، و IC."
+    ],
+    lectures: [
+      { id: "emc-q1-lec-1", title: "Ch1: CG & MOI + Ch2: Velocity Relation (Slides)", slides: "https://drive.google.com/file/d/1-iSeDxQBp2CzrkH5JE1Ae7YdpMDTAfXP/view?usp=drivesdk" },
+      { id: "emc-q1-lec-2", title: "Ch2: Kinematics of Rigid Bodies — VR, AR, Rolling & IC (Slides)", slides: "https://drive.google.com/file/d/1raAP-bxC_Z8xD0bTM2kAL0LCd9p2CzvB/view?usp=drivesdk" }
+    ],
+    sheets: [
+      { id: "emc-q1-sht-1", title: "Sheet 1 — CG & MOI (فولدر الشيت والحلول)", pdf: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" },
+      { id: "emc-q1-sht-2", title: "Sheet 2 — Kinematics of Rigid Bodies", pdf: "https://drive.google.com/file/d/1J0UdPRuvF4PgX-rLrunlO9UbOhmtY7Fq/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk" }
+    ],
+    practice: [
+      { id: "emc-q1-vid-1", title: "م. أحمد فوزي — ملخص Chapter 2 كامل + حل الشيت", url: "https://youtu.be/mrLEzczCxpc?si=MAmczw5ZQU4y3Qc8" },
+      { id: "emc-q1-vid-2", title: "م. إنجي — شرح Velocity Relation", url: "https://youtu.be/i-sy90j-dp0?si=0x6Gq3x90j46zYw5" },
+      { id: "emc-q1-vid-3", title: "م. إنجي — شرح Acceleration Relation", url: "https://youtu.be/VqL2COYs3yc?si=hZ5VoeohJOYNhmgj" },
+      { id: "emc-q1-vid-4", title: "مسائل محلولة على الـ AR من الشيت", url: "https://youtu.be/8vMHDoNCpLk?si=cR-bYSb4cF9vf7kv" },
+      { id: "emc-q1-vid-5", title: "م. إنجي — شرح الـ Rolling", url: "https://youtu.be/7XZuHoI1fmg?si=if-1aQxsVYGTmCX5" },
+      { id: "emc-q1-vid-6", title: "حل مسائل على الـ Rolling", url: "https://youtu.be/6LOrpFrexE0?si=-_MRSFBx3G67O0Qu" },
+      { id: "emc-q1-vid-7", title: "م. إنجي — شرح Instantaneous Center (IC)", url: "https://youtu.be/PJJ5JOMR8yY?si=VGRgmuaUWuvBKlvQ" }
     ]
   },
   {
@@ -300,6 +320,12 @@ const MASTER_QUIZZES = [
     countdownBadge: "23d 14h 50m",
     start: "2026-09-24T08:00:00",
     deadline: "2026-10-29T11:00:00",
+    deadlinesByGroup: {
+      "ME1-01": "2026-10-29T09:00:00",
+      "ME1-02": "2026-10-26T10:00:00",
+      "ME1-03": "2026-10-26T13:00:00",
+      "ME1-04": "2026-10-29T11:00:00"
+    },
     accent: "#38bdf8",
     accentName: "cyan",
     submissionUrl: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl",
@@ -847,7 +873,7 @@ const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 6",
     code: "EPE G113",
-    status_badge: "⚡ كويز 1 الثلاثاء 27 أكتوبر",
+    status_badge: "✅ كويز 1 انتهى (الثلاثاء 27 أكتوبر)",
     lectures: "Lecture: Circuit Analysis Techniques (Nodal, Mesh, Superposition, Thevenin, Source Transformation)",
     slides_url: "https://drive.google.com/file/d/1HJUZR3zjcdc59Re0-F4Ksg6it7MZ2JNS/view?usp=drivesdk",
     sheet: "شيت الطرق (شيت 3 درايف / شيت 4 معيد — Nodal & Mesh)",
@@ -924,7 +950,7 @@ const dynamicsRoadmap = [
     title: "Ch2: Kinematics of Rigid Bodies (Part 2 — Complete)",
     topic: "إنهاء Chapter 2 بالكامل (Rolling & Instantaneous Center - IC وتطبيقاتها)",
     slides: "Slides 25 → End",
-    status: "active"
+    status: "completed"
   },
   {
     week: 5,
@@ -1202,7 +1228,7 @@ const COURSE_CAPSULES = {
     name: "Linear Algebra & Multivariable Integration",
     hours: "3 Credit Hours",
     grading: "• الميد من 30 درجة (20 تكامل + 10 جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتبص عليه",
-    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.\n\n📢 تنبيهات هامة:\n• كويز مجمع 1 (Calculus Quiz 1): الإثنين 12 أكتوبر 2026 الساعة 11:00 ظهراً (الحضور 11 إلا ربع) في مدرج 3002 (30-35 دقيقة MCQ - 5 أسئلة — 10 درجات). التصحيح على التظليل فقط وممنوع الموبايل والجلوس بمقعد فاضي بين كل طالب، والكود المكون من 7 أرقام يوضع قبله صفر على الشمال في التظليل. الامتحان على أول محاضرتين فقط لحد الـ Double Integral، وركزوا على الـ Graphs كويس جداً!",
+    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
       { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
@@ -1276,7 +1302,7 @@ const COURSE_CAPSULES = {
     name: "Dynamics of Rigid Bodies",
     hours: "3 Credit Hours",
     grading: "• 40 درجة فاينال\n• 20 درجة ميدتيرم\n• 30 درجة كويزين (أعلى كويز 20 والتاني 10)\n• 10 درجات Take Home Exam (THE)",
-    tips: "دكتور سمير أبو هديمة متعاون جداً وبيحب الحضور وأي سؤال في المحاضرة عليه بونص.\nالـ Take Home Exam بيبقوا 9 امتحانات، بيتسلم كل جمعة واحد، لو اتأخرت بتاخد ماينص ولو سلمت بدري بتاخد بونص.\nالأسبوع ده مفيش THE 2، هينزل رسمياً يوم 9 أكتوبر.",
+    tips: "دكتور سمير أبو هديمة متعاون جداً وبيحب الحضور وأي سؤال في المحاضرة عليه بونص.\nالـ Take Home Exam بيبقوا 9 امتحانات، بيتسلم كل جمعة واحد، لو اتأخرت بتاخد ماينص ولو سلمت بدري بتاخد بونص.",
     links: [
       { title: "📁 درايف الدفعة لمادة الديناميكا الشامل", url: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT" }
     ],
@@ -1349,26 +1375,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 // جدول الحصص المعتمد
 const SESSIONS = [
   // Sunday
-  { 
-    day: "Sunday", 
-    start: 0, 
-    span: 2, 
-    group: "ALL", 
-    code: "GEN G119", 
-    type: "Lecture", 
-    room: "3103-414",
-    quizBadge: "⚡ كويز 2",
-    hasNotice: true,
-    noticeData: {
-      title: "🔔 تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)",
-      slots: "الموعد: الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414)",
-      requirements: "• الموعد: الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414).\n• مدة الكويز: 5 دقائق فقط (نفس نظام الكويز الأول).\n• المحتوى المقرر: المحاضرة الثانية (Chapter 2) كاملة.",
-      testBankUrl: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk",
-      summaryUrl: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk",
-      slidesUrl: "https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk"
-    },
-    note: "🔔 كويز 2 ماركتنج (Chapter 2): الأحد القادم 8:00 صباحاً (قاعة 3103-414) — المدة 5 دقائق فقط."
-  },
+  { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
@@ -1381,27 +1388,7 @@ const SESSIONS = [
 
   // Tuesday
   { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
-  {
-    day: "Tuesday",
-    start: 2,
-    span: 2,
-    group: "ALL",
-    code: "EPE G113",
-    type: "Lecture",
-    room: "7104-360",
-    quizBadge: "⚡ كويز 1 (30 د)",
-    hasNotice: true,
-    noticeData: {
-      title: "⚡ كويز 1 كهربية (EPE G113 — Circuit Analysis)",
-      slots: "الثلاثاء القادم 27 أكتوبر 2026 — في ميعاد المحاضرة (10:00 ص - مدرج 7104-360) • المدة: 30 دقيقة",
-      requirements: "• سؤال واحد عبارة عن دائرة كهربية (Circuit) يطلب حلها بأكثر من طريقة: (Nodal, Mesh, Superposition, Thevenin, Source Transformation...).\n• المقرر داخل حتى شيت الطرق (شيت 3 بترتيب الدرايف / شيت 4 بترتيب المعيد).\n• ⚠️ تنبيه هام جداً: المصادر المعتمدة (Dependent Sources) ملغية في أسئلة Thevenin و Superposition!",
-      linkSheet: "https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii",
-      linkTricks: "https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk",
-      linkRef: "https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_",
-      linkPast: "https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_"
-    },
-    note: "⚡ كويز 1 كهربية (30 دقيقة): الثلاثاء 27 أكتوبر بمدرج 7104 — سؤال واحد لدائرة كهربية يطلب حلها بأكثر من طريقة حتى شيت الطرق (Dependent Sources ملغية في Thevenin و Superposition)."
-  },
+  { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
   // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
   { day: "Tuesday", start: 4, span: 3, group: "ME1-03", code: "MDP G121", type: "Tutorial", room: "7104-360" },
@@ -1411,7 +1398,31 @@ const SESSIONS = [
   // سكشن الماتيريال: سكشن 2 و 4 مدمجين في 3102
   { day: "Wednesday", start: 2, span: 3, group: "ME1-02", code: "MDP G121", type: "Tutorial", room: "3102-306" },
   { day: "Wednesday", start: 2, span: 3, group: "ME1-04", code: "MDP G121", type: "Tutorial", room: "3102-306" },
-  { day: "Wednesday", start: 6, span: 2, group: "ALL", code: "EMC G101", type: "Lecture", room: "7104-360" },
+  {
+    day: "Wednesday",
+    start: 6,
+    span: 2,
+    group: "ALL",
+    code: "EMC G101",
+    type: "Lecture",
+    room: "7104-360",
+    quizBadge: "⚡ كويز 1",
+    quizTaskId: "emc-quiz-1",
+    hasNotice: true,
+    noticeData: {
+      title: "⚡ كويز 1 ديناميكا (EMC G101 — MOI & Plane Kinematics)",
+      slots: "الأربعاء 28 أكتوبر 2026 — مدرج 7104-360 (ميعاد المحاضرة 2:00 م)",
+      requirements: "• المحتوى المقرر: Chapter 1 (CG & MOI) + Chapter 2 (Plane Kinematics of Rigid Bodies) كامل.\n• ذاكر السلايدات وحل شيت 1 وشيت 2 مع الحل النموذجي.\n• راجع فيديوهات الـ Velocity / Acceleration Relation والـ Rolling والـ IC.",
+      taskId: "emc-quiz-1",
+      links: [
+        { icon: "📘", label: "سلايدات Chapter 2 (Kinematics)", url: "https://drive.google.com/file/d/1raAP-bxC_Z8xD0bTM2kAL0LCd9p2CzvB/view?usp=drivesdk" },
+        { icon: "📝", label: "شيت 2 (Kinematics)", url: "https://drive.google.com/file/d/1J0UdPRuvF4PgX-rLrunlO9UbOhmtY7Fq/view?usp=drivesdk" },
+        { icon: "✅", label: "الحل النموذجي لشيت 2", url: "https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk" },
+        { icon: "📁", label: "شيت 1 (CG & MOI) + الحلول", url: "https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg" }
+      ]
+    },
+    note: "⚡ كويز 1 ديناميكا: الأربعاء 28 أكتوبر بمدرج 7104 — Chapter 1 (MOI) + Chapter 2 (Plane Kinematics)."
+  },
 
   // Thursday
   { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
@@ -1432,6 +1443,17 @@ const MONDAY_DYNAMICS_SLOTS = {
 
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-emc-quiz-1",
+    date: "28 Oct 2026",
+    tag: "EMC G101 • Quiz 1",
+    title: "⚡ كويز 1 ديناميكا — الأربعاء 28 أكتوبر",
+    body: "📍 مدرج 7104-360 • الأربعاء 28 أكتوبر 2026 (ميعاد المحاضرة 2:00 م)\nالمحتوى المقرر: Chapter 1 (CG & MOI) + Chapter 2 (Plane Kinematics of Rigid Bodies).",
+    actions: [
+      { label: "🎯 تفاصيل الكويز", action: "openOfficialExamModal('emc-quiz-1')" },
+      { label: "📚 دليل المذاكرة", action: "openQuizPrepGuide('emc-quiz-1')" }
+    ]
+  },
   {
     id: "notif-epe-assign-2",
     date: "22 Oct 2026",
@@ -1458,30 +1480,23 @@ const DEFAULT_NOTIFICATIONS = [
   {
     id: "notif-epe-quiz-1",
     date: "27 Oct 2026",
-    tag: "EPE G113 • Quiz 1",
-    title: "⚡ كويز 1 كهربية (EPE G113 — Circuit Analysis)",
-    body: "📍 الموعد والمكان: الثلاثاء 27 أكتوبر 2026 في ميعاد المحاضرة (10:00 ص - مدرج 7104-360) • المدة 30 دقيقة.\nسؤال واحد لدائرة كهربية يطلب حلها بأكثر من طريقة (Nodal, Mesh, Superposition, Thevenin, Source Transformation...). المقرر داخل حتى شيت الطرق (شيت 3 درايف / 4 معيد). تنبيه هام: المصادر المعتمدة (Dependent Sources) ملغية في Thevenin و Superposition!",
+    tag: "EPE G113 • Quiz 1 (منتهي)",
+    title: "⚡ كويز 1 كهربية (Circuit Analysis) — [منتهي / Expired]",
+    body: "📍 تم الانتهاء من كويز 1 كهربية يوم الثلاثاء 27 أكتوبر 2026. مصادر المذاكرة (شيت الطرق، ملخص التركات، أسئلة المرجع، والكويزات السابقة) متاحة في دليل الكويز وجايد الأسبوع السادس.",
     actions: [
-      { label: "⚡ فتح تفاصيل وروابط الكويز", action: "openSessionNoticeModal('Tuesday', 2, 'EPE G113')" },
-      { label: "📚 فتح دليل المذاكرة الشامل", action: "openQuizPrepGuide('epe-quiz-1')" }
-    ]
-  },
-  {
-    id: "notif-emc-quiz-1",
-    date: "28 Oct 2026",
-    tag: "EMC G101 • Quiz 1",
-    title: "Quiz 1 — MOI & Plane Kinematics of Rigid Bodies",
-    body: "📍 المكان: مدرج 7104 • الأربعاء 28 أكتوبر 2026\nالمحتوى المقرر: MOI & Plane Kinematics of Rigid Bodies.",
-    actions: [
-      { label: "📚 فتح جايد المادة", action: "openCourseCapsule('EMC G101')" }
+      { label: "📚 دليل الكويز والمصادر", action: "openQuizPrepGuide('epe-quiz-1')" },
+      { label: "📖 جايد الأسبوع السادس", action: "openGuideWeek('Week 6', 'EPE G113')" }
     ]
   },
   {
     id: "notif-gen-quiz-2",
     date: "25 Oct 2026",
-    tag: "GEN G119 • كويز 2 رسمي",
-    title: "Marketing Quiz 2 — تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)",
-    body: "📢 كويز 2 ماركتنج الأحد القادم 25 أكتوبر داخل المحاضرة الساعة 8:00 صباحاً (مدرج 3103-414): مدة الكويز 5 دقائق فقط (نفس نظام كويز 1). المحتوى المقرر Chapter 2 كامل. تم توفير بنك الأسئلة الـ 125 سؤال كامل ومحاكي تفاعلي ذكي للتدريب على سرعة الحل 🎯"
+    tag: "GEN G119 • Quiz 2 (منتهي)",
+    title: "Marketing Quiz 2 (Chapter 2) — [منتهي / Expired]",
+    body: "📍 تم الانتهاء من كويز 2 ماركتنج يوم الأحد 25 أكتوبر. بنك الأسئلة والمحاكي التفاعلي لسه متاحين للمراجعة قبل الميد.",
+    actions: [
+      { label: "🎮 محاكي كويز 2", action: "openMarketingQuiz2Modal()" }
+    ]
   },
   {
     id: "ann-the-1",
