@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>أسبوع الميد — جدول ومضمار امتحانات الميدتيرم | ME1 دفعة 30</title>
+<meta name="description" content="جدول امتحانات الميدتيرم لهندسة ميكانيكا سنة أولى 2026/2027 — عدّاد تنازلي، مضمار التقدم، والمقرر الرسمي والملغي ومصادر المذاكرة لكل مادة.">
+<meta name="theme-color" content="#F4F0E6">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
+<link rel="manifest" href="./manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F4F0E6}
+  a{color:#111;text-decoration:none}
+  button{font-family:inherit}
+  body.dlg-open{overflow:hidden}
+
+  .page{background-color:#F4F0E6;background-image:radial-gradient(#D6CFBB 1.5px,transparent 1.5px);background-size:22px 22px;color:#111;font-family:'Cairo',system-ui,sans-serif;min-height:100vh;overflow:hidden}
+  .wrap{max-width:1200px;margin:0 auto}
+  .mono{font-family:'Space Mono',monospace;font-weight:700}
+
+  /* ===== Top bar ===== */
+  .topbar{padding:22px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-mark{width:44px;height:44px;background:#FFD60A;border:3px solid #111;border-radius:12px;box-shadow:4px 4px 0 #111;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;transform:rotate(-6deg)}
+  .brand-name{font-weight:900;font-size:22px}
+  .top-left{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+  .pill{padding:8px 16px;background:#fff;border:3px solid #111;border-radius:999px;font-weight:800;font-size:14px}
+  .main-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;background:#FFD60A;color:#111;border:3px solid #111;border-radius:12px;box-shadow:4px 4px 0 #111;font-weight:900;font-size:14px;transition:transform .15s,box-shadow .15s}
+  .main-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111}
+
+  /* ===== Hero ===== */
+  .hero{padding:40px 24px 72px;display:flex;flex-wrap:wrap;align-items:stretch;gap:40px}
+  .hero-main{flex:1 1 560px;min-width:0}
+  .warn{display:inline-block;padding:8px 18px;background:#FFD60A;border:3px solid #111;border-radius:10px;font-weight:900;font-size:15px;transform:rotate(-2deg);box-shadow:4px 4px 0 #111}
+  .hero h1{margin:28px 0 0;font-size:clamp(52px,9vw,120px);line-height:1;font-weight:900;letter-spacing:-2px}
+  .hero h1 .inside{background:#FF3B30;color:#111;padding:0 14px;border:3px solid #111;display:inline-block;transform:rotate(-1.5deg);box-shadow:6px 6px 0 #111}
+  .cd-label{margin-top:44px;font-weight:900;font-size:18px}
+  .cd-row{margin-top:14px;display:flex;gap:14px}
+  .cd-card{flex:1 1 0;min-width:0;background:#fff;border:3px solid #111;border-radius:20px;box-shadow:6px 6px 0 #111;padding:18px 8px 14px;text-align:center}
+  .cd-card.red{background:#FF3B30}
+  .cd-num{font-family:'Space Mono',monospace;font-weight:700;font-size:clamp(40px,8vw,92px);line-height:1}
+  .cd-unit{margin-top:6px;font-size:16px;font-weight:800}
+  .cta{transition:transform .15s,box-shadow .15s}
+  .cta:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 #111 !important}
+  .see-btn{margin-top:32px;display:inline-flex;align-items:center;min-height:56px;padding:0 32px;background:#111;color:#FFD60A;border:3px solid #111;border-radius:14px;box-shadow:6px 6px 0 #FF3B30;font-weight:900;font-size:18px}
+
+  .sticker-col{flex:1 1 360px;min-width:0;position:relative;display:flex;align-items:center;justify-content:center;padding:16px}
+  .sticker{position:relative;width:100%;max-width:430px;transform:rotate(4deg)}
+  .sticker svg{display:block;width:100%;height:auto}
+  .days-tag{position:absolute;left:-4px;top:8px;padding:8px 16px;background:#fff;border:3px solid #111;border-radius:10px;box-shadow:4px 4px 0 #111;font-weight:900;font-size:16px;transform:rotate(-7deg)}
+
+  /* ===== Tape ===== */
+  .tape{background:#FFD60A;border-top:3px solid #111;border-bottom:3px solid #111;padding:14px 0;white-space:nowrap;overflow:hidden;font-weight:900;font-size:24px;transform:rotate(-1deg)}
+
+  /* ===== Section heads ===== */
+  .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+  .sec-head h2{margin:0;font-size:clamp(34px,6vw,64px);font-weight:900;line-height:1.1}
+  .sec-sub{margin-top:8px;font-size:15px;font-weight:600;color:#444}
+
+  /* ===== Track ===== */
+  #track{padding:88px 24px 0}
+  .count-badge{padding:10px 20px;background:#FFD60A;border:3px solid #111;border-radius:12px;box-shadow:4px 4px 0 #111;transform:rotate(-1.5deg);font-weight:900;font-size:20px}
+  .track-card{margin-top:28px;background:#fff;border:3px solid #111;border-radius:24px;box-shadow:8px 8px 0 #111;padding:24px 24px 22px}
+  .run-msg{font-weight:800;font-size:17px;line-height:1.7}
+  .lane{position:relative;height:170px;margin-top:12px}
+  .asphalt{position:absolute;left:0;right:0;bottom:14px;height:14px;background:#111;border-radius:7px}
+  .dashes{position:absolute;left:0;right:0;bottom:19px;height:4px;background-image:repeating-linear-gradient(90deg,#FFD60A 0 18px,transparent 18px 36px)}
+  .cp{position:absolute;bottom:28px;transform:translateX(50%);display:flex;flex-direction:column;align-items:center}
+  .cp-dot{width:28px;height:28px;border-radius:50%;border:3px solid #111;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:13px;transition:background .4s}
+  .cp-pole{width:4px;height:46px;background:#111}
+  .runner{position:absolute;bottom:24px;width:96px;transition:right 1.1s cubic-bezier(.34,1.45,.5,1)}
+  .runner svg{display:block;width:100%;height:auto;overflow:visible}
+  .arrived{position:absolute;top:-30px;right:0;padding:4px 14px;background:#7CE08F;border:3px solid #111;border-radius:10px;font-weight:900;font-size:15px;white-space:nowrap;transform:rotate(-4deg)}
+  .chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px}
+  .chip{min-height:44px;padding:0 14px;display:inline-flex;align-items:center;gap:8px;border:3px solid #111;border-radius:12px;color:#111;font-weight:800;font-size:14px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+  .chip:hover{background:#FFF3B0 !important;transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111}
+
+  @keyframes legSwing{0%{transform:rotate(-40deg)}100%{transform:rotate(40deg)}}
+  @keyframes armSwing{0%{transform:rotate(-55deg)}100%{transform:rotate(55deg)}}
+  @keyframes runBob{0%{transform:translateY(0)}100%{transform:translateY(-5px)}}
+  @keyframes dash{0%{opacity:.9}50%{opacity:.15}100%{opacity:.9}}
+  .legA{transform-box:view-box;transform-origin:62px 88px;animation:legSwing .42s ease-in-out infinite alternate}
+  .legB{transform-box:view-box;transform-origin:62px 88px;animation:legSwing .42s ease-in-out infinite alternate-reverse}
+  .armA{transform-box:view-box;transform-origin:60px 62px;animation:armSwing .42s ease-in-out infinite alternate-reverse}
+  .armB{transform-box:view-box;transform-origin:60px 62px;animation:armSwing .42s ease-in-out infinite alternate}
+  .runBob{animation:runBob .21s ease-in-out infinite alternate}
+  .speed{animation:dash .5s linear infinite}
+
+  /* ===== Schedule ===== */
+  #schedule{padding:96px 24px 40px}
+  .hint{padding:8px 18px;background:#fff;border:3px solid #111;border-radius:10px;font-weight:800;font-size:14px;transform:rotate(1.5deg);box-shadow:4px 4px 0 #111}
+  .table-box{margin-top:28px;overflow-x:auto;border:3px solid #111;border-radius:20px;background:#fff;box-shadow:8px 8px 0 #111}
+  .tbl{min-width:1040px}
+  .tr{display:grid;grid-template-columns:110px repeat(7,minmax(0,1fr));border-bottom:3px solid #111}
+  .tr:last-child{border-bottom:0}
+  .th-side{padding:14px 10px;background:#111;color:#FFD60A;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center}
+  .th-day{padding:14px 8px;text-align:center;font-weight:900;font-size:18px;border-right:3px solid #111;color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:background .4s}
+  .badge-blk{padding:2px 10px;background:#111;border-radius:999px;font-size:12px;font-weight:800}
+  .td{border-right:3px solid #111}
+  .td-date{padding:14px 8px;text-align:center;font-family:'Space Mono',monospace;font-weight:700;font-size:15px}
+  .td-subj{display:flex}
+  .subj{flex:1 1 auto;min-width:0;min-height:200px;padding:16px 10px;border:0;color:#111;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;transition:background .3s}
+  .subj:hover{background:#FFF3B0 !important}
+  .subj-ar{font-size:17px;font-weight:900;line-height:1.4}
+  .subj-en{font-size:12px;font-weight:600;line-height:1.4;color:#555}
+  .code-pill{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;padding:4px 10px;border-radius:8px;background:#111;color:#FFD60A}
+  .done-pill{padding:3px 12px;background:#7CE08F;border:2px solid #111;border-radius:999px;font-size:13px;font-weight:900}
+  .open-link{margin-top:4px;font-size:13px;font-weight:900;color:#C4160C;text-decoration:underline}
+  .rest{flex:1 1 auto;min-height:200px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#666;background-color:#EFEBDD;background-image:repeating-linear-gradient(-45deg,rgba(0,0,0,.07) 0 8px,transparent 8px 16px)}
+  .td-hall{padding:14px 8px;text-align:center;font-weight:800;font-size:15px;line-height:1.6;display:flex;align-items:center;justify-content:center}
+  .td-time{padding:14px 8px;text-align:center;font-family:'Space Mono',monospace;font-weight:700;font-size:14px;background:#F4F0E6}
+  .scroll-note{margin:14px 0 0;font-size:13px;font-weight:600;color:#555}
+
+  /* ===== Footer ===== */
+  .footer{padding:72px 24px 56px}
+  .footer-card{background:#111;color:#fff;border:3px solid #111;border-radius:32px;box-shadow:8px 8px 0 #FFD60A;padding:48px 32px;text-align:center}
+  .footer-title{font-size:clamp(30px,5.5vw,64px);font-weight:900;line-height:1.2}
+  .footer-sub{margin-top:14px;font-size:16px;font-weight:600;color:#BDBDC6}
+
+  /* ===== Dialog ===== */
+  .dlg-wrap{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Cairo',system-ui,sans-serif;color:#111}
+  .dlg-wrap[hidden]{display:none}
+  .dlg-backdrop{position:absolute;inset:0;width:100%;height:100%;background:rgba(17,17,17,.72);border:0;cursor:pointer;animation:fadeIn .2s ease}
+  .dlg{position:relative;width:100%;max-width:780px;max-height:100%;overflow-y:auto;background:#F4F0E6;border:3px solid #111;border-radius:28px;box-shadow:10px 10px 0 #111;animation:popIn .28s cubic-bezier(.34,1.45,.5,1)}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes popIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+  .dlg-head{padding:28px 32px;border-bottom:3px solid #111;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .dlg-code{display:inline-block;font-size:14px;padding:5px 12px}
+  .dlg h3{margin:14px 0 0;font-size:clamp(26px,4vw,40px);font-weight:900;line-height:1.25}
+  .dlg-en{margin-top:4px;text-align:right;font-size:15px;font-weight:700}
+  .dlg-x{flex:0 0 48px;width:48px;height:48px;border-radius:14px;border:3px solid #111;background:#fff;color:#111;font-size:24px;font-weight:900;cursor:pointer;box-shadow:3px 3px 0 #111;transition:transform .15s,box-shadow .15s}
+  .dlg-x:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #111}
+  .dlg-body{padding:28px 32px 32px}
+  .info-row{display:flex;flex-wrap:wrap;gap:12px}
+  .info{flex:1 1 150px;padding:14px 16px;border-radius:14px;background:#fff;border:3px solid #111}
+  .info.dark{background:#111}
+  .info-k{font-size:13px;font-weight:800;color:#555}
+  .info.dark .info-k{color:#BDBDC6}
+  .info-v{margin-top:4px;font-size:16px;font-weight:900;line-height:1.5}
+  .info.dark .info-v{color:#FFD60A}
+  .dlg-note{margin-top:16px;padding:14px 18px;border-radius:14px;border:3px solid #111;box-shadow:4px 4px 0 #111;font-size:15px;font-weight:800;line-height:1.8}
+  .dlg-note[hidden]{display:none}
+  .dlg-done{margin-top:20px;width:100%;min-height:60px;padding:0 20px;border-radius:16px;border:3px solid #111;box-shadow:5px 5px 0 #111;font-weight:900;font-size:18px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+  .dlg-done:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #111}
+  .dlg h4{margin:28px 0 12px;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .syl-count{font-family:'Space Mono',monospace;font-size:14px;padding:3px 12px;border:3px solid #111;border-radius:999px;background:#FFD60A}
+  .syl-list{display:flex;flex-direction:column;gap:10px}
+  .syl{display:flex;align-items:center;gap:14px;width:100%;padding:12px 16px;background:#fff;border:3px solid #111;border-radius:14px;color:#111;font-weight:800;font-size:15px;line-height:1.6;text-align:right;cursor:pointer;transition:transform .15s,box-shadow .15s,background .2s}
+  .syl:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 #111}
+  .syl.on{background:#E6F9EA}
+  .syl-box{flex:0 0 28px;width:28px;height:28px;border:3px solid #111;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px}
+  .syl.on .syl-box{background:#7CE08F}
+  .syl.on .syl-txt{text-decoration:line-through;text-decoration-thickness:2px;color:#2F5E39}
+  .dlg-about{margin:0;font-size:16px;line-height:1.9;color:#222}
+  .res-grid{display:flex;flex-wrap:wrap;gap:12px}
+  .res-cell{flex:1 1 280px;min-width:0}
+  .res{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:10px 18px;border-radius:14px;background:#111;color:#FFD60A;border:3px solid #111;box-shadow:5px 5px 0 #FF3B30;font-weight:900;font-size:16px;line-height:1.5}
+  .res.hot{background:#FFD60A;color:#111;box-shadow:5px 5px 0 #FF3B30}
+  .res.site{background:#fff;color:#111;box-shadow:5px 5px 0 #111}
+
+  @media (max-width:640px){
+    .cd-row{gap:10px}
+    .dlg-head{padding:22px 20px}
+    .dlg-body{padding:22px 20px 26px}
+    .tape{font-size:20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .legA,.legB,.armA,.armB,.runBob,.speed{animation:none}
+    .runner{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <header class="wrap topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">م</span>
+      <span class="brand-name">أسبوع الميد</span>
+    </div>
+    <div class="top-left">
+      <div class="pill">هندسة ميكانيكا • سنة أولى • 2026/2027</div>
+      <a class="main-btn" id="goMainBtn" href="index.html?view=main" data-main>📅 الجدول الأسبوعي والجايد ←</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="wrap hero" aria-label="العدّاد التنازلي للميد">
+      <div class="hero-main">
+        <div class="warn">تحذير: الضغط جاي</div>
+        <h1>الميد<br><span class="inside">داخل</span> عليك</h1>
+
+        <div class="cd-label">باقي على أول امتحان (<span id="firstLabel">—</span>)</div>
+        <div class="cd-row" role="timer" aria-live="polite">
+          <div class="cd-card"><div class="cd-num" id="cdDays">00</div><div class="cd-unit">يوم</div></div>
+          <div class="cd-card"><div class="cd-num" id="cdHours">00</div><div class="cd-unit">ساعة</div></div>
+          <div class="cd-card red"><div class="cd-num" id="cdMins">00</div><div class="cd-unit">دقيقة</div></div>
+        </div>
+        <a class="cta see-btn" id="seeScheduleBtn" href="#schedule">شوف الجدول ↓</a>
+      </div>
+
+      <!-- STICKER -->
+      <div class="sticker-col">
+        <div class="sticker">
+          <svg viewBox="0 0 420 420" role="img" aria-label="ساعة منبّه قلقانة بتقول ذاكر">
+            <g stroke="#111" stroke-width="7" stroke-linecap="round">
+              <line x1="52" y1="40" x2="70" y2="58"></line>
+              <line x1="30" y1="86" x2="56" y2="90"></line>
+              <line x1="368" y1="40" x2="350" y2="58"></line>
+              <line x1="390" y1="86" x2="364" y2="90"></line>
+            </g>
+            <g stroke="#111" stroke-width="10" stroke-linecap="round" fill="none">
+              <line x1="112" y1="336" x2="84" y2="388"></line>
+              <line x1="308" y1="336" x2="336" y2="388"></line>
+            </g>
+            <circle cx="120" cy="96" r="46" fill="#FF3B30" stroke="#111" stroke-width="8"></circle>
+            <circle cx="300" cy="96" r="46" fill="#FF3B30" stroke="#111" stroke-width="8"></circle>
+            <circle cx="224" cy="241" r="140" fill="#111"></circle>
+            <circle cx="210" cy="225" r="140" fill="#FFD60A" stroke="#111" stroke-width="8"></circle>
+            <circle cx="210" cy="225" r="108" fill="#fff" stroke="#111" stroke-width="6"></circle>
+            <g stroke="#111" stroke-width="6" stroke-linecap="round">
+              <line x1="210" y1="127" x2="210" y2="141"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(30 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(60 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(90 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(120 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(150 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(180 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(210 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(240 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(270 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(300 210 225)"></line>
+              <line x1="210" y1="127" x2="210" y2="141" transform="rotate(330 210 225)"></line>
+            </g>
+            <line x1="158" y1="192" x2="196" y2="178" stroke="#111" stroke-width="6" stroke-linecap="round"></line>
+            <line x1="224" y1="178" x2="262" y2="192" stroke="#111" stroke-width="6" stroke-linecap="round"></line>
+            <circle cx="178" cy="214" r="17" fill="#fff" stroke="#111" stroke-width="5"></circle>
+            <circle cx="242" cy="214" r="17" fill="#fff" stroke="#111" stroke-width="5"></circle>
+            <circle cx="182" cy="218" r="7" fill="#111"></circle>
+            <circle cx="238" cy="218" r="7" fill="#111"></circle>
+            <path d="M180 270 Q195 254 210 270 T240 270" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round"></path>
+            <path d="M296 160 Q316 194 296 208 Q276 194 296 160 Z" fill="#6FB6FF" stroke="#111" stroke-width="5" stroke-linejoin="round"></path>
+            <rect x="262" y="328" width="148" height="72" rx="18" fill="#FF3B30" stroke="#111" stroke-width="6"></rect>
+            <text x="336" y="379" text-anchor="middle" style="font-family:'Cairo',system-ui,sans-serif;font-weight:900;font-size:40px" fill="#111">ذاكر!</text>
+          </svg>
+          <div class="days-tag">باقي <span id="tagDays">00</span> يوم</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAPE -->
+    <div class="tape" aria-hidden="true">
+      ذاكر • ماتأجلش • ركّز • ذاكر • ماتأجلش • ركّز • ذاكر • ماتأجلش • ركّز • ذاكر • ماتأجلش • ركّز • ذاكر • ماتأجلش • ركّز
+    </div>
+
+    <!-- RUN TRACK -->
+    <section id="track" class="wrap" aria-labelledby="trackTitle">
+      <div class="sec-head">
+        <div>
+          <h2 id="trackTitle">مضمارك</h2>
+          <div class="sec-sub">كل ما تخلّص مادة، العدّاء بيتقدم خطوة. علّم على المادة من الجايد بتاعها.</div>
+        </div>
+        <div class="count-badge"><span class="mono" id="doneCount">0/6</span> خلّصت</div>
+      </div>
+
+      <div class="track-card">
+        <div class="run-msg" id="runMsg" aria-live="polite">لسه على خط البداية. افتح أول مادة وابدأ المذاكرة.</div>
+
+        <div class="lane" id="lane">
+          <div class="asphalt"></div>
+          <div class="dashes"></div>
+          <div id="checkpoints"></div>
+
+          <div class="runner" id="runner" style="right:calc((100% - 96px) * 0)">
+            <div class="arrived" id="arrived" hidden>وصلت!</div>
+            <svg viewBox="0 0 120 132" role="img" aria-label="مهندس شايل مسطرة بيجري ناحية خط النهاية">
+              <ellipse cx="62" cy="127" rx="30" ry="4" fill="rgba(0,0,0,0.25)"></ellipse>
+              <g class="speed" stroke="#111" stroke-width="4" stroke-linecap="round">
+                <line x1="92" y1="58" x2="116" y2="58"></line>
+                <line x1="96" y1="72" x2="118" y2="72"></line>
+                <line x1="92" y1="86" x2="112" y2="86"></line>
+              </g>
+              <g transform="rotate(-8 62 100)">
+                <g class="runBob">
+                  <g class="legB">
+                    <path d="M62 88 L62 114" stroke="#111" stroke-width="13" stroke-linecap="round" fill="none"></path>
+                    <path d="M62 88 L62 114" stroke="#FFC9A0" stroke-width="6" stroke-linecap="round" fill="none"></path>
+                    <rect x="46" y="112" width="22" height="11" rx="5" fill="#FF3B30" stroke="#111" stroke-width="4"></rect>
+                  </g>
+                  <g class="armB">
+                    <path d="M60 62 L60 84" stroke="#111" stroke-width="11" stroke-linecap="round" fill="none"></path>
+                    <path d="M60 62 L60 84" stroke="#FFC9A0" stroke-width="5" stroke-linecap="round" fill="none"></path>
+                    <circle cx="60" cy="86" r="6" fill="#FFC9A0" stroke="#111" stroke-width="4"></circle>
+                  </g>
+                  <rect x="46" y="52" width="32" height="38" rx="11" fill="#FF3B30" stroke="#111" stroke-width="5"></rect>
+                  <text x="62" y="78" text-anchor="middle" fill="#FFD60A" style="font-family:'Cairo',system-ui,sans-serif;font-weight:900;font-size:22px">م</text>
+                  <rect x="46" y="86" width="32" height="14" rx="5" fill="#6FB6FF" stroke="#111" stroke-width="4"></rect>
+                  <g class="legA">
+                    <path d="M62 88 L62 114" stroke="#111" stroke-width="13" stroke-linecap="round" fill="none"></path>
+                    <path d="M62 88 L62 114" stroke="#FFC9A0" stroke-width="6" stroke-linecap="round" fill="none"></path>
+                    <rect x="46" y="112" width="22" height="11" rx="5" fill="#FF3B30" stroke="#111" stroke-width="4"></rect>
+                  </g>
+                  <circle cx="66" cy="34" r="19" fill="#FFC9A0" stroke="#111" stroke-width="5"></circle>
+                  <path d="M45 29 Q43 5 66 5 Q89 5 87 29 Z" fill="#FFD60A" stroke="#111" stroke-width="4" stroke-linejoin="round"></path>
+                  <rect x="60" y="5" width="12" height="22" fill="#FF9A2E" stroke="#111" stroke-width="3"></rect>
+                  <rect x="38" y="26" width="52" height="9" rx="4.5" fill="#FFD60A" stroke="#111" stroke-width="4"></rect>
+                  <circle cx="57" cy="38" r="3.5" fill="#111"></circle>
+                  <path d="M52 47 Q57 52 63 47" fill="none" stroke="#111" stroke-width="3.5" stroke-linecap="round"></path>
+                  <path d="M88 40 Q94 50 88 55 Q82 50 88 40 Z" fill="#6FB6FF" stroke="#111" stroke-width="3" stroke-linejoin="round"></path>
+                  <g class="armA">
+                    <path d="M60 62 L60 84" stroke="#111" stroke-width="11" stroke-linecap="round" fill="none"></path>
+                    <path d="M60 62 L60 84" stroke="#FFC9A0" stroke-width="5" stroke-linecap="round" fill="none"></path>
+                    <rect x="26" y="82" width="62" height="12" rx="2" fill="#FFD60A" stroke="#111" stroke-width="3"></rect>
+                    <path d="M34 82 v6 M42 82 v8 M50 82 v6 M58 82 v8 M66 82 v6 M74 82 v8 M82 82 v6" stroke="#111" stroke-width="2" fill="none"></path>
+                    <circle cx="60" cy="86" r="6" fill="#FFC9A0" stroke="#111" stroke-width="4"></circle>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="chips" id="chips"></div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="wrap" aria-labelledby="schedTitle">
+      <div class="sec-head">
+        <div>
+          <h2 id="schedTitle">الجدول</h2>
+          <div class="sec-sub">جدول مقترح امتحانات نصف الفصل الدراسي الأول 2026/2027 • جامعة القاهرة – كلية الهندسة • لائحة 2023</div>
+        </div>
+        <div class="hint">دوس على أي مادة تفتح جايدها</div>
+      </div>
+
+      <div class="table-box">
+        <div class="tbl" role="table" aria-label="جدول امتحانات الميد" id="schedTable"></div>
+      </div>
+      <p class="scroll-note">اسحب الجدول يمين وشمال لو الشاشة صغيرة.</p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="wrap footer">
+    <div class="footer-card">
+      <div class="footer-title">ذاكر… والباقي على <span style="color:#FFD60A">ربنا</span></div>
+      <div class="footer-sub">من شباب لشباب</div>
+    </div>
+  </footer>
+</div>
+
+<!-- SUBJECT GUIDE DIALOG -->
+<div class="dlg-wrap" id="guideDialog" hidden>
+  <button class="dlg-backdrop" data-close aria-label="إغلاق الجايد"></button>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+    <div class="dlg-head" id="dlgHead">
+      <div style="min-width:0">
+        <span class="code-pill dlg-code" dir="ltr" id="dlgCode"></span>
+        <h3 id="dlgTitle"></h3>
+        <div class="dlg-en" dir="ltr" id="dlgEn"></div>
+      </div>
+      <button class="dlg-x" id="dlgCloseBtn" data-close aria-label="إغلاق">×</button>
+    </div>
+    <div class="dlg-body">
+      <div class="info-row">
+        <div class="info"><div class="info-k">الميعاد</div><div class="info-v" id="dlgDate"></div></div>
+        <div class="info"><div class="info-k">الوقت</div><div class="info-v mono" style="font-size:15px;line-height:1.7" id="dlgTime"></div></div>
+        <div class="info"><div class="info-k">القاعة</div><div class="info-v" id="dlgHall"></div></div>
+        <div class="info dark"><div class="info-k">باقي</div><div class="info-v" id="dlgLeft"></div></div>
+      </div>
+
+      <div class="dlg-note" id="dlgNote" hidden></div>
+
+      <button class="dlg-done" id="dlgDone"></button>
+
+      <h4><span>محتوى الميد (المقرر الرسمي)</span><span class="syl-count" id="sylCount">0/0</span></h4>
+      <div class="syl-list" id="dlgSyllabus"></div>
+
+      <h4>عن المادة</h4>
+      <p class="dlg-about" id="dlgAbout"></p>
+
+      <h4>مصادر المذاكرة</h4>
+      <div class="res-grid" id="dlgRes"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var HEATS = ['#FFE14D', '#FFC02E', '#FF9A2E', '#FF6B3D', '#FF4A3D', '#E5231B'];
+  var GREEN = '#7CE08F';
+  var DONE_KEY = 'mid-done-v1';
+  var TOPICS_KEY = 'mid-topics-v1';
+  var MAIN = 'index.html?view=main';
+
+  // type: 'hot' = مصدر مميز، 'site' = جوه الموقع (بيفتح في نفس التاب)
+  var RAW = [
+    { dayName: 'السبت', dateLabel: '7/11/2026', none: true },
+    {
+      dayName: 'الأحد', dateLabel: '8/11/2026', iso: '2026-11-08T09:00:00',
+      code: 'EPEG113', arName: 'الهندسة الكهربية والإلكترونية', enName: 'Electrical and Electronics Engineering', short: 'كهربا',
+      hall: 'ميكانيكا (ج)', time: '9:00 – 10:30',
+      about: 'مقدمة في الدوائر الكهربية وأساسيات الإلكترونيات لطلبة الميكانيكا. المطلوب فهم القوانين الأساسية وتطبيقها في حل المسائل.',
+      syllabus: ["DC Circuits (Ohm's Law, KCL, KVL, Nodal, Mesh, Superposition, Thevenin, Source Transformation)"],
+      note: '🎉 الحاجات الملغية من منهج الـ DC: نظرية Norton ملغية تماماً، والـ Dependent Sources ملغية في أسئلة Thevenin & Superposition!',
+      noteBg: '#FFD60A',
+      resources: [
+        { label: 'شيت طرق الحل الأهم (Nodal & Mesh)', href: 'https://drive.google.com/drive/folders/1pj7mKzRcy2QrC__ZFXAxjSmxQHK51Iii', type: 'hot' },
+        { label: 'ملخص أهم التركات والأفكار', href: 'https://drive.google.com/file/d/1k7DsSMELdv1FK6vDfaKlP3ijnM5Zly7k/view?usp=drivesdk' },
+        { label: 'أسئلة الريفرنس (ركز من 6 لـ 9)', href: 'https://drive.google.com/drive/folders/1Bv95fwz7Uw0DpBGCGslyl5UCjZvpXxq_' },
+        { label: 'كويزات وميدات سابقة من قسم كهربا', href: 'https://drive.google.com/drive/folders/1fouTNz6FgVSRZiIz61iDARn_pIRdVxW_' }
+      ]
+    },
+    {
+      dayName: 'الإثنين', dateLabel: '9/11/2026', iso: '2026-11-09T09:00:00',
+      code: 'MDPG121', arName: 'علم المواد', enName: 'Materials Science', short: 'مواد',
+      hall: 'ميكانيكا (ج)', time: '9:00 – 10:30',
+      about: 'بتتكلم عن تركيب المواد الهندسية وخواصها وسلوكها تحت الأحمال المختلفة، وإزاي نختار المادة المناسبة لكل استخدام.',
+      syllabus: ['1. Introduction', '2. Atomic Structure', '3. Crystal Structure', '4. Crystal Defects', '5. Mechanical Properties', '6. Strengthening'],
+      note: '⚡ تحدي الـ 22 ساعة: الامتحان تاني يوم علطول بعد السيركتس بدون راحة — ركز على سلايدات السكشن وكويزات وأسينمنتات السنة اللي فاتت!',
+      noteBg: '#FF9A2E',
+      resources: [
+        { label: 'سلايدات السكشن (Tutorial Slides)', href: 'https://drive.google.com/file/d/1Y5_Qf5AIDxCfrk-3xMhINI9qyEO-IDTc/view?usp=drivesdk', type: 'hot' },
+        { label: 'كويزات وميدتيرمات سابقة بالحل', href: 'https://drive.google.com/drive/folders/1-yeXybwOFT1tQPo8-oVQXAfYAlcpnprr' },
+        { label: 'أسينمنتات السنة اللي فاتت بالحل', href: 'https://drive.google.com/drive/folders/1qmlZ4WhUtwsi6PkgXexuX_5jPVpy0UkP' },
+        { label: 'فتح جايد المادة الكامل في الموقع', href: MAIN + '#guide', type: 'site' }
+      ]
+    },
+    {
+      dayName: 'الثلاثاء', dateLabel: '10/11/2026', iso: '2026-11-10T09:00:00',
+      code: 'GENG119', arName: 'مبادئ ريادة الأعمال والتسويق', enName: 'Principles of Entrepreneurship & Marketing', short: 'ريادة',
+      hall: 'ميكانيكا (ج)', time: '9:00 – 10:30',
+      about: 'أساسيات تأسيس المشروعات الجديدة وتحليل السوق وأساسيات التسويق. غالباً مادة حفظ وفهم مفاهيم، والأسئلة بتيجي من الـ Test Bank.',
+      syllabus: ['Chapter 1 + Chapter 2 + Chapter 3'],
+      note: '🏖️ استراحة المحارب: 3 شباتر بس! ذاكر الملخصات وحل بنوك الأسئلة من المحاكي التفاعلي.',
+      noteBg: '#7CE08F',
+      resources: [
+        { label: 'تشغيل محاكي كويزات الماركتنج', href: MAIN + '#tasks', type: 'site' },
+        { label: 'Test Bank CH 2', href: 'https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk', type: 'hot' },
+        { label: 'ملخص الشابتر الثاني (CH 2 Summary)', href: 'https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk' },
+        { label: 'سلايدات المحاضرات', href: 'https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk' }
+      ]
+    },
+    {
+      dayName: 'الأربعاء', dateLabel: '11/11/2026', iso: '2026-11-11T09:00:00',
+      code: 'EMCG101', arName: 'ديناميكا الأجسام الجاسئة', enName: 'Dynamics of Rigid Bodies', short: 'ديناميكا',
+      hall: 'ميكانيكا (ج)', time: '9:00 – 10:30',
+      about: 'حركة الأجسام الصلبة وعلاقتها بالقوى المؤثرة عليها: عزم القصور الذاتي، كينماتيكا الأجسام المستوية، وقوانين نيوتن وتطبيقاتها في الكينتكس.',
+      syllabus: [
+        'Chapter 1 (THE 1 — Moment of Inertia)',
+        'Chapter 2 (THE 2, 3, 4 — Plane Kinematics of Rigid Bodies)',
+        'Chapter 3 (THE 5 — Kinetics of Rigid Bodies)'
+      ],
+      note: '🎯 خريطة الميدتيرم: الامتحان بيركز بشكل أساسي على كل أفكار الـ 5 امتحانات Take-Home (THE 1 لحد THE 5) وشيتات السكاشن!',
+      noteBg: '#FFD60A',
+      resources: [
+        { label: 'فولدر محاضرات الـ PDF وشيتات التمارين (د. سمير)', href: 'https://drive.google.com/drive/folders/1fbGTWzv6phQayo0PzQAxfRg7v1kyk5_Y', type: 'hot' },
+        { label: 'شيت 1 (CG & MOI) + الحلول', href: 'https://drive.google.com/drive/folders/1TBDzw8XTrf6iuYgT_73Ybhus1JbJa1pg' },
+        { label: 'سلايدات Chapter 2 (Kinematics)', href: 'https://drive.google.com/file/d/1raAP-bxC_Z8xD0bTM2kAL0LCd9p2CzvB/view?usp=drivesdk' },
+        { label: 'شيت 2 (Kinematics)', href: 'https://drive.google.com/file/d/1J0UdPRuvF4PgX-rLrunlO9UbOhmtY7Fq/view?usp=drivesdk' },
+        { label: 'الحل النموذجي لشيت 2', href: 'https://drive.google.com/file/d/1GfpDWDYV4baCYyvacoUA3GbmPHdx-eBw/view?usp=drivesdk' },
+        { label: 'فولدر درايف دكتور سمير الرسمي', href: 'https://drive.google.com/drive/folders/1n9oTRCo6iE-k-MLe4rCGgVSnjuwtG1h_' },
+        { label: 'درايف الدفعة لمادة الديناميكا الشامل', href: 'https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT' },
+        { label: 'سكاشن م. أحمد فوزي (يوتيوب)', href: 'https://youtube.com/playlist?list=PLO2pEkARUG7gJgjD7oF0u6nv_dhE-y36I&si=2Rf_nz5QBlo_5ZgP' },
+        { label: 'جايد الديناميكا في الموقع', href: MAIN + '#guide', type: 'site' }
+      ]
+    },
+    {
+      dayName: 'الخميس', dateLabel: '12/11/2026', iso: '2026-11-12T09:00:00',
+      code: 'MTHG102', arName: 'الجبر الخطي وتكامل المتغيرات المتعددة', enName: 'Linear Algebra and Multivariable Integrals', short: 'جبر',
+      hall: 'ميكانيكا (ج)', time: '9:00 – 10:30',
+      about: 'المصفوفات والفراغات المتجهة، وتكامل الدوال متعددة المتغيرات. الميد من 30 درجة (20 تكامل + 10 جبر) — مادة مسائل وتحتاج تدريب كتير.',
+      syllabus: [
+        'a) Integration: Double Integrals + Triple Integrals (من غير الـ Applications!)',
+        'b) Linear Algebra: لغاية ما الدكتور تقف في المحاضرة الجاية 🙂'
+      ],
+      note: '🎉 خبر حلو: الـ Applications ملغية من الـ Triple Integrals! وفي الجبر الخطي المقرر لحد ما الدكتورة تقف في المحاضرة الجاية 🙂',
+      noteBg: '#7CE08F',
+      resources: [
+        { label: 'درايف الدفعة لمادة الماث', href: 'https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD', type: 'hot' },
+        { label: 'فولدر أساينمنت اللينير (Assignment 1)', href: 'https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl' },
+        { label: 'تكامل متعدد — سكاشن م. باسم', href: 'https://youtube.com/playlist?list=PLMgw9qylvawgvPycR_kCxQV69oVBL1nfE&si=FwJb50mY-rE0DW4p' },
+        { label: 'جبر خطي — د. أحمد عصام (سيستم الحل)', href: 'https://youtube.com/playlist?list=PLPAM-Io7zvPrGUSNKLNgSpSFhgGxiXexz&si=4jvfWlMZaTa4_vLb' },
+        { label: 'جبر خطي — د. سماح (فهم الـ Concepts)', href: 'https://youtube.com/playlist?list=PLm0BTSPNOKJRl_MaRhKPKb46bv2RlR-bK&si=5IMdIy3hQ5bjb-NQ' },
+        { label: 'جايد المادة في الموقع', href: MAIN + '#guide', type: 'site' }
+      ]
+    },
+    {
+      dayName: 'الأحد', dateLabel: '15/11/2026', iso: '2026-11-15T10:00:00',
+      code: 'MDPG111', arName: 'الرسم الميكانيكي بالحاسب', enName: 'Computer-Aided Mechanical Drafting', short: 'رسم',
+      hall: 'صالة (د، ب) بمبنى 15', time: '10:00 – 12:00',
+      about: 'الرسم الهندسي باستخدام SolidWorks (Parts, Assembly, Drawing)، وفيه جزء نظري مهم (المسامير والقلاووظ والسوست والـ keys والـ bearing) مصدره الوحيد السكشن والمحاضرة.',
+      syllabus: ['شيتات السوليدوركس الـ 4 (Parts, Assembly, Drawing) + الجزء النظري المشروح في السكاشن.'],
+      note: '🚨 تنبيه مزدوج: 1) القاعة والوقت مختلفين عن باقي الامتحانات (صالة د، ب بمبنى 15، من 10:00 لـ 12:00). 2) احتمال كبير جداً ييجي نظري على كلام المعيد فضروري يتذاكر مع أي حاجة اتعلمناها في السكشن!',
+      noteBg: '#FF3B30',
+      resources: [
+        { label: '⭐ نصائح وطريقة امتحان الميدتيرم', href: 'https://youtu.be/fa5p6_O0EE4?si=dWPvqLzO9pB95F1h', type: 'hot' },
+        { label: 'منصة الـ CAD Hub في الموقع', href: MAIN + '#cad', type: 'site' },
+        { label: 'شيت 1 — Pulley Bracket (فيديو)', href: 'https://youtu.be/VLVvU0LWBZQ?si=gQ0OFEv1XpZl2R8c' },
+        { label: 'شيت 2 — Clamping Device (فيديو)', href: 'https://youtu.be/Q3Eh8XHYCrY?si=QX_ioIozTn9tT8zY' },
+        { label: 'شيت 3 — Drafting & Exercises (ملفات)', href: 'https://drive.google.com/file/d/182v4K8ZNm70O6eacghqa1ryqRNjtXGIc/view?usp=drivesdk' },
+        { label: 'شيت 4 — Screw Jack: Parts Modeling', href: 'https://youtu.be/bzLBQT-f8Yw?si=Ta1sEorvzghMDnxg' },
+        { label: 'شيت 4 — Screw Jack: Assembly', href: 'https://youtu.be/tbj3Tm2vBL4?si=xKgtG9-Ftl2tgl6D' },
+        { label: 'شيت 4 — Screw Jack: Drawing & Sections', href: 'https://youtu.be/we7FtlOofTU?si=4xEVRel3c8fm7PWf' }
+      ]
+    }
+  ];
+
+  // ===== State =====
+  var state = { sel: -1, done: {}, topics: {} };
+  var commitTimer = null;
+  try {
+    var d = JSON.parse(localStorage.getItem(DONE_KEY) || '{}');
+    if (d && typeof d === 'object') state.done = d;
+    var t = JSON.parse(localStorage.getItem(TOPICS_KEY) || '{}');
+    if (t && typeof t === 'object') state.topics = t;
+  } catch (e) {}
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+
+  // ===== Derived data =====
+  function compute() {
+    var k = -1;
+    RAW.forEach(function (r, i) {
+      if (r.none) { r.heat = '#E4DFCF'; return; }
+      k += 1;
+      r.n = k + 1;
+      r.isDone = !!state.done[i];
+      r.heat = r.isDone ? GREEN : HEATS[k];
+    });
+  }
+
+  function nextIndex(now) {
+    return RAW.findIndex(function (r) { return r.iso && new Date(r.iso) > now; });
+  }
+
+  function leftLabel(r) {
+    var now = new Date(), d = new Date(r.iso);
+    if (d <= now) return 'خلّص';
+    return Math.ceil((d - now) / 864e5) + ' يوم';
+  }
+
+  // ===== Countdown =====
+  var lastNext = null;
+  function renderCountdown() {
+    var now = new Date();
+    var ni = nextIndex(now);
+    var first = ni >= 0 ? new Date(RAW[ni].iso) : null;
+    var diff = first ? Math.max(0, first - now) : 0;
+    var days = Math.floor(diff / 864e5);
+    $('cdDays').textContent = pad(days);
+    $('cdHours').textContent = pad(Math.floor((diff % 864e5) / 36e5));
+    $('cdMins').textContent = pad(Math.floor((diff % 36e5) / 6e4));
+    $('tagDays').textContent = pad(days);
+    $('firstLabel').textContent = first ? RAW[ni].dayName + ' ' + RAW[ni].dateLabel : '—';
+    if (lastNext !== null && lastNext !== ni) renderTable(); // تحديث بادج "الجاي"
+    lastNext = ni;
+  }
+
+  // ===== Track =====
+  function renderTrack() {
+    var subjects = RAW.filter(function (r) { return !r.none; });
+    var total = subjects.length;
+    var doneCount = subjects.filter(function (r) { return r.isDone; }).length;
+    var progress = total ? doneCount / total : 0;
+
+    $('doneCount').textContent = doneCount + '/' + total;
+
+    var msg = 'لسه على خط البداية. افتح أول مادة وابدأ المذاكرة.';
+    if (doneCount > 0) msg = 'بدأت الجري. كمّل ومتقفش.';
+    if (doneCount >= total / 2) msg = 'عدّيت نص الطريق. باقي ' + (total - doneCount) + ' مواد.';
+    if (doneCount === total - 1) msg = 'باقي مادة واحدة وتوصل خط النهاية.';
+    if (doneCount === total) msg = 'وصلت خط النهاية! خلّصت كل المواد. الله ينور.';
+    $('runMsg').textContent = msg;
+
+    $('runner').style.right = 'calc((100% - 96px) * ' + progress.toFixed(4) + ')';
+    $('arrived').hidden = !(doneCount === total && total > 0);
+
+    var cps = '', chips = '';
+    RAW.forEach(function (r, i) {
+      if (r.none) return;
+      var pos = 'calc((100% - 96px) * ' + (r.n / total).toFixed(4) + ' + 48px)';
+      cps += '<div class="cp" aria-hidden="true" style="right:' + pos + '">' +
+        '<span class="cp-dot" style="background:' + (r.isDone ? GREEN : '#FFD60A') + '">' + r.n + '</span>' +
+        '<span class="cp-pole"></span></div>';
+      chips += '<button class="chip" id="chip-' + r.code + '" data-open="' + i + '" aria-label="افتح جايد ' + esc(r.arName) + (r.isDone ? ' (خلّصتها)' : '') + '" style="background:' + (r.isDone ? '#E6F9EA' : '#FFFFFF') + '">' +
+        '<span class="mono">' + r.n + '</span><span>' + esc(r.short) + '</span><span>' + (r.isDone ? '✓' : '') + '</span></button>';
+    });
+    $('checkpoints').innerHTML = cps;
+    $('chips').innerHTML = chips;
+  }
+
+  // ===== Table =====
+  function renderTable() {
+    var ni = nextIndex(new Date());
+    var side = function (label, role) { return '<div role="' + role + '" class="th-side">' + label + '</div>'; };
+    var rowHead = '', rowDate = '', rowSubj = '', rowHall = '', rowTime = '';
+
+    RAW.forEach(function (r, i) {
+      var badges = '';
+      if (r.isDone) badges += '<span class="badge-blk" style="color:#7CE08F">✓ خلّصت</span>';
+      if (i === ni) badges += '<span class="badge-blk" style="color:#FFD60A">الجاي</span>';
+      rowHead += '<div role="columnheader" class="th-day" style="background:' + r.heat + '"><span>' + r.dayName + '</span>' + badges + '</div>';
+      rowDate += '<div role="cell" class="td td-date">' + r.dateLabel + '</div>';
+
+      if (r.none) {
+        rowSubj += '<div role="cell" class="td td-subj"><div class="rest">يوم راحة</div></div>';
+      } else {
+        rowSubj += '<div role="cell" class="td td-subj"><button class="subj" id="subj-' + r.code + '" data-open="' + i + '" style="background:' + (r.isDone ? '#E6F9EA' : '#FFFFFF') + '">' +
+          '<span class="subj-ar">' + esc(r.arName) + '</span>' +
+          '<span class="subj-en" dir="ltr">' + esc(r.enName) + '</span>' +
+          '<span class="code-pill" dir="ltr">' + r.code + '</span>' +
+          (r.isDone ? '<span class="done-pill">✓ خلّصتها</span>' : '') +
+          '<span class="open-link">افتح الجايد ←</span></button></div>';
+      }
+      rowHall += '<div role="cell" class="td td-hall">' + (r.none ? '—' : esc(r.hall)) + '</div>';
+      rowTime += '<div role="cell" class="td td-time">' + (r.none ? '—' : r.time) + '</div>';
+    });
+
+    $('schedTable').innerHTML =
+      '<div role="row" class="tr">' + side('اليوم', 'columnheader') + rowHead + '</div>' +
+      '<div role="row" class="tr">' + side('التاريخ', 'rowheader') + rowDate + '</div>' +
+      '<div role="row" class="tr">' + side('المادة', 'rowheader') + rowSubj + '</div>' +
+      '<div role="row" class="tr">' + side('القاعة', 'rowheader') + rowHall + '</div>' +
+      '<div role="row" class="tr">' + side('الوقت', 'rowheader') + rowTime + '</div>';
+  }
+
+  // ===== Dialog =====
+  var lastFocus = null;
+  function renderDialog() {
+    var s = state.sel;
+    var wrap = $('guideDialog');
+    if (s < 0 || !RAW[s] || RAW[s].none) {
+      wrap.hidden = true;
+      document.body.classList.remove('dlg-open');
+      return;
+    }
+    var r = RAW[s];
+    $('dlgHead').style.background = r.heat;
+    $('dlgCode').textContent = r.code;
+    $('dlgTitle').textContent = r.arName;
+    $('dlgEn').textContent = r.enName;
+    $('dlgDate').textContent = r.dayName + ' ' + r.dateLabel;
+    $('dlgTime').textContent = r.time;
+    $('dlgHall').textContent = r.hall;
+    $('dlgLeft').textContent = leftLabel(r);
+
+    var note = $('dlgNote');
+    note.hidden = !r.note;
+    note.textContent = r.note || '';
+    note.style.background = r.noteBg || '#FF3B30';
+
+    var btn = $('dlgDone');
+    btn.setAttribute('aria-pressed', r.isDone ? 'true' : 'false');
+    btn.style.background = r.isDone ? GREEN : '#111111';
+    btn.style.color = r.isDone ? '#111111' : '#FFD60A';
+    btn.textContent = r.isDone ? '✓ خلّصتها (دوس لو عايز تلغي)' : 'خلّصت المادة دي → قدّم العدّاء';
+
+    var checks = state.topics[r.code] || [];
+    var on = 0;
+    $('dlgSyllabus').innerHTML = r.syllabus.map(function (txt, j) {
+      var c = !!checks[j]; if (c) on++;
+      return '<button class="syl' + (c ? ' on' : '') + '" data-topic="' + j + '" aria-pressed="' + c + '">' +
+        '<span class="syl-box" aria-hidden="true">' + (c ? '✓' : '') + '</span>' +
+        '<span class="syl-txt" dir="auto">' + esc(txt) + '</span></button>';
+    }).join('');
+    $('sylCount').textContent = on + '/' + r.syllabus.length;
+
+    $('dlgAbout').textContent = r.about;
+
+    $('dlgRes').innerHTML = r.resources.map(function (x) {
+      var site = x.type === 'site';
+      var cls = 'cta res' + (x.type === 'hot' ? ' hot' : '') + (site ? ' site' : '');
+      var attrs = site ? ' data-main' : ' target="_blank" rel="noopener noreferrer"';
+      return '<div class="res-cell"><a class="' + cls + '" href="' + esc(x.href) + '"' + attrs + '>' +
+        '<span>' + esc(x.label) + '</span><span aria-hidden="true">' + (site ? '←' : '↗') + '</span></a></div>';
+    }).join('');
+
+    if (wrap.hidden) {
+      lastFocus = document.activeElement;
+      wrap.hidden = false;
+      document.body.classList.add('dlg-open');
+      $('dlgCloseBtn').focus({ preventScroll: true });
+      wrap.querySelector('.dlg').scrollTop = 0;
+    }
+  }
+
+  function renderAll() {
+    compute();
+    renderTrack();
+    renderTable();
+    renderDialog();
+  }
+
+  function openSel(i) { state.sel = i; renderDialog(); }
+  function closeSel() {
+    state.sel = -1;
+    renderDialog();
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  function commitDone(i) {
+    state.done[i] = !state.done[i];
+    if (!state.done[i]) delete state.done[i];
+    try { localStorage.setItem(DONE_KEY, JSON.stringify(state.done)); } catch (e) {}
+    renderAll();
+  }
+
+  function markDone(i) {
+    if (state.done[i]) { commitDone(i); return; }
+    state.sel = -1;
+    renderDialog();
+    var el = $('track');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    clearTimeout(commitTimer);
+    commitTimer = setTimeout(function () { commitDone(i); }, 550);
+  }
+
+  function toggleTopic(j) {
+    var r = RAW[state.sel];
+    if (!r) return;
+    var arr = (state.topics[r.code] || []).slice();
+    arr[j] = !arr[j];
+    state.topics[r.code] = arr;
+    try { localStorage.setItem(TOPICS_KEY, JSON.stringify(state.topics)); } catch (e) {}
+    renderDialog();
+  }
+
+  // ===== Events =====
+  document.addEventListener('click', function (e) {
+    var main = e.target.closest('[data-main]');
+    if (main) {
+      // يمنع إعادة التوجيه من index.html لما الطالب يختار يروح للتطبيق الرئيسي
+      try { sessionStorage.setItem('skipMidtermRedirect', 'true'); } catch (err) {}
+      return;
+    }
+    var op = e.target.closest('[data-open]');
+    if (op) { openSel(+op.getAttribute('data-open')); return; }
+    if (e.target.closest('[data-close]')) { closeSel(); return; }
+    var tp = e.target.closest('[data-topic]');
+    if (tp) { toggleTopic(+tp.getAttribute('data-topic')); return; }
+    if (e.target.closest('#dlgDone')) { markDone(state.sel); }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && state.sel >= 0) closeSel();
+  });
+
+  renderAll();
+  renderCountdown();
+  setInterval(renderCountdown, 1000);
+})();
+</script>
+</body>
+</html>

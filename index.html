@@ -2,6 +2,20 @@
 <html lang="ar" dir="ltr" data-theme="dark">
 <head>
   <meta charset="UTF-8">
+  <!-- Midterm Landing Redirect: midterms.html هي الصفحة الافتراضية (بيشتغل قبل أي سكريبت تاني) -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var isMainView = params.get('view') === 'main';
+        var hasHash = window.location.href.indexOf('#') !== -1;
+        var skip = sessionStorage.getItem('skipMidtermRedirect') === 'true';
+        if (!isMainView && !hasHash && !skip) {
+          window.location.replace('midterms.html');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="جدول ME1 الدفعة 30 — هندسة القاهرة ميكانيكا: الجدول اليومي والأسبوعي، الكويزات، المهام، ودليل المذاكرة.">
   <title>CUFE Mechanical 1 Schedule — CUFE ME1 — Batch 30 Timetable</title>
@@ -22,6 +36,13 @@
   <link rel="stylesheet" href="style.css?v=125">
   <!-- Design refresh layer: accessibility floor, tokens, touch targets (loads last) -->
   <link rel="stylesheet" href="design-refresh.css?v=1">
+
+  <!-- Midterm Sticker Button (Neo-Brutalist) -->
+  <style>
+    .mid-sticker-btn{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;background:#FFD60A !important;color:#111 !important;border:3px solid #111 !important;border-radius:12px;box-shadow:4px 4px 0 #111;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;font-weight:800;font-size:13.5px;text-decoration:none;white-space:nowrap;transform:rotate(-2deg);transition:transform .15s,box-shadow .15s}
+    .mid-sticker-btn:hover{transform:rotate(-2deg) translate(-2px,-2px);box-shadow:6px 6px 0 #111}
+    .mid-sticker-btn:active{transform:rotate(-2deg) translate(2px,2px);box-shadow:1px 1px 0 #111}
+  </style>
 </head>
 <body>
 
@@ -44,6 +65,11 @@
       </div>
 
       <div class="top-actions">
+        <a href="midterms.html" class="mid-sticker-btn" id="midtermHubBtn" title="جدول امتحانات الميد ومضمار التقدم">
+          <span aria-hidden="true">🔥</span>
+          <span>جدول ومضمار الميد</span>
+        </a>
+
         <a href="promo.html" class="action-btn promo-link-btn" id="promoTourBtn" title="شاهد العرض السينمائي والجولة التعريفية للمنصة" style="text-decoration: none; background: linear-gradient(135deg, rgba(234, 88, 12, 0.22), rgba(139, 92, 246, 0.22)); border: 1px solid rgba(234, 88, 12, 0.5); color: #fed7aa; display: inline-flex; align-items: center; gap: 6px; font-weight: 800;">
           <span aria-hidden="true">🎬</span>
           <span>جولة سريعة</span>
@@ -398,6 +424,15 @@
   <!-- Application Logic Scripts -->
   <script src="./data.js?v=125"></script>
   <script src="./app.js?v=125"></script>
+  <!-- Deep links من صفحة الميد (#tasks / #schedule) — app.js بيتعامل بس مع #guide و #cad -->
+  <script>
+    (function () {
+      var h = window.location.hash;
+      if (typeof setView !== 'function') return;
+      if (h.indexOf('#tasks') === 0) setView('tasks');
+      else if (h.indexOf('#schedule') === 0) setView('week');
+    })();
+  </script>
 </body>
 </html>
 
