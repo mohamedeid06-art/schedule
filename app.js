@@ -305,15 +305,23 @@ function openCourseLinksModal(code) {
       ${data.desc}
     </div>
 
+    ${code === "EMC G101" ? `
     <div style="margin-top:2px;">
       <button class="action-btn" style="width:100%;justify-content:center;background:rgba(99, 102, 241, 0.12);color:#6366f1;border-color:#6366f1;" onclick="closeLinksModal();openDynamicsRoadmapModal();">
         <span>🗺 فتح خريطة المنهج أسبوع بأسبوع (Roadmap)</span>
       </button>
     </div>
+    ` : code === "MTH G102" ? `
+    <div style="margin-top:2px;">
+      <button class="action-btn" style="width:100%;justify-content:center;background:rgba(2, 132, 199, 0.12);color:#0284c7;border-color:#0284c7;" onclick="closeLinksModal();openGuideWeek('Week 5', 'MTH G102');">
+        <span>📖 فتح جايد الأسابيع للماث (Week 1 — Week 5)</span>
+      </button>
+    </div>
+    ` : ''}
 
     <div class="capsule-box" style="border-left: 4px solid #8b5cf6;">
       <div class="capsule-box-head" style="color:#8b5cf6;">
-        <span>📊</span><span>شيتات المتابعة وأعمال السنة والفورمز</span>
+        <span>📊</span><span>${data.sheetsTitle || 'شيتات المتابعة وأعمال السنة والفورمز'}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px;">
         ${data.sheets.map(s => `
@@ -325,6 +333,7 @@ function openCourseLinksModal(code) {
       </div>
     </div>
 
+    ${data.social && data.social.length > 0 ? `
     <div class="capsule-box" style="border-left: 4px solid #2563eb;">
       <div class="capsule-box-head" style="color:#2563eb;">
         <span>👥</span><span>مجتمع المادة وجروبات التواصل</span>
@@ -338,6 +347,7 @@ function openCourseLinksModal(code) {
         `).join("")}
       </div>
     </div>
+    ` : ''}
 
     <div class="capsule-box" style="border-left: 4px solid #ef4444;">
       <div class="capsule-box-head" style="color:#ef4444;">
@@ -3706,19 +3716,18 @@ function renderGuideCard(activeItem, course, availableWeeks) {
 
 function renderGuideScreen() {
   const container = document.getElementById("viewContainer");
-  const availableWeeks = [...new Set(WEEKLY_GUIDE_DATA.map(d => d.week || "Week 2"))];
+  const allGuidedCourses = Object.keys(COURSES).filter(c => WEEKLY_GUIDE_DATA.some(d => d.code === c));
+  if (!allGuidedCourses.includes(selectedGuideCourse) && allGuidedCourses.length > 0) {
+    selectedGuideCourse = allGuidedCourses[0];
+  }
+
+  const courseItems = WEEKLY_GUIDE_DATA.filter(d => d.code === selectedGuideCourse);
+  const availableWeeks = [...new Set(courseItems.map(d => d.week || "Week 1"))];
   if (!availableWeeks.includes(selectedGuideWeek) && availableWeeks.length > 0) {
-    selectedGuideWeek = availableWeeks[0];
+    selectedGuideWeek = availableWeeks[availableWeeks.length - 1];
   }
 
-  const weekItems = WEEKLY_GUIDE_DATA.filter(d => d.week === selectedGuideWeek);
-  const availableCoursesInWeek = [...new Set(weekItems.map(d => d.code))];
-
-  if (!availableCoursesInWeek.includes(selectedGuideCourse) && availableCoursesInWeek.length > 0) {
-    selectedGuideCourse = availableCoursesInWeek[0];
-  }
-
-  const activeItem = weekItems.find(d => d.code === selectedGuideCourse);
+  const activeItem = courseItems.find(d => d.week === selectedGuideWeek);
   const course = COURSES[selectedGuideCourse] || { name: selectedGuideCourse, color: "var(--accent)" };
 
   container.innerHTML = `
@@ -3737,7 +3746,7 @@ function renderGuideScreen() {
         </div>
 
         <div class="guide-course-pills-bar">
-          ${availableCoursesInWeek.map(code => {
+          ${allGuidedCourses.map(code => {
             const cInfo = COURSES[code] || { color: 'var(--accent)' };
             const isActive = code === selectedGuideCourse;
             return `
@@ -4444,7 +4453,7 @@ if (bannerTrack) {
   setInterval(() => {
     const bannerContainer = document.getElementById("firstWeekBanner");
     const total = getCarouselCount();
-    if (bannerContainer && bannerContainer.style.display !== "none" && total > 0) {
+    if (bannerContainer && bannerContainer.style.display !== "none" && total > 1) {
       currentBannerIdx = (currentBannerIdx + 1) % total;
       goToBanner(currentBannerIdx);
     }

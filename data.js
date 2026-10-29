@@ -313,42 +313,58 @@ const MASTER_QUIZZES = [
   {
     id: "mth-assign-1",
     code: "MTH G102",
-    title: "Assignment 1 — Linear Algebra (سؤالين الشيت)",
+    title: "Assignment 2 — Linear Algebra (Vector Spaces & Subspaces)",
     type: "Assignment",
-    instructor: "Dr. Ahmed Abdelnaby & Dr. Lucy",
-    dateDisplay: "29 أكتوبر 2026 (Week 6/7)",
-    countdownBadge: "23d 14h 50m",
-    start: "2026-09-24T08:00:00",
-    deadline: "2026-10-29T11:00:00",
+    instructor: "Dr. Lucy & Dr. Sara",
+    dateDisplay: "متابعة في المحاضرة بالاسم (عليه بونص مع د. لوسي)",
+    countdownBadge: "Active Bonus 🎯",
+    start: "2026-10-20T08:00:00",
+    deadline: "2026-11-10T11:00:00",
     deadlinesByGroup: {
-      "ME1-01": "2026-10-29T09:00:00",
-      "ME1-02": "2026-10-26T10:00:00",
-      "ME1-03": "2026-10-26T13:00:00",
-      "ME1-04": "2026-10-29T11:00:00"
+      "ME1-01": "2026-11-10T09:00:00",
+      "ME1-02": "2026-11-10T10:00:00",
+      "ME1-03": "2026-11-10T13:00:00",
+      "ME1-04": "2026-11-10T11:00:00"
     },
     accent: "#38bdf8",
     accentName: "cyan",
-    submissionUrl: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl",
+    submissionUrl: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd",
     instructions: [
-      "حل السؤالين المحددين في آخر الشيت تحت عنوان Assignment بخط واضح.",
-      "تم تأجيل التسليم ليكون مجمعاً في الأسبوع السادس أو السابع.",
-      "لا يوجد غياب في السكشن والتسليم مجمع."
+      "📝 الأسئلة اللي علينا في Assignment 2 في الأسبوع ده: من 1 لـ 11 • سؤال 16(ii) • من 19 لـ 24.",
+      "⚠️ أي سؤال أو نقطة متعلقة بـ Basis أو Dimension أو Span لسه مخدناهوش فسيبوها دلوقتي.",
+      "🚨 ملحوظة مهمة جداً: د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي من كشف الأسماء وتطلب تشوف شغلهم في المادة (الـ assignment اللي بيتبعت ومذاكرتك للمادة) وقالت إنها ممكن تدي بونص على ده وأوقات ممكن تكرر الاسم في أكتر من محاضرة! فضروري الناس تحل والإجابات هتنزل قريباً إن شاء الله ❤️",
+      "📌 بالنسبة لـ Sheet 1 (Revision): هتلاقوا مكتوب عليه Assignment بس هو بنسبة كبيرة مش هيتسلم، ود. سارة هتخلي درجات أعمال السنة على كويزين.",
+      "📋 د. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد، والـ boards بتاعت السكشن بتنزل كل أسبوع على الدرايف."
     ],
     lectures: [
-      { id: "mth-lec-1", title: "Lecture 1 - Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-lec-2", title: "Lecture 2 - Linear Algebra Foundations", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" }
+      { id: "mth-la-rev", title: "مراجعة الـ Matrices (د. لوسي — تتقري قبل المحاضرة)", slides: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk" },
+      { id: "mth-la-lec1", title: "Linear Algebra Lec. 1 — Dr. Lucy PDF", slides: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY" },
+      { id: "mth-la-lec2", title: "Linear Algebra Lec. 2 — Vector Spaces & Subspaces (Dr. Lucy)", slides: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
+      { id: "mth-int-lec1", title: "Integration Lec. 1 — Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { id: "mth-int-lec2", title: "Integration Lec. 2 — Polar Regions + Applications", slides: "https://drive.google.com/file/d/1IxaAIvGE0t4ysmkjteIsfPXMAZHJOBgY/view?usp=drivesdk" },
+      { id: "mth-int-lec3", title: "Integration Lec. 3 — Triple Integrals", slides: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "mth-sht-1", title: "Sheet 1 & Assignment 1 (Double Integrals)", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-sht-2", title: "Linear Algebra Sheet 1", pdf: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" }
+      { id: "mth-la-asgn2", title: "Assignment 2 — Vector Spaces (المطلوب: 1-11, 16ii, 19-24)", pdf: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk", sol: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+      { id: "mth-la-sht1", title: "Linear Algebra Sheet 1 (Revision — مش هيتسلم)", pdf: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk", sol: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+      { id: "mth-int-sht1", title: "Integration Sheet 1 & Assignment 1", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-int-sht2", title: "Integration Sheet 2 & Assignment 2", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { id: "mth-int-sht3", title: "Integration Sheet 3 & Assignment 3", pdf: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI", sol: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "mth-vid-1", title: "م. عمار ياسر (شرح شامل)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
-      { id: "mth-vid-2", title: "م. أحمد المغربي (حل مسائل الشيت)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" }
+      { id: "mth-vid-mohab", title: "فيديوهات زميلكم مهاب لشرح وحل أسئلة الشيت والأسينمنت 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" },
+      { id: "mth-doc-all", title: "Lectures & Sections (لينكات محاضرات وسكاشن اللينير من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+      { id: "mth-notes-essam", title: "Notes Dr. Ahmed Essam (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
+      { id: "mth-notes-nabila", title: "Notes Dr. Nabila (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
+      { id: "mth-vid-ammar1", title: "م. عمار ياسر — Double Integrals Part 1 (للآخر)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
+      { id: "mth-vid-ammar-coord", title: "م. عمار ياسر — تحويلات الـ coordinates (مهمة جداً من calc2)", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" },
+      { id: "mth-vid-ammar-polar", title: "م. عمار ياسر — Polar regions", url: "https://youtu.be/QDhYk9H45NU?si=wno0MdzjRioiUxn5" },
+      { id: "mth-vid-ammar-triple", title: "م. عمار ياسر — Triple integrals", url: "https://youtu.be/GZdX5oC2-ao?si=Hc0YaCaPAz1J8Ck-" }
     ],
     formula: [
-      { id: "mth-form-1", title: "Double Integrals Standard Rules & Polar Transformations" },
-      { id: "mth-form-2", title: "Linear Systems & Matrix Row Operations Guide" }
+      { id: "mth-form-mid", title: "نظام الميد (30 درجة): 15 Integration (MCQ لحد Triple قبل الـ applications في مستوى كويزات LectraHub) + 15 Linear (شامل كل كلمة د. لوسي بتقولها في المحاضرة)" },
+      { id: "mth-form-boards", title: "Section Boards (سبورات السكشن بتنزل كل أسبوع هنا)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
     ]
   },
   {
@@ -448,20 +464,22 @@ const COURSE_STATIC_ASSIGNMENTS = [
   {
     id: "mth-assign-1",
     code: "MTH G102",
-    title: "Assignment 1 — Linear Algebra (سؤالين الشيت)",
+    title: "Assignment 2 — Linear Algebra (Vector Spaces & Subspaces)",
     type: "Assignment",
-    day: "Thursday",
-    start: "2026-09-24T08:00:00",
+    day: "Tuesday",
+    start: "2026-10-20T08:00:00",
     deadlinesByGroup: {
-      "ME1-01": "2026-10-29T09:00:00",
-      "ME1-02": "2026-10-26T10:00:00",
-      "ME1-03": "2026-10-26T13:00:00",
-      "ME1-04": "2026-10-29T11:00:00"
+      "ME1-01": "2026-11-10T09:00:00",
+      "ME1-02": "2026-11-10T10:00:00",
+      "ME1-03": "2026-11-10T13:00:00",
+      "ME1-04": "2026-11-10T11:00:00"
     },
-    folderUrl: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl",
-    desc: `حل السؤالين المحددين في آخر الشيت تحت عنوان Assignment بخط واضح.
-• تم تأجيل التسليم ليكون مجمعاً في الأسبوع السادس أو السابع.`,
-    note: "التسليم مجمع في الأسبوع 6 أو 7 ولا يوجد غياب في السكشن."
+    folderUrl: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk",
+    solutionUrl: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd",
+    desc: `الأسئلة اللي علينا في Assignment 2 في الأسبوع ده: من 1 لـ 11 • سؤال 16(ii) • من 19 لـ 24 (أي سؤال أو نقطة متعلقة بـ Basis أو Dimension أو Span لسه مخدناهوش).
+• د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي من كشف الأسماء وتطلب تشوف شغلهم في المادة (الـ assignment اللي بيتبعت ومذاكرتك للمادة) وقالت إنها ممكن تدي بونص على ده وأوقات ممكن تكرر الاسم في أكتر من محاضرة!
+• بالنسبة لـ Sheet 1 (Revision): مكتوب عليه Assignment بس هو بنسبة كبيرة مش هيتسلم ود. سارة هتخلي درجات أعمال السنة على كويزين.`,
+    note: "ضروري الناس تحل عشان د. لوسي بتنادي أسماء عشوائي في المحاضرة وتدي بونص والإجابات هتنزل قريباً إن شاء الله ❤️"
   },
   {
     id: "epe-assign-2",
@@ -495,18 +513,31 @@ const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 1",
     code: "MTH G102",
-    lectures: "Double Integrals (Part 1)",
+    lectures: "Weekly Guide for Lecture 1: Double Integrals (Part 1)",
     slides_url: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8",
-    sheet: "Sheet 1 & Assignment 1 (Double Integrals)",
+    sheet: "Sheet 1 & Assignment 1",
     sheet_url: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0",
     solution_url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
-    practice: "حل مسائل الشيت ومتابعة فيديوهات الشرح",
+    solution_label: "Solved Problems By Dr. Ahmed",
+    practice: "فيديوهات الشرح (م. عمار ياسر & م. أحمد المغربي) + فيديوهات حل الشيت والأسينمنت لزميلكم مهاب 🤍",
     playlists: [
-      { title: "م. عمار ياسر (كامل)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
-      { title: "م. أحمد المغربي (فيديو 1)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
-      { title: "م. أحمد المغربي (فيديو 2 لـ د 30:45)", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" }
+      { title: "م. عمار ياسر (الفيديو للآخر)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
+      { title: "م. أحمد المغربي (الفيديو الأول للآخر)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
+      { title: "م. أحمد المغربي (الفيديو التاني لحد الدقيقة 30:45)", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" },
+      { title: "فيديوهات شرح وحل أسئلة الـ Sheet والـ Assignment — زميلكم مهاب 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
     ],
-    summary_title: "ملاحظات ونوتس المحاضرة (Notes)",
+    summaries: [
+      { title: "Notes (نوتس وملخصات المحاضرة)", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" },
+      { title: "Solved Problems By Dr. Ahmed (مسائل محلولة لدكتور أحمد)", url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { title: "درايف فيديوهات حل الشيت والأسينمنت (زميلكم مهاب 🤍)", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" },
+      { title: "Section Boards (سبورات السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
+    ],
+    important_notes: [
+      "🤍 عشان لو حد عنده مشكلة في حل الـ sheet أو الـ assignment: زميلكم مهاب منزل فيديوهات بيشرح فيها أسئلة الشيت وإزاي تتحل على الدرايف ده، وبردو بتنزل على درايف الدفعة مع الحل.. يا ريت تدعوله دعوة حلوة 🤍",
+      "📋 كل أسبوع إن شاء الله الـ boards بتاعت السكشن هتنزل على الدرايف، ود. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد.",
+      "🎯 تريكة دكتور أحمد للميد: دكتور أحمد قال إن الـ integration في الميد في مستوى الـ practice quiz اللي بينزله لكل محاضرة على LectraHub — بيبقى 5 أسئلة MCQ على كل محاضرة بتحلهم وتشوف صح ولا غلط، وبعد ما بتخلص تقدر تمتحنه تاني وبيجيبلك 5 أسئلة جداد كل مرة عشان تمرن نفسك!"
+    ],
+    summary_title: "Notes + Solved Problems By Dr. Ahmed",
     summary_url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx"
   },
   {
@@ -544,19 +575,40 @@ const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 2",
     code: "MTH G102",
-    lectures: "Double Integrals (Part 2) — Polar Regions + Applications",
+    lectures: "Weekly Guide for Lecture 2: Double Integrals (Part 2) — Polar Regions + Applications",
     slides_url: "https://drive.google.com/file/d/1IxaAIvGE0t4ysmkjteIsfPXMAZHJOBgY/view?usp=drivesdk",
     sheet: "Sheet 2 & Assignment 2",
     sheet_url: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV",
     solution_url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N",
-    practice: "حل مسائل شيت 2 وتطبيقات الـ Mass & Centroid",
+    solution_label: "Solved Problems By Dr. Ahmed",
+    practice: "فيديوهات الشرح (م. عمار ياسر & م. أحمد المغربي) + فيديوهات زميلكم مهاب لحل الشيت 🤍",
     playlists: [
-      { title: "م. عمار ياسر — تحويلات الـ coordinates", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" },
-      { title: "م. عمار ياسر — Polar Regions", url: "https://youtu.be/QDhYk9H45NU?si=wno0MdzjRioiUxn5" },
+      { 
+        title: "م. عمار ياسر — شرح سريع لتحويلات الـ coordinates", 
+        url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW",
+        note: "💡 شرح سريع لتحويلات الـ coordinates كانت المفروض تتشرح في calc2 وهنحتاجها جداً هنا"
+      },
+      { title: "م. عمار ياسر — Polar regions", url: "https://youtu.be/QDhYk9H45NU?si=wno0MdzjRioiUxn5" },
       { title: "م. عمار ياسر — Applications", url: "https://youtu.be/j6eAM5iBsIw?si=DVE7LnWR4YTDNMpC" },
-      { title: "م. أحمد المغربي (من د 30:45 للآخر)", url: "https://youtu.be/8ANactIJ6Sk?si=K3ngEnj_URhjy7Tl" }
+      { 
+        title: "م. أحمد المغربي (من دقيقة 30:45 للآخر)", 
+        url: "https://youtu.be/8ANactIJ6Sk?si=K3ngEnj_URhjy7Tl",
+        note: "⚠️ من دقيقة 30:45 للآخر بس مش شارح الـ mass والـ CG في الفيديو ده"
+      },
+      { title: "فيديوهات شرح وحل أسئلة الـ Sheet والـ Assignment — زميلكم مهاب 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
     ],
-    summary_title: "ملاحظات ونوتس المحاضرة + مسائل محلولة لدكتور أحمد",
+    summaries: [
+      { title: "Notes (نوتس وملخصات المحاضرة)", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" },
+      { title: "Solved Problems By Dr. Ahmed (مسائل محلولة لدكتور أحمد)", url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { title: "درايف فيديوهات حل الشيت والأسينمنت (زميلكم مهاب 🤍)", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" },
+      { title: "Section Boards (سبورات السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
+    ],
+    important_notes: [
+      "⚠️ خلي بالك في الفيديوهات: فيديو م. عمار الأول بيشرح تحويلات الـ coordinates اللي كانت المفروض تتشرح في calc2 وهنحتاجها، وفيديو م. أحمد المغربي من دقيقة 30:45 للآخر بس مش شارح الـ mass والـ CG في الفيديو ده.",
+      "🤍 عشان لو حد عنده مشكلة في حل الـ sheet أو الـ assignment: زميلكم مهاب منزل فيديوهات بيشرح فيها أسئلة الشيت وإزاي تتحل على الدرايف، وبردو بتنزل على درايف الدفعة مع الحل.. يا ريت تدعوله دعوة حلوة 🤍",
+      "📋 كل أسبوع إن شاء الله الـ boards بتاعت السكشن هتنزل على الدرايف، ود. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد."
+    ],
+    summary_title: "Notes + Solved Problems By Dr. Ahmed",
     summary_url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx"
   },
   {
@@ -638,41 +690,47 @@ const DEFAULT_WEEKLY_GUIDES = [
   {
     week: "Week 3",
     code: "MTH G102",
-    lectures: "Lecture 3: Triple Integrals & Applications (Volume, Mass & Coordinates)",
+    lectures: "Weekly Guide for Lecture 3 | Triple Integrals",
     slides_url: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk",
-    sheet: "Sheet 3 & Assignment 3 (Triple Integrals)",
+    sheet: "Sheet 3 & Assignment 3",
     sheet_url: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI",
     solution_url: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk",
-    solution_label: "مسائل محلولة لدكتور أحمد (Solved Problems)",
-    practice: "حل مسائل الشيت ومتابعة فيديوهات الشرح (م. عمار ياسر وم. أحمد المغربي)",
+    solution_label: "Solved Problems By Dr. Ahmed",
+    practice: "فيديوهات الشرح (م. عمار ياسر & م. أحمد المغربي) + فيديوهات زميلكم مهاب لحل الشيت 🤍",
     playlists: [
       { 
-        title: "م. عمار ياسر — تحويلات الـ Coordinates", 
+        title: "م. عمار ياسر — فيديو تحويلات الـ coordinates", 
         url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" 
       },
       { 
-        title: "م. عمار ياسر — شرح الـ Triple Integrals", 
+        title: "م. عمار ياسر — Triple integrals", 
         url: "https://youtu.be/GZdX5oC2-ao?si=Hc0YaCaPAz1J8Ck-" 
       },
       { 
-        title: "م. عمار ياسر — تطبيقات الـ Triple Integrals (Applications)", 
-        url: "https://youtu.be/WKqhfOQqlsc?si=vEq1ZXLXlzCFrEfX" 
+        title: "م. عمار ياسر — Triple integrals Applications", 
+        url: "https://youtu.be/WKqhfOQqlsc?si=vEq1ZXLXlzCFrEfX",
+        note: "⚠️ في الميد الـ Integration داخل لغاية الـ Triple Integrals قبل الـ applications عشان متشرحتش"
       },
       { 
-        title: "م. أحمد المغربي — شرح وتطبيقات Triple Integrals", 
+        title: "م. أحمد المغربي — Triple Integrals", 
         url: "https://youtu.be/PCabbIgzCFc?si=oBs-Nsh75EyEnB-f",
-        note: "⚠️ تنبيه: جزئية الـ Moment of Inertia الموجودة في تطبيقات الفيديو ده مش مقررة علينا ومش معانا."
-      }
+        note: "⚠️ هتلاقوا هنا في الـ applications الـ moment of inertia، دي مش معانا"
+      },
+      { title: "فيديوهات شرح وحل أسئلة الـ Sheet والـ Assignment — زميلكم مهاب 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
     ],
     summaries: [
-      { title: "ملخصات ونوتس الشرح (Notes Folder)", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" },
-      { title: "مسائل محلولة لدكتور أحمد (Solved Problems)", url: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
+      { title: "Notes (نوتس وملخصات المحاضرة)", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" },
+      { title: "Solved Problems By Dr. Ahmed (Triple Integrals)", url: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" },
+      { title: "Section Boards (الـ Boards بتاعت السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+      { title: "درايف فيديوهات حل الشيت والأسينمنت (زميلكم مهاب 🤍)", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
     ],
     important_notes: [
-      "⚠️ تنبيه فيديو م. أحمد المغربي: جزئية الـ Moment of Inertia الموجودة في تطبيقات الفيديو مش مقررة علينا ومش معانا.",
-      "💡 ترتيب المذاكرة الموصى به: السلايدات أولاً ⬅️ بعدها حل مسائل شيت 3 ⬅️ والاستعانة بالمسائل المحلولة لدكتور أحمد ونوتس الشرح."
+      "⚠️ تنبيه فيديو م. أحمد المغربي: هتلاقوا هنا في الـ applications جزئية الـ moment of inertia، دي مش معانا.",
+      "🎯 بالنسبة للميدتيرم:\n• هيبقى 30 درجة: Linear 15 & Integration 15\n• الـ integration هيبقى كله MCQ وهيبقى لغاية الـ Triple Integrals قبل الـ applications عشان متشرحتش\n• الـ Linear هيبقى كله مقالي أو جزء مقالي وجزء MCQ\n• احتمال يبقى عدد الأسئلة متساوي يعني 5 أسئلة integration قصادها 5 Linear وهكذا (ده مثال)\n• دكتور أحمد قال إن الـ integration في الميد في مستوى الـ practice quiz اللي بينزله لكل محاضرة على LectraHub بيبقى خمس أسئلة MCQ على كل محاضرة بتحلهم وتشوف صح ولا غلط، بعد ما بتخلص تقدر تمتحنه تاني وبيجيبلك خمس أسئلة جداد كل مرة عشان تمرن نفسك.",
+      "📋 كل أسبوع إن شاء الله الـ boards بتاعت السكشن هتنزل على الدرايف، ود. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد.",
+      "🤍 عشان لو حد عنده مشكلة في حل الـ sheet أو الـ assignment: زميلكم مهاب منزل فيديوهات بيشرح فيها أسئلة الشيت وإزاي تتحل على الدرايف وبردو بتنزل على درايف الدفعة مع الحل.. يا ريت تدعوله دعوة حلوة 🤍"
     ],
-    summary_title: "ملخصات ونوتس الشرح + مسائل محلولة لدكتور أحمد",
+    summary_title: "Notes + Solved Problems By Dr. Ahmed",
     summary_url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx"
   },
   {
@@ -784,6 +842,43 @@ const DEFAULT_WEEKLY_GUIDES = [
   // ===================== WEEK 4 =====================
   {
     week: "Week 4",
+    code: "MTH G102",
+    lectures: "Linear Algebra Lec. 1 Guide (Dr. Lucy PDF + مراجعة الـ Matrices)",
+    slides_url: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY",
+    slides_note: "معظم الحاجات اللي اتشرحت تعتبر مراجعة على حاجات قديمة والدكتور منبهة الناس تكون مراجعة القديم بعد كدا",
+    sheet: "Sheet 1 (Revision) — Linear Algebra",
+    sheet_url: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk",
+    reference_url: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd",
+    solution_label: "Section Boards (الـ Boards بتاعت السكشن)",
+    sheet_note: "هتلاقوا الشيت مكتوب عليه Assignment بس هو بنسبة كبيرة مش هيتسلم ود. سارة هتخلي درجات أعمال السنة على كويزين",
+    practice: "ماتيريال مجمع للـ Linear Algebra عشان تعرفوا تقدروا تذاكروا منين (محاضرات وسكاشن من أكتر من دكتور ومعيد + شيتات ونوتس أقسام تانية)",
+    playlists: [
+      { title: "Lectures & Sections (لينكات محاضرات وسكاشن للمادة من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+      { title: "Section Boards (الـ Boards بتاعت السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+      { title: "فيديوهات شرح وحل أسئلة الشيت والأسينمنت — زميلكم مهاب 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
+    ],
+    summaries: [
+      { title: "Dr. Lucy PDF (Linear Algebra Lec. 1)", url: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY" },
+      { title: "مراجعة الـ Matrices من د. لوسي (يفضل قريتها قبل المحاضرة)", url: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk" },
+      { title: "Sheet 1 (Revision)", url: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk" },
+      { title: "Lectures & Sections (لينكات محاضرات وسكاشن من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+      { title: "Sheets (Other Departments — شيتات أقسام تانية)", url: "https://drive.google.com/drive/folders/1VoWn26amBqIVtbHLHPU7Y6smEvMtZw1u" },
+      { title: "Notes (Other Departments — نوتس أقسام تانية)", url: "https://drive.google.com/drive/folders/1dtDpjRWhw3eykJYYhFOoqYE6lSl8PJSP" },
+      { title: "Section Boards (الـ Boards بتاعت السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
+    ],
+    important_notes: [
+      "📘 مراجعة الـ Matrices: بما إن الأسبوع ده بداية الـ Linear Algebra، دكتور لوسي باعتة مراجعة للـ Matrices عشان الناس تفتكر المعلومات.. جزء كبير منها اتاخد في إعدادي ما عدا بعض التفاصيل وهي هتبقى كاتبة إنها هتتشرح خلال المحاضرات إن شاء الله، فيفضل الناس تكون قريتها قبل المحاضرة عشان متبقاش تايهة.",
+      "📝 بخصوص Sheet 1 وأعمال السنة: معظم الحاجات اللي اتشرحت تعتبر مراجعة على حاجات قديمة والدكتور منبهة الناس تكون مراجعة القديم بعد كدا.. هتلاقوا الشيت مكتوب عليه Assignment بس هو بنسبة كبيرة مش هيتسلم ود. سارة هتخلي درجات أعمال السنة على كويزين.",
+      "📚 ماتيريال مجمع للينير: جمعنالكم هنا لينكات محاضرات وسكاشن للمادة من أكتر من دكتور ومعيد في ملف الـ Doc، وكمان فولدرات Sheets و Notes من أقسام تانية عشان تعرفوا تقدروا تذاكروا منين.",
+      "📌 حضور السكشن والـ Boards: كل أسبوع إن شاء الله الـ boards بتاعت السكشن هتنزل على الدرايف، ود. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد.",
+      "🎯 بالنسبة للميدتيرم:\n• هيبقى 30 درجة: Linear 15 & Integration 15\n• الـ integration هيبقى كله MCQ وهيبقى لغاية الـ Triple Integrals قبل الـ applications عشان متشرحتش\n• الـ Linear هيبقى كله مقالي أو جزء مقالي وجزء MCQ\n• احتمال يبقى عدد الأسئلة متساوي يعني 5 أسئلة integration قصادها 5 Linear وهكذا (ده مثال)\n• دكتور أحمد قال إن الـ integration في الميد في مستوى الـ practice quiz اللي بينزله لكل محاضرة على LectraHub بيبقى خمس أسئلة MCQ على كل محاضرة بتحلهم وتشوف صح ولا غلط، بعد ما بتخلص تقدر تمتحنه تاني وبيجيبلك خمس أسئلة جداد كل مرة عشان تمرن نفسك."
+    ],
+    summary_title: "Dr. Lucy PDF + Matrices Revision + ماتيريال اللينير المجمع",
+    summary_url: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY"
+  },
+  {
+    week: "Week 4",
     code: "EMC G101",
     lectures: "Chapter 2: Kinematics of Rigid Bodies (Complete) — Rolling & Instantaneous Center (IC)",
     slides_url: "https://drive.google.com/file/d/1raAP-bxC_Z8xD0bTM2kAL0LCd9p2CzvB/view?usp=drivesdk",
@@ -868,6 +963,43 @@ const DEFAULT_WEEKLY_GUIDES = [
     ],
     summary_title: "ملف الأسينمنت والحل النموذجي (Assignment 2 & Solution)",
     summary_url: "https://drive.google.com/file/d/1Fb-jlC3OuiCCUsUGG6oqd5cxZMuT_m1_/view?usp=drivesdk"
+  },
+  // ===================== WEEK 5 =====================
+  {
+    week: "Week 5",
+    code: "MTH G102",
+    lectures: "Linear Algebra Lec. 2 Guide: Vector Spaces & Subspaces",
+    slides_url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk",
+    slides_note: "Lecture PDF (Dr. Lucy) + محتوى الميد هو أي حاجة د. لوسي هتقولها لغاية المحاضرة اللي قبل الميد حتى لو مش متقالة في الـ Lecture Notes",
+    sheet: "Assignment 2 (Vector Spaces & Subspaces)",
+    sheet_url: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd",
+    solution_label: "Section Boards (الـ Boards بتاعت السكشن)",
+    sheet_note: "علينا فيه الأسئلة دي في الأسبوع ده: من 1 لـ 11 • سؤال 16(ii) • من 19 لـ 24 | ⚠️ أي سؤال أو نقطة متعلقة بـ Basis أو Dimension أو Span لسه مخدناهوش",
+    practice: "نوتس الأقسام التانية (د. أحمد عصام ود. نبيلة) + الماتيريال المجمع للينير وفيديوهات حل الشيت 🤍",
+    playlists: [
+      { title: "Dr. Ahmed Essam Notes (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
+      { title: "Dr. Nabila Notes (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
+      { title: "Lectures & Sections (لينكات محاضرات وسكاشن للمادة من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+      { title: "فيديوهات شرح وحل أسئلة الشيت والأسينمنت — زميلكم مهاب 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
+    ],
+    summaries: [
+      { title: "Lecture PDF — Dr. Lucy (Lec. 2: Vector Spaces & Subspaces)", url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
+      { title: "Assignment 2 (Vector Spaces & Subspaces — المطلوب: 1-11, 16ii, 19-24)", url: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk" },
+      { title: "Notes (Other Departments) — Dr. Ahmed Essam (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
+      { title: "Notes (Other Departments) — Dr. Nabila (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
+      { title: "Sheets (Other Departments — شيتات أقسام تانية)", url: "https://drive.google.com/drive/folders/1VoWn26amBqIVtbHLHPU7Y6smEvMtZw1u" },
+      { title: "Notes (Other Departments — نوتس أقسام تانية عامة)", url: "https://drive.google.com/drive/folders/1dtDpjRWhw3eykJYYhFOoqYE6lSl8PJSP" },
+      { title: "Section Boards (الـ Boards بتاعت السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
+    ],
+    important_notes: [
+      "📝 الأسئلة اللي علينا في Assignment 2 في الأسبوع ده:\n• من 1 لـ 11\n• سؤال 16(ii)\n• من 19 لـ 24\n⚠️ أي سؤال أو نقطة متعلقة بـ Basis أو Dimension أو Span لسه مخدناهوش.",
+      "🚨 ملحوظة مهمة جداً: د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي من كشف الأسماء وتطلب تشوف شغلهم في المادة! الشغل ده اللي هو الـ assignment اللي بيتبعت ومذاكرتك للمادة، وقالت إنها ممكن تدي بونص على ده وأوقات ممكن تكرر الاسم في أكتر من محاضرة.. فضروري الناس تحل والإجابات هتنزل قريباً إن شاء الله ❤️",
+      "🎯 محتوى الميد (مهم جداً): محتوى الميد هو أي حاجة د. لوسي هتقولها لغاية المحاضرة اللي قبل الميد حتى لو مش متقالة في الـ Lecture Notes! (والميد من 30 درجة: Linear 15 مقالي أو جزء مقالي وجزء MCQ + Integration 15 كله MCQ لغاية الـ Triple Integrals قبل الـ applications في مستوى الـ practice quiz اللي على LectraHub).",
+      "📋 كل أسبوع إن شاء الله الـ boards بتاعت السكشن بتنزل على الدرايف، ود. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد."
+    ],
+    summary_title: "Dr. Lucy Lec. 2 PDF + Notes (Dr. Ahmed Essam & Dr. Nabila)",
+    summary_url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk"
   },
   // ===================== WEEK 6 =====================
   {
@@ -1207,6 +1339,49 @@ const COURSE_CUSTOM_LINKS = {
       { title: "🎬 فيديوهات سكاشن وتمارين — م. أحمد فوزي", url: "https://youtu.be/nDf__oCzpK8?t=0" },
       { title: "🎬 شرح سكاشن وحل مسائل — م. إنجي عبد الهادي", url: "https://www.youtube.com/playlist?list=PLSRWGfn5iCH9hwKUQfbIjGAFyruE6IsCA" }
     ]
+  },
+  "MTH G102": {
+    title: "📐 كل روابط وماتيريال الـ Linear Algebra & Integration",
+    desc: "تجميعة شاملة لكل ملفات المحاضرات، الشيتات، سبورات السكشن، الماتيريال المجمع، وفيديوهات الشرح وحل الشيتات لمادة الماث (MTH G102) ❤️",
+    sheetsTitle: "📚 ملفات المحاضرات والشيتات والسبورات (Linear & Integration)",
+    sheets: [
+      { title: "📁 درايف الدفعة الرئيسي لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
+      { title: "📋 Section Boards (الـ Boards بتاعت السكشن كل أسبوع — د. سارة)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+      { title: "📄 مراجعة الـ Matrices من د. لوسي (مهم تتقري قبل المحاضرة)", url: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk" },
+      { title: "📘 Linear Algebra Lec. 1 — Dr. Lucy PDF", url: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY" },
+      { title: "📝 Linear Algebra Sheet 1 (Revision — مش هيتسلم)", url: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk" },
+      { title: "📘 Linear Algebra Lec. 2 — Vector Spaces & Subspaces (Dr. Lucy)", url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
+      { title: "📝 Assignment 2 — Vector Spaces (المطلوب: 1-11، 16ii، 19-24)", url: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk" },
+      { title: "📒 Notes د. أحمد عصام (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
+      { title: "📒 Notes د. نبيلة (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
+      { title: "📚 Lectures & Sections (لينكات محاضرات وسكاشن اللينير من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+      { title: "📂 Sheets (Other Departments — شيتات أقسام تانية للينير)", url: "https://drive.google.com/drive/folders/1VoWn26amBqIVtbHLHPU7Y6smEvMtZw1u" },
+      { title: "📂 Notes (Other Departments — نوتس أقسام تانية للينير)", url: "https://drive.google.com/drive/folders/1dtDpjRWhw3eykJYYhFOoqYE6lSl8PJSP" },
+      { title: "📘 Integration Lec. 1 Slides — Double Integrals (Part 1)", url: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
+      { title: "📝 Integration Sheet 1 & Assignment 1", url: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0" },
+      { title: "📘 Integration Lec. 2 Slides — Polar Regions + Applications", url: "https://drive.google.com/file/d/1IxaAIvGE0t4ysmkjteIsfPXMAZHJOBgY/view?usp=drivesdk" },
+      { title: "📝 Integration Sheet 2 & Assignment 2", url: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV" },
+      { title: "✅ Solved Problems By Dr. Ahmed (Double Integrals)", url: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
+      { title: "📘 Integration Lec. 3 Slides — Triple Integrals", url: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk" },
+      { title: "📝 Integration Sheet 3 & Assignment 3", url: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI" },
+      { title: "✅ Solved Problems By Dr. Ahmed (Triple Integrals)", url: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" },
+      { title: "📒 Integration Notes (ملخصات ونوتس التكامل)", url: "https://drive.google.com/drive/folders/1DDpbyWJji6Y1kazpLp_0GdmjcwjrMYIx" }
+    ],
+    social: [],
+    videos: [
+      { title: "🤍 فيديوهات زميلكم مهاب لشرح وحل أسئلة الـ Sheet والـ Assignment", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" },
+      { title: "🎬 م. عمار ياسر — Double Integrals Part 1 (الفيديو للآخر)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
+      { title: "🎬 م. عمار ياسر — تحويلات الـ coordinates (مهمة جداً من calc2)", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" },
+      { title: "🎬 م. عمار ياسر — Polar regions (Double Integrals Part 2)", url: "https://youtu.be/QDhYk9H45NU?si=wno0MdzjRioiUxn5" },
+      { title: "🎬 م. عمار ياسر — Double Integrals Applications", url: "https://youtu.be/j6eAM5iBsIw?si=DVE7LnWR4YTDNMpC" },
+      { title: "🎬 م. عمار ياسر — Triple integrals", url: "https://youtu.be/GZdX5oC2-ao?si=Hc0YaCaPAz1J8Ck-" },
+      { title: "🎬 م. عمار ياسر — Triple integrals Applications", url: "https://youtu.be/WKqhfOQqlsc?si=vEq1ZXLXlzCFrEfX" },
+      { title: "🎬 م. أحمد المغربي — Double Integrals (الفيديو الأول للآخر)", url: "https://youtu.be/VlDgu4dylLU?si=KHdffO0btzRircFE" },
+      { title: "🎬 م. أحمد المغربي — Double Integrals (الفيديو التاني: لـ 30:45 Lec1 ومن 30:45 Lec2 بدون mass/CG)", url: "https://youtu.be/8ANactIJ6Sk?si=6qaK7EO2R-LSh9BB" },
+      { title: "🎬 م. أحمد المغربي — Triple Integrals (الـ moment of inertia في الـ applications مش معانا)", url: "https://youtu.be/PCabbIgzCFc?si=oBs-Nsh75EyEnB-f" },
+      { title: "🎬 قائمة جبر خطي — د. أحمد عصام", url: "https://youtube.com/playlist?list=PLPAM-Io7zvPrGUSNKLNgSpSFhgGxiXexz&si=4jvfWlMZaTa4_vLb" },
+      { title: "🎬 قائمة جبر خطي — د. سماح", url: "https://youtube.com/playlist?list=PLm0BTSPNOKJRl_MaRhKPKb46bv2RlR-bK&si=5IMdIy3hQ5bjb-NQ" }
+    ]
   }
 };
 
@@ -1227,11 +1402,22 @@ const COURSE_CAPSULES = {
     code: "MTH G102",
     name: "Linear Algebra & Multivariable Integration",
     hours: "3 Credit Hours",
-    grading: "• الميد من 30 درجة (20 تكامل + 10 جبر)\n• التكامل: كويز واحد + أساينمنت محسوب في أعمال السنة\n• الجبر: كويزين (MCQ + Written) + أساينمنت الدكتورة بتبص عليه",
-    tips: "المادة متقسمة نصين:\n1. التكامل (Multivariable Integration): بيعتمد على أساسيات calc 2 وخفيف جداً، كان بيدينا د. أحمد عبد النبي امتحاناته لذيذة.\n2. الجبر الخطي (Linear Algebra): محتاج فهم النظري والـ concepts (بالذات في الميد) مع كتر الحل عشان تثبت السيستم. دكتورة لوسي كان الحضور عندها مهم للغاية وبتنادي من الكشف.",
+    grading: "• الميد هيبقى 30 درجة: Linear 15 & Integration 15\n• الـ Integration في الميد: كله MCQ ولغاية الـ Triple Integrals قبل الـ applications عشان متشرحتش (وفي مستوى الـ practice quiz اللي على LectraHub)\n• الـ Linear في الميد: كله مقالي أو جزء مقالي وجزء MCQ (واحتمال عدد الأسئلة متساوي يعني 5 أسئلة integration قصادها 5 Linear وهكذا)\n• أعمال السنة: د. سارة هتخلي درجات أعمال السنة على كويزين (وشيت 1 المكتوب عليه Assignment بنسبة كبيرة مش هيتسلم) + د. لوسي ممكن تدي بونص في آخر المحاضرة لما بتنادي أسماء عشوائي من الكشف وتشوف حل الـ assignment ومذاكرتك!",
+    tips: "خلاصة الكلام في الماث عشان متبقاش تايه:\n1. التكامل (Integration مع د. أحمد عبد النبي): دكتور أحمد قال إن الـ integration في الميد في مستوى الـ practice quiz اللي بينزله لكل محاضرة على LectraHub (بيبقى 5 أسئلة MCQ على كل محاضرة بتحلهم وتشوف صح ولا غلط، وبعد ما بتخلص تقدر تمتحنه تاني وبيجيبلك 5 أسئلة جداد كل مرة عشان تمرن نفسك) • وزميلكم مهاب منزل فيديوهات بيشرح فيها أسئلة الشيت والـ assignment وإزاي تتحل على الدرايف (يا ريت تدعوله دعوة حلوة 🤍).\n2. الجبر الخطي (Linear Algebra مع د. لوسي ود. سارة):\n• د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي من كشف الأسماء وتطلب تشوف شغلهم في المادة (الـ assignment اللي بيتبعت ومذاكرتك للمادة) وقالت إنها ممكن تدي بونص على ده وأوقات ممكن تكرر الاسم في أكتر من محاضرة، فضروري تحل أول بأول!\n• محتوى الميد هو أي حاجة د. لوسي هتقولها لغاية المحاضرة اللي قبل الميد حتى لو مش متقالة في الـ Lecture Notes!\n• كل أسبوع الـ boards بتاعت السكشن بتنزل على الدرايف، ود. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد.",
     links: [
       { title: "📁 درايف الدفعة لمادة الماث", url: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD" },
-      { title: "📁 فولدر أساينمنت اللينير (Assignment 1)", url: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl" }
+      { title: "📋 Section Boards (الـ Boards بتاعت السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+      { title: "📄 مراجعة الـ Matrices (د. لوسي — تتقري قبل المحاضرة)", url: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk" },
+      { title: "📘 Dr. Lucy PDF — Lec. 1 (Linear Algebra)", url: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY" },
+      { title: "📝 Sheet 1 (Revision — مش هيتسلم)", url: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk" },
+      { title: "📘 Dr. Lucy PDF — Lec. 2 (Vector Spaces & Subspaces)", url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
+      { title: "📝 Assignment 2 (المطلوب: 1-11، 16ii، 19-24 بدون Basis/Dim/Span)", url: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk" },
+      { title: "📒 Notes د. أحمد عصام (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
+      { title: "📒 Notes د. نبيلة (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
+      { title: "📚 Lectures & Sections (ماتيريال مجمع للينير من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+      { title: "📂 Sheets (Other Departments — شيتات أقسام تانية)", url: "https://drive.google.com/drive/folders/1VoWn26amBqIVtbHLHPU7Y6smEvMtZw1u" },
+      { title: "📂 Notes (Other Departments — نوتس أقسام تانية)", url: "https://drive.google.com/drive/folders/1dtDpjRWhw3eykJYYhFOoqYE6lSl8PJSP" },
+      { title: "🤍 فيديوهات حل الشيت والأسينمنت (زميلكم مهاب)", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
     ],
     playlists: [
       { title: "🎬 جبر خطي — د. أحمد عصام (الأفضل لحفظ سيستم الحل)", url: "https://youtube.com/playlist?list=PLPAM-Io7zvPrGUSNKLNgSpSFhgGxiXexz&si=4jvfWlMZaTa4_vLb" },
@@ -1314,7 +1500,7 @@ const COURSE_CAPSULES = {
 };
 
 const DRIVE_DATA = {
-  "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: MAIN_SEMESTER_DRIVE, sheets: "https://drive.google.com/drive/folders/1qlO9-i9plEckcSaTcEKb7tDymh01ALUl", exams: MAIN_SEMESTER_DRIVE },
+  "MTH G102": { folder: "https://drive.google.com/drive/folders/1MVpos5NHkVElYILFX3dTQv4s0fFBmdzD", lectures: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY", sheets: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk", exams: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
   "EMC G101": { folder: "https://drive.google.com/drive/folders/1bjTVuMUlmMKDoSShmYnRBju3HtglV6zT", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G111": { folder: "https://drive.google.com/drive/folders/1fgyiZxQNzmAxajlpDtk0_RvijbvnlJf-", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
   "MDP G121": { folder: "https://drive.google.com/drive/folders/1dcN5VGCVifVn72FodQQ2d4xLeevAE5JO", lectures: MAIN_SEMESTER_DRIVE, sheets: MAIN_SEMESTER_DRIVE, exams: MAIN_SEMESTER_DRIVE },
@@ -1383,11 +1569,35 @@ const SESSIONS = [
 
   // Monday
   { day: "Monday", start: 0, span: 2, group: "ALL", code: "MDP G121", type: "Lecture", room: "3101-306" },
-  { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false },
-  { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false },
+  { day: "Monday", start: 2, span: 2, group: "ME1-02", code: "MTH G102", type: "Tutorial", room: "14100-(104)", attendance: false, note: "📋 الـ Boards بتاعت السكشن بتنزل كل أسبوع على الدرايف • ود. سارة هتخلي درجات أعمال السنة على كويزين" },
+  { day: "Monday", start: 5, span: 2, group: "ME1-03", code: "MTH G102", type: "Tutorial", room: "17302-148", attendance: false, note: "📋 الـ Boards بتاعت السكشن بتنزل كل أسبوع على الدرايف • ود. سارة هتخلي درجات أعمال السنة على كويزين" },
 
   // Tuesday
-  { day: "Tuesday", start: 0, span: 2, group: "ALL", code: "MTH G102", type: "Lecture", room: "7104-360", attendance: true },
+  {
+    day: "Tuesday",
+    start: 0,
+    span: 2,
+    group: "ALL",
+    code: "MTH G102",
+    type: "Lecture",
+    room: "7104-360",
+    attendance: true,
+    hasNotice: true,
+    noticeData: {
+      title: "📐 تنبيهات د. لوسي ود. أحمد والميدتيرم (MTH G102)",
+      slots: "الثلاثاء 8:00 ص — مدرج 7104-360 (الساوي)",
+      requirements: "• 🚨 ملحوظة مهمة جداً: د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي من كشف الأسماء وتطلب تشوف شغلهم في المادة (الـ assignment اللي بيتبعت ومذاكرتك للمادة) وقالت إنها ممكن تدي بونص على ده وأوقات ممكن تكرر الاسم في أكتر من محاضرة! فضروري الناس تحل.\n• 📝 Assignment 2 (Vector Spaces): علينا فيه الأسئلة من 1 لـ 11، سؤال 16(ii)، ومن 19 لـ 24 (أي سؤال متعلق بـ Basis أو Dimension أو Span لسه مخدناهوش).\n• 🎯 بالنسبة للميد (30 درجة = Linear 15 & Integration 15): الـ Integration كله MCQ لغاية الـ Triple Integrals قبل الـ applications وفي مستوى الـ practice quiz على LectraHub (5 أسئلة MCQ بتتجدد كل مرة) • والـ Linear مقالي أو جزء مقالي وجزء MCQ وشامل أي حاجة د. لوسي هتقولها لغاية المحاضرة اللي قبل الميد حتى لو مش متقالة في الـ Lecture Notes!",
+      taskId: "mth-assign-1",
+      links: [
+        { icon: "📘", label: "Dr. Lucy Lec. 2 PDF (Vector Spaces)", url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
+        { icon: "📝", label: "Assignment 2 (1-11, 16ii, 19-24)", url: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk" },
+        { icon: "📋", label: "Section Boards (سبورات السكشن كل أسبوع)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
+        { icon: "📚", label: "ماتيريال مجمع للينير (Doc)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
+        { icon: "🤍", label: "فيديوهات حل الشيت والأسينمنت (مهاب)", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" }
+      ]
+    },
+    note: "🚨 د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي من الكشف وتشوف حل الـ assignment ومذاكرتك وتدي بونص • ومحتوى الميد شامل أي حاجة بتقولها في المحاضرة حتى لو مش في الـ Notes!"
+  },
   { day: "Tuesday", start: 2, span: 2, group: "ALL", code: "EPE G113", type: "Lecture", room: "7104-360" },
   // سكشن الماتيريال: سكشن 1 و 3 مدمجين في الساوي 7104
   { day: "Tuesday", start: 4, span: 3, group: "ME1-01", code: "MDP G121", type: "Tutorial", room: "7104-360" },
@@ -1425,8 +1635,8 @@ const SESSIONS = [
   },
 
   // Thursday
-  { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
-  { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false },
+  { day: "Thursday", start: 1, span: 2, group: "ME1-01", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false, note: "📋 د. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد • والـ Boards بتنزل كل أسبوع على الدرايف" },
+  { day: "Thursday", start: 3, span: 2, group: "ME1-04", code: "MTH G102", type: "Tutorial", room: "14301-50", attendance: false, note: "📋 د. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد • والـ Boards بتنزل كل أسبوع على الدرايف" },
   
   // سكاشن الكهربية (الخميس) - قاعة 14301 (Faculty Hall)
   { day: "Thursday", start: 4, span: 2, group: "ME1-01", code: "EPE G113", type: "Tutorial", room: "14301", attendance: false },
@@ -1443,6 +1653,17 @@ const MONDAY_DYNAMICS_SLOTS = {
 
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-mth-guide-update",
+    date: "30 Oct 2026",
+    tag: "MTH G102 • Linear & Integration",
+    title: "📐 تحديث شامل لماتيريال الماث (الـ Linear Algebra والـ Integration) ونظام الميد",
+    body: "• نزل جايد الأسابيع كامل من Week 1 لـ Week 5 (Double & Triple Integrals + Linear Algebra Lec 1 & 2).\n• د. لوسي في آخر المحاضرة ممكن تنادي أسماء عشوائي وتشوف حل الـ assignment ومذاكرتك وتدي بونص!\n• الميد من 30 درجة (15 Integration كله MCQ لغاية الـ Triple قبل الـ applications في مستوى الـ practice quiz على LectraHub + 15 Linear شامل كل حاجة د. لوسي بتقولها في المحاضرة).",
+    actions: [
+      { label: "📖 جايد الأسابيع", action: "openGuideWeek('Week 5', 'MTH G102')" },
+      { label: "🔗 كل لينكات الماث", action: "openCourseLinksModal('MTH G102')" }
+    ]
+  },
   {
     id: "notif-emc-quiz-1",
     date: "28 Oct 2026",
