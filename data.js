@@ -338,33 +338,18 @@ const MASTER_QUIZZES = [
       "📋 د. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد، والـ boards بتاعت السكشن بتنزل كل أسبوع على الدرايف."
     ],
     lectures: [
-      { id: "mth-la-rev", title: "مراجعة الـ Matrices (د. لوسي — تتقري قبل المحاضرة)", slides: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk" },
-      { id: "mth-la-lec1", title: "Linear Algebra Lec. 1 — Dr. Lucy PDF", slides: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY" },
-      { id: "mth-la-lec2", title: "Linear Algebra Lec. 2 — Vector Spaces & Subspaces (Dr. Lucy)", slides: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
-      { id: "mth-int-lec1", title: "Integration Lec. 1 — Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-int-lec2", title: "Integration Lec. 2 — Polar Regions + Applications", slides: "https://drive.google.com/file/d/1IxaAIvGE0t4ysmkjteIsfPXMAZHJOBgY/view?usp=drivesdk" },
-      { id: "mth-int-lec3", title: "Integration Lec. 3 — Triple Integrals", slides: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk" }
+      { id: "mth-la-lec2", title: "Lecture 2 PDF — Vector Spaces & Subspaces (Dr. Lucy)", slides: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "mth-la-asgn2", title: "Assignment 2 — Vector Spaces (المطلوب: 1-11, 16ii, 19-24)", pdf: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk", sol: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
-      { id: "mth-la-sht1", title: "Linear Algebra Sheet 1 (Revision — مش هيتسلم)", pdf: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk", sol: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
-      { id: "mth-int-sht1", title: "Integration Sheet 1 & Assignment 1", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-int-sht2", title: "Integration Sheet 2 & Assignment 2", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-int-sht3", title: "Integration Sheet 3 & Assignment 3", pdf: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI", sol: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
+      { id: "mth-la-asgn2", title: "Assignment 2 (المطلوب: من 1 لـ 11، سؤال 16(ii)، من 19 لـ 24)", pdf: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "mth-vid-mohab", title: "فيديوهات زميلكم مهاب لشرح وحل أسئلة الشيت والأسينمنت 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" },
-      { id: "mth-doc-all", title: "Lectures & Sections (لينكات محاضرات وسكاشن اللينير من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
       { id: "mth-notes-essam", title: "Notes Dr. Ahmed Essam (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
-      { id: "mth-notes-nabila", title: "Notes Dr. Nabila (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
-      { id: "mth-vid-ammar1", title: "م. عمار ياسر — Double Integrals Part 1 (للآخر)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
-      { id: "mth-vid-ammar-coord", title: "م. عمار ياسر — تحويلات الـ coordinates (مهمة جداً من calc2)", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" },
-      { id: "mth-vid-ammar-polar", title: "م. عمار ياسر — Polar regions", url: "https://youtu.be/QDhYk9H45NU?si=wno0MdzjRioiUxn5" },
-      { id: "mth-vid-ammar-triple", title: "م. عمار ياسر — Triple integrals", url: "https://youtu.be/GZdX5oC2-ao?si=Hc0YaCaPAz1J8Ck-" }
+      { id: "mth-notes-nabila", title: "Notes Dr. Nabila (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" }
     ],
     formula: [
-      { id: "mth-form-mid", title: "نظام الميد (30 درجة): 15 Integration (MCQ لحد Triple قبل الـ applications في مستوى كويزات LectraHub) + 15 Linear (شامل كل كلمة د. لوسي بتقولها في المحاضرة)" },
-      { id: "mth-form-boards", title: "Section Boards (سبورات السكشن بتنزل كل أسبوع هنا)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
+      { id: "mth-form-req", title: "الأسئلة اللي علينا: من 1 لـ 11 • سؤال 16(ii) • من 19 لـ 24 (وأي سؤال عن Basis أو Dimension أو Span لسه مخدناهوش)" },
+      { id: "mth-form-lucy", title: "د. لوسي ممكن تنادي أسماء عشوائي في آخر المحاضرة تشوف حل الـ assignment وتدي بونص ❤️" }
     ]
   },
   {
