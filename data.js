@@ -64,7 +64,46 @@ const COURSES = {
 // Modern Neon Dashboard — Official Quizzes & Exam System Master Data
 // ==========================================================================
 const MASTER_QUIZZES = [
-    {
+  {
+    id: "gen-quiz-3",
+    code: "GEN G119",
+    title: "Quiz 3 — Marketing (Chapter 3: Analyzing the Marketing Environment)",
+    type: "Quiz (5 Mins)",
+    instructor: "Dr. Tamer El-Hariry",
+    dateDisplay: "Sunday, November 1, 2026 (الأحد 1 نوفمبر 2026 — 8:00 ص)",
+    countdownBadge: "الأحد 1 نوفمبر",
+    date: "2026-11-01",
+    start: "2026-11-01T08:00:00",
+    deadline: "2026-11-01T08:05:00",
+    dueDate: "2026-11-01T08:00:00",
+    room: "مدرج 3103-414",
+    marks: "ضمن أعمال السنة (6 كويزات يؤخذ أعلى 4 — 40 درجة)",
+    accent: "#06b6d4",
+    accentName: "cyan",
+    submissionUrl: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0",
+    instructions: [
+      "الأحد 1 نوفمبر 2026 الساعة 8:00 ص داخل المحاضرة (مدرج 3103-414) • مدة الكويز 5 دقائق فقط (نفس نظام ودرجات الكويزات السابقة).",
+      "المحتوى المقرر: المحاضرة الثالثة (Chapter 3: Analyzing the Marketing Environment) كاملة.",
+      "الامتحان 20 سؤال سريع (MCQ + صح وغلط) من الـ Test Bank بالنص وبنفس ترتيب الاختيارات، يحتاج سرعة فائقة في الحل والتظليل.",
+      "تم توفير بنك أسئلة الشابتر الثالث بالكامل (125 سؤال: 100 MCQ + 25 صح وغلط) في المحاكي التفاعلي الذكي للتدريب على سرعة الحل قبل المحاضرة."
+    ],
+    lectures: [
+      { id: "gen-lec-3", title: "Lecture Slides 3 (Chapter 3: Analyzing the Marketing Environment)", slides: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" }
+    ],
+    sheets: [
+      { id: "gen-tb-3", title: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث — 125 سؤال)", pdf: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { id: "gen-sum-3", title: "Chapter 3 summary (ملخص الشابتر الثالث)", pdf: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
+      { id: "gen-sum-3-ar", title: "Chapter 3 summary - translated (ملخص الشابتر الثالث مترجم)", pdf: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
+    ],
+    practice: [
+      { id: "gen-sim-3", title: "🎮 المحاكي التفاعلي الذكي لكويز 3 والـ Test Bank (Quiz 3 Arena Simulator)", url: "javascript:openMarketingQuiz3Modal()" }
+    ],
+    formula: [
+      { id: "gen-f3-1", title: "Microenvironment Actors: Company, Suppliers, Marketing Intermediaries, Competitors, Publics, Customers", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
+      { id: "gen-f3-2", title: "Macroenvironment Forces: Demographic, Economic (Engel's Laws), Natural, Technological, Political & Cultural", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
+    ]
+  },
+  {
     id: "gen-quiz-2",
     code: "GEN G119",
     title: "Quiz 2 — Marketing (Chapter 2)",
@@ -338,33 +377,18 @@ const MASTER_QUIZZES = [
       "📋 د. سارة قالت اللي عايز يحضر من اللي عليهم سكشن الخميس يقدر يحضر يوم الاتنين لغاية ما نظبط المواعيد، والـ boards بتاعت السكشن بتنزل كل أسبوع على الدرايف."
     ],
     lectures: [
-      { id: "mth-la-rev", title: "مراجعة الـ Matrices (د. لوسي — تتقري قبل المحاضرة)", slides: "https://drive.google.com/file/d/1Vum_-i5CsaKI9UA9xAPHUNT6lPLFxiy9/view?usp=drivesdk" },
-      { id: "mth-la-lec1", title: "Linear Algebra Lec. 1 — Dr. Lucy PDF", slides: "https://drive.google.com/drive/folders/1ddsnJx-apXNVKtCY8JuD-VzqlLGIaZfY" },
-      { id: "mth-la-lec2", title: "Linear Algebra Lec. 2 — Vector Spaces & Subspaces (Dr. Lucy)", slides: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" },
-      { id: "mth-int-lec1", title: "Integration Lec. 1 — Double Integrals (Part 1)", slides: "https://drive.google.com/drive/folders/1WCbR1VLo8sUZ_x58Of08lW71aq5Ht9z8" },
-      { id: "mth-int-lec2", title: "Integration Lec. 2 — Polar Regions + Applications", slides: "https://drive.google.com/file/d/1IxaAIvGE0t4ysmkjteIsfPXMAZHJOBgY/view?usp=drivesdk" },
-      { id: "mth-int-lec3", title: "Integration Lec. 3 — Triple Integrals", slides: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk" }
+      { id: "mth-la-lec2", title: "Lecture 2 PDF — Vector Spaces & Subspaces (Dr. Lucy)", slides: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "mth-la-asgn2", title: "Assignment 2 — Vector Spaces (المطلوب: 1-11, 16ii, 19-24)", pdf: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk", sol: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
-      { id: "mth-la-sht1", title: "Linear Algebra Sheet 1 (Revision — مش هيتسلم)", pdf: "https://drive.google.com/file/d/1upmEswq82kaeBwUVaN6uaLBsSKOf0BL7/view?usp=drivesdk", sol: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" },
-      { id: "mth-int-sht1", title: "Integration Sheet 1 & Assignment 1", pdf: "https://drive.google.com/drive/folders/1z47GRFcIBjHRVF7DKk5eBq-aUIWJv3j0", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-int-sht2", title: "Integration Sheet 2 & Assignment 2", pdf: "https://drive.google.com/drive/folders/19hZKh8cS5TjO4l0RpP5lFuxBabD98xjV", sol: "https://drive.google.com/drive/folders/1kKt7qJh3AtBWpXIWd1EuTtHlsuNvmH-N" },
-      { id: "mth-int-sht3", title: "Integration Sheet 3 & Assignment 3", pdf: "https://drive.google.com/drive/folders/1rSzLpNFrfMowDXk_LmRi6rvEIaj50DfI", sol: "https://drive.google.com/file/d/1T7Zpi2nwnzpuXCdauxkCZukg9xh5OkfX/view?usp=drivesdk" }
+      { id: "mth-la-asgn2", title: "Assignment 2 (المطلوب: من 1 لـ 11، سؤال 16(ii)، من 19 لـ 24)", pdf: "https://drive.google.com/file/d/14wOaVsWYTzE8OvTcqbj0PTBwjE3huVmH/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "mth-vid-mohab", title: "فيديوهات زميلكم مهاب لشرح وحل أسئلة الشيت والأسينمنت 🤍", url: "https://drive.google.com/drive/folders/1ANvdKm4sinMPUX3E19Z7rmMD4M_j4d8m" },
-      { id: "mth-doc-all", title: "Lectures & Sections (لينكات محاضرات وسكاشن اللينير من أكتر من دكتور ومعيد)", url: "https://docs.google.com/document/d/1amjERn4hxxXyRtCzcF8shwyA9T3JiqE-AR5bcDqB2Bs/edit?usp=drivesdk" },
       { id: "mth-notes-essam", title: "Notes Dr. Ahmed Essam (Lecture 2 - Lecture 3)", url: "https://drive.google.com/drive/folders/146HDk9CbIz3KkN32koT77z829iJX-5Rq" },
-      { id: "mth-notes-nabila", title: "Notes Dr. Nabila (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" },
-      { id: "mth-vid-ammar1", title: "م. عمار ياسر — Double Integrals Part 1 (للآخر)", url: "https://youtu.be/IfuyRoFzthk?si=a71lDUGo6x5WT_36" },
-      { id: "mth-vid-ammar-coord", title: "م. عمار ياسر — تحويلات الـ coordinates (مهمة جداً من calc2)", url: "https://youtu.be/ndfc1-8hWuI?si=mTeyC2VR8GjKw6oW" },
-      { id: "mth-vid-ammar-polar", title: "م. عمار ياسر — Polar regions", url: "https://youtu.be/QDhYk9H45NU?si=wno0MdzjRioiUxn5" },
-      { id: "mth-vid-ammar-triple", title: "م. عمار ياسر — Triple integrals", url: "https://youtu.be/GZdX5oC2-ao?si=Hc0YaCaPAz1J8Ck-" }
+      { id: "mth-notes-nabila", title: "Notes Dr. Nabila (Lec. 2)", url: "https://drive.google.com/drive/folders/1K6d_p8vZ_nnDecvOx-qUVQRGSGQCD-H2" }
     ],
     formula: [
-      { id: "mth-form-mid", title: "نظام الميد (30 درجة): 15 Integration (MCQ لحد Triple قبل الـ applications في مستوى كويزات LectraHub) + 15 Linear (شامل كل كلمة د. لوسي بتقولها في المحاضرة)" },
-      { id: "mth-form-boards", title: "Section Boards (سبورات السكشن بتنزل كل أسبوع هنا)", url: "https://drive.google.com/drive/folders/1lh2x9is9hqA1ZKzIUQn87ip3DCOc4xvd" }
+      { id: "mth-form-req", title: "الأسئلة اللي علينا: من 1 لـ 11 • سؤال 16(ii) • من 19 لـ 24 (وأي سؤال عن Basis أو Dimension أو Span لسه مخدناهوش)" },
+      { id: "mth-form-lucy", title: "د. لوسي ممكن تنادي أسماء عشوائي في آخر المحاضرة تشوف حل الـ assignment وتدي بونص ❤️" }
     ]
   },
   {
@@ -689,6 +713,34 @@ const DEFAULT_WEEKLY_GUIDES = [
   // ===================== WEEK 3 =====================
   {
     week: "Week 3",
+    code: "GEN G119",
+    status_badge: "⚡ كويز 3 يوم الأحد 1 نوفمبر (8:00 ص)",
+    lectures: "Guide for Quiz 3 | Marketing — Lecture Slides 3 (Chapter 3: Analyzing the Marketing Environment)",
+    slides_url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk",
+    sheet: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث — 125 سؤال)",
+    sheet_url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk",
+    solution_label: "Chapter 3 summary",
+    practice: "⚡ كويز 3 في المحاضرة يوم الأحد 1 نوفمبر الساعة 8:00 ص (مدرج 3103-414) — 20 سؤال في 5 دقائق من الـ Test Bank • اتدرب على المحاكي التفاعلي!",
+    playlists: [
+      { title: "🎮 محاكي الـ Test Bank وامتحان كويز 3 التفاعلي (Quiz 3 Simulator)", url: "javascript:openMarketingQuiz3Modal()" }
+    ],
+    summaries: [
+      { title: "Lecture Slides 3 (سلايدات المحاضرة الثالثة — Chapter 3)", url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" },
+      { title: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث المباشر)", url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { title: "Chapter 3 summary (ملخص الشابتر الثالث)", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
+      { title: "Chapter 3 summary - translated (ملخص الشابتر الثالث مترجم)", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
+    ],
+    important_notes: [
+      "⚡ كويز 3 ماركتنج (Chapter 3): الأحد 1 نوفمبر 2026 الساعة 8:00 صباحاً داخل المحاضرة بمدرج 3103-414.",
+      "⏱️ نظام الكويز والدرجات: نفس نظام ودرجات الكويزات اللي فاتت بالظبط — مدته 5 دقائق فقط، 20 سؤال عشوائي (MCQ + True/False) بالنص من الـ Test Bank.",
+      "🎮 نصيحة مهمة: افتح محاكي كويز 3 وحل البنك الكامل (125 سؤال) بالتصحيح الفوري وبعدها جرب تحدي الـ 5 دقائق عشان تضمن السرعة والـ Full Mark!"
+    ],
+    summary_title: "Chapter 3 summary + Translated Summary + Test Bank CH 3",
+    summary_url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk"
+  },
+  {
+    week: "Week 3",
     code: "MTH G102",
     lectures: "Weekly Guide for Lecture 3 | Triple Integrals",
     slides_url: "https://drive.google.com/file/d/1WMinLYkB2MufXbRGEIMaWb7RpO-aFcoI/view?usp=drivesdk",
@@ -1002,6 +1054,34 @@ const DEFAULT_WEEKLY_GUIDES = [
     summary_url: "https://drive.google.com/file/d/1tpwf5iFQtUYYbysdgd6nPySvu4nR_Jam/view?usp=drivesdk"
   },
   // ===================== WEEK 6 =====================
+  {
+    week: "Week 6",
+    code: "GEN G119",
+    status_badge: "⚡ كويز 3 يوم الأحد 1 نوفمبر (8:00 ص)",
+    lectures: "Guide for Quiz 3 | Marketing — Lecture Slides 3 (Chapter 3: Analyzing the Marketing Environment)",
+    slides_url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk",
+    sheet: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث — 125 سؤال)",
+    sheet_url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk",
+    solution_url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk",
+    solution_label: "Chapter 3 summary",
+    practice: "⚡ كويز 3 في المحاضرة يوم الأحد 1 نوفمبر الساعة 8:00 ص (مدرج 3103-414) — 20 سؤال في 5 دقائق من الـ Test Bank • اتدرب على المحاكي التفاعلي!",
+    playlists: [
+      { title: "🎮 محاكي الـ Test Bank وامتحان كويز 3 التفاعلي (Quiz 3 Simulator)", url: "javascript:openMarketingQuiz3Modal()" }
+    ],
+    summaries: [
+      { title: "Lecture Slides 3 (سلايدات المحاضرة الثالثة — Chapter 3)", url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" },
+      { title: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث المباشر)", url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { title: "Chapter 3 summary (ملخص الشابتر الثالث)", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
+      { title: "Chapter 3 summary - translated (ملخص الشابتر الثالث مترجم)", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
+    ],
+    important_notes: [
+      "⚡ كويز 3 ماركتنج (Chapter 3): الأحد 1 نوفمبر 2026 الساعة 8:00 صباحاً داخل المحاضرة بمدرج 3103-414.",
+      "⏱️ نظام الكويز والدرجات: نفس نظام ودرجات الكويزات اللي فاتت بالظبط — مدته 5 دقائق فقط، 20 سؤال عشوائي (MCQ + True/False) بالنص من الـ Test Bank.",
+      "🎮 نصيحة مهمة: افتح محاكي كويز 3 وحل البنك الكامل (125 سؤال) بالتصحيح الفوري وبعدها جرب تحدي الـ 5 دقائق عشان تضمن السرعة والـ Full Mark!"
+    ],
+    summary_title: "Chapter 3 summary + Translated Summary + Test Bank CH 3",
+    summary_url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk"
+  },
   {
     week: "Week 6",
     code: "EPE G113",
@@ -1393,6 +1473,11 @@ const COURSE_CAPSULES = {
     grading: "• 40 درجة كويزات (6 كويزات بيتاخد أعلى 4)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
     tips: "الدكتور اللي كان بيدينا د. تامر الحريري (دكتور محترم جداً وهتحبوه).\nالدكتور بيدي 6 كويزات بياخد منهم أعلى 4، والأسئلة معاك حرفياً لأنها بتيجي من الـ Test Bank بالحرف وبنفس ترتيب الاختيارات!\nالميد حوالي 60 سؤال من الـ Test Bank، والفاينال حوالي 120 سؤال نفس الكلام.\nمادة سهلة ومادة A+، محتاجة بس إنك متظلمهاش في زحمة المواد التانية ووقت مذاكرتها مش كبير خالص.",
     links: [
+      { title: "🎮 محاكي الـ Test Bank وامتحان كويز 3 التفاعلي (Chapter 3)", url: "javascript:openMarketingQuiz3Modal()", badge: "Quiz 3 Arena ⚡" },
+      { title: "📘 Lecture Slides 3 (Chapter 3)", url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" },
+      { title: "📝 Test Bank CH 3 (بنك أسئلة الشابتر الثالث)", url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { title: "📄 Chapter 3 summary (ملخص الشابتر الثالث)", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
+      { title: "🌐 Chapter 3 summary - translated (الملخص مترجم)", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" },
       { title: "📁 درايف الدفعة في مادة الماركتنج والـ References", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
     ],
     playlists: []
@@ -1561,7 +1646,32 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 // جدول الحصص المعتمد
 const SESSIONS = [
   // Sunday
-  { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
+  {
+    day: "Sunday",
+    start: 0,
+    span: 2,
+    group: "ALL",
+    code: "GEN G119",
+    type: "Lecture",
+    room: "3103-414",
+    quizBadge: "⚡ كويز 3",
+    quizTaskId: "gen-quiz-3",
+    hasNotice: true,
+    noticeData: {
+      title: "⚡ كويز 3 ماركتنج (Chapter 3: Analyzing the Marketing Environment)",
+      slots: "الأحد 1 نوفمبر 2026 — الساعة 8:00 ص داخل المحاضرة بمدرج 3103-414",
+      requirements: "• الموعد والمكان: الأحد 1 نوفمبر الساعة 8:00 صباحاً بمدرج 3103-414.\n• نظام الكويز والدرجات: نفس درجات ونظام الكويزات السابقة (مدة الكويز 5 دقائق فقط — 20 سؤال عشوائي MCQ + صح وغلط).\n• المحتوى المقرر: المحاضرة الثالثة (Chapter 3: Analyzing the Marketing Environment) كاملة من الـ Test Bank.\n• تدرب الآن على محاكي الـ Test Bank التفاعلي (125 سؤال) وتحدي الـ 5 دقائق!",
+      taskId: "gen-quiz-3",
+      links: [
+        { icon: "🎮", label: "فتح محاكي كويز 3 والـ Test Bank التفاعلي", url: "javascript:openMarketingQuiz3Modal()" },
+        { icon: "📘", label: "Lecture Slides 3", url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" },
+        { icon: "📝", label: "Test Bank CH 3", url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+        { icon: "📄", label: "Chapter 3 summary", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
+        { icon: "🌐", label: "Chapter 3 summary - translated", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
+      ]
+    },
+    note: "⚡ كويز 3 ماركتنج (Chapter 3): الأحد 1 نوفمبر الساعة 8:00 ص في المحاضرة بمدرج 3103-414 • 20 سؤال في 5 دقائق من الـ Test Bank (اضغط لفتح المحاكي والمصادر)"
+  },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
@@ -1653,6 +1763,17 @@ const MONDAY_DYNAMICS_SLOTS = {
 
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
+  {
+    id: "notif-gen-quiz-3",
+    date: "31 Oct 2026",
+    tag: "GEN G119 • Quiz 3",
+    title: "⚡ كويز 3 ماركتنج (Chapter 3) — غداً الأحد 1 نوفمبر في المحاضرة + المحاكي التفاعلي",
+    body: "📍 مدرج 3103-414 • الأحد 1 نوفمبر 2026 الساعة 8:00 صباحاً داخل المحاضرة\n• نفس نظام ودرجات الكويزات السابقة: مدة الكويز 5 دقائق فقط (20 سؤال MCQ + صح وغلط) من الـ Test Bank.\n• المحتوى المقرر: Chapter 3 (Analyzing the Marketing Environment) كامل.\n• تم توفير السلايدات والملخص (الإنجليزي والمترجم) والـ Test Bank بالكامل (125 سؤال) على المحاكي التفاعلي!",
+    actions: [
+      { label: "🎮 محاكي كويز 3 والـ Test Bank", action: "openMarketingQuiz3Modal()" },
+      { label: "📚 دليل ومصادر كويز 3", action: "openQuizPrepGuide('gen-quiz-3')" }
+    ]
+  },
   {
     id: "notif-mth-guide-update",
     date: "30 Oct 2026",
@@ -3420,3 +3541,1611 @@ const marketingQuiz2Questions = [
 ];
 
 window.marketingQuiz2Questions = marketingQuiz2Questions;
+
+// ==========================================================================
+// Marketing (GEN G119) — Chapter 3 Test Bank Master Data (Complete 125 Questions)
+// ==========================================================================
+const marketingQuiz3Questions = [
+  {
+    "id": 1,
+    "type": "mcq",
+    "question": "You are directed to study the actors close to the company that affect its ability to serve its customers-departments within the company, suppliers, marketing intermediaries, customer markets, competitors, and publics. What are you studying?",
+    "options": [
+      "the macroenvironment",
+      "the microenvironment",
+      "the marketing environment",
+      "the demographic environment",
+      "the global environment"
+    ],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 2,
+    "type": "mcq",
+    "question": "Which of the following terms is used to describe the factors and forces outside marketing that affect marketing management's ability to build and maintain successful relationships with target customers?",
+    "options": [
+      "the marketing environment",
+      "the cultural environment",
+      "strategic planning",
+      "target markets",
+      "the marketing mix"
+    ],
+    "answer": 0,
+    "pageRef": 66
+  },
+  {
+    "id": 3,
+    "type": "mcq",
+    "question": "You are directed to study the demographic, economic, natural, technological, political, and cultural factors that are larger societal forces affecting your company. What are you studying?",
+    "options": [
+      "the macroenvironment",
+      "the microenvironment",
+      "the external environment",
+      "the marketing mix",
+      "the global environment"
+    ],
+    "answer": 0,
+    "pageRef": 66
+  },
+  {
+    "id": 4,
+    "type": "mcq",
+    "question": "Which of the following is NOT a type of factor in a company's macroenvironment?",
+    "options": [
+      "demographic",
+      "economic",
+      "technological",
+      "competitive",
+      "political"
+    ],
+    "answer": 3,
+    "pageRef": 66
+  },
+  {
+    "id": 5,
+    "type": "mcq",
+    "question": "All of the groups within a company are called the ________.",
+    "options": [
+      "culture",
+      "diversity",
+      "internal environment",
+      "climate",
+      "range"
+    ],
+    "answer": 2,
+    "pageRef": 67
+  },
+  {
+    "id": 6,
+    "type": "mcq",
+    "question": "Which type of organization helps companies to stock and move goods from their points of origin to their destination?",
+    "options": [
+      "financial intermediaries",
+      "physical distribution firms",
+      "marketing services agencies",
+      "resellers",
+      "suppliers"
+    ],
+    "answer": 1,
+    "pageRef": 68
+  },
+  {
+    "id": 7,
+    "type": "mcq",
+    "question": "Banks, credit companies, insurance companies, and other businesses that help finance transactions or insure against the risks associated with the buying and selling of goods and services are referred to as ________.",
+    "options": [
+      "financial intermediaries",
+      "physical distribution firms",
+      "marketing services agencies",
+      "resellers",
+      "wholesalers"
+    ],
+    "answer": 0,
+    "pageRef": 68
+  },
+  {
+    "id": 8,
+    "type": "mcq",
+    "question": "Currently, Diego Calabresa is employed by a firm that conducts marketing research and creates ads for other companies that help them target and promote their products to the right markets. Who is Diego's employer?",
+    "options": [
+      "a financial intermediary",
+      "a physical distribution firm",
+      "a marketing service agency",
+      "a reseller",
+      "a green marketer"
+    ],
+    "answer": 2,
+    "pageRef": 68
+  },
+  {
+    "id": 9,
+    "type": "mcq",
+    "question": "A ________ is defined as any group that has an actual or potential interest in, or impact on, an organization's ability to achieve its objectives.",
+    "options": [
+      "team",
+      "competitor",
+      "market",
+      "public",
+      "intermediary"
+    ],
+    "answer": 3,
+    "pageRef": 69
+  },
+  {
+    "id": 10,
+    "type": "mcq",
+    "question": "Which of the following is NOT an example of the type of public that is part of a company's marketing environment?",
+    "options": [
+      "financial",
+      "media",
+      "government",
+      "citizen-action",
+      "marketing department"
+    ],
+    "answer": 4,
+    "pageRef": 69
+  },
+  {
+    "id": 11,
+    "type": "mcq",
+    "question": "A radio station that carries news, features, and editorial opinions about your area is which type of public?",
+    "options": [
+      "financial",
+      "media",
+      "citizen-action",
+      "local",
+      "government"
+    ],
+    "answer": 1,
+    "pageRef": 69
+  },
+  {
+    "id": 12,
+    "type": "mcq",
+    "question": "A consumer organization, environmental group, or minority group has challenged your firm's stand on a local issue. Your firm is being challenged by a ________ public.",
+    "options": [
+      "local",
+      "general",
+      "government",
+      "citizen-action",
+      "media"
+    ],
+    "answer": 3,
+    "pageRef": 69
+  },
+  {
+    "id": 13,
+    "type": "mcq",
+    "question": "Workers, managers, and members of the board are all part of a company's ________ public.",
+    "options": [
+      "general",
+      "internal",
+      "local",
+      "intermediary",
+      "market"
+    ],
+    "answer": 1,
+    "pageRef": 69
+  },
+  {
+    "id": 14,
+    "type": "mcq",
+    "question": "Percy Original caters to a market of individuals and households that buys goods and services for personal consumption. Percy Original caters to a ________ market.",
+    "options": [
+      "business",
+      "reseller",
+      "government",
+      "consumer",
+      "marketing intermediary"
+    ],
+    "answer": 3,
+    "pageRef": 69
+  },
+  {
+    "id": 15,
+    "type": "mcq",
+    "question": "Which type of market buys goods and services for further processing or for use in the production process?",
+    "options": [
+      "business",
+      "reseller",
+      "wholesale",
+      "consumer",
+      "retail"
+    ],
+    "answer": 0,
+    "pageRef": 69
+  },
+  {
+    "id": 16,
+    "type": "mcq",
+    "question": "Which type of market buys goods and services to produce public services or to transfer them to others who need them?",
+    "options": [
+      "government",
+      "reseller",
+      "wholesale",
+      "consumer",
+      "retail"
+    ],
+    "answer": 0,
+    "pageRef": 69
+  },
+  {
+    "id": 17,
+    "type": "mcq",
+    "question": "Rachel Patino works for a wholesale company called Distributors Unlimited. She is responsible for buying and selling goods at a profit to small retailers. What is her market?",
+    "options": [
+      "business",
+      "reseller",
+      "wholesale",
+      "consumer",
+      "retail"
+    ],
+    "answer": 1,
+    "pageRef": 69
+  },
+  {
+    "id": 18,
+    "type": "mcq",
+    "question": "Your marketing department is currently researching the size, density, location, age, and occupations of your target market. Which environment is being researched?",
+    "options": [
+      "demographic",
+      "psychographic",
+      "economic",
+      "geographic",
+      "cultural"
+    ],
+    "answer": 0,
+    "pageRef": 70
+  },
+  {
+    "id": 19,
+    "type": "mcq",
+    "question": "The three largest generational groups in America are the baby boomers, Generation Xers, and ________.",
+    "options": [
+      "seniors",
+      "Millennials",
+      "teens",
+      "tweens",
+      "toddlers"
+    ],
+    "answer": 1,
+    "pageRef": 71
+  },
+  {
+    "id": 20,
+    "type": "mcq",
+    "question": "As a group, ________ are the most affluent Americans.",
+    "options": [
+      "baby boomers",
+      "Generation Xers",
+      "the Millennials",
+      "echo boomers",
+      "seniors"
+    ],
+    "answer": 0,
+    "pageRef": 71
+  },
+  {
+    "id": 21,
+    "type": "mcq",
+    "question": "Research has shown that the most important demographic trend in the United States is the ________.",
+    "options": [
+      "changing age structure of the population",
+      "mobility of families",
+      "slowing birth rate",
+      "increasing number of professional jobs",
+      "aging population"
+    ],
+    "answer": 0,
+    "pageRef": 71
+  },
+  {
+    "id": 22,
+    "type": "mcq",
+    "question": "The youngest of the baby boomers are now in their ________.",
+    "options": [
+      "late 20s",
+      "mid-20s",
+      "mid-40s",
+      "early 50s",
+      "early 60s"
+    ],
+    "answer": 2,
+    "pageRef": 71
+  },
+  {
+    "id": 23,
+    "type": "mcq",
+    "question": "Which of the following descriptions most accurately characterizes the baby boomers?",
+    "options": [
+      "They are increasingly likely to retire early.",
+      "They are a shrinking market for new housing and home remodeling.",
+      "They are past their peak earning and spending years.",
+      "They hold 75% of the country's assets.",
+      "They are uninterested in adapting new technologies."
+    ],
+    "answer": 3,
+    "pageRef": 71
+  },
+  {
+    "id": 24,
+    "type": "mcq",
+    "question": "Which of the following descriptions most accurately characterizes Gen Xers?",
+    "options": [
+      "There are more Gen Xers than Millennials.",
+      "They were the first generation of latchkey kids.",
+      "They grew up during times of great economic growth.",
+      "They are more interested in acquiring goods than having experiences.",
+      "They rarely research a product before purchasing it."
+    ],
+    "answer": 1,
+    "pageRef": 72
+  },
+  {
+    "id": 25,
+    "type": "mcq",
+    "question": "Which demographic group is also referred to as the echo boomers?",
+    "options": [
+      "Generation X",
+      "Millennials",
+      "Generation Z",
+      "baby boomers",
+      "baby busters"
+    ],
+    "answer": 1,
+    "pageRef": 74
+  },
+  {
+    "id": 26,
+    "type": "mcq",
+    "question": "Large tween and teen markets belong to which demographic group?",
+    "options": [
+      "Generation X",
+      "Millennials",
+      "baby busters",
+      "baby boomers",
+      "Generation Z"
+    ],
+    "answer": 1,
+    "pageRef": 74
+  },
+  {
+    "id": 27,
+    "type": "mcq",
+    "question": "Which of the following descriptions most accurately characterizes Millennials?",
+    "options": [
+      "They are children of baby boomers.",
+      "They are less ethnically diverse than Gen Xers.",
+      "They have reached their peak earning and spending years.",
+      "They were once labeled \"the MTV generation.\"",
+      "They have graduated from college and are taking over positions of power in the business world."
+    ],
+    "answer": 0,
+    "pageRef": 74
+  },
+  {
+    "id": 28,
+    "type": "mcq",
+    "question": "Which demographic group is characterized by a total fluency and comfort with computer, digital, and Internet technology?",
+    "options": [
+      "Generation X",
+      "Millenials",
+      "the elderly",
+      "Generation Z",
+      "baby boomers"
+    ],
+    "answer": 1,
+    "pageRef": 74
+  },
+  {
+    "id": 29,
+    "type": "mcq",
+    "question": "Which of the following demographic groups has NOT seen a percentage increase in the past 50 years?",
+    "options": [
+      "women staying at home with their children",
+      "men staying at home with their children",
+      "nontraditional households",
+      "nonfamily households",
+      "women working outside of the home"
+    ],
+    "answer": 0,
+    "pageRef": 75
+  },
+  {
+    "id": 30,
+    "type": "mcq",
+    "question": "Ameriprise Financial has published a Dream Book guide, one of the first steps in their Dream > Plan > Track approach to financial planning, as part of their strategy to attract ________ as customers.",
+    "options": [
+      "baby boomers",
+      "Gen Xers",
+      "echo boomers",
+      "Millennials",
+      "professionals"
+    ],
+    "answer": 0,
+    "pageRef": 73
+  },
+  {
+    "id": 31,
+    "type": "mcq",
+    "question": "\"Dreams don't retire\" is the theme of a(n) ________ marketing campaign aimed at baby boomers.",
+    "options": [
+      "financial services",
+      "anti-aging products",
+      "travel and entertainment",
+      "fitness products",
+      "technological products"
+    ],
+    "answer": 0,
+    "pageRef": 73
+  },
+  {
+    "id": 32,
+    "type": "mcq",
+    "question": "In 1950, women made up under 40 percent of the workforce; now they make up ________ percent.",
+    "options": [
+      "35",
+      "40",
+      "43",
+      "46",
+      "59"
+    ],
+    "answer": 4,
+    "pageRef": 75
+  },
+  {
+    "id": 33,
+    "type": "mcq",
+    "question": "Which of the following is a trend that depicts the increasingly nontraditional nature of today's American family?",
+    "options": [
+      "working women making up a smaller percentage of the workforce",
+      "the falling percentage of married couples with children",
+      "dual-income families declining in number",
+      "stay-at-home dads declining in number",
+      "the declining reliance on convenience foods and services"
+    ],
+    "answer": 1,
+    "pageRef": 75
+  },
+  {
+    "id": 34,
+    "type": "mcq",
+    "question": "Over the past two decades, the U.S. population has shifted most heavily toward the ________ states.",
+    "options": [
+      "Midwestern",
+      "Northern",
+      "Sunbelt",
+      "Southeastern",
+      "Northeastern"
+    ],
+    "answer": 2,
+    "pageRef": 76
+  },
+  {
+    "id": 35,
+    "type": "mcq",
+    "question": "Which of the following geographical areas has NOT seen a recent population increase?",
+    "options": [
+      "micropolitan areas",
+      "suburbs",
+      "the West",
+      "the Northeast",
+      "the South"
+    ],
+    "answer": 3,
+    "pageRef": 76
+  },
+  {
+    "id": 36,
+    "type": "mcq",
+    "question": "In the 1950s, the American population began shifting from large cities to ________.",
+    "options": [
+      "farming communities",
+      "rural areas",
+      "foreign countries",
+      "suburbs",
+      "coastal towns"
+    ],
+    "answer": 3,
+    "pageRef": 76
+  },
+  {
+    "id": 37,
+    "type": "mcq",
+    "question": "Which of the following is the most reasonable to assume as more and more Americans move to \"micropolitan areas\"?",
+    "options": [
+      "Geographic segmentation may be less critical to marketers.",
+      "Rural populations will offer an expanding market.",
+      "Micropolitan areas are likely to offer the same advantages as metropolitan areas.",
+      "Congested areas are likely to become more ensnarled.",
+      "Crime rates in metropolitan areas will increase."
+    ],
+    "answer": 2,
+    "pageRef": 76
+  },
+  {
+    "id": 38,
+    "type": "mcq",
+    "question": "Nearly 10 percent of American workers currently work out of their homes with technological conveniences such as PCs, Internet access, and fax machines. These workers are referred to as the ________ market.",
+    "options": [
+      "micropolitan",
+      "SOHO",
+      "mobile",
+      "independent",
+      "contract"
+    ],
+    "answer": 1,
+    "pageRef": 76
+  },
+  {
+    "id": 39,
+    "type": "mcq",
+    "question": "Which of the following groups of workers is projected to become smaller over the next ten years?",
+    "options": [
+      "white collar workers",
+      "manufacturing workers",
+      "managers",
+      "telecommuters",
+      "professional workers"
+    ],
+    "answer": 1,
+    "pageRef": 77
+  },
+  {
+    "id": 40,
+    "type": "mcq",
+    "question": "Because of increasing ________, Americans will demand higher quality products, books, magazines, travel, personal computers, and Internet services.",
+    "options": [
+      "numbers of nontraditional families",
+      "family size",
+      "levels of education",
+      "social class awareness",
+      "ethnic diversity"
+    ],
+    "answer": 2,
+    "pageRef": 77
+  },
+  {
+    "id": 41,
+    "type": "mcq",
+    "question": "Which of the following is an accurate statement about the diversity of the American population?",
+    "options": [
+      "African Americans represent the largest non-white segment of the population.",
+      "More than 12 percent of people living in the United States were born in another country.",
+      "The Asian American percentage of the population is expected to remain steady in the next 50 years.",
+      "In terms of ethnic diversity, the United States is about average in comparison to other countries with populations of a comparable size.",
+      "American ethnic populations are expected to slowly increase in the next few decades."
+    ],
+    "answer": 1,
+    "pageRef": 77
+  },
+  {
+    "id": 42,
+    "type": "mcq",
+    "question": "Of the following, which is the fastest-growing ethnic minority in the United States?",
+    "options": [
+      "African Americans",
+      "Asian Americans",
+      "Hispanics",
+      "Native Americans",
+      "Arab Americans"
+    ],
+    "answer": 2,
+    "pageRef": 77
+  },
+  {
+    "id": 43,
+    "type": "mcq",
+    "question": "With an expected increase in ethnic populations, marketers are likely to place a greater emphasis on ________.",
+    "options": [
+      "geographic segmentation",
+      "targeted advertising messages",
+      "mass marketing",
+      "mainstream advertising",
+      "cause-related marketing"
+    ],
+    "answer": 1,
+    "pageRef": 77
+  },
+  {
+    "id": 44,
+    "type": "mcq",
+    "question": "Members of which of the following groups are more likely than the average American to have a professional job, have a household income over $250,000, own a vacation home, own a notebook computer, and own individual stocks?",
+    "options": [
+      "Gen Xers",
+      "gays and lesbians",
+      "Millennials",
+      "echo boomers",
+      "environmentalists"
+    ],
+    "answer": 1,
+    "pageRef": 78
+  },
+  {
+    "id": 45,
+    "type": "mcq",
+    "question": "Of the following diversity segments in the American population, which is currently the largest?",
+    "options": [
+      "adults with disabilities",
+      "Hispanics",
+      "African Americans",
+      "telecommuters",
+      "Asian Americans"
+    ],
+    "answer": 0,
+    "pageRef": 78
+  },
+  {
+    "id": 46,
+    "type": "mcq",
+    "question": "The ________ environment consists of factors that affect consumer purchasing power and spending patterns.",
+    "options": [
+      "cultural",
+      "political",
+      "technological",
+      "economic",
+      "natural"
+    ],
+    "answer": 3,
+    "pageRef": 79
+  },
+  {
+    "id": 47,
+    "type": "mcq",
+    "question": "A country with a(n) ________ economy consumes most of its own agricultural and industrial outputs and offers few market opportunities.",
+    "options": [
+      "industrial",
+      "service",
+      "technological",
+      "subsistence",
+      "rural"
+    ],
+    "answer": 3,
+    "pageRef": 79
+  },
+  {
+    "id": 48,
+    "type": "mcq",
+    "question": "A country with a(n) ________ economy has rich markets for many different kinds of goods.",
+    "options": [
+      "industrial",
+      "service",
+      "developing",
+      "subsistence",
+      "multicultural"
+    ],
+    "answer": 0,
+    "pageRef": 79
+  },
+  {
+    "id": 49,
+    "type": "mcq",
+    "question": "Which of the following factors has NOT contributed to today's age of the \"tapped-out consumer\"?",
+    "options": [
+      "rising incomes in the upper class",
+      "debt repayment",
+      "increasing household expenses",
+      "savings for college tuition",
+      "savings for retirement"
+    ],
+    "answer": 0,
+    "pageRef": 80
+  },
+  {
+    "id": 50,
+    "type": "mcq",
+    "question": "Value marketing is the strategy of offering consumers ________.",
+    "options": [
+      "high quality at a high price",
+      "luxury quality at a high price",
+      "lesser quality at a low price",
+      "reasonable quality at a fair price",
+      "little quality at a low price"
+    ],
+    "answer": 3,
+    "pageRef": 80
+  },
+  {
+    "id": 51,
+    "type": "mcq",
+    "question": "Which of the following statements about income distribution in the United States is NOT true?",
+    "options": [
+      "In recent decades, the rich have gotten richer.",
+      "In recent decades, the middle class has grown.",
+      "In recent decades, the poor have remained poor.",
+      "The top 10 percent of American earners account for almost half of all American income.",
+      "The top one percent of American earners receive a higher percentage of the nation's total income than do the bottom 50 percent of American earners."
+    ],
+    "answer": 1,
+    "pageRef": 80
+  },
+  {
+    "id": 52,
+    "type": "mcq",
+    "question": "In a tiered market, companies target which of the following?",
+    "options": [
+      "affluent consumers only",
+      "consumers of modest means only",
+      "the middle class only",
+      "consumers at all levels of income distribution",
+      "professionals only"
+    ],
+    "answer": 3,
+    "pageRef": 80
+  },
+  {
+    "id": 53,
+    "type": "mcq",
+    "question": "Which of the following groups of expenses uses up the most household income?",
+    "options": [
+      "food, housing, retirement planning",
+      "housing, insurance, taxes",
+      "food, housing, transportation",
+      "housing, taxes, transportation",
+      "food, travel, savings"
+    ],
+    "answer": 2,
+    "pageRef": 81
+  },
+  {
+    "id": 54,
+    "type": "mcq",
+    "question": "Ernst Engel's laws generally have been supported by recent studies. He discovered that as family income rises, the percentage spent on ________ declines and the percentage spent on ________ remains about constant.",
+    "options": [
+      "food; clothing",
+      "clothing; recreation/entertainment",
+      "food; transportation",
+      "food; housing",
+      "recreation/entertainment; savings"
+    ],
+    "answer": 3,
+    "pageRef": 81
+  },
+  {
+    "id": 55,
+    "type": "mcq",
+    "question": "The natural resources that are needed as inputs by marketers or that are affected by marketing activities are referred to as the ________.",
+    "options": [
+      "raw material market",
+      "natural environment",
+      "endangered environment",
+      "green movement",
+      "factors of production"
+    ],
+    "answer": 1,
+    "pageRef": 81
+  },
+  {
+    "id": 56,
+    "type": "mcq",
+    "question": "Which of the following American government agencies is charged with setting and enforcing pollution standards?",
+    "options": [
+      "the Environmental Protection Agency (EPA)",
+      "the Federal Trade Commission (FTC)",
+      "the Food and Drug Administration (FDA)",
+      "the Consumer Product Safety Commission",
+      "the Federal Energy Regulatory Commission"
+    ],
+    "answer": 0,
+    "pageRef": 81
+  },
+  {
+    "id": 57,
+    "type": "mcq",
+    "question": "Which of the following has encouraged marketers to pursue environmentally sustainable strategies?",
+    "options": [
+      "the EPA",
+      "the black market",
+      "the green movement",
+      "deregulation",
+      "green intervention"
+    ],
+    "answer": 2,
+    "pageRef": 82
+  },
+  {
+    "id": 58,
+    "type": "mcq",
+    "question": "Which of the following is a result of regulations set up by the Food and Drug Administration and the Consumer Product Safety Commission?",
+    "options": [
+      "The time between new product ideas and their introduction to the market has decreased.",
+      "Spending on research and development has decreased.",
+      "Research costs for companies have grown.",
+      "More companies have failed to meet safety standards.",
+      "Companies are more focused on making practical, affordable versions of products."
+    ],
+    "answer": 2,
+    "pageRef": 83
+  },
+  {
+    "id": 59,
+    "type": "mcq",
+    "question": "Marketers should be aware of laws, government agencies, and pressure groups that influence or limit various organizations and individuals in a given society. This is most accurately described as the ________ environment.",
+    "options": [
+      "socio-legal",
+      "cultural",
+      "political",
+      "legal-technological",
+      "economic"
+    ],
+    "answer": 2,
+    "pageRef": 84
+  },
+  {
+    "id": 60,
+    "type": "mcq",
+    "question": "Even the most liberal advocates of free-market economies agree that the system works best with ________ regulation.",
+    "options": [
+      "private",
+      "maximum",
+      "intermittent",
+      "at least some",
+      "no"
+    ],
+    "answer": 3,
+    "pageRef": 84
+  },
+  {
+    "id": 61,
+    "type": "mcq",
+    "question": "Legislation affecting business around the world will continue to ________.",
+    "options": [
+      "become standardized",
+      "increase",
+      "remain steady",
+      "decrease",
+      "threaten the American domestic economy"
+    ],
+    "answer": 1,
+    "pageRef": 84
+  },
+  {
+    "id": 62,
+    "type": "mcq",
+    "question": "The legislation created to limit the number of commercials aired during children's programming is called the ________.",
+    "options": [
+      "Children's Online Privacy Protection Act",
+      "Child Protection Act",
+      "Fair Packaging and Labeling Act",
+      "Children's Television Act",
+      "Consumer Product Safety Act"
+    ],
+    "answer": 3,
+    "pageRef": 85
+  },
+  {
+    "id": 63,
+    "type": "mcq",
+    "question": "Business legislation has been created for three basic reasons: to protect companies from each other, to protect consumers, and to ________.",
+    "options": [
+      "protect the interests of society",
+      "regulate prices",
+      "increase world trade",
+      "regulate monopolies",
+      "promote social responsibility"
+    ],
+    "answer": 0,
+    "pageRef": 84
+  },
+  {
+    "id": 64,
+    "type": "mcq",
+    "question": "The recent rash of business scandals and increased concerns about the environment have created fresh interest in the issues of ________ and ________.",
+    "options": [
+      "ethics; promotion responsibility",
+      "ethics; social responsibility",
+      "finances; employee discrimination",
+      "management ethics; insider trading",
+      "promotion; pricing"
+    ],
+    "answer": 1,
+    "pageRef": 86
+  },
+  {
+    "id": 65,
+    "type": "mcq",
+    "question": "Cause-related marketing is a(n) ________.",
+    "options": [
+      "response to customer needs",
+      "primary form of environmental awareness",
+      "primary form of corporate giving",
+      "response to corporate legislative problems",
+      "attempt to influence consumers' core beliefs"
+    ],
+    "answer": 2,
+    "pageRef": 86
+  },
+  {
+    "id": 66,
+    "type": "mcq",
+    "question": "A society's basic values, perceptions, preferences, and behaviors are all part of its ________ environment.",
+    "options": [
+      "social",
+      "cultural",
+      "political",
+      "cultural-economic",
+      "natural"
+    ],
+    "answer": 1,
+    "pageRef": 87
+  },
+  {
+    "id": 67,
+    "type": "mcq",
+    "question": "Marketers should understand that a society's core beliefs and values have a high degree of ________.",
+    "options": [
+      "persistence",
+      "flexibility",
+      "similarity",
+      "ethnocentrism",
+      "conformity"
+    ],
+    "answer": 0,
+    "pageRef": 87
+  },
+  {
+    "id": 68,
+    "type": "mcq",
+    "question": "Your company is making negotiations to enter a market in Lower Albania. You would most likely discover that ________ beliefs and values are open to change in this country.",
+    "options": [
+      "inherited",
+      "secondary",
+      "primary",
+      "core",
+      "traditional"
+    ],
+    "answer": 1,
+    "pageRef": 87
+  },
+  {
+    "id": 69,
+    "type": "mcq",
+    "question": "A society's ________ are expressed in how people view themselves, organizations, society, nature, and the universe.",
+    "options": [
+      "social codes",
+      "cultural values",
+      "demographics",
+      "public policies",
+      "economies"
+    ],
+    "answer": 1,
+    "pageRef": 87
+  },
+  {
+    "id": 70,
+    "type": "mcq",
+    "question": "Trends in people's views of organizations indicate that which of the following has increased in the past twenty years?",
+    "options": [
+      "employees' loyalty to their employers",
+      "confidence in American political organizations",
+      "distrust in big American businesses",
+      "distrust in small, local businesses",
+      "employees' view of work as a source of satisfaction"
+    ],
+    "answer": 2,
+    "pageRef": 89
+  },
+  {
+    "id": 71,
+    "type": "mcq",
+    "question": "Watching the cultural trends of how people view society, observers have noted that since September 11, 2001, marketers responded to the increased ________ of Americans with special products and promotions.",
+    "options": [
+      "loyalty",
+      "patriotism",
+      "distrust",
+      "foreign intolerance",
+      "belligerence"
+    ],
+    "answer": 1,
+    "pageRef": 89
+  },
+  {
+    "id": 72,
+    "type": "mcq",
+    "question": "Which of the following is a potential downside to using patriotic themes in marketing programs?",
+    "options": [
+      "Patriotism has been on the decline in the past decade.",
+      "Levels of patriotism fluctuate rapidly.",
+      "Such promotions can be viewed as attempts to gain from others' triumph or tragedy.",
+      "Americans are less confident in political organizations.",
+      "Few marketers currently use this technique."
+    ],
+    "answer": 2,
+    "pageRef": 89
+  },
+  {
+    "id": 73,
+    "type": "mcq",
+    "question": "Cultural forecasters have noted a renewed American interest in ________.",
+    "options": [
+      "dominating and taming nature",
+      "the fine arts",
+      "work as a source of satisfaction and self-definition",
+      "spirituality",
+      "reforming social classes"
+    ],
+    "answer": 3,
+    "pageRef": 90
+  },
+  {
+    "id": 74,
+    "type": "mcq",
+    "question": "Marketers can take a(n) ________ by taking aggressive action to affect the publics and forces in their marketing environments.",
+    "options": [
+      "environmental stance",
+      "proactive stance",
+      "natural perspective",
+      "natural-management perspective",
+      "relationship-building perspective"
+    ],
+    "answer": 1,
+    "pageRef": 91
+  },
+  {
+    "id": 75,
+    "type": "mcq",
+    "question": "Which of the following explains why few companies have been successful in shutting down critics who post complaints on the Web?",
+    "options": [
+      "The criticism is usually interpreted as protected speech.",
+      "The courts have typically refused to hear any cases against individual critics.",
+      "Web sites using \"I hate\" or \"sucks\" in the title along with a company's name can be easily confused with the company's actual Web site.",
+      "Registering domain names to prevent critical Web sites is a lengthy process.",
+      "Companies have found that it is more effective to respond in kind with attacks against critics."
+    ],
+    "answer": 0,
+    "pageRef": 92
+  },
+  {
+    "id": 76,
+    "type": "tf",
+    "question": "Today's marketers must successfully build relationships to connect effectively with customers, others in the company, and external partners.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 66
+  },
+  {
+    "id": 77,
+    "type": "tf",
+    "question": "When the marketing manager Suzie Kwan discusses factors and forces outside marketing, such as political that affect marketing management's ability to build and maintain successful relationships with target customers, she is talking about the external marketing concept.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 78,
+    "type": "tf",
+    "question": "The microenvironment consists of larger societal forces that affect a company, such as demographic, economic, political, and cultural forces.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 79,
+    "type": "tf",
+    "question": "The macroenvironment consists of the factors close to the company that affect its ability to serve its customers, such as suppliers, customer markets, competitors, and publics.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 80,
+    "type": "tf",
+    "question": "Trudie Jones works for a distribution channel firm that helps several electronics companies find customers or make sales to them. Trudie works for a reseller.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 67
+  },
+  {
+    "id": 81,
+    "type": "tf",
+    "question": "Marketing research firms, advertising agencies, media firms, and marketing consulting firms are all referred to as marketing services agencies.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 68
+  },
+  {
+    "id": 82,
+    "type": "tf",
+    "question": "Today's successful marketers recognize the importance of working with their intermediaries as channels through which they sell their products rather than as full-fledged partners.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 68
+  },
+  {
+    "id": 83,
+    "type": "tf",
+    "question": "Consumer organizations such as environmental and minority groups that may questions a company's marketing decisions are referred to as local publics.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 69
+  },
+  {
+    "id": 84,
+    "type": "tf",
+    "question": "A company markets wild and crazy games for teens to play at parties. This company's customer market is a business market.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 69
+  },
+  {
+    "id": 85,
+    "type": "tf",
+    "question": "The demographic environment is of major interest to marketers because it involves people, and people make up markets.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 70
+  },
+  {
+    "id": 86,
+    "type": "tf",
+    "question": "The single most important demographic trend in the United States that marketers should understand is the changing family structure.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 70
+  },
+  {
+    "id": 87,
+    "type": "tf",
+    "question": "As baby boomers reach their peak earning and spending years, they become lucrative markets for financial services, travel, and entertainment.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 71
+  },
+  {
+    "id": 88,
+    "type": "tf",
+    "question": "Once thought of as slackers, Gen Xers are now displacing the lifestyles, culture, and materialistic values of the baby boomers.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 73
+  },
+  {
+    "id": 89,
+    "type": "tf",
+    "question": "Millennials comprise the most commercially influential group in America today.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 70
+  },
+  {
+    "id": 90,
+    "type": "tf",
+    "question": "Millennials represent a larger demographic segment than the baby boomers or Gen Xers.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 74
+  },
+  {
+    "id": 91,
+    "type": "tf",
+    "question": "Marketers must increasingly consider the needs of traditional households because this segment of the population is growing more rapidly than nontraditional households.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 75
+  },
+  {
+    "id": 92,
+    "type": "tf",
+    "question": "The American workforce today is better educated but less white-collar than it was a generation ago.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 77
+  },
+  {
+    "id": 93,
+    "type": "tf",
+    "question": "Companies in several industries have recognized the buying power of the gay and lesbian segment of the U.S. population and have begun explicitly targeting these consumers with gay-specific marketing efforts.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 78
+  },
+  {
+    "id": 94,
+    "type": "tf",
+    "question": "According to Engel's laws, consumers tend to spend a larger percentage of income on savings as income rises.",
+    "options": ["True", "False"],
+    "answer": 0,
+    "pageRef": 81
+  },
+  {
+    "id": 95,
+    "type": "tf",
+    "question": "Significant trends in the natural environment include shortages of raw materials, increased pollution, and decreased government intervention.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 81
+  },
+  {
+    "id": 96,
+    "type": "tf",
+    "question": "More government legislation and the green movement are the likeliest causes of a general decline in environmental concerns in the past decade.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 81
+  },
+  {
+    "id": 97,
+    "type": "tf",
+    "question": "The introduction of new technologies is beneficial to all industries, as new markets and opportunities are created.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 83
+  },
+  {
+    "id": 98,
+    "type": "tf",
+    "question": "Cause-related marketing is a slowing trend as companies have abused the practice, using it more to increase sales than to support worthwhile causes.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 86
+  },
+  {
+    "id": 99,
+    "type": "tf",
+    "question": "In the cultural environment, core values and beliefs and secondary values and beliefs differ in that the former are more open to change.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 87
+  },
+  {
+    "id": 100,
+    "type": "tf",
+    "question": "When a company hires lobbyists to influence legislation affecting its industry, it is taking a reactive approach to the marketing environment.",
+    "options": ["True", "False"],
+    "answer": 1,
+    "pageRef": 91
+  },
+  {
+    "id": 101,
+    "type": "mcq",
+    "question": "Innovations is a producer of electronic circuits that power a variety of technological devices produced by other companies. Innovations sells its products to ________ markets.",
+    "options": [
+      "business",
+      "government",
+      "consumer",
+      "internal",
+      "financial"
+    ],
+    "answer": 0,
+    "pageRef": 69
+  },
+  {
+    "id": 102,
+    "type": "mcq",
+    "question": "ING, an international insurance and financial services company, is the primary sponsor of the annual New York City Marathon, which is attended by over one million fans and watched by approximately 300 million viewers worldwide. The ING logo and name appear throughout the race course. ING most likely sponsors the event in order to appeal to which type of public?",
+    "options": [
+      "financial",
+      "local",
+      "government",
+      "general",
+      "internal"
+    ],
+    "answer": 3,
+    "pageRef": 69
+  },
+  {
+    "id": 103,
+    "type": "mcq",
+    "question": "If baby boomers are predictors of where product and service demand will be, increased demands will most likely be evident in ________ in the upcoming years.",
+    "options": [
+      "university enrollment",
+      "beer and wine",
+      "financial services",
+      "the apparel industry",
+      "the automobile industry"
+    ],
+    "answer": 2,
+    "pageRef": 71
+  },
+  {
+    "id": 104,
+    "type": "mcq",
+    "question": "Noora DeLange is helping her company develop a marketing program for a new product line. The program involves emphasizing experience over acquisition and uses a marketing pitch that is less overt than the company's previous programs. The marketing program is most likely designed to appeal to which of the following demographic groups?",
+    "options": [
+      "Gen Xers",
+      "nontraditional households",
+      "\"micropolitan\" populations",
+      "Millennials",
+      "manufacturing workers"
+    ],
+    "answer": 0,
+    "pageRef": 72
+  },
+  {
+    "id": 105,
+    "type": "mcq",
+    "question": "Which of the following best explains why Gen Xers as a group may be more economically cautious than baby boomers?",
+    "options": [
+      "Gen Xers grew up during times of corporate downsizing and recession.",
+      "Gen Xers watched much of their savings evaporate during the recession of the late 1980s.",
+      "Gen Xers are not as materialistic as members of other generations.",
+      "Gen Xers tend to seek more guidance from the financial services industry.",
+      "Gen Xers are more focused on saving for retirement than baby boomers are."
+    ],
+    "answer": 0,
+    "pageRef": 72
+  },
+  {
+    "id": 106,
+    "type": "mcq",
+    "question": "Wholesome Soups, a maker of organic soups, is starting a new marketing campaign emphasizing the ease of preparing and eating Wholesome Soups on the go. Print, television, and Internet ads feature college-aged students enjoying Wholesome Soups in between classes and during study breaks. Wholesome Soups' new marketing campaign is most likely aimed at which of the following?",
+    "options": [
+      "baby boomers",
+      "seniors",
+      "Gen Xers",
+      "Millennials",
+      "the SOHO market"
+    ],
+    "answer": 3,
+    "pageRef": 74
+  },
+  {
+    "id": 107,
+    "type": "mcq",
+    "question": "In considering the changing American family, which of the following are marketers likely to consider the LEAST important?",
+    "options": [
+      "The number of traditional households has increased.",
+      "Baby boomers are hitting retirement age.",
+      "The number of married couples with both partners working outside of the home has increased.",
+      "Married couples with children make up less than 25% of the nation's households.",
+      "The number of stay-at-home fathers has increased in the past 20 years."
+    ],
+    "answer": 0,
+    "pageRef": 75
+  },
+  {
+    "id": 108,
+    "type": "mcq",
+    "question": "Which of the following demographic trends is likely the most responsible for the increasing number of people who telecommute?",
+    "options": [
+      "the migration toward micropolitan and suburban areas",
+      "the move from rural to metropolitan areas",
+      "the increasing number of nontraditional households",
+      "the growing percentage of married couples who do not have children",
+      "the declining number of manufacturing workers"
+    ],
+    "answer": 0,
+    "pageRef": 76
+  },
+  {
+    "id": 109,
+    "type": "mcq",
+    "question": "With an expected increase in ethnic diversity within the American population, marketers are most likely to place a greater emphasis on which of the following?",
+    "options": [
+      "geographic segmentation",
+      "differing advertising messages",
+      "mass marketing",
+      "\"us and them\" paradigms",
+      "tiered markets"
+    ],
+    "answer": 1,
+    "pageRef": 77
+  },
+  {
+    "id": 110,
+    "type": "mcq",
+    "question": "Jack Weiss recently won a $10 million lottery. Jack's life will change a great deal, particularly how he spends money. According to Engel's laws, Jack is LEAST likely to change the percentage of his income that he spends on which of the following?",
+    "options": [
+      "food",
+      "entertainment",
+      "housing",
+      "utilities",
+      "savings"
+    ],
+    "answer": 2,
+    "pageRef": 81
+  },
+  {
+    "id": 111,
+    "type": "mcq",
+    "question": "As a marketer of pesticides, which of the following should give you the LEAST amount of concern?",
+    "options": [
+      "shortages of raw materials",
+      "increased pollution",
+      "increased government intervention",
+      "persistence of cultural values",
+      "chemical pollutants in the food supply"
+    ],
+    "answer": 3,
+    "pageRef": 81
+  },
+  {
+    "id": 112,
+    "type": "mcq",
+    "question": "Chet Hoffman's chain of travel agencies has identified the lesbian, gay, bisexual, and transgender community as a growing market that spends an increasing percentage of its income on travel. Which of the following would be the LEAST effective component of a marketing plan for Chet to take advantage of this opportunity?",
+    "options": [
+      "develop a presence on social networking sites",
+      "position his agency as focused on specialized experiences",
+      "implement a mass marketing campaign",
+      "place specially-targeted ads in gay-themed publications",
+      "sponsor social events in metropolitan areas"
+    ],
+    "answer": 2,
+    "pageRef": 78
+  },
+  {
+    "id": 113,
+    "type": "mcq",
+    "question": "The green movement will likely spark the LEAST interest in which of the following?",
+    "options": [
+      "recycling programs",
+      "environmentally sustainable strategies",
+      "social responsibility",
+      "Internet usage",
+      "biodegradability"
+    ],
+    "answer": 3,
+    "pageRef": 81
+  },
+  {
+    "id": 114,
+    "type": "mcq",
+    "question": "As indicated in the chapter opener, change in the ________ environment has had the most impact on the marketing strategy at Xerox.",
+    "options": [
+      "technological",
+      "natural",
+      "economic",
+      "cultural",
+      "political"
+    ],
+    "answer": 0,
+    "pageRef": 64
+  },
+  {
+    "id": 115,
+    "type": "mcq",
+    "question": "Norma Bernanke is a marketer at a pharmaceutical company that has just developed a new medication to treat asthma. Which of the following components of the political environment should Norma be LEAST concerned with as her company begins to develop a marketing plan for the new product?",
+    "options": [
+      "approval from the Food and Drug Administration (FDA)",
+      "state laws regulating advertising of pharmaceuticals",
+      "laws enforced by the Federal Trade Commission",
+      "the Fair Packaging and Labeling Act",
+      "the Nutrition Labeling and Education Act"
+    ],
+    "answer": 4,
+    "pageRef": 85
+  },
+  {
+    "id": 116,
+    "type": "mcq",
+    "question": "A regional supermarket chain runs print, radio, and television advertisements announcing that 1% of each of its sales is donated to local after-school programs for underprivileged youth. This is an example of ________ marketing.",
+    "options": [
+      "cause-related",
+      "generational",
+      "sustainable",
+      "tiered",
+      "cultural"
+    ],
+    "answer": 0,
+    "pageRef": 86
+  },
+  {
+    "id": 117,
+    "type": "mcq",
+    "question": "Which of the following is an example of a core belief?",
+    "options": [
+      "Marriage is important.",
+      "Americans should display their patriotism.",
+      "The comforts of home are more important than entertainment outside of the home.",
+      "Extended warranties are never worth the money consumers pay for them.",
+      "Professionals should wear business clothes to work."
+    ],
+    "answer": 0,
+    "pageRef": 87
+  },
+  {
+    "id": 118,
+    "type": "mcq",
+    "question": "Consumers undertaking which of the following would be LEAST likely to be identified as \"Adventurers\" by the Yankelovich Monitor?",
+    "options": [
+      "taking a cruise",
+      "taking up a new sport",
+      "having a home entertainment center installed",
+      "hiking the Grand Canyon",
+      "traveling to Asia"
+    ],
+    "answer": 2,
+    "pageRef": 88
+  },
+  {
+    "id": 119,
+    "type": "mcq",
+    "question": "Toyota's Prius was the first mass-produced hybrid vehicle, known for its fuel efficiency and environmental friendliness. The Prius was initially most likely marketed to which of the following groups?",
+    "options": [
+      "the SOHO market",
+      "the LOHAS market",
+      "the LGBT market",
+      "the Asian American market",
+      "the Millennials market"
+    ],
+    "answer": 1,
+    "pageRef": 89
+  },
+  {
+    "id": 120,
+    "type": "mcq",
+    "question": "Assume that you are a manager at a firm that has hired lobbyists to influence legislation affecting your firm's industry to its advantage. Your firm takes a(n) ________ approach to the marketing environment.",
+    "options": [
+      "reactive",
+      "proactive",
+      "adversarial",
+      "passive",
+      "team work"
+    ],
+    "answer": 1,
+    "pageRef": 91
+  },
+  {
+    "id": 121,
+    "type": "mcq",
+    "question": "Which of the following forces would marketers be MOST likely able to influence?",
+    "options": [
+      "geographic population shifts",
+      "core cultural values",
+      "income distribution",
+      "increasing ethnic diversity",
+      "media publics"
+    ],
+    "answer": 4,
+    "pageRef": 91
+  },
+  {
+    "id": 122,
+    "type": "mcq",
+    "question": "[The Landing Scenario] Which microenvironment actors have affected The Landing the most?",
+    "options": [
+      "competitors",
+      "suppliers",
+      "intermediaries",
+      "natural environment",
+      "economic environment"
+    ],
+    "answer": 0,
+    "pageRef": 66
+  },
+  {
+    "id": 123,
+    "type": "mcq",
+    "question": "[The Landing Scenario] Which of the following macroenvironmental forces has had the greatest effect on The Landing?",
+    "options": [
+      "the demographic environment",
+      "the technological environment",
+      "the sustainable environment",
+      "the political environment",
+      "the social responsibility environment"
+    ],
+    "answer": 0,
+    "pageRef": 70
+  },
+  {
+    "id": 124,
+    "type": "mcq",
+    "question": "[The Landing Scenario] Which macroenvironmental force is most responsible for The Landing's 43-year survival?",
+    "options": [
+      "the demographic environment",
+      "the natural environment",
+      "the economic environment",
+      "the political environment",
+      "the legal environment"
+    ],
+    "answer": 1,
+    "pageRef": 81
+  },
+  {
+    "id": 125,
+    "type": "mcq",
+    "question": "[The Landing Scenario] Which of the following demographic forces has most likely influenced the recent upscale atmosphere of the area surrounding Witmer Lake?",
+    "options": [
+      "baby boomers reaching their peak earning and spending years",
+      "Gen Xers displacing the lifestyles of baby boomers",
+      "Millennials beginning to assert their buying power",
+      "the changing structure of the American family",
+      "the growing ethnic diversity of the country"
+    ],
+    "answer": 0,
+    "pageRef": 71
+  }
+];
+
+window.marketingQuiz3Questions = marketingQuiz3Questions;

@@ -101,6 +101,18 @@
     <!-- Carousel Banners -->
     <div class="banner-carousel-container" id="firstWeekBanner">
       <div class="banner-carousel-track" id="bannerTrack">
+
+        <!-- بنر كويز 3 ماركتنج (الأحد 1 نوفمبر) -->
+        <div class="banner-card banner-marketing-q3" style="border-color:#06b6d4; background:linear-gradient(135deg, rgba(6, 182, 212, 0.24) 0%, rgba(16, 185, 129, 0.14) 55%, var(--surface) 100%);">
+          <span class="festive-icon">⚡</span>
+          <div class="festive-msg">
+            <strong style="color:#22d3ee;">كويز 3 ماركتنج (Chapter 3) — غداً الأحد 1 نوفمبر (8:00 ص):</strong> في المحاضرة بمدرج 3103-414 • 20 سؤال في 5 دقائق من الـ Test Bank (نفس نظام ودرجات اللي فاتوا) 🎯
+            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+              <button onclick="openMarketingQuiz3Modal()" class="banner-action-link" style="background:#06b6d4;font-weight:800;color:#08121e !important;border:none;cursor:pointer;">🎮 محاكي الـ Test Bank والامتحان</button>
+              <button onclick="openQuizPrepGuide('gen-quiz-3')" class="banner-action-link" style="background:rgba(6, 182, 212, 0.18);border:1px solid #06b6d4;font-weight:700;color:#67e8f9 !important;cursor:pointer;">📚 ملخصات ومصادر Ch.3</button>
+            </div>
+          </div>
+        </div>
         
         <!-- بنر امتحانات الميدتيرم -->
         <div class="banner-card banner-midterms" style="border-color:#f59e0b; background:linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(239, 68, 68, 0.14) 50%, var(--surface) 100%);">
@@ -113,6 +125,10 @@
           </div>
         </div>
 
+      </div>
+      <div class="carousel-dots" id="carouselDots">
+        <span class="dot active" onclick="goToBanner(0)"></span>
+        <span class="dot" onclick="goToBanner(1)"></span>
       </div>
     </div>
 
