@@ -4711,7 +4711,7 @@ function renderQuiz2Lobby() {
     ? "GEN G119 — Marketing Quiz 3 | Chapter 3" 
     : "GEN G119 — Marketing Quiz 2 | Chapter 2";
   const chSubtitle = currentCh === 3 
-    ? "Analyzing the Marketing Environment (Microenvironment & Macroenvironment)" 
+    ? "Analyzing the Marketing Environment (Microenvironment & Macroenvironment) • بنك الأسئلة المعتمد للكويز: 125 سؤال موضوعي (100 MCQ + 25 صح وغلط) بعد استبعاد المقالي" 
     : "Company and Marketing Strategy: Partnering to Build Customer Relationships";
   const chBadge = currentCh === 3 
     ? "Quiz 3 • Chapter 3 (كويز الأحد 1 نوفمبر)" 
@@ -4779,14 +4779,14 @@ function renderQuiz2Lobby() {
             <div class="quiz2-card-icon-box">📚</div>
             <div class="quiz2-card-title-col">
               <h3 class="quiz2-card-title">تدريب البنك الكامل (Full Study Bank)</h3>
-              <span class="quiz2-card-subtitle">جميع الـ ${totalQuestions} سؤال • بدون تايمر</span>
+              <span class="quiz2-card-subtitle">جميع الـ ${totalQuestions} سؤال الموضوعي • بدون تايمر</span>
             </div>
           </div>
           <p class="quiz2-card-desc">
             تصفح وحل كل أسئلة بنك الشابتر بالكامل بدون أي ضغط زمني، مع إظهار الإجابة الصحيحة فوراً ورقم صفحة الكتاب بعد كل اختيار.
           </p>
           <ul class="quiz2-card-features">
-            <li><span>✓</span> بنك الأسئلة المعتمد بالكامل (100 MCQ + 25 True/False)</li>
+            <li><span>✓</span> بنك الأسئلة المعتمد بالكامل (100 MCQ + 25 True/False) — تم استبعاد الأسئلة المقالية لأن الكويز موضوعي فقط</li>
             <li><span>♾️</span> وقت مفتوح تماماً ومريح بدون تايمر للتركيز في الفهم</li>
             <li><span>💡</span> كشف وتلوين الإجابة الصحيحة فور اختيارك مع رقم الصفحة في الكتاب</li>
           </ul>
@@ -4798,7 +4798,7 @@ function renderQuiz2Lobby() {
 
       <div class="quiz2-lobby-footer-bar">
         <div class="quiz2-lobby-footer-note">
-          <span>💡 نصيحة للمذاكرة: ابدأ بتدريب البنك الكامل أولاً للتأكد من حفظ جميع الأسئلة، ثم اختبر نفسك بامتحان المحاكاة للتأكد من إنهاء الـ 20 سؤال في أقل من 5 دقائق!</span>
+          <span>💡 ملحوظة: ملف الـ Test Bank الأصلي يحتوي على 150 سؤال، تم حذف الـ 25 سؤال المقالي (Essay) والإبقاء على كافة الـ 125 سؤال الموضوعي (MCQ + صح وغلط) لأن الكويز اختيارات فقط!</span>
         </div>
       </div>
     </div>
