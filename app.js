@@ -813,12 +813,24 @@ function isSessionBadgeVisible(s, badgeType) {
   const courseTasks = allTasks.filter(t => t.code === s.code);
   if (!courseTasks.length) return true;
 
+  // Direct check by quizTaskId / assignmentTaskId if provided
+  if (badgeType === 'quiz' && s.quizTaskId) {
+    const directTask = allTasks.find(t => t.id === s.quizTaskId);
+    if (directTask) return !directTask.countdown?.isPassed;
+  }
+  if (badgeType === 'assignment' && s.assignmentTaskId) {
+    const directTask = allTasks.find(t => t.id === s.assignmentTaskId);
+    if (directTask) return !directTask.countdown?.isPassed;
+  }
+
   const lowerBadge = badgeText.toLowerCase();
   let matchedTask = null;
   if (lowerBadge.includes('quiz 1') || lowerBadge.includes('كويز 1')) {
     matchedTask = courseTasks.find(t => (t.id || '').includes('quiz-1') || (t.title || '').includes('Quiz 1'));
   } else if (lowerBadge.includes('quiz 2') || lowerBadge.includes('كويز 2')) {
     matchedTask = courseTasks.find(t => (t.id || '').includes('quiz-2') || (t.title || '').includes('Quiz 2'));
+  } else if (lowerBadge.includes('quiz 3') || lowerBadge.includes('كويز 3')) {
+    matchedTask = courseTasks.find(t => (t.id || '').includes('quiz-3') || (t.title || '').includes('Quiz 3'));
   } else if (lowerBadge.includes('assignment 1') || lowerBadge.includes('assign 1') || lowerBadge.includes('أسينمنت 1')) {
     matchedTask = courseTasks.find(t => (t.id || '').includes('assign-1') || (t.title || '').includes('Assignment 1'));
   } else if (lowerBadge.includes('assignment 2') || lowerBadge.includes('assign 2') || lowerBadge.includes('أسينمنت 2')) {
@@ -1214,9 +1226,9 @@ function renderBentoTaskCard(task) {
   let rightBtnLabel = '⚡ Open Quiz Study Guide ↗';
   let rightBtnAction = `openQuizPreparationGuide('${task.id}')`;
 
-  if (task.id === 'gen-quiz-2' || (task.code === 'GEN G119' && task.isQuiz)) {
+  if (task.id === 'gen-quiz-3' || task.id === 'gen-quiz-2' || (task.code === 'GEN G119' && task.isQuiz)) {
     rightBtnLabel = '🎮 Open Quiz Simulator ↗';
-    rightBtnAction = `openMarketingQuiz2Modal()`;
+    rightBtnAction = `openMarketingQuiz3Modal()`;
   } else if (task.type === 'Assignment' || task.type?.toLowerCase().includes('assignment') || task.id.includes('assign')) {
     rightBtnLabel = '📂 Open Assignment & Solution ↗';
     rightBtnAction = `openQuizPreparationGuide('${task.id}')`;
@@ -1739,8 +1751,8 @@ function openOfficialExamModal(taskId) {
             `).join('')}
 
             ${isMarketing ? `
-              <button onclick="closeOfficialExamModal(); openMarketingQuiz2Modal();" class="exam-open-form-btn" style="background:linear-gradient(135deg, #ec4899 0%, #a855f7 100%);box-shadow:0 4px 14px rgba(236, 72, 153, 0.35);cursor:pointer;border:none;">
-                <span>🎮 فتح محاكي الكويز التفاعلي الذكي (Quiz Simulator)</span>
+              <button onclick="closeOfficialExamModal(); openMarketingQuiz3Modal();" class="exam-open-form-btn" style="background:linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);box-shadow:0 4px 14px rgba(6, 182, 212, 0.35);cursor:pointer;border:none;">
+                <span>🎮 فتح محاكي الكويز والـ Test Bank التفاعلي (Quiz Simulator)</span>
                 <span class="btn-arrow">↗</span>
               </button>
             ` : ''}
@@ -2283,7 +2295,7 @@ function renderDailyAgenda() {
             <span style="font-family:'JetBrains Mono';font-size:13px;font-weight:800;color:${isCancelled ? '#ef4444' : (isCurrentActive ? '#ef4444' : course.color)}">${s.code}</span>
             <div class="badges-group">
               ${isCancelled ? '<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;padding:2px 7px;border-radius:5px;box-shadow:0 0 10px rgba(239,68,68,0.4);">🚫 ملغية</span>' : ''}
-              ${s.quizBadge && isSessionBadgeVisible(s, 'quiz') ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (s.code === 'MDP G121' ? `openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
+              ${s.quizBadge && isSessionBadgeVisible(s, 'quiz') ? `<span class="badge-quiz-glow" onclick="${s.code === 'GEN G119' ? "openMarketingQuiz3Modal()" : (s.code === 'MDP G121' ? `openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')` : `openQuizPrepGuide('${s.quizTaskId || 'gen-quiz-3'}')`)}" style="cursor:pointer;" title="${escHtml(s.quizBadge)}">${escHtml(s.quizBadge)}</span>` : ''}
               ${s.assignmentBadge && isSessionBadgeVisible(s, 'assignment') ? `<span class="badge-assignment-glow" onclick="event.stopPropagation(); openSessionNoticeModal('${s.day}', ${s.start}, '${s.code}')" style="cursor:pointer;" title="${escHtml(s.assignmentBadge)}">${escHtml(s.assignmentBadge)}</span>` : ''}
               ${isCurrentActive && !isCancelled ? '<span class="badge-live-now">🔴 LIVE NOW</span>' : ''}
               ${hasTask ? `<span class="badge" style="background:var(--quiz-color);color:#fff;font-weight:800;cursor:pointer" onclick="setView('tasks')">⚡ QUIZ</span>` : ''}
@@ -2412,7 +2424,7 @@ function showSessionNoticeTooltip(event, dayIdxOrName, slotStart, code) {
   } else if (session.code === "MTH G102" && (session.isQuiz || session.day === "Monday")) {
     text = "⏰ كويز 1 الإثنين: 11:00 ظهراً بمدرج 3002\n🎯 10 درجات MCQ على أول محاضرتين (التصحيح على التظليل فقط)";
   } else if (session.code === "GEN G119") {
-    text = "⏰ كويز 2 الأحد: 8:00 صباحاً بقاعة 3103-414\n🎯 5 دقائق فقط على Chapter 2 من بنك الأسئلة";
+    text = "⚡ كويز 3 الأحد 1 نوفمبر: 8:00 صباحاً بقاعة 3103-414\n🎯 5 دقائق فقط على Chapter 3 من بنك الأسئلة (20 سؤال)";
   } else {
     text = session.note || "ملاحظات هامة مسجلة لهذه المحاضرة.";
   }
@@ -2659,55 +2671,64 @@ function openSessionNoticeModal(dayIdxOrName, slotStart, code) {
       </div>
     `;
   }
-  // Special Notice 3: GEN G119 Sunday Quiz 2 Marketing Details & Links
+  // Special Notice 3: GEN G119 Sunday Quiz 3 Marketing Details & Links
   else if (session.code === "GEN G119") {
-    if (titleEl) titleEl.textContent = "🔔 تفاصيل ومصادر كويز 2 ماركتنج (Chapter 2)";
+    if (titleEl) titleEl.textContent = "⚡ تفاصيل ومصادر كويز 3 ماركتنج (Chapter 3)";
     if (subEl) subEl.textContent = "GEN G119 • Entrepreneurship & Marketing";
 
     bodyEl.innerHTML = `
       <!-- موعد ومكان وتفاصيل الكويز -->
-      <div class="notice-section-box" style="border-left: 4px solid #10b981;">
-        <div class="notice-section-header" style="color:#10b981;">
+      <div class="notice-section-box" style="border-left: 4px solid #06b6d4;">
+        <div class="notice-section-header" style="color:#06b6d4;">
           <span>⏰</span>
-          <span>موعد وتفاصيل الكويز الرسمي (Chapter 2):</span>
+          <span>موعد وتفاصيل الكويز الرسمي (Chapter 3):</span>
         </div>
         <div class="notice-req-list">
           <div class="notice-req-item">
-            <span style="color:#10b981;font-weight:900;">•</span>
-            <span>الموعد: <strong>الأحد القادم داخل المحاضرة (8:00 صباحاً - قاعة 3103-414).</strong></span>
+            <span style="color:#06b6d4;font-weight:900;">•</span>
+            <span>الموعد: <strong>الأحد 1 نوفمبر 2026 داخل المحاضرة (8:00 صباحاً - مدرج 3103-414).</strong></span>
           </div>
           <div class="notice-req-item">
-            <span style="color:#10b981;font-weight:900;">•</span>
-            <span>مدة الكويز: <strong>5 دقائق فقط</strong> (نفس نظام الكويز الأول).</span>
+            <span style="color:#06b6d4;font-weight:900;">•</span>
+            <span>مدة الكويز: <strong>5 دقائق فقط</strong> (نفس نظام الكويزات السابقة).</span>
           </div>
           <div class="notice-req-item">
-            <span style="color:#10b981;font-weight:900;">•</span>
-            <span>المحتوى المقرر: <strong>المحاضرة الثانية (Chapter 2) كاملة</strong> من بنك الأسئلة.</span>
+            <span style="color:#06b6d4;font-weight:900;">•</span>
+            <span>المحتوى المقرر: <strong>المحاضرة الثالثة (Chapter 3: Analyzing the Marketing Environment)</strong> كاملة من الـ Test Bank.</span>
+          </div>
+          <div class="notice-req-item">
+            <span style="color:#06b6d4;font-weight:900;">•</span>
+            <span>الأسئلة: <strong>20 سؤال سريع (MCQ + صح وغلط)</strong> من الـ Test Bank مباشرة.</span>
           </div>
         </div>
       </div>
 
       <!-- أزرار الروابط المباشرة والمحاكي -->
       <div class="notice-actions-row">
-        <button onclick="closeSessionNoticeModal(); openMarketingQuiz2Modal();" 
-                class="notice-action-btn notice-action-primary" style="flex:1 1 100%; background:#10b981; border-color:#059669; font-weight:800; color:#fff; box-shadow:0 0 12px rgba(16,185,129,0.3);">
+        <button onclick="closeSessionNoticeModal(); openMarketingQuiz3Modal();" 
+                class="notice-action-btn notice-action-primary" style="flex:1 1 100%; background:#06b6d4; border-color:#0891b2; font-weight:800; color:#08121e; box-shadow:0 0 12px rgba(6,182,212,0.35);">
           <span>🎮</span>
-          <span>بدء محاكي كويز 2 (5 دقائق) 🎯</span>
+          <span>بدء محاكي كويز 3 والـ Test Bank (5 دقائق) 🎯</span>
         </button>
-        <a href="https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" 
+        <a href="https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" 
            target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
           <span>📝</span>
-          <span>Test Bank CH 2 ↗</span>
+          <span>Test Bank CH 3 ↗</span>
         </a>
-        <a href="https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" 
+        <a href="https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" 
            target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
           <span>📄</span>
-          <span>Chapter 2 Summary ↗</span>
+          <span>Chapter 3 summary ↗</span>
         </a>
-        <a href="https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" 
+        <a href="https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" 
+           target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary">
+          <span>🌐</span>
+          <span>Chapter 3 summary - translated ↗</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" 
            target="_blank" rel="noopener noreferrer" class="notice-action-btn notice-action-secondary" style="flex:1 1 100%;">
           <span>📘</span>
-          <span>Lecture Slides 2 (سلايدات المحاضرة) ↗</span>
+          <span>Lecture Slides 3 (سلايدات المحاضرة) ↗</span>
         </a>
       </div>
     `;
@@ -3120,7 +3141,7 @@ function renderWeekMatrix() {
             <span class="code" style="${isCancelled ? 'color:#ef4444;' : `color:${course.hex};`}">${sess.code}</span>
             <div class="card-badges">
               ${isCancelled ? '<span class="type" style="background:#ef4444;color:#fff;font-weight:800;">🚫 ملغية</span>' : ''}
-              ${sess.quizBadge && isSessionBadgeVisible(sess, 'quiz') ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz2Modal()" : (sess.code === 'MDP G121' ? `openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')` : "openQuizPrepGuide('gen-quiz-2')")}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
+              ${sess.quizBadge && isSessionBadgeVisible(sess, 'quiz') ? `<span class="badge-quiz-glow matrix-quiz-badge" onclick="event.stopPropagation(); ${sess.code === 'GEN G119' ? "openMarketingQuiz3Modal()" : (sess.code === 'MDP G121' ? `openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')` : `openQuizPrepGuide('${sess.quizTaskId || 'gen-quiz-3'}')`)}" style="cursor:pointer;" title="${escHtml(sess.quizBadge)}">${escHtml(sess.quizBadge)}</span>` : ''}
               ${sess.assignmentBadge && isSessionBadgeVisible(sess, 'assignment') ? `<span class="badge-assignment-glow matrix-assignment-badge" onclick="event.stopPropagation(); openSessionNoticeModal(${dIdx}, ${sess.start}, '${sess.code}')" style="cursor:pointer;" title="${escHtml(sess.assignmentBadge)}">${escHtml(sess.assignmentBadge)}</span>` : ''}
               ${sess.attendance && !isCancelled ? '<span class="badge-attendance" title="⚠️ ATTENDANCE: الحضور إلزامي ومحسوب">⚠️ ATTENDANCE</span>' : ''}
               ${isLiveNow && !isCancelled ? '<span class="badge-live-now">🔴 LIVE</span>' : ''}
@@ -4560,11 +4581,12 @@ updateCountdowns();
 
 
 /* ==========================================================================
-   Quiz 2 Simulator V2 — Marketing (GEN G119 — Chapter 2) Arena
+   Quiz Simulator — Marketing (GEN G119 — Chapter 3 & 2) Arena
    ========================================================================== */
 
 let quiz2State = {
   active: false,
+  chapter: 3, // 3 (default for Quiz 3) | 2
   mode: 'exam', // 'exam' (5-min real exam) | 'practice' (full test bank) | 'review'
   filter: 'all', // 'all' | 'mcq' | 'tf'
   questions: [],
@@ -4589,11 +4611,22 @@ function shuffleArray(arr) {
   return a;
 }
 
+function openMarketingQuiz3Modal(mode = null) {
+  quiz2State.chapter = 3;
+  openMarketingQuizArenaModal(mode, 3);
+}
+
 function openMarketingQuiz2Modal(mode = null) {
+  quiz2State.chapter = 2;
+  openMarketingQuizArenaModal(mode, 2);
+}
+
+function openMarketingQuizArenaModal(mode = null, chapter = 3) {
   if (typeof triggerHaptic === 'function') triggerHaptic("heavy");
 
-  if (!window.marketingQuiz2Questions || !window.marketingQuiz2Questions.length) {
-    alert("بنك أسئلة كويز 2 غير محمل بعد!");
+  const pool = chapter === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || []);
+  if (!pool.length) {
+    alert("بنك أسئلة الكويز غير محمل بعد!");
     return;
   }
 
@@ -4655,6 +4688,11 @@ function closeMarketingQuiz2Modal() {
   document.body.classList.remove('modal-open');
 }
 
+function setQuizArenaChapter(ch) {
+  quiz2State.chapter = ch;
+  renderQuiz2Lobby();
+}
+
 function renderQuiz2Lobby() {
   const content = document.getElementById("quiz2ArenaContent");
   if (!content) return;
@@ -4665,22 +4703,40 @@ function renderQuiz2Lobby() {
   }
   quiz2State.active = false;
 
-  const totalQuestions = (window.marketingQuiz2Questions || []).length || 125;
+  const currentCh = quiz2State.chapter || 3;
+  const pool = currentCh === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || []);
+  const totalQuestions = pool.length || (currentCh === 3 ? 125 : 125);
+
+  const chTitle = currentCh === 3 
+    ? "GEN G119 — Marketing Quiz 3 | Chapter 3" 
+    : "GEN G119 — Marketing Quiz 2 | Chapter 2";
+  const chSubtitle = currentCh === 3 
+    ? "Analyzing the Marketing Environment (Microenvironment & Macroenvironment)" 
+    : "Company and Marketing Strategy: Partnering to Build Customer Relationships";
+  const chBadge = currentCh === 3 
+    ? "Quiz 3 • Chapter 3 (كويز الأحد 1 نوفمبر)" 
+    : "Quiz 2 • Chapter 2 (الأرشيف)";
 
   content.innerHTML = `
     <div class="quiz2-lobby-screen">
       <header class="quiz2-lobby-head">
         <div class="quiz2-lobby-head-left">
           <span class="quiz2-tag-code">GEN G119</span>
-          <span class="quiz2-lobby-pill">Marketing Quiz 2 • Chapter 2</span>
+          <span class="quiz2-lobby-pill">${chBadge}</span>
         </div>
-        <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close" title="إغلاق المحاكي (Esc)">✕</button>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="display:inline-flex;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:2px 4px;">
+            <button onclick="setQuizArenaChapter(3)" style="background:${currentCh === 3 ? '#06b6d4' : 'transparent'};color:${currentCh === 3 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 12px;border:none;border-radius:9999px;cursor:pointer;">Ch.3 (Quiz 3 ⚡)</button>
+            <button onclick="setQuizArenaChapter(2)" style="background:${currentCh === 2 ? '#06b6d4' : 'transparent'};color:${currentCh === 2 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 12px;border:none;border-radius:9999px;cursor:pointer;">Ch.2 (Quiz 2)</button>
+          </div>
+          <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close" title="إغلاق المحاكي (Esc)">✕</button>
+        </div>
       </header>
 
       <div class="quiz2-lobby-hero">
-        <div class="quiz2-lobby-icon-bubble">🎯</div>
-        <h2 class="quiz2-lobby-title">GEN G119 — Marketing Quiz 2 | Chapter 2</h2>
-        <p class="quiz2-lobby-subtitle">Company and Marketing Strategy: Partnering to Build Customer Relationships</p>
+        <div class="quiz2-lobby-icon-bubble">${currentCh === 3 ? '⚡' : '🎯'}</div>
+        <h2 class="quiz2-lobby-title">${chTitle}</h2>
+        <p class="quiz2-lobby-subtitle">${chSubtitle}</p>
         <div class="quiz2-lobby-stats-strip">
           <span class="quiz2-lobby-stat-item">📚 ${totalQuestions} سؤال كامل من التست بانك</span>
           <span class="quiz2-lobby-dot">•</span>
@@ -4703,7 +4759,7 @@ function renderQuiz2Lobby() {
             </div>
           </div>
           <p class="quiz2-card-desc">
-            امتحان سريع يحاكي نظام كويز 1 بالضبط لقياس سرعتك ودقتك في الإجابة تحت ضغط الوقت مع تقييم نهائي فوري وإحصائيات كاملة.
+            امتحان سريع يحاكي نظام الكويز بالضبط لقياس سرعتك ودقتك في الإجابة تحت ضغط الوقت مع تقييم نهائي فوري وإحصائيات كاملة.
           </p>
           <ul class="quiz2-card-features">
             <li><span>✓</span> 20 سؤال عشوائي متنوع (اختيار من متعدد MCQ + صح وغلط)</li>
@@ -4723,11 +4779,11 @@ function renderQuiz2Lobby() {
             <div class="quiz2-card-icon-box">📚</div>
             <div class="quiz2-card-title-col">
               <h3 class="quiz2-card-title">تدريب البنك الكامل (Full Study Bank)</h3>
-              <span class="quiz2-card-subtitle">جميع الـ 125 سؤال • بدون تايمر</span>
+              <span class="quiz2-card-subtitle">جميع الـ ${totalQuestions} سؤال • بدون تايمر</span>
             </div>
           </div>
           <p class="quiz2-card-desc">
-            تصفح وحل كل أسئلة بنك الشابتر الثاني بالكامل بدون أي ضغط زمني، مع إظهار الإجابة الصحيحة فوراً ورقم صفحة الكتاب بعد كل اختيار.
+            تصفح وحل كل أسئلة بنك الشابتر بالكامل بدون أي ضغط زمني، مع إظهار الإجابة الصحيحة فوراً ورقم صفحة الكتاب بعد كل اختيار.
           </p>
           <ul class="quiz2-card-features">
             <li><span>✓</span> بنك الأسئلة المعتمد بالكامل (100 MCQ + 25 True/False)</li>
@@ -4735,7 +4791,7 @@ function renderQuiz2Lobby() {
             <li><span>💡</span> كشف وتلوين الإجابة الصحيحة فور اختيارك مع رقم الصفحة في الكتاب</li>
           </ul>
           <button class="quiz2-card-cta-btn secondary" onclick="event.stopPropagation(); startQuiz2Session('practice');">
-            <span>📚 ابدأ تدريب البنك (125 سؤال)</span>
+            <span>📚 ابدأ تدريب البنك (${totalQuestions} سؤال)</span>
           </button>
         </div>
       </div>
@@ -4834,7 +4890,8 @@ function startQuiz2Session(mode = 'exam', customQuestions = null) {
   quiz2State.elapsedSeconds = 0;
   quiz2State.mistakeIndices = [];
 
-  const masterPool = window.marketingQuiz2Questions || [];
+  const currentCh = quiz2State.chapter || 3;
+  const masterPool = currentCh === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || []);
 
   if (customQuestions && customQuestions.length) {
     quiz2State.questions = [...customQuestions];
@@ -4925,7 +4982,7 @@ function renderQuiz2Arena() {
             ⚡ تحدي 5 دقائق
           </button>
           <button class="quiz2-mode-pill ${!isExam ? 'active' : ''}" onclick="switchQuiz2Mode('practice')">
-            📚 البنك الكامل (${(window.marketingQuiz2Questions || []).length})
+            📚 البنك الكامل (${(quiz2State.chapter === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || [])).length})
           </button>
         </div>
       </div>
@@ -5220,7 +5277,7 @@ function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scor
 
         <div class="quiz2-verdict-box">
           <div class="quiz2-verdict-badge ${feedbackCls}">${feedbackBadge}</div>
-          <h2 class="quiz2-verdict-title">كويز 2 ماركتنج (Chapter 2)</h2>
+          <h2 class="quiz2-verdict-title">${quiz2State.chapter === 3 ? 'كويز 3 ماركتنج (Chapter 3)' : 'كويز 2 ماركتنج (Chapter 2)'}</h2>
           <p class="quiz2-verdict-desc">
             ${scorePct >= 85 
               ? 'مستواك ممتاز جداً وسرعتك تؤهلك لقفل الكويز الفعلي داخل المحاضرة بسهولة! حافظ على هذا المستوى.' 
@@ -5358,6 +5415,7 @@ function renderFullQuiz2Review() {
   `;
 }
 
+window.openMarketingQuiz3Modal = openMarketingQuiz3Modal;
 window.openMarketingQuiz2Modal = openMarketingQuiz2Modal;
 window.renderQuiz2Lobby = renderQuiz2Lobby;
 window.returnToQuiz2Lobby = returnToQuiz2Lobby;
