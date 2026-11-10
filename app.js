@@ -6003,24 +6003,24 @@ function openSecretMsamyAuthModal() {
   overlay.innerHTML = `
     <div style="width:100%;max-width:400px;background:#0f172a;border:1px solid rgba(255,255,255,0.14);border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,0.5);text-align:center;position:relative;">
       <button onclick="document.getElementById('msamySecretAuthOverlay').remove()" style="position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.06);border:none;color:#94a3b8;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;">✕</button>
-      <div style="font-size:38px;margin-bottom:10px;">🔒</div>
-      <h3 style="margin:0 0 6px;color:#fff;font-size:19px;font-weight:800;">محاكي الميد الخاص</h3>
+      <div style="font-size:38px;margin-bottom:10px;">🕵️‍♂️🔥</div>
+      <h3 style="margin:0 0 6px;color:#fff;font-size:19px;font-weight:800;">الصفحة السرية للميد</h3>
       <p style="margin:0 0 18px;color:#94a3b8;font-size:13px;line-height:1.6;">
-        اكتب الباسورد عشان تفتح صفحة الـ 80 سؤال بتوع الميد
+        اكتب الباسورد يا صاحبي عشان تفتح الـ 80 سؤال اللي جاي منهم الميد 👀
       </p>
       <form onsubmit="submitSecretMsamyPassword(event)" style="display:flex;flex-direction:column;gap:12px;">
         <input
           id="msamySecretPassInput"
           type="password"
-          placeholder="كلمة السر..."
+          placeholder="اكتب الباسورد هنا..."
           autocomplete="off"
           style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.18);background:#070b14;color:#fff;font-size:16px;font-weight:700;text-align:center;outline:none;box-sizing:border-box;"
         />
         <div id="msamySecretPassError" style="color:#f87171;font-size:12.5px;font-weight:700;display:none;">
-          ❌ كلمة السر غير صحيحة
+          ❌ الباسورد غلط يا نجم! ركز كده 😂
         </div>
         <button type="submit" style="width:100%;padding:12px 18px;border-radius:12px;border:none;background:#f59e0b;color:#050811;font-weight:800;font-size:15px;cursor:pointer;">
-          دخول
+          افتح الصفحة السرية 🔓
         </button>
       </form>
     </div>
@@ -6196,7 +6196,7 @@ function renderSecretMsamyArena() {
       <div class="vip-clean-brand">
         <div class="vip-clean-logo">🔥</div>
         <div>
-          <div class="vip-clean-title">محاكي الميد الخاص (${allPool.length} سؤال)</div>
+          <div class="vip-clean-title">الصفحة السرية لميد الماركتنج (${allPool.length} سؤال)</div>
         </div>
       </div>
 
@@ -6211,17 +6211,17 @@ function renderSecretMsamyArena() {
       <!-- Right Controls -->
       <div class="vip-clean-actions">
         <div class="vip-clean-tabs">
-          <button class="vip-clean-tab ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">تدريب تفاعلي</button>
-          <button class="vip-clean-tab ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">عرض الكل محلول</button>
+          <button class="vip-clean-tab ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">حل سؤال بسؤال</button>
+          <button class="vip-clean-tab ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">الأسئلة كلها محلولة</button>
         </div>
 
         <button class="vip-clean-btn ${secretVipState.showBasmagaHighlight ? 'highlight-on' : ''}" onclick="toggleSecretBasmagaHighlight()">
           <span>🖍️</span>
-          <span>تظليل الكلمات المفتاحية: ${secretVipState.showBasmagaHighlight ? 'مفعّل' : 'مخفي'}</span>
+          <span>الهايلايت: ${secretVipState.showBasmagaHighlight ? 'شغال' : 'مقفول'}</span>
         </button>
 
         <button class="vip-clean-btn" onclick="closeSecretMsamyPage()">
-          ✕ خروج
+          ✕ ارجع للجدول
         </button>
       </div>
     </header>
@@ -6233,11 +6233,11 @@ function renderSecretMsamyArena() {
         <!-- Compact Funny Note for Friends -->
         <div class="vip-friends-note">
           <div>
-            😂🔥 <strong>الخلاصة هنا يا صاحبي:</strong> الدفعة بره تايهة في 377 سؤال، ودول الـ 80 سؤال اللي جاي منهم الـ 60 سؤال بتوع الميد بالمللي ومن غير تايمر.. لو مقفلتش الميد بعد الروقان ده يبقى العيب فيك إنت بقى 🤣❤️
+            😂🔥 <strong>بص يا صاحبي:</strong> الدفعة بره تايهة في 377 سؤال، ودول الـ 80 سؤال اللي جاي منهم الـ 60 سؤال بتوع الميد بالمللي ومن غير تايمر.. لو مقفلتش الميد بعد الروقان ده يبقى العيب فيك إنت بقى 🤣❤️
           </div>
           ${solvedInView > 0 ? `
             <button class="vip-clean-btn" style="flex-shrink:0;font-size:11.5px;padding:5px 10px;" onclick="resetSecretVipProgress()">
-              إعادة ضبط الحل
+              صفر الحل من الأول
             </button>
           ` : ''}
         </div>
@@ -6246,8 +6246,8 @@ function renderSecretMsamyArena() {
           <!-- Horizontal Question Strip & Score -->
           <div class="vip-strip-wrap">
             <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#94a3b8;">
-              <span>تم حل <strong style="color:#f8fafc;">${solvedInView}</strong> من <strong style="color:#f8fafc;">${total}</strong> • إجابات صحيحة: <strong style="color:#10b981;">${correctInView}</strong></span>
-              <span>بدون تايمر • تصحيح فوري</span>
+              <span>حليت <strong style="color:#f8fafc;">${solvedInView}</strong> من <strong style="color:#f8fafc;">${total}</strong> • صح: <strong style="color:#10b981;">${correctInView}</strong></span>
+              <span>من غير تايمر • الحل بيظهرلك في ساعتها</span>
             </div>
 
             <div class="vip-qstrip">
@@ -6274,11 +6274,11 @@ function renderSecretMsamyArena() {
                   Chapter ${q.chapter}
                 </span>
                 <span style="color:#64748b;font-size:12px;">
-                  ${q.type === 'tf' ? 'True / False' : 'Multiple Choice'}
+                  ${q.type === 'tf' ? 'صح / غلط' : 'اختياري'}
                 </span>
               </div>
 
-              ${q.pageRef ? `<span style="color:#94a3b8;font-size:12.5px;">📖 Page ${q.pageRef}</span>` : ''}
+              ${q.pageRef ? `<span style="color:#94a3b8;font-size:12.5px;">📖 صفحة ${q.pageRef}</span>` : ''}
             </div>
 
             <div class="vip-clean-qtext">
@@ -6299,8 +6299,8 @@ function renderSecretMsamyArena() {
                   <button class="${cls}" onclick="selectSecretOption(${optIdx})">
                     <span class="vip-clean-opt-letter">${letter}</span>
                     <span style="flex:1;line-height:1.5;">${escapeQuizHtml(opt)}</span>
-                    ${hasAnswered && isCorrect ? '<span style="color:#34d399;font-weight:800;font-size:13px;">✓ صح</span>' : ''}
-                    ${hasAnswered && isSelected && !isCorrect ? '<span style="color:#f87171;font-weight:800;font-size:13px;">✗ خطأ</span>' : ''}
+                    ${hasAnswered && isCorrect ? '<span style="color:#34d399;font-weight:800;font-size:13px;">✓ دي الصح</span>' : ''}
+                    ${hasAnswered && isSelected && !isCorrect ? '<span style="color:#f87171;font-weight:800;font-size:13px;">✗ لأ غلط</span>' : ''}
                   </button>
                 `;
               }).join('')}
@@ -6308,11 +6308,11 @@ function renderSecretMsamyArena() {
 
             <div class="vip-clean-foot">
               <button class="vip-nav-btn" onclick="prevSecretQuestion()" ${secretVipState.currentIndex === 0 ? 'disabled' : ''}>
-                → السؤال السابق
+                → اللي قبله
               </button>
               <span style="color:#64748b;font-size:12.5px;">${current} / ${total}</span>
               <button class="vip-nav-btn primary" onclick="nextSecretQuestion()" ${current >= total ? 'disabled' : ''}>
-                السؤال التالي ←
+                اللي بعده ←
               </button>
             </div>
           </main>
@@ -6324,7 +6324,7 @@ function renderSecretMsamyArena() {
                 <div class="vip-clean-card" style="padding:22px 26px;gap:14px;">
                   <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#94a3b8;">
                     <span style="color:#fbbf24;font-weight:800;">سؤال ${idx + 1} • Chapter ${item.chapter}</span>
-                    ${item.pageRef ? `<span>📖 Page ${item.pageRef}</span>` : ''}
+                    ${item.pageRef ? `<span>📖 صفحة ${item.pageRef}</span>` : ''}
                   </div>
 
                   <div class="vip-clean-qtext" style="font-size:18px;">
@@ -6339,7 +6339,7 @@ function renderSecretMsamyArena() {
                         <div class="vip-clean-opt ${isThisCorrect ? 'is-correct' : ''}" style="padding:11px 14px;font-size:15px;cursor:default;">
                           <span class="vip-clean-opt-letter" style="width:28px;height:28px;font-size:12.5px;">${optLetter}</span>
                           <span style="flex:1;">${escapeQuizHtml(opt)}</span>
-                          ${isThisCorrect ? '<span style="color:#34d399;font-weight:800;font-size:12.5px;">✓ الإجابة الصحيحة</span>' : ''}
+                          ${isThisCorrect ? '<span style="color:#34d399;font-weight:800;font-size:12.5px;">✓ دي الصح</span>' : ''}
                         </div>
                       `;
                     }).join('')}
