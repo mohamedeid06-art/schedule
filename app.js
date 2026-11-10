@@ -5635,224 +5635,262 @@ function injectSecretVipStyles() {
       height: 100vh;
       z-index: 100050;
       background:
-        radial-gradient(circle at 50% -10%, rgba(56, 189, 248, 0.10), transparent 50%),
-        radial-gradient(circle at 85% 90%, rgba(245, 158, 11, 0.07), transparent 45%),
-        #070b14;
-      color: #f8fafc;
-      font-family: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+        radial-gradient(circle at 12% 18%, rgba(245, 158, 11, 0.26), transparent 42%),
+        radial-gradient(circle at 88% 15%, rgba(236, 72, 153, 0.24), transparent 42%),
+        radial-gradient(circle at 50% 88%, rgba(6, 182, 212, 0.22), transparent 48%),
+        radial-gradient(circle at 80% 75%, rgba(139, 92, 246, 0.25), transparent 45%),
+        linear-gradient(160deg, #0f172a 0%, #13112c 50%, #091526 100%);
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, sans-serif;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       direction: rtl;
-      animation: vipCleanFade 0.22s ease-out;
+      -webkit-font-smoothing: antialiased;
+      animation: applePageIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    @keyframes vipCleanFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    @keyframes applePageIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
+
+    /* Vibrant Neon Gold Marker Highlight */
     .vip-key-mark {
-      background: rgba(251, 191, 36, 0.22);
-      color: #fde68a;
-      border-bottom: 2px solid #f59e0b;
-      padding: 1px 6px;
-      border-radius: 5px;
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%);
+      color: #090d16;
+      padding: 2px 9px;
+      border-radius: 8px;
       font-weight: 800;
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
     }
-    /* Minimalist Top Bar */
-    .vip-clean-header {
-      height: 68px;
-      padding: 0 32px;
-      background: rgba(11, 17, 32, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    /* Floating Dynamic Glass Bar (Hides on Scroll Down) */
+    .apple-nav-bar {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%) translateY(0) scale(1);
+      z-index: 100060;
+      width: calc(100% - 24px);
+      max-width: 800px;
+      background: rgba(23, 25, 52, 0.78);
+      backdrop-filter: saturate(200%) blur(28px);
+      -webkit-backdrop-filter: saturate(200%) blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      padding: 8px 12px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(139, 92, 246, 0.2);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      flex-shrink: 0;
+      gap: 8px;
+      flex-wrap: wrap;
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
     }
-    .vip-clean-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .apple-nav-bar.nav-hidden {
+      transform: translateX(-50%) translateY(-140%) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
     }
-    .vip-clean-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-    .vip-clean-title {
-      font-size: 15.5px;
-      font-weight: 800;
-      color: #f8fafc;
-    }
-    .vip-clean-tabs {
+
+    /* Segmented Control */
+    .apple-segment {
       display: inline-flex;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
       padding: 3px;
       gap: 3px;
     }
-    .vip-clean-tab {
+    .apple-seg-btn {
       border: none;
       background: transparent;
-      color: #94a3b8;
-      font-family: inherit;
-      font-size: 12.5px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.16s ease;
-    }
-    .vip-clean-tab:hover {
-      color: #f1f5f9;
-    }
-    .vip-clean-tab.active {
-      background: rgba(255, 255, 255, 0.12);
-      color: #fff;
-    }
-    .vip-clean-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .vip-clean-btn {
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.04);
       color: #cbd5e1;
       font-family: inherit;
       font-size: 12.5px;
       font-weight: 700;
-      padding: 7px 14px;
-      border-radius: 10px;
+      padding: 6px 13px;
+      border-radius: 11px;
       cursor: pointer;
-      transition: all 0.16s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+      white-space: nowrap;
     }
-    .vip-clean-btn:hover {
-      background: rgba(255, 255, 255, 0.09);
-      color: #fff;
+    .apple-seg-btn:hover {
+      color: #ffffff;
     }
-    .vip-clean-btn.highlight-on {
-      border-color: rgba(245, 158, 11, 0.45);
-      background: rgba(245, 158, 11, 0.12);
-      color: #fde68a;
+    .apple-seg-btn.active {
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);
     }
 
-    /* Main Scroll Body */
+    /* Action Pills */
+    .apple-icon-pill {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .apple-icon-pill:active {
+      transform: scale(0.95);
+    }
+    .apple-icon-pill.active-gold {
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.25), rgba(245, 158, 11, 0.25));
+      border-color: #fbbf24;
+      color: #fde047;
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.3);
+    }
+    .apple-close-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(244, 63, 94, 0.2);
+      color: #fda4af;
+      font-size: 14px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .apple-close-circle:hover {
+      background: #f43f5e;
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    /* Main Scrollable Area */
     .vip-clean-body {
       flex: 1;
       overflow-y: auto;
-      padding: 28px 20px 48px;
+      padding: 88px 16px 56px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
     .vip-clean-container {
-      max-width: 880px;
+      max-width: 800px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
     }
 
-    /* Subtle Friends Note */
+    /* Energetic Friends Banner */
     .vip-friends-note {
-      background: rgba(245, 158, 11, 0.08);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      border-radius: 14px;
-      padding: 12px 18px;
-      color: #fde68a;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(236, 72, 153, 0.18), rgba(99, 102, 241, 0.22));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      border-radius: 22px;
+      padding: 15px 20px;
+      color: #fef9c3;
       font-size: 13.5px;
-      line-height: 1.6;
+      font-weight: 600;
+      line-height: 1.65;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
+      box-shadow: 0 12px 32px rgba(236, 72, 153, 0.15);
     }
 
-    /* Progress & Question Strip */
+    /* Horizontal Question Strip */
     .vip-strip-wrap {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
     .vip-qstrip {
       display: flex;
-      gap: 6px;
+      gap: 7px;
       overflow-x: auto;
       padding: 4px 2px 8px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,0.15) transparent;
+      scrollbar-width: none;
+    }
+    .vip-qstrip::-webkit-scrollbar {
+      display: none;
     }
     .vip-qpill {
-      min-width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      background: rgba(15, 23, 42, 0.7);
-      color: #94a3b8;
-      font-size: 12px;
-      font-weight: 700;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(30, 41, 59, 0.75);
+      color: #cbd5e1;
+      font-size: 12.5px;
+      font-weight: 800;
       cursor: pointer;
       flex-shrink: 0;
-      transition: all 0.15s ease;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .vip-qpill:hover {
-      border-color: rgba(255, 255, 255, 0.25);
+      border-color: #38bdf8;
       color: #fff;
+      transform: translateY(-2px);
     }
     .vip-qpill.current {
-      border-color: #f59e0b;
-      background: rgba(245, 158, 11, 0.2);
-      color: #fbbf24;
-      font-weight: 800;
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      border-color: transparent;
+      color: #ffffff;
+      font-weight: 900;
+      box-shadow: 0 6px 16px rgba(236, 72, 153, 0.45);
+      transform: scale(1.06);
     }
     .vip-qpill.correct {
-      border-color: rgba(16, 185, 129, 0.5);
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
       color: #6ee7b7;
     }
     .vip-qpill.wrong {
-      border-color: rgba(239, 68, 68, 0.5);
-      background: rgba(239, 68, 68, 0.15);
-      color: #fca5a5;
+      background: rgba(244, 63, 94, 0.25);
+      border-color: #f43f5e;
+      color: #fda4af;
     }
 
-    /* Main Question Card */
+    /* Vibrant Frosted Question Card */
     .vip-clean-card {
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 20px;
-      padding: 32px 36px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(155deg, rgba(30, 41, 75, 0.78), rgba(17, 24, 52, 0.85));
+      backdrop-filter: saturate(190%) blur(28px);
+      -webkit-backdrop-filter: saturate(190%) blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 28px;
+      padding: 28px 30px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 22px;
     }
     .vip-clean-qhead {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 10px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      gap: 8px;
     }
     .vip-clean-qtext {
       font-size: 20.5px;
-      font-weight: 600;
-      line-height: 1.7;
-      color: #f8fafc;
+      font-weight: 700;
+      line-height: 1.65;
+      color: #ffffff;
       direction: ltr;
       text-align: left;
+      letter-spacing: -0.1px;
     }
     .vip-clean-opts {
       display: flex;
@@ -5865,98 +5903,117 @@ function injectSecretVipStyles() {
       align-items: center;
       gap: 14px;
       padding: 15px 18px;
-      border-radius: 14px;
-      background: rgba(9, 14, 26, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      color: #e2e8f0;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      color: #f8fafc;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.16s ease;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
       text-align: left;
     }
     .vip-clean-opt:hover {
-      border-color: rgba(255, 255, 255, 0.28);
-      background: rgba(30, 41, 59, 0.55);
+      background: rgba(51, 65, 85, 0.7);
+      border-color: #38bdf8;
+      transform: translateX(4px);
+    }
+    .vip-clean-opt:active {
+      transform: scale(0.985);
     }
     .vip-clean-opt-letter {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      background: rgba(255, 255, 255, 0.06);
-      color: #cbd5e1;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3));
+      border: 1px solid rgba(168, 85, 247, 0.45);
+      color: #e9d5ff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 14.5px;
       flex-shrink: 0;
     }
     .vip-clean-opt.is-correct {
-      background: rgba(16, 185, 129, 0.14);
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.28), rgba(5, 150, 105, 0.16));
       border-color: #10b981;
-      color: #ecfdf5;
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.22);
     }
     .vip-clean-opt.is-correct .vip-clean-opt-letter {
       background: #10b981;
+      border-color: #10b981;
       color: #050811;
     }
     .vip-clean-opt.is-wrong {
-      background: rgba(239, 68, 68, 0.14);
-      border-color: #ef4444;
-      color: #fef2f2;
+      background: linear-gradient(90deg, rgba(244, 63, 94, 0.28), rgba(225, 29, 72, 0.14));
+      border-color: #f43f5e;
+      color: #ffffff;
     }
     .vip-clean-opt.is-wrong .vip-clean-opt-letter {
-      background: #ef4444;
-      color: #fff;
+      background: #f43f5e;
+      border-color: #f43f5e;
+      color: #ffffff;
     }
+
     .vip-clean-foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     .vip-nav-btn {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.05);
-      color: #f1f5f9;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
       font-family: inherit;
       font-size: 13.5px;
       font-weight: 700;
-      padding: 10px 20px;
-      border-radius: 11px;
+      padding: 10px 22px;
+      border-radius: 999px;
       cursor: pointer;
-      transition: all 0.16s ease;
+      transition: all 0.2s ease;
     }
     .vip-nav-btn:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .vip-nav-btn:active:not(:disabled) {
+      transform: scale(0.96);
     }
     .vip-nav-btn.primary {
-      background: #f59e0b;
-      border-color: #f59e0b;
-      color: #050811;
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      border: none;
+      color: #ffffff;
       font-weight: 800;
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
     }
     .vip-nav-btn.primary:hover:not(:disabled) {
-      background: #fbbf24;
+      filter: brightness(1.08);
     }
     .vip-nav-btn:disabled {
-      opacity: 0.35;
+      opacity: 0.3;
       cursor: not-allowed;
     }
 
-    @media (max-width: 768px) {
-      .vip-clean-header {
-        height: auto;
-        padding: 12px 16px;
-        flex-wrap: wrap;
+    @media (max-width: 640px) {
+      .apple-nav-bar {
+        top: 10px;
+        width: calc(100% - 16px);
+        padding: 7px 8px;
+        border-radius: 20px;
+        justify-content: center;
+      }
+      .vip-clean-body {
+        padding: 112px 12px 44px;
       }
       .vip-clean-card {
         padding: 20px 18px;
+        border-radius: 24px;
       }
       .vip-clean-qtext {
-        font-size: 17.5px;
+        font-size: 18px;
       }
     }
   `;
@@ -6139,6 +6196,9 @@ function selectSecretOption(optIdx) {
   if (typeof triggerHaptic === 'function') {
     triggerHaptic(optIdx === q.answer ? 'light' : 'heavy');
   }
+  if (optIdx === q.answer && typeof confetti === 'function') {
+    confetti({ particleCount: 38, spread: 60, origin: { y: 0.75 }, zIndex: 100200 });
+  }
   renderSecretMsamyArena();
 }
 
@@ -6163,9 +6223,26 @@ function prevSecretQuestion() {
   }
 }
 
+let appleNavLastScrollY = 0;
+
+function handleAppleVipScroll(el) {
+  const nav = document.getElementById('appleVipFloatingNav');
+  if (!nav || !el) return;
+  const currentY = el.scrollTop;
+  if (currentY > appleNavLastScrollY + 8 && currentY > 40) {
+    nav.classList.add('nav-hidden');
+  } else if (currentY < appleNavLastScrollY - 6 || currentY <= 20) {
+    nav.classList.remove('nav-hidden');
+  }
+  appleNavLastScrollY = currentY;
+}
+
 function renderSecretMsamyArena() {
   const page = document.getElementById('msamyVipFullPage');
   if (!page) return;
+
+  const prevScrollEl = document.getElementById('vipAppleScrollBody');
+  const savedScrollTop = prevScrollEl ? prevScrollEl.scrollTop : 0;
 
   const allPool = window.marketingSecretMidtermQuestions || [];
   const c1Len = allPool.filter(q => q.chapter === 1).length;
@@ -6191,43 +6268,34 @@ function renderSecretMsamyArena() {
   });
 
   page.innerHTML = `
-    <!-- Clean Top Navigation Bar -->
-    <header class="vip-clean-header">
-      <div class="vip-clean-brand">
-        <div class="vip-clean-logo">🔥</div>
-        <div>
-          <div class="vip-clean-title">الصفحة السرية لميد الماركتنج (${allPool.length} سؤال)</div>
-        </div>
+    <!-- Apple Floating Dynamic Glass Bar (Hides on Scroll Down, No Title/Filler) -->
+    <nav class="apple-nav-bar" id="appleVipFloatingNav">
+      <!-- Mode Segmented Control -->
+      <div class="apple-segment">
+        <button class="apple-seg-btn ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">سؤال بسؤال</button>
+        <button class="apple-seg-btn ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">كل الأسئلة</button>
       </div>
 
-      <!-- Chapter Filter Tabs -->
-      <div class="vip-clean-tabs">
-        <button class="vip-clean-tab ${chFilter === 'all' ? 'active' : ''}" onclick="setSecretChapterFilter('all')">الكل (${allPool.length})</button>
-        <button class="vip-clean-tab ${chFilter === 1 ? 'active' : ''}" onclick="setSecretChapterFilter(1)">Ch.1 (${c1Len})</button>
-        <button class="vip-clean-tab ${chFilter === 2 ? 'active' : ''}" onclick="setSecretChapterFilter(2)">Ch.2 (${c2Len})</button>
-        <button class="vip-clean-tab ${chFilter === 3 ? 'active' : ''}" onclick="setSecretChapterFilter(3)">Ch.3 (${c3Len})</button>
+      <!-- Chapter Segmented Control -->
+      <div class="apple-segment">
+        <button class="apple-seg-btn ${chFilter === 'all' ? 'active' : ''}" onclick="setSecretChapterFilter('all')">الكل (${allPool.length})</button>
+        <button class="apple-seg-btn ${chFilter === 1 ? 'active' : ''}" onclick="setSecretChapterFilter(1)">Ch 1 (${c1Len})</button>
+        <button class="apple-seg-btn ${chFilter === 2 ? 'active' : ''}" onclick="setSecretChapterFilter(2)">Ch 2 (${c2Len})</button>
+        <button class="apple-seg-btn ${chFilter === 3 ? 'active' : ''}" onclick="setSecretChapterFilter(3)">Ch 3 (${c3Len})</button>
       </div>
 
-      <!-- Right Controls -->
-      <div class="vip-clean-actions">
-        <div class="vip-clean-tabs">
-          <button class="vip-clean-tab ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">حل سؤال بسؤال</button>
-          <button class="vip-clean-tab ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">الأسئلة كلها محلولة</button>
-        </div>
-
-        <button class="vip-clean-btn ${secretVipState.showBasmagaHighlight ? 'highlight-on' : ''}" onclick="toggleSecretBasmagaHighlight()">
+      <!-- Highlight Toggle + Close Circle -->
+      <div style="display:flex;align-items:center;gap:6px;">
+        <button class="apple-icon-pill ${secretVipState.showBasmagaHighlight ? 'active-gold' : ''}" onclick="toggleSecretBasmagaHighlight()">
           <span>🖍️</span>
-          <span>الهايلايت: ${secretVipState.showBasmagaHighlight ? 'شغال' : 'مقفول'}</span>
+          <span>الهايلايت</span>
         </button>
-
-        <button class="vip-clean-btn" onclick="closeSecretMsamyPage()">
-          ✕ ارجع للجدول
-        </button>
+        <button class="apple-close-circle" onclick="closeSecretMsamyPage()" title="اقفل وارجع للجدول">✕</button>
       </div>
-    </header>
+    </nav>
 
-    <!-- Main Centered Content -->
-    <div class="vip-clean-body">
+    <!-- Main Scrollable Apple Stage -->
+    <div class="vip-clean-body" id="vipAppleScrollBody" onscroll="handleAppleVipScroll(this)">
       <div class="vip-clean-container">
 
         <!-- Compact Funny Note for Friends -->
@@ -6236,8 +6304,8 @@ function renderSecretMsamyArena() {
             😂🔥 <strong>بص يا صاحبي:</strong> الدفعة بره تايهة في 377 سؤال، ودول الـ 80 سؤال اللي جاي منهم الـ 60 سؤال بتوع الميد بالمللي ومن غير تايمر.. لو مقفلتش الميد بعد الروقان ده يبقى العيب فيك إنت بقى 🤣❤️
           </div>
           ${solvedInView > 0 ? `
-            <button class="vip-clean-btn" style="flex-shrink:0;font-size:11.5px;padding:5px 10px;" onclick="resetSecretVipProgress()">
-              صفر الحل من الأول
+            <button class="apple-icon-pill" style="flex-shrink:0;font-size:11.5px;padding:5px 10px;" onclick="resetSecretVipProgress()">
+              صفر الحل
             </button>
           ` : ''}
         </div>
@@ -6245,9 +6313,9 @@ function renderSecretMsamyArena() {
         ${vMode === 'interactive' && q ? `
           <!-- Horizontal Question Strip & Score -->
           <div class="vip-strip-wrap">
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#94a3b8;">
-              <span>حليت <strong style="color:#f8fafc;">${solvedInView}</strong> من <strong style="color:#f8fafc;">${total}</strong> • صح: <strong style="color:#10b981;">${correctInView}</strong></span>
-              <span>من غير تايمر • الحل بيظهرلك في ساعتها</span>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#8E8E93;padding:0 4px;">
+              <span>حليت <strong style="color:#F5F5F7;">${solvedInView}</strong> من <strong style="color:#F5F5F7;">${total}</strong> • صح: <strong style="color:#30D158;">${correctInView}</strong></span>
+              <span>من غير تايمر</span>
             </div>
 
             <div class="vip-qstrip">
@@ -6263,22 +6331,22 @@ function renderSecretMsamyArena() {
             </div>
           </div>
 
-          <!-- Spacious Question Card -->
+          <!-- Apple Frosted Question Card -->
           <main class="vip-clean-card">
             <div class="vip-clean-qhead">
               <div style="display:flex;align-items:center;gap:8px;">
-                <span style="background:rgba(245,158,11,0.16);color:#fbbf24;font-weight:800;font-size:12.5px;padding:4px 12px;border-radius:8px;">
+                <span style="background:linear-gradient(135deg,#f59e0b,#ec4899);color:#ffffff;font-weight:800;font-size:12.5px;padding:5px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(236,72,153,0.35);">
                   سؤال ${current} من ${total}
                 </span>
-                <span style="background:rgba(255,255,255,0.06);color:#cbd5e1;font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:8px;">
-                  Chapter ${q.chapter}
+                <span style="background:rgba(56,189,248,0.18);border:1px solid rgba(56,189,248,0.35);color:#7dd3fc;font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:999px;">
+                  📘 Chapter ${q.chapter}
                 </span>
-                <span style="color:#64748b;font-size:12px;">
+                <span style="background:rgba(168,85,247,0.18);border:1px solid rgba(168,85,247,0.35);color:#d8b4fe;font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;">
                   ${q.type === 'tf' ? 'صح / غلط' : 'اختياري'}
                 </span>
               </div>
 
-              ${q.pageRef ? `<span style="color:#94a3b8;font-size:12.5px;">📖 صفحة ${q.pageRef}</span>` : ''}
+              ${q.pageRef ? `<span style="color:#93c5fd;font-size:12.5px;font-weight:700;">📖 صفحة ${q.pageRef}</span>` : ''}
             </div>
 
             <div class="vip-clean-qtext">
@@ -6299,18 +6367,27 @@ function renderSecretMsamyArena() {
                   <button class="${cls}" onclick="selectSecretOption(${optIdx})">
                     <span class="vip-clean-opt-letter">${letter}</span>
                     <span style="flex:1;line-height:1.5;">${escapeQuizHtml(opt)}</span>
-                    ${hasAnswered && isCorrect ? '<span style="color:#34d399;font-weight:800;font-size:13px;">✓ دي الصح</span>' : ''}
-                    ${hasAnswered && isSelected && !isCorrect ? '<span style="color:#f87171;font-weight:800;font-size:13px;">✗ لأ غلط</span>' : ''}
+                    ${hasAnswered && isCorrect ? '<span style="color:#34d399;font-weight:800;font-size:13.5px;">🔥 دي الصح</span>' : ''}
+                    ${hasAnswered && isSelected && !isCorrect ? '<span style="color:#fda4af;font-weight:800;font-size:13.5px;">😂 لأ غلط</span>' : ''}
                   </button>
                 `;
               }).join('')}
             </div>
 
+            ${hasAnswered ? `
+              <div style="padding:12px 16px;border-radius:16px;background:${userSelected === q.answer ? 'linear-gradient(90deg,rgba(16,185,129,0.22),rgba(6,182,212,0.15))' : 'linear-gradient(90deg,rgba(244,63,94,0.22),rgba(245,158,11,0.15))'};border:1px solid ${userSelected === q.answer ? 'rgba(16,185,129,0.5)' : 'rgba(244,63,94,0.5)'};color:#fff;font-size:14px;font-weight:700;">
+                ${userSelected === q.answer
+                  ? '🎉 الله عليك يا فنان! جبتها في الجون.. اربطها بقى بالكلمة المنوّرة بالأصفر فوق 🔥💪'
+                  : '👀 اصحى معانا يا نجم عشان منشيلش الميد سوا 😂 الإجابة الصح متعلم عليها بالأخضر أهي!'
+                }
+              </div>
+            ` : ''}
+
             <div class="vip-clean-foot">
               <button class="vip-nav-btn" onclick="prevSecretQuestion()" ${secretVipState.currentIndex === 0 ? 'disabled' : ''}>
                 → اللي قبله
               </button>
-              <span style="color:#64748b;font-size:12.5px;">${current} / ${total}</span>
+              <span style="color:#cbd5e1;font-size:13px;font-weight:800;">${current} / ${total}</span>
               <button class="vip-nav-btn primary" onclick="nextSecretQuestion()" ${current >= total ? 'disabled' : ''}>
                 اللي بعده ←
               </button>
@@ -6321,10 +6398,10 @@ function renderSecretMsamyArena() {
           <div style="display:flex;flex-direction:column;gap:14px;">
             ${secretVipState.questions.map((item, idx) => {
               return `
-                <div class="vip-clean-card" style="padding:22px 26px;gap:14px;">
-                  <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#94a3b8;">
-                    <span style="color:#fbbf24;font-weight:800;">سؤال ${idx + 1} • Chapter ${item.chapter}</span>
-                    ${item.pageRef ? `<span>📖 صفحة ${item.pageRef}</span>` : ''}
+                <div class="vip-clean-card" style="padding:22px 24px;gap:14px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#8E8E93;">
+                    <span style="color:#0A84FF;font-weight:700;">سؤال ${idx + 1} • Chapter ${item.chapter}</span>
+                    ${item.pageRef ? `<span>صفحة ${item.pageRef}</span>` : ''}
                   </div>
 
                   <div class="vip-clean-qtext" style="font-size:18px;">
@@ -6336,10 +6413,10 @@ function renderSecretMsamyArena() {
                       const optLetter = item.type === 'tf' ? (oIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + oIdx);
                       const isThisCorrect = oIdx === item.answer;
                       return `
-                        <div class="vip-clean-opt ${isThisCorrect ? 'is-correct' : ''}" style="padding:11px 14px;font-size:15px;cursor:default;">
+                        <div class="vip-clean-opt ${isThisCorrect ? 'is-correct' : ''}" style="padding:12px 15px;font-size:15px;cursor:default;">
                           <span class="vip-clean-opt-letter" style="width:28px;height:28px;font-size:12.5px;">${optLetter}</span>
                           <span style="flex:1;">${escapeQuizHtml(opt)}</span>
-                          ${isThisCorrect ? '<span style="color:#34d399;font-weight:800;font-size:12.5px;">✓ دي الصح</span>' : ''}
+                          ${isThisCorrect ? '<span style="color:#30D158;font-weight:700;font-size:12.5px;">✓ دي الصح</span>' : ''}
                         </div>
                       `;
                     }).join('')}
@@ -6353,7 +6430,14 @@ function renderSecretMsamyArena() {
       </div>
     </div>
   `;
+
+  const newScrollEl = document.getElementById('vipAppleScrollBody');
+  if (newScrollEl && savedScrollTop > 0) {
+    newScrollEl.scrollTop = savedScrollTop;
+  }
 }
+
+window.handleAppleVipScroll = handleAppleVipScroll;
 
 window.handleSecretFireClick = handleSecretFireClick;
 window.openSecretMsamyAuthModal = openSecretMsamyAuthModal;
