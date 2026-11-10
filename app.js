@@ -5673,20 +5673,20 @@ function injectSecretVipStyles() {
       left: 50%;
       transform: translateX(-50%) translateY(0) scale(1);
       z-index: 100060;
-      width: calc(100% - 24px);
-      max-width: 800px;
+      width: max-content;
+      max-width: calc(100% - 20px);
       background: rgba(23, 25, 52, 0.78);
       backdrop-filter: saturate(200%) blur(28px);
       -webkit-backdrop-filter: saturate(200%) blur(28px);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 24px;
-      padding: 8px 12px;
+      border-radius: 999px;
+      padding: 6px 10px;
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(139, 92, 246, 0.2);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: nowrap;
       transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
     }
     .apple-nav-bar.nav-hidden {
@@ -6000,13 +6000,12 @@ function injectSecretVipStyles() {
     @media (max-width: 640px) {
       .apple-nav-bar {
         top: 10px;
-        width: calc(100% - 16px);
-        padding: 7px 8px;
-        border-radius: 20px;
-        justify-content: center;
+        padding: 5px 8px;
+        border-radius: 999px;
+        gap: 6px;
       }
       .vip-clean-body {
-        padding: 112px 12px 44px;
+        padding: 72px 12px 44px;
       }
       .vip-clean-card {
         padding: 20px 18px;
@@ -6113,10 +6112,8 @@ function submitSecretMsamyPassword(e) {
 
 function rebuildSecretQuestionList() {
   const all = window.marketingSecretMidtermQuestions || [];
-  const ch = secretVipState.chapterFilter;
-  const list = (ch === 1 || ch === 2 || ch === 3) ? all.filter(q => q.chapter === ch) : [...all];
-  secretVipState.questions = list;
-  if (secretVipState.currentIndex >= list.length) {
+  secretVipState.questions = [...all];
+  if (secretVipState.currentIndex >= secretVipState.questions.length) {
     secretVipState.currentIndex = 0;
   }
 }
@@ -6268,20 +6265,12 @@ function renderSecretMsamyArena() {
   });
 
   page.innerHTML = `
-    <!-- Apple Floating Dynamic Glass Bar (Hides on Scroll Down, No Title/Filler) -->
+    <!-- Apple Floating Dynamic Glass Bar (Hides on Scroll Down, No Title/Filler, No Chapter Filters) -->
     <nav class="apple-nav-bar" id="appleVipFloatingNav">
       <!-- Mode Segmented Control -->
       <div class="apple-segment">
-        <button class="apple-seg-btn ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">سؤال بسؤال</button>
-        <button class="apple-seg-btn ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">كل الأسئلة</button>
-      </div>
-
-      <!-- Chapter Segmented Control -->
-      <div class="apple-segment">
-        <button class="apple-seg-btn ${chFilter === 'all' ? 'active' : ''}" onclick="setSecretChapterFilter('all')">الكل (${allPool.length})</button>
-        <button class="apple-seg-btn ${chFilter === 1 ? 'active' : ''}" onclick="setSecretChapterFilter(1)">Ch 1 (${c1Len})</button>
-        <button class="apple-seg-btn ${chFilter === 2 ? 'active' : ''}" onclick="setSecretChapterFilter(2)">Ch 2 (${c2Len})</button>
-        <button class="apple-seg-btn ${chFilter === 3 ? 'active' : ''}" onclick="setSecretChapterFilter(3)">Ch 3 (${c3Len})</button>
+        <button class="apple-seg-btn ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">سؤال بسؤال (${total})</button>
+        <button class="apple-seg-btn ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">كل الأسئلة (${total})</button>
       </div>
 
       <!-- Highlight Toggle + Close Circle -->
