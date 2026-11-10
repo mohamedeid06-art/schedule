@@ -5491,11 +5491,115 @@ let secretVipState = {
   unlocked: false,
   viewMode: 'interactive', // 'interactive' (one-by-one untimed) | 'sheet' (all questions answered list)
   chapterFilter: 'all', // 'all' | 1 | 2 | 3
+  showBasmagaHighlight: true, // highlights the trigger keyword in the question
   questions: [],
   currentIndex: 0,
   userAnswers: {},
   flagged: {}
 };
+
+// خريطة البصمجة الذكية: الكلمة المفتاحية المتعلم عليها في كل سؤال + شفرة الحل الفوري
+const SECRET_BASMAGA_MAP = {
+  1:  { key: "accurate descriptions of modern marketing, EXCEPT", tip: "أول ما تلمح EXCEPT في تعريف الماركتنج 👈 اختار (C) Selling and advertising are synonymous" },
+  2:  { key: "social and managerial process", tip: "أول ما تلمح social and managerial process 👈 اختار (D) Marketing" },
+  3:  { key: "shaped by individual personality and culture", tip: "احتياجات اتشكلت بالشخصية والثقافة 👈 اختار (B) Wants" },
+  4:  { key: "backed by buying power", tip: "رغبات (wants) مدعومة بفلوس (buying power) 👈 اختار (B) demands" },
+  5:  { key: "preoccupied with their own products", tip: "مركزين في منتجهم وناسين احتياج العميل 👈 اختار (D) marketing myopia" },
+  6:  { key: "excess demand", tip: "طلب زيادة وعايزين نقلله 👈 اختار (B) demarketing" },
+  7:  { key: "Selecting which segments", tip: "اختيار أنهي شريحة نخدمها 👈 اختار (D) target marketing" },
+  8:  { key: "question is answered by a company's value proposition", tip: "سؤال الـ Value Proposition 👈 اختار (A) Why should I buy your brand rather than a competitor's?" },
+  9:  { key: "continuous product improvement", tip: "تحسين مستمر للمنتج وجودة وأداء 👈 اختار (A) product" },
+  10: { key: "aggressive selling", tip: "بيع هجومي ومعاملات بيعية 👈 اختار (D) selling" },
+  11: { key: "knowing the needs and wants of target markets", tip: "معرفة احتياجات السوق وإشباعها أحسن من المنافسين 👈 اختار (D) marketing" },
+  12: { key: "According to the production concept", tip: "مفهوم الإنتاج (Production) = متوفر ورخيص 👈 اختار (E) available; affordable" },
+  13: { key: "Human needs are shaped by culture", tip: "فخ! الـ Needs فطرية مش بتتشكل بالثقافة (دي الـ Wants) 👈 False" },
+  14: { key: "needs become demands", tip: "فخ! الـ Wants هي اللي بتبقى Demands مش الـ Needs 👈 False" },
+  15: { key: "limited to physical products", tip: "العروض مش مقتصرة على المنتجات المادية بس 👈 False" },
+  16: { key: "underlying customer wants", tip: "فخ في آخر كلمة! كاتب wants بدل needs 👈 False" },
+  17: { key: "production concept and product concept", tip: "الإنتاج والمنتج الاتنين بيودوا لـ Marketing Myopia 👈 True" },
+  18: { key: "Amy's law office", tip: "مكتب إيمي مركز على الجودة وبيقولك في الآخر production (هي product) 👈 False" },
+  19: { key: "practicing the selling concept", tip: "بيعرف احتياجات العميل وفي الآخر يقولك selling concept (ده marketing) 👈 False" },
+  20: { key: "balance consumer wants and desires, company profits, and society's interests", tip: "توازن الـ 3 حاجات في الـ Societal Marketing 👈 True" },
+  21: { key: "production, price, promotion, and packaging", tip: "فخ! كاتب production و packaging بدل product و place 👈 False" },
+  22: { key: "eliminate losing customers and target winning ones", tip: "تعريف الـ Selective Relationship Management السليم 👈 True" },
+  23: { key: "selling concept takes", tip: "الـ Selling بياخد منظور من جوه لبره 👈 اختار (C) inside-out" },
+  24: { key: "Customer-driven marketing usually works well", tip: "بينجح لما الحاجة واضحة والعميل عارف عايز إيه 👈 اختار (D) a clear need exists; know what they want" },
+  25: { key: "balance between consumer short-run wants", tip: "موازنة رغبات دلوقتي مع مصلحة العميل طويلة الأجل 👈 اختار (C) long-run welfare" },
+  26: { key: "most important concept of modern marketing", tip: "أهم مفهوم في الماركتنج الحديث 👈 اختار (A) customer relationship management" },
+  27: { key: "Customer-perceived value is determined", tip: "تقييم شخصي من العميل للمنافع والتكاليف 👈 اختار (A) personal assessment" },
+  28: { key: "customers buy from stores and firms that offer", tip: "العميل بيشتري أعلى قيمة مدركة 👈 اختار (B) the highest customer-perceived value" },
+  29: { key: "three areas of consideration", tip: "الـ 3 حاجات: رغبات العميل ومصلحة المجتمع وأرباح الشركة 👈 اختار (C) company profits" },
+  30: { key: "increase customer satisfaction", tip: "لزيادة رضا العميل في الاختيارات دي 👈 اختار (C) lowering prices" },
+  31: { key: "room upgrade offered by a hotel", tip: "ترقية غرفة لعميل بيتردد كتير على الفندق 👈 اختار (A) frequency marketing program" },
+  32: { key: "iRobot, the makers of Roomba", tip: "شركة iRobot بتشرك العملاء عشان تعمل بهجة 👈 اختار (B) customer delight" },
+  33: { key: "weed out unprofitable customers", tip: "غربلة العملاء الخسرانين والتركيز على الكسبانين 👈 اختار (D) selective relationship management" },
+  34: { key: "Pete Sanchez", tip: "أول ما تلمح Pete Sanchez 👈 اختار (C) mass marketing" },
+  35: { key: "NOT contributed to the deeper, more interactive", tip: "اللي مساهمش في التفاعل الحديث هو الإعلان التقليدي 👈 اختار (D) traditional advertising" },
+  36: { key: "greater power and control", tip: "ليه العميل بقى أقوى؟ 👈 اختار (E) أطول إجابة (Through new communication technologies...)" },
+  37: { key: "cannot go it alone", tip: "المسوقين ميقدروش يشتغلوا لوحدهم 👈 اختار (A) partner relationship management" },
+  38: { key: "employees in an organization", tip: "الماركتنج النهاردة بيعمله كل الموظفين 👈 اختار (E) all" },
+  39: { key: "from providers of raw materials to components to final products", tip: "من المواد الخام للمنتج النهائي 👈 اختار (A) supply chain management" },
+  40: { key: "What is our business? Who are our customers?", tip: "أسئلة ما هو عملنا ومن هم عملاؤنا 👈 اختار (B) a mission statement" },
+  41: { key: "NOT a market-oriented business definition", tip: "مش موجهة للسوق = بتبيع عدد وشواكيش 👈 اختار (B) to sell tools and home repair..." },
+  42: { key: "product-oriented mission statements, EXCEPT", tip: "كلهم منتج ما عدا أطول جملة بتاعت اللايف ستايل والأحلام 👈 اختار (D) We sell lifestyle..." },
+  43: { key: "BCG growth-share matrix classifies four types", tip: "الأربع أنواع في مصفوفة BCG 👈 اختار (C) stars; cash cows; question marks; dogs" },
+  44: { key: "high-share, high-growth", tip: "عالي في الاتنين ولما يهدى يقلب بقرة حلوب 👈 اختار (D) stars; cash cows" },
+  45: { key: "income from ________ can be used to help finance", tip: "اللي بيجيب فلوس يمول بيها الباقي 👈 اختار (B) cash cows" },
+  46: { key: "primary responsibility for achieving profitable growth", tip: "القسم المسؤول عن تحقيق النمو المربح 👈 اختار (E) marketing" },
+  47: { key: "Making more sales to current customers without changing", tip: "بيع أكتر لنفس العملاء من غير تغيير المنتج 👈 اختار (B) market penetration" },
+  48: { key: "Honda Motor Co. and Wal-Mart stores", tip: "أول ما تلمح Honda و Wal-Mart 👈 اختار (D) value delivery network" },
+  49: { key: "selecting one or more segments to enter", tip: "تقييم الشرائح واختيار شريحة ندخلها 👈 اختار (C) market targeting" },
+  50: { key: "emphasize the company's strengths", tip: "الـ Mission تركز على نقاط القوة وتكون محفزة 👈 True" },
+  51: { key: "America Online", tip: "أول ما تلمح America Online وقالك product-oriented 👈 False" },
+  52: { key: "At Nike, we sell shoes", tip: "أول ما تلمح At Nike, we sell shoes وقالك market-oriented 👈 False" },
+  53: { key: "diversification", tip: "كاتب diversification ومعرفها إنها منتج جديد لسوق حالي 👈 False" },
+  54: { key: "new markets for its current products", tip: "أسواق جديدة لمنتجات حالية = Market Development 👈 True" },
+  55: { key: "between entire value delivery networks rather than between individual competitors", tip: "المنافسة بقت بين شبكات القيمة كلها مش شركات فردية 👈 True" },
+  56: { key: "minds of consumers is called market segmentation", tip: "فخ! الصورة في ذهن العميل هي Positioning مش Segmentation 👈 False" },
+  57: { key: "respond in different ways", tip: "فخ! أفراد الشريحة الواحدة بيستجيبوا بطريقة متشابهة مش different 👈 False" },
+  58: { key: "positioning", tip: "فخ! حاطط كلمة positioning جوه الـ 4Ps 👈 False" },
+  59: { key: "seller's view", tip: "أول ما تلمح seller's view of the market 👈 False (حسب نموذج إجابة الشيت)" },
+  60: { key: "actors close to the company", tip: "العوامل القريبة من الشركة (موردين ووسطاء) 👈 اختار (B) the microenvironment" },
+  61: { key: "larger societal forces", tip: "القوى المجتمعية الكبيرة (ديموغرافية واقتصادية) 👈 اختار (A) the macroenvironment" },
+  62: { key: "stock and move goods", tip: "تخزين ونقل البضائع 👈 اختار (B) physical distribution firms" },
+  63: { key: "Diego Calabresa", tip: "أول ما تلمح Diego Calabresa (أبحاث وإعلانات) 👈 اختار (C) a marketing service agency" },
+  64: { key: "for personal consumption", tip: "شراء للاستهلاك الشخصي والعائلي 👈 اختار (D) consumer" },
+  65: { key: "Rachel Patino", tip: "أول ما تلمح Rachel Patino (بتشتري وتبيع بربح) 👈 اختار (B) reseller" },
+  66: { key: "size, density, location, age, and occupations", tip: "حجم وكثافة وسن ووظائف السكان 👈 اختار (A) demographic" },
+  67: { key: "consumer purchasing power and spending patterns", tip: "القوة الشرائية وأنماط الإنفاق 👈 اختار (D) economic" },
+  68: { key: "Value marketing", tip: "تسويق القيمة = جودة معقولة بسعر عادل 👈 اختار (D) reasonable quality at a fair price" },
+  69: { key: "Business legislation has been created for three basic reasons", tip: "القوانين لحماية الشركات والعملاء ومصلحة المجتمع 👈 اختار (A) protect the interests of society" },
+  70: { key: "rash of business scandals", tip: "الفضائح التجارية والبيئة 👈 اختار (B) ethics; social responsibility" },
+  71: { key: "successfully build relationships", tip: "المسوقين لازم يبنوا علاقات مع العملاء والشركاء 👈 True" },
+  72: { key: "microenvironment consists of larger societal forces", tip: "فخ معكوس! الـ Micro مش هي القوى المجتمعية الكبيرة 👈 False" },
+  73: { key: "macroenvironment consists of the factors close to the company", tip: "فخ معكوس! الـ Macro مش هي العوامل القريبة من الشركة 👈 False" },
+  74: { key: "Marketing research firms, advertising agencies", tip: "شركات الأبحاث والإعلانات اسمها وكالات خدمات تسويقية 👈 True" },
+  75: { key: "rather than as full-fledged partners", tip: "فخ! كاتب قنوات بيع بدل شركاء كاملين (rather than partners) 👈 False" },
+  76: { key: "involves people, and people make up markets", tip: "الديموغرافيا مهمة عشان بتدرس الناس والناس هما السوق 👈 True" },
+  77: { key: "changing family structure", tip: "أول ما تلمح changing family structure هي أهم تريند 👈 False" },
+  78: { key: "less white-collar", tip: "فخ! كاتب less white-collar (هي more) 👈 False" },
+  79: { key: "decreased government intervention", tip: "فخ! كاتب decreased government intervention (تدخل الحكومة زاد) 👈 False" },
+  80: { key: "reactive approach", tip: "فخ! تعيين lobbyists ده أسلوب Proactive مش reactive 👈 False" }
+};
+
+function formatSecretQuestionWithHighlight(q) {
+  const escaped = escapeQuizHtml(q.question);
+  if (!secretVipState.showBasmagaHighlight) return escaped;
+  const entry = SECRET_BASMAGA_MAP[q.id];
+  if (!entry || !entry.key) return escaped;
+  const escapedKey = escapeQuizHtml(entry.key);
+  const idx = escaped.toLowerCase().indexOf(escapedKey.toLowerCase());
+  if (idx === -1) return escaped;
+  const before = escaped.slice(0, idx);
+  const match = escaped.slice(idx, idx + escapedKey.length);
+  const after = escaped.slice(idx + escapedKey.length);
+  return `${before}<mark style="background:linear-gradient(120deg,#f59e0b,#fbbf24);color:#090d16;padding:1px 6px;border-radius:6px;font-weight:900;box-shadow:0 0 12px rgba(245,158,11,0.45);">${match}</mark>${after}`;
+}
+
+function toggleSecretBasmagaHighlight() {
+  secretVipState.showBasmagaHighlight = !secretVipState.showBasmagaHighlight;
+  renderSecretMsamyArena();
+}
 
 function handleSecretFireClick(e) {
   if (e) e.stopPropagation();
@@ -5704,6 +5808,9 @@ function renderSecretMsamyArena() {
       </div>
 
       <div class="quiz2-head-right" style="gap:8px;flex-wrap:wrap;">
+        <button onclick="toggleSecretBasmagaHighlight()" style="background:${secretVipState.showBasmagaHighlight ? 'rgba(245,158,11,0.22)' : 'rgba(255,255,255,0.06)'};border:1.5px solid ${secretVipState.showBasmagaHighlight ? '#f59e0b' : 'rgba(255,255,255,0.15)'};color:${secretVipState.showBasmagaHighlight ? '#fbbf24' : '#94a3b8'};font-weight:800;font-size:12px;padding:6px 12px;border-radius:9999px;cursor:pointer;">
+          🖍️ هايلايت البصمجة: ${secretVipState.showBasmagaHighlight ? 'شغال 🔥' : 'مخفي'}
+        </button>
         <div class="quiz2-mode-pills">
           <button class="quiz2-mode-pill ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">
             🎮 تدريب بدون تايمر
@@ -5769,8 +5876,14 @@ function renderSecretMsamyArena() {
         </div>
 
         <div class="quiz2-question-text" dir="ltr">
-          ${escapeQuizHtml(q.question)}
+          ${formatSecretQuestionWithHighlight(q)}
         </div>
+
+        ${secretVipState.showBasmagaHighlight && SECRET_BASMAGA_MAP[q.id] ? `
+          <div style="margin:0 0 14px;padding:9px 14px;border-radius:10px;background:rgba(245,158,11,0.14);border-right:4px solid #f59e0b;color:#fde68a;font-size:13px;font-weight:700;direction:rtl;text-align:right;">
+            🔑 <strong>شفرة البصمجة:</strong> ${SECRET_BASMAGA_MAP[q.id].tip}
+          </div>
+        ` : ''}
 
         <div class="quiz2-options-list" dir="ltr">
           ${q.options.map((opt, optIdx) => {
@@ -5835,7 +5948,12 @@ function renderSecretMsamyArena() {
                 <span class="quiz2-review-num">سؤال ${idx + 1} • Chapter ${item.chapter} (${item.sourceTag} — #${item.origNum})</span>
                 <span class="quiz2-review-badge correct">📖 P.${item.pageRef || '-'}</span>
               </div>
-              <div class="quiz2-review-qtext" dir="ltr">${escapeQuizHtml(item.question)}</div>
+              <div class="quiz2-review-qtext" dir="ltr">${formatSecretQuestionWithHighlight(item)}</div>
+              ${secretVipState.showBasmagaHighlight && SECRET_BASMAGA_MAP[item.id] ? `
+                <div style="margin:6px 0 10px;padding:7px 12px;border-radius:8px;background:rgba(245,158,11,0.14);border-right:3px solid #f59e0b;color:#fde68a;font-size:12.5px;font-weight:700;direction:rtl;text-align:right;">
+                  🔑 <strong>شفرة البصمجة:</strong> ${SECRET_BASMAGA_MAP[item.id].tip}
+                </div>
+              ` : ''}
               <div class="quiz2-review-opts" dir="ltr">
                 ${item.options.map((opt, oIdx) => {
                   const optLetter = item.type === 'tf' ? (oIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + oIdx);
@@ -5866,3 +5984,4 @@ window.selectSecretOption = selectSecretOption;
 window.jumpSecretQuestion = jumpSecretQuestion;
 window.nextSecretQuestion = nextSecretQuestion;
 window.prevSecretQuestion = prevSecretQuestion;
+window.toggleSecretBasmagaHighlight = toggleSecretBasmagaHighlight;
