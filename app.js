@@ -5617,13 +5617,16 @@ function formatSecretQuestionWithHighlight(q) {
   const before = escaped.slice(0, idx);
   const match = escaped.slice(idx, idx + escapedKey.length);
   const after = escaped.slice(idx + escapedKey.length);
-  return `${before}<mark class="vip-basmaga-mark">${match}</mark>${after}`;
+  return `${before}<mark class="vip-key-mark">${match}</mark>${after}`;
 }
 
 function injectSecretVipStyles() {
-  if (document.getElementById('msamyVipFullPageStyle')) return;
-  const style = document.createElement('style');
-  style.id = 'msamyVipFullPageStyle';
+  let style = document.getElementById('msamyVipFullPageStyle');
+  if (!style) {
+    style = document.createElement('style');
+    style.id = 'msamyVipFullPageStyle';
+    document.head.appendChild(style);
+  }
   style.textContent = `
     #msamyVipFullPage {
       position: fixed;
@@ -5632,468 +5635,331 @@ function injectSecretVipStyles() {
       height: 100vh;
       z-index: 100050;
       background:
-        radial-gradient(circle at 12% 15%, rgba(245, 158, 11, 0.14), transparent 38%),
-        radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.12), transparent 40%),
-        radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.09), transparent 45%),
-        #050811;
+        radial-gradient(circle at 50% -10%, rgba(56, 189, 248, 0.10), transparent 50%),
+        radial-gradient(circle at 85% 90%, rgba(245, 158, 11, 0.07), transparent 45%),
+        #070b14;
       color: #f8fafc;
-      font-family: "IBM Plex Sans Arabic", "Inter", system-ui, -apple-system, sans-serif;
+      font-family: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       direction: rtl;
-      animation: vipFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: vipCleanFade 0.22s ease-out;
     }
-    @keyframes vipFadeIn {
-      from { opacity: 0; transform: scale(0.985); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes vipCleanFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    .vip-basmaga-mark {
-      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-      color: #050811;
-      padding: 2px 9px;
-      border-radius: 8px;
-      font-weight: 900;
-      box-shadow: 0 0 18px rgba(245, 158, 11, 0.55);
-      display: inline-block;
-      line-height: 1.35;
-      margin: 0 2px;
+    .vip-key-mark {
+      background: rgba(251, 191, 36, 0.22);
+      color: #fde68a;
+      border-bottom: 2px solid #f59e0b;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-weight: 800;
     }
-    /* Top Navbar */
-    .vip-topbar {
+    /* Minimalist Top Bar */
+    .vip-clean-header {
+      height: 68px;
+      padding: 0 32px;
+      background: rgba(11, 17, 32, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      padding: 12px 24px;
-      background: rgba(9, 14, 26, 0.86);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(245, 158, 11, 0.28);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      gap: 16px;
       flex-shrink: 0;
-      flex-wrap: wrap;
     }
-    .vip-brand {
+    .vip-clean-brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .vip-brand-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, #f59e0b, #ea580c);
+    .vip-clean-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
-      flex-shrink: 0;
+      font-size: 18px;
     }
-    .vip-brand-title {
-      font-size: 17px;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: -0.2px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .vip-brand-badge {
-      background: rgba(245, 158, 11, 0.2);
-      border: 1px solid rgba(245, 158, 11, 0.5);
-      color: #fbbf24;
-      font-size: 11px;
+    .vip-clean-title {
+      font-size: 15.5px;
       font-weight: 800;
-      padding: 2px 9px;
-      border-radius: 999px;
+      color: #f8fafc;
     }
-    .vip-brand-sub {
-      font-size: 12px;
-      color: #94a3b8;
-      margin-top: 2px;
-    }
-    .vip-nav-modes {
+    .vip-clean-tabs {
       display: inline-flex;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 4px;
-      border-radius: 14px;
-      gap: 4px;
-      flex-wrap: wrap;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 11px;
+      padding: 3px;
+      gap: 3px;
     }
-    .vip-mode-btn {
+    .vip-clean-tab {
       border: none;
       background: transparent;
-      color: #cbd5e1;
+      color: #94a3b8;
       font-family: inherit;
-      font-size: 13px;
-      font-weight: 800;
-      padding: 8px 16px;
-      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      transition: all 0.16s ease;
     }
-    .vip-mode-btn:hover {
+    .vip-clean-tab:hover {
+      color: #f1f5f9;
+    }
+    .vip-clean-tab.active {
+      background: rgba(255, 255, 255, 0.12);
       color: #fff;
-      background: rgba(255, 255, 255, 0.06);
     }
-    .vip-mode-btn.active {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #050811;
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.38);
-    }
-    .vip-top-actions {
+    .vip-clean-actions {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
     }
-    .vip-highlight-toggle {
-      border: 1.5px solid rgba(245, 158, 11, 0.5);
-      background: rgba(245, 158, 11, 0.15);
-      color: #fde68a;
+    .vip-clean-btn {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
       font-family: inherit;
       font-size: 12.5px;
-      font-weight: 800;
-      padding: 8px 14px;
-      border-radius: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.16s ease;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
-    .vip-highlight-toggle.off {
-      border-color: rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.05);
-      color: #94a3b8;
-    }
-    .vip-exit-btn {
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      background: rgba(239, 68, 68, 0.12);
-      color: #fca5a5;
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 800;
-      padding: 8px 15px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .vip-exit-btn:hover {
-      background: rgba(239, 68, 68, 0.25);
+    .vip-clean-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
       color: #fff;
     }
+    .vip-clean-btn.highlight-on {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(245, 158, 11, 0.12);
+      color: #fde68a;
+    }
 
-    /* Main Workspace Grid */
-    .vip-workspace {
+    /* Main Scroll Body */
+    .vip-clean-body {
       flex: 1;
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 22px;
-      padding: 20px 24px;
-      overflow: hidden;
-      max-width: 1680px;
-      width: 100%;
+      overflow-y: auto;
+      padding: 28px 20px 48px;
+    }
+    .vip-clean-container {
+      max-width: 880px;
       margin: 0 auto;
-      box-sizing: border-box;
-    }
-    /* Sidebar */
-    .vip-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      overflow-y: auto;
-      padding-left: 4px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(245, 158, 11, 0.35) transparent;
-    }
-    .vip-panel {
-      background: rgba(15, 23, 42, 0.72);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 18px;
-      padding: 15px 16px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
-    }
-    .vip-funny-card {
-      background: linear-gradient(145deg, rgba(245, 158, 11, 0.18), rgba(234, 88, 12, 0.08));
-      border: 1.5px dashed rgba(245, 158, 11, 0.55);
-      border-radius: 18px;
-      padding: 14px 16px;
-      color: #fef3c7;
-      font-size: 12.8px;
-      line-height: 1.65;
-    }
-    .vip-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .vip-stat-box {
-      background: rgba(9, 13, 22, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 12px;
-      padding: 8px 6px;
-      text-align: center;
-    }
-    .vip-stat-num {
-      font-size: 18px;
-      font-weight: 900;
-      display: block;
-    }
-    .vip-stat-lbl {
-      font-size: 11px;
-      color: #94a3b8;
-      font-weight: 700;
-    }
-    .vip-filter-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .vip-chip {
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(9, 13, 22, 0.65);
-      color: #cbd5e1;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 6px 11px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-    .vip-chip:hover {
-      border-color: rgba(245, 158, 11, 0.5);
-      color: #fff;
-    }
-    .vip-chip.active {
-      background: #f59e0b;
-      border-color: #f59e0b;
-      color: #050811;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
-    }
-    .vip-qmap-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
-      gap: 6px;
-      max-height: 230px;
-      overflow-y: auto;
-      padding: 4px 2px;
-    }
-    .vip-qmap-cell {
-      height: 36px;
-      border-radius: 9px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(9, 13, 22, 0.8);
-      color: #cbd5e1;
-      font-weight: 800;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .vip-qmap-cell:hover {
-      border-color: #f59e0b;
-      color: #fff;
-    }
-    .vip-qmap-cell.current {
-      border: 2px solid #fbbf24;
-      background: rgba(245, 158, 11, 0.25);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
-    }
-    .vip-qmap-cell.correct {
-      background: rgba(16, 185, 129, 0.22);
-      border-color: #10b981;
-      color: #6ee7b7;
-    }
-    .vip-qmap-cell.wrong {
-      background: rgba(239, 68, 68, 0.24);
-      border-color: #ef4444;
-      color: #fca5a5;
-    }
-    .vip-qmap-star {
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      font-size: 10px;
-    }
-
-    /* Main Stage */
-    .vip-stage {
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      padding-left: 6px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(245, 158, 11, 0.4) transparent;
-    }
-    .vip-question-hero {
-      background: linear-gradient(165deg, rgba(15, 23, 42, 0.9), rgba(9, 13, 22, 0.95));
-      border: 1px solid rgba(245, 158, 11, 0.28);
-      border-radius: 24px;
-      padding: 28px 32px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-    .vip-q-meta-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .vip-q-text {
-      font-size: 21px;
-      font-weight: 700;
-      line-height: 1.65;
-      color: #f8fafc;
-      direction: ltr;
-      text-align: left;
-      letter-spacing: -0.1px;
-    }
-    .vip-basmaga-box {
-      background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.06));
-      border-right: 4px solid #f59e0b;
+
+    /* Subtle Friends Note */
+    .vip-friends-note {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.25);
       border-radius: 14px;
-      padding: 13px 18px;
-      color: #fef08a;
-      font-size: 14.5px;
-      font-weight: 800;
+      padding: 12px 18px;
+      color: #fde68a;
+      font-size: 13.5px;
       line-height: 1.6;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.12);
-    }
-    .vip-options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      direction: ltr;
-    }
-    .vip-opt-btn {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
-      color: #e2e8f0;
-      font-size: 16.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      text-align: left;
-    }
-    .vip-opt-btn:hover {
-      border-color: rgba(245, 158, 11, 0.6);
-      background: rgba(30, 41, 59, 0.85);
-      transform: translateX(4px);
-    }
-    .vip-opt-letter {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 15px;
-      color: #fbbf24;
-      flex-shrink: 0;
-    }
-    .vip-opt-btn.is-correct {
-      background: linear-gradient(90deg, rgba(16, 185, 129, 0.24), rgba(16, 185, 129, 0.08));
-      border-color: #10b981;
-      color: #ecfdf5;
-      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
-    }
-    .vip-opt-btn.is-correct .vip-opt-letter {
-      background: #10b981;
-      color: #050811;
-      border-color: #10b981;
-    }
-    .vip-opt-btn.is-wrong {
-      background: linear-gradient(90deg, rgba(239, 68, 68, 0.24), rgba(239, 68, 68, 0.08));
-      border-color: #ef4444;
-      color: #fef2f2;
-    }
-    .vip-opt-btn.is-wrong .vip-opt-letter {
-      background: #ef4444;
-      color: #fff;
-      border-color: #ef4444;
     }
 
-    /* Sheet & Zatoona Cards */
-    .vip-zatoona-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 14px;
-      padding-bottom: 30px;
-    }
-    .vip-zatoona-card {
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(245, 158, 11, 0.28);
-      border-radius: 18px;
-      padding: 16px 18px;
+    /* Progress & Question Strip */
+    .vip-strip-wrap {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: transform 0.18s ease, border-color 0.18s ease;
     }
-    .vip-zatoona-card:hover {
-      transform: translateY(-2px);
+    .vip-qstrip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 2px 8px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+    }
+    .vip-qpill {
+      min-width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(15, 23, 42, 0.7);
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .vip-qpill:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+    .vip-qpill.current {
       border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      font-weight: 800;
+    }
+    .vip-qpill.correct {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+    }
+    .vip-qpill.wrong {
+      border-color: rgba(239, 68, 68, 0.5);
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
     }
 
-    @media (max-width: 1024px) {
-      .vip-workspace {
-        grid-template-columns: 1fr;
-        overflow-y: auto;
-        padding: 14px;
+    /* Main Question Card */
+    .vip-clean-card {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      padding: 32px 36px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .vip-clean-qhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .vip-clean-qtext {
+      font-size: 20.5px;
+      font-weight: 600;
+      line-height: 1.7;
+      color: #f8fafc;
+      direction: ltr;
+      text-align: left;
+    }
+    .vip-clean-opts {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      direction: ltr;
+    }
+    .vip-clean-opt {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      border-radius: 14px;
+      background: rgba(9, 14, 26, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #e2e8f0;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      text-align: left;
+    }
+    .vip-clean-opt:hover {
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(30, 41, 59, 0.55);
+    }
+    .vip-clean-opt-letter {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .vip-clean-opt.is-correct {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: #10b981;
+      color: #ecfdf5;
+    }
+    .vip-clean-opt.is-correct .vip-clean-opt-letter {
+      background: #10b981;
+      color: #050811;
+    }
+    .vip-clean-opt.is-wrong {
+      background: rgba(239, 68, 68, 0.14);
+      border-color: #ef4444;
+      color: #fef2f2;
+    }
+    .vip-clean-opt.is-wrong .vip-clean-opt-letter {
+      background: #ef4444;
+      color: #fff;
+    }
+    .vip-clean-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .vip-nav-btn {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .vip-nav-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .vip-nav-btn.primary {
+      background: #f59e0b;
+      border-color: #f59e0b;
+      color: #050811;
+      font-weight: 800;
+    }
+    .vip-nav-btn.primary:hover:not(:disabled) {
+      background: #fbbf24;
+    }
+    .vip-nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .vip-clean-header {
+        height: auto;
+        padding: 12px 16px;
+        flex-wrap: wrap;
       }
-      .vip-sidebar {
-        overflow: visible;
+      .vip-clean-card {
+        padding: 20px 18px;
       }
-      .vip-stage {
-        overflow: visible;
-      }
-      .vip-topbar {
-        padding: 10px 14px;
-      }
-      .vip-question-hero {
-        padding: 18px 16px;
-      }
-      .vip-q-text {
+      .vip-clean-qtext {
         font-size: 17.5px;
-      }
-      .vip-zatoona-grid {
-        grid-template-columns: 1fr;
       }
     }
   `;
-  document.head.appendChild(style);
 }
 
 function toggleSecretBasmagaHighlight() {
@@ -6101,51 +5967,9 @@ function toggleSecretBasmagaHighlight() {
   renderSecretMsamyArena();
 }
 
-function toggleSecretFlag(qId) {
-  if (!qId) return;
-  if (secretVipState.flagged[qId]) {
-    delete secretVipState.flagged[qId];
-  } else {
-    secretVipState.flagged[qId] = true;
-  }
-  saveSecretVipProgress();
-  renderSecretMsamyArena();
-}
-
-function revealCurrentSecretAnswer() {
-  const q = secretVipState.questions[secretVipState.currentIndex];
-  if (!q) return;
-  secretVipState.userAnswers[q.id] = q.answer;
-  saveSecretVipProgress();
-  renderSecretMsamyArena();
-}
-
 function resetSecretVipProgress() {
   secretVipState.userAnswers = {};
   saveSecretVipProgress();
-  renderSecretMsamyArena();
-}
-
-function toggleSecretShuffle() {
-  secretVipState.shuffled = !secretVipState.shuffled;
-  rebuildSecretQuestionList();
-  renderSecretMsamyArena();
-}
-
-function setSecretStatusFilter(status) {
-  secretVipState.statusFilter = status;
-  rebuildSecretQuestionList();
-  renderSecretMsamyArena();
-}
-
-function setSecretSearchQuery(val) {
-  secretVipState.searchQuery = val || '';
-  rebuildSecretQuestionList();
-  renderSecretMsamyArena(true);
-}
-
-function toggleSecretCompactSheet() {
-  secretVipState.compactSheet = !secretVipState.compactSheet;
   renderSecretMsamyArena();
 }
 
@@ -6175,29 +5999,28 @@ function openSecretMsamyAuthModal() {
 
   const overlay = document.createElement('div');
   overlay.id = 'msamySecretAuthOverlay';
-  overlay.style.cssText = 'position:fixed;inset:0;z-index:100100;background:radial-gradient(circle at center,rgba(245,158,11,0.18),rgba(5,8,17,0.95));backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:16px;direction:rtl;font-family:"IBM Plex Sans Arabic",sans-serif;';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:100100;background:rgba(5,8,17,0.88);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:16px;direction:rtl;font-family:"IBM Plex Sans Arabic",sans-serif;';
   overlay.innerHTML = `
-    <div style="width:100%;max-width:440px;background:linear-gradient(155deg,#0f172a,#060913);border:2px solid rgba(245,158,11,0.7);border-radius:26px;padding:30px 26px;box-shadow:0 28px 80px rgba(245,158,11,0.28);text-align:center;position:relative;">
-      <button onclick="document.getElementById('msamySecretAuthOverlay').remove()" style="position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.08);border:none;color:#94a3b8;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;">✕</button>
-      <div style="width:72px;height:72px;margin:0 auto 14px;border-radius:22px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 12px 30px rgba(245,158,11,0.4);">🕵️‍♂️</div>
-      <div style="display:inline-block;padding:3px 12px;border-radius:999px;background:rgba(245,158,11,0.16);border:1px solid rgba(245,158,11,0.4);color:#fbbf24;font-size:11.5px;font-weight:800;margin-bottom:8px;">VIP PRIVATE VAULT • بوابة سرية</div>
-      <h3 style="margin:0 0 8px;color:#fff;font-size:22px;font-weight:900;">منصة الخلاصة السرية للميد 🔥</h3>
-      <p style="margin:0 0 20px;color:#94a3b8;font-size:13.5px;line-height:1.65;">
-        الـ 3 دوسات فتحتلك البوابة.. اكتب الباسورد السري عشان تفتح الصفحة الكاملة للـ 80 سؤال بشفرات البصمجة الفورية 👀🔒
+    <div style="width:100%;max-width:400px;background:#0f172a;border:1px solid rgba(255,255,255,0.14);border-radius:22px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,0.5);text-align:center;position:relative;">
+      <button onclick="document.getElementById('msamySecretAuthOverlay').remove()" style="position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.06);border:none;color:#94a3b8;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;">✕</button>
+      <div style="font-size:38px;margin-bottom:10px;">🔒</div>
+      <h3 style="margin:0 0 6px;color:#fff;font-size:19px;font-weight:800;">محاكي الميد الخاص</h3>
+      <p style="margin:0 0 18px;color:#94a3b8;font-size:13px;line-height:1.6;">
+        اكتب الباسورد عشان تفتح صفحة الـ 80 سؤال بتوع الميد
       </p>
       <form onsubmit="submitSecretMsamyPassword(event)" style="display:flex;flex-direction:column;gap:12px;">
         <input
           id="msamySecretPassInput"
           type="password"
-          placeholder="اكتب الباسورد السري..."
+          placeholder="كلمة السر..."
           autocomplete="off"
-          style="width:100%;padding:14px 18px;border-radius:14px;border:1.5px solid rgba(245,158,11,0.5);background:rgba(9,13,22,0.95);color:#fbbf24;font-size:17px;font-weight:800;text-align:center;outline:none;box-sizing:border-box;letter-spacing:1px;"
+          style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.18);background:#070b14;color:#fff;font-size:16px;font-weight:700;text-align:center;outline:none;box-sizing:border-box;"
         />
-        <div id="msamySecretPassError" style="color:#f87171;font-size:13px;font-weight:800;display:none;">
-          ❌ الباسورد غلط يا نجم! هات الباسورد الصح الأول 😂
+        <div id="msamySecretPassError" style="color:#f87171;font-size:12.5px;font-weight:700;display:none;">
+          ❌ كلمة السر غير صحيحة
         </div>
-        <button type="submit" style="width:100%;padding:14px 20px;border-radius:14px;border:none;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#050811;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 10px 28px rgba(245,158,11,0.4);">
-          🚀 افتح المنصة السرية الكاملة
+        <button type="submit" style="width:100%;padding:12px 18px;border-radius:12px;border:none;background:#f59e0b;color:#050811;font-weight:800;font-size:15px;cursor:pointer;">
+          دخول
         </button>
       </form>
     </div>
@@ -6224,9 +6047,6 @@ function submitSecretMsamyPassword(e) {
     const overlay = document.getElementById('msamySecretAuthOverlay');
     if (overlay) overlay.remove();
     secretVipState.unlocked = true;
-    if (typeof confetti === 'function') {
-      confetti({ particleCount: 100, spread: 85, origin: { y: 0.5 }, zIndex: 100200 });
-    }
     openSecretMsamyArenaModal();
   } else {
     if (err) err.style.display = 'block';
@@ -6236,32 +6056,8 @@ function submitSecretMsamyPassword(e) {
 
 function rebuildSecretQuestionList() {
   const all = window.marketingSecretMidtermQuestions || [];
-  let list = all.filter(q => {
-    if (secretVipState.chapterFilter === 1 || secretVipState.chapterFilter === 2 || secretVipState.chapterFilter === 3) {
-      if (q.chapter !== secretVipState.chapterFilter) return false;
-    }
-    const st = secretVipState.statusFilter;
-    const ans = secretVipState.userAnswers[q.id];
-    if (st === 'wrong' && !(ans !== undefined && ans !== q.answer)) return false;
-    if (st === 'flagged' && !secretVipState.flagged[q.id]) return false;
-    if (st === 'unanswered' && ans !== undefined) return false;
-    if (st === 'tf' && q.type !== 'tf') return false;
-    if (st === 'mcq' && q.type === 'tf') return false;
-
-    const sq = (secretVipState.searchQuery || '').trim().toLowerCase();
-    if (sq) {
-      const inQ = (q.question || '').toLowerCase().includes(sq);
-      const inOpts = (q.options || []).some(o => (o || '').toLowerCase().includes(sq));
-      const inTip = (SECRET_BASMAGA_MAP[q.id]?.tip || '').toLowerCase().includes(sq);
-      if (!inQ && !inOpts && !inTip) return false;
-    }
-    return true;
-  });
-
-  if (secretVipState.shuffled) {
-    list = [...list].sort((a, b) => ((a.id * 37) % 101) - ((b.id * 37) % 101));
-  }
-
+  const ch = secretVipState.chapterFilter;
+  const list = (ch === 1 || ch === 2 || ch === 3) ? all.filter(q => q.chapter === ch) : [...all];
   secretVipState.questions = list;
   if (secretVipState.currentIndex >= list.length) {
     secretVipState.currentIndex = 0;
@@ -6271,8 +6067,6 @@ function rebuildSecretQuestionList() {
 function handleSecretVipKeydown(e) {
   const page = document.getElementById('msamyVipFullPage');
   if (!page) return;
-  if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
-
   if (e.key === 'Escape') {
     closeSecretMsamyPage();
     return;
@@ -6291,11 +6085,6 @@ function handleSecretVipKeydown(e) {
     if (q && idx < q.options.length) {
       selectSecretOption(idx);
     }
-  } else if (e.key.toLowerCase() === 'h') {
-    toggleSecretBasmagaHighlight();
-  } else if (e.key.toLowerCase() === 's') {
-    const q = secretVipState.questions[secretVipState.currentIndex];
-    if (q) toggleSecretFlag(q.id);
   }
 }
 
@@ -6314,8 +6103,7 @@ function openSecretMsamyArenaModal(chFilter = 'all') {
   injectSecretVipStyles();
 
   secretVipState.chapterFilter = chFilter;
-  secretVipState.statusFilter = 'all';
-  secretVipState.searchQuery = '';
+  secretVipState.viewMode = 'interactive';
   secretVipState.currentIndex = 0;
   rebuildSecretQuestionList();
 
@@ -6375,7 +6163,7 @@ function prevSecretQuestion() {
   }
 }
 
-function renderSecretMsamyArena(preserveSearchFocus = false) {
+function renderSecretMsamyArena() {
   const page = document.getElementById('msamyVipFullPage');
   if (!page) return;
 
@@ -6385,7 +6173,6 @@ function renderSecretMsamyArena(preserveSearchFocus = false) {
   const c3Len = allPool.filter(q => q.chapter === 3).length;
 
   const chFilter = secretVipState.chapterFilter;
-  const stFilter = secretVipState.statusFilter;
   const vMode = secretVipState.viewMode;
   const total = secretVipState.questions.length;
   const current = total > 0 ? secretVipState.currentIndex + 1 : 0;
@@ -6393,405 +6180,179 @@ function renderSecretMsamyArena(preserveSearchFocus = false) {
   const userSelected = q ? secretVipState.userAnswers[q.id] : undefined;
   const hasAnswered = userSelected !== undefined;
 
-  let totalSolvedAll = 0;
-  let totalCorrectAll = 0;
-  let totalWrongAll = 0;
-  allPool.forEach(item => {
+  let solvedInView = 0;
+  let correctInView = 0;
+  secretVipState.questions.forEach(item => {
     const ans = secretVipState.userAnswers[item.id];
     if (ans !== undefined) {
-      totalSolvedAll++;
-      if (ans === item.answer) totalCorrectAll++;
-      else totalWrongAll++;
+      solvedInView++;
+      if (ans === item.answer) correctInView++;
     }
   });
-  const totalFlaggedAll = Object.keys(secretVipState.flagged).length;
-  const overallPct = allPool.length > 0 ? Math.round((totalSolvedAll / allPool.length) * 100) : 0;
 
   page.innerHTML = `
-    <!-- Top Glassmorphic Command Header -->
-    <header class="vip-topbar">
-      <div class="vip-brand">
-        <div class="vip-brand-icon">🔥</div>
+    <!-- Clean Top Navigation Bar -->
+    <header class="vip-clean-header">
+      <div class="vip-clean-brand">
+        <div class="vip-clean-logo">🔥</div>
         <div>
-          <div class="vip-brand-title">
-            <span>منصة الخلاصة السرية للميد</span>
-            <span class="vip-brand-badge">👑 VIP EDITION</span>
-          </div>
-          <div class="vip-brand-sub">الـ 80 سؤال اللي جاي منهم الـ 60 سؤال بتوع الميد بالمللي • بدون تايمر</div>
+          <div class="vip-clean-title">محاكي الميد الخاص (${allPool.length} سؤال)</div>
         </div>
       </div>
 
-      <div class="vip-nav-modes">
-        <button class="vip-mode-btn ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">
-          <span>🎮</span>
-          <span>محاكي الحل الذكي</span>
-        </button>
-        <button class="vip-mode-btn ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">
-          <span>📜</span>
-          <span>شيت البصمجة الكامل (${total})</span>
-        </button>
-        <button class="vip-mode-btn ${vMode === 'zatoona' ? 'active' : ''}" onclick="setSecretViewMode('zatoona')">
-          <span>⚡</span>
-          <span>الزتونة في 5 دقايق (الشفرات)</span>
-        </button>
+      <!-- Chapter Filter Tabs -->
+      <div class="vip-clean-tabs">
+        <button class="vip-clean-tab ${chFilter === 'all' ? 'active' : ''}" onclick="setSecretChapterFilter('all')">الكل (${allPool.length})</button>
+        <button class="vip-clean-tab ${chFilter === 1 ? 'active' : ''}" onclick="setSecretChapterFilter(1)">Ch.1 (${c1Len})</button>
+        <button class="vip-clean-tab ${chFilter === 2 ? 'active' : ''}" onclick="setSecretChapterFilter(2)">Ch.2 (${c2Len})</button>
+        <button class="vip-clean-tab ${chFilter === 3 ? 'active' : ''}" onclick="setSecretChapterFilter(3)">Ch.3 (${c3Len})</button>
       </div>
 
-      <div class="vip-top-actions">
-        <button class="vip-highlight-toggle ${secretVipState.showBasmagaHighlight ? '' : 'off'}" onclick="toggleSecretBasmagaHighlight()" title="اختصار الكيبورد: H">
+      <!-- Right Controls -->
+      <div class="vip-clean-actions">
+        <div class="vip-clean-tabs">
+          <button class="vip-clean-tab ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">تدريب تفاعلي</button>
+          <button class="vip-clean-tab ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">عرض الكل محلول</button>
+        </div>
+
+        <button class="vip-clean-btn ${secretVipState.showBasmagaHighlight ? 'highlight-on' : ''}" onclick="toggleSecretBasmagaHighlight()">
           <span>🖍️</span>
-          <span>هايلايت البصمجة: ${secretVipState.showBasmagaHighlight ? 'شغال 🔥' : 'مخفي'}</span>
+          <span>تظليل الكلمات المفتاحية: ${secretVipState.showBasmagaHighlight ? 'مفعّل' : 'مخفي'}</span>
         </button>
-        <button class="vip-exit-btn" onclick="closeSecretMsamyPage()" title="إغلاق والعودة للجدول (Esc)">
-          ✕ خروج للجدول
+
+        <button class="vip-clean-btn" onclick="closeSecretMsamyPage()">
+          ✕ خروج
         </button>
       </div>
     </header>
 
-    <!-- Main Full-Screen 2-Column Workspace -->
-    <div class="vip-workspace">
-      <!-- Right Sidebar: Funny Card + Stats + Filters + Question Map -->
-      <aside class="vip-sidebar">
-        <!-- Funny Friends Message -->
-        <div class="vip-funny-card">
-          <div style="font-weight:900;color:#fbbf24;font-size:14px;margin-bottom:4px;display:flex;align-items:center;gap:6px;">
-            <span>😂🕵️‍♂️</span>
-            <span>رسالة خاصة لرجالة الغرفة السرية!</span>
-          </div>
+    <!-- Main Centered Content -->
+    <div class="vip-clean-body">
+      <div class="vip-clean-container">
+
+        <!-- Compact Funny Note for Friends -->
+        <div class="vip-friends-note">
           <div>
-            بص يا صاحبي.. الدفعة بره غلبانة بتفرم في 377 سؤال، وإحنا هنا معانا الخلاصة والزتونة اللي هيجي منها الـ 60 سؤال بتوع الميد بالمللي 😂🔥
-            علّمتلك على الكلمة اللي بتفضح الإجابة بالأصفر المنوّر في كل سؤال.. لو مقفلتش الـ 20 من 20 بعد الدلع ده كله يبقى العيب فيك إنت بقى.. بصمج وادعيلي بدل ما أغير الباسورد 🤣❤️
+            😂🔥 <strong>الخلاصة هنا يا صاحبي:</strong> الدفعة بره تايهة في 377 سؤال، ودول الـ 80 سؤال اللي جاي منهم الـ 60 سؤال بتوع الميد بالمللي ومن غير تايمر.. لو مقفلتش الميد بعد الروقان ده يبقى العيب فيك إنت بقى 🤣❤️
           </div>
-        </div>
-
-        <!-- Live Mastery Stats -->
-        <div class="vip-panel">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-            <span style="font-weight:900;font-size:13.5px;color:#f8fafc;">📊 مؤشر الفرم والبصمجة</span>
-            <span style="font-weight:900;font-size:13px;color:#fbbf24;">${overallPct}% مكتمل</span>
-          </div>
-          <div style="height:8px;background:rgba(255,255,255,0.07);border-radius:999px;overflow:hidden;margin-bottom:10px;">
-            <div style="width:${overallPct}%;height:100%;background:linear-gradient(90deg,#f59e0b,#10b981);transition:width 0.3s ease;"></div>
-          </div>
-          <div class="vip-stats-grid">
-            <div class="vip-stat-box">
-              <span class="vip-stat-num" style="color:#38bdf8;">${totalSolvedAll}/${allPool.length}</span>
-              <span class="vip-stat-lbl">حليت</span>
-            </div>
-            <div class="vip-stat-box">
-              <span class="vip-stat-num" style="color:#10b981;">${totalCorrectAll}</span>
-              <span class="vip-stat-lbl">صح ✅</span>
-            </div>
-            <div class="vip-stat-box">
-              <span class="vip-stat-num" style="color:#ef4444;">${totalWrongAll}</span>
-              <span class="vip-stat-lbl">غلط ❌</span>
-            </div>
-            <div class="vip-stat-box">
-              <span class="vip-stat-num" style="color:#fbbf24;">${totalFlaggedAll}</span>
-              <span class="vip-stat-lbl">مهم ⭐</span>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:10px;">
-            <button class="vip-chip" style="flex:1;text-align:center;" onclick="toggleSecretShuffle()">
-              🔀 ${secretVipState.shuffled ? 'الترتيب الأصلي' : 'لخبطة الأسئلة'}
+          ${solvedInView > 0 ? `
+            <button class="vip-clean-btn" style="flex-shrink:0;font-size:11.5px;padding:5px 10px;" onclick="resetSecretVipProgress()">
+              إعادة ضبط الحل
             </button>
-            <button class="vip-chip" style="flex:1;text-align:center;color:#fca5a5;border-color:rgba(239,68,68,0.3);" onclick="resetSecretVipProgress()">
-              🔄 تصفير الحل
-            </button>
-          </div>
+          ` : ''}
         </div>
 
-        <!-- Chapter & Smart Filters -->
-        <div class="vip-panel">
-          <div style="font-weight:900;font-size:13px;color:#cbd5e1;margin-bottom:6px;">📂 فلتر الشباتر:</div>
-          <div class="vip-filter-chips">
-            <button class="vip-chip ${chFilter === 'all' ? 'active' : ''}" onclick="setSecretChapterFilter('all')">🔥 الكل (${allPool.length})</button>
-            <button class="vip-chip ${chFilter === 1 ? 'active' : ''}" onclick="setSecretChapterFilter(1)">📘 Ch.1 (${c1Len})</button>
-            <button class="vip-chip ${chFilter === 2 ? 'active' : ''}" onclick="setSecretChapterFilter(2)">📙 Ch.2 (${c2Len})</button>
-            <button class="vip-chip ${chFilter === 3 ? 'active' : ''}" onclick="setSecretChapterFilter(3)">📗 Ch.3 (${c3Len})</button>
+        ${vMode === 'interactive' && q ? `
+          <!-- Horizontal Question Strip & Score -->
+          <div class="vip-strip-wrap">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#94a3b8;">
+              <span>تم حل <strong style="color:#f8fafc;">${solvedInView}</strong> من <strong style="color:#f8fafc;">${total}</strong> • إجابات صحيحة: <strong style="color:#10b981;">${correctInView}</strong></span>
+              <span>بدون تايمر • تصحيح فوري</span>
+            </div>
+
+            <div class="vip-qstrip">
+              ${secretVipState.questions.map((item, idx) => {
+                const ans = secretVipState.userAnswers[item.id];
+                let cls = 'vip-qpill';
+                if (idx === secretVipState.currentIndex) cls += ' current';
+                if (ans !== undefined) {
+                  cls += (ans === item.answer) ? ' correct' : ' wrong';
+                }
+                return `<button class="${cls}" onclick="jumpSecretQuestion(${idx})">${idx + 1}</button>`;
+              }).join('')}
+            </div>
           </div>
 
-          <div style="font-weight:900;font-size:13px;color:#cbd5e1;margin:12px 0 6px;">🎯 فلتر ذكي للتركيز:</div>
-          <div class="vip-filter-chips">
-            <button class="vip-chip ${stFilter === 'all' ? 'active' : ''}" onclick="setSecretStatusFilter('all')">الكل</button>
-            <button class="vip-chip ${stFilter === 'wrong' ? 'active' : ''}" onclick="setSecretStatusFilter('wrong')">❌ غلطت فيه (${totalWrongAll})</button>
-            <button class="vip-chip ${stFilter === 'flagged' ? 'active' : ''}" onclick="setSecretStatusFilter('flagged')">⭐ المهم (${totalFlaggedAll})</button>
-            <button class="vip-chip ${stFilter === 'unanswered' ? 'active' : ''}" onclick="setSecretStatusFilter('unanswered')">⏳ لسه محلتوش</button>
-            <button class="vip-chip ${stFilter === 'tf' ? 'active' : ''}" onclick="setSecretStatusFilter('tf')">صح وغلط (TF)</button>
-            <button class="vip-chip ${stFilter === 'mcq' ? 'active' : ''}" onclick="setSecretStatusFilter('mcq')">اختياري (MCQ)</button>
-          </div>
-
-          <!-- Search Input -->
-          <div style="margin-top:12px;position:relative;">
-            <input
-              id="vipSecretSearchInput"
-              type="text"
-              value="${escapeQuizHtml(secretVipState.searchQuery)}"
-              oninput="setSecretSearchQuery(this.value)"
-              placeholder="🔍 ابحث بأي كلمة في الأسئلة أو الشفرات..."
-              style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(5,8,17,0.85);color:#fff;font-family:inherit;font-size:12.5px;outline:none;box-sizing:border-box;"
-            />
-          </div>
-        </div>
-
-        <!-- Question Map Grid -->
-        <div class="vip-panel" style="flex:1;display:flex;flex-direction:column;min-height:160px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span style="font-weight:900;font-size:13px;color:#cbd5e1;">🗺️ خريطة الأسئلة (${total})</span>
-            <span style="font-size:11px;color:#94a3b8;">اضغط على أي رقم للانتقال</span>
-          </div>
-          <div class="vip-qmap-grid">
-            ${secretVipState.questions.map((item, idx) => {
-              const ans = secretVipState.userAnswers[item.id];
-              const isCur = vMode === 'interactive' && idx === secretVipState.currentIndex;
-              const isStar = !!secretVipState.flagged[item.id];
-              let cls = 'vip-qmap-cell';
-              if (isCur) cls += ' current';
-              if (ans !== undefined) {
-                cls += (ans === item.answer) ? ' correct' : ' wrong';
-              }
-              return `
-                <button class="${cls}" onclick="setSecretViewMode('interactive');jumpSecretQuestion(${idx})" title="سؤال ${idx + 1}">
-                  ${isStar ? '<span class="vip-qmap-star">⭐</span>' : ''}
-                  ${idx + 1}
-                </button>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      </aside>
-
-      <!-- Main Stage Area -->
-      <section class="vip-stage">
-        ${total === 0 ? `
-          <div class="vip-question-hero" style="text-align:center;padding:60px 24px;align-items:center;">
-            <div style="font-size:48px;">🎯</div>
-            <h3 style="margin:0;font-size:20px;color:#fbbf24;">مفيش أسئلة مطابقة للفلتر ده حالياً!</h3>
-            <p style="color:#94a3b8;margin:4px 0 14px;">جرب تعرض كل الأسئلة أو تمسح كلمة البحث عشان تكمل بصمجة.</p>
-            <button class="vip-mode-btn active" onclick="setSecretChapterFilter('all');setSecretStatusFilter('all');setSecretSearchQuery('')">
-              🔥 عرض الـ 80 سؤال كلهم
-            </button>
-          </div>
-        ` : vMode === 'interactive' && q ? `
-          <!-- Interactive Single Question Mode -->
-          <div class="vip-question-hero">
-            <div class="vip-q-meta-bar">
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <span style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#050811;font-weight:900;font-size:13px;padding:5px 14px;border-radius:999px;">
+          <!-- Spacious Question Card -->
+          <main class="vip-clean-card">
+            <div class="vip-clean-qhead">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="background:rgba(245,158,11,0.16);color:#fbbf24;font-weight:800;font-size:12.5px;padding:4px 12px;border-radius:8px;">
                   سؤال ${current} من ${total}
                 </span>
-                <span style="background:rgba(245,158,11,0.14);border:1px solid rgba(245,158,11,0.4);color:#fbbf24;font-weight:800;font-size:12.5px;padding:5px 12px;border-radius:999px;">
-                  📘 Chapter ${q.chapter} • ${q.sourceTag || ''}
+                <span style="background:rgba(255,255,255,0.06);color:#cbd5e1;font-size:12.5px;font-weight:700;padding:4px 12px;border-radius:8px;">
+                  Chapter ${q.chapter}
                 </span>
-                <span style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-weight:700;font-size:12px;padding:5px 11px;border-radius:999px;">
-                  ${q.type === 'tf' ? '✅/❌ True / False' : '🔤 اختيار من متعدد'}
+                <span style="color:#64748b;font-size:12px;">
+                  ${q.type === 'tf' ? 'True / False' : 'Multiple Choice'}
                 </span>
-                ${q.origNum ? `<span style="background:rgba(255,255,255,0.06);color:#94a3b8;font-size:12px;padding:5px 10px;border-radius:999px;">#${q.origNum} في الشيت</span>` : ''}
-                ${q.pageRef ? `<span style="background:rgba(56,189,248,0.12);color:#38bdf8;font-weight:800;font-size:12px;padding:5px 10px;border-radius:999px;">📖 P.${q.pageRef}</span>` : ''}
               </div>
 
-              <div style="display:flex;align-items:center;gap:8px;">
-                <button
-                  onclick="toggleSecretFlag(${q.id})"
-                  style="border:1px solid ${secretVipState.flagged[q.id] ? '#fbbf24' : 'rgba(255,255,255,0.15)'};background:${secretVipState.flagged[q.id] ? 'rgba(245,158,11,0.22)' : 'rgba(255,255,255,0.05)'};color:${secretVipState.flagged[q.id] ? '#fbbf24' : '#cbd5e1'};padding:7px 14px;border-radius:12px;font-family:inherit;font-weight:800;font-size:12.5px;cursor:pointer;"
-                  title="اختصار الكيبورد: S"
-                >
-                  ${secretVipState.flagged[q.id] ? '⭐ متعلم كمهم' : '☆ علّم السؤال كمهم'}
-                </button>
-                <button
-                  onclick="revealCurrentSecretAnswer()"
-                  style="border:1px solid rgba(16,185,129,0.45);background:rgba(16,185,129,0.14);color:#6ee7b7;padding:7px 14px;border-radius:12px;font-family:inherit;font-weight:800;font-size:12.5px;cursor:pointer;"
-                >
-                  👁️ اكشف الإجابة فوراً
-                </button>
-              </div>
+              ${q.pageRef ? `<span style="color:#94a3b8;font-size:12.5px;">📖 Page ${q.pageRef}</span>` : ''}
             </div>
 
-            <!-- Question Text with Basmaga Highlight -->
-            <div class="vip-q-text">
+            <div class="vip-clean-qtext">
               ${formatSecretQuestionWithHighlight(q)}
             </div>
 
-            <!-- Basmaga Memory Hook Box -->
-            ${secretVipState.showBasmagaHighlight && SECRET_BASMAGA_MAP[q.id] ? `
-              <div class="vip-basmaga-box">
-                <div>
-                  <span style="color:#fbbf24;margin-left:6px;">🔑 شفرة البصمجة الفورية:</span>
-                  <span>${SECRET_BASMAGA_MAP[q.id].tip}</span>
-                </div>
-                <span style="font-size:11.5px;color:#fde68a;opacity:0.85;white-space:nowrap;">بصمجة معتمدة ⚡</span>
-              </div>
-            ` : ''}
-
-            <!-- Options List -->
-            <div class="vip-options-grid">
+            <div class="vip-clean-opts">
               ${q.options.map((opt, optIdx) => {
                 const letter = q.type === 'tf' ? (optIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + optIdx);
                 const isSelected = userSelected === optIdx;
                 const isCorrect = optIdx === q.answer;
-                let cls = 'vip-opt-btn';
+                let cls = 'vip-clean-opt';
                 if (hasAnswered) {
                   if (isCorrect) cls += ' is-correct';
                   else if (isSelected && !isCorrect) cls += ' is-wrong';
                 }
                 return `
                   <button class="${cls}" onclick="selectSecretOption(${optIdx})">
-                    <span class="vip-opt-letter">${letter}</span>
+                    <span class="vip-clean-opt-letter">${letter}</span>
                     <span style="flex:1;line-height:1.5;">${escapeQuizHtml(opt)}</span>
-                    ${hasAnswered ? `
-                      <span style="font-weight:900;font-size:14px;padding:4px 10px;border-radius:999px;background:${isCorrect ? 'rgba(16,185,129,0.25)' : (isSelected ? 'rgba(239,68,68,0.25)' : 'transparent')};color:${isCorrect ? '#6ee7b7' : '#fca5a5'};">
-                        ${isCorrect ? '✓ الإجابة الصحيحة' : (isSelected ? '✗ اختيارك' : '')}
-                      </span>
-                    ` : `<span style="font-size:11px;color:#64748b;">[${optIdx + 1}]</span>`}
+                    ${hasAnswered && isCorrect ? '<span style="color:#34d399;font-weight:800;font-size:13px;">✓ صح</span>' : ''}
+                    ${hasAnswered && isSelected && !isCorrect ? '<span style="color:#f87171;font-weight:800;font-size:13px;">✗ خطأ</span>' : ''}
                   </button>
                 `;
               }).join('')}
             </div>
 
-            ${hasAnswered ? `
-              <div style="padding:14px 18px;border-radius:14px;background:${userSelected === q.answer ? 'rgba(16,185,129,0.16)' : 'rgba(239,68,68,0.16)'};border:1px solid ${userSelected === q.answer ? '#10b981' : '#ef4444'};color:${userSelected === q.answer ? '#a7f3d0' : '#fecaca'};font-weight:800;font-size:14.5px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-                <div>
-                  ${userSelected === q.answer
-                    ? `🎉 عالمي يا وحش! إجابتك صح (${q.type === 'tf' ? (q.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + q.answer)}) — اربطها بالكلمة المتلونة بالأصفر عشان تحلها في ثانية في اللجنة 🔥`
-                    : `❌ ولا يهمك يا صاحبي! الإجابة الصح هي (${q.type === 'tf' ? (q.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + q.answer)}) ${escapeQuizHtml(q.options[q.answer])}`
-                  }
-                </div>
-              </div>
-            ` : ''}
-
-            <!-- Bottom Navigation Bar -->
-            <div style="display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;gap:10px;">
-              <div style="display:flex;gap:10px;">
-                <button
-                  class="vip-mode-btn"
-                  style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);"
-                  onclick="prevSecretQuestion()"
-                  ${secretVipState.currentIndex === 0 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}
-                >
-                  ▶ السؤال السابق
-                </button>
-                <button
-                  class="vip-mode-btn active"
-                  onclick="nextSecretQuestion()"
-                  ${current >= total ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}
-                >
-                  السؤال التالي ◀
-                </button>
-              </div>
-              <div style="font-size:12px;color:#94a3b8;">
-                ⌨️ اختصارات الكيبورد: الأسهم للتنقل • الأرقام (1-5) للحل • (H) للهايلايت • (S) للنجمة
-              </div>
+            <div class="vip-clean-foot">
+              <button class="vip-nav-btn" onclick="prevSecretQuestion()" ${secretVipState.currentIndex === 0 ? 'disabled' : ''}>
+                → السؤال السابق
+              </button>
+              <span style="color:#64748b;font-size:12.5px;">${current} / ${total}</span>
+              <button class="vip-nav-btn primary" onclick="nextSecretQuestion()" ${current >= total ? 'disabled' : ''}>
+                السؤال التالي ←
+              </button>
             </div>
-          </div>
-        ` : vMode === 'sheet' ? `
-          <!-- Full Basmaga Sheet Mode -->
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;background:rgba(15,23,42,0.8);padding:12px 18px;border-radius:16px;border:1px solid rgba(245,158,11,0.3);flex-wrap:wrap;gap:10px;">
-            <div>
-              <strong style="color:#fbbf24;font-size:15px;">📜 شيت البصمجة الكامل (${total} سؤال محلولين بالكامل)</strong>
-              <div style="font-size:12px;color:#94a3b8;">كل الأسئلة متعلم فيها على الكلمة المفتاحية بالأصفر وتحتها الإجابة الصح باللون الأخضر</div>
-            </div>
-            <button class="vip-highlight-toggle" onclick="toggleSecretCompactSheet()">
-              ${secretVipState.compactSheet ? '📋 عرض كل الاختيارات (A, B, C, D)' : '⚡ وضع الضغط السريع: اظهر الإجابة الصح بس'}
-            </button>
-          </div>
-
-          <div style="display:flex;flex-direction:column;gap:14px;padding-bottom:32px;">
+          </main>
+        ` : `
+          <!-- Clean All-Questions List View -->
+          <div style="display:flex;flex-direction:column;gap:14px;">
             ${secretVipState.questions.map((item, idx) => {
-              const correctLetter = item.type === 'tf' ? (item.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + item.answer);
               return `
-                <div class="vip-panel" style="border-color:rgba(245,158,11,0.25);padding:18px 22px;">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
-                    <div style="display:flex;align-items:center;gap:8px;">
-                      <span style="background:#f59e0b;color:#050811;font-weight:900;font-size:12px;padding:3px 10px;border-radius:999px;">سؤال #${idx + 1}</span>
-                      <span style="color:#fbbf24;font-weight:800;font-size:12.5px;">📘 Chapter ${item.chapter} (${item.sourceTag} — #${item.origNum})</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;">
-                      ${item.pageRef ? `<span style="color:#38bdf8;font-size:12px;font-weight:800;">📖 P.${item.pageRef}</span>` : ''}
-                      <button onclick="toggleSecretFlag(${item.id})" style="background:transparent;border:none;cursor:pointer;font-size:15px;" title="علّم كمهم">
-                        ${secretVipState.flagged[item.id] ? '⭐' : '☆'}
-                      </button>
-                    </div>
+                <div class="vip-clean-card" style="padding:22px 26px;gap:14px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#94a3b8;">
+                    <span style="color:#fbbf24;font-weight:800;">سؤال ${idx + 1} • Chapter ${item.chapter}</span>
+                    ${item.pageRef ? `<span>📖 Page ${item.pageRef}</span>` : ''}
                   </div>
 
-                  <div style="font-size:17.5px;font-weight:700;line-height:1.6;color:#f8fafc;direction:ltr;text-align:left;margin-bottom:10px;">
+                  <div class="vip-clean-qtext" style="font-size:18px;">
                     ${formatSecretQuestionWithHighlight(item)}
                   </div>
 
-                  ${secretVipState.showBasmagaHighlight && SECRET_BASMAGA_MAP[item.id] ? `
-                    <div style="margin-bottom:12px;padding:9px 14px;border-radius:10px;background:rgba(245,158,11,0.14);border-right:4px solid #f59e0b;color:#fef08a;font-size:13px;font-weight:800;">
-                      🔑 <strong>شفرة البصمجة:</strong> ${SECRET_BASMAGA_MAP[item.id].tip}
-                    </div>
-                  ` : ''}
-
-                  ${secretVipState.compactSheet ? `
-                    <div style="direction:ltr;text-align:left;padding:12px 16px;border-radius:12px;background:rgba(16,185,129,0.18);border:1.5px solid #10b981;color:#ecfdf5;font-weight:800;font-size:15.5px;">
-                      ✅ <strong>${correctLetter})</strong> ${escapeQuizHtml(item.options[item.answer])}
-                    </div>
-                  ` : `
-                    <div style="display:flex;flex-direction:column;gap:7px;direction:ltr;text-align:left;">
-                      ${item.options.map((opt, oIdx) => {
-                        const optLetter = item.type === 'tf' ? (oIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + oIdx);
-                        const isThisCorrect = oIdx === item.answer;
-                        return `
-                          <div style="padding:10px 14px;border-radius:11px;background:${isThisCorrect ? 'rgba(16,185,129,0.2)' : 'rgba(9,13,22,0.6)'};border:1px solid ${isThisCorrect ? '#10b981' : 'rgba(255,255,255,0.07)'};color:${isThisCorrect ? '#ecfdf5' : '#94a3b8'};font-weight:${isThisCorrect ? '800' : '500'};font-size:14.5px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
-                            <span><strong>${optLetter})</strong> ${escapeQuizHtml(opt)}</span>
-                            ${isThisCorrect ? '<span style="color:#34d399;font-size:12px;font-weight:900;white-space:nowrap;">✓ الإجابة الصحيحة</span>' : ''}
-                          </div>
-                        `;
-                      }).join('')}
-                    </div>
-                  `}
-                </div>
-              `;
-            }).join('')}
-          </div>
-        ` : `
-          <!-- Zatoona in 5 Minutes (Flash Traps Cards Mode) -->
-          <div style="margin-bottom:14px;background:linear-gradient(90deg,rgba(245,158,11,0.2),rgba(16,185,129,0.14));padding:14px 20px;border-radius:16px;border:1px solid rgba(245,158,11,0.4);">
-            <div style="font-weight:900;color:#fbbf24;font-size:16px;margin-bottom:3px;">⚡ الزتونة في 5 دقايق (بطاقات البصمجة السريعة قبل اللجنة)</div>
-            <div style="font-size:13px;color:#e2e8f0;">كل كارت فيه <strong>الكلمة المفتاحية اللي هتلمحها في السؤال</strong> ⬅️ و<strong>الإجابة الفورية</strong> من غير ولا كلمة زيادة عشان تراجع الـ 80 سؤال في 5 دقايق بس!</div>
-          </div>
-
-          <div class="vip-zatoona-grid">
-            ${secretVipState.questions.map((item, idx) => {
-              const entry = SECRET_BASMAGA_MAP[item.id] || { key: item.question, tip: '' };
-              const correctLetter = item.type === 'tf' ? (item.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + item.answer);
-              return `
-                <div class="vip-zatoona-card">
-                  <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <span style="background:rgba(245,158,11,0.2);color:#fbbf24;font-weight:900;font-size:11.5px;padding:3px 9px;border-radius:999px;">#${idx + 1} • Ch.${item.chapter} (${item.type === 'tf' ? 'TF' : 'MCQ'})</span>
-                    <button onclick="setSecretViewMode('interactive');jumpSecretQuestion(${idx})" style="background:transparent;border:none;color:#38bdf8;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;">افتح السؤال كامل ⬅️</button>
-                  </div>
-
-                  <div style="font-size:12px;color:#94a3b8;font-weight:700;">👀 أول ما تلمح في السؤال:</div>
-                  <div dir="ltr" style="text-align:left;padding:8px 12px;border-radius:10px;background:rgba(5,8,17,0.85);border:1px solid rgba(245,158,11,0.35);">
-                    <span class="vip-basmaga-mark" style="font-size:13.5px;">${escapeQuizHtml(entry.key)}</span>
-                  </div>
-
-                  <div style="font-size:12px;color:#94a3b8;font-weight:700;">✅ اختار فوراً:</div>
-                  <div dir="ltr" style="text-align:left;padding:9px 12px;border-radius:10px;background:rgba(16,185,129,0.18);border:1px solid #10b981;color:#6ee7b7;font-weight:800;font-size:14px;">
-                    (${correctLetter}) ${escapeQuizHtml(item.options[item.answer])}
-                  </div>
-
-                  <div style="font-size:12.5px;color:#fef08a;font-weight:700;padding-top:4px;border-top:1px dashed rgba(255,255,255,0.1);">
-                    🔑 ${entry.tip}
+                  <div class="vip-clean-opts" style="gap:8px;">
+                    ${item.options.map((opt, oIdx) => {
+                      const optLetter = item.type === 'tf' ? (oIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + oIdx);
+                      const isThisCorrect = oIdx === item.answer;
+                      return `
+                        <div class="vip-clean-opt ${isThisCorrect ? 'is-correct' : ''}" style="padding:11px 14px;font-size:15px;cursor:default;">
+                          <span class="vip-clean-opt-letter" style="width:28px;height:28px;font-size:12.5px;">${optLetter}</span>
+                          <span style="flex:1;">${escapeQuizHtml(opt)}</span>
+                          ${isThisCorrect ? '<span style="color:#34d399;font-weight:800;font-size:12.5px;">✓ الإجابة الصحيحة</span>' : ''}
+                        </div>
+                      `;
+                    }).join('')}
                   </div>
                 </div>
               `;
             }).join('')}
           </div>
         `}
-      </section>
+
+      </div>
     </div>
   `;
-
-  if (preserveSearchFocus) {
-    const inp = document.getElementById('vipSecretSearchInput');
-    if (inp) {
-      inp.focus();
-      const len = inp.value.length;
-      inp.setSelectionRange(len, len);
-    }
-  }
 }
 
 window.handleSecretFireClick = handleSecretFireClick;
@@ -6800,16 +6361,10 @@ window.submitSecretMsamyPassword = submitSecretMsamyPassword;
 window.openSecretMsamyArenaModal = openSecretMsamyArenaModal;
 window.closeSecretMsamyPage = closeSecretMsamyPage;
 window.setSecretChapterFilter = setSecretChapterFilter;
-window.setSecretStatusFilter = setSecretStatusFilter;
-window.setSecretSearchQuery = setSecretSearchQuery;
 window.setSecretViewMode = setSecretViewMode;
 window.selectSecretOption = selectSecretOption;
 window.jumpSecretQuestion = jumpSecretQuestion;
 window.nextSecretQuestion = nextSecretQuestion;
 window.prevSecretQuestion = prevSecretQuestion;
 window.toggleSecretBasmagaHighlight = toggleSecretBasmagaHighlight;
-window.toggleSecretFlag = toggleSecretFlag;
-window.revealCurrentSecretAnswer = revealCurrentSecretAnswer;
 window.resetSecretVipProgress = resetSecretVipProgress;
-window.toggleSecretShuffle = toggleSecretShuffle;
-window.toggleSecretCompactSheet = toggleSecretCompactSheet;
