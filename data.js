@@ -6808,3 +6808,1288 @@ window.marketingMidtermQuestions = [
   ...window.marketingQuiz2Questions,
   ...window.marketingQuiz3Questions
 ];
+
+// ==========================================================================
+// 🕵️‍♂️ Secret VIP Midterm Questions (Msamy Special Pool — 4 Uploaded PDFs)
+// ==========================================================================
+const marketingSecretMidtermQuestions = [
+  // --- الملف 4: أسئلة شابتر 1 المختارة (CamScanner Ch.1 — 22 سؤال) ---
+  {
+    "id": 1,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "1",
+    "type": "mcq",
+    "question": "All of the following are accurate descriptions of modern marketing, EXCEPT which one?",
+    "options": [
+      "Marketing is the creation of value for customers.",
+      "Marketing is managing profitable customer relationships.",
+      "Selling and advertising are synonymous with marketing.",
+      "Marketing involves satisfying customers' needs.",
+      "Marketing is used by for-profit and not-for-profit organizations."
+    ],
+    "answer": 2,
+    "pageRef": 4
+  },
+  {
+    "id": 2,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "4",
+    "type": "mcq",
+    "question": "________ is defined as a social and managerial process by which individuals and organizations obtain what they need and want through value creation and exchange.",
+    "options": [
+      "Selling",
+      "Advertising",
+      "Bartering",
+      "Marketing",
+      "Negotiating"
+    ],
+    "answer": 3,
+    "pageRef": 5
+  },
+  {
+    "id": 3,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "7",
+    "type": "mcq",
+    "question": "________ are human needs as shaped by individual personality and culture.",
+    "options": [
+      "Needs",
+      "Wants",
+      "Demands",
+      "Values",
+      "Exchanges"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 4,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "8",
+    "type": "mcq",
+    "question": "When backed by buying power, wants become ________.",
+    "options": [
+      "social needs",
+      "demands",
+      "physical needs",
+      "self-esteem needs",
+      "exchanges"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 5,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "10",
+    "type": "mcq",
+    "question": "Which of the following refers to sellers being preoccupied with their own products and losing sight of underlying consumer needs?",
+    "options": [
+      "selling myopia",
+      "marketing management",
+      "value proposition",
+      "marketing myopia",
+      "the product concept"
+    ],
+    "answer": 3,
+    "pageRef": 6
+  },
+  {
+    "id": 6,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "16",
+    "type": "mcq",
+    "question": "In the case of excess demand, ________ may be required to reduce the number of customers or to shift demand temporarily or permanently.",
+    "options": [
+      "marketing",
+      "demarketing",
+      "value marketing",
+      "surplusing",
+      "negotiating"
+    ],
+    "answer": 1,
+    "pageRef": 8
+  },
+  {
+    "id": 7,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "18",
+    "type": "mcq",
+    "question": "Selecting which segments of a population of customers to serve is called ________.",
+    "options": [
+      "market segmentation",
+      "positioning",
+      "customization",
+      "target marketing",
+      "managing the marketing effort"
+    ],
+    "answer": 3,
+    "pageRef": 8
+  },
+  {
+    "id": 8,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "20",
+    "type": "mcq",
+    "question": "Which customer question is answered by a company's value proposition?",
+    "options": [
+      "\"Why should I buy your brand rather than a competitor's?\"",
+      "\"How does your brand benefit me and society?\"",
+      "\"What are the costs and benefits of your brand?\"",
+      "\"What kind of experience will I have with products and services associated with this brand?\"",
+      "\"What are the benefits of being a loyal consumer of your brand?\""
+    ],
+    "answer": 0,
+    "pageRef": 9
+  },
+  {
+    "id": 9,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 + كويز 2024",
+    "origNum": "23 / Q1",
+    "type": "mcq",
+    "question": "The ________ concept is aligned with the philosophy of continuous product improvement and the belief that customers will choose products that offer the most in quality, performance, and innovative features.",
+    "options": [
+      "product",
+      "production",
+      "customer",
+      "marketing",
+      "promotion"
+    ],
+    "answer": 0,
+    "pageRef": 10
+  },
+  {
+    "id": 10,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 + كويز 2024",
+    "origNum": "26 / Q2",
+    "type": "mcq",
+    "question": "Which concept calls for aggressive selling and focuses on generating transactions to obtain profitable sales?",
+    "options": [
+      "marketing",
+      "production",
+      "product",
+      "selling",
+      "societal marketing"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 11,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "27",
+    "type": "mcq",
+    "question": "Which concept holds that achieving organizational goals depends on knowing the needs and wants of target markets and delivering the desired satisfactions better than competitors do?",
+    "options": [
+      "product",
+      "production",
+      "selling",
+      "marketing",
+      "equity"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 12,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 + كويز 2024",
+    "origNum": "29 / Q4",
+    "type": "mcq",
+    "question": "According to the production concept, consumers will favor products that are ________ and ________.",
+    "options": [
+      "satisfying; quality focused",
+      "advertised; affordable",
+      "in high demand; hard to find",
+      "segmented; convenient",
+      "available; affordable"
+    ],
+    "answer": 4,
+    "pageRef": 9
+  },
+  {
+    "id": 13,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "77",
+    "type": "tf",
+    "question": "Human needs are shaped by culture and individual personality.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 14,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "79",
+    "type": "tf",
+    "question": "When backed by buying power, needs become demands.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 15,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "80",
+    "type": "tf",
+    "question": "Market offerings are limited to physical products.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 16,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "82",
+    "type": "tf",
+    "question": "When sellers focus on existing needs and lose sight of underlying customer wants, they suffer from marketing myopia.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 17,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "87",
+    "type": "tf",
+    "question": "The production concept and product concept are orientations that can lead to marketing myopia.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 9
+  },
+  {
+    "id": 18,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "89",
+    "type": "tf",
+    "question": "Amy's law office has developed a new format and wording for wills. The staff believes they offer the most in quality, performance, and innovative features. Her law office is practicing the production concept.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 10
+  },
+  {
+    "id": 19,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "90",
+    "type": "tf",
+    "question": "Your department holds that achieving organizational goals depends on knowing the needs and wants of target markets and delivering the desired satisfaction better than competitors do. Your department is practicing the selling concept.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 10
+  },
+  {
+    "id": 20,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "92",
+    "type": "tf",
+    "question": "The societal marketing concept calls on marketers to balance consumer wants and desires, company profits, and society's interests.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 11
+  },
+  {
+    "id": 21,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "94",
+    "type": "tf",
+    "question": "The marketing mix includes production, price, promotion, and packaging; this is known as the four Ps of marketing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 12
+  },
+  {
+    "id": 22,
+    "chapter": 1,
+    "sourceTag": "ملف Ch.1 (CamScanner)",
+    "origNum": "96",
+    "type": "tf",
+    "question": "With selective relationship management, companies use customer profitability analysis to eliminate losing customers and target winning ones.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 17
+  },
+
+  // --- الملف 3: كويز Fall 2024 (Chapter 1 Quiz 1/1 — باقي الـ 17 سؤال) ---
+  {
+    "id": 23,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q3",
+    "type": "mcq",
+    "question": "A firm that uses the selling concept takes a(n) ________ approach.",
+    "options": [
+      "outside-in",
+      "myopic",
+      "inside-out",
+      "societal",
+      "customer service"
+    ],
+    "answer": 2,
+    "pageRef": 10
+  },
+  {
+    "id": 24,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q5",
+    "type": "mcq",
+    "question": "Customer-driven marketing usually works well when ________ and when customers ________.",
+    "options": [
+      "a clear need exists; are difficult to identify",
+      "customers know what they want; are loyal to the brand",
+      "a firm can deliver the goods desired; are thoroughly researched",
+      "a clear need exists; know what they want",
+      "a need exists; don't know what they want"
+    ],
+    "answer": 3,
+    "pageRef": 11
+  },
+  {
+    "id": 25,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q6",
+    "type": "mcq",
+    "question": "The societal marketing concept seeks to establish a balance between consumer short-run wants and consumer ________.",
+    "options": [
+      "short-run costs and profits",
+      "short-run ethics",
+      "long-run welfare",
+      "immediate health",
+      "value propositions"
+    ],
+    "answer": 2,
+    "pageRef": 11
+  },
+  {
+    "id": 26,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q7",
+    "type": "mcq",
+    "question": "Of the following, which is the most important concept of modern marketing?",
+    "options": [
+      "customer relationship management",
+      "societal marketing",
+      "consumer-generated marketing",
+      "properly trained salespeople",
+      "low prices"
+    ],
+    "answer": 0,
+    "pageRef": 12
+  },
+  {
+    "id": 27,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q8",
+    "type": "mcq",
+    "question": "Customer-perceived value is determined by a customer's ________ of the benefits and costs of a market offering relative to those of competing offers.",
+    "options": [
+      "personal assessment",
+      "rational expectations",
+      "accurate assessment",
+      "objective evaluation",
+      "emotional understanding"
+    ],
+    "answer": 0,
+    "pageRef": 13
+  },
+  {
+    "id": 28,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q9",
+    "type": "mcq",
+    "question": "It is most accurate to say that customers buy from stores and firms that offer which of the following?",
+    "options": [
+      "the highest value for the dollar",
+      "the highest customer-perceived value",
+      "the highest level of customer satisfaction",
+      "the most attractive company image",
+      "the most concern for society's interests"
+    ],
+    "answer": 1,
+    "pageRef": 13
+  },
+  {
+    "id": 29,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q10",
+    "type": "mcq",
+    "question": "The three areas of consideration that should be balanced in the societal marketing concept are consumer wants, society's interests, and ________.",
+    "options": [
+      "human welfare",
+      "want satisfaction",
+      "company profits",
+      "short-run wants",
+      "long-term needs"
+    ],
+    "answer": 2,
+    "pageRef": 11
+  },
+  {
+    "id": 30,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q11",
+    "type": "mcq",
+    "question": "Which of the following strategies would a company most likely use to increase customer satisfaction?",
+    "options": [
+      "decreasing the variety of offered services",
+      "demarketing",
+      "lowering prices",
+      "\"firing\" unprofitable customers",
+      "limiting customer experiences with a brand"
+    ],
+    "answer": 2,
+    "pageRef": 16
+  },
+  {
+    "id": 31,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q12",
+    "type": "mcq",
+    "question": "A room upgrade offered by a hotel to a guest who often stays in the hotel is an example of a ________.",
+    "options": [
+      "frequency marketing program",
+      "basic customer relationship",
+      "club marketing program",
+      "partner relationship management technique",
+      "structural benefit"
+    ],
+    "answer": 0,
+    "pageRef": 16
+  },
+  {
+    "id": 32,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q13",
+    "type": "mcq",
+    "question": "iRobot, the makers of Roomba, have involved their customers in product development, marketing, and technical support in an effort to foster which of the following?",
+    "options": [
+      "basic relationships",
+      "customer delight",
+      "selective relationship management",
+      "customer-perceived value",
+      "frequency marketing programs"
+    ],
+    "answer": 1,
+    "pageRef": 16
+  },
+  {
+    "id": 33,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q14",
+    "type": "mcq",
+    "question": "Using customer profitability analysis to weed out unprofitable customers and target winning ones for pampering is referred to as ________.",
+    "options": [
+      "customer relationship management",
+      "positioning",
+      "database marketing",
+      "selective relationship management",
+      "marketing myopia"
+    ],
+    "answer": 3,
+    "pageRef": 17
+  },
+  {
+    "id": 34,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q15",
+    "type": "mcq",
+    "question": "Pete Sanchez, a recent graduate of business school, has a different approach than his marketing manager, who believes in keeping customers at arm's length and using mass media advertising. Pete knows that today few successful firms still practice true ________ and are instead turning to selective relationship management.",
+    "options": [
+      "club marketing",
+      "frequency marketing",
+      "mass marketing",
+      "customer satisfaction",
+      "market segmentation"
+    ],
+    "answer": 2,
+    "pageRef": 17
+  },
+  {
+    "id": 35,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q16",
+    "type": "mcq",
+    "question": "Which of the following has NOT contributed to the deeper, more interactive nature of today's customer relationships?",
+    "options": [
+      "e-mail",
+      "Web sites",
+      "online social networks",
+      "traditional advertising",
+      "video sharing"
+    ],
+    "answer": 3,
+    "pageRef": 17
+  },
+  {
+    "id": 36,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q17",
+    "type": "mcq",
+    "question": "Which of the following best explains why consumers have greater power and control in today's marketplace?",
+    "options": [
+      "The production concept and competition have lowered prices.",
+      "Implementation of the product concept has resulted in continually improving products.",
+      "Customer-driven marketing creates products and services that meet customers' future needs.",
+      "More companies are implementing social marketing and weighing long-term costs and benefits.",
+      "Through new communication technologies, customers have more access to information and more methods of sharing their opinions with other customers."
+    ],
+    "answer": 4,
+    "pageRef": 18
+  },
+  {
+    "id": 37,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q18",
+    "type": "mcq",
+    "question": "To create customer value and build strong customer relationships, marketers know they cannot go it alone; therefore, they practice ________.",
+    "options": [
+      "partner relationship management",
+      "database marketing",
+      "attractive Web site design",
+      "customer equity",
+      "consumer-generated marketing"
+    ],
+    "answer": 0,
+    "pageRef": 19
+  },
+  {
+    "id": 38,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q19",
+    "type": "mcq",
+    "question": "In today's world, marketing should be done by ________ employees in an organization.",
+    "options": [
+      "only marketing",
+      "only marketing, sales, and customer-support",
+      "only sales and technology",
+      "only management and marketing",
+      "all"
+    ],
+    "answer": 4,
+    "pageRef": 19
+  },
+  {
+    "id": 39,
+    "chapter": 1,
+    "sourceTag": "كويز Ch.1 (Fall 2024)",
+    "origNum": "Q20",
+    "type": "mcq",
+    "question": "Through ________, many companies today are strengthening their connections to all partners, from providers of raw materials to components to final products that are delivered to final buyers.",
+    "options": [
+      "supply chain management",
+      "direct marketing",
+      "partnership relationship marketing",
+      "customized marketing",
+      "equity marketing"
+    ],
+    "answer": 0,
+    "pageRef": 19
+  },
+
+  // --- الملف 1: أسئلة شابتر 2 المختارة (CamScanner Ch.2 — 20 سؤال) ---
+  {
+    "id": 40,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "5",
+    "type": "mcq",
+    "question": "Which of the following provides an answer to these questions: What is our business? Who are our customers? What do our customers value? What should our business be?",
+    "options": [
+      "objectives and goals",
+      "a mission statement",
+      "a business portfolio",
+      "marketing and functional strategies",
+      "operational strategies"
+    ],
+    "answer": 1,
+    "pageRef": 39
+  },
+  {
+    "id": 41,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "9",
+    "type": "mcq",
+    "question": "Which of the following is NOT a market-oriented business definition?",
+    "options": [
+      "\"to make the Internet buying experience fast, easy, and enjoyable\"",
+      "\"to sell tools and home repair and improvement items\"",
+      "\"to deliver low prices every day\"",
+      "\"to be the guardian of our customers' financial dreams\"",
+      "\"to bring aspiration and innovation to every athlete in the world\""
+    ],
+    "answer": 1,
+    "pageRef": 40
+  },
+  {
+    "id": 42,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "10",
+    "type": "mcq",
+    "question": "All of the following are examples of product-oriented mission statements, EXCEPT which one?",
+    "options": [
+      "\"We provide online services.\"",
+      "\"We run theme parks.\"",
+      "\"We sell shoes.\"",
+      "\"We sell lifestyle and self-expression; success and status; memories, hopes, and dreams.\"",
+      "\"We rent hotel rooms.\""
+    ],
+    "answer": 3,
+    "pageRef": 40
+  },
+  {
+    "id": 43,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "20",
+    "type": "mcq",
+    "question": "The BCG growth-share matrix classifies four types of SBUs. They are ________ , ________ , ________ , and ________.",
+    "options": [
+      "product; price; promotion; placement",
+      "sales; market share; price; promotion",
+      "stars; cash cows; question marks; dogs",
+      "planning; implementing; leading; controlling",
+      "market penetration; market development; product development; diversification"
+    ],
+    "answer": 2,
+    "pageRef": 42
+  },
+  {
+    "id": 44,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "21",
+    "type": "mcq",
+    "question": "In the BCG approach, ________ are high-share, high-growth businesses or products. They need heavy investment to finance rapid growth. When their growth slows down, they turn into ________.",
+    "options": [
+      "cash cows; stars",
+      "question marks; dogs",
+      "stars; question marks",
+      "stars; cash cows",
+      "dogs; cash cows"
+    ],
+    "answer": 3,
+    "pageRef": 41
+  },
+  {
+    "id": 45,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "23",
+    "type": "mcq",
+    "question": "In the BCG matrix, income from ________ can be used to help finance the company's question marks and stars.",
+    "options": [
+      "dogs",
+      "cash cows",
+      "SBU revenues",
+      "overseas operations",
+      "low-share businesses"
+    ],
+    "answer": 1,
+    "pageRef": 42
+  },
+  {
+    "id": 46,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "28",
+    "type": "mcq",
+    "question": "Which department in a company carries the primary responsibility for achieving profitable growth?",
+    "options": [
+      "accounting",
+      "product development",
+      "operations",
+      "human resources",
+      "marketing"
+    ],
+    "answer": 4,
+    "pageRef": 43
+  },
+  {
+    "id": 47,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "30",
+    "type": "mcq",
+    "question": "Making more sales to current customers without changing a firm's products is ________.",
+    "options": [
+      "market attractiveness",
+      "market penetration",
+      "market development",
+      "product development",
+      "diversification"
+    ],
+    "answer": 1,
+    "pageRef": 43
+  },
+  {
+    "id": 48,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "39",
+    "type": "mcq",
+    "question": "Multinationals like Honda Motor Co. and Wal-Mart stores have designed programs to work closely with their suppliers to help them reduce their costs and improve quality. This illustrates the importance of an efficient ________.",
+    "options": [
+      "business portfolio",
+      "low-cost operator",
+      "product mix",
+      "value delivery network",
+      "value chain"
+    ],
+    "answer": 3,
+    "pageRef": 47
+  },
+  {
+    "id": 49,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "47",
+    "type": "mcq",
+    "question": "Which of the following involves evaluating each market segment's attractiveness and selecting one or more segments to enter?",
+    "options": [
+      "market segmentation",
+      "differentiation",
+      "market targeting",
+      "the market mix",
+      "positioning"
+    ],
+    "answer": 2,
+    "pageRef": 48
+  },
+  {
+    "id": 50,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "78",
+    "type": "tf",
+    "question": "Mission statements should both emphasize the company's strengths in the marketplace and be motivating.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 39
+  },
+  {
+    "id": 51,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "79",
+    "type": "tf",
+    "question": "At America Online, \"we create customer connectivity, anytime, anywhere,\" is a product-oriented business definition.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 39
+  },
+  {
+    "id": 52,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "80",
+    "type": "tf",
+    "question": "\"At Nike, we sell shoes\" is a market-oriented business definition.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 40
+  },
+  {
+    "id": 53,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "86",
+    "type": "tf",
+    "question": "The growth strategy of diversification involves offering modified or new products to current markets.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 46
+  },
+  {
+    "id": 54,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "87",
+    "type": "tf",
+    "question": "When an organization identifies and develops new markets for its current products and services, it is engaged in market development.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 45
+  },
+  {
+    "id": 55,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "89",
+    "type": "tf",
+    "question": "In today's marketplace, competition increasingly takes place between entire value delivery networks rather than between individual competitors.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 48
+  },
+  {
+    "id": 56,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "92",
+    "type": "tf",
+    "question": "The image of a product in the minds of consumers is called market segmentation.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 50
+  },
+  {
+    "id": 57,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "93",
+    "type": "tf",
+    "question": "A market segment consists of consumers who respond in different ways to a given set of marketing efforts.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 49
+  },
+  {
+    "id": 58,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "96",
+    "type": "tf",
+    "question": "The marketing mix consists of product, price, place, positioning, and promotion.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 48
+  },
+  {
+    "id": 59,
+    "chapter": 2,
+    "sourceTag": "ملف Ch.2 (CamScanner)",
+    "origNum": "99",
+    "type": "tf",
+    "question": "The four Ps concept takes the seller's view of the market. (مكتوبة في الشيت المسحوب FALSE وفي التست بانك الأصلي TRUE — خلي بالك منها!)",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 52
+  },
+
+  // --- الملف 2: أسئلة شابتر 3 المختارة (CamScanner Ch.3 — 21 سؤال) ---
+  {
+    "id": 60,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "1",
+    "type": "mcq",
+    "question": "You are directed to study the actors close to the company that affect its ability to serve its customers-departments within the company, suppliers, marketing intermediaries, customer markets, competitors, and publics. What are you studying?",
+    "options": [
+      "the macroenvironment",
+      "the microenvironment",
+      "the marketing environment",
+      "the demographic environment",
+      "the global environment"
+    ],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 61,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "3",
+    "type": "mcq",
+    "question": "You are directed to study the demographic, economic, natural, technological, political, and cultural factors that are larger societal forces affecting your company. What are you studying?",
+    "options": [
+      "the macroenvironment",
+      "the microenvironment",
+      "the external environment",
+      "the marketing mix",
+      "the global environment"
+    ],
+    "answer": 0,
+    "pageRef": 66
+  },
+  {
+    "id": 62,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "6",
+    "type": "mcq",
+    "question": "Which type of organization helps companies to stock and move goods from their points of origin to their destination?",
+    "options": [
+      "financial intermediaries",
+      "physical distribution firms",
+      "marketing services agencies",
+      "resellers",
+      "suppliers"
+    ],
+    "answer": 1,
+    "pageRef": 68
+  },
+  {
+    "id": 63,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "8",
+    "type": "mcq",
+    "question": "Currently, Diego Calabresa is employed by a firm that conducts marketing research and creates ads for other companies that help them target and promote their products to the right markets. Who is Diego's employer?",
+    "options": [
+      "a financial intermediary",
+      "a physical distribution firm",
+      "a marketing service agency",
+      "a reseller",
+      "a green marketer"
+    ],
+    "answer": 2,
+    "pageRef": 68
+  },
+  {
+    "id": 64,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "14",
+    "type": "mcq",
+    "question": "Percy Original caters to a market of individuals and households that buys goods and services for personal consumption. Percy Original caters to a ________ market.",
+    "options": [
+      "business",
+      "reseller",
+      "government",
+      "consumer",
+      "marketing intermediary"
+    ],
+    "answer": 3,
+    "pageRef": 69
+  },
+  {
+    "id": 65,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "17",
+    "type": "mcq",
+    "question": "Rachel Patino works for a wholesale company called Distributors Unlimited. She is responsible for buying and selling goods at a profit to small retailers. What is her market?",
+    "options": [
+      "business",
+      "reseller",
+      "wholesale",
+      "consumer",
+      "retail"
+    ],
+    "answer": 1,
+    "pageRef": 69
+  },
+  {
+    "id": 66,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "18",
+    "type": "mcq",
+    "question": "Your marketing department is currently researching the size, density, location, age, and occupations of your target market. Which environment is being researched?",
+    "options": [
+      "demographic",
+      "psychographic",
+      "economic",
+      "geographic",
+      "cultural"
+    ],
+    "answer": 0,
+    "pageRef": 70
+  },
+  {
+    "id": 67,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "46",
+    "type": "mcq",
+    "question": "The ________ environment consists of factors that affect consumer purchasing power and spending patterns.",
+    "options": [
+      "cultural",
+      "political",
+      "technological",
+      "economic",
+      "natural"
+    ],
+    "answer": 3,
+    "pageRef": 79
+  },
+  {
+    "id": 68,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "50",
+    "type": "mcq",
+    "question": "Value marketing is the strategy of offering consumers ________.",
+    "options": [
+      "high quality at a high price",
+      "luxury quality at a high price",
+      "lesser quality at a low price",
+      "reasonable quality at a fair price",
+      "little quality at a low price"
+    ],
+    "answer": 3,
+    "pageRef": 80
+  },
+  {
+    "id": 69,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "63",
+    "type": "mcq",
+    "question": "Business legislation has been created for three basic reasons: to protect companies from each other, to protect consumers, and to ________.",
+    "options": [
+      "protect the interests of society",
+      "regulate prices",
+      "increase world trade",
+      "regulate monopolies",
+      "promote social responsibility"
+    ],
+    "answer": 0,
+    "pageRef": 84
+  },
+  {
+    "id": 70,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "64",
+    "type": "mcq",
+    "question": "The recent rash of business scandals and increased concerns about the environment have created fresh interest in the issues of ________ and ________.",
+    "options": [
+      "ethics; promotion responsibility",
+      "ethics; social responsibility",
+      "finances; employee discrimination",
+      "management ethics; insider trading",
+      "promotion; pricing"
+    ],
+    "answer": 1,
+    "pageRef": 86
+  },
+  {
+    "id": 71,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "76",
+    "type": "tf",
+    "question": "Today's marketers must successfully build relationships to connect effectively with customers, others in the company, and external partners.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 66
+  },
+  {
+    "id": 72,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "78",
+    "type": "tf",
+    "question": "The microenvironment consists of larger societal forces that affect a company, such as demographic, economic, political, and cultural forces.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 73,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "79",
+    "type": "tf",
+    "question": "The macroenvironment consists of the factors close to the company that affect its ability to serve its customers, such as suppliers, customer markets, competitors, and publics.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 66
+  },
+  {
+    "id": 74,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "81",
+    "type": "tf",
+    "question": "Marketing research firms, advertising agencies, media firms, and marketing consulting firms are all referred to as marketing services agencies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 68
+  },
+  {
+    "id": 75,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "82",
+    "type": "tf",
+    "question": "Today's successful marketers recognize the importance of working with their intermediaries as channels through which they sell their products rather than as full-fledged partners.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 68
+  },
+  {
+    "id": 76,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "85",
+    "type": "tf",
+    "question": "The demographic environment is of major interest to marketers because it involves people, and people make up markets.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 70
+  },
+  {
+    "id": 77,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "86",
+    "type": "tf",
+    "question": "The single most important demographic trend in the United States that marketers should understand is the changing family structure.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 70
+  },
+  {
+    "id": 78,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "92",
+    "type": "tf",
+    "question": "The American workforce today is better educated but less white-collar than it was a generation ago.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 77
+  },
+  {
+    "id": 79,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "95",
+    "type": "tf",
+    "question": "Significant trends in the natural environment include shortages of raw materials, increased pollution, and decreased government intervention.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 81
+  },
+  {
+    "id": 80,
+    "chapter": 3,
+    "sourceTag": "ملف Ch.3 (CamScanner)",
+    "origNum": "100",
+    "type": "tf",
+    "question": "When a company hires lobbyists to influence legislation affecting its industry, it is taking a reactive approach to the marketing environment.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 91
+  }
+];
+
+window.marketingSecretMidtermQuestions = marketingSecretMidtermQuestions;

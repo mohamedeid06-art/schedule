@@ -4766,7 +4766,7 @@ function renderQuiz2Lobby() {
       </header>
 
       <div class="quiz2-lobby-hero">
-        <div class="quiz2-lobby-icon-bubble">${currentCh === 'midterm' ? '🔥' : '📘'}</div>
+        <div class="quiz2-lobby-icon-bubble" onclick="handleSecretFireClick(event)" style="cursor:pointer;user-select:none;">${currentCh === 'midterm' ? '🔥' : '📘'}</div>
         <h2 class="quiz2-lobby-title">${chTitle}</h2>
         <p class="quiz2-lobby-subtitle">${chSubtitle}</p>
         <div class="quiz2-lobby-stats-strip">
@@ -5479,3 +5479,390 @@ window.openMarketingQuiz1Modal = openMarketingQuiz1Modal;
 window.renderQuiz2Lobby = renderQuiz2Lobby;
 window.returnToQuiz2Lobby = returnToQuiz2Lobby;
 window.closeMarketingQuiz2Modal = closeMarketingQuiz2Modal;
+
+/* ==========================================================================
+   🕵️‍♂️ Secret VIP Midterm Simulator — 3x Fire Emoji Click + Password "Msamy"
+   ========================================================================== */
+
+let secretFireClickCount = 0;
+let secretFireClickTimer = null;
+
+let secretVipState = {
+  unlocked: false,
+  viewMode: 'interactive', // 'interactive' (one-by-one untimed) | 'sheet' (all questions answered list)
+  chapterFilter: 'all', // 'all' | 1 | 2 | 3
+  questions: [],
+  currentIndex: 0,
+  userAnswers: {},
+  flagged: {}
+};
+
+function handleSecretFireClick(e) {
+  if (e) e.stopPropagation();
+  if (typeof triggerHaptic === 'function') triggerHaptic('light');
+
+  secretFireClickCount++;
+  if (secretFireClickTimer) clearTimeout(secretFireClickTimer);
+
+  if (secretFireClickCount >= 3) {
+    secretFireClickCount = 0;
+    openSecretMsamyAuthModal();
+    return;
+  }
+
+  secretFireClickTimer = setTimeout(() => {
+    secretFireClickCount = 0;
+  }, 1800);
+}
+
+function openSecretMsamyAuthModal() {
+  if (typeof triggerHaptic === 'function') triggerHaptic('heavy');
+
+  const existing = document.getElementById('msamySecretAuthOverlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'msamySecretAuthOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:100100;background:rgba(5,9,18,0.88);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:16px;direction:rtl;font-family:"IBM Plex Sans Arabic",sans-serif;';
+  overlay.innerHTML = `
+    <div style="width:100%;max-width:420px;background:linear-gradient(145deg,#0f172a,#090d16);border:2px solid #f59e0b;border-radius:22px;padding:24px;box-shadow:0 20px 60px rgba(245,158,11,0.25);text-align:center;position:relative;">
+      <button onclick="document.getElementById('msamySecretAuthOverlay').remove()" style="position:absolute;top:14px;left:14px;background:rgba(255,255,255,0.08);border:none;color:#94a3b8;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;">✕</button>
+      <div style="font-size:44px;margin-bottom:8px;">🕵️‍♂️🔥</div>
+      <h3 style="margin:0 0 6px;color:#fbbf24;font-size:20px;font-weight:800;">منطقة سرية للغاية (VIP Only)</h3>
+      <p style="margin:0 0 16px;color:#cbd5e1;font-size:13.5px;line-height:1.6;">
+        إنت دوست الـ 3 دوسات السرية.. اكتب كلمة السر عشان تدخل على الخلاصة والأسئلة المسربة بتاعة الميد 👀🔒
+      </p>
+      <form onsubmit="submitSecretMsamyPassword(event)" style="display:flex;flex-direction:column;gap:12px;">
+        <input
+          id="msamySecretPassInput"
+          type="password"
+          placeholder="اكتب الباسورد هنا..."
+          autocomplete="off"
+          style="width:100%;padding:12px 16px;border-radius:12px;border:1.5px solid rgba(245,158,11,0.45);background:rgba(15,23,42,0.9);color:#fff;font-size:16px;font-weight:700;text-align:center;outline:none;box-sizing:border-box;"
+        />
+        <div id="msamySecretPassError" style="color:#f87171;font-size:12.5px;font-weight:700;display:none;">
+          ❌ الباسورد غلط يا نجم! هات الباسورد الصح الأول 😂
+        </div>
+        <button type="submit" style="width:100%;padding:12px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#090d16;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 6px 20px rgba(245,158,11,0.35);">
+          🔓 افتح الغرفة السرية
+        </button>
+      </form>
+    </div>
+  `;
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  document.body.appendChild(overlay);
+  setTimeout(() => {
+    const inp = document.getElementById('msamySecretPassInput');
+    if (inp) inp.focus();
+  }, 60);
+}
+
+function submitSecretMsamyPassword(e) {
+  if (e) e.preventDefault();
+  const inp = document.getElementById('msamySecretPassInput');
+  const err = document.getElementById('msamySecretPassError');
+  const val = (inp ? inp.value : '').trim();
+
+  if (val.toLowerCase() === 'msamy') {
+    const overlay = document.getElementById('msamySecretAuthOverlay');
+    if (overlay) overlay.remove();
+    secretVipState.unlocked = true;
+    if (typeof confetti === 'function') {
+      confetti({ particleCount: 90, spread: 80, origin: { y: 0.5 }, zIndex: 100200 });
+    }
+    openSecretMsamyArenaModal();
+  } else {
+    if (err) err.style.display = 'block';
+    if (typeof triggerHaptic === 'function') triggerHaptic('heavy');
+  }
+}
+
+function getSecretFilteredQuestions(chFilter) {
+  const all = window.marketingSecretMidtermQuestions || [];
+  if (chFilter === 1 || chFilter === 2 || chFilter === 3) {
+    return all.filter(q => q.chapter === chFilter);
+  }
+  return all;
+}
+
+function openSecretMsamyArenaModal(chFilter = 'all') {
+  closeMarketingQuiz2Modal();
+
+  secretVipState.chapterFilter = chFilter;
+  secretVipState.questions = [...getSecretFilteredQuestions(chFilter)];
+  secretVipState.currentIndex = 0;
+  secretVipState.userAnswers = {};
+  secretVipState.flagged = {};
+
+  let modal = document.createElement("div");
+  modal.id = "marketingQuiz2Modal";
+  modal.className = "quiz2-arena-overlay";
+  modal.innerHTML = `
+    <div class="quiz2-arena-card" id="quiz2ArenaCard" role="dialog" aria-modal="true" style="border-color:rgba(245,158,11,0.5);box-shadow:0 24px 80px rgba(245,158,11,0.2);">
+      <div id="quiz2ArenaContent"></div>
+    </div>
+  `;
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeMarketingQuiz2Modal();
+  });
+
+  document.body.appendChild(modal);
+  document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
+  document.body.classList.add("modal-open");
+
+  renderSecretMsamyArena();
+}
+
+function setSecretChapterFilter(chFilter) {
+  secretVipState.chapterFilter = chFilter;
+  secretVipState.questions = [...getSecretFilteredQuestions(chFilter)];
+  secretVipState.currentIndex = 0;
+  secretVipState.userAnswers = {};
+  renderSecretMsamyArena();
+}
+
+function setSecretViewMode(mode) {
+  secretVipState.viewMode = mode;
+  renderSecretMsamyArena();
+}
+
+function selectSecretOption(optIdx) {
+  const q = secretVipState.questions[secretVipState.currentIndex];
+  if (!q) return;
+  secretVipState.userAnswers[secretVipState.currentIndex] = optIdx;
+  if (typeof triggerHaptic === 'function') {
+    triggerHaptic(optIdx === q.answer ? 'light' : 'heavy');
+  }
+  renderSecretMsamyArena();
+}
+
+function jumpSecretQuestion(idx) {
+  if (idx >= 0 && idx < secretVipState.questions.length) {
+    secretVipState.currentIndex = idx;
+    renderSecretMsamyArena();
+  }
+}
+
+function nextSecretQuestion() {
+  if (secretVipState.currentIndex < secretVipState.questions.length - 1) {
+    secretVipState.currentIndex++;
+    renderSecretMsamyArena();
+  }
+}
+
+function prevSecretQuestion() {
+  if (secretVipState.currentIndex > 0) {
+    secretVipState.currentIndex--;
+    renderSecretMsamyArena();
+  }
+}
+
+function renderSecretMsamyArena() {
+  const content = document.getElementById("quiz2ArenaContent");
+  if (!content) return;
+
+  const allPool = window.marketingSecretMidtermQuestions || [];
+  const c1Len = allPool.filter(q => q.chapter === 1).length;
+  const c2Len = allPool.filter(q => q.chapter === 2).length;
+  const c3Len = allPool.filter(q => q.chapter === 3).length;
+
+  const chFilter = secretVipState.chapterFilter;
+  const vMode = secretVipState.viewMode;
+  const total = secretVipState.questions.length;
+  const current = secretVipState.currentIndex + 1;
+  const answeredCount = Object.keys(secretVipState.userAnswers).length;
+  const progressPct = total > 0 ? Math.round((answeredCount / total) * 100) : 0;
+  const q = secretVipState.questions[secretVipState.currentIndex];
+  const userSelected = secretVipState.userAnswers[secretVipState.currentIndex];
+  const hasAnswered = userSelected !== undefined;
+
+  let correctSoFar = 0;
+  Object.keys(secretVipState.userAnswers).forEach(k => {
+    const idx = parseInt(k, 10);
+    if (secretVipState.questions[idx] && secretVipState.userAnswers[idx] === secretVipState.questions[idx].answer) {
+      correctSoFar++;
+    }
+  });
+
+  content.innerHTML = `
+    <!-- Top Header -->
+    <header class="quiz2-arena-head" style="background:linear-gradient(90deg,rgba(245,158,11,0.16),rgba(15,23,42,0.95));border-bottom:1px solid rgba(245,158,11,0.3);">
+      <div class="quiz2-head-left" style="flex-wrap:wrap;gap:8px;">
+        <span class="quiz2-tag-code" style="background:#f59e0b;color:#090d16;font-weight:900;">🕵️‍♂️ VIP Secret</span>
+        <div style="display:inline-flex;background:rgba(255,255,255,0.06);border:1px solid rgba(245,158,11,0.35);border-radius:9999px;padding:2px 4px;gap:2px;flex-wrap:wrap;">
+          <button onclick="setSecretChapterFilter('all')" style="background:${chFilter === 'all' ? '#f59e0b' : 'transparent'};color:${chFilter === 'all' ? '#090d16' : '#e2e8f0'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">🔥 الكل (${allPool.length})</button>
+          <button onclick="setSecretChapterFilter(1)" style="background:${chFilter === 1 ? '#f59e0b' : 'transparent'};color:${chFilter === 1 ? '#090d16' : '#e2e8f0'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">Ch.1 (${c1Len})</button>
+          <button onclick="setSecretChapterFilter(2)" style="background:${chFilter === 2 ? '#f59e0b' : 'transparent'};color:${chFilter === 2 ? '#090d16' : '#e2e8f0'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">Ch.2 (${c2Len})</button>
+          <button onclick="setSecretChapterFilter(3)" style="background:${chFilter === 3 ? '#f59e0b' : 'transparent'};color:${chFilter === 3 ? '#090d16' : '#e2e8f0'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">Ch.3 (${c3Len})</button>
+        </div>
+      </div>
+
+      <div class="quiz2-head-right" style="gap:8px;flex-wrap:wrap;">
+        <div class="quiz2-mode-pills">
+          <button class="quiz2-mode-pill ${vMode === 'interactive' ? 'active' : ''}" onclick="setSecretViewMode('interactive')">
+            🎮 تدريب بدون تايمر
+          </button>
+          <button class="quiz2-mode-pill ${vMode === 'sheet' ? 'active' : ''}" onclick="setSecretViewMode('sheet')">
+            👀 عرض الكل محلول للبصمجة
+          </button>
+        </div>
+        <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close" title="إغلاق">✕</button>
+      </div>
+    </header>
+
+    <!-- Funny Message Banner for Friends -->
+    <div style="margin:12px 16px 6px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(245,158,11,0.18),rgba(234,88,12,0.12));border:1.5px dashed rgba(245,158,11,0.55);color:#fef3c7;font-size:13px;line-height:1.65;direction:rtl;">
+      <div style="font-weight:800;color:#fbbf24;font-size:14px;margin-bottom:3px;">
+        😂🕵️‍♂️ أهلاً بيك في الغرفة السرية لخلاصة الميد!
+      </div>
+      <div>
+        بص يا صاحبي.. الدفعة بره غلبانة بتفرم في 377 سؤال، وإحنا هنا معانا الخلاصة والزتونة اللي هيجي منها الـ 60 سؤال بتوع الميد بالمللي 😂🔥
+        حلهم وبصمجهم صم من غير تايمر ولا وجع دماغ، ولو مقفلتش الـ 20 من 20 بعد الدلع ده كله يبقى العيب فيك إنت بقى.. يلا سمي الله وبصمج وادعيلي بدل ما أغير الباسورد 🤣❤️
+      </div>
+    </div>
+
+    ${vMode === 'interactive' && q ? `
+      <!-- Progress Bar -->
+      <div class="quiz2-progress-bar-wrap">
+        <div class="quiz2-progress-fill" style="width:${progressPct}%;background:linear-gradient(90deg,#f59e0b,#10b981);"></div>
+      </div>
+      <div class="quiz2-progress-meta">
+        <span>حليت <strong>${answeredCount}</strong> من <strong>${total}</strong> سؤال (صح: <strong style="color:#10b981;">${correctSoFar}</strong>)</span>
+        <span>♾️ بدون تايمر • كشف فوري للإجابة</span>
+      </div>
+
+      <!-- Question Map -->
+      <div class="quiz2-qmap-container" id="quiz2QMap">
+        <div class="quiz2-qmap-track">
+          ${secretVipState.questions.map((item, idx) => {
+            const ans = secretVipState.userAnswers[idx];
+            const isCur = idx === secretVipState.currentIndex;
+            let cls = "quiz2-qmap-btn";
+            if (isCur) cls += " current";
+            if (ans !== undefined) {
+              cls += (ans === item.answer) ? " correct" : " wrong";
+            }
+            return `
+              <button class="${cls}" onclick="jumpSecretQuestion(${idx})" title="سؤال ${idx + 1}">
+                ${idx + 1}
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Question Card -->
+      <main class="quiz2-question-card">
+        <div class="quiz2-q-badge-row" style="flex-wrap:wrap;gap:6px;">
+          <span class="quiz2-q-badge">سؤال ${current} من ${total} • ${q.type === 'tf' ? 'صح / خطأ' : 'MCQ'}</span>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <span class="quiz2-ref-badge" style="background:rgba(245,158,11,0.18);color:#fbbf24;border-color:rgba(245,158,11,0.4);">📘 Chapter ${q.chapter} (${q.sourceTag || ''})</span>
+            ${q.origNum ? `<span class="quiz2-ref-badge">🔢 رقم السؤال في الملف: #${q.origNum}</span>` : ''}
+            ${q.pageRef ? `<span class="quiz2-ref-badge">📖 P.${q.pageRef}</span>` : ''}
+          </div>
+        </div>
+
+        <div class="quiz2-question-text" dir="ltr">
+          ${escapeQuizHtml(q.question)}
+        </div>
+
+        <div class="quiz2-options-list" dir="ltr">
+          ${q.options.map((opt, optIdx) => {
+            const letter = q.type === 'tf' ? (optIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + optIdx);
+            const isSelected = userSelected === optIdx;
+            const isCorrect = optIdx === q.answer;
+            let optCls = "quiz2-option-card";
+
+            if (hasAnswered) {
+              if (isCorrect) optCls += " is-correct";
+              else if (isSelected && !isCorrect) optCls += " is-wrong";
+            }
+
+            return `
+              <div class="${optCls}" onclick="selectSecretOption(${optIdx})" role="button" tabindex="0">
+                <span class="quiz2-opt-letter">${letter}</span>
+                <span class="quiz2-opt-text">${escapeQuizHtml(opt)}</span>
+                ${hasAnswered ? `
+                  <span class="quiz2-opt-icon">
+                    ${isCorrect ? '✓' : (isSelected ? '✗' : '')}
+                  </span>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        ${hasAnswered ? `
+          <div class="quiz2-instant-feedback ${userSelected === q.answer ? 'correct' : 'wrong'}">
+            ${userSelected === q.answer ? `
+              <span>🎉 <strong>صح يا وحش!</strong> الإجابة هي (${q.type === 'tf' ? (q.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + q.answer)}) — ثبّتها في دماغك للميد 🔥</span>
+            ` : `
+              <span>❌ <strong>ركز يا صاحبي!</strong> الإجابة الصح هي: <strong>(${q.type === 'tf' ? (q.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + q.answer)}) ${escapeQuizHtml(q.options[q.answer])}</strong></span>
+            `}
+          </div>
+        ` : ''}
+      </main>
+
+      <!-- Footer -->
+      <footer class="quiz2-arena-footer">
+        <div class="quiz2-foot-left">
+          <button class="quiz2-btn-nav" onclick="setSecretViewMode('sheet')" style="border-color:rgba(245,158,11,0.45);color:#fbbf24;">
+            <span>👀 عرض كل الأسئلة محلولة تحت بعض</span>
+          </button>
+        </div>
+        <div class="quiz2-foot-right">
+          <button class="quiz2-btn-nav" onclick="prevSecretQuestion()" ${secretVipState.currentIndex === 0 ? 'disabled' : ''}>
+            <span>◀ السابق</span>
+          </button>
+          <button class="quiz2-btn-nav quiz2-btn-primary" onclick="nextSecretQuestion()" ${current >= total ? 'disabled' : ''}>
+            <span>التالي ▶</span>
+          </button>
+        </div>
+      </footer>
+    ` : `
+      <!-- Full Answered Sheet Mode -->
+      <div class="quiz2-review-list" style="max-height:66vh;overflow-y:auto;padding:10px 16px 20px;">
+        ${secretVipState.questions.map((item, idx) => {
+          return `
+            <div class="quiz2-review-item correct" style="margin-bottom:12px;">
+              <div class="quiz2-review-item-head">
+                <span class="quiz2-review-num">سؤال ${idx + 1} • Chapter ${item.chapter} (${item.sourceTag} — #${item.origNum})</span>
+                <span class="quiz2-review-badge correct">📖 P.${item.pageRef || '-'}</span>
+              </div>
+              <div class="quiz2-review-qtext" dir="ltr">${escapeQuizHtml(item.question)}</div>
+              <div class="quiz2-review-opts" dir="ltr">
+                ${item.options.map((opt, oIdx) => {
+                  const optLetter = item.type === 'tf' ? (oIdx === 0 ? 'T' : 'F') : String.fromCharCode(65 + oIdx);
+                  const isThisCorrect = oIdx === item.answer;
+                  return `
+                    <div class="quiz2-review-opt ${isThisCorrect ? 'is-correct-answer' : ''}">
+                      <strong>${optLetter})</strong> ${escapeQuizHtml(opt)}
+                      ${isThisCorrect ? ' <span class="tag-correct">✓ الإجابة الصحيحة</span>' : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `}
+  `;
+}
+
+window.handleSecretFireClick = handleSecretFireClick;
+window.openSecretMsamyAuthModal = openSecretMsamyAuthModal;
+window.submitSecretMsamyPassword = submitSecretMsamyPassword;
+window.openSecretMsamyArenaModal = openSecretMsamyArenaModal;
+window.setSecretChapterFilter = setSecretChapterFilter;
+window.setSecretViewMode = setSecretViewMode;
+window.selectSecretOption = selectSecretOption;
+window.jumpSecretQuestion = jumpSecretQuestion;
+window.nextSecretQuestion = nextSecretQuestion;
+window.prevSecretQuestion = prevSecretQuestion;
