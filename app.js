@@ -4874,13 +4874,13 @@ function handleQuiz2Keydown(e) {
   const q = quiz2State.questions[quiz2State.currentIndex];
   if (!q) return;
 
-  // Options 1-5 or A-E
+  // Options 1-6 or A-F
   const keyUpper = e.key.toUpperCase();
   let optIndex = -1;
 
-  if (["1", "2", "3", "4", "5"].includes(e.key)) {
+  if (["1", "2", "3", "4", "5", "6"].includes(e.key)) {
     optIndex = parseInt(e.key, 10) - 1;
-  } else if (["A", "B", "C", "D", "E"].includes(keyUpper)) {
+  } else if (["A", "B", "C", "D", "E", "F"].includes(keyUpper)) {
     optIndex = keyUpper.charCodeAt(0) - 65;
   } else if (q.type === "tf") {
     if (keyUpper === "T") optIndex = 0;

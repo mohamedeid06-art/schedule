@@ -5130,54 +5130,12 @@ const marketingQuiz3Questions = [
 ];
 
 // ==========================================================================
-// Marketing (GEN G119) — Chapter 1 Test Bank Master Data (Kotler & Armstrong)
-// Chapter 1: Marketing: Creating and Capturing Customer Value
+// Marketing (GEN G119) — Chapter 1 Test Bank Master Data (Complete 127 Questions)
+// Chapter 1: Marketing: Creating and Capturing Customer Value (89 MCQ + 38 T/F)
 // ==========================================================================
 const marketingQuiz1Questions = [
   {
     "id": 1,
-    "type": "mcq",
-    "question": "According to the simple five-step model of the marketing process, a company needs to ________ before designing a customer-driven marketing strategy.",
-    "options": [
-      "determine how to deliver superior value",
-      "build profitable relationships with customers",
-      "use customer relationship management to create full partnerships with key customers",
-      "understand the marketplace and customer needs and wants",
-      "construct a marketing program that actually delivers superior value"
-    ],
-    "answer": 3,
-    "pageRef": 5
-  },
-  {
-    "id": 2,
-    "type": "mcq",
-    "question": "________ is defined as a social and managerial process by which individuals and organizations obtain what they need and want through value creation and exchange.",
-    "options": [
-      "Selling",
-      "Advertising",
-      "Bartering",
-      "Marketing",
-      "Negotiating"
-    ],
-    "answer": 3,
-    "pageRef": 5
-  },
-  {
-    "id": 3,
-    "type": "mcq",
-    "question": "Which of the following is NOT an accurate description of modern marketing?",
-    "options": [
-      "Marketing is the creation of value for customers.",
-      "Marketing is managing profitable customer relationships.",
-      "Selling and advertising are synonymous with marketing.",
-      "Marketing involves satisfying customers' needs.",
-      "Marketing is used by for-profit and not-for-profit organizations."
-    ],
-    "answer": 2,
-    "pageRef": 4
-  },
-  {
-    "id": 4,
     "type": "mcq",
     "question": "According to management guru Peter Drucker, \"The aim of marketing is to ________.\"",
     "options": [
@@ -5188,10 +5146,66 @@ const marketingQuiz1Questions = [
       "sell products"
     ],
     "answer": 2,
-    "pageRef": 5
+    "pageRef": 2
+  },
+  {
+    "id": 2,
+    "type": "mcq",
+    "question": "All of the following are accurate descriptions of modern marketing, EXCEPT which one?",
+    "options": [
+      "Marketing is the creation of value for customers.",
+      "Marketing is managing profitable customer relationships.",
+      "Selling and advertising are synonymous with marketing.",
+      "Marketing involves satisfying customers' needs.",
+      "Marketing is used by for-profit and not-for-profit organizations."
+    ],
+    "answer": 2,
+    "pageRef": 2
+  },
+  {
+    "id": 3,
+    "type": "mcq",
+    "question": "________ is defined as a social and managerial process by which individuals and organizations obtain what they need and want through value creation and exchange.",
+    "options": [
+      "Selling",
+      "Advertising",
+      "Bartering",
+      "Marketing",
+      "Negotiating"
+    ],
+    "answer": 3,
+    "pageRef": 2
+  },
+  {
+    "id": 4,
+    "type": "mcq",
+    "question": "Which steps of the five-step marketing process are about understanding customers, creating customer value, and building strong customer relationships?",
+    "options": [
+      "the first two only",
+      "the first three only",
+      "the first four only",
+      "the last three only",
+      "the last four only"
+    ],
+    "answer": 2,
+    "pageRef": 2
   },
   {
     "id": 5,
+    "type": "mcq",
+    "question": "According to the simple five-step model of the marketing process, a company needs to ________ before designing a customer-driven marketing strategy.",
+    "options": [
+      "determine how to deliver superior value",
+      "build profitable relationships with customers",
+      "use customer relationship management to create full partnerships with key customers",
+      "understand the marketplace and customer needs and wants",
+      "construct key components of a marketing program"
+    ],
+    "answer": 3,
+    "pageRef": 2
+  },
+  {
+    "id": 6,
     "type": "mcq",
     "question": "________ are human needs as shaped by individual personality and culture.",
     "options": [
@@ -5202,10 +5216,10 @@ const marketingQuiz1Questions = [
       "Exchanges"
     ],
     "answer": 1,
-    "pageRef": 6
+    "pageRef": 2
   },
   {
-    "id": 6,
+    "id": 7,
     "type": "mcq",
     "question": "When backed by buying power, wants become ________.",
     "options": [
@@ -5216,10 +5230,10 @@ const marketingQuiz1Questions = [
       "exchanges"
     ],
     "answer": 1,
-    "pageRef": 6
+    "pageRef": 3
   },
   {
-    "id": 7,
+    "id": 8,
     "type": "mcq",
     "question": "What do companies call a set of benefits that they promise to consumers to satisfy their needs?",
     "options": [
@@ -5229,11 +5243,11 @@ const marketingQuiz1Questions = [
       "need proposition",
       "evoked set"
     ],
-    "answer": 1,
-    "pageRef": 9
+    "answer": 0,
+    "pageRef": 3
   },
   {
-    "id": 8,
+    "id": 9,
     "type": "mcq",
     "question": "Which of the following refers to sellers being preoccupied with their own products and losing sight of underlying consumer needs?",
     "options": [
@@ -5244,24 +5258,24 @@ const marketingQuiz1Questions = [
       "the product concept"
     ],
     "answer": 3,
-    "pageRef": 6
-  },
-  {
-    "id": 9,
-    "type": "mcq",
-    "question": "When marketers set low expectations for a market offering, the biggest risk they run is ________.",
-    "options": [
-      "disappointing loyal buyers",
-      "failing to attract enough buyers",
-      "failing to understand their customers' needs",
-      "wrongly identifying a market segment",
-      "decreasing customer satisfaction"
-    ],
-    "answer": 1,
-    "pageRef": 7
+    "pageRef": 3
   },
   {
     "id": 10,
+    "type": "mcq",
+    "question": "When marketers set low expectations for a market offering, the biggest risk they run is ________.",
+    "options": [
+      "disappointing loyal customers",
+      "decreasing customer satisfaction",
+      "failing to attract enough customers",
+      "failing to understand their customers' needs",
+      "incorrectly identifying a target market"
+    ],
+    "answer": 2,
+    "pageRef": 3
+  },
+  {
+    "id": 11,
     "type": "mcq",
     "question": "________ is the act of obtaining a desired object from someone by offering something in return.",
     "options": [
@@ -5272,24 +5286,24 @@ const marketingQuiz1Questions = [
       "Donation"
     ],
     "answer": 1,
-    "pageRef": 7
-  },
-  {
-    "id": 11,
-    "type": "mcq",
-    "question": "A(n) ________ is the set of actual and potential buyers of a product or service.",
-    "options": [
-      "market",
-      "control group",
-      "subsidiary",
-      "focus group",
-      "audience"
-    ],
-    "answer": 0,
-    "pageRef": 7
+    "pageRef": 3
   },
   {
     "id": 12,
+    "type": "mcq",
+    "question": "A(n) ________ is the set of actual and potential buyers of a product.",
+    "options": [
+      "market",
+      "audience",
+      "group",
+      "segment",
+      "exchange"
+    ],
+    "answer": 0,
+    "pageRef": 4
+  },
+  {
+    "id": 13,
     "type": "mcq",
     "question": "Consumer research, product development, communication, distribution, pricing, and service are all core ________ activities.",
     "options": [
@@ -5300,10 +5314,38 @@ const marketingQuiz1Questions = [
       "customer relationship management"
     ],
     "answer": 1,
-    "pageRef": 7
+    "pageRef": 4
   },
   {
-    "id": 13,
+    "id": 14,
+    "type": "mcq",
+    "question": "Which of the following is the most likely result of a marketing strategy that attempts to serve all potential customers?",
+    "options": [
+      "All customers will be delighted.",
+      "Customer-perceived value will increase.",
+      "Customer evangelists will become unpaid salespersons for the service or product.",
+      "Not all customers will be satisfied.",
+      "The company will need to follow up with a demarketing campaign."
+    ],
+    "answer": 3,
+    "pageRef": 4
+  },
+  {
+    "id": 15,
+    "type": "mcq",
+    "question": "In the case of excess demand, ________ may be required to reduce the number of customers or to shift demand temporarily or permanently.",
+    "options": [
+      "marketing",
+      "demarketing",
+      "value marketing",
+      "surplusing",
+      "negotiating"
+    ],
+    "answer": 1,
+    "pageRef": 4
+  },
+  {
+    "id": 16,
     "type": "mcq",
     "question": "The art and science of choosing target markets and building profitable relationships with them is called ________.",
     "options": [
@@ -5314,10 +5356,10 @@ const marketingQuiz1Questions = [
       "differentiation"
     ],
     "answer": 0,
-    "pageRef": 8
+    "pageRef": 4
   },
   {
-    "id": 14,
+    "id": 17,
     "type": "mcq",
     "question": "Selecting which segments of a population of customers to serve is called ________.",
     "options": [
@@ -5328,38 +5370,38 @@ const marketingQuiz1Questions = [
       "managing the marketing effort"
     ],
     "answer": 3,
-    "pageRef": 8
+    "pageRef": 4
   },
   {
-    "id": 15,
+    "id": 18,
     "type": "mcq",
-    "question": "Which of the following is the set of benefits a company promises to deliver to customers to satisfy their needs?",
+    "question": "Which of the following is the set of benefits a company promises to deliver the customer to satisfy their needs?",
     "options": [
-      "money-back guarantee",
-      "low-priceuel assurance",
+      "a money-back guarantee",
+      "low pricing",
       "good customer service",
-      "value proposition",
-      "attribute"
+      "a value proposition",
+      "an attribute"
     ],
     "answer": 3,
-    "pageRef": 9
+    "pageRef": 5
   },
   {
-    "id": 16,
+    "id": 19,
     "type": "mcq",
     "question": "Which customer question is answered by a company's value proposition?",
     "options": [
       "\"Why should I buy your brand rather than a competitor's?\"",
-      "\"How does your brand benefit society?\"",
+      "\"How does your brand benefit me and society?\"",
       "\"What are the costs and benefits of your brand?\"",
       "\"What kind of experience will I have with products and services associated with this brand?\"",
       "\"What are the benefits of being a loyal consumer of your brand?\""
     ],
     "answer": 0,
-    "pageRef": 9
+    "pageRef": 5
   },
   {
-    "id": 17,
+    "id": 20,
     "type": "mcq",
     "question": "Which of the following marketing management orientations focuses primarily on improving efficiencies along the supply chain?",
     "options": [
@@ -5367,99 +5409,85 @@ const marketingQuiz1Questions = [
       "product concept",
       "selling concept",
       "marketing concept",
-      "societal marketing concept"
+      "social marketing concept"
     ],
     "answer": 0,
-    "pageRef": 9
+    "pageRef": 5
   },
   {
-    "id": 18,
+    "id": 21,
     "type": "mcq",
     "question": "Which of the following marketing management concepts is most likely to lead to marketing myopia?",
     "options": [
       "customer-driven marketing",
       "customer-driving marketing",
-      "societal marketing",
+      "social marketing",
       "selling",
-      "product"
+      "production"
     ],
     "answer": 4,
-    "pageRef": 9
+    "pageRef": 5
   },
   {
-    "id": 19,
+    "id": 22,
     "type": "mcq",
     "question": "The ________ concept is aligned with the philosophy of continuous product improvement and the belief that customers will choose products that offer the most in quality, performance, and innovative features.",
     "options": [
       "product",
       "production",
-      "science",
+      "customer",
       "marketing",
       "promotion"
     ],
     "answer": 0,
-    "pageRef": 9
+    "pageRef": 5
   },
   {
-    "id": 20,
+    "id": 23,
     "type": "mcq",
     "question": "The product concept says that a company should do which of the following?",
     "options": [
       "improve marketing of its best products",
       "market only those products with high customer appeal",
       "focus on the target market and make products that meet those customers' demands",
-      "devote its energy to making continuous product improvements",
+      "focus on making continuous product improvements",
       "make promoting products the top priority"
     ],
     "answer": 3,
-    "pageRef": 9
-  },
-  {
-    "id": 21,
-    "type": "mcq",
-    "question": "\"Build a better mousetrap and the world will beat a path to your door\" reflects the ________.",
-    "options": [
-      "production concept",
-      "marketing concept",
-      "selling concept",
-      "product concept",
-      "target marketing concept"
-    ],
-    "answer": 3,
-    "pageRef": 10
-  },
-  {
-    "id": 22,
-    "type": "mcq",
-    "question": "Which concept calls for aggressive selling and focuses on creating sales transactions rather than on building long-term, profitable customer relationships?",
-    "options": [
-      "marketing concept",
-      "product concept",
-      "production concept",
-      "societal marketing concept",
-      "selling concept"
-    ],
-    "answer": 4,
-    "pageRef": 10
-  },
-  {
-    "id": 23,
-    "type": "mcq",
-    "question": "Which of the following is most likely to be practiced with unsought goods, such as insurance or blood donations?",
-    "options": [
-      "production concept",
-      "product concept",
-      "selling concept",
-      "marketing concept",
-      "societal marketing concept"
-    ],
-    "answer": 2,
-    "pageRef": 10
+    "pageRef": 6
   },
   {
     "id": 24,
     "type": "mcq",
-    "question": "The ________ concept holds that achieving organizational goals depends on knowing the needs and wants of target markets and delivering the desired satisfactions better than competitors do.",
+    "question": "\"Build a better mousetrap and the world will beat a path to your door\" reflects the ________ concept.",
+    "options": [
+      "production",
+      "marketing",
+      "selling",
+      "product",
+      "target marketing"
+    ],
+    "answer": 3,
+    "pageRef": 6
+  },
+  {
+    "id": 25,
+    "type": "mcq",
+    "question": "Which concept calls for aggressive selling and focuses on generating transactions to obtain profitable sales?",
+    "options": [
+      "marketing",
+      "production",
+      "product",
+      "selling",
+      "societal marketing"
+    ],
+    "answer": 3,
+    "pageRef": 6
+  },
+  {
+    "id": 26,
+    "type": "mcq",
+    "question": "Which concept holds that achieving organizational goals depends on knowing the needs and wants of target markets and delivering the desired satisfactions better than competitors do?",
     "options": [
       "product",
       "production",
@@ -5468,24 +5496,10 @@ const marketingQuiz1Questions = [
       "equity"
     ],
     "answer": 3,
-    "pageRef": 10
+    "pageRef": 6
   },
   {
-    "id": 25,
-    "type": "mcq",
-    "question": "According to the authors, a ________ orientation is a \"sense and respond\" philosophy rather than a \"make and sell\" philosophy.",
-    "options": [
-      "product",
-      "production",
-      "selling",
-      "marketing",
-      "societal"
-    ],
-    "answer": 3,
-    "pageRef": 10
-  },
-  {
-    "id": 26,
+    "id": 27,
     "type": "mcq",
     "question": "A firm that uses the selling concept takes a(n) ________ approach.",
     "options": [
@@ -5496,12 +5510,40 @@ const marketingQuiz1Questions = [
       "customer service"
     ],
     "answer": 2,
-    "pageRef": 10
+    "pageRef": 6
   },
   {
-    "id": 27,
+    "id": 28,
     "type": "mcq",
-    "question": "Though often criticized, the selling concept is particularly appropriate and effective for which of the following types of products?",
+    "question": "According to the production concept, consumers will favor products that are ________ and ________.",
+    "options": [
+      "satisfying; quality focused",
+      "advertised; affordable",
+      "in high demand; hard to find",
+      "segmented; convenient",
+      "available; affordable"
+    ],
+    "answer": 4,
+    "pageRef": 6
+  },
+  {
+    "id": 29,
+    "type": "mcq",
+    "question": "Herb Kelleher of Southwest Airlines used the marketing concept in his successful organization. Having a customer department rather than a marketing department, as suggested by Kelleher, is an example of a(n) ________ perspective.",
+    "options": [
+      "outside-in",
+      "external",
+      "inside-out",
+      "modern",
+      "traditional"
+    ],
+    "answer": 0,
+    "pageRef": 7
+  },
+  {
+    "id": 30,
+    "type": "mcq",
+    "question": "Though often criticized, the selling concept is particularly appropriate and effective with which of the following types of products?",
     "options": [
       "convenience",
       "shopping",
@@ -5510,10 +5552,10 @@ const marketingQuiz1Questions = [
       "demarketed"
     ],
     "answer": 3,
-    "pageRef": 10
+    "pageRef": 7
   },
   {
-    "id": 28,
+    "id": 31,
     "type": "mcq",
     "question": "Which of the following reflects the marketing concept philosophy?",
     "options": [
@@ -5524,10 +5566,10 @@ const marketingQuiz1Questions = [
       "\"You won't find a better deal anywhere.\""
     ],
     "answer": 0,
-    "pageRef": 10
+    "pageRef": 7
   },
   {
-    "id": 29,
+    "id": 32,
     "type": "mcq",
     "question": "Customer-driven marketing usually works well when ________ and when customers ________.",
     "options": [
@@ -5538,40 +5580,26 @@ const marketingQuiz1Questions = [
       "a need exists; don't know what they want"
     ],
     "answer": 3,
-    "pageRef": 11
+    "pageRef": 7
   },
   {
-    "id": 30,
+    "id": 33,
     "type": "mcq",
-    "question": "When customers don't know what they want or don't even know what's possible, the most effective strategy is ________ marketing.",
+    "question": "The societal marketing concept seeks to establish a balance between consumer short-run wants and consumer ________.",
     "options": [
-      "customer-driven",
-      "customer-driving",
-      "societal",
-      "production",
-      "product"
-    ],
-    "answer": 1,
-    "pageRef": 11
-  },
-  {
-    "id": 31,
-    "type": "mcq",
-    "question": "The societal marketing concept seeks to establish a balance between consumer short-run wants and ________.",
-    "options": [
-      "consumer short-run ethics",
-      "consumer long-run welfare",
-      "company short-run wants",
-      "dynastic economic growth",
+      "short-run costs and profits",
+      "short-run ethics",
+      "long-run welfare",
+      "immediate health",
       "value propositions"
     ],
-    "answer": 1,
-    "pageRef": 11
+    "answer": 2,
+    "pageRef": 7
   },
   {
-    "id": 32,
+    "id": 34,
     "type": "mcq",
-    "question": "The ________ concept holds that firms must strive to deliver value to customers in a way that maintains or improves both the consumer's and society's well-being.",
+    "question": "Which concept holds that firms must strive to deliver value to customers in a way that maintains or improves the consumer's and society's well-being?",
     "options": [
       "marketing",
       "selling",
@@ -5580,10 +5608,10 @@ const marketingQuiz1Questions = [
       "equity"
     ],
     "answer": 3,
-    "pageRef": 11
+    "pageRef": 8
   },
   {
-    "id": 33,
+    "id": 35,
     "type": "mcq",
     "question": "The three areas of consideration that should be balanced in the societal marketing concept are consumer wants, society's interests, and ________.",
     "options": [
@@ -5594,10 +5622,10 @@ const marketingQuiz1Questions = [
       "long-term needs"
     ],
     "answer": 2,
-    "pageRef": 11
+    "pageRef": 8
   },
   {
-    "id": 34,
+    "id": 36,
     "type": "mcq",
     "question": "The set of marketing tools a firm uses to implement its marketing strategy is called the ________.",
     "options": [
@@ -5608,10 +5636,10 @@ const marketingQuiz1Questions = [
       "marketing effort"
     ],
     "answer": 2,
-    "pageRef": 12
+    "pageRef": 8
   },
   {
-    "id": 35,
+    "id": 37,
     "type": "mcq",
     "question": "Of the following, which is the most important concept of modern marketing?",
     "options": [
@@ -5622,12 +5650,12 @@ const marketingQuiz1Questions = [
       "low prices"
     ],
     "answer": 0,
-    "pageRef": 12
+    "pageRef": 8
   },
   {
-    "id": 36,
+    "id": 38,
     "type": "mcq",
-    "question": "Building, keeping, and growing profitable value-laden relationships with all customers of a company is called ________.",
+    "question": "Building, keeping, and growing profitable relationships by delivering customer value and satisfaction is called ________.",
     "options": [
       "customer lifetime value",
       "customer perceived value",
@@ -5636,24 +5664,24 @@ const marketingQuiz1Questions = [
       "societal marketing"
     ],
     "answer": 2,
-    "pageRef": 13
+    "pageRef": 8
   },
   {
-    "id": 37,
+    "id": 39,
     "type": "mcq",
     "question": "Customer-perceived value is determined by a customer's ________ of the benefits and costs of a market offering relative to those of competing offers.",
     "options": [
-      "evaluation",
+      "personal assessment",
       "rational expectations",
-      "emotional understanding",
       "accurate assessment",
-      "objective calculation"
+      "objective evaluation",
+      "emotional understanding"
     ],
     "answer": 0,
-    "pageRef": 13
+    "pageRef": 8
   },
   {
-    "id": 38,
+    "id": 40,
     "type": "mcq",
     "question": "It is most accurate to say that customers buy from stores and firms that offer which of the following?",
     "options": [
@@ -5664,12 +5692,12 @@ const marketingQuiz1Questions = [
       "the most concern for society's interests"
     ],
     "answer": 1,
-    "pageRef": 13
+    "pageRef": 9
   },
   {
-    "id": 39,
+    "id": 41,
     "type": "mcq",
-    "question": "________ is defined as the customer's evaluation of the differences between all the benefits and all the costs of a market offering relative to those of competing offers.",
+    "question": "________ is defined as the customer's evaluation of the differences between all the benefits and all the costs of a marketing offer relative to those of competing offers.",
     "options": [
       "Customer equity",
       "Customer satisfaction",
@@ -5678,24 +5706,10 @@ const marketingQuiz1Questions = [
       "Marketing myopia"
     ],
     "answer": 3,
-    "pageRef": 13
+    "pageRef": 9
   },
   {
-    "id": 40,
-    "type": "mcq",
-    "question": "Which of the following is the term for customers who make repeat purchases and tell others about their positive experiences with a product or service?",
-    "options": [
-      "satisfied customers",
-      "customer evangelists",
-      "butterflies",
-      "full partners",
-      "socializr"
-    ],
-    "answer": 1,
-    "pageRef": 13
-  },
-  {
-    "id": 41,
+    "id": 42,
     "type": "mcq",
     "question": "Which of the following strategies would a company most likely use to increase customer satisfaction?",
     "options": [
@@ -5706,24 +5720,24 @@ const marketingQuiz1Questions = [
       "limiting customer experiences with a brand"
     ],
     "answer": 2,
-    "pageRef": 16
-  },
-  {
-    "id": 42,
-    "type": "mcq",
-    "question": "Frequent flyer programs offered by airlines are an example of a ________.",
-    "options": [
-      "frequency marketing program",
-      "basic relationship",
-      "club marketing program",
-      "consumer-generated marketing program",
-      "structural benefit provided for top customers"
-    ],
-    "answer": 0,
-    "pageRef": 16
+    "pageRef": 9
   },
   {
     "id": 43,
+    "type": "mcq",
+    "question": "Using customer profitability analysis to weed out unprofitable customers and target winning ones for pampering is referred to as ________.",
+    "options": [
+      "customer relationship management",
+      "positioning",
+      "database marketing",
+      "selective relationship management",
+      "marketing myopia"
+    ],
+    "answer": 3,
+    "pageRef": 9
+  },
+  {
+    "id": 44,
     "type": "mcq",
     "question": "Which of the following has NOT contributed to the deeper, more interactive nature of today's customer relationships?",
     "options": [
@@ -5734,80 +5748,94 @@ const marketingQuiz1Questions = [
       "video sharing"
     ],
     "answer": 3,
-    "pageRef": 17
+    "pageRef": 9
   },
   {
-    "id": 44,
+    "id": 45,
     "type": "mcq",
     "question": "Which of the following best explains why consumers have greater power and control in today's marketplace?",
     "options": [
       "The production concept and competition have lowered prices.",
       "Implementation of the product concept has resulted in continually improving products.",
       "Customer-driven marketing creates products and services that meet customers' future needs.",
-      "More companies are implementing societal marketing and weighing long-run costs and benefits.",
+      "More companies are implementing social marketing and weighing long-term costs and benefits.",
       "Through new communication technologies, customers have more access to information and more methods of sharing their opinions with other customers."
     ],
     "answer": 4,
-    "pageRef": 18
+    "pageRef": 10
   },
   {
-    "id": 45,
+    "id": 46,
     "type": "mcq",
     "question": "Greater consumer control means that companies must rely more on marketing by ________ than by ________.",
     "options": [
       "interruption; involvement",
-      "attraction; intrusion",
+      "interaction; intrusion",
       "socialization; information",
       "producing; selling",
       "inspiration; competition"
     ],
     "answer": 1,
-    "pageRef": 18
-  },
-  {
-    "id": 46,
-    "type": "mcq",
-    "question": "Which of the following is an example of consumer-generated marketing?",
-    "options": [
-      "Toyota's presence in online communities",
-      "Nike's Nike Plus running Web site",
-      "H.J. Heinz's contest for commercials produced by consumers",
-      "Neiman Marcus's InCircle Rewards program for its best customers",
-      "The Harley Owners Group (H.O.G.)"
-    ],
-    "answer": 2,
-    "pageRef": 18
+    "pageRef": 10
   },
   {
     "id": 47,
     "type": "mcq",
-    "question": "Working closely with people inside and outside the company to jointly bring more value to customers is known as ________.",
+    "question": "To create customer value and build strong customer relationships, marketers know they cannot go it alone; therefore, they practice ________.",
     "options": [
       "partner relationship management",
-      "customer relationship management",
-      "supply chain management",
-      "total quality management",
-      "customer-generated marketing"
+      "database marketing",
+      "attractive Web site design",
+      "customer equity",
+      "consumer-generated marketing"
     ],
     "answer": 0,
-    "pageRef": 19
+    "pageRef": 10
   },
   {
     "id": 48,
     "type": "mcq",
-    "question": "________ refers to a channel stretching from raw materials to components to final products that are carried to final buyers.",
+    "question": "In today's world, marketing should be done by ________ employees in an organization.",
     "options": [
-      "A promotion network",
-      "A supply chain",
-      "A marketing intermediary",
-      "A market",
-      "An internal value chain"
+      "only marketing",
+      "only marketing, sales, and customer-support",
+      "only sales and technology",
+      "only management and marketing",
+      "all"
     ],
-    "answer": 1,
-    "pageRef": 19
+    "answer": 4,
+    "pageRef": 10
   },
   {
     "id": 49,
+    "type": "mcq",
+    "question": "Through ________, many companies today are strengthening their connections to all partners, from providers of raw materials to components to final products that are delivered to final buyers.",
+    "options": [
+      "supply chain management",
+      "direct marketing",
+      "partnership relationship marketing",
+      "customized marketing",
+      "equity marketing"
+    ],
+    "answer": 0,
+    "pageRef": 10
+  },
+  {
+    "id": 50,
+    "type": "mcq",
+    "question": "Suzie Chan strengthens her company's connections by treating suppliers of raw materials, vendors, and distributors as partners in delivering customer value. What type of management is she practicing?",
+    "options": [
+      "outside partnering",
+      "inside partnering",
+      "marketing",
+      "supply chain",
+      "customer development"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 51,
     "type": "mcq",
     "question": "The final step in the marketing process is ________.",
     "options": [
@@ -5818,12 +5846,26 @@ const marketingQuiz1Questions = [
       "designing a customer-driven marketing strategy"
     ],
     "answer": 0,
-    "pageRef": 20
+    "pageRef": 11
   },
   {
-    "id": 50,
+    "id": 52,
     "type": "mcq",
-    "question": "When an airline goes after a \"share of travel\" from its customers rather than just a \"share of airline tickets,\" it is attempting to increase ________.",
+    "question": "Stew Leonard, the owner of a highly successful regional supermarket chain, reacts adversely to losing a single customer sale. He feels that this amounts to losing the entire stream of future purchases that a customer is likely to make if he or she remains in the area. Stew Leonard's concern is an illustration of which of the following?",
+    "options": [
+      "share of customer",
+      "market share",
+      "profitability",
+      "customer lifetime value",
+      "market share maintenance"
+    ],
+    "answer": 3,
+    "pageRef": 11
+  },
+  {
+    "id": 53,
+    "type": "mcq",
+    "question": "When an airline goes after a \"share of travel\" from its customers, it is attempting to increase ________.",
     "options": [
       "customer lifetime value",
       "share of customer",
@@ -5832,94 +5874,525 @@ const marketingQuiz1Questions = [
       "customer ownership"
     ],
     "answer": 1,
-    "pageRef": 21
-  },
-  {
-    "id": 51,
-    "type": "mcq",
-    "question": "________ is the total combined customer lifetime values of all of the company's current and potential customers.",
-    "options": [
-      "Share of customer",
-      "Customer lifetime value",
-      "Customer equity",
-      "Profitability",
-      "Share of market"
-    ],
-    "answer": 2,
-    "pageRef": 21
-  },
-  {
-    "id": 52,
-    "type": "mcq",
-    "question": "The ultimate aim of customer relationship management is to produce ________.",
-    "options": [
-      "high customer equity",
-      "aelling profit",
-      "market share",
-      "sales volume",
-      "a reliable database"
-    ],
-    "answer": 0,
-    "pageRef": 21
-  },
-  {
-    "id": 53,
-    "type": "mcq",
-    "question": "In the customer relationship group classification, \"________\" are high-profit, long-term customers who are a good fit between the company's offerings and their needs.",
-    "options": [
-      "butterflies",
-      "true friends",
-      "strangers",
-      "barnacles",
-      "customer evangelists"
-    ],
-    "answer": 1,
-    "pageRef": 22
+    "pageRef": 11
   },
   {
     "id": 54,
     "type": "mcq",
-    "question": "In the customer relationship group classification, \"________\" are potentially profitable but not loyal — there is a good fit between the company's offerings and their needs, but they enjoy hunting out the best deals and rarely stay with one supplier for long.",
+    "question": "Beyond simply retaining good customers, marketers want to constantly increase their \"share of customer.\" What does this mean in marketing terms?",
     "options": [
-      "strangers",
-      "barnacles",
-      "butterflies",
-      "true friends",
-      "partners"
+      "Marketers want to increase their market share.",
+      "Marketers want to increase the share they get of the customer's purchasing in their product categories.",
+      "Marketers want to increase the profit margin with this target market.",
+      "Marketers want to continuously increase their customers' levels of satisfaction.",
+      "Marketers want to turn satisfied customers into delighted customers."
     ],
-    "answer": 2,
-    "pageRef": 22
+    "answer": 1,
+    "pageRef": 11
   },
   {
     "id": 55,
     "type": "mcq",
-    "question": "In the customer relationship group classification, \"________\" are highly loyal but not very profitable because there is a limited fit between their needs and the company's offerings.",
+    "question": "Amazon.com leverages relationships with its 35 million customers by offering them music, videos, gifts, toys, consumer electronics, and office products, among other items. Based on previous purchase history, the company recommends related CDs, books, videos, or other products that might interest a customer. This most directly helps Amazon.com capture a greater ________.",
     "options": [
-      "strangers",
-      "barnacles",
-      "butterflies",
-      "true friends",
-      "evangelists"
+      "customer lifetime value",
+      "share of customer",
+      "profit margin",
+      "share of market",
+      "customer equity"
     ],
     "answer": 1,
-    "pageRef": 22
+    "pageRef": 11
   },
   {
     "id": 56,
     "type": "mcq",
-    "question": "In the customer relationship group classification, \"________\" show low potential profitability and little projected loyalty.",
+    "question": "Which of the following is the total combined customer lifetime values of all a company's current and potential customers?",
     "options": [
-      "strangers",
-      "barnacles",
-      "butterflies",
-      "true friends",
-      "laggards"
+      "share of customer",
+      "customer lifetime value",
+      "customer equity",
+      "profitability",
+      "share of market"
     ],
-    "answer": 0,
-    "pageRef": 22
+    "answer": 2,
+    "pageRef": 12
   },
   {
     "id": 57,
+    "type": "mcq",
+    "question": "The ultimate aim of customer relationship management is to produce ________.",
+    "options": [
+      "customer equity",
+      "market share",
+      "sales volume",
+      "a reliable database",
+      "higher profit margins"
+    ],
+    "answer": 0,
+    "pageRef": 12
+  },
+  {
+    "id": 58,
+    "type": "mcq",
+    "question": "A potentially highly profitable, short-term customer is a ________.",
+    "options": [
+      "true friend",
+      "butterfly",
+      "stranger",
+      "barnacle",
+      "true believer"
+    ],
+    "answer": 1,
+    "pageRef": 12
+  },
+  {
+    "id": 59,
+    "type": "mcq",
+    "question": "Customers can be classified into four relationship groups, according to their profitability and projected loyalty. Which type of customers have the highest profit potential and strong loyalty?",
+    "options": [
+      "barnacles",
+      "strangers",
+      "butterflies",
+      "true friends",
+      "big fish"
+    ],
+    "answer": 3,
+    "pageRef": 12
+  },
+  {
+    "id": 60,
+    "type": "mcq",
+    "question": "Which of the following statements about the Internet is most accurate?",
+    "options": [
+      "Companies are cautiously using the Internet to build closer relationships with customers and marketing partners alike.",
+      "After the dot-com meltdown of 2000, fewer consumers are buying products and/or services online.",
+      "The Internet makes it easy for consumers to view, interact with, and create marketing content.",
+      "Consumer e-commerce looks promising, but business-to-business e-commerce is declining.",
+      "Web 2.0 involves a less balanced approach to online marketing than the original dot-com boom did."
+    ],
+    "answer": 2,
+    "pageRef": 12
+  },
+  {
+    "id": 61,
+    "type": "mcq",
+    "question": "Which of the following is currently the fastest-growing form of marketing?",
+    "options": [
+      "consumer-generated marketing",
+      "online marketing",
+      "mass media marketing",
+      "social marketing",
+      "word-of-mouth marketing"
+    ],
+    "answer": 1,
+    "pageRef": 13
+  },
+  {
+    "id": 62,
+    "type": "mcq",
+    "question": "Today almost every company, small and large, is affected in some way by which of the following?",
+    "options": [
+      "the societal marketing concept",
+      "not-for-profit marketing",
+      "global competition",
+      "customer-generated marketing",
+      "caring capitalism"
+    ],
+    "answer": 2,
+    "pageRef": 13
+  },
+  {
+    "id": 63,
+    "type": "mcq",
+    "question": "Governmental agencies are becoming more involved in marketing as the years pass. When a local government advertises keeping the area's streams and water supply cleaner, it is involved in ________.",
+    "options": [
+      "green marketing",
+      "social marketing campaigns",
+      "demarketing",
+      "environmental marketing",
+      "partnership marketing"
+    ],
+    "answer": 1,
+    "pageRef": 13
+  },
+  {
+    "id": 64,
+    "type": "mcq",
+    "question": "Greg Williams now has the buying power to purchase the computer system he has wanted for the last six months. Greg's want now has become a(n) ________.",
+    "options": [
+      "need",
+      "necessity",
+      "demand",
+      "exchange",
+      "transaction"
+    ],
+    "answer": 2,
+    "pageRef": 13
+  },
+  {
+    "id": 65,
+    "type": "mcq",
+    "question": "To avoid traffic gridlock in large metro areas, a community might use ________ to discourage travelers from driving during peak commuting hours.",
+    "options": [
+      "target marketing",
+      "market segmentation",
+      "demarketing",
+      "marketing",
+      "the production concept"
+    ],
+    "answer": 2,
+    "pageRef": 13
+  },
+  {
+    "id": 66,
+    "type": "mcq",
+    "question": "Some fast-food restaurants offer tasty and convenient food at affordable prices, but in doing so they contribute to a national obesity epidemic and environmental problems. These fast-food restaurants overlook the ________ philosophy.",
+    "options": [
+      "marketing concept",
+      "product concept",
+      "production concept",
+      "societal marketing concept",
+      "selling concept"
+    ],
+    "answer": 3,
+    "pageRef": 14
+  },
+  {
+    "id": 67,
+    "type": "mcq",
+    "question": "Sally purchased Brand X lotion. In comparing her perception of how the lotion made her skin feel and look to her expectations for Brand X lotion, Sally was measuring her level of ________.",
+    "options": [
+      "customer-perceived value",
+      "customer satisfaction",
+      "customer equity",
+      "demand",
+      "customer lifetime value"
+    ],
+    "answer": 1,
+    "pageRef": 14
+  },
+  {
+    "id": 68,
+    "type": "mcq",
+    "question": "____________ is the portion of the customer's purchasing that a company gets in its product categories.",
+    "options": [
+      "Customer-perceived value",
+      "Customer equity",
+      "Share of Customer",
+      "Customer lifetime value",
+      "Customer purchasing power"
+    ],
+    "answer": 2,
+    "pageRef": 14
+  },
+  {
+    "id": 69,
+    "type": "mcq",
+    "question": "___________ includes product, price, promotion, and place.",
+    "options": [
+      "The marketing mix",
+      "Integrated marketing program",
+      "Promotion mix",
+      "Marketing management",
+      "Marketing orientation"
+    ],
+    "answer": 0,
+    "pageRef": 14
+  },
+  {
+    "id": 70,
+    "type": "mcq",
+    "question": "The marketing concepts takes an __________ perspective that focuses on making what the customer wants.",
+    "options": [
+      "inside-out",
+      "external",
+      "modern",
+      "outside-In",
+      "make-and-sell"
+    ],
+    "answer": 3,
+    "pageRef": 14
+  },
+  {
+    "id": 71,
+    "type": "mcq",
+    "question": "Jolene's firm markets preplanning services for a mortician. She finds that most of her target market wants to avoid discussing their future funeral needs, and she must somehow first get their attention. Jolene's firm is most likely practicing the ________.",
+    "options": [
+      "production concept",
+      "marketing concept",
+      "selling concept",
+      "relationship concept",
+      "societal marketing concept"
+    ],
+    "answer": 2,
+    "pageRef": 15
+  },
+  {
+    "id": 72,
+    "type": "mcq",
+    "question": "Cathy's Clothes is a small retail chain successfully selling women's clothing and accessories with a profitable focus on buyers who have relatively modest means. This is an example of ________.",
+    "options": [
+      "convenience",
+      "social marketing",
+      "market segmentation",
+      "target marketing",
+      "value packing"
+    ],
+    "answer": 3,
+    "pageRef": 15
+  },
+  {
+    "id": 73,
+    "type": "mcq",
+    "question": "Henry Ford's philosophy was to perfect the Model-T so that its cost could be reduced further for increased consumer affordability. This reflects the ________ concept.",
+    "options": [
+      "product",
+      "production",
+      "selling",
+      "marketing",
+      "societal marketing"
+    ],
+    "answer": 1,
+    "pageRef": 15
+  },
+  {
+    "id": 74,
+    "type": "mcq",
+    "question": "Railroads were once operated based on the thinking that users wanted trains rather than transportation, overlooking the challenge of other modes of transportation. This reflects the ________ concept.",
+    "options": [
+      "product",
+      "production",
+      "selling",
+      "marketing",
+      "societal marketing"
+    ],
+    "answer": 0,
+    "pageRef": 15
+  },
+  {
+    "id": 75,
+    "type": "mcq",
+    "question": "Which of the following reflects the marketing concept?",
+    "options": [
+      "\"The supplier is king.\"",
+      "\"Marketing should be viewed as hunting and not gardening.\"",
+      "\"This is what I make; won't you please buy it?\"",
+      "\"This is what I want; won't you please make it?\"",
+      "\"Customers need to be told where they want to go.\""
+    ],
+    "answer": 3,
+    "pageRef": 15
+  },
+  {
+    "id": 76,
+    "type": "mcq",
+    "question": "Members of the sales team at Dekko International visit only prospective customers who purchase a minimum of $50,000 of insulated wire per year. Dekko is using ________.",
+    "options": [
+      "selective relationship management",
+      "a frequency marketing program",
+      "a club marketing program",
+      "demarketing",
+      "a value proposition"
+    ],
+    "answer": 0,
+    "pageRef": 16
+  },
+  {
+    "id": 77,
+    "type": "mcq",
+    "question": "You have just taken a new position in an organization and you're learning about the job functions of your new colleagues. You observe that your marketing manager is heavily involved in the process of building and maintaining profitable customer relationships. Your marketing manager frequently speaks about the need to deliver superior customer value and satisfaction. Your manager is concerned with which one of the following?",
+    "options": [
+      "database management",
+      "Web site hits",
+      "the societal marketing concept",
+      "partner relationship management",
+      "customer relationship management"
+    ],
+    "answer": 4,
+    "pageRef": 16
+  },
+  {
+    "id": 78,
+    "type": "mcq",
+    "question": "FedEx offers its customers fast and reliable package delivery. When FedEx customers weigh these benefits against the monetary cost of using FedEx along with any other costs of using the service, they are acting upon ________.",
+    "options": [
+      "loyalty",
+      "relationship marketing",
+      "customer-perceived value",
+      "social relationships",
+      "a societal"
+    ],
+    "answer": 2,
+    "pageRef": 16
+  },
+  {
+    "id": 79,
+    "type": "mcq",
+    "question": "Tommy Gray attempts to deliver customer satisfaction every day in his Audio Expressions installation business. He is a smart operator who knows that the key to this goal is to match ________ with ________.",
+    "options": [
+      "company performance; competition",
+      "company performance; competitive prices",
+      "relationship building; performance tools",
+      "company performance; unique products",
+      "customer expectations; company performance"
+    ],
+    "answer": 4,
+    "pageRef": 16
+  },
+  {
+    "id": 80,
+    "type": "mcq",
+    "question": "Shania works hard to foster an emotional relationship between her Internet customers and the beauty products and services that she and her staff sell. By promoting a company culture that values exceptional value and service, Shania aims to create ________ by going beyond the expected.",
+    "options": [
+      "customer delight",
+      "customer satisfaction",
+      "customer value",
+      "customer equity",
+      "customer involvement"
+    ],
+    "answer": 0,
+    "pageRef": 16
+  },
+  {
+    "id": 81,
+    "type": "mcq",
+    "question": "You are an assistant marketing director for a firm in a market with many low-margin customers. What type of relationship would it be most profitable for you to develop with these customers?",
+    "options": [
+      "full partnerships",
+      "basic relationships",
+      "basic partnerships",
+      "club programs",
+      "selective relationships"
+    ],
+    "answer": 1,
+    "pageRef": 17
+  },
+  {
+    "id": 82,
+    "type": "mcq",
+    "question": "Elisandra, a marketing manager at a regional chain restaurant, has decided to sponsor a contest calling for customers to create commercials for the restaurant. Winning entries will be posted on the organization's home page. Elisandra's plan is an example of ________.",
+    "options": [
+      "consumer-generated marketing",
+      "partner relationship management",
+      "customer lifetime value",
+      "community development around a brand",
+      "selective relationship management"
+    ],
+    "answer": 0,
+    "pageRef": 17
+  },
+  {
+    "id": 83,
+    "type": "mcq",
+    "question": "At Gina's Nails, the posted policy is \"Without our customers, we don't exist.\" Gina and her staff aim to delight each customer, and they are quick to offer discounts or extra services whenever a customer is anything less than satisfied. Gina and her staff strive to make every customer a repeat customer. It is most accurate to say that instead of focusing on each individual transaction, Gina and her staff put a priority on ________.",
+    "options": [
+      "maintaining customer-perceived value",
+      "enlisting customer evangelists",
+      "attracting \"butterflies\"",
+      "converting \"strangers\"",
+      "capturing customer lifetime value"
+    ],
+    "answer": 4,
+    "pageRef": 17
+  },
+  {
+    "id": 84,
+    "type": "mcq",
+    "question": "Afia, a team leader in charge of customer relationship management, is planning strategies for improving the profitability of her firm's least profitable but loyal customers. She is also examining methods for \"firing\" customers in this group who cannot be made profitable. To which of the following customer relationship groups do these customers belong?",
+    "options": [
+      "butterflies",
+      "true friends",
+      "strangers",
+      "barnacles",
+      "short-term customers"
+    ],
+    "answer": 3,
+    "pageRef": 17
+  },
+  {
+    "id": 85,
+    "type": "mcq",
+    "question": "A church targeting different demographic groups to increase attendance is an example of ________.",
+    "options": [
+      "for-profit marketing",
+      "not-for-profit marketing",
+      "societal marketing",
+      "customer evangelism",
+      "caring capitalism"
+    ],
+    "answer": 1,
+    "pageRef": 18
+  },
+  {
+    "id": 86,
+    "type": "mcq",
+    "question": "Ben & Jerry's challenges all stakeholders, including employees, top management, and even ice cream scoopers in their stores, to consider individual and community welfare in their day-to-day decisions. Actions such as this by companies seizing the opportunity to do well by doing good reflects ________.",
+    "options": [
+      "environmentalism",
+      "social responsibility",
+      "profit marketing",
+      "partnership management",
+      "myopia"
+    ],
+    "answer": 1,
+    "pageRef": 18
+  },
+  {
+    "id": 87,
+    "type": "mcq",
+    "question": "Your state's department of education has budgeted a significant amount of money for a radio, print, television, and online advertising campaign emphasizing the long-term benefits, both educationally and professionally, of reading every day. This is an example of a(n) ________ campaign.",
+    "options": [
+      "ethical",
+      "social marketing",
+      "for-profit",
+      "consumer-generated",
+      "differentiated"
+    ],
+    "answer": 1,
+    "pageRef": 18
+  },
+  {
+    "id": 88,
+    "type": "mcq",
+    "question": "Marketing process includes...",
+    "options": [
+      "Understand the marketplace and customer needs and wants.",
+      "Design a customer-driven marketing strategy.",
+      "Construct an integrated marketing program that delivers superior value.",
+      "Build profitable relationships and create customer delight.",
+      "Capture value from customers to create profits and customer quality",
+      "All of the above."
+    ],
+    "answer": 5,
+    "pageRef": 18
+  },
+  {
+    "id": 89,
+    "type": "mcq",
+    "question": "Customer value can be considered as:",
+    "options": [
+      "expected customer value",
+      "profitability as bus value",
+      "group of benefits to be obtained from a good or a service",
+      "expected value minus real value compared with other competing products"
+    ],
+    "answer": 3,
+    "pageRef": 18
+  },
+  {
+    "id": 90,
+    "type": "tf",
+    "question": "Selling is managing profitable customer relationships.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 19
+  },
+  {
+    "id": 91,
     "type": "tf",
     "question": "Human needs are shaped by culture and individual personality.",
     "options": [
@@ -5927,10 +6400,10 @@ const marketingQuiz1Questions = [
       "False"
     ],
     "answer": 1,
-    "pageRef": 6
+    "pageRef": 19
   },
   {
-    "id": 58,
+    "id": 92,
     "type": "tf",
     "question": "The difference between human needs and wants is that needs are not influenced by marketers.",
     "options": [
@@ -5938,10 +6411,10 @@ const marketingQuiz1Questions = [
       "False"
     ],
     "answer": 0,
-    "pageRef": 6
+    "pageRef": 19
   },
   {
-    "id": 59,
+    "id": 93,
     "type": "tf",
     "question": "When backed by buying power, needs become demands.",
     "options": [
@@ -5949,10 +6422,10 @@ const marketingQuiz1Questions = [
       "False"
     ],
     "answer": 1,
-    "pageRef": 6
+    "pageRef": 19
   },
   {
-    "id": 60,
+    "id": 94,
     "type": "tf",
     "question": "Market offerings are limited to physical products.",
     "options": [
@@ -5960,67 +6433,133 @@ const marketingQuiz1Questions = [
       "False"
     ],
     "answer": 1,
-    "pageRef": 6
+    "pageRef": 19
   },
   {
-    "id": 61,
+    "id": 95,
     "type": "tf",
-    "question": "Marketing myopia occurs when sellers pay more attention to the specific products they offer than to the benefits and experiences produced by these products.",
+    "question": "An experience such as a vacation can be defined as a market offering.",
     "options": [
       "True",
       "False"
     ],
     "answer": 0,
-    "pageRef": 6
+    "pageRef": 19
   },
   {
-    "id": 62,
+    "id": 96,
     "type": "tf",
-    "question": "When a company divides the market into segments of customers and selects which segments it will go after, it is performing market segmentation and target marketing.",
-    "options": [
-      "True",
-      "False"
-    ],
-    "answer": 0,
-    "pageRef": 8
-  },
-  {
-    "id": 63,
-    "type": "tf",
-    "question": "The production concept and product concept are orientations that can easily lead to marketing myopia.",
-    "options": [
-      "True",
-      "False"
-    ],
-    "answer": 0,
-    "pageRef": 9
-  },
-  {
-    "id": 64,
-    "type": "tf",
-    "question": "The selling concept holds that consumers will not buy enough of the firm's products unless the firm undertakes a large-scale selling and promotion effort.",
-    "options": [
-      "True",
-      "False"
-    ],
-    "answer": 0,
-    "pageRef": 10
-  },
-  {
-    "id": 65,
-    "type": "tf",
-    "question": "Customer-perceived value is based on a purely objective calculation of all benefits and costs by the buyer.",
+    "question": "When sellers focus on existing needs and lose sight of underlying customer wants, they suffer from marketing myopia.",
     "options": [
       "True",
       "False"
     ],
     "answer": 1,
-    "pageRef": 13
+    "pageRef": 19
   },
   {
-    "id": 66,
+    "id": 97,
     "type": "tf",
-    "question": "Customer lifetime value is the value of the entire stream of purchases that the customer would make over a lifetime of patronage.",
+    "question": "Only sellers of products, services, and ideas practice marketing; buyers do not.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 19
+  },
+  {
+    "id": 98,
+    "type": "tf",
+    "question": "Market segmentation is the process of seeking fewer customers and reduced demand for profit maximization only.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 19
+  },
+  {
+    "id": 99,
+    "type": "tf",
+    "question": "Demarketing is a marketing philosophy focused upon product differentiation and positioning.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 19
+  },
+  {
+    "id": 100,
+    "type": "tf",
+    "question": "When it becomes necessary to reduce demand for a product or service, an organization may use demarketing to reduce or shift the number of customers.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 19
+  },
+  {
+    "id": 101,
+    "type": "tf",
+    "question": "The production concept and product concept are orientations that can lead to marketing myopia.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 19
+  },
+  {
+    "id": 102,
+    "type": "tf",
+    "question": "The selling concept holds that consumers will not buy enough of the firm's products unless it undertakes a large-scale selling and promotion effort.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 19
+  },
+  {
+    "id": 103,
+    "type": "tf",
+    "question": "Amy's law office has developed a new format and wording for wills. The staff believes they offer the most in quality, performance, and innovative features. Her law office is practicing the production concept.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 104,
+    "type": "tf",
+    "question": "Your department holds that achieving organizational goals depends on knowing the needs and wants of target markets and delivering the desired satisfaction better than competitors do. Your department is practicing the selling concept.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 105,
+    "type": "tf",
+    "question": "Fast Food, Inc. views marketing as the science and art of finding, retaining, and growing profitable customers by providing them with the food they want. Fast Food, Inc. practices societal marketing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 106,
+    "type": "tf",
+    "question": "The societal marketing concept calls on marketers to balance consumer wants and desires, company profits, and society's interests.",
     "options": [
       "True",
       "False"
@@ -6029,9 +6568,86 @@ const marketingQuiz1Questions = [
     "pageRef": 20
   },
   {
-    "id": 67,
+    "id": 107,
     "type": "tf",
-    "question": "Share of customer is the portion of the customer's purchasing that a company gets in its product categories.",
+    "question": "For most marketers, customer relationship management (CRM) is exclusively a matter of customer data management.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 108,
+    "type": "tf",
+    "question": "The marketing mix includes production, price, promotion, and packaging; this is known as the four Ps of marketing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 109,
+    "type": "tf",
+    "question": "Customer-perceived value is defined as the customer's evaluation of the perceived difference between all the benefits and all the costs of a marketing offer relative to those of competing offers.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 20
+  },
+  {
+    "id": 110,
+    "type": "tf",
+    "question": "With selective relationship management, companies use customer profitability analysis to eliminate losing customers and target winning ones.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 20
+  },
+  {
+    "id": 111,
+    "type": "tf",
+    "question": "Large-scale marketing approaches that foster two-way customer relationships are made possible by new communication technologies.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 20
+  },
+  {
+    "id": 112,
+    "type": "tf",
+    "question": "Consumer-generated marketing, a relatively new phenomenon, has so far had little impact as a marketing force.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 113,
+    "type": "tf",
+    "question": "To increase their \"share of customer,\" a firm concentrates on retaining as many customers as possible over their lifetimes.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 20
+  },
+  {
+    "id": 114,
+    "type": "tf",
+    "question": "Production concept is the idea that consumers will favor products that are available and highly affordable.",
     "options": [
       "True",
       "False"
@@ -6040,9 +6656,20 @@ const marketingQuiz1Questions = [
     "pageRef": 21
   },
   {
-    "id": 68,
+    "id": 115,
     "type": "tf",
-    "question": "Customer equity is a less reliable measure of a firm's future performance than current sales or market share.",
+    "question": "The value proposition is the set of benefits or values a company promises to deliver to customers to satisfy their needs.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 21
+  },
+  {
+    "id": 116,
+    "type": "tf",
+    "question": "Partners outside the company refer to every function area interacting with customers.",
     "options": [
       "True",
       "False"
@@ -6051,26 +6678,125 @@ const marketingQuiz1Questions = [
     "pageRef": 21
   },
   {
-    "id": 69,
+    "id": 117,
     "type": "tf",
-    "question": "\"Barnacles\" are often the most problematic customers because they are highly loyal to the firm but do not buy enough to be profitable.",
+    "question": "\"True believers\" come back regularly and tell others about their good experiences with the company.",
     "options": [
       "True",
       "False"
     ],
     "answer": 0,
-    "pageRef": 22
+    "pageRef": 21
   },
   {
-    "id": 70,
+    "id": 118,
     "type": "tf",
-    "question": "In the four-step customer relationship classification, the strategy for \"Strangers\" is to invest nothing in them.",
+    "question": "Partners outside the company refer to how marketers connect with their suppliers, channel partners, and competitors by developing partnerships.",
     "options": [
       "True",
       "False"
     ],
     "answer": 0,
-    "pageRef": 22
+    "pageRef": 21
+  },
+  {
+    "id": 119,
+    "type": "tf",
+    "question": "Strangers are highly loyal but not very profitable.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 120,
+    "type": "tf",
+    "question": "Product orientation production orientation are the same.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 121,
+    "type": "tf",
+    "question": "Making what we can sell is Marketing orientation.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 21
+  },
+  {
+    "id": 122,
+    "type": "tf",
+    "question": "Sell what we can make is selling orientation.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 21
+  },
+  {
+    "id": 123,
+    "type": "tf",
+    "question": "Wants and needs are the same.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 124,
+    "type": "tf",
+    "question": "Both selling and marketing start with stating consumer need.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 125,
+    "type": "tf",
+    "question": "Workers are external partners in business organization.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 126,
+    "type": "tf",
+    "question": "Strangers and true friends are the same as both generate high profits.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 127,
+    "type": "tf",
+    "question": "A business firm should build a good relationship with butterflies only.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
   }
 ];
 
