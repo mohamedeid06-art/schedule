@@ -4581,13 +4581,13 @@ updateCountdowns();
 
 
 /* ==========================================================================
-   Quiz Simulator — Marketing (GEN G119 — Chapter 3 & 2) Arena
+   Midterm & Test Bank Simulator — Marketing (GEN G119 — Chapters 1, 2 & 3)
    ========================================================================== */
 
 let quiz2State = {
   active: false,
-  chapter: 3, // 3 (default for Quiz 3) | 2
-  mode: 'exam', // 'exam' (5-min real exam) | 'practice' (full test bank) | 'review'
+  chapter: 'midterm', // 'midterm' (Ch 1+2+3 combined) | 1 | 2 | 3
+  mode: 'exam', // 'exam' (60-min / 60-Q Midterm Exam) | 'practice' (full test bank)
   filter: 'all', // 'all' | 'mcq' | 'tf'
   questions: [],
   currentIndex: 0,
@@ -4595,7 +4595,8 @@ let quiz2State = {
   flagged: {}, // qIndex -> boolean
   startTime: null,
   elapsedSeconds: 0,
-  timerSeconds: 300, // 5:00
+  timerSeconds: 3600, // 60:00 (1 Hour Midterm)
+  initialTimerSeconds: 3600,
   timerInterval: null,
   isSubmitted: false,
   mistakeIndices: [],
@@ -4611,9 +4612,24 @@ function shuffleArray(arr) {
   return a;
 }
 
+function getMarketingPoolByChapter(ch) {
+  const c1 = window.marketingQuiz1Questions || [];
+  const c2 = window.marketingQuiz2Questions || [];
+  const c3 = window.marketingQuiz3Questions || [];
+  if (ch === 1) return c1;
+  if (ch === 2) return c2;
+  if (ch === 3) return c3;
+  return window.marketingMidtermQuestions || [...c1, ...c2, ...c3];
+}
+
+function openMarketingMidtermModal(mode = null) {
+  quiz2State.chapter = 'midterm';
+  openMarketingQuizArenaModal(mode, 'midterm');
+}
+
 function openMarketingQuiz3Modal(mode = null) {
-  quiz2State.chapter = 3;
-  openMarketingQuizArenaModal(mode, 3);
+  quiz2State.chapter = 'midterm';
+  openMarketingQuizArenaModal(mode, 'midterm');
 }
 
 function openMarketingQuiz2Modal(mode = null) {
@@ -4621,12 +4637,18 @@ function openMarketingQuiz2Modal(mode = null) {
   openMarketingQuizArenaModal(mode, 2);
 }
 
-function openMarketingQuizArenaModal(mode = null, chapter = 3) {
+function openMarketingQuiz1Modal(mode = null) {
+  quiz2State.chapter = 1;
+  openMarketingQuizArenaModal(mode, 1);
+}
+
+function openMarketingQuizArenaModal(mode = null, chapter = 'midterm') {
   if (typeof triggerHaptic === 'function') triggerHaptic("heavy");
 
-  const pool = chapter === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || []);
+  quiz2State.chapter = chapter;
+  const pool = getMarketingPoolByChapter(chapter);
   if (!pool.length) {
-    alert("بنك أسئلة الكويز غير محمل بعد!");
+    alert("بنك أسئلة الماركتنج غير محمل بعد!");
     return;
   }
 
@@ -4703,19 +4725,27 @@ function renderQuiz2Lobby() {
   }
   quiz2State.active = false;
 
-  const currentCh = quiz2State.chapter || 3;
-  const pool = currentCh === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || []);
-  const totalQuestions = pool.length || (currentCh === 3 ? 125 : 125);
+  const currentCh = quiz2State.chapter || 'midterm';
+  const pool = getMarketingPoolByChapter(currentCh);
+  const totalQuestions = pool.length;
 
-  const chTitle = currentCh === 3 
-    ? "GEN G119 — Marketing Quiz 3 | Chapter 3" 
-    : "GEN G119 — Marketing Quiz 2 | Chapter 2";
-  const chSubtitle = currentCh === 3 
-    ? "Analyzing the Marketing Environment (Microenvironment & Macroenvironment) • بنك الأسئلة المعتمد للكويز: 125 سؤال موضوعي (100 MCQ + 25 صح وغلط) بعد استبعاد المقالي" 
-    : "Company and Marketing Strategy: Partnering to Build Customer Relationships";
-  const chBadge = currentCh === 3 
-    ? "Quiz 3 • Chapter 3 (كويز الأحد 1 نوفمبر)" 
-    : "Quiz 2 • Chapter 2 (الأرشيف)";
+  let chTitle = "GEN G119 — محاكي ميد الماركتنج الشامل (Chapters 1, 2 & 3)";
+  let chSubtitle = "جمعنالكم الـ 3 بنوك أسئلة بتوع شابتر 1 و 2 و 3 مع بعض • امتحن نفسك 60 سؤال في ساعة بالظبط زي لجنة الميد أو اتدرب على البنوك كلها براحتك!";
+  let chBadge = "🔥 الميدتيرم الشامل • Ch 1 + 2 + 3";
+
+  if (currentCh === 1) {
+    chTitle = "GEN G119 — Test Bank Chapter 1";
+    chSubtitle = "Marketing: Creating and Capturing Customer Value (Customer Value, Satisfaction & Orientations)";
+    chBadge = "Chapter 1 • Test Bank";
+  } else if (currentCh === 2) {
+    chTitle = "GEN G119 — Test Bank Chapter 2";
+    chSubtitle = "Company and Marketing Strategy: Partnering to Build Customer Relationships (BCG, Ansoff & 4Ps)";
+    chBadge = "Chapter 2 • Test Bank";
+  } else if (currentCh === 3) {
+    chTitle = "GEN G119 — Test Bank Chapter 3";
+    chSubtitle = "Analyzing the Marketing Environment (Microenvironment & Macroenvironment Forces)";
+    chBadge = "Chapter 3 • Test Bank";
+  }
 
   content.innerHTML = `
     <div class="quiz2-lobby-screen">
@@ -4724,50 +4754,52 @@ function renderQuiz2Lobby() {
           <span class="quiz2-tag-code">GEN G119</span>
           <span class="quiz2-lobby-pill">${chBadge}</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="display:inline-flex;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:2px 4px;">
-            <button onclick="setQuizArenaChapter(3)" style="background:${currentCh === 3 ? '#06b6d4' : 'transparent'};color:${currentCh === 3 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 12px;border:none;border-radius:9999px;cursor:pointer;">Ch.3 (Quiz 3 ⚡)</button>
-            <button onclick="setQuizArenaChapter(2)" style="background:${currentCh === 2 ? '#06b6d4' : 'transparent'};color:${currentCh === 2 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 12px;border:none;border-radius:9999px;cursor:pointer;">Ch.2 (Quiz 2)</button>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div style="display:inline-flex;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;padding:2px 4px;gap:2px;flex-wrap:wrap;">
+            <button onclick="setQuizArenaChapter('midterm')" style="background:${currentCh === 'midterm' ? '#06b6d4' : 'transparent'};color:${currentCh === 'midterm' ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 12px;border:none;border-radius:9999px;cursor:pointer;">🔥 شامل الميد (Ch 1+2+3)</button>
+            <button onclick="setQuizArenaChapter(1)" style="background:${currentCh === 1 ? '#06b6d4' : 'transparent'};color:${currentCh === 1 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">Ch.1</button>
+            <button onclick="setQuizArenaChapter(2)" style="background:${currentCh === 2 ? '#06b6d4' : 'transparent'};color:${currentCh === 2 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">Ch.2</button>
+            <button onclick="setQuizArenaChapter(3)" style="background:${currentCh === 3 ? '#06b6d4' : 'transparent'};color:${currentCh === 3 ? '#08121e' : 'var(--text-muted)'};font-weight:800;font-size:11.5px;padding:4px 10px;border:none;border-radius:9999px;cursor:pointer;">Ch.3</button>
           </div>
           <button class="quiz2-btn-close" onclick="closeMarketingQuiz2Modal()" aria-label="Close" title="إغلاق المحاكي (Esc)">✕</button>
         </div>
       </header>
 
       <div class="quiz2-lobby-hero">
-        <div class="quiz2-lobby-icon-bubble">${currentCh === 3 ? '⚡' : '🎯'}</div>
+        <div class="quiz2-lobby-icon-bubble">${currentCh === 'midterm' ? '🔥' : '📘'}</div>
         <h2 class="quiz2-lobby-title">${chTitle}</h2>
         <p class="quiz2-lobby-subtitle">${chSubtitle}</p>
         <div class="quiz2-lobby-stats-strip">
-          <span class="quiz2-lobby-stat-item">📚 ${totalQuestions} سؤال كامل من التست بانك</span>
+          <span class="quiz2-lobby-stat-item">📚 ${totalQuestions} سؤال متاح في البنك</span>
           <span class="quiz2-lobby-dot">•</span>
-          <span class="quiz2-lobby-stat-item">⏱️ محاكاة امتحان الـ 5 دقائق الحقيقي</span>
+          <span class="quiz2-lobby-stat-item">⏱️ محاكاة امتحان الميد (60 سؤال في 60 دقيقة)</span>
           <span class="quiz2-lobby-dot">•</span>
-          <span class="quiz2-lobby-stat-item">💡 تصحيح فوري وشرح اختيارات</span>
+          <span class="quiz2-lobby-stat-item">💡 تصحيح فوري ورقم الصفحة</span>
         </div>
       </div>
 
       <div class="quiz2-lobby-cards-grid">
-        <!-- 1) Quiz Mode Card -->
+        <!-- 1) Midterm Exam Mode Card (60 Qs in 60 Mins) -->
         <div class="quiz2-lobby-card exam-card" onclick="startQuiz2Session('exam')" role="button" tabindex="0">
           <div class="quiz2-card-glow-edge"></div>
-          <div class="quiz2-card-badge-chip">⚡ يحاكي امتحان المحاضرة</div>
+          <div class="quiz2-card-badge-chip">🔥 يحاكي لجنة امتحان الميد بالظبط</div>
           <div class="quiz2-card-header-row">
-            <div class="quiz2-card-icon-box">⚡</div>
+            <div class="quiz2-card-icon-box">🔥</div>
             <div class="quiz2-card-title-col">
-              <h3 class="quiz2-card-title">امتحان محاكاة الكويز (Quiz Mode)</h3>
-              <span class="quiz2-card-subtitle">20 سؤال عشوائي • تايمر 5 دقائق</span>
+              <h3 class="quiz2-card-title">امتحان محاكاة الميدتيرم (Midterm Mode)</h3>
+              <span class="quiz2-card-subtitle">60 سؤال عشوائي • تايمر 60 دقيقة (ساعة كاملة)</span>
             </div>
           </div>
           <p class="quiz2-card-desc">
-            امتحان سريع يحاكي نظام الكويز بالضبط لقياس سرعتك ودقتك في الإجابة تحت ضغط الوقت مع تقييم نهائي فوري وإحصائيات كاملة.
+            امتحان كامل بنفس مواصفات ميد الماركتنج بالظبط (60 سؤال في ساعة) بيسحبلك تشكلية عشوائية من ${currentCh === 'midterm' ? 'الـ 3 شباتر (Ch 1 + Ch 2 + Ch 3)' : `شابتر ${currentCh}`} عشان تعيش جو الامتحان وتقيس مستواك الحقيقي قبل اللجنة.
           </p>
           <ul class="quiz2-card-features">
-            <li><span>✓</span> 20 سؤال عشوائي متنوع (اختيار من متعدد MCQ + صح وغلط)</li>
-            <li><span>⏱️</span> تايمر سريع 5 دقائق (05:00) يتوقف تلقائياً عند انتهاء الوقت</li>
-            <li><span>📊</span> تقرير درجات تفصيلي وإمكانية إعادة حل الأسئلة التي أخطأت فيها فقط</li>
+            <li><span>✓</span> 60 سؤال عشوائي متنوع (MCQ + صح وغلط) ${currentCh === 'midterm' ? 'متوزعين بالتساوي على الـ 3 شباتر' : `من بنك شابتر ${currentCh}`}</li>
+            <li><span>⏱️</span> تايمر ساعة كاملة (60:00 دقيقة) بيسلم تلقائياً لما الوقت يخلص</li>
+            <li><span>📊</span> نتيجة فورية بالتفصيل وزرار ذهبي يخليك تعيد حل الأسئلة اللي غلطت فيها بس</li>
           </ul>
           <button class="quiz2-card-cta-btn primary" onclick="event.stopPropagation(); startQuiz2Session('exam');">
-            <span>⚡ ابدأ امتحان المحاكاة (20 سؤال)</span>
+            <span>🔥 ابدأ امتحان الميد (60 سؤال في ساعة)</span>
           </button>
         </div>
 
@@ -4779,16 +4811,16 @@ function renderQuiz2Lobby() {
             <div class="quiz2-card-icon-box">📚</div>
             <div class="quiz2-card-title-col">
               <h3 class="quiz2-card-title">تدريب البنك الكامل (Full Study Bank)</h3>
-              <span class="quiz2-card-subtitle">جميع الـ ${totalQuestions} سؤال الموضوعي • بدون تايمر</span>
+              <span class="quiz2-card-subtitle">جميع الـ ${totalQuestions} سؤال • بدون تايمر</span>
             </div>
           </div>
           <p class="quiz2-card-desc">
-            تصفح وحل كل أسئلة بنك الشابتر بالكامل بدون أي ضغط زمني، مع إظهار الإجابة الصحيحة فوراً ورقم صفحة الكتاب بعد كل اختيار.
+            فرّي وحل أسئلة ${currentCh === 'midterm' ? 'الـ 3 بنوك مجمعة ورا بعض' : `بنك شابتر ${currentCh} بالكامل`} من غير أي ضغط وقت، وأول ما تختار إجابة هيقولك صح ولا غلط في ساعتها مع رقم الصفحة في الكتاب.
           </p>
           <ul class="quiz2-card-features">
-            <li><span>✓</span> بنك الأسئلة المعتمد بالكامل (100 MCQ + 25 True/False) — تم استبعاد الأسئلة المقالية لأن الكويز موضوعي فقط</li>
-            <li><span>♾️</span> وقت مفتوح تماماً ومريح بدون تايمر للتركيز في الفهم</li>
-            <li><span>💡</span> كشف وتلوين الإجابة الصحيحة فور اختيارك مع رقم الصفحة في الكتاب</li>
+            <li><span>✓</span> كل أسئلة الـ Test Bank الموضوعية (MCQ + True/False) مرتبة وجاهزة للمذاكرة</li>
+            <li><span>♾️</span> وقت مفتوح تماماً من غير تايمر عشان تركز وتثبت شكل السؤال بالإجابة</li>
+            <li><span>💡</span> كشف فوري للإجابة الصح وتقدر تبدل بين (شامل الميد / Ch.1 / Ch.2 / Ch.3) من فوق</li>
           </ul>
           <button class="quiz2-card-cta-btn secondary" onclick="event.stopPropagation(); startQuiz2Session('practice');">
             <span>📚 ابدأ تدريب البنك (${totalQuestions} سؤال)</span>
@@ -4798,7 +4830,7 @@ function renderQuiz2Lobby() {
 
       <div class="quiz2-lobby-footer-bar">
         <div class="quiz2-lobby-footer-note">
-          <span>💡 ملحوظة: ملف الـ Test Bank الأصلي يحتوي على 150 سؤال، تم حذف الـ 25 سؤال المقالي (Essay) والإبقاء على كافة الـ 125 سؤال الموضوعي (MCQ + صح وغلط) لأن الكويز اختيارات فقط!</span>
+          <span>💡 نصيحة للميد: أسئلة د. تامر في الميد بتيجي بالنص من الـ 3 بنوك دول وبنفس ترتيب الاختيارات.. حل البنك الكامل الأول وبعدين جرب نفسك في كذا نموذج 60 سؤال في ساعة وهتقفل الـ 20 من 20 بإذن الله ❤️</span>
         </div>
       </div>
     </div>
@@ -4890,20 +4922,34 @@ function startQuiz2Session(mode = 'exam', customQuestions = null) {
   quiz2State.elapsedSeconds = 0;
   quiz2State.mistakeIndices = [];
 
-  const currentCh = quiz2State.chapter || 3;
-  const masterPool = currentCh === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || []);
+  const currentCh = quiz2State.chapter || 'midterm';
+  const masterPool = getMarketingPoolByChapter(currentCh);
 
   if (customQuestions && customQuestions.length) {
     quiz2State.questions = [...customQuestions];
   } else if (mode === 'exam') {
-    // 5-minute real exam: pick 20 random questions
-    const shuffled = shuffleArray(masterPool);
-    quiz2State.questions = shuffled.slice(0, 20);
-    quiz2State.timerSeconds = 300; // 5:00
+    // 60-minute Midterm Exam: pick 60 random questions (balanced across Ch 1, 2, 3 when in 'midterm' mode)
+    if (currentCh === 'midterm') {
+      const c1 = shuffleArray(window.marketingQuiz1Questions || []);
+      const c2 = shuffleArray(window.marketingQuiz2Questions || []);
+      const c3 = shuffleArray(window.marketingQuiz3Questions || []);
+      const picked = [
+        ...c1.slice(0, 20),
+        ...c2.slice(0, 20),
+        ...c3.slice(0, 20)
+      ];
+      quiz2State.questions = shuffleArray(picked).slice(0, 60);
+    } else {
+      const shuffled = shuffleArray(masterPool);
+      quiz2State.questions = shuffled.slice(0, 60);
+    }
+    quiz2State.timerSeconds = 3600; // 60:00 (1 hour)
+    quiz2State.initialTimerSeconds = 3600;
   } else {
     // Full test bank
     quiz2State.questions = [...masterPool];
     quiz2State.timerSeconds = 0;
+    quiz2State.initialTimerSeconds = 0;
   }
 
   renderQuiz2Arena();
@@ -4942,9 +4988,9 @@ function updateQuiz2TimerDisplay() {
   timerEl.innerHTML = `⏱️ ${timeStr}`;
 
   timerEl.classList.remove("warning", "critical");
-  if (s <= 60) {
+  if (s <= 180) {
     timerEl.classList.add("critical");
-  } else if (s <= 120) {
+  } else if (s <= 600) {
     timerEl.classList.add("warning");
   }
 }
@@ -4968,28 +5014,29 @@ function renderQuiz2Arena() {
   const isFlagged = !!quiz2State.flagged[quiz2State.currentIndex];
   const userSelected = quiz2State.userAnswers[quiz2State.currentIndex];
   const hasAnswered = userSelected !== undefined;
+  const fullPoolLen = getMarketingPoolByChapter(quiz2State.chapter || 'midterm').length;
 
   content.innerHTML = `
     <!-- Top Header Bar -->
     <header class="quiz2-arena-head">
       <div class="quiz2-head-left">
         <span class="quiz2-tag-code">GEN G119</span>
-        <button class="quiz2-btn-mode-change" onclick="returnToQuiz2Lobby()" title="الرجوع لشاشة اختيار الوضع">
-          <span>🔙 تغيير الوضع</span>
+        <button class="quiz2-btn-mode-change" onclick="returnToQuiz2Lobby()" title="الرجوع لشاشة اختيار الوضع والشابتر">
+          <span>🔙 تغيير الوضع / الشابتر</span>
         </button>
         <div class="quiz2-mode-pills">
           <button class="quiz2-mode-pill ${isExam ? 'active' : ''}" onclick="switchQuiz2Mode('exam')">
-            ⚡ تحدي 5 دقائق
+            🔥 امتحان الميد (60 س / 60 د)
           </button>
           <button class="quiz2-mode-pill ${!isExam ? 'active' : ''}" onclick="switchQuiz2Mode('practice')">
-            📚 البنك الكامل (${(quiz2State.chapter === 3 ? (window.marketingQuiz3Questions || []) : (window.marketingQuiz2Questions || [])).length})
+            📚 البنك الكامل (${fullPoolLen})
           </button>
         </div>
       </div>
 
       <div class="quiz2-head-right">
         ${isExam ? `
-          <div class="quiz2-timer-box" id="quiz2TimerBox">⏱️ 05:00</div>
+          <div class="quiz2-timer-box" id="quiz2TimerBox">⏱️ 60:00</div>
         ` : `
           <div class="quiz2-practice-counter">سؤال ${current} من ${total}</div>
         `}
@@ -5003,7 +5050,7 @@ function renderQuiz2Arena() {
     </div>
     <div class="quiz2-progress-meta">
       <span>تم حل <strong>${answeredCount}</strong> من <strong>${total}</strong> سؤال (${progressPct}%)</span>
-      <span>${isExam ? '⏱️ سرعة المحاكاة الواقعية' : '💡 وضع التدريب بالتصحيح الفوري'}</span>
+      <span>${isExam ? '⏱️ محاكاة امتحان الميدتيرم (60 سؤال في ساعة)' : '💡 وضع التدريب بالتصحيح الفوري'}</span>
     </div>
 
     <!-- Question Map Carousel / Drawer -->
@@ -5038,7 +5085,10 @@ function renderQuiz2Arena() {
     <main class="quiz2-question-card">
       <div class="quiz2-q-badge-row">
         <span class="quiz2-q-badge">سؤال رقم ${current} • ${q.type === 'tf' ? 'صح / خطأ' : 'اختيار من متعدد MCQ'}</span>
-        ${q.pageRef ? `<span class="quiz2-ref-badge">📖 Ref: P.${q.pageRef}</span>` : ''}
+        <div style="display:flex;gap:6px;align-items:center;">
+          ${q.chapter ? `<span class="quiz2-ref-badge" style="background:rgba(6,182,212,0.16);color:#22d3ee;border-color:rgba(6,182,212,0.35);">📘 Chapter ${q.chapter}</span>` : ''}
+          ${q.pageRef ? `<span class="quiz2-ref-badge">📖 Ref: P.${q.pageRef}</span>` : ''}
+        </div>
       </div>
 
       <div class="quiz2-question-text" dir="ltr">
@@ -5093,10 +5143,15 @@ function renderQuiz2Arena() {
 
     <!-- Bottom Actions Toolbar -->
     <footer class="quiz2-arena-footer">
-      <div class="quiz2-foot-left">
+      <div class="quiz2-foot-left" style="display:flex;gap:8px;align-items:center;">
         <button class="quiz2-btn-flag ${isFlagged ? 'active' : ''}" onclick="toggleQuiz2Flag()">
           <span>${isFlagged ? '🚩 تم التعليم للمراجعة' : '🏳️ علّم للمراجعة'}</span>
         </button>
+        ${isExam ? `
+          <button class="quiz2-btn-nav quiz2-btn-finish" onclick="submitQuiz2()" style="padding:8px 14px;font-size:12.5px;">
+            <span>🏁 تسليم الامتحان الآن</span>
+          </button>
+        ` : ''}
       </div>
 
       <div class="quiz2-foot-right">
@@ -5118,7 +5173,7 @@ function renderQuiz2Arena() {
 
     <!-- Shortcuts hint bar -->
     <div class="quiz2-shortcuts-hint">
-      <span>💡 اختصارات: [1-5 / A-D] للاختيار • [← / →] للتنقل • [F] للتعليم • [Esc] للإغلاق</span>
+      <span>💡 اختصارات: [1-5 / A-E] للاختيار • [← / →] للتنقل • [F] للتعليم • [Esc] للإغلاق</span>
     </div>
   `;
 
@@ -5138,7 +5193,7 @@ function escapeQuizHtml(str) {
 
 function switchQuiz2Mode(newMode) {
   if (quiz2State.mode === newMode) return;
-  if (confirm(newMode === 'exam' ? 'هل تريد بدء تحدي الـ 5 دقائق الآن؟' : 'هل تريد الانتقال لبنك الأسئلة الكامل للتمرين الحر؟')) {
+  if (confirm(newMode === 'exam' ? 'هل تريد بدء امتحان محاكاة الميدتيرم (60 سؤال في ساعة) الآن؟' : 'هل تريد الانتقال لبنك الأسئلة الكامل للتمرين الحر؟')) {
     startQuiz2Session(newMode);
   }
 }
@@ -5148,7 +5203,6 @@ function selectQuiz2Option(optIdx) {
   const q = quiz2State.questions[quiz2State.currentIndex];
   if (!q) return;
 
-  const prevAnswer = quiz2State.userAnswers[quiz2State.currentIndex];
   quiz2State.userAnswers[quiz2State.currentIndex] = optIdx;
 
   if (typeof triggerHaptic === 'function') {
@@ -5225,27 +5279,32 @@ function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scor
   if (!content) return;
 
   const mistakesCount = quiz2State.mistakeIndices.length;
-  const timeTakenSec = quiz2State.elapsedSeconds || (300 - quiz2State.timerSeconds);
+  const timeTakenSec = quiz2State.elapsedSeconds || Math.max(0, (quiz2State.initialTimerSeconds || 3600) - quiz2State.timerSeconds);
   const mins = Math.floor(timeTakenSec / 60);
   const secs = timeTakenSec % 60;
   const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   const avgSpeed = total > 0 ? (timeTakenSec / total).toFixed(1) : "0.0";
+  const scaledMidtermMarks = total > 0 ? ((correctCount / total) * 20).toFixed(1) : "0.0";
 
   let feedbackBadge = "🎯 أداء جيد";
   let feedbackCls = "good";
   if (scorePct >= 95) {
-    feedbackBadge = "🏆 أداء أسطوري — A+ مضمونة!";
+    feedbackBadge = "🏆 أداء أسطوري — الـ 20 من 20 في الجيب!";
     feedbackCls = "legendary";
   } else if (scorePct >= 80) {
-    feedbackBadge = "🌟 ممتاز جداً — جاهز تماماً للكويز";
+    feedbackBadge = "🌟 ممتاز جداً — جاهز تقفل الميد";
     feedbackCls = "excellent";
   } else if (scorePct >= 60) {
-    feedbackBadge = "⚡ جيد — اتدرب أكتر على السرعة";
+    feedbackBadge = "⚡ جيد — راجع أخطاءك وهتقفل";
     feedbackCls = "pass";
   } else {
     feedbackBadge = "📚 محتاج مراجعة وحل أخطائك";
     feedbackCls = "retry";
   }
+
+  const chLabel = quiz2State.chapter === 'midterm'
+    ? 'محاكي ميد الماركتنج الشامل (Chapters 1, 2 & 3)'
+    : `ماركتنج — شابتر ${quiz2State.chapter}`;
 
   content.innerHTML = `
     <header class="quiz2-arena-head">
@@ -5259,7 +5318,7 @@ function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scor
     <div class="quiz2-results-body">
       ${isTimeout ? `
         <div class="quiz2-timeout-alert">
-          ⏰ <strong>انتهى الوقت المخصص (5 دقائق)!</strong> تم تسليم الإجابات تلقائياً لمحاكاة وقت الكويز الفعلي.
+          ⏰ <strong>انتهى وقت امتحان الميد (60 دقيقة)!</strong> تم تسليم الإجابات تلقائياً لمحاكاة وقت لجنة الميد الفعلي.
         </div>
       ` : ''}
 
@@ -5271,17 +5330,17 @@ function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scor
           </svg>
           <div class="quiz2-score-inner">
             <span class="score-pct">${scorePct}%</span>
-            <span class="score-sub">${correctCount}/${total}</span>
+            <span class="score-sub">${correctCount}/${total} (${scaledMidtermMarks}/20)</span>
           </div>
         </div>
 
         <div class="quiz2-verdict-box">
           <div class="quiz2-verdict-badge ${feedbackCls}">${feedbackBadge}</div>
-          <h2 class="quiz2-verdict-title">${quiz2State.chapter === 3 ? 'كويز 3 ماركتنج (Chapter 3)' : 'كويز 2 ماركتنج (Chapter 2)'}</h2>
+          <h2 class="quiz2-verdict-title">${chLabel}</h2>
           <p class="quiz2-verdict-desc">
             ${scorePct >= 85 
-              ? 'مستواك ممتاز جداً وسرعتك تؤهلك لقفل الكويز الفعلي داخل المحاضرة بسهولة! حافظ على هذا المستوى.' 
-              : 'الكويز مدته 5 دقائق فقط وسرعة التظليل بتفرق، راجع أخطاءك فوراً بالضغط على الزر الذهبي بالأسفل.'}
+              ? `مستواك ممتاز جداً! درجتك التقديرية في الميد هي ${scaledMidtermMarks} من 20. كمل تدريب عشان تحافظ على مستواك.` 
+              : `درجتك التقديرية حالياً ${scaledMidtermMarks} من 20. اضغط على الزر الذهبي تحت عشان تعيد حل الـ ${mistakesCount} سؤال اللي غلطت فيهم وتثبت إجابتهم الصح فورا!`}
           </p>
         </div>
       </div>
@@ -5306,7 +5365,7 @@ function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scor
         <div class="quiz2-stat-card">
           <span class="stat-icon">⚡</span>
           <div class="stat-val" style="color:#fbbf24;">${avgSpeed}s</div>
-          <div class="stat-lbl">متوسط سرعة الإجابة</div>
+          <div class="stat-lbl">متوسط سرعة السؤال</div>
         </div>
       </div>
 
@@ -5318,16 +5377,16 @@ function renderQuiz2Results(isTimeout = false, correctCount = 0, total = 0, scor
           </button>
         ` : `
           <div class="quiz2-perfect-box">
-            <span>🎉 ممتاز! لا توجد أي أخطاء لديك في هذه المحاولة (100%).</span>
+            <span>🎉 ممتاز! لا توجد أي أخطاء لديك في هذه المحاولة (100% — 20/20).</span>
           </div>
         `}
 
         <button class="quiz2-action-btn primary" onclick="startQuiz2Session('exam')">
-          <span>⚡ بدء تحدي 5 دقائق جديد (أسئلة عشوائية)</span>
+          <span>🔥 بدء امتحان ميد جديد (60 سؤال عشوائي في ساعة)</span>
         </button>
 
         <button class="quiz2-action-btn secondary" onclick="returnToQuiz2Lobby()">
-          <span>🔙 تغيير الوضع (Start Lobby)</span>
+          <span>🔙 تغيير الوضع أو الشابتر (Start Lobby)</span>
         </button>
 
         <button class="quiz2-action-btn secondary" onclick="renderFullQuiz2Review()">
@@ -5365,13 +5424,11 @@ function renderFullQuiz2Review() {
       ${quiz2State.questions.map((q, idx) => {
         const userAns = quiz2State.userAnswers[idx];
         const isCorrect = userAns === q.answer;
-        const correctLetter = q.type === 'tf' ? (q.answer === 0 ? 'True' : 'False') : String.fromCharCode(65 + q.answer);
-        const userLetter = userAns !== undefined ? (q.type === 'tf' ? (userAns === 0 ? 'True' : 'False') : String.fromCharCode(65 + userAns)) : 'لم تتم الإجابة';
 
         return `
           <div class="quiz2-review-item ${isCorrect ? 'correct' : 'wrong'}">
             <div class="quiz2-review-item-head">
-              <span class="quiz2-review-num">سؤال ${idx + 1} (${q.type === 'tf' ? 'True/False' : 'MCQ'})</span>
+              <span class="quiz2-review-num">سؤال ${idx + 1} ${q.chapter ? `• Ch.${q.chapter}` : ''} (${q.type === 'tf' ? 'True/False' : 'MCQ'})</span>
               <span class="quiz2-review-badge ${isCorrect ? 'correct' : 'wrong'}">
                 ${isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة خاطئة'}
               </span>
@@ -5399,9 +5456,9 @@ function renderFullQuiz2Review() {
         `;
       }).join('')}
 
-      <div style="display:flex;gap:10px;margin-top:20px;justify-content:center;">
+      <div style="display:flex;gap:10px;margin-top:20px;justify-content:center;flex-wrap:wrap;">
         <button class="quiz2-action-btn primary" onclick="startQuiz2Session('exam')">
-          <span>⚡ بدء تحدي 5 دقائق جديد</span>
+          <span>🔥 بدء امتحان ميد جديد (60 سؤال في ساعة)</span>
         </button>
 
         <button class="quiz2-action-btn secondary" onclick="returnToQuiz2Lobby()">
@@ -5415,8 +5472,10 @@ function renderFullQuiz2Review() {
   `;
 }
 
+window.openMarketingMidtermModal = openMarketingMidtermModal;
 window.openMarketingQuiz3Modal = openMarketingQuiz3Modal;
 window.openMarketingQuiz2Modal = openMarketingQuiz2Modal;
+window.openMarketingQuiz1Modal = openMarketingQuiz1Modal;
 window.renderQuiz2Lobby = renderQuiz2Lobby;
 window.returnToQuiz2Lobby = returnToQuiz2Lobby;
 window.closeMarketingQuiz2Modal = closeMarketingQuiz2Modal;

@@ -65,42 +65,46 @@ const COURSES = {
 // ==========================================================================
 const MASTER_QUIZZES = [
   {
-    id: "gen-quiz-3",
+    id: "gen-midterm",
     code: "GEN G119",
-    title: "Quiz 3 — Marketing (Chapter 3: Analyzing the Marketing Environment)",
-    type: "Quiz (5 Mins)",
+    title: "Midterm Exam — Marketing (Chapters 1, 2 & 3 Combined)",
+    type: "Midterm (60 Mins • 60 Qs)",
     instructor: "Dr. Tamer El-Hariry",
-    dateDisplay: "Sunday, November 1, 2026 (الأحد 1 نوفمبر 2026 — 8:00 ص)",
-    countdownBadge: "الأحد 1 نوفمبر",
-    date: "2026-11-01",
-    start: "2026-11-01T08:00:00",
-    deadline: "2026-11-01T08:05:00",
-    dueDate: "2026-11-01T08:00:00",
-    room: "مدرج 3103-414",
-    marks: "ضمن أعمال السنة (6 كويزات يؤخذ أعلى 4 — 40 درجة)",
+    dateDisplay: "Midterm Exam — 60 Questions in 1 Hour (Chapters 1, 2 & 3)",
+    countdownBadge: "60 سؤال في ساعة 🔥",
+    date: "2026-11-14",
+    start: "2026-11-14T11:30:00",
+    deadline: "2026-11-14T12:30:00",
+    dueDate: "2026-11-14T11:30:00",
+    room: "حسب جدول الميدتيرم",
+    marks: "20 درجة (60 سؤال في 60 دقيقة من الـ 3 بنوك)",
     accent: "#06b6d4",
     accentName: "cyan",
     submissionUrl: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0",
     instructions: [
-      "الأحد 1 نوفمبر 2026 الساعة 8:00 ص داخل المحاضرة (مدرج 3103-414) • مدة الكويز 5 دقائق فقط (نفس نظام ودرجات الكويزات السابقة).",
-      "المحتوى المقرر: المحاضرة الثالثة (Chapter 3: Analyzing the Marketing Environment) كاملة.",
-      "الامتحان 20 سؤال سريع (MCQ + صح وغلط) من الـ Test Bank بالنص وبنفس ترتيب الاختيارات، يحتاج سرعة فائقة في الحل والتظليل.",
-      "بنك أسئلة الشابتر في ملف الـ PDF يحتوي على 150 سؤال (125 سؤال موضوعي MCQ وصح وغلط + 25 سؤال مقالي Essay) • تم تضمين كافة الـ 125 سؤال الموضوعي في المحاكي لأن الامتحان اختيارات فقط."
+      "🔥 نظام امتحان الميدتيرم: 60 سؤال موضوعي (MCQ + صح وغلط) في ساعة واحدة (60 دقيقة) بـ 20 درجة.",
+      "📚 المحتوى المقرر في الميد: الشباتر الـ 3 كاملة (Chapter 1 + Chapter 2 + Chapter 3) من الـ Test Bank بالنص وبنفس ترتيب الاختيارات.",
+      "🎮 محاكي ميد الماركتنج الشامل: جمعنالكم الـ 3 بنوك أسئلة كلهم مع بعض في محاكي واحد — تقدر تمتحن 60 سؤال عشوائي بتايمر 60 دقيقة بالظبط زي لجنة الميد، أو تتدرب على كل شابتر لوحده بالتصحيح الفوري."
     ],
     lectures: [
+      { id: "gen-lec-1", title: "Lecture Slides 1 (Chapter 1: Creating and Capturing Customer Value)", slides: "https://drive.google.com/file/d/1z9vI77e-oF_wS-WByBIfRqfQ-mF8-F_I/view?usp=drivesdk" },
+      { id: "gen-lec-2", title: "Lecture Slides 2 (Chapter 2: Company and Marketing Strategy)", slides: "https://drive.google.com/file/d/1r3PrYQiXtpfFhpJbFhv0a0pK9qf2g045/view?usp=drivesdk" },
       { id: "gen-lec-3", title: "Lecture Slides 3 (Chapter 3: Analyzing the Marketing Environment)", slides: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" }
     ],
     sheets: [
-      { id: "gen-tb-3", title: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث — 125 سؤال)", pdf: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { id: "gen-tb-1", title: "Test Bank CH 1 (بنك أسئلة الشابتر الأول)", pdf: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" },
+      { id: "gen-tb-2", title: "Test Bank CH 2 (بنك أسئلة الشابتر الثاني)", pdf: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" },
+      { id: "gen-tb-3", title: "Test Bank CH 3 (بنك أسئلة الشابتر الثالث)", pdf: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { id: "gen-sum-2", title: "Chapter 2 summary (ملخص الشابتر الثاني)", pdf: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" },
       { id: "gen-sum-3", title: "Chapter 3 summary (ملخص الشابتر الثالث)", pdf: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
       { id: "gen-sum-3-ar", title: "Chapter 3 summary - translated (ملخص الشابتر الثالث مترجم)", pdf: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk", sol: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
     ],
     practice: [
-      { id: "gen-sim-3", title: "🎮 المحاكي التفاعلي الذكي لكويز 3 والـ Test Bank (Quiz 3 Arena Simulator)", url: "javascript:openMarketingQuiz3Modal()" }
+      { id: "gen-sim-midterm", title: "🔥 محاكي ميد الماركتنج الشامل (60 سؤال في ساعة — الـ 3 شباتر مجمعة)", url: "javascript:openMarketingMidtermModal()" }
     ],
     formula: [
-      { id: "gen-f3-1", title: "Microenvironment Actors: Company, Suppliers, Marketing Intermediaries, Competitors, Publics, Customers", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
-      { id: "gen-f3-2", title: "Macroenvironment Forces: Demographic, Economic (Engel's Laws), Natural, Technological, Political & Cultural", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
+      { id: "gen-f3-1", title: "Ch.1: Customer Value, Satisfaction, Exchange & Marketing Management Orientations", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" },
+      { id: "gen-f3-2", title: "Ch.2 & Ch.3: BCG Matrix, Ansoff Grid, Microenvironment & Macroenvironment Forces", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
     ]
   },
   {
@@ -1473,9 +1477,11 @@ const COURSE_CAPSULES = {
     grading: "• 40 درجة كويزات (6 كويزات بيتاخد أعلى 4)\n• 20 درجة ميدتيرم\n• 40 درجة فاينال",
     tips: "الدكتور اللي كان بيدينا د. تامر الحريري (دكتور محترم جداً وهتحبوه).\nالدكتور بيدي 6 كويزات بياخد منهم أعلى 4، والأسئلة معاك حرفياً لأنها بتيجي من الـ Test Bank بالحرف وبنفس ترتيب الاختيارات!\nالميد حوالي 60 سؤال من الـ Test Bank، والفاينال حوالي 120 سؤال نفس الكلام.\nمادة سهلة ومادة A+، محتاجة بس إنك متظلمهاش في زحمة المواد التانية ووقت مذاكرتها مش كبير خالص.",
     links: [
-      { title: "🎮 محاكي الـ Test Bank وامتحان كويز 3 التفاعلي (Chapter 3)", url: "javascript:openMarketingQuiz3Modal()", badge: "Quiz 3 Arena ⚡" },
-      { title: "📘 Lecture Slides 3 (Chapter 3)", url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" },
+      { title: "🔥 محاكي ميد الماركتنج الشامل (60 سؤال في ساعة — الـ 3 بنوك مجمعة)", url: "javascript:openMarketingMidtermModal()", badge: "Midterm Arena 🔥" },
+      { title: "📝 Test Bank CH 1 (بنك أسئلة الشابتر الأول)", url: "https://drive.google.com/file/d/1EcxDGu2vcXayuRs6Ytep9kYdLgqUInRs/view?usp=drivesdk" },
+      { title: "📝 Test Bank CH 2 (بنك أسئلة الشابتر الثاني)", url: "https://drive.google.com/file/d/1G5ztFeMyJ8C4aUQYxJIvS0-kJ-fP2Bqb/view?usp=drivesdk" },
       { title: "📝 Test Bank CH 3 (بنك أسئلة الشابتر الثالث)", url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
+      { title: "📄 Chapter 2 summary (ملخص الشابتر الثاني)", url: "https://drive.google.com/file/d/1QyXqM7S4ih0xRfDPx_PAdqo95NpPO1Zm/view?usp=drivesdk" },
       { title: "📄 Chapter 3 summary (ملخص الشابتر الثالث)", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
       { title: "🌐 Chapter 3 summary - translated (الملخص مترجم)", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" },
       { title: "📁 درايف الدفعة في مادة الماركتنج والـ References", url: "https://drive.google.com/drive/folders/1BacoA3K8UZ8Jfg_nkGlXrXNn3eQPO4h0" }
@@ -1646,32 +1652,7 @@ const TIME_ENDS   = ["08:50", "09:50", "10:50", "11:50", "12:50", "13:50", "14:5
 // جدول الحصص المعتمد
 const SESSIONS = [
   // Sunday
-  {
-    day: "Sunday",
-    start: 0,
-    span: 2,
-    group: "ALL",
-    code: "GEN G119",
-    type: "Lecture",
-    room: "3103-414",
-    quizBadge: "⚡ كويز 3",
-    quizTaskId: "gen-quiz-3",
-    hasNotice: true,
-    noticeData: {
-      title: "⚡ كويز 3 ماركتنج (Chapter 3: Analyzing the Marketing Environment)",
-      slots: "الأحد 1 نوفمبر 2026 — الساعة 8:00 ص داخل المحاضرة بمدرج 3103-414",
-      requirements: "• الموعد والمكان: الأحد 1 نوفمبر الساعة 8:00 صباحاً بمدرج 3103-414.\n• نظام الكويز والدرجات: نفس درجات ونظام الكويزات السابقة (مدة الكويز 5 دقائق فقط — 20 سؤال عشوائي MCQ + صح وغلط).\n• المحتوى المقرر: المحاضرة الثالثة (Chapter 3: Analyzing the Marketing Environment) كاملة من الـ Test Bank.\n• تدرب الآن على محاكي الـ Test Bank التفاعلي (125 سؤال) وتحدي الـ 5 دقائق!",
-      taskId: "gen-quiz-3",
-      links: [
-        { icon: "🎮", label: "فتح محاكي كويز 3 والـ Test Bank التفاعلي", url: "javascript:openMarketingQuiz3Modal()" },
-        { icon: "📘", label: "Lecture Slides 3", url: "https://drive.google.com/file/d/1aSFxFFrrNP9L-v8YpoBlIA8tuurNxh_s/view?usp=drivesdk" },
-        { icon: "📝", label: "Test Bank CH 3", url: "https://drive.google.com/file/d/1EdZgdJuzTUOsbJ5hHuSyx5hq7hmnL_GO/view?usp=drivesdk" },
-        { icon: "📄", label: "Chapter 3 summary", url: "https://drive.google.com/file/d/1UVTPYa8LbPdw9N145aCLuxIgsu6HpdMx/view?usp=drivesdk" },
-        { icon: "🌐", label: "Chapter 3 summary - translated", url: "https://drive.google.com/file/d/1LLXzLrGXyjHMc8UMxXnlA_soyr8-AY6l/view?usp=drivesdk" }
-      ]
-    },
-    note: "⚡ كويز 3 ماركتنج (Chapter 3): الأحد 1 نوفمبر الساعة 8:00 ص في المحاضرة بمدرج 3103-414 • 20 سؤال في 5 دقائق من الـ Test Bank (اضغط لفتح المحاكي والمصادر)"
-  },
+  { day: "Sunday", start: 0, span: 2, group: "ALL", code: "GEN G119", type: "Lecture", room: "3103-414" },
   { day: "Sunday", start: 2, span: 3, group: "ME1-01", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 2, span: 3, group: "ME1-02", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
   { day: "Sunday", start: 5, span: 3, group: "ME1-03", code: "MDP G111", type: "Tutorial / Lab", room: "14401", attendance: true },
@@ -1764,14 +1745,14 @@ const MONDAY_DYNAMICS_SLOTS = {
 // الإشعارات الرسمية والتنبيهات المعتمدة
 const DEFAULT_NOTIFICATIONS = [
   {
-    id: "notif-gen-quiz-3",
-    date: "31 Oct 2026",
-    tag: "GEN G119 • Quiz 3",
-    title: "⚡ كويز 3 ماركتنج (Chapter 3) — غداً الأحد 1 نوفمبر في المحاضرة + المحاكي التفاعلي",
-    body: "📍 مدرج 3103-414 • الأحد 1 نوفمبر 2026 الساعة 8:00 صباحاً داخل المحاضرة\n• نفس نظام ودرجات الكويزات السابقة: مدة الكويز 5 دقائق فقط (20 سؤال MCQ + صح وغلط) من الـ Test Bank.\n• المحتوى المقرر: Chapter 3 (Analyzing the Marketing Environment) كامل.\n• تم توفير السلايدات والملخص (الإنجليزي والمترجم) والـ Test Bank بالكامل (125 سؤال) على المحاكي التفاعلي!",
+    id: "notif-gen-midterm-sim",
+    date: "10 Nov 2026",
+    tag: "GEN G119 • Midterm Simulator",
+    title: "🔥 محاكي ميد الماركتنج الشامل (60 سؤال في ساعة — Ch 1, 2 & 3)",
+    body: "جمعنالكم الـ 3 بنوك أسئلة بتوع شابتر 1 و 2 و 3 كلهم مع بعض في محاكي الميد!\n• تقدر تدخل تمتحن نفسك 60 سؤال عشوائي من الـ 3 شباتر بتايمر 60 دقيقة (ساعة كاملة) بنفس نظام الميد بالظبط.\n• أو تتدرب على أسئلة الـ 3 بنوك مفتوحة براحتك مع التصحيح الفوري ورقم الصفحة في الكتاب.",
     actions: [
-      { label: "🎮 محاكي كويز 3 والـ Test Bank", action: "openMarketingQuiz3Modal()" },
-      { label: "📚 دليل ومصادر كويز 3", action: "openQuizPrepGuide('gen-quiz-3')" }
+      { label: "🎮 افتح محاكي ميد الماركتنج", action: "openMarketingMidtermModal()" },
+      { label: "📚 ملخصات وبنوك الـ 3 شباتر", action: "openQuizPrepGuide('gen-midterm')" }
     ]
   },
   {
@@ -5148,4 +5129,956 @@ const marketingQuiz3Questions = [
   }
 ];
 
-window.marketingQuiz3Questions = marketingQuiz3Questions;
+// ==========================================================================
+// Marketing (GEN G119) — Chapter 1 Test Bank Master Data (Kotler & Armstrong)
+// Chapter 1: Marketing: Creating and Capturing Customer Value
+// ==========================================================================
+const marketingQuiz1Questions = [
+  {
+    "id": 1,
+    "type": "mcq",
+    "question": "According to the simple five-step model of the marketing process, a company needs to ________ before designing a customer-driven marketing strategy.",
+    "options": [
+      "determine how to deliver superior value",
+      "build profitable relationships with customers",
+      "use customer relationship management to create full partnerships with key customers",
+      "understand the marketplace and customer needs and wants",
+      "construct a marketing program that actually delivers superior value"
+    ],
+    "answer": 3,
+    "pageRef": 5
+  },
+  {
+    "id": 2,
+    "type": "mcq",
+    "question": "________ is defined as a social and managerial process by which individuals and organizations obtain what they need and want through value creation and exchange.",
+    "options": [
+      "Selling",
+      "Advertising",
+      "Bartering",
+      "Marketing",
+      "Negotiating"
+    ],
+    "answer": 3,
+    "pageRef": 5
+  },
+  {
+    "id": 3,
+    "type": "mcq",
+    "question": "Which of the following is NOT an accurate description of modern marketing?",
+    "options": [
+      "Marketing is the creation of value for customers.",
+      "Marketing is managing profitable customer relationships.",
+      "Selling and advertising are synonymous with marketing.",
+      "Marketing involves satisfying customers' needs.",
+      "Marketing is used by for-profit and not-for-profit organizations."
+    ],
+    "answer": 2,
+    "pageRef": 4
+  },
+  {
+    "id": 4,
+    "type": "mcq",
+    "question": "According to management guru Peter Drucker, \"The aim of marketing is to ________.\"",
+    "options": [
+      "create customer value",
+      "identify customer demands",
+      "make selling unnecessary",
+      "set realistic customer expectations",
+      "sell products"
+    ],
+    "answer": 2,
+    "pageRef": 5
+  },
+  {
+    "id": 5,
+    "type": "mcq",
+    "question": "________ are human needs as shaped by individual personality and culture.",
+    "options": [
+      "Needs",
+      "Wants",
+      "Demands",
+      "Values",
+      "Exchanges"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 6,
+    "type": "mcq",
+    "question": "When backed by buying power, wants become ________.",
+    "options": [
+      "social needs",
+      "demands",
+      "physical needs",
+      "self-esteem needs",
+      "exchanges"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 7,
+    "type": "mcq",
+    "question": "What do companies call a set of benefits that they promise to consumers to satisfy their needs?",
+    "options": [
+      "market offering",
+      "value proposition",
+      "demand satisfaction",
+      "need proposition",
+      "evoked set"
+    ],
+    "answer": 1,
+    "pageRef": 9
+  },
+  {
+    "id": 8,
+    "type": "mcq",
+    "question": "Which of the following refers to sellers being preoccupied with their own products and losing sight of underlying consumer needs?",
+    "options": [
+      "selling myopia",
+      "marketing management",
+      "value proposition",
+      "marketing myopia",
+      "the product concept"
+    ],
+    "answer": 3,
+    "pageRef": 6
+  },
+  {
+    "id": 9,
+    "type": "mcq",
+    "question": "When marketers set low expectations for a market offering, the biggest risk they run is ________.",
+    "options": [
+      "disappointing loyal buyers",
+      "failing to attract enough buyers",
+      "failing to understand their customers' needs",
+      "wrongly identifying a market segment",
+      "decreasing customer satisfaction"
+    ],
+    "answer": 1,
+    "pageRef": 7
+  },
+  {
+    "id": 10,
+    "type": "mcq",
+    "question": "________ is the act of obtaining a desired object from someone by offering something in return.",
+    "options": [
+      "A value proposition",
+      "Exchange",
+      "Bribery",
+      "Value creation",
+      "Donation"
+    ],
+    "answer": 1,
+    "pageRef": 7
+  },
+  {
+    "id": 11,
+    "type": "mcq",
+    "question": "A(n) ________ is the set of actual and potential buyers of a product or service.",
+    "options": [
+      "market",
+      "control group",
+      "subsidiary",
+      "focus group",
+      "audience"
+    ],
+    "answer": 0,
+    "pageRef": 7
+  },
+  {
+    "id": 12,
+    "type": "mcq",
+    "question": "Consumer research, product development, communication, distribution, pricing, and service are all core ________ activities.",
+    "options": [
+      "exchange",
+      "marketing",
+      "management",
+      "production",
+      "customer relationship management"
+    ],
+    "answer": 1,
+    "pageRef": 7
+  },
+  {
+    "id": 13,
+    "type": "mcq",
+    "question": "The art and science of choosing target markets and building profitable relationships with them is called ________.",
+    "options": [
+      "marketing management",
+      "positioning",
+      "segmentation",
+      "selling",
+      "differentiation"
+    ],
+    "answer": 0,
+    "pageRef": 8
+  },
+  {
+    "id": 14,
+    "type": "mcq",
+    "question": "Selecting which segments of a population of customers to serve is called ________.",
+    "options": [
+      "market segmentation",
+      "positioning",
+      "customization",
+      "target marketing",
+      "managing the marketing effort"
+    ],
+    "answer": 3,
+    "pageRef": 8
+  },
+  {
+    "id": 15,
+    "type": "mcq",
+    "question": "Which of the following is the set of benefits a company promises to deliver to customers to satisfy their needs?",
+    "options": [
+      "money-back guarantee",
+      "low-priceuel assurance",
+      "good customer service",
+      "value proposition",
+      "attribute"
+    ],
+    "answer": 3,
+    "pageRef": 9
+  },
+  {
+    "id": 16,
+    "type": "mcq",
+    "question": "Which customer question is answered by a company's value proposition?",
+    "options": [
+      "\"Why should I buy your brand rather than a competitor's?\"",
+      "\"How does your brand benefit society?\"",
+      "\"What are the costs and benefits of your brand?\"",
+      "\"What kind of experience will I have with products and services associated with this brand?\"",
+      "\"What are the benefits of being a loyal consumer of your brand?\""
+    ],
+    "answer": 0,
+    "pageRef": 9
+  },
+  {
+    "id": 17,
+    "type": "mcq",
+    "question": "Which of the following marketing management orientations focuses primarily on improving efficiencies along the supply chain?",
+    "options": [
+      "production concept",
+      "product concept",
+      "selling concept",
+      "marketing concept",
+      "societal marketing concept"
+    ],
+    "answer": 0,
+    "pageRef": 9
+  },
+  {
+    "id": 18,
+    "type": "mcq",
+    "question": "Which of the following marketing management concepts is most likely to lead to marketing myopia?",
+    "options": [
+      "customer-driven marketing",
+      "customer-driving marketing",
+      "societal marketing",
+      "selling",
+      "product"
+    ],
+    "answer": 4,
+    "pageRef": 9
+  },
+  {
+    "id": 19,
+    "type": "mcq",
+    "question": "The ________ concept is aligned with the philosophy of continuous product improvement and the belief that customers will choose products that offer the most in quality, performance, and innovative features.",
+    "options": [
+      "product",
+      "production",
+      "science",
+      "marketing",
+      "promotion"
+    ],
+    "answer": 0,
+    "pageRef": 9
+  },
+  {
+    "id": 20,
+    "type": "mcq",
+    "question": "The product concept says that a company should do which of the following?",
+    "options": [
+      "improve marketing of its best products",
+      "market only those products with high customer appeal",
+      "focus on the target market and make products that meet those customers' demands",
+      "devote its energy to making continuous product improvements",
+      "make promoting products the top priority"
+    ],
+    "answer": 3,
+    "pageRef": 9
+  },
+  {
+    "id": 21,
+    "type": "mcq",
+    "question": "\"Build a better mousetrap and the world will beat a path to your door\" reflects the ________.",
+    "options": [
+      "production concept",
+      "marketing concept",
+      "selling concept",
+      "product concept",
+      "target marketing concept"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 22,
+    "type": "mcq",
+    "question": "Which concept calls for aggressive selling and focuses on creating sales transactions rather than on building long-term, profitable customer relationships?",
+    "options": [
+      "marketing concept",
+      "product concept",
+      "production concept",
+      "societal marketing concept",
+      "selling concept"
+    ],
+    "answer": 4,
+    "pageRef": 10
+  },
+  {
+    "id": 23,
+    "type": "mcq",
+    "question": "Which of the following is most likely to be practiced with unsought goods, such as insurance or blood donations?",
+    "options": [
+      "production concept",
+      "product concept",
+      "selling concept",
+      "marketing concept",
+      "societal marketing concept"
+    ],
+    "answer": 2,
+    "pageRef": 10
+  },
+  {
+    "id": 24,
+    "type": "mcq",
+    "question": "The ________ concept holds that achieving organizational goals depends on knowing the needs and wants of target markets and delivering the desired satisfactions better than competitors do.",
+    "options": [
+      "product",
+      "production",
+      "selling",
+      "marketing",
+      "equity"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 25,
+    "type": "mcq",
+    "question": "According to the authors, a ________ orientation is a \"sense and respond\" philosophy rather than a \"make and sell\" philosophy.",
+    "options": [
+      "product",
+      "production",
+      "selling",
+      "marketing",
+      "societal"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 26,
+    "type": "mcq",
+    "question": "A firm that uses the selling concept takes a(n) ________ approach.",
+    "options": [
+      "outside-in",
+      "myopic",
+      "inside-out",
+      "societal",
+      "customer service"
+    ],
+    "answer": 2,
+    "pageRef": 10
+  },
+  {
+    "id": 27,
+    "type": "mcq",
+    "question": "Though often criticized, the selling concept is particularly appropriate and effective for which of the following types of products?",
+    "options": [
+      "convenience",
+      "shopping",
+      "specialty",
+      "unsought",
+      "demarketed"
+    ],
+    "answer": 3,
+    "pageRef": 10
+  },
+  {
+    "id": 28,
+    "type": "mcq",
+    "question": "Which of the following reflects the marketing concept philosophy?",
+    "options": [
+      "\"We don't have a marketing department; we have a customer department.\"",
+      "\"We're in the business of making and selling superior products.\"",
+      "\"We build them so you can buy them.\"",
+      "\"When it's profits versus customers' needs, profits will always win out.\"",
+      "\"You won't find a better deal anywhere.\""
+    ],
+    "answer": 0,
+    "pageRef": 10
+  },
+  {
+    "id": 29,
+    "type": "mcq",
+    "question": "Customer-driven marketing usually works well when ________ and when customers ________.",
+    "options": [
+      "a clear need exists; are difficult to identify",
+      "customers know what they want; are loyal to the brand",
+      "a firm can deliver the goods desired; are thoroughly researched",
+      "a clear need exists; know what they want",
+      "a need exists; don't know what they want"
+    ],
+    "answer": 3,
+    "pageRef": 11
+  },
+  {
+    "id": 30,
+    "type": "mcq",
+    "question": "When customers don't know what they want or don't even know what's possible, the most effective strategy is ________ marketing.",
+    "options": [
+      "customer-driven",
+      "customer-driving",
+      "societal",
+      "production",
+      "product"
+    ],
+    "answer": 1,
+    "pageRef": 11
+  },
+  {
+    "id": 31,
+    "type": "mcq",
+    "question": "The societal marketing concept seeks to establish a balance between consumer short-run wants and ________.",
+    "options": [
+      "consumer short-run ethics",
+      "consumer long-run welfare",
+      "company short-run wants",
+      "dynastic economic growth",
+      "value propositions"
+    ],
+    "answer": 1,
+    "pageRef": 11
+  },
+  {
+    "id": 32,
+    "type": "mcq",
+    "question": "The ________ concept holds that firms must strive to deliver value to customers in a way that maintains or improves both the consumer's and society's well-being.",
+    "options": [
+      "marketing",
+      "selling",
+      "product",
+      "societal marketing",
+      "equity"
+    ],
+    "answer": 3,
+    "pageRef": 11
+  },
+  {
+    "id": 33,
+    "type": "mcq",
+    "question": "The three areas of consideration that should be balanced in the societal marketing concept are consumer wants, society's interests, and ________.",
+    "options": [
+      "human welfare",
+      "want satisfaction",
+      "company profits",
+      "short-run wants",
+      "long-term needs"
+    ],
+    "answer": 2,
+    "pageRef": 11
+  },
+  {
+    "id": 34,
+    "type": "mcq",
+    "question": "The set of marketing tools a firm uses to implement its marketing strategy is called the ________.",
+    "options": [
+      "promotion mix",
+      "product mix",
+      "marketing mix",
+      "TQM",
+      "marketing effort"
+    ],
+    "answer": 2,
+    "pageRef": 12
+  },
+  {
+    "id": 35,
+    "type": "mcq",
+    "question": "Of the following, which is the most important concept of modern marketing?",
+    "options": [
+      "customer relationship management",
+      "societal marketing",
+      "consumer-generated marketing",
+      "properly trained salespeople",
+      "low prices"
+    ],
+    "answer": 0,
+    "pageRef": 12
+  },
+  {
+    "id": 36,
+    "type": "mcq",
+    "question": "Building, keeping, and growing profitable value-laden relationships with all customers of a company is called ________.",
+    "options": [
+      "customer lifetime value",
+      "customer perceived value",
+      "customer relationship management",
+      "database marketing",
+      "societal marketing"
+    ],
+    "answer": 2,
+    "pageRef": 13
+  },
+  {
+    "id": 37,
+    "type": "mcq",
+    "question": "Customer-perceived value is determined by a customer's ________ of the benefits and costs of a market offering relative to those of competing offers.",
+    "options": [
+      "evaluation",
+      "rational expectations",
+      "emotional understanding",
+      "accurate assessment",
+      "objective calculation"
+    ],
+    "answer": 0,
+    "pageRef": 13
+  },
+  {
+    "id": 38,
+    "type": "mcq",
+    "question": "It is most accurate to say that customers buy from stores and firms that offer which of the following?",
+    "options": [
+      "the highest value for the dollar",
+      "the highest customer-perceived value",
+      "the highest level of customer satisfaction",
+      "the most attractive company image",
+      "the most concern for society's interests"
+    ],
+    "answer": 1,
+    "pageRef": 13
+  },
+  {
+    "id": 39,
+    "type": "mcq",
+    "question": "________ is defined as the customer's evaluation of the differences between all the benefits and all the costs of a market offering relative to those of competing offers.",
+    "options": [
+      "Customer equity",
+      "Customer satisfaction",
+      "Customer evangelism",
+      "Customer-perceived value",
+      "Marketing myopia"
+    ],
+    "answer": 3,
+    "pageRef": 13
+  },
+  {
+    "id": 40,
+    "type": "mcq",
+    "question": "Which of the following is the term for customers who make repeat purchases and tell others about their positive experiences with a product or service?",
+    "options": [
+      "satisfied customers",
+      "customer evangelists",
+      "butterflies",
+      "full partners",
+      "socializr"
+    ],
+    "answer": 1,
+    "pageRef": 13
+  },
+  {
+    "id": 41,
+    "type": "mcq",
+    "question": "Which of the following strategies would a company most likely use to increase customer satisfaction?",
+    "options": [
+      "decreasing the variety of offered services",
+      "demarketing",
+      "lowering prices",
+      "\"firing\" unprofitable customers",
+      "limiting customer experiences with a brand"
+    ],
+    "answer": 2,
+    "pageRef": 16
+  },
+  {
+    "id": 42,
+    "type": "mcq",
+    "question": "Frequent flyer programs offered by airlines are an example of a ________.",
+    "options": [
+      "frequency marketing program",
+      "basic relationship",
+      "club marketing program",
+      "consumer-generated marketing program",
+      "structural benefit provided for top customers"
+    ],
+    "answer": 0,
+    "pageRef": 16
+  },
+  {
+    "id": 43,
+    "type": "mcq",
+    "question": "Which of the following has NOT contributed to the deeper, more interactive nature of today's customer relationships?",
+    "options": [
+      "e-mail",
+      "Web sites",
+      "online social networks",
+      "traditional advertising",
+      "video sharing"
+    ],
+    "answer": 3,
+    "pageRef": 17
+  },
+  {
+    "id": 44,
+    "type": "mcq",
+    "question": "Which of the following best explains why consumers have greater power and control in today's marketplace?",
+    "options": [
+      "The production concept and competition have lowered prices.",
+      "Implementation of the product concept has resulted in continually improving products.",
+      "Customer-driven marketing creates products and services that meet customers' future needs.",
+      "More companies are implementing societal marketing and weighing long-run costs and benefits.",
+      "Through new communication technologies, customers have more access to information and more methods of sharing their opinions with other customers."
+    ],
+    "answer": 4,
+    "pageRef": 18
+  },
+  {
+    "id": 45,
+    "type": "mcq",
+    "question": "Greater consumer control means that companies must rely more on marketing by ________ than by ________.",
+    "options": [
+      "interruption; involvement",
+      "attraction; intrusion",
+      "socialization; information",
+      "producing; selling",
+      "inspiration; competition"
+    ],
+    "answer": 1,
+    "pageRef": 18
+  },
+  {
+    "id": 46,
+    "type": "mcq",
+    "question": "Which of the following is an example of consumer-generated marketing?",
+    "options": [
+      "Toyota's presence in online communities",
+      "Nike's Nike Plus running Web site",
+      "H.J. Heinz's contest for commercials produced by consumers",
+      "Neiman Marcus's InCircle Rewards program for its best customers",
+      "The Harley Owners Group (H.O.G.)"
+    ],
+    "answer": 2,
+    "pageRef": 18
+  },
+  {
+    "id": 47,
+    "type": "mcq",
+    "question": "Working closely with people inside and outside the company to jointly bring more value to customers is known as ________.",
+    "options": [
+      "partner relationship management",
+      "customer relationship management",
+      "supply chain management",
+      "total quality management",
+      "customer-generated marketing"
+    ],
+    "answer": 0,
+    "pageRef": 19
+  },
+  {
+    "id": 48,
+    "type": "mcq",
+    "question": "________ refers to a channel stretching from raw materials to components to final products that are carried to final buyers.",
+    "options": [
+      "A promotion network",
+      "A supply chain",
+      "A marketing intermediary",
+      "A market",
+      "An internal value chain"
+    ],
+    "answer": 1,
+    "pageRef": 19
+  },
+  {
+    "id": 49,
+    "type": "mcq",
+    "question": "The final step in the marketing process is ________.",
+    "options": [
+      "capturing value from customers",
+      "creating customer loyalty",
+      "creating customer lifetime value",
+      "understanding the marketplace",
+      "designing a customer-driven marketing strategy"
+    ],
+    "answer": 0,
+    "pageRef": 20
+  },
+  {
+    "id": 50,
+    "type": "mcq",
+    "question": "When an airline goes after a \"share of travel\" from its customers rather than just a \"share of airline tickets,\" it is attempting to increase ________.",
+    "options": [
+      "customer lifetime value",
+      "share of customer",
+      "total customer spending",
+      "customer satisfaction",
+      "customer ownership"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 51,
+    "type": "mcq",
+    "question": "________ is the total combined customer lifetime values of all of the company's current and potential customers.",
+    "options": [
+      "Share of customer",
+      "Customer lifetime value",
+      "Customer equity",
+      "Profitability",
+      "Share of market"
+    ],
+    "answer": 2,
+    "pageRef": 21
+  },
+  {
+    "id": 52,
+    "type": "mcq",
+    "question": "The ultimate aim of customer relationship management is to produce ________.",
+    "options": [
+      "high customer equity",
+      "aelling profit",
+      "market share",
+      "sales volume",
+      "a reliable database"
+    ],
+    "answer": 0,
+    "pageRef": 21
+  },
+  {
+    "id": 53,
+    "type": "mcq",
+    "question": "In the customer relationship group classification, \"________\" are high-profit, long-term customers who are a good fit between the company's offerings and their needs.",
+    "options": [
+      "butterflies",
+      "true friends",
+      "strangers",
+      "barnacles",
+      "customer evangelists"
+    ],
+    "answer": 1,
+    "pageRef": 22
+  },
+  {
+    "id": 54,
+    "type": "mcq",
+    "question": "In the customer relationship group classification, \"________\" are potentially profitable but not loyal — there is a good fit between the company's offerings and their needs, but they enjoy hunting out the best deals and rarely stay with one supplier for long.",
+    "options": [
+      "strangers",
+      "barnacles",
+      "butterflies",
+      "true friends",
+      "partners"
+    ],
+    "answer": 2,
+    "pageRef": 22
+  },
+  {
+    "id": 55,
+    "type": "mcq",
+    "question": "In the customer relationship group classification, \"________\" are highly loyal but not very profitable because there is a limited fit between their needs and the company's offerings.",
+    "options": [
+      "strangers",
+      "barnacles",
+      "butterflies",
+      "true friends",
+      "evangelists"
+    ],
+    "answer": 1,
+    "pageRef": 22
+  },
+  {
+    "id": 56,
+    "type": "mcq",
+    "question": "In the customer relationship group classification, \"________\" show low potential profitability and little projected loyalty.",
+    "options": [
+      "strangers",
+      "barnacles",
+      "butterflies",
+      "true friends",
+      "laggards"
+    ],
+    "answer": 0,
+    "pageRef": 22
+  },
+  {
+    "id": 57,
+    "type": "tf",
+    "question": "Human needs are shaped by culture and individual personality.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 58,
+    "type": "tf",
+    "question": "The difference between human needs and wants is that needs are not influenced by marketers.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 6
+  },
+  {
+    "id": 59,
+    "type": "tf",
+    "question": "When backed by buying power, needs become demands.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 60,
+    "type": "tf",
+    "question": "Market offerings are limited to physical products.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 6
+  },
+  {
+    "id": 61,
+    "type": "tf",
+    "question": "Marketing myopia occurs when sellers pay more attention to the specific products they offer than to the benefits and experiences produced by these products.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 6
+  },
+  {
+    "id": 62,
+    "type": "tf",
+    "question": "When a company divides the market into segments of customers and selects which segments it will go after, it is performing market segmentation and target marketing.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 8
+  },
+  {
+    "id": 63,
+    "type": "tf",
+    "question": "The production concept and product concept are orientations that can easily lead to marketing myopia.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 9
+  },
+  {
+    "id": 64,
+    "type": "tf",
+    "question": "The selling concept holds that consumers will not buy enough of the firm's products unless the firm undertakes a large-scale selling and promotion effort.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 10
+  },
+  {
+    "id": 65,
+    "type": "tf",
+    "question": "Customer-perceived value is based on a purely objective calculation of all benefits and costs by the buyer.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 13
+  },
+  {
+    "id": 66,
+    "type": "tf",
+    "question": "Customer lifetime value is the value of the entire stream of purchases that the customer would make over a lifetime of patronage.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 20
+  },
+  {
+    "id": 67,
+    "type": "tf",
+    "question": "Share of customer is the portion of the customer's purchasing that a company gets in its product categories.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 21
+  },
+  {
+    "id": 68,
+    "type": "tf",
+    "question": "Customer equity is a less reliable measure of a firm's future performance than current sales or market share.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "pageRef": 21
+  },
+  {
+    "id": 69,
+    "type": "tf",
+    "question": "\"Barnacles\" are often the most problematic customers because they are highly loyal to the firm but do not buy enough to be profitable.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 22
+  },
+  {
+    "id": 70,
+    "type": "tf",
+    "question": "In the four-step customer relationship classification, the strategy for \"Strangers\" is to invest nothing in them.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "pageRef": 22
+  }
+];
+
+window.marketingQuiz1Questions = marketingQuiz1Questions.map(q => ({ ...q, chapter: 1 }));
+window.marketingQuiz2Questions = marketingQuiz2Questions.map(q => ({ ...q, chapter: 2 }));
+window.marketingQuiz3Questions = marketingQuiz3Questions.map(q => ({ ...q, chapter: 3 }));
+window.marketingMidtermQuestions = [
+  ...window.marketingQuiz1Questions,
+  ...window.marketingQuiz2Questions,
+  ...window.marketingQuiz3Questions
+];
