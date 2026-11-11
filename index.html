@@ -79,26 +79,10 @@
       </div>
     </header>
 
-    <!-- Carousel Banners -->
-    <div class="banner-carousel-container" id="firstWeekBanner">
-      <div class="banner-carousel-track" id="bannerTrack">
-
-        <!-- بنر محاكي ميد الماركتنج الشامل (60 سؤال في ساعة - الـ 3 شباتر) -->
-        <div class="banner-card banner-marketing-midterm" style="border-color:#06b6d4; background:linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(139, 92, 246, 0.16) 55%, var(--surface) 100%);">
-          <span class="festive-icon" onclick="handleSecretFireClick(event)" style="cursor:pointer;user-select:none;">🔥</span>
-          <div class="festive-msg">
-            <strong style="color:#22d3ee;">محاكي ميد الماركتنج الشامل جاهز يا شباب! (60 سؤال في ساعة):</strong> جمعنالكم الـ 3 بنوك أسئلة بتوع (Chapter 1 & 2 & 3) كلهم مع بعض في مكان واحد.. تقدر تدخل تمتحن نفسك محاكاة للميد بالظبط (60 سؤال عشوائي بتايمر 60 دقيقة) أو تتدرب على أسئلة الـ 3 شباتر براحتك بالتصحيح الفوري عشان تقفل الميد وتجيب الـ 20 من 20 إن شاء الله 🎯❤️
-            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-              <button onclick="openMarketingMidtermModal()" class="banner-action-link" style="background:#06b6d4;font-weight:800;color:#08121e !important;border:none;cursor:pointer;">🎮 افتح محاكي ميد الماركتنج (60 سؤال في ساعة)</button>
-              <button onclick="openQuizPrepGuide('gen-midterm')" class="banner-action-link" style="background:rgba(6, 182, 212, 0.18);border:1px solid #06b6d4;font-weight:700;color:#67e8f9 !important;cursor:pointer;">📚 ملخصات وبنوك الـ 3 شباتر</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="carousel-dots" id="carouselDots">
-        <span class="dot active" onclick="goToBanner(0)"></span>
-      </div>
+    <!-- Carousel Banners (Hidden - No active banners) -->
+    <div class="banner-carousel-container" id="firstWeekBanner" style="display:none;">
+      <div class="banner-carousel-track" id="bannerTrack"></div>
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
 
     <!-- Live Status Capsule -->
@@ -376,8 +360,8 @@
   </div>
 
   <!-- Application Logic Scripts -->
-  <script src="./data.js?v=136"></script>
-  <script src="./app.js?v=136"></script>
+  <script src="./data.js?v=137"></script>
+  <script src="./app.js?v=137"></script>
   <!-- Deep links من صفحة الميد (#tasks / #schedule) — app.js بيتعامل بس مع #guide و #cad -->
   <script>
     (function () {
